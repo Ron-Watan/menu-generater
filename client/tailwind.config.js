@@ -6,7 +6,10 @@ export const theme = {
     C_icon: '#fff',
     C_bgsidebar: '#cb2722',
     C_fsidebar: '#fff',
-    blue:'#82b5da'
+    blue: '#82b5da',
+    black: '#000',
+    white: '#fff',
+
   },
 
 

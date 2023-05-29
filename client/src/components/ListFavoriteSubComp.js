@@ -10,7 +10,7 @@ import Skeleton from '@mui/material/Skeleton';
 import Typography from '@mui/material/Typography';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 
-const drawerBleeding = 56;
+const drawerBleeding = 55;
 
 const Root = styled('div')(({ theme }) => ({
   height: '100%',
@@ -75,64 +75,74 @@ function ListFavoriteSubComp(props) {
           keepMounted: true,
         }}
         onClick={toggleDrawer(btnDrawer)}>
-        <StyledBox
-          sx={{
-            position: 'absolute',
-            top: -drawerBleeding,
-            borderTopLeftRadius: 8,
-            borderTopRightRadius: 8,
-            border: 1,
-            borderColor: 'grey.300',
-            visibility: 'visible',
-            right: 0,
-            left: 0,
 
-          }}
-        >
-          <Box sx={{ textAlign: 'center', pt: 1 }}>
-            <Box sx={{ width: '100%', height: '10px' }}></Box>
-          </Box>
-          <Puller />
+        <div>
+          <StyledBox
+            sx={{
+              position: 'absolute',
+              top: -drawerBleeding,
+              borderTopLeftRadius: 8,
+              borderTopRightRadius: 8,
+              border: 1,
+              borderColor: 'grey.300',
+              visibility: 'visible',
+              right: 0,
+              left: 0
 
-          <Typography sx={{ p: 2, color: 'text.secondary' }}>51 results
+
+            }}
+          >
 
 
 
-          </Typography>
 
 
 
-        </StyledBox>
-        <StyledBox
-          sx={{
-            px: 2,
-            pb: 2,
-            height: '100%',
-            overflow: 'none',
-          }}
-        >
+            <div className="flex justify-center item-center">
 
-          <div className="">
-            <div className="">2eeeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddddddddddddddddd</div>
-            <div className="">3eeeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddddddddddddddddd</div>
-            <div className="">4eeeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddddddddddddddddd</div>
-            <div className="">5eeeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddddddddddddddddd</div>
-            <div className="">6eeeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddddddddddddddddd</div>
-            <div className="">7eeeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddddddddddddddddd</div>
-            <div className="">8eeeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddddddddddddddddd</div>
-            <div className="">9eeeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddddddddddddddddd</div>
-            <div className="">23eeeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddddddddddddddddd</div>
-            <div className="">e23eeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddddddddddddddddd</div>
-            <div className="">222eeeeeeeeeeeeeeeeeeeeeeeeeeeeeddddddddddddddddddddddd</div>
-            <div className="">e221e1eeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddddddddddd</div>
-            <div className="">ee112313eeeeeeeeeeeeeeeeeeeeeeeeeeeddddddddddddddd</div>
-          </div>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1" stroke="currentColor" className="w-8 h-8">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z" />
+              </svg>
+
+            </div>
+          </StyledBox>
+          <StyledBox
+            sx={{
+              px: 2,
+              pb: 2,
+              height: '100%',
+              overflow: 'none',
+            }}
+          >
+
+            <div className="">
+              <div className="">2eeeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddddddddddddddddd</div>
+              <div className="">3eeeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddddddddddddddddd</div>
+              <div className="">4eeeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddddddddddddddddd</div>
+              <div className="">5eeeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddddddddddddddddd</div>
+              <div className="">6eeeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddddddddddddddddd</div>
+              <div className="">7eeeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddddddddddddddddd</div>
+              <div className="">8eeeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddddddddddddddddd</div>
+              <div className="">9eeeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddddddddddddddddd</div>
+              <div className="">23eeeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddddddddddddddddd</div>
+              <div className="">e23eeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddddddddddddddddd</div>
+              <div className="">222eeeeeeeeeeeeeeeeeeeeeeeeeeeeeddddddddddddddddddddddd</div>
+              <div className="">e221e1eeeeeeeeeeeeeeeeeeeeeeeeeeedddddddddddddddddddd</div>
+              <div className="">ee112313eeeeeeeeeeeeeeeeeeeeeeeeeeeddddddddddddddd</div>
+            </div>
 
 
-          <Skeleton variant="rectangular" height="100%" />
 
-        </StyledBox>
+
+            <Skeleton variant="rectangular" height="100%" />
+
+          </StyledBox>
+        </div>
+
+
+
       </SwipeableDrawer>
+
     </Root>
   );
 }

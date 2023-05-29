@@ -4,6 +4,16 @@
 
 
 
+.zIndex {
+  z-index: 2000;
+}
+
+.footerBar {
+  max-width: 512px;
+  width: 100vw;
+  height: 7vh;
+  /* border: 1px white solid; */
+}
 
 .cssTransition {
   transition: all .3s !important;
@@ -30,6 +40,32 @@
   transition: opacity 300ms, transform 300ms;
 }
 
+
+
+
+
+google {
+  fill: black
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @tailwind utilities;
 
 @layer base {
@@ -37,8 +73,9 @@
     font-family: 'Roboto Slab', serif !important;
   }
 }
-.test{
-  color:#adadad
+
+.test {
+  color: #adadad
 }
 
 /* body {
