@@ -1,12 +1,11 @@
 
-import comment from '../img/Vector.png'
+
 import 'remixicon/fonts/remixicon.css'
 import { useEffect, useState } from 'react';
-import AcordionSubComp from './AcordionSubComp';
-import { Button, CssBaseline } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material'
-import SidebarSubComp from './SidebarSubComp';
-import ListFavoriteSubComp from './ListFavoriteSubComp';
+
+
+
 
 const theme = createTheme({
   typography: {
@@ -73,24 +72,33 @@ const itemList = [
 
 const FooterComponent = () => {
 
-
+  const [activeLang, setActiveLang] = useState(false)
   const [activeList, setActiveList] = useState(false)
   const [activeComment, setActiveComment] = useState(false)
   const [overlay, setOverlay] = useState(false)
 
   const switcher = (name) => {
+    // e.preventDefault()
     if (name === "listBtn") {
       setActiveList(!activeList)
+      setActiveLang(false)
       setActiveComment(false)
       setOverlay(!activeList)
     } else if (name === "commentBtn") {
       setActiveComment(!activeComment)
+      setActiveLang(false)
       setActiveList(false)
       setOverlay(!activeComment)
+    } else if (name === "langBtn") {
+      setActiveLang(!activeLang)
+      setActiveComment(false)
+      setActiveList(false)
+      setOverlay(false)
     } else if (name === "overlay") {
       setActiveComment(false)
       setActiveList(false)
       setOverlay(false)
+      setActiveLang(false)
     }
 
   }
@@ -103,7 +111,8 @@ const FooterComponent = () => {
   const addStar = (name) => {
     if (name === 'star1' && star1 === 'red') {
       return setStarBtn({
-        star1: 'none', star2: 'none', star3: 'none', star4: 'none', star5: 'none',})
+        star1: 'none', star2: 'none', star3: 'none', star4: 'none', star5: 'none',
+      })
     }
     switch (name) {
       case 'star1': {
@@ -143,41 +152,65 @@ const FooterComponent = () => {
 
   }
 
+
+
+  const switcherlng = (name) => (even) => {
+    console.log(name)
+  }
+  ///// Google Translate ////////////////////////////////////////////////////////////////////////////
+
+
+
+  //////////////////////////////////////////////////////////////////////////////////////
   return (
     <div>
 
-      
-
-
-
-
-
-
-      
-      <nav className=" fixed top-full -translate-y-full bg-C_navmain footerBar zIndex">
+      <nav className=" fixed top-full -translate-y-full bg-C_navmain footerBar zIndex px-2">
         <div className="grid grid-cols-3 content-center">
 
           {/* Button 1 */}
-          <div className="flex items-center justify-center mt-1">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1"
-              stroke="#fff" className="w-7 h-7">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
-            </svg>
+          <div role='button' onClick={() => switcher('langBtn')} className={`flex items-center justify-center pt-1`}>
+
+            <div className={`boxLangBtn px-4 ${activeLang && 'ringButton'}`}>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1"
+                stroke="#fff" className="w-7 h-7">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
+              </svg>
+
+              <button value='ep' onClick={() => switcherlng('ep')} className={`${activeLang ? 'popupLangUp1' : 'popupLang'}  popupLangText`}>
+                Spanish
+              </button>
+
+              <button value='th' onClick={() => switcherlng('th')} className={`${activeLang ? 'popupLangUp2' : 'popupLang'}  popupLangText`}>
+                Thai
+              </button>
+              <button value='ch' onClick={() => switcherlng('ch')} className={`${activeLang ? 'popupLangUp3' : 'popupLang'}  popupLangText`}>
+                Chinease
+              </button>
+
+              <span className={`langCode text-xs`}>
+                EN
+              </span>
+
+            </div>
           </div>
 
           {/* Button 2 */}
-          <div onClick={() => switcher('listBtn')} className={`flex items-center justify-center mt-1 ${activeList && 'ringButton'}`}>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-              strokeWidth="1" stroke="white" className="w-7 h-7 ">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z" />
-            </svg>
-          </div>
+          <button onClick={() => switcher('listBtn')} className={`flex items-center justify-center  pt-1 `}>
+            <div className={` px-20 ${activeList && 'ringButton'}`}>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                strokeWidth="1" stroke="white" className="w-7 h-7 ">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z" />
+              </svg>
+            </div>
+          </button>
 
           {/* Button 3 */}
-          <div onClick={() => switcher('commentBtn')} className="flex items-center justify-center mt-1">
+          <button onClick={() => switcher('commentBtn')} className={`flex items-center justify-center pt-1 `}>
+            <div className={` px-4 ${activeComment && 'ringButton'}`}>
 
-            <svg width="25" height="25" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M4.08612 1.10833C5.12302 1.10833 6.74868 1.11712 7.78559 1.11712C7.89982 1.11712 8.01406 1.1259 
+              <svg className="svgCommment" width="25" height="25" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4.08612 1.10833C5.12302 1.10833 6.74868 1.11712 7.78559 1.11712C7.89982 1.11712 8.01406 1.1259 
       8.12829 1.15227C8.23374 1.16984 8.33919 1.20499 8.44464 1.24893C8.5413 1.29286 8.63796 1.34559 8.73462 1.4071C8.8225 1.46861 8.91037 1.53891 8.98946 1.618C9.06854 1.69708 9.13884 1.78495 9.20035 1.87283C9.26186 1.9607 9.31459 2.05736 9.35852 2.16281C9.40246 2.25947
       9.42882 2.36492 9.45518 2.47916C9.47276 2.59339 9.49033 2.69884 9.49033 2.82186V6.25771C9.49033 6.37195 9.48155 6.48618 9.45518 6.60042C9.43761 6.71466 9.40246 6.81132 9.35852 6.91676C9.31459 7.01343 9.26186 7.11009 9.20035 7.20675C9.13884 7.29462 9.06854 7.38249
       8.98946 7.46158C8.90158 7.54067 8.81371 7.61975 8.72583 7.67248C8.63796 7.73399 8.5413 7.78671 8.44464 7.83065C8.34798 7.87459 8.24253 7.90095 8.13708 7.92731C8.03163 7.94488 7.9174 7.96246 7.79438 7.96246H6.48506C6.44112 7.96246 6.40598 7.97125 6.37083 7.98882C6.33568
@@ -199,20 +232,29 @@ const FooterComponent = () => {
       4.84295C4.34095 4.84295 4.2355 4.72872 4.2355 4.59691C4.2355 4.45631 4.34974 4.35086 4.48155 4.35086H7.60984C7.75044 4.35086 7.85589 4.4651 7.85589 4.59691C7.85589 4.7375 7.74165 4.84295 7.60984 4.84295H4.48155ZM5.58875 3.35789C5.44815 3.35789 5.34271 3.24365 5.34271 3.11184C5.34271 2.98003 5.45694 2.8658 5.58875
       2.8658H7.60984C7.75044 2.8658 7.85589 2.98003 7.85589 3.11184C7.85589 3.25244
       7.74165 3.35789 7.60984 3.35789H5.58875Z" fill="white" />
-            </svg>
-          </div>
-
+              </svg>
+            </div>
+          </button>
         </div>
-
-
 
       </nav>
 
+      {/* <span  className={`${activeList ? 'popupLangUp' : 'popupLang'} popupLangText`}> */}
 
-      {/* Slide Tab 2*/}
+      {/* <div className=" fixed top-full -translate-y-full popupListBar">
+        <span className={`popupLangUp popupLangText`}>
+        </span>
+      </div> */}
+
       <div className=" fixed top-full -translate-y-full popupListBar">
 
-        <span onClick={() => setActiveList(!activeList)} className={`${activeList ? 'popupListUp' : 'popupList'} popupListText`}>
+
+        {/* Slide Tab 1*/}
+        {/* <span onClick={() => switcher('langBtn')} className={`${activeLang ? 'popupLangUp' : 'popupLang'}  popupLangText`}>
+        </span> */}
+
+        {/* Slide Tab 2*/}
+        <span onClick={() => switcher('listBtn')} className={`${activeList ? 'popupListUp' : 'popupList'} popupListText`}>
           <div className="itemList">12 Items</div>
           <div className="overflow">
             {itemList.map((el, index) => (
@@ -273,20 +315,9 @@ const FooterComponent = () => {
         </span>
 
 
-
-
-
         <span onClick={() => switcher('overlay')} className={overlay ? 'overlay' : ''}></span>
       </div>
 
-
-      {/* Slide Tab 3*/}
-
-      {/* <div className=" fixed top-full -translate-y-full popupListBar">
-
-
-        <span onClick={() => setActiveList(!activeComment)} className={activeComment && 'overlay'}></span>
-      </div> */}
 
 
     </div >

@@ -6,10 +6,12 @@ import AcordionSubComp from './AcordionSubComp';
 import { Button, CssBaseline } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material'
 import SidebarSubComp from './SidebarSubComp';
-import ListFavoriteSubComp from './ListFavoriteSubComp';
 import FooterComponent from './FooterComponent';
 import BannerSubCompo from './BannerSubCompo';
+import Texttest from './Text';
+import i18n from './multiLanguage/i18n';
 
+// import LocaleContext from './LocaleContext';
 // import images from './images'
 const theme = createTheme({
   typography: {
@@ -32,7 +34,19 @@ const MenuComponent = () => {
   }
 
 
+  const [language, setLanguage] = useState('th');
 
+  const changeLocale = (lang) => {
+    i18n.changeLanguage(lang);
+  }
+
+  useEffect(() => {
+
+    i18n.changeLanguage(language);
+
+  }, [])
+
+  // changeLocale('en')
   return (
     <div className=''>
 
@@ -90,6 +104,18 @@ const MenuComponent = () => {
         < SidebarSubComp />
 
         {/* <BannerExample /> */}
+
+        {/* <LocaleContext.Provider value={{ locale, setLocale }}> */}
+
+        {/* <Helmet htmlAttributes={{
+            lang: locale,
+            dir: locale === 'th' ? 'th' : 'th'
+          }} /> */}
+
+        <Texttest />
+
+
+        {/* </LocaleContext.Provider> */}
 
 
         <BannerSubCompo />

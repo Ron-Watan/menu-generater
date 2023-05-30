@@ -111,7 +111,7 @@ const AcordionSubComp = () => {
   const elementRef = React.useRef([]);
 
   React.useEffect(() => {
-    console.dir(elementRef.current[0]);
+    // console.dir(elementRef.current[0]);
      // eslint-disable-next-line
   }, [elementRef.current]);
 

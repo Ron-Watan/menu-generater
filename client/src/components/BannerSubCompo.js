@@ -10,7 +10,7 @@ import Slider from 'react-touch-drag-slider'
 
 
 const el = document.querySelector('#tester')
-console.log(el)
+
 
 
 
@@ -38,7 +38,7 @@ function BannerSubCompo() {
   const elementRef = useRef([]);
 
   useEffect(() => {
-    console.log(elementRef.current.offsetHeight);
+    // console.log(elementRef.current.offsetHeight);
   }, [elementRef.current[0]]);
 
 
