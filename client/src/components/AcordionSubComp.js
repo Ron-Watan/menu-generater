@@ -6,7 +6,7 @@ import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import catalog1 from '../img/promotion1.png'
-import { Checkbox, FormControlLabel, FormGroup } from '@mui/material';
+// import { Checkbox, FormControlLabel, FormGroup } from '@mui/material';
 
 
 const userManuLists = [
@@ -112,6 +112,7 @@ const AcordionSubComp = () => {
 
   React.useEffect(() => {
     console.dir(elementRef.current[0]);
+     // eslint-disable-next-line
   }, [elementRef.current]);
 
 
