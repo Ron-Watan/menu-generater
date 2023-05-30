@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Slider from 'react-touch-drag-slider'
 
 // here we are importing some images
@@ -10,10 +10,6 @@ import Slider from 'react-touch-drag-slider'
 
 
 const el = document.querySelector('#tester')
-
-
-
-
 
 require.context('./images', false, /\.(png|jpe?g|svg)$/)
 
@@ -32,9 +28,6 @@ function BannerSubCompo() {
   importAll(require.context('./images', false, /\.(png|jpe?g|svg)$/));
   // const images = importAll(require.context('./images', false, /\.(png|jpe?g|svg)$/));
 
-
-  const arr = [1, 2, 3, 4, 5, 6]
-
   const elementRef = useRef([]);
 
   useEffect(() => {
@@ -44,31 +37,23 @@ function BannerSubCompo() {
 
   // console.log(elementRef.current.offsetHeight);
   const drag = () => {
-    console.log(elementRef.current[0]);
-
+    // console.log(elementRef.current[0]);
   }
+  const [indexDot, setIndexDot] = useState(1)
+  const setFinishedIndex = (i) => {
+    console.log("finished dragging on slide", i);
+    setIndexDot(i);
+ 
+  };
+
+  console.log(indexDot)
 
   return (
-    // <div className="bannerSection">
-    //   <div className="boxImage">
-    //     {images.map(el => {
-    //       return <img className='imageBanner' src={require(`./images/${el}`)} />
-    //     })}
-    // <div className="">
-    //   <img className='imageBanner' src={require(`./images/288747.jpg`)} />
-    //   <img className='imageBanner' src={require(`./images/288747.jpg`)} />
-    //   <img className='imageBanner' src={require(`./images/288747.jpg`)} />
 
-    // </div>
-    //   </div>
-    // </div>
-
-    <div className="bannerSection">
+    <div className="bannerSection" id='1'>
       <div className="boxImage">
         <Slider
-          onSlideComplete={(i) => {
-            console.log(i)
-          }}
+          onSlideComplete={setFinishedIndex}
           onSlideStart={(i) => {
           }}
           activeIndex={0}
@@ -84,8 +69,16 @@ function BannerSubCompo() {
           ))}
 
         </Slider >
+        <div className="dotBar">
+          {Array.from({ length: 6 }).map((item, index) => (
+            <div className={indexDot === index  ? "dot dotActive" : "dot"} key={index}></div>
+          ))}
+
+        </div>
 
       </div>
+
+
     </div>
 
   )

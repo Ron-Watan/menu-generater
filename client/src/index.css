@@ -51,7 +51,10 @@ body {
   /* height: 100%; */
 }
 
-
+.accordMoveUp{
+  /* transform: translateY(-28%); */
+  top:10rem
+}
 
 
 
@@ -179,7 +182,7 @@ body {
 }
 
 .starReview {
-  padding: 2rem;
+  margin-top: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -305,14 +308,36 @@ body {
 
 
 
+.dotBar {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  /* gap: .5rem; */
+
+}
+
+.dot {
+  width: 10%;
+  height: 3px;
+  background-color: #cdcdcd;
+  border-radius: 2px;
+}
+
+.dotActive {
+  font-size: 3rem;
+  background-color: #5a5959;
+
+
+
+}
 
 
 
 
-
-
-
-
+.footerSpace {
+  margin-top: 10rem
+}
 
 
 

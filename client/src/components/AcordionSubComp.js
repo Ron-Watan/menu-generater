@@ -118,7 +118,7 @@ const AcordionSubComp = () => {
 
   // console.log(elementRef.current.offsetHeight);
   const drag = () => {
-    console.log("fOCUS === " + elementRef.current[0].clientHeight);
+    // console.log("fOCUS === " + elementRef.current[0].clientHeight);
 
   }
 
@@ -134,7 +134,7 @@ const AcordionSubComp = () => {
 
 
   return (
-    <div id='1' className="mx-auto max-w-7xl">
+    <div id='2' className="mx-auto max-w-7xl accordMoveUp">
       <div className="h-40" style={{
         backgroundImage: `url(${catalog1})`,
         backgroundPosition: 'top',
@@ -192,7 +192,6 @@ const AcordionSubComp = () => {
         ))
 
         }
-
 
       </ul >
     </div >

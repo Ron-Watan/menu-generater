@@ -40,7 +40,7 @@ function ListFavoriteSubComp( props,) {
   const { window } = props;
   const [open, setOpen] = React.useState(false);
 
-  console.log(window)
+  // console.log(window)
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
     // setOpen(!open);
