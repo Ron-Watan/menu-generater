@@ -7,8 +7,9 @@ import { grey } from '@mui/material/colors';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Skeleton from '@mui/material/Skeleton';
-import Typography from '@mui/material/Typography';
+
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+
 
 const drawerBleeding = 55;
 
@@ -32,10 +33,14 @@ const Puller = styled(Box)(({ theme }) => ({
   left: 'calc(50% - 15px)',
 }));
 
-function ListFavoriteSubComp(props) {
+function ListFavoriteSubComp( props,) {
+
+
+
   const { window } = props;
   const [open, setOpen] = React.useState(false);
 
+  console.log(window)
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
     // setOpen(!open);
@@ -45,6 +50,7 @@ function ListFavoriteSubComp(props) {
   }
   // This is used only for the example
   const container = window !== undefined ? () => window().document.body : undefined;
+
 
   return (
     <Root>

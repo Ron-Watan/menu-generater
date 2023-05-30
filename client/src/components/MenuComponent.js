@@ -1,13 +1,16 @@
 
 import logo from '../img/bp-logo.png'
 import 'remixicon/fonts/remixicon.css'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AcordionSubComp from './AcordionSubComp';
-import { CssBaseline } from '@mui/material';
+import { Button, CssBaseline } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material'
 import SidebarSubComp from './SidebarSubComp';
 import ListFavoriteSubComp from './ListFavoriteSubComp';
+import FooterComponent from './FooterComponent';
+import BannerSubCompo from './BannerSubCompo';
 
+// import images from './images'
 const theme = createTheme({
   typography: {
     fontFamily: [
@@ -21,10 +24,19 @@ const theme = createTheme({
 const MenuComponent = () => {
 
 
-  return (
-    <div className='relative'>
+  const [started, setStarted] = useState(false)
 
-      <div className='max-w-lg'>
+  const switcher = (ev) => {
+    setStarted(!started)
+    console.log(ev)
+  }
+
+
+
+  return (
+    <div className=''>
+
+      <div className='relative max-w-lg'>
 
         <nav className="bg-C_navmain sticky top-0 z-50">
           <div className="mx-auto max-w-7xl px-2">
@@ -40,6 +52,8 @@ const MenuComponent = () => {
                 <div className=" flex justify-self-end text-sm text-white">
                   LUNCH MENU
                 </div>
+
+
                 <button type="button" className=" inline-flex items-center justify-center ml-2
                   rounded-md p-1 text-C_icon hover:bg-gray-700 hover:text-white focus:outline-none
                   focus:ring-1 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
@@ -70,9 +84,15 @@ const MenuComponent = () => {
           </div>
         </nav>
 
+
+
         {/* == SIDE BAR == */}
         < SidebarSubComp />
 
+        {/* <BannerExample /> */}
+
+
+        <BannerSubCompo />
         {/* == MENU == */}
         <CssBaseline />
         <ThemeProvider theme={theme}>
@@ -87,21 +107,23 @@ const MenuComponent = () => {
           <AcordionSubComp />
         </ThemeProvider>
 
+        <div className="" >
 
 
+          {/* <div className=" overaybg1">  sssssssssssssssssssssssssssssssssss </div> */}
 
-        {/* <nav className=" fixed top-full -translate-y-full bg-C_navmain footerBar zIndex">
+          {/* <nav className=" fixed top-full -translate-y-full bg-C_navmain footerBar zIndex">
 
           <div className="grid grid-cols-3 content-center">
-            <div className="flex items-center justify-center mt-1">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1"
-                stroke="#fff" class="w-7 h-7">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
-              </svg>
 
+            <div className="flex items-center justify-center mt-1">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1"
+                stroke="#fff" className="w-7 h-7">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
+              </svg>
             </div>
 
-            <div className="flex items-center justify-center mt-1">
+            <div onClick={() => switcher(true)} className="flex items-center justify-center mt-1">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                 strokeWidth="1" stroke="white" className="w-7 h-7 ">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z" />
@@ -109,7 +131,6 @@ const MenuComponent = () => {
             </div>
 
             <div className="flex items-center justify-center mt-1">
-
               <svg width="25" height="25" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M4.08612 1.10833C5.12302 1.10833 6.74868 1.11712 7.78559 1.11712C7.89982 1.11712 8.01406 1.1259 
                 8.12829 1.15227C8.23374 1.16984 8.33919 1.20499 8.44464 1.24893C8.5413 1.29286 8.63796 1.34559 8.73462 1.4071C8.8225 1.46861 8.91037 1.53891 8.98946 1.618C9.06854 1.69708 9.13884 1.78495 9.20035 1.87283C9.26186 1.9607 9.31459 2.05736 9.35852 2.16281C9.40246 2.25947
@@ -134,19 +155,43 @@ const MenuComponent = () => {
                 2.8658H7.60984C7.75044 2.8658 7.85589 2.98003 7.85589 3.11184C7.85589 3.25244
                 7.74165 3.35789 7.60984 3.35789H5.58875Z" fill="white" />
               </svg>
-
             </div>
 
+          </div>
+
+
+
+        </nav> */}
+          {/* <nav className=" fixed top-full -translate-y-full bg-C_navmain footerBarLeft zIndex">
+          <div className="flex items-center justify-center mt-1">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1"
+              stroke="#fff" className="w-7 h-7">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
+            </svg>
+          </div>
+        </nav> */}
+        </div>
+
+
+        {/* 
+        <nav className=" fixed top-full -translate-y-full bg-C_navmain footerBarRight zIndex">
+          <div className="flex items-center justify-center mt-1">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1"
+              stroke="#fff" className="w-7 h-7">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
+            </svg>
           </div>
         </nav> */}
 
 
+        {/* <ListFavoriteSubComp /> */}
 
 
+        <FooterComponent />
 
 
-        <ListFavoriteSubComp />
-        {/* <div className="mx-auto max-w-7xl" id='1'>
+        <div>
+          {/* <div className="mx-auto max-w-7xl" id='1'>
 
           <div className="h-40" style={{
             backgroundImage: `url(${catalog1})`,
@@ -196,7 +241,7 @@ const MenuComponent = () => {
 
 
 
-        {/* <div className="mx-auto max-w-7xl" id='3'>
+          {/* <div className="mx-auto max-w-7xl" id='3'>
           <div className="h-40" style={{
             backgroundImage: `url(${catalog1})`,
             backgroundPosition: 'top',
@@ -221,7 +266,7 @@ const MenuComponent = () => {
 
 
 
-
+        </div>
 
 
       </div>

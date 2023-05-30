@@ -108,8 +108,32 @@ const AcordionSubComp = () => {
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
+  const elementRef = React.useRef([]);
+
+  React.useEffect(() => {
+    console.dir(elementRef.current[0]);
+  }, [elementRef.current]);
+
+
+  // console.log(elementRef.current.offsetHeight);
+  const drag = () => {
+    console.log("fOCUS === " + elementRef.current[0].clientHeight);
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
   return (
-    <div className="mx-auto max-w-7xl" id='2'>
+    <div id='1' className="mx-auto max-w-7xl">
       <div className="h-40" style={{
         backgroundImage: `url(${catalog1})`,
         backgroundPosition: 'top',
@@ -119,7 +143,11 @@ const AcordionSubComp = () => {
       <ul className="px-2 sm:px-6 lg:px-8">
 
         {userManuLists.map((el, index) => (
-          <div className='' key={index}>
+          <div ref={(element) => {
+            elementRef.current[index] = element;
+          }} onClick={drag}
+
+            className='' key={index}>
             <Accordion expanded={expanded === el.tabCode} onChange={handleChange(el.tabCode)}>
               <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
                 <Typography>{el.title}</Typography>
@@ -133,7 +161,7 @@ const AcordionSubComp = () => {
                 <div className='grid grid-cols-3 gap-1 justify-start mt-2'>
                   {
                     el.choice.map((el, index) => (
-                      <button className=" border border-blue text-black text-C_icon rounded-md px-1 py-1 text-sm flex flex-row justify-center gap-x-2" key={index}
+                      <button className=" border border-blue text-black text-C_icon rounded-md px-1 py-1 text-sm flex flex-row justify-center gap-x-2" key={`sws` + index}
                       > <p>{`${el.type}`}</p><p>{`+$${el.price}`}</p> </button>
                     ))
 
