@@ -3,13 +3,17 @@ import logo from '../img/bp-logo.png'
 import 'remixicon/fonts/remixicon.css'
 import { useEffect, useState } from 'react';
 import AcordionSubComp from './AcordionSubComp';
-import { Button, CssBaseline } from '@mui/material';
+import { CssBaseline } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material'
 import SidebarSubComp from './SidebarSubComp';
 import FooterComponent from './FooterComponent';
 import BannerSubCompo from './BannerSubCompo';
 import Texttest from './Text';
 import i18n from './multiLanguage/i18n';
+import axios from 'axios';
+import { ticketPass } from '../protectors/authorize';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 // import LocaleContext from './LocaleContext';
 // import images from './images'
@@ -24,6 +28,61 @@ const theme = createTheme({
 
 
 const MenuComponent = () => {
+  const { user } = useSelector(state => state.user)
+  console.log(user)
+  // const navigate = useNavigate()
+  // const checkUserAuthorize = () => {
+  //   axios
+  //     .post(`${process.env.REACT_APP_API}/user/info-user`, {}, ticketPass)
+  //     .then(result => {
+  //       if (result) {
+  //         console.log("App-CheckUserAuthorize : true")
+  //         console.log(result)
+  //       }
+  //       else {
+  //         console.log("rrr")
+
+  //         // localStorage.clear()
+  //         navigate('/login')
+  //       }
+  //     }).catch(err => {
+  //       console.log("App-CheckUserAuthorize/ Connection : fail", err)
+  //       // dispatch(hideLoading());
+  //       // localStorage.clear()
+  //       // navigate("/login");
+  //     })
+  // }
+
+  // useEffect(() => {
+
+  //     checkUserAuthorize();
+
+  // }, []);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   const [started, setStarted] = useState(false)
@@ -31,7 +90,6 @@ const MenuComponent = () => {
   const switcher = (even) => {
     setStarted(!started)
   }
-
 
   const [language, setLanguage] = useState('th');
 
@@ -80,11 +138,9 @@ const MenuComponent = () => {
         < SidebarSubComp />
 
 
-        
+
         {/* == <BannerExample /> == */}
         <BannerSubCompo />
-
-
 
         {/* == MENU == */}
         <CssBaseline />
@@ -102,6 +158,7 @@ const MenuComponent = () => {
 
 
 
+        <a href="/mainform">dddddddddddddddddddddddddddd</a>
 
         <Texttest />
         <div className="footerSpace"></div>

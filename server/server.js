@@ -1,34 +1,18 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from 'dotenv'; dotenv.config()
-import userRoute from './routes/userRoute.js'
-import adminRoute from './routes/adminRoute.js'
-import doctorRoute from './routes/doctorRoute.js'
-
 import cors from 'cors'
 import morgan from "morgan";
+import userRoute from './_1routes/userRoute.js'
+
 
 const app = express()
 app.use(express.json())
 app.use(cors())
 app.use(morgan('dev')) // log HTTP named dev
 
+// app.use('/api/client', clientRoute)
 app.use('/api/user', userRoute)
-app.use('/api/admin', adminRoute)
-app.use('/api/doctor', doctorRoute)
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 mongoose.connect(process.env.MONGODB_URL, {

@@ -46,7 +46,6 @@ function BannerSubCompo() {
  
   };
 
-  console.log(indexDot)
 
   return (
 

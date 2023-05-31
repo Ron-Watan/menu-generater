@@ -1,20 +1,19 @@
 
 
 import 'remixicon/fonts/remixicon.css'
-import { useEffect, useState } from 'react';
-import { createTheme, ThemeProvider } from '@mui/material'
+import { useState } from 'react';
 
 
 
 
-const theme = createTheme({
-  typography: {
-    fontFamily: [
-      'Roboto Slab',
-      'roboto slab',
-    ].join(','),
-  },
-});
+// const theme = createTheme({
+//   typography: {
+//     fontFamily: [
+//       'Roboto Slab',
+//       'roboto slab',
+//     ].join(','),
+//   },
+// });
 
 
 
@@ -55,7 +54,7 @@ const itemList = [
     name: "ddfdf",
     price: 9
   },
-  ,
+
   {
     name: "ggggg",
     price: 7
@@ -108,47 +107,47 @@ const FooterComponent = () => {
   const { star1, star2, star3, star4, star5 } = starBtn
 
   const addStar = (name) => {
-    if (name === 'star1' && star1 === 'red') {
-      return setStarBtn({
-        star1: 'none', star2: 'none', star3: 'none', star4: 'none', star5: 'none',
-      })
-    }
-    switch (name) {
-      case 'star1': {
-        setStarBtn({
-          star1: 'red', star2: 'none', star3: 'none', star4: 'none', star5: 'none',
-        })
-      }
-        break;
-      case 'star2': {
-        setStarBtn({
-          star1: 'red', star2: 'red', star3: 'none', star4: 'none', star5: 'none',
-        })
-      }
-        break;
-      case 'star3': {
-        setStarBtn({
-          star1: 'red', star2: 'red', star3: 'red', star4: 'none', star5: 'none',
-        })
-      }
-        break;
-      case 'star4': {
-        setStarBtn({
-          star1: 'red', star2: 'red', star3: 'red', star4: 'red', star5: 'none',
-        })
-      }
-        break;
-      case 'star5': {
-        setStarBtn({
-          star1: 'red', star2: 'red', star3: 'red', star4: 'red', star5: 'red',
-        })
-      }
-        break;
-      default:
-        break;
-    }
+    // if (name === 'star1' && star1 === 'red') {
+    //   return setStarBtn({
+    //     star1: 'none', star2: 'none', star3: 'none', star4: 'none', star5: 'none',
+    //   })
+    // }
+    // switch (name) {
+    //   case 'star1': {
+    //     setStarBtn({
+    //       star1: 'red', star2: 'none', star3: 'none', star4: 'none', star5: 'none',
+    //     })
+    //   }
+    //     break;
+    //   case 'star2': {
+    //     setStarBtn({
+    //       star1: 'red', star2: 'red', star3: 'none', star4: 'none', star5: 'none',
+    //     })
+    //   }
+    //     break;
+    //   case 'star3': {
+    //     setStarBtn({
+    //       star1: 'red', star2: 'red', star3: 'red', star4: 'none', star5: 'none',
+    //     })
+    //   }
+    //     break;
+    //   case 'star4': {
+    //     setStarBtn({
+    //       star1: 'red', star2: 'red', star3: 'red', star4: 'red', star5: 'none',
+    //     })
+    //   }
+    //     break;
+    //   case 'star5': {
+    //     setStarBtn({
+    //       star1: 'red', star2: 'red', star3: 'red', star4: 'red', star5: 'red',
+    //     })
+    //   }
+    //     break;
+    //   default:
+    //     break;
+    // }
 
-
+    console.log("hold")
   }
 
   const [disPlayLang, setDisPlayLang] = useState('EN')

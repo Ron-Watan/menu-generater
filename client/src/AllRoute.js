@@ -1,19 +1,12 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
-// import LoginComponent from "./components/LoginComponent"
-// import RegisterComponent from "./components/RegisterComponent"
 // import { useSelector } from "react-redux"
-// import App from "./App"
 import MenuComponent from "./components/MenuComponent"
+import RegisterComponent from "./accounts/RegisterComponent"
+import LoginComponent from "./accounts/LoginComponent"
+import MainForm from "./componentusers/MainForm"
+import ProtectRoute from "./protectors/ProtectRoute"
 
-
-
-
-
-
-
-const MainRoute = () => {
-
-
+const AllRoute = () => {
 
   return (
     <BrowserRouter >
@@ -28,23 +21,23 @@ const MainRoute = () => {
         </div>
       </div>)} */}
       <Routes>
+        <Route Component={ProtectRoute}>
+
+          {/* <Route path="/" exact Component={App} /> */}
+          <Route path="/" exact Component={MenuComponent} />
 
 
+          {/* <Route Component={ProtectRoute}> */}
+          {/* </Route> */}
+          <Route path="/mainform" exact Component={MainForm} />
 
-        {/* <Route path="/" exact Component={App} /> */}
-        <Route path="/" exact Component={MenuComponent} />
+        </Route>
+        <Route path="/login" exact Component={LoginComponent} />
 
-
-        {/* <Route Component={ProtectRoute}> */}
-        {/* </Route> */}
-
-        {/* <Route path="/login" exact Component={LoginComponent} />
-        <Route path="/register" exact Component={RegisterComponent} /> */}
-
-
+        <Route path="/register" exact Component={RegisterComponent} />
 
       </Routes>
     </BrowserRouter >
   )
 }
-export default MainRoute
+export default AllRoute

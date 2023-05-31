@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import React, { useState } from 'react';
+// import { v4 as uuidv4 } from 'uuid';
 import 'remixicon/fonts/remixicon.css'
-import logo from '../img/vegetable.svg'
+// import logo from '../img/vegetable.svg'
 
 const SidebarSubComp = () => {
 

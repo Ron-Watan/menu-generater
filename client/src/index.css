@@ -2,6 +2,8 @@
 
 @tailwind components;
 
+;
+
 body {
   font-size: 62.5%;
 }
@@ -28,18 +30,17 @@ body {
 
 .bannerSection {
   margin: 0rem auto;
-  padding-bottom: 5rem;
   transform: translateY(-8%);
 
 }
 
 .boxImage {
   max-width: 51.2rem;
-
+/*  */
   width: 100%;
   /* width: 100%; */
 
-  height: 20rem;
+  height: 18rem;
 
 
 }
@@ -51,9 +52,9 @@ body {
   /* height: 100%; */
 }
 
-.accordMoveUp{
+.accordMoveUp {
   /* transform: translateY(-28%); */
-  top:10rem
+  top: 10rem
 }
 
 
@@ -397,6 +398,66 @@ body {
 }
 
 
+/*  FORM ///////////////////////////////////////////////////////////////// */
+
+/* <div className="mlbox">
+<label htmlFor="catagory">Food Name</label>
+<div className="inputbox">
+  <input value='' type="text" name="firstName" id="firstName" autoComplete="given-name" />
+</div>
+</div> */
+
+
+.formContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 5rem;
+}
+
+.formMenu {
+  border: #000000 1px solid;
+}
+
+.layoutManu {
+  padding: 2rem;
+}
+
+.layoutManu0 {
+  display: flex;
+  gap: 1rem;
+}
+
+.layoutManu1 {
+  display: flex;
+  width: 55%;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.layoutManu2 {
+  display: flex;
+  width: 45%;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.smallFlex {
+  display: flex;
+  gap: 1rem
+}
+
+.smallFlex1 {
+  width: 70%;
+
+}
+
+.smallFlex2 {
+  width: 30%;
+}
+.smallFlexEnd{
+  justify-content: end;
+}
 
 
 
@@ -404,6 +465,18 @@ body {
 
 
 
+.mlbox {
+  width: 100%;
+}
+
+.mlbox input {
+  width: 100%;
+  border: 1px #5a5959 solid;
+  border-radius: 3px;
+  padding: .5rem 2rem;
+}
+
+/* ///////////////////////////////////////////////////////////////// */
 
 
 
@@ -420,21 +493,3 @@ body {
     font-family: 'Roboto Slab', serif !important;
   }
 }
-
-.test {
-  color: #adadad
-}
-
-/* body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-} */
