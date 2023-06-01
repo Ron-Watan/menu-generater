@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
-// import { useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 import MenuComponent from "./components/MenuComponent"
 import RegisterComponent from "./accounts/RegisterComponent"
 import LoginComponent from "./accounts/LoginComponent"
@@ -7,10 +7,11 @@ import MainForm from "./componentusers/MainForm"
 import ProtectRoute from "./protectors/ProtectRoute"
 
 const AllRoute = () => {
+  const { loading } = useSelector((state) => state.alerts);
 
   return (
     <BrowserRouter >
-      {/* {loading && (<div className="loadering z-40">
+      {loading && (<div className="loadering z-40">
         <div className="fixed top-50 left-0 right-0 top-0 items-center block max-w-full min-h-screen bg-white bg-opacity-0 
          rounded-lg shadow-md">
           <div role="status" className="absolute -translate-x-1/2 -translate-y-1/2 top-1/4 left-1/2">
@@ -19,7 +20,7 @@ const AllRoute = () => {
             <span className="sr-only">Loading...</span>
           </div>
         </div>
-      </div>)} */}
+      </div>)}
       <Routes>
         <Route Component={ProtectRoute}>
 
@@ -30,6 +31,9 @@ const AllRoute = () => {
           {/* <Route Component={ProtectRoute}> */}
           {/* </Route> */}
           <Route path="/mainform" exact Component={MainForm} />
+          {/* <Route path="/mainform" exact Component={MainForm} /> */}
+
+
 
         </Route>
         <Route path="/login" exact Component={LoginComponent} />

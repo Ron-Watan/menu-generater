@@ -13,7 +13,7 @@ import { useSelector } from "react-redux"
 const LoginComponent = () => {
   // const { loading } = useSelector(state => state.alerts)
 
-  // const dispath = useDispatch()
+  const dispath = useDispatch()
   const [state, setState] = useState({
     email: '',
     password: ''
@@ -27,21 +27,21 @@ const LoginComponent = () => {
 
   const submitData = (e) => {
     e.preventDefault()
-    // dispath(showLoading())
+    dispath(showLoading())
     console.log('wddd')
     axios.post(`${process.env.REACT_APP_API}/user/login`, { email, password })
       .then(result => {
         if (result.data.success) {
-          // dispath(hideLoading())
+          dispath(hideLoading())
           authenticate(result, () => navigate('/'))
           setState({ ...state, email: '', password: '' })
           Swal.fire(result.data.message)
         } else {
           Swal.fire(result.data.message)
-          // dispath(hideLoading())
+          dispath(hideLoading())
         }
       }).catch(err => {
-        // dispath(hideLoading())
+        dispath(hideLoading())
 
         console.log("Can't not connect the server")
         Swal.fire("Can't not connect the server")

@@ -13,7 +13,7 @@ import i18n from './multiLanguage/i18n';
 import axios from 'axios';
 import { ticketPass } from '../protectors/authorize';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 // import LocaleContext from './LocaleContext';
 // import images from './images'
@@ -29,7 +29,7 @@ const theme = createTheme({
 
 const MenuComponent = () => {
   const { user } = useSelector(state => state.user)
-  console.log(user)
+
   // const navigate = useNavigate()
   // const checkUserAuthorize = () => {
   //   axios
@@ -57,33 +57,7 @@ const MenuComponent = () => {
 
   //     checkUserAuthorize();
 
-  // }, []);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  // }, [])
 
   const [started, setStarted] = useState(false)
 

@@ -36,7 +36,7 @@ body {
 
 .boxImage {
   max-width: 51.2rem;
-/*  */
+  /*  */
   width: 100%;
   /* width: 100%; */
 
@@ -426,6 +426,7 @@ body {
 .layoutManu0 {
   display: flex;
   gap: 1rem;
+  border: #5a5959 1px solid;
 }
 
 .layoutManu1 {
@@ -448,14 +449,20 @@ body {
 }
 
 .smallFlex1 {
-  width: 70%;
+  width: 60%;
 
 }
 
 .smallFlex2 {
-  width: 30%;
+  width: 20%;
 }
-.smallFlexEnd{
+
+.smallFlex3 {
+  width: 20%;
+
+}
+
+.smallFlexEnd {
   justify-content: end;
 }
 
