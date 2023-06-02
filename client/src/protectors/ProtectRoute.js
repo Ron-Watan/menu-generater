@@ -21,7 +21,7 @@ const ProtectRoute = () => {
       .then(result => {
         if (result) {
           dispath(setUser(result.data.data.result))
-          console.log("App-CheckUserAuthorize : true")
+          // console.log("App-CheckUserAuthorize : true")
 
         }
         else {

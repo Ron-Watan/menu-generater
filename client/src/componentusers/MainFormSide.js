@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from "react"
+import { forwardRef, useEffect, useImperativeHandle, useState } from "react"
 
 import axios from 'axios'
 import Swal from 'sweetalert2'
@@ -8,14 +8,17 @@ import { useDispatch, useSelector } from 'react-redux'
 import { hideLoading, showLoading } from "../redux/alertSlice"
 
 
-const MainFormSide = (prop) => {
-
+const MainFormSide = forwardRef((prop, ref) => {
+  useImperativeHandle(ref, () => ({
+    log() {
+      getAllMenu();
+    }
+  }));
 
   const dispath = useDispatch()
 
   const { user } = useSelector(state => state.user)
   const [menus, setMenus] = useState([])
-  const [sendMenu, setSendMenu] = useState([])
 
   const getAllMenu = () => {
     dispath(showLoading())
@@ -36,11 +39,11 @@ const MainFormSide = (prop) => {
       })
   }
 
-  const getEditManu = (e) => {
+  const findOneMenu = (e) => {
     e.preventDefault();
     const menuId = e.target.name
     // dispath(showLoading())
-    axios.post(`${process.env.REACT_APP_API}/user/getEditManu`, { menuId: menuId, userId: user.userId }, ticketPass)
+    axios.post(`${process.env.REACT_APP_API}/user/findOneMenu`, { menuId: menuId, userId: user.userId }, ticketPass)
       .then(result => {
         if (result.data.success) {
           // Swal.fire(result.data.message)
@@ -88,7 +91,7 @@ const MainFormSide = (prop) => {
 
       <div className="sideBox"  >
         {menus.map((el, index) => (
-          <button name={el.menuId} onClick={getEditManu} className="tabCatalog" key={index}>{el.catagory}</button>
+          <button name={el.menuId} onClick={findOneMenu} className="tabCatalog" key={index}>{el.catagory}</button>
 
         ))}
         .
@@ -99,6 +102,6 @@ const MainFormSide = (prop) => {
 
     </div >
   )
-}
+})
 
 export default MainFormSide

@@ -68,10 +68,10 @@ export const requireLogin = (req, res, next) => {
 
 //- GET USER INFO to SAVE IN REDUX at Protector Compo
 export const getInfoUserToStore = (req, res) => {
-  Users.findOne({ userId: req.proved.userToken }).then(result => {
+  Users.findOne({ userId: req.proved.userToken }).select('menu userId').then(result => {
     if (!result) return res.status(200).send({ message: "User doues not exit", success: false })
     else {
-      result.password = undefined
+
       res.status(200).send({
         success: true,
         data: { result }

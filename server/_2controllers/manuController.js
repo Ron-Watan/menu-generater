@@ -8,7 +8,7 @@ export const getAllMenu = (req, res) => {
   console.log(req.body)
   // res.send({ message: "Success", success: true, }) //send to client side
   const { userId } = req.body;
-  Users.findOne({ userId: userId }).then((user) => {
+  Users.findOne({ userId: userId }).select('menu userId').then((user) => {
 
     res.send({
       message: 'Success',
@@ -21,32 +21,102 @@ export const getAllMenu = (req, res) => {
 
 //-
 export const createManu = (req, res) => {
-  // res.send({ message: "Success", success: true, }) //send to client side
-  const { userId } = req.body;
-  const catagory = req.body.header.catagory
-  const menu = req.body.listMenu
+
+  const { userId, catagory, listMenu } = req.body;
+
   console.log(req.body)
-  Users.findOne({ userId: userId }, '-password').then((user) => {
+  Users.findOne({ userId: userId }).select('menu userId').then((user) => {
     user.menu.push({
       menuId: uuidv4(),
       catagory: catagory,
-      listMenu: menu,
+      listMenu: listMenu,
     });
     user.save();
     console.log(user);
     res.send({
       message: 'Success',
+      userMenu: user, // May need all Information first
+      success: true
+    });
+  });
+};
+
+
+
+
+//-
+export const saveEditMenu = (req, res) => {
+  const { menuId } = req.body
+  const { catagory } = req.body
+  const { listMenu } = req.body
+
+  Users.findOneAndUpdate({ 'menu.menuId': menuId }, {
+    $set: {
+      "menu.$": {
+        menuId: menuId,
+        catagory: catagory,
+        listMenu: listMenu,
+      }
+    }
+  }).select('menu userId').then((user) => {
+    res.send({
+      message: 'Success',
       userMenu: user,
       success: true
-    }); //send to client side
+    });
   });
 };
 
 //-
-export const getEditManu = (req, res) => {
+
+
+export const deleteMenu = (req, res) => {
+  const { userId } = req.body
+  const { menuId } = req.body
+  console.log('______________________' + userId)
+  Users.findOneAndUpdate({ userId: userId }, {
+    "$pull": {
+      "menu": { "menuId": menuId }
+    }
+  }).then((user) => {
+    res.send({
+      message: 'Success',
+      userMenu: user,
+      success: true
+    });
+  })
+};
+
+// Dive.update({ _id: diveId }, { "$pull": { "divers": { "user": userIdToRemove } }}, { safe: true, multi:true }, function(err, obj) {
+//   //do something smart
+// });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//- 
+export const findOneMenu = (req, res) => {
   const { userId } = req.body;
   const { menuId } = req.body
-  Users.findOne({ userId: userId }, '-password').then((user) => {
+  Users.findOne({ userId: userId }).select('menu userId').then((user) => {
     user.menu.forEach(el => {
       if (el.menuId === menuId) {
         res.send({
@@ -60,58 +130,3 @@ export const getEditManu = (req, res) => {
   });
 };
 
-//-
-export const saveEditMenu = (req, res) => {
-  // res.send({ message: "Success", success: true, }) //send to client side
-  const { userId } = req.body;
-  const catagory = req.body.header.catagory
-  const menu = req.body.listMenu
-  console.log(req.body)
-  Users.findOne({ userId: userId }, '-password').then((user) => {
-    user.menu.push({
-      menuId: uuidv4(),
-      catagory: catagory,
-      listMenu: menu,
-    });
-    user.save();
-    console.log(user);
-    res.send({
-      message: 'Success',
-      userMenu: user,
-      success: true
-    }); //send to client side
-  });
-};
-
-
-//-
-// export const add = (req, res) => {
-//   // res.send({ message: "Success", success: true, }) //send to client side
-//   const { userId } = req.body
-
-//   Users.findOne({ userId: userId }).then(user => {
-//     console.log(user.menu)
-
-//     res.send({ message: "Success", success: true, }) //send to client side
-//   })
-// }
-//     user.menu.push({
-//       catagory: manu.catagory,
-//       list: [
-//         {
-//           food_name: manu.food_name,
-//           description: manu.description,
-//           remark: manu.remark,
-//           price: manu.price,
-//           option: [{
-//             option_name: manu.option_name,
-//             option_price: manu.option_price
-//           }],
-//           vetgeterian: manu.vetgeterian,
-//           vegan: manu.vegan,
-//           gluten_free: manu.gluten_free,
-//           halal: manu.halal
-//         }
-//       ]
-
-//     })

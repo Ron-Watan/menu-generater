@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import NavbarComponent from "../accounts/NavbarComponent"
 
 import axios from 'axios'
@@ -7,29 +7,26 @@ import Swal from 'sweetalert2'
 import { ticketPass } from "../protectors/authorize"
 import { useDispatch, useSelector } from 'react-redux'
 import { hideLoading, showLoading } from "../redux/alertSlice"
+import { setUser } from "../redux/userSlice"
+
+
 import MainFormSide from "./MainFormSide"
 
 
 const MainForm = () => {
+  const ref = useRef()
 
   const dispath = useDispatch()
 
   const { user } = useSelector(state => state.user)
 
-
-  const [menus, setMenus] = useState([])
-
-  const [getEditMenu, setGetEditMenu] = useState([])
-
   const [state, setState] = useState({
     catagory: ''
-
   })
+
   const inputValue = (name) => (even) => {
     setState({ ...state, [name]: even.target.value })
   }
-
-
 
   let listMenuModel = {
     food_name: '', description: '', remark: '', price: '',
@@ -42,33 +39,10 @@ const MainForm = () => {
     option_name_6: '', option_price_6: '',
 
   }
-  let listMenuModeltest = {
-    food_name: 'ewewewewe', description: 'ewewewe', remark: '', price: '',
-    vetgeterian: 'wewewewewew', vegan: '', gluten_free: '', halal: '',
-    option_name_1: 'ewewe', option_price_1: '',
-    option_name_2: '', option_price_2: '',
-    option_name_3: '', option_price_3: '',
-    option_name_4: '', option_price_4: 'ewewee',
-    option_name_5: '', option_price_5: '',
-    option_name_6: '', option_price_6: '',
-
-  }
-
-  let test2 = [listMenuModeltest, listMenuModeltest]
-
-  const [state1, setState1] = useState(test2)
-
 
   const [listMenu, setListMenu] = useState([listMenuModel])
 
-  // listMenu.map(menu => {
-  //   menu.listMenu.map(el => {
-  //     console.log(el)
-  //   })
-  // })
-  // listMenu.map(menu => {
-  //   console.log(menu)
-  // })
+
 
   const inputListValue = (index, event) => {
     let data = [...listMenu];
@@ -80,59 +54,38 @@ const MainForm = () => {
 
   const additem = () => {
     let newListMenu = listMenuModel
-
     setListMenu([...listMenu, newListMenu])
   }
 
   const removeItem = (index) => {
     let data = [...listMenu];
-    console.log(data)
+
     data.splice(index, 1)
     setListMenu(data)
 
   }
 
-  //////////////////////////
-
-  // const [test, settest] = useState([test2])
-  // let data = [...test];
-  // console.log(state1)
-
+  ////////////////////////////////
+  const [menuId, setMenuId] = useState('')
   const editMenuFn = (oneMennu) => {
     setState(oneMennu)
     setListMenu(oneMennu.listMenu)
-
+    setMenuId(oneMennu.menuId)
   }
 
-  //-
-  // const getAllMenu = () => {
-  //   dispath(showLoading())
-  //   axios.post(`${process.env.REACT_APP_API}/user/getAllMenu`, { userId: user.userId }, ticketPass)
-  //     .then(result => {
-  //       if (result.data.success) {
-  //         // Swal.fire(result.data.message)
-  //         setMenus(result.data.userMenu.menu)
-  //         dispath(hideLoading())
-  //       } else {
-  //         // Swal.fire(result.data.message)
-  //         dispath(hideLoading())
-  //       }
-  //     }).catch(err => {
-  //       dispath(hideLoading())
-  //       console.log("Can't not connect the server", err)
-  //       // Swal.fire("Can't not connect the server")
-  //     })
-  // }
+
+
 
   //-
   const submitCatagory = (e) => {
     e.preventDefault();
     dispath(showLoading())
-    axios.post(`${process.env.REACT_APP_API}/user/create-manu`, { header: { ...state }, listMenu: [...listMenu], userId: user.userId }, ticketPass)
+    axios.post(`${process.env.REACT_APP_API}/user/create-manu`,
+      { catagory: state.catagory, listMenu: [...listMenu], userId: user.userId }, ticketPass)
       .then(result => {
         if (result.data.success) {
           Swal.fire(result.data.message)
-          setMenus(result.data.userMenu.menu)
+          dispath(setUser(result.data.userMenu));
           setState({
             catagory: '',
           })
@@ -151,17 +104,15 @@ const MainForm = () => {
 
 
   //-
-  const editMenu = (e) => {
+  const saveEditMenu = (e) => {
     e.preventDefault();
     dispath(showLoading())
-    axios.post(`${process.env.REACT_APP_API}/user/editMenu`, { head: { ...state }, listMenu: { ...listMenu }, menuId: user.menuId }, ticketPass)
+    axios.post(`${process.env.REACT_APP_API}/user/saveEditMenu`,
+      { menuId: menuId, catagory: state.catagory, listMenu: [...listMenu], userId: user.userId, }, ticketPass)
       .then(result => {
         if (result.data.success) {
           Swal.fire(result.data.message)
-          setMenus(result.data.userMenu.menu)
-          setState({
-            catagory: '',
-          })
+          dispath(setUser(result.data.userMenu));
 
           dispath(hideLoading())
         } else {
@@ -175,11 +126,31 @@ const MainForm = () => {
       })
   }
 
+
+  const deleteMenu = (e) => {
+    e.preventDefault();
+    dispath(showLoading())
+    axios.post(`${process.env.REACT_APP_API}/user/deleteMenu`,
+      { menuId: menuId, listMenu: [...listMenu], userId: user.userId }, ticketPass)
+      .then(result => {
+        if (result.data.success) {
+          dispath(setUser(result.data.userMenu));
+          Swal.fire(result.data.message)
+          dispath(hideLoading())
+        } else {
+          Swal.fire(result.data.message)
+          dispath(hideLoading())
+        }
+      }).catch(err => {
+        dispath(hideLoading())
+        console.log("Can't not connect the server")
+        Swal.fire("Can't not connect the server")
+      })
+  }
   // menus.forEach(menu => {
   //   menu.list.map(el => {
 
   //     // (console.log(el.food_name))
-
 
   //   })
   // })
@@ -534,14 +505,6 @@ const MainForm = () => {
               focus-visible:outline-indigo-600">ADD ITEM</button>
               </div>
 
-              <div className="mt-6 flex items-center justify-end gap-x-6">
-                <button onClick={editMenu} type="button" className="bg-blue rounded-md bg-indigo-600 px-3 
-              py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500
-              focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
-              focus-visible:outline-indigo-600">Edit Menu</button>
-              </div>
-
-
 
 
 
@@ -549,26 +512,38 @@ const MainForm = () => {
             </div>
 
 
-
-
-
-
-
             <i className="sr-only">!SAVE</i>
 
-            <div className="flex items-center justify-center gap-x-6">
-              <button onClick={submitCatagory} type="submit" className="bg-blue rounded-md bg-
+
+            <div className="flex justify-between">
+
+              <div className="flex items-center justify-center gap-x-6">
+                <button onClick={submitCatagory} type="submit" className="bg-blue rounded-md bg-
             indigo-600 px-20 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500
             focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
-            focus-visible:outline-indigo-600">SAVE AND EXIT</button>
-            </div>
+            focus-visible:outline-indigo-600">SAVE</button>
+              </div>
 
+              <div className="flex items-center justify-center gap-x-6">
+                <button onClick={saveEditMenu} type="submit" className="bg-blue rounded-md bg-
+            indigo-600 px-20 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500
+            focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+            focus-visible:outline-indigo-600">EDIT</button>
+              </div>
+
+              <div className="flex items-center justify-center gap-x-6">
+                <button onClick={deleteMenu} type="submit" className="bg-blue rounded-md bg-
+            indigo-600 px-20 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500
+            focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+            focus-visible:outline-indigo-600">Delete</button>
+              </div>
+            </div>
             <i className="sr-only">!END FORM</i>
           </form >
         </div >
 
 
-        <MainFormSide editMenuFn={editMenuFn} />
+        <MainFormSide editMenuFn={editMenuFn} ref={ref} />
 
       </div>
     </div >
@@ -583,3 +558,23 @@ export default MainForm
 
 
 
+
+  //-
+  // const getAllMenu = () => {
+  //   dispath(showLoading())
+  //   axios.post(`${process.env.REACT_APP_API}/user/getAllMenu`, { userId: user.userId }, ticketPass)
+  //     .then(result => {
+  //       if (result.data.success) {
+  //         // Swal.fire(result.data.message)
+  //         setMenus(result.data.userMenu.menu)
+  //         dispath(hideLoading())
+  //       } else {
+  //         // Swal.fire(result.data.message)
+  //         dispath(hideLoading())
+  //       }
+  //     }).catch(err => {
+  //       dispath(hideLoading())
+  //       console.log("Can't not connect the server", err)
+  //       // Swal.fire("Can't not connect the server")
+  //     })
+  // }

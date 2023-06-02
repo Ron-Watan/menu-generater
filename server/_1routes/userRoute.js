@@ -1,6 +1,6 @@
 import express from 'express'
 import { register, login, getInfoUserToStore, requireLogin } from '../_2controllers/userController.js'
-import { getEditManu, createManu, getAllMenu } from '../_2controllers/manuController.js'
+import { findOneMenu, createManu, getAllMenu, saveEditMenu, deleteMenu } from '../_2controllers/manuController.js'
 
 
 const router = express.Router()
@@ -12,7 +12,9 @@ router.post('/info-user', requireLogin, getInfoUserToStore)
 
 router.post('/getAllMenu', requireLogin, getAllMenu)
 router.post('/create-manu', requireLogin, createManu)
-router.post('/getEditManu', requireLogin, getEditManu)
+router.post('/findOneMenu', requireLogin, findOneMenu)
+router.post('/saveEditMenu', requireLogin, saveEditMenu)
+router.post('/deleteMenu', requireLogin, deleteMenu)
 
 // router.post('/apply-doctor', requireLogin, applyToDoctor)
 
