@@ -1,7 +1,8 @@
 import { useState } from "react"
+import modelList from "./MainFormSub"
 
 
-const SubAddFood = () => {
+const SubAddFood = (test) => {
   const [state, setState] = useState({
     food_name: '', description: '', remark: '', price: ''
     , option_name: '', option_price: '', vetgeterian: '', vegan: '', gluten_free: '', halal: ''
@@ -161,5 +162,21 @@ const SubAddFood = () => {
   )
 }
 
-export default SubAddFood
+export default function Subfoosa() {
+  const [manuList, setMenuList] = useState(modelList);
+  const inputValueMenu = (name) => (even) => {
+    console.log('ewewe')
+    setMenuList({ ...manuList, [name]: even.target.value })
+    console.log(manuList)
+  }
+
+  return (
+    manuList.map((el, index) => (
+      <SubAddFood key={index} />
+    )
+    ))
+
+}
+
+
 

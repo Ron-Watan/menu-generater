@@ -5,10 +5,11 @@ import jwt from 'jsonwebtoken';
 
 //-
 export const getAllMenu = (req, res) => {
-  console.log('What')
+  console.log(req.body)
   // res.send({ message: "Success", success: true, }) //send to client side
   const { userId } = req.body;
   Users.findOne({ userId: userId }).then((user) => {
+
     res.send({
       message: 'Success',
       userMenu: user,
@@ -22,39 +23,15 @@ export const getAllMenu = (req, res) => {
 export const createManu = (req, res) => {
   // res.send({ message: "Success", success: true, }) //send to client side
   const { userId } = req.body;
-  req.body.menuId = uuidv4();
-  const menu = req.body;
-
+  const catagory = req.body.header.catagory
+  const menu = req.body.listMenu
+  console.log(req.body)
   Users.findOne({ userId: userId }, '-password').then((user) => {
-
     user.menu.push({
-      catagory: menu.catagory,
-      list: [
-        {
-          food_name: menu.food_name,
-          description: menu.description,
-          remark: menu.remark,
-          price: menu.price,
-          option_name_1: menu.option_name_1,
-          option_price_1: menu.option_price_1,
-          option_name_2: menu.option_name_2,
-          option_price_2: menu.option_price_2,
-          option_name_3: menu.option_name_3,
-          option_price_3: menu.option_price_3,
-          option_name_4: menu.option_name_4,
-          option_price_4: menu.option_price_4,
-          option_name_5: menu.option_name_5,
-          option_price_5: menu.option_price_5,
-          option_name_6: menu.option_name_6,
-          option_price_6: menu.option_price_6,
-          vetgeterian: menu.vetgeterian,
-          vegan: menu.vegan,
-          gluten_free: menu.gluten_free,
-          halal: menu.halal
-        },
-      ],
+      menuId: uuidv4(),
+      catagory: catagory,
+      listMenu: menu,
     });
-
     user.save();
     console.log(user);
     res.send({
@@ -66,42 +43,36 @@ export const createManu = (req, res) => {
 };
 
 //-
-export const additem = (req, res) => {
+export const getEditManu = (req, res) => {
+  const { userId } = req.body;
+  const { menuId } = req.body
+  Users.findOne({ userId: userId }, '-password').then((user) => {
+    user.menu.forEach(el => {
+      if (el.menuId === menuId) {
+        res.send({
+          message: 'Success',
+          userMenu: el,
+          success: true
+        });
+      }
+    })
+
+  });
+};
+
+//-
+export const saveEditMenu = (req, res) => {
   // res.send({ message: "Success", success: true, }) //send to client side
   const { userId } = req.body;
-  req.body.menuId = uuidv4();
-  const menu = req.body;
-
+  const catagory = req.body.header.catagory
+  const menu = req.body.listMenu
+  console.log(req.body)
   Users.findOne({ userId: userId }, '-password').then((user) => {
-
     user.menu.push({
-      catagory: menu.catagory,
-      list: [
-        {
-          food_name: menu.food_name,
-          description: menu.description,
-          remark: menu.remark,
-          price: menu.price,
-          option_name_1: menu.option_name_1,
-          option_price_1: menu.option_price_1,
-          option_name_2: menu.option_name_2,
-          option_price_2: menu.option_price_2,
-          option_name_3: menu.option_name_3,
-          option_price_3: menu.option_price_3,
-          option_name_4: menu.option_name_4,
-          option_price_4: menu.option_price_4,
-          option_name_5: menu.option_name_5,
-          option_price_5: menu.option_price_5,
-          option_name_6: menu.option_name_6,
-          option_price_6: menu.option_price_6,
-          vetgeterian: menu.vetgeterian,
-          vegan: menu.vegan,
-          gluten_free: menu.gluten_free,
-          halal: menu.halal
-        },
-      ],
+      menuId: uuidv4(),
+      catagory: catagory,
+      listMenu: menu,
     });
-
     user.save();
     console.log(user);
     res.send({
@@ -111,7 +82,6 @@ export const additem = (req, res) => {
     }); //send to client side
   });
 };
-
 
 
 //-

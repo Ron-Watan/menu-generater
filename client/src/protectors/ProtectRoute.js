@@ -3,15 +3,16 @@
 import { Navigate, Outlet, useNavigate } from "react-router-dom"
 import { getToken, ticketPass } from "./authorize"
 import { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import axios from "axios"
 import { setUser } from "../redux/userSlice"
+import { hideLoading } from "../redux/alertSlice"
 // import { hideLoading, showLoading } from "../redux/alertSlice"
 
 //  
 const ProtectRoute = () => {
   const navigate = useNavigate()
-  const { user } = useSelector(state => state.user)
+  // const { user } = useSelector(state => state.user)
 
   const dispath = useDispatch()
   const checkUserAuthorize = () => {
@@ -30,7 +31,7 @@ const ProtectRoute = () => {
         }
       }).catch(err => {
         console.log("App-CheckUserAuthorize/ Connection : fail", err)
-        // dispatch(hideLoading());
+        dispath(hideLoading());
         // localStorage.clear()
         // navigate("/login");
       })
@@ -44,6 +45,7 @@ const ProtectRoute = () => {
 
   useEffect(() => {
     checkUserAuthorize();
+    // eslint-disable-next-line
   }, []);
 
 

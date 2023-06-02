@@ -115,7 +115,6 @@ const MenuComponent = () => {
 
         {/* == <BannerExample /> == */}
         <BannerSubCompo />
-
         {/* == MENU == */}
         <CssBaseline />
         <ThemeProvider theme={theme}>
