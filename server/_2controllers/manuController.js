@@ -5,7 +5,6 @@ import jwt from 'jsonwebtoken';
 
 //-
 export const getAllMenu = (req, res) => {
-  console.log(req.body)
   // res.send({ message: "Success", success: true, }) //send to client side
   const { userId } = req.body;
   Users.findOne({ userId: userId }).select('menu userId').then((user) => {
@@ -23,7 +22,6 @@ export const getAllMenu = (req, res) => {
 export const createManu = (req, res) => {
 
   const { userId, catagory, listMenu } = req.body;
-
   Users.findOne({ userId: userId }).select('menu userId').then((user) => {
     user.menu.push({
       menuId: uuidv4(),

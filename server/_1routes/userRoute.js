@@ -17,7 +17,7 @@ router.post('/saveEditMenu', requireLogin, saveEditMenu)
 router.post('/deleteMenu', requireLogin, deleteMenu)
 
 // router.post('/apply-doctor', requireLogin, applyToDoctor)
-router.get('/customer/:link', showMenu)
+// router.get('/customer/:link', showMenu)
 
 
 // router.post('/markAllUnSeen', requireLogin,markAllUnSeen)
