@@ -24,7 +24,6 @@ export const createManu = (req, res) => {
 
   const { userId, catagory, listMenu } = req.body;
 
-  console.log(req.body)
   Users.findOne({ userId: userId }).select('menu userId').then((user) => {
     user.menu.push({
       menuId: uuidv4(),
@@ -73,7 +72,7 @@ export const saveEditMenu = (req, res) => {
 export const deleteMenu = (req, res) => {
   const { userId } = req.body
   const { menuId } = req.body
-  console.log('______________________' + userId)
+
   Users.findOneAndUpdate({ userId: userId }, {
     "$pull": {
       "menu": { "menuId": menuId }

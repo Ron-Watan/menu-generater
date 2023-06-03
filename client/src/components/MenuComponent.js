@@ -82,7 +82,7 @@ const MenuComponent = () => {
       <div className='relative max-w-lg'>
 
         <nav className="bg-C_navmain  top-0 z-50">
-          <div className="mx-auto max-w-7xl px-2">
+          <div className="mx-auto">
             <div className="relative flex h-12 items-center justify-between">
               <div className="relative flex items-center">
                 <img className="block h-6 w-auto" src={logo} alt="Your Company" />

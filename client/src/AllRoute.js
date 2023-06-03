@@ -12,7 +12,7 @@ const AllRoute = () => {
   return (
     <BrowserRouter >
       {loading && (<div className="loadering z-40">
-        <div className="fixed top-50 left-0 right-0 top-0 items-center block max-w-full min-h-screen bg-white bg-opacity-0 
+        <div className="fixed top-50 left-0 right-0 top-0 items-center block max-w-full min-h-screen  bg-opacity-0 
          rounded-lg shadow-md">
           <div role="status" className="absolute -translate-x-1/2 -translate-y-1/2 top-1/4 left-1/2">
             <svg aria-hidden="true" className="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 

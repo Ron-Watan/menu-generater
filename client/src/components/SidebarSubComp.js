@@ -26,23 +26,11 @@ const SidebarSubComp = () => {
     <div className="fixed top-40 z-20 ">
       {userSidebarLists.map((el, index) => {
         return (
-          // <a href={el.link} value={el.catagory} onClick={() => { setSideBarActive(el.catagory) }} className={`${isSideBarActive === el.catagory ? 'translate-x-0' : '-translate-x-2'} hover:translate-x-0  origin-left bg-C_bgsidebar flex justify-center items-center w-12 h-12 p-1 rounded-r`} style={{ marginBottom: '1px' }} key={uuidv4()}>
-          //   <i className={`block text-3xl text-C_fsidebar ${el.icon}`} ></i>
-          // </a >
           <a href={el.link} value={el.catagory} onClick={() => { setSideBarActive(el.catagory) }} className={`${isSideBarActive === el.catagory ? 'sidebarTrans1' : 'sidebarTrans2'} hover:translate-x-0  origin-left bg-C_bgsidebar flex justify-center items-center w-12 h-12 p-1 rounded-r sidebar`} key={index}>
             <i className={`block text-3xl text-C_fsidebar ${el.icon}`} ></i>
           </a >
         )
       })}
-      {/* {userSidebarLists.map(el => {
-        return (
-          <button href={el.link} value={el.catagory} onClick={() => { setSideBarActive(el.catagory) }} className={`${isSideBarActive === el.catagory ? 'translate-x-0' : '-translate-x-2'} hover:translate-x-0  shadow  shadow-blue origin-left bg-C_bgsidebar flex justify-center items-center w-12 h-12 p-2.5 rounded-r`} style={{ marginBottom: '1px' }} key={uuidv4()}>
-
-
-          </button >
-        )
-      })} */}
-
     </div>
   )
 };

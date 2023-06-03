@@ -12,6 +12,25 @@ body {
 /* .motionSideBar {
   transition: all 5s;
 } */
+.opacity1 {
+  opacity: 1;
+}
+
+.opacity0 {
+  opacity: 0;
+  transition: all 1s;
+}
+
+
+
+.formContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+}
+
+
 .monitor {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
@@ -19,7 +38,12 @@ body {
 }
 
 .monitor1 {
-  grid-column: 1/2;
+  position: relative;
+  grid-column: 1/3;
+  max-height: 95vh;
+  /* overflow-y: scroll; */
+  max-width: 50vh;
+  margin: 1rem
 }
 
 .monitor2 {
@@ -47,6 +71,10 @@ body {
 
 }
 
+.light-grey {
+  background-color: #e1e1e18d;
+}
+
 .tabCatalog {
   display: flex;
   justify-content: center;
@@ -54,12 +82,16 @@ body {
   padding: .5rem 1rem;
   font-size: 1.5rem;
   border-bottom: #5a5959 1px solid;
+  cursor: pointer;
 }
 
 .tabCatalog:hover {
-  background-color: #86838393;
+  background-color: #82b5da;
 }
 
+.tabCatalog:active {
+  background-color: #82b5da;
+}
 
 
 
@@ -460,12 +492,6 @@ body {
 </div> */
 
 
-.formContainer {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  padding: 5rem;
-}
 
 .formMenu {
   border: #000000 1px solid;

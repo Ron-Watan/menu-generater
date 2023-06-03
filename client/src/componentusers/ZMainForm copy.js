@@ -796,14 +796,10 @@ const MainForm = () => {
               focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
               focus-visible:outline-indigo-600">SAVE ADD ADD ITEM</button>
             </div>
-
+       
 
             <i className="sr-only">!END CATAGORY</i>
           </div>
-
-
-
-
 
 
 

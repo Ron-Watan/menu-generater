@@ -10,6 +10,7 @@ export const register = (req, res) => {
 
   const { password } = req.body
   req.body.userId = uuidv4()
+  req.body.link = uuidv4().slice(0, 9) + req.body.firstName
   bcrypt.hash(password, 10, (hashErr, hash) => {
     if (hash) {
       req.body.password = hash
@@ -27,7 +28,6 @@ export const register = (req, res) => {
 //- LOGIN
 export const login = (req, res) => {
   const { email } = req.body
-  console.log(req.body.userId)
   Users.findOne({ email }).then(userResult => {
     if (!userResult) {
       return res.send({ message: "Email does not exit" })
