@@ -1,8 +1,10 @@
 import Users from "../_3models/menuModel.js"
+import Clients from "../_3models/clientModel.js";
 import { v4 as uuidv4 } from 'uuid';
 import bcrypt from "bcryptjs"
 import jwt from 'jsonwebtoken'
-// import Doctors from "../models/doctorModel.js"
+
+
 
 
 //- REGISTER
@@ -48,6 +50,26 @@ export const login = (req, res) => {
 
 }
 
+export const generateMenu = (req, res) => {
+  const { userId, link } = req.body;
+  console.log(link)
+  Users.findOne({ userId: userId }).then(user => {
+    console.log(user)
+    Clients.create({
+      link: link
+    })
+    res.send({
+      message: 'Success',
+      userMenu: user,
+      success: true
+
+    })
+
+  })
+}
+
+
+
 
 //-  BLOCK CHECK TOKEN'S USER TO ALLOW TO PAGE THEN SEND ID TO USE info and Store to page
 export const requireLogin = (req, res, next) => {
@@ -68,7 +90,7 @@ export const requireLogin = (req, res, next) => {
 
 //- GET USER INFO to SAVE IN REDUX at Protector Compo
 export const getInfoUserToStore = (req, res) => {
-  Users.findOne({ userId: req.proved.userToken }).select('menu userId').then(result => {
+  Users.findOne({ userId: req.proved.userToken }).select('menu userId link').then(result => {
     if (!result) return res.status(200).send({ message: "User doues not exit", success: false })
     else {
 
@@ -85,27 +107,6 @@ export const getInfoUserToStore = (req, res) => {
 
 
 
-// // aplly-doctor
-// export const applyToDoctor = (req, res) => {
-//   const newDoctor = new Doctors({ ...req.body, status: "pending" })
-//   newDoctor.save().then(result => {
-//     Users.findOne({ account: 1 }).then(admin => {
-//       admin.unseeNotifications.push({
-//         type: 'New doctor request',
-//         message: `${newDoctor.firstName} has applied to doctor account`,
-//         data: {
-//           doctorId: newDoctor.userId,
-//           name: `${newDoctor.firstName} ${newDoctor.lastName}`,
-//         },
-//         onClickPath: '/admin/doctor',
-//         date: new Date().toLocaleString()
-//       })
-//       admin.save()
-//       console.log(result)
-//       res.send({ message: "Success", success: true, }) //send to client side
-//     })
-//   })
-// }
 
 
 // export const markAllUnSeen = (req, res) => {

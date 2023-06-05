@@ -2,12 +2,13 @@ import Users from '../_3models/menuModel.js';
 import { v4 as uuidv4 } from 'uuid';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import Clients from '../_3models/clientModel.js';
 
 //-
 export const getAllMenu = (req, res) => {
   // res.send({ message: "Success", success: true, }) //send to client side
   const { userId } = req.body;
-  Users.findOne({ userId: userId }).select('menu userId').then((user) => {
+  Users.findOne({ userId: userId }).select('menu userId link').then((user) => {
 
     res.send({
       message: 'Success',
@@ -20,33 +21,34 @@ export const getAllMenu = (req, res) => {
 
 //-
 export const createManu = (req, res) => {
-
-  const { userId, catagory, listMenu } = req.body;
-  Users.findOne({ userId: userId }).select('menu userId').then((user) => {
+  // console.log(req.body)
+  const { userId, catagory, listMenu, link } = req.body;
+  Users.findOne({ userId: userId }).select('menu userId link').then((user) => {
     user.menu.push({
       menuId: uuidv4(),
       catagory: catagory,
       listMenu: listMenu,
     });
     user.save();
-    console.log(user);
-    res.send({
-      message: 'Success',
-      userMenu: user, // May need all Information first
-      success: true
-    });
+    Clients.findOneAndReplace({ link: user.link }, {
+      link: user.link,
+      menu: user.menu
+    }).then(client => {
+      res.send({
+        message: 'Success',
+        userMenu: user,
+        success: true
+      });
+    })
+
   });
 };
 
 
 
-
-//-
+//- // componentusers/MainForm.js
 export const saveEditMenu = (req, res) => {
-  const { menuId } = req.body
-  const { catagory } = req.body
-  const { listMenu } = req.body
-
+  const { menuId, catagory, listMenu, link } = req.body;
   Users.findOneAndUpdate({ 'menu.menuId': menuId }, {
     $set: {
       "menu.$": {
@@ -55,21 +57,33 @@ export const saveEditMenu = (req, res) => {
         listMenu: listMenu,
       }
     }
-  }).select('menu userId').then((user) => {
+  }).then(user => {
     res.send({
       message: 'Success',
       userMenu: user,
       success: true
     });
-  });
+  })
+  Clients.findOneAndUpdate({ 'menu.menuId': menuId }, {
+    $set: {
+      "menu.$": {
+        menuId: menuId,
+        catagory: catagory,
+        listMenu: listMenu,
+      }
+    }
+  }).then(client => {
+    console.log('Data Edited')
+  })
+
 };
 
 //-
 
 
 export const deleteMenu = (req, res) => {
-  const { userId } = req.body
-  const { menuId } = req.body
+
+  const { userId, menuId, link } = req.body
 
   Users.findOneAndUpdate({ userId: userId }, {
     "$pull": {
@@ -81,7 +95,17 @@ export const deleteMenu = (req, res) => {
       userMenu: user,
       success: true
     });
+
   })
+  Clients.findOneAndUpdate({ link: link }, {
+    "$pull": {
+      "menu": { "menuId": menuId }
+    }
+  }).then(client => {
+    console.log('Data Deleted')
+  })
+
+
 };
 
 // Dive.update({ _id: diveId }, { "$pull": { "divers": { "user": userIdToRemove } }}, { safe: true, multi:true }, function(err, obj) {

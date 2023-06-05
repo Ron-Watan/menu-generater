@@ -12,7 +12,7 @@ const clientSchema = mongoose.Schema({
 
 }, { timestamps: true })
 
-const Client = mongoose.model('Client', clientSchema)
+const Clients = mongoose.model('Clients', clientSchema)
 
-export default Client
+export default Clients
 

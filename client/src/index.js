@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+import './style/bannerSlider.css';
 import reportWebVitals from './reportWebVitals';
 import AllRoute from './AllRoute';
 import { Provider } from 'react-redux';

@@ -41,7 +41,7 @@ function BannerSubCompo() {
   }
   const [indexDot, setIndexDot] = useState(1)
   const setFinishedIndex = (i) => {
-    console.log("finished dragging on slide", i);
+    // console.log("finished dragging on slide", i);
     setIndexDot(i);
  
   };

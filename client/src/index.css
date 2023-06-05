@@ -72,7 +72,11 @@ body {
 }
 
 .light-grey {
+  background-color: #e1e1e156;
+
+
   background-color: #e1e1e18d;
+  
 }
 
 .tabCatalog {
@@ -562,10 +566,6 @@ body {
 }
 
 /* ///////////////////////////////////////////////////////////////// */
-
-
-
-
 
 
 

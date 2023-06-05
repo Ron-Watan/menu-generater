@@ -4,6 +4,7 @@ import dotenv from 'dotenv'; dotenv.config()
 import cors from 'cors'
 import morgan from "morgan";
 import userRoute from './_1routes/userRoute.js'
+import clientsRoute from './_1routes/clientsRoute.js'
 
 
 const app = express()
@@ -13,7 +14,7 @@ app.use(morgan('dev')) // log HTTP named dev
 
 // app.use('/api/client', clientRoute)
 app.use('/api/user', userRoute)
-
+app.use('/api/clients', clientsRoute)
 
 mongoose.connect(process.env.MONGODB_URL, {
   useNewUrlParser: true,

@@ -29,13 +29,13 @@ const MainForm = () => {
       setScreenSize(getCurrentDimension())
     }
     window.addEventListener('resize', updateDimension);
-    
-    return(() => {
-        window.removeEventListener('resize', updateDimension);
+
+    return (() => {
+      window.removeEventListener('resize', updateDimension);
     })
   }, [screenSize])
 
-  console.log(screenSize.height)
+
 
   // const ref = useRef()
   const dispath = useDispatch()
@@ -68,7 +68,7 @@ const MainForm = () => {
     data[index][event.target.name] = event.target.value;
     setListMenu(data);
   }
-
+console.log(listMenu)
   const additem = () => {
     let newListMenu = listMenuModel
     setListMenu([...listMenu, newListMenu])
@@ -95,7 +95,6 @@ const MainForm = () => {
   const componentDidMount = () => {
     window.scrollTo(0, 0)
   }
-
   //-
   const getAllMenu = () => {
     // dispath(showLoading())
@@ -126,7 +125,7 @@ const MainForm = () => {
 
     // dispath(showLoading())
     axios.post(`${process.env.REACT_APP_API}/user/create-manu`,
-      { catagory: state.catagory, listMenu: [...listMenu], userId: user.userId }, ticketPass)
+      { catagory: state.catagory, listMenu: [...listMenu], userId: user.userId, link: user.link }, ticketPass)
       .then(result => {
         if (result.data.success) {
           getAllMenu()
@@ -156,7 +155,7 @@ const MainForm = () => {
     e.preventDefault();
     dispath(showLoading())
     axios.post(`${process.env.REACT_APP_API}/user/saveEditMenu`,
-      { menuId: menuId, catagory: state.catagory, listMenu: [...listMenu], userId: user.userId, }, ticketPass)
+      { menuId: menuId, catagory: state.catagory, listMenu: [...listMenu], userId: user.userId, link: user.link }, ticketPass)
       .then(result => {
         if (result.data.success) {
           // Swal.fire(result.data.message)
@@ -217,11 +216,12 @@ const MainForm = () => {
     e.preventDefault();
     componentDidMount()
     axios.post(`${process.env.REACT_APP_API}/user/deleteMenu`,
-      { menuId: menuId, listMenu: [...listMenu], userId: user.userId }, ticketPass)
+      { menuId: menuId, listMenu: [...listMenu], userId: user.userId, link: user.link }, ticketPass)
       .then(result => {
         if (result.data.success) {
-          dispath(setUser(result.data.userMenu));
 
+          dispath(setUser(result.data.userMenu));
+          setMenuId('')
           setState({ catagory: '' })
           setListMenu([listMenuModel])
 
@@ -256,7 +256,7 @@ const MainForm = () => {
     // eslint-disable-next-line
   }, [user])
 
-  console.log(Boolean(state.catagory))
+  console.log('USER: ' + Boolean(user))
 
   // //-///-///-///-///-///-///-///-///-///-///-
 
@@ -269,6 +269,7 @@ const MainForm = () => {
 
         <div className="monitor1">
           {/* <MenuComponent /> */}
+          <a href="/generatemenu">generatemenu</a>
         </div>
 
         <div className="formContainer monitor2">
@@ -569,7 +570,7 @@ const MainForm = () => {
                       </div>
 
 
-                      <div className={`mt-6 flex items-center justify-end gap-x-6 `}>
+                      <div className={`mt-6 flex items-center justify-start gap-x-6 `}>
                         <button onClick={removeItem} type="button" className="bg-blue rounded-md bg-indigo-600 px-3 
                         py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500
                         focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
@@ -608,14 +609,14 @@ const MainForm = () => {
 
             <div className="flex justify-center">
 
-              <div className={`${menuId&& 'hidden'} flex  items-center justify-center gap-x-6`}>
+              <div className={`${menuId && 'hidden'} flex  items-center justify-center gap-x-6`}>
                 <button type="submit" className="bg-blue rounded-md bg-
             indigo-600 px-20 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500
             focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
             focus-visible:outline-indigo-600">Save New Category</button>
               </div>
 
-              <div className={` ${!menuId&& 'hidden'} flex items-center justify-center gap-x-6`}>
+              <div className={` ${!menuId && 'hidden'} flex items-center justify-center gap-x-6`}>
                 <button onClick={saveEditMenu} type="" className="bg-blue rounded-md bg-
             indigo-600 px-20 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500
             focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2

@@ -12,7 +12,7 @@ import Texttest from './Text';
 import i18n from './multiLanguage/i18n';
 import axios from 'axios';
 import { ticketPass } from '../protectors/authorize';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 // import LocaleContext from './LocaleContext';
@@ -27,37 +27,11 @@ const theme = createTheme({
 });
 
 
-const MenuComponent = () => {
-  const { user } = useSelector(state => state.user)
+const _MenuComponent = () => {
 
-  // const navigate = useNavigate()
-  // const checkUserAuthorize = () => {
-  //   axios
-  //     .post(`${process.env.REACT_APP_API}/user/info-user`, {}, ticketPass)
-  //     .then(result => {
-  //       if (result) {
-  //         console.log("App-CheckUserAuthorize : true")
-  //         console.log(result)
-  //       }
-  //       else {
-  //         console.log("rrr")
+  const [clientMenu, setClientMenu] = useState([])
 
-  //         // localStorage.clear()
-  //         navigate('/login')
-  //       }
-  //     }).catch(err => {
-  //       console.log("App-CheckUserAuthorize/ Connection : fail", err)
-  //       // dispatch(hideLoading());
-  //       // localStorage.clear()
-  //       // navigate("/login");
-  //     })
-  // }
-
-  // useEffect(() => {
-
-  //     checkUserAuthorize();
-
-  // }, [])
+  const { link } = useParams()
 
   const [started, setStarted] = useState(false)
 
@@ -76,12 +50,48 @@ const MenuComponent = () => {
 
   }, [])
 
+
+
+  const getClientMenu = () => {
+    // dispath(showLoading())
+    axios.get(`${process.env.REACT_APP_API}/clients/${link}`)
+      .then(result => {
+        if (result.data.success) {
+          console.log(result.data)
+          setClientMenu(result.data.clientMenu.menu)
+          // setClentMenu(result.data.userMenu.menu)
+          // dispath(hideLoading())
+        } else {
+          // Swal.fire(result.data.message)
+          // dispath(hideLoading())
+        }
+      }).catch(err => {
+
+        console.log("Can't not connect the server", err)
+        // Swal.fire("Can't not connect the server")
+      })
+  }
+
+
+  // const listMenu = clentMenu.listMenu
+  console.log(clientMenu)
+
+
+
+
+
+
+  
+  useEffect(() => {
+    getClientMenu()
+
+  }, [])
+
+
   return (
     <div className=''>
 
       <div className='relative max-w-lg'>
-        <a href="/mainform">mainform</a>
-        <a href="/generatemenu">generatemenu</a>
 
         <nav className="bg-C_navmain  top-0 z-50">
           <div className="mx-auto">
@@ -109,26 +119,29 @@ const MenuComponent = () => {
           </div>
         </nav>
 
-
         {/* == SIDE BAR == */}
         < SidebarSubComp />
-
-
 
         {/* == <BannerExample /> == */}
         <BannerSubCompo />
         {/* == MENU == */}
         <CssBaseline />
         <ThemeProvider theme={theme}>
+
+          {clientMenu.map((el, index) => (
+
+            <AcordionSubComp listMunu={el}  />
+
+          ))}
+
+          {/* <AcordionSubComp />
           <AcordionSubComp />
           <AcordionSubComp />
           <AcordionSubComp />
           <AcordionSubComp />
           <AcordionSubComp />
           <AcordionSubComp />
-          <AcordionSubComp />
-          <AcordionSubComp />
-          <AcordionSubComp />
+          <AcordionSubComp /> */}
         </ThemeProvider>
 
 
@@ -223,7 +236,7 @@ const MenuComponent = () => {
   )
 }
 
-export default MenuComponent
+export default _MenuComponent
 
 
 

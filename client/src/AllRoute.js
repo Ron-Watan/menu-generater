@@ -5,6 +5,8 @@ import RegisterComponent from "./accounts/RegisterComponent"
 import LoginComponent from "./accounts/LoginComponent"
 import MainForm from "./componentusers/MainForm"
 import ProtectRoute from "./protectors/ProtectRoute"
+import GenerateMenu from "./componentusers/GenerateMenu"
+import _MenuComponent from "./components/_MenuComponent"
 
 const AllRoute = () => {
   const { loading } = useSelector((state) => state.alerts);
@@ -23,9 +25,10 @@ const AllRoute = () => {
       </div>)}
       <Routes>
         <Route Component={ProtectRoute}>
+          {/* <Route path="/generatemenu" exact Component={GenerateMenu} /> */}
 
           {/* <Route path="/" exact Component={App} /> */}
-          <Route path="/" exact Component={MenuComponent} />
+          <Route path="/" exact Component={GenerateMenu} />
 
 
           {/* <Route Component={ProtectRoute}> */}
@@ -36,9 +39,11 @@ const AllRoute = () => {
 
 
         </Route>
-        <Route path="/login" exact Component={LoginComponent} />
 
+
+        <Route path="/login" exact Component={LoginComponent} />
         <Route path="/register" exact Component={RegisterComponent} />
+        <Route path="/customer/:link" exact Component={_MenuComponent} />
 
       </Routes>
     </BrowserRouter >
