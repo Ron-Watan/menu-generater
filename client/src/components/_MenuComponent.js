@@ -30,7 +30,7 @@ const theme = createTheme({
 const _MenuComponent = () => {
 
   const [clientMenu, setClientMenu] = useState([])
-
+  const [favorLists, setFavorList] = useState([])
   const { link } = useParams()
 
   const [started, setStarted] = useState(false)
@@ -74,14 +74,16 @@ const _MenuComponent = () => {
 
 
   // const listMenu = clentMenu.listMenu
-  console.log(clientMenu)
+  console.log('Main clientMenu=> ' + Boolean(clientMenu))
 
 
 
 
+  function favorite (favorList){
+    setFavorList(favorList)
+  }
 
 
-  
   useEffect(() => {
     getClientMenu()
 
@@ -130,7 +132,7 @@ const _MenuComponent = () => {
 
           {clientMenu.map((el, index) => (
 
-            <AcordionSubComp listMunu={el}  />
+            <AcordionSubComp listMunu={el} favorite={favorite} key={index}  />
 
           ))}
 
@@ -149,7 +151,7 @@ const _MenuComponent = () => {
 
         <Texttest />
         <div className="footerSpace"></div>
-        <FooterComponent />
+        <FooterComponent favorLists={favorLists}/>
 
 
         <div>

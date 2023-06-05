@@ -1,3 +1,13 @@
 /* .rtds-single-slide-styles {
   width: 25rem !important
 } */
+
+.MuiAccordionSummary-content{
+display: flex;
+justify-content: space-between;
+padding-right: 1rem;
+/* padding-right: 3ren; */
+}
+/* .css-tenmn2-MuiAccordionDetails-root{
+  display: none;
+} */

@@ -48,27 +48,31 @@ const MainForm = () => {
 
   const inputValue = (name) => (even) => {
     setState({ ...state, [name]: even.target.value })
+
   }
 
   let listMenuModel = {
-    food_name: '', description: '', remark: '', price: '',
+    food_name: '', description: '', remark: '', price: 0,
     vetgeterian: '', vegan: '', gluten_free: '', halal: '',
-    option_name_1: '', option_price_1: '',
-    option_name_2: '', option_price_2: '',
-    option_name_3: '', option_price_3: '',
-    option_name_4: '', option_price_4: '',
-    option_name_5: '', option_price_5: '',
-    option_name_6: '', option_price_6: '',
+    // option_name_1: '', option_price_1: '',
+    // option_name_2: '', option_price_2: '',
+    // option_name_3: '', option_price_3: '',
+    // option_name_4: '', option_price_4: '',
+    // option_name_5: '', option_price_5: '',
+    // option_name_6: '', option_price_6: '',
+ 
+
   }
   const [listMenu, setListMenu] = useState([listMenuModel])
 
 
   const inputListValue = (index, event) => {
-    let data = [...listMenu];
-    data[index][event.target.name] = event.target.value;
-    setListMenu(data);
+    let dataSet = [...listMenu];
+    let data = dataSet[index];
+    data[event.target.name] = event.target.value;
+    if (event.target.name === 'price') data['original_price'] = event.target.value
+    setListMenu(dataSet);
   }
-console.log(listMenu)
   const additem = () => {
     let newListMenu = listMenuModel
     setListMenu([...listMenu, newListMenu])
@@ -121,7 +125,7 @@ console.log(listMenu)
   const submitCatagory = (e) => {
     e.preventDefault();
     componentDidMount()
-    if (!state.catagory.trim()) return console.log(' Catat')
+    if (!state.catagory.trim()) return
 
     // dispath(showLoading())
     axios.post(`${process.env.REACT_APP_API}/user/create-manu`,
@@ -358,7 +362,7 @@ console.log(listMenu)
                   </div>
 
                   <div className="layoutManu2">
-                    <div className="">
+                    {/* <div className="">
                       <i className="sr-only">###1</i>
                       <div className="">
                         <div className="smallFlex">
@@ -512,7 +516,7 @@ console.log(listMenu)
 
 
 
-                    </div>
+                    </div> */}
 
                     <fieldset>
                       <i className="sr-only">!DIETARY</i>

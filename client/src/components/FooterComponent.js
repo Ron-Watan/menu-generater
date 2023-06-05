@@ -69,8 +69,8 @@ const itemList = [
   },
 ]
 
-const FooterComponent = () => {
-
+const FooterComponent = (prop) => {
+console.log(prop.favorLists)
   const [activeLang, setActiveLang] = useState(false)
   const [activeList, setActiveList] = useState(false)
   const [activeComment, setActiveComment] = useState(false)
