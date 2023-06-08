@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import { ticketPass } from "../protectors/authorize"
@@ -45,7 +45,7 @@ const MainForm = () => {
   const { user } = useSelector(state => state.user)
   const [categoryList, setCategoryList] = useState([])
   const [menuId, setMenuId] = useState('')
-  // const [menuIdVar, setMenuIdVar] = useState('')
+
 
   const [state, setState] = useState({ catagory: '' })
 
@@ -53,23 +53,33 @@ const MainForm = () => {
     setState({ ...state, [name]: even.target.value })
 
   }
-
   let listMenuModel = {
     food_name: '', description: '', remark: '', price: '',
-    vetgeterian: '', vegan: '', gluten_free: '', halal: '',
+    vetgeterian: false, vegan: false, gluten_free: false, halal: false,
 
   }
+
   const [listMenu, setListMenu] = useState([listMenuModel])
 
 
   const inputListValue = (index, event) => {
+    console.dir(event.target.checked)
     let dataSet = [...listMenu];
     let data = dataSet[index];
     data[event.target.name] = event.target.value;
-    if (event.target.name === 'price') data['original_price'] = event.target.value
     setListMenu(dataSet);
   }
+  console.log(categoryList)
+  // const inputListCheck = (index, event) => {
+  //   console.dir(event.target.checked)
+  //   let dataSet = [...listMenu];
+  //   let data = dataSet[index];
+  //   data[event.target.name] = event.target.checked;
+  //   setListMenu(dataSet);
+  // }
+
   const additem = () => {
+
     let newListMenu = listMenuModel
     setListMenu([...listMenu, newListMenu])
   }
@@ -102,6 +112,7 @@ const MainForm = () => {
       .then(result => {
         if (result.data.success) {
           // Swal.fire(result.data.message)
+         
           setCategoryList(result.data.userMenu.menu)
           // dispath(hideLoading())
         } else {
@@ -120,6 +131,7 @@ const MainForm = () => {
 
   const submitCatagory = (e) => {
     e.preventDefault();
+    if (categoryList.length > 14) return alert('DDDD')
     console.log(e.target)
     componentDidMount()
     if (!state.catagory.trim()) return
@@ -132,12 +144,25 @@ const MainForm = () => {
           getAllMenu()
           dispath(setUser(result.data.userMenu));
           actionDelay()
-          // Swal.fire(result.data.message)
-          setState({
-            catagory: '',
+          Unchecked()
+          setListMenu([listMenuModel])
+          setState({ catagory: '' })
+          dispath(hideLoading())
+
+          Swal.fire({
+            title: 'SAVED',
+            text: 'Your menu has been saved',
+            toast: true,
+            icon: 'success',
+            // confirmButtonText: 'SAVED',
+            showConfirmButton: false,
+            // width: '16rem',
+            // height: '5rem',
+            iconColor: '#cb2722',
+            // confirmButtonColor: '#cb2722',
+            timer: 2000,
           })
 
-          dispath(hideLoading())
         } else {
           // Swal.fire(result.data.message)
           dispath(hideLoading())
@@ -163,6 +188,19 @@ const MainForm = () => {
           dispath(setUser(result.data.userMenu));
           actionDelay()
           dispath(hideLoading())
+          Swal.fire({
+            title: 'SAVED',
+            text: 'Your menu has been saved',
+            toast: true,
+            icon: 'success',
+            // confirmButtonText: 'SAVED',
+            showConfirmButton: false,
+            // width: '16rem',
+            // height: '5rem',
+            iconColor: '#cb2722',
+            // confirmButtonColor: '#cb2722',
+            timer: 2000,
+          })
         } else {
           Swal.fire(result.data.message)
           dispath(hideLoading())
@@ -212,10 +250,11 @@ const MainForm = () => {
 
 
   const deleteMenu = (e) => {
+    e.preventDefault();
     const menuId = e.target.value
     dispath(showLoading())
-    e.preventDefault();
     componentDidMount()
+
     axios.post(`${process.env.REACT_APP_API}/user/deleteMenu`,
       { menuId: menuId, listMenu: [...listMenu], userId: user.userId, link: user.link }, ticketPass)
       .then(result => {
@@ -225,9 +264,10 @@ const MainForm = () => {
           setMenuId('')
           setState({ catagory: '' })
           setListMenu([listMenuModel])
-
+          actionDelay()
           // Swal.fire(result.data.message)
           dispath(hideLoading())
+
         } else {
           Swal.fire(result.data.message)
           dispath(hideLoading())
@@ -250,7 +290,7 @@ const MainForm = () => {
     setTimeout(() => {
       getAllMenu()
       console.log('ss')
-    }, 1000);
+    }, 2000);
   }
   const [deleteBtn, setDeleteBtn] = useState(false)
   function showDeleteBtn() {
@@ -282,6 +322,43 @@ const MainForm = () => {
     getAllMenu()
     // eslint-disable-next-line
   }, [user])
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  })
+
+
+  const ref = useRef([]);
+
+  const checkboxvalue = (e) => {
+    console.log(e.target.value)
+  }
+
+  const Unchecked = () => {
+
+    console.log(ref.current.length)
+    for (let i = 0; i < ref.current.length; i++) {
+
+      ref.current[i].checked = false;
+    }
+
+  }
+  const Checked = () => {
+
+    console.log(ref.current.length)
+    for (let i = 0; i < ref.current.length; i++) {
+
+      ref.current[i].checked = true;
+    }
+
+  }
 
 
 
@@ -289,15 +366,14 @@ const MainForm = () => {
 
   return (
     <div>
-      {/* <NavbarComponent/> */}
+
       <div className="decorBar"></div>
       <div className="monitor ">
 
         <NavbarComponent />
 
         <div className="monitor1">
-          {/* <MenuComponent /> */}
-          {/* <a href="/generatemenu">generatemenu</a> */}
+
         </div>
 
         <div onClick={() => setDeleteBtn(false)} className="monitor2 formContainer ">
@@ -306,45 +382,51 @@ const MainForm = () => {
             <div className="stickyBox1"></div>
             <div className="stickyBox">
               <div className="gridCat">
-                <button onClick={() => {
+                <div onClick={() => {
                   setStart(false)
                   setMenuId('')
-                }} className="closeBtn">CLOSE</button>
+
+                }} className="closeBtn">CLOSE</div>
                 <div className="flexIcoCat">
 
                   <div className="icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-8 h-8">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M21 7.5l-2.25-1.313M21 7.5v2.25m0-2.25l-2.25 1.313M3 7.5l2.25-1.313M3 7.5l2.25 1.313M3 7.5v2.25m9 3l2.25-1.313M12 12.75l-2.25-1.313M12 12.75V15m0 6.75l2.25-1.313M12 21.75V19.5m0 2.25l-2.25-1.313m0-16.875L12 2.25l2.25 1.313M21 14.25v2.25l-2.25 1.313m-13.5 0L3 16.5v-2.25" />
+                    <svg width="35" height="35" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M1.656 16.622C1.656 16.91 1.491 17.054 1.161 17.054C0.825 17.054 0.657 16.91 0.657 16.622V11.978C0.657 11.69 0.825 11.546 1.161 11.546C1.491 11.546 1.656 11.69 1.656 11.978V16.622ZM1.845 10.412C1.845 10.604 1.779 10.766 1.647 10.898C1.515 11.03 1.353 11.096 1.161 11.096C0.969 11.096 0.804 11.03 0.666 10.898C0.534 10.766 0.468 10.604 0.468 10.412C0.468 10.214 0.534 10.049 0.666 9.917C0.804 9.785 0.969 9.719 1.161 9.719C1.353 9.719 1.515 9.785 1.647 9.917C1.779 10.049 1.845 10.214 1.845 10.412ZM7.23558 15.569C7.23558 16.061 7.07358 16.424 6.74958 16.658C6.43158 16.886 6.11358 17 5.79558 17H4.28358C3.96558 17 3.65658 16.886 3.35658 16.658C3.21258 16.538 3.10158 16.388 3.02358 16.208C2.94558 16.022 2.90658 15.809 2.90658 15.569V13.004C2.90658 12.518 3.05658 12.158 3.35658 11.924C3.50658 11.816 3.65958 11.732 3.81558 11.672C3.97758 11.606 4.13358 11.573 4.28358 11.573H5.79558C5.93958 11.573 6.09858 11.603 6.27258 11.663C6.44658 11.717 6.60858 11.792 6.75858 11.888C6.90258 11.99 7.01658 12.131 7.10058 12.311C7.19058 12.491 7.23558 12.704 7.23558 12.95V13.4C7.23558 13.688 7.07058 13.832 6.74058 13.832C6.41058 13.832 6.24558 13.688 6.24558 13.4V13.013C6.24558 12.863 6.19758 12.728 6.10158 12.608C6.01158 12.482 5.85558 12.419 5.63358 12.419H4.50858C4.28658 12.419 4.12758 12.482 4.03158 12.608C3.94158 12.728 3.89658 12.863 3.89658 13.013V15.56C3.89658 15.704 3.94158 15.839 4.03158 15.965C4.12758 16.091 4.28658 16.154 4.50858 16.154H5.63358C5.85558 16.154 6.01158 16.091 6.10158 15.965C6.19758 15.839 6.24558 15.704 6.24558 15.56V15.146C6.24558 14.864 6.41058 14.723 6.74058 14.723C7.07058 14.723 7.23558 14.864 7.23558 15.146V15.569ZM11.2446 11.582C11.4006 11.582 11.5596 11.615 11.7216 11.681C11.8896 11.747 12.0516 11.831 12.2076 11.933H12.1986C12.3546 12.047 12.4746 12.197 12.5586 12.383C12.6426 12.563 12.6846 12.773 12.6846 13.013V15.569C12.6846 16.061 12.5226 16.424 12.1986 16.658C11.8806 16.886 11.5626 17 11.2446 17H9.80459C9.64859 17 9.48959 16.973 9.32759 16.919C9.16559 16.865 9.00659 16.778 8.85059 16.658C8.52659 16.43 8.36459 16.067 8.36459 15.569V13.013C8.36459 12.773 8.40659 12.563 8.49059 12.383C8.57459 12.197 8.69459 12.047 8.85059 11.933H8.84159C8.99159 11.831 9.15059 11.747 9.31859 11.681C9.48659 11.615 9.64859 11.582 9.80459 11.582H11.2446ZM11.0826 16.154C11.3046 16.154 11.4606 16.091 11.5506 15.965C11.6466 15.839 11.6946 15.704 11.6946 15.56V13.022C11.6946 12.872 11.6466 12.737 11.5506 12.617C11.4606 12.491 11.3046 12.428 11.0826 12.428H9.96659C9.74459 12.428 9.58559 12.491 9.48959 12.617C9.39959 12.737 9.35459 12.872 9.35459 13.022V15.56C9.35459 15.704 9.39959 15.839 9.48959 15.965C9.58559 16.091 9.74459 16.154 9.96659 16.154H11.0826ZM14.8126 16.622C14.8126 16.91 14.6476 17.054 14.3176 17.054C13.9876 17.054 13.8226 16.91 13.8226 16.622V13.004C13.8226 12.758 13.8616 12.545 13.9396 12.365C14.0176 12.185 14.1406 12.038 14.3086 11.924C14.6266 11.696 14.9446 11.582 15.2626 11.582H16.7116C17.0176 11.582 17.3356 11.696 17.6656 11.924C17.9896 12.152 18.1516 12.512 18.1516 13.004V16.622C18.1516 16.91 17.9866 17.054 17.6566 17.054C17.3266 17.054 17.1616 16.91 17.1616 16.622V13.085C17.1616 12.929 17.1136 12.779 17.0176 12.635L17.0266 12.644C16.9486 12.5 16.7896 12.428 16.5496 12.428H15.4246C15.1786 12.428 15.0166 12.5 14.9386 12.644C14.8546 12.77 14.8126 12.917 14.8126 13.085V16.622Z" fill="#999" />
+                      <path d="M7.75 4.375L4.375 4.375M4.375 4.375L1 4.375M4.375 4.375L4.375 7.75M4.375 4.375L4.375 1M15.25 1L13 1C12.4033 1 11.831 1.23705 11.409 1.65901C10.9871 2.08097 10.75 2.65326 10.75 3.25L10.75 5.5C10.75 6.09674 10.9871 6.66903 11.409 7.09099C11.831 7.51295 12.4033 7.75 13 7.75L15.25 7.75C15.8467 7.75 16.419 7.51295 16.841 7.09099C17.2629 6.66903 17.5 6.09674 17.5 5.5L17.5 3.25C17.5 2.65326 17.2629 2.08097 16.841 1.65901C16.419 1.23705 15.8467 1 15.25 1Z" stroke="#999" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
+
                   </div>
 
                   <div className="boxInputText">
                     <input onChange={inputValue('catagory')} value={state.catagory}
                       placeholder="Catagory" type="text" name="catagory" id="catagory"
-                      autoComplete="off" className="inputText fontCat" />
+                      autoComplete="off" className="inputText fontCat" required />
                   </div>
                 </div>
 
                 <i className="sr-only">!Photo</i>
                 <div className="flexPhoto">
-                  <div className="">
-                    <label htmlFor="file-upload" className="labelPhoto">
-                      <input onChange={valuePhotoFn} id="file-upload" name="file-upload" type="file" className="inputPhoto" />
+                  {/* <div className=""> */}
+                  <label htmlFor="file-upload" className="labelPhoto">
+                    <input onChange={valuePhotoFn} id="file-upload" name="file-upload" type="file" className="inputPhoto" />
 
-                      <div name='photo' className="photoFlex">
-                        <svg className="mx-auto h-12 w-12 text-blue" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                          <path fillRule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clipRule="evenodd" />
-                        </svg>
-                        <div className="">
-                          <div className="">{valuePhoto}</div>
-
-                        </div>
+                    <div name='photo' className="photoFlex">
+                      <svg className="iconPhoto" viewBox="0 0 24 24" fill="#999" aria-hidden="true">
+                        <path fillRule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clipRule="evenodd" />
+                      </svg>
+                      <div className="photoText fontNormal">
+                        <div className="">{valuePhoto}</div>
                       </div>
-                    </label>
-                    <p className="remarkPhoto">Upload a file PNG, JPG, GIF up to 10MB</p   >
-                  </div>
+                      <p className="remarkPhoto">Upload a file PNG, JPG up to 5MB</p >
+
+                    </div>
+                  </label>
+
+                  {/* </div> */}
                 </div>
+
               </div>
+
 
             </div>
 
@@ -358,11 +440,11 @@ const MainForm = () => {
                     <i className="sr-only">!FOOD NAME</i>
                     <div className="flex">
                       <span className="item">{index + 1}</span>
-                      <div className=" ">
-                        <input onChange={event => inputListValue(index, event)} value={el.food_name}
-                          type="text" name="food_name" id="food-name" autoComplete="off"
-                          className="inputTextFood fontNormal" placeholder="Food name" />
-                      </div>
+
+                      <input onChange={event => inputListValue(index, event)} value={el.food_name}
+                        type="text" name="food_name" id="food-name" autoComplete="off"
+                        className="inputTextFood fontNormal" placeholder="Food name" />
+
                     </div>
 
                     <i className="sr-only">!DESCRIPTION</i>
@@ -401,65 +483,80 @@ const MainForm = () => {
 
                     <fieldset>
                       <i className="sr-only">!DIETARY</i>
-                      <legend className="text-sm font-semibold leading-6 text-gray-900">Filter Option</legend>
-                      <div className="mt-6 space-y-6">
-                        <div className="smallFlex">
-                          <div className="smallFlex1">
+                      <legend className="dietHeader">Filter <span className="dietOption">(optional)</span> </legend>
+                      <span className="dietOption">* Check marked if this menu recomened for:</span>
+                      <div className="">
+                        <div className="flexDiet">
 
-                            <i className="sr-only">!VEGETARIANT</i>
-                            <div className="relative flex gap-x-3">
-                              <div className="flex h-6 items-center">
-                                <input onChange={inputValue('vetgeterian')} value={el.vetgeterian} id={`vetgeterian_${index}`} name="vetgeterian" type="checkbox" className="cursor-pointer  h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" />
-                              </div>
-                              <div className="text-sm leading-6">
-                                <label htmlFor={`vetgeterian_${index}`} className="cursor-pointer  font-medium text-gray-900">Vetgeterian</label>
-                              </div>
+
+                          <i className="sr-only">!VEGETARIANT</i>
+                          <div className="relative flex gap-x-3">
+                            <div className="flex h-6 items-center">
+                              <input onChange={event => {
+                                if (!event.target.checked) return
+                                inputListValue(index, event)
+                              }} ref={(element) => { ref.current[0] = element }}
+                                value={true} id={`vetgeterian_${index}`} checked={el.vetgeterian} name="vetgeterian" type="checkbox" className="cursor-pointer  h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" />
                             </div>
-
-                            <i className="sr-only">!VEGAN</i>
-                            <div className="relative flex gap-x-3">
-                              <div className="flex h-6 items-center">
-                                <input onChange={inputValue('vegan')} value={el.vegan} id={`vegan${index}`} name="vegan" type="checkbox" className="cursor-pointer h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" />
-                              </div>
-                              <div className="text-sm leading-6">
-                                <label htmlFor={`vegan${index}`} className="cursor-pointer font-medium text-gray-900">Vegan</label>
-                              </div>
+                            <div className="text-sm leading-6">
+                              <label htmlFor={`vetgeterian_${index}`} className="cursor-pointer  font-medium text-gray-900">Vetgeterian</label>
                             </div>
-
                           </div>
 
-                          <div className="smallFlex1">
-
-                            <i className="sr-only">!GLUTEN FREE</i>
-                            <div className="relative flex gap-x-3">
-                              <div className="flex h-6 items-center">
-                                <input onChange={inputValue('gluten_free')} value={el.gluten_free} id={`gluten_free${index}`} name="gluten_free" type="checkbox" className="cursor-pointer h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" />
-                              </div>
-                              <div className="text-sm leading-6">
-                                <label htmlFor={`gluten_free${index}`} className="cursor-pointer  font-medium text-gray-900">Gluten-Free</label>
-                              </div>
+                          <i className="sr-only">!VEGAN</i>
+                          <div className="relative flex gap-x-3">
+                            <div className="flex h-6 items-center">
+                              <input onChange={event => {
+                                if (!event.target.checked) return
+                                inputListValue(index, event)
+                              }}
+                                ref={(element) => { ref.current[1] = element }}
+                                value={true} id={`vegan${index}`} checked={el.vegan} name="vegan" type="checkbox" className="cursor-pointer h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" />
                             </div>
-
-                            <i className="sr-only">!HALAL</i>
-                            <div className="relative flex gap-x-3">
-                              <div className="flex h-6 items-center">
-                                <input onChange={inputValue('halal')} value={el.halal} id={`halal${index}`} name="halal" type="checkbox" className="cursor-pointer h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" />
-                              </div>
-                              <div className="text-sm leading-6">
-                                <label htmlFor={`halal${index}`} className="cursor-pointer font-medium text-gray-900">Halal</label>
-                              </div>
+                            <div className="text-sm leading-6">
+                              <label htmlFor={`vegan${index}`} className="cursor-pointer font-medium text-gray-900">Vegan</label>
                             </div>
-
                           </div>
+
+
+                          <i className="sr-only">!GLUTEN FREE</i>
+                          <div className="relative flex gap-x-3">
+                            <div className="flex h-6 items-center">
+                              <input onChange={event => {
+                        
+                                if (!event.target.checked) return
+                                inputListValue(index, event)
+                              }}
+                                ref={(element) => { ref.current[2] = element }}
+                                value={true} id={`gluten_free${index}`} checked={el.gluten_free} name="gluten_free" type="checkbox" className="cursor-pointer h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" />
+                            </div>
+                            <div className="text-sm leading-6">
+                              <label htmlFor={`gluten_free${index}`} className="cursor-pointer  font-medium text-gray-900">Gluten-Free</label>
+                            </div>
+                          </div>
+
+                          <i className="sr-only">!HALAL</i>
+                          <div className="relative flex gap-x-3">
+                            <div className="flex h-6 items-center">
+                              <input onChange={event => {
+                                if (!event.target.checked) return
+                                inputListValue(index, event)
+                              }}
+                                ref={(element) => { ref.current[3] = element }}
+                                value={true} id={`halal${index}`} checked={el.halal} name="halal" type="checkbox" className="cursor-pointer h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" />
+                            </div>
+                            <div className="text-sm leading-6">
+                              <label htmlFor={`halal${index}`} className="cursor-pointer font-medium text-gray-900">Halal</label>
+                            </div>
+                          </div>
+
+
                         </div>
                       </div>
 
 
-                      <div className={`mt-6 flex items-center justify-start gap-x-6 `}>
-                        <button onClick={removeItem} type="button" className="bg-blue rounded-md bg-indigo-600 px-3 
-                        py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500
-                        focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
-                        focus-visible:outline-indigo-600">Remove ITEM</button>
+                      <div className={`boxRemoveItem`}>
+                        <button onClick={removeItem} type="button" className="removeItembtn">X</button>
                       </div>
                     </fieldset>
 
@@ -473,11 +570,8 @@ const MainForm = () => {
 
               < i className="sr-only" > !ADD FOOD ITEM</i>
               {/* <ButtonAddFood /> */}
-              <div className="mt-6 flex items-center justify-end gap-x-6">
-                <button onClick={additem} type="button" className="bg-blue rounded-md bg-indigo-600 px-3 
-              py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500
-              focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
-              focus-visible:outline-indigo-600">ADD ITEM</button>
+              <div className="boxAddItem">
+                <a href="#end" onClick={additem} className="addItembtn" type="button">ADD ITEM</a>
               </div>
 
 
@@ -504,8 +598,8 @@ const MainForm = () => {
             <div className={``}>
               <button onClick={reloadPage} type="button" form='foodForm' className="newCatBtn">
                 <span>
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-8 h-8">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                   </svg>
                 </span>
                 <span>NEW CATEGORY</span>
@@ -549,9 +643,9 @@ const MainForm = () => {
 
 
             {categoryList.map((el, index) => (
-              <div onClick={findOneMenu} key={index} className={`tabCat ${menuId === el.menuId ? 'chooseCat' : "mini"}`} >
+              <div key={index} className={`tabCat ${menuId === el.menuId ? 'chooseCat' : "mini"}`} >
                 <button name={el.menuId} onClick={findOneMenu} className={`itemCat  ${menuId === el.menuId ? 'itemCatChoose' : ""}`}>{index + 1}</button>
-                <button name={el.menuId} className="btnCat">{el.catagory}</button>
+                <button name={el.menuId} onClick={findOneMenu} className="btnCat">{el.catagory}</button>
                 <div className={`${deleteBtn ? 'dispBox' : 'dispNone'} deleteBox`}>
                   <button onClick={deleteMenu} value={el.menuId} type="submit" className="deleteBtn">X</button>
                 </div>
@@ -564,6 +658,7 @@ const MainForm = () => {
         </div >
 
       </div>
+      <div id='end' className=""></div>
     </div >
   )
 }

@@ -31,7 +31,7 @@
 .stickyBox {
   position: sticky;
   top: 4rem;
-  padding: 1rem 2rem .5rem;
+  padding: 2rem 2rem .5rem;
   display: flex;
   flex-direction: column;
   gap: .5rem;
@@ -62,15 +62,27 @@
   position: absolute;
   top: 0;
   right: 0;
-  padding: .5rem 1rem;
+  padding: .2rem .5rem;
   font-size: .8rem;
+  cursor: pointer;
+}
+
+.closeBtn:hover,
+.closeBtn:active {
+  color: #cb2722;
+  transform: scale(1.05);
+  transition: all .2s;
+  font-weight: 500;
+
+
 }
 
 .gridCat {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  /* display: grid;
+  grid-template-columns: repeat(2, 1fr); */
+  display: flex;
   gap: 1rem;
-  padding-bottom: .5rem;
+  padding-bottom: 1rem;
   border-bottom: #999 1px solid;
 
 }
@@ -79,6 +91,7 @@
 
 
 .flexIcoCat {
+  width: 55%;
   display: flex;
   align-items: center;
   gap: .5rem
@@ -93,11 +106,13 @@
   border: #999 1px solid;
   border-radius: .2rem;
   padding: .2rem;
+  cursor: pointer;
 }
 
 /* ////////////////////////////////////////////////////////// */
 .flex {
   display: flex;
+
 }
 
 .item {
@@ -169,21 +184,43 @@
 }
 
 
+/* ///////////////////////////////// */
 
+.iconPhoto {
+  width: 3.2rem;
+  padding: 0;
+}
 
 .flexPhoto {
   display: flex;
-
+  align-items: center;
+  width: 45%;
+  flex-grow: 1;
 }
 
 .labelPhoto {
   cursor: pointer;
+  width: 100%;
   /* background: #000; */
 }
 
-.photoFlex {
-  display: flex;
 
+.photoFlex {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border: #999 1px solid;
+  border-radius: .2rem;
+  gap: 1rem;
+  /* padding: .5rem 1rem; */
+  outline: none;
+
+}
+
+.photoText {
+  width: 100%;
+  color: #999;
 }
 
 .inputPhoto {
@@ -196,18 +233,24 @@
 }
 
 .remarkPhoto {
+  position: absolute;
+  bottom: 0;
+  right: 0;
   font-size: .7rem;
   font-style: italic;
+  transform: translateY(100%);
+  color: #999;
+
 }
 
 
-
+/* ///////////////////////////////// */
 
 .layoutManu0 {
-
+  position: relative;
   display: flex;
   padding: 1rem;
-  gap: 1rem;
+  gap: 1.5rem;
   border-radius: .3rem;
   box-shadow: .1rem .1rem .5rem rgba(0, 0, 0, 0.30);
 
@@ -224,6 +267,137 @@
   border-right: none;
   border-radius: .2rem 0 0 .2rem;
 }
+
+
+/* ////////////////// */
+.boxRemoveItem {
+  position: absolute;
+  top: .2rem;
+  right: .2rem;
+}
+
+.removeItembtn {
+  font-size: .7rem;
+  padding: .3rem .5rem;
+  /* height: 4rem; */
+  /* background-color: #ffffff; */
+  color: #aaa;
+  border: #aaa 1px solid;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.removeItembtn:hover {
+  transform: scale(1.01);
+  transition: all .2s;
+  color: #cb2722;
+  border: #cb2722 1px solid;
+  box-shadow: .1rem .1rem .3rem rgba(0, 0, 0, 0.30);
+
+}
+
+.removeItembtn:active {
+
+  box-shadow: .1rem .1rem .2rem rgba(0, 0, 0, 0.30);
+  transform: scale(1);
+  transition: all .2s;
+}
+
+/* /////////////////////////////////////////// */
+.boxAddItem {
+  display: flex;
+  justify-content: end;
+  margin-top: 1rem;
+}
+
+.addItembtn {
+  font-size: .9rem;
+  padding: .5rem .5rem;
+  /* height: 4rem; */
+  background-color: #ffffff;
+  color: #cb2822cf;
+  border: #cb2822cf 2px solid;
+  box-shadow: .1rem .1rem .4rem rgba(0, 0, 0, 0.30);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.addItembtn:hover {
+  transform: scale(1.02);
+  transition: all .2s;
+  color: #cb2722;
+  border: #cb2722 2px solid;
+  box-shadow: .1rem .1rem .4rem rgba(0, 0, 0, 0.30);
+
+}
+
+.addItembtn:active {
+
+  box-shadow: .1rem .1rem .4rem rgba(0, 0, 0, 0.30);
+  transform: scale(1);
+  transition: all .2s;
+}
+
+
+
+
+
+/* ////////////////// */
+
+
+.dietHeader {
+  margin-top: 5%;
+  font-size: 1.1rem;
+  color: #444;
+  line-height: 1;
+}
+
+.dietOption {
+  font-size: .8rem;
+  font-style: italic;
+  color: #444;
+  line-height: 1;
+}
+
+.flexDiet {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+  color: #444;
+
+}
+
+
+
+/* input[type="checkbox"].checkbox1:checked+span {
+  border-color: red;
+  background-color: red;
+} */
+
+.main input:checked ~ .geekmark {
+  background-color: green;
+}
+.main .geekmark:after {
+  left: 8px;
+  bottom: 5px;
+  width: 6px;
+  height: 12px;
+  border: solid white;
+  border-width: 0 4px 4px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+
+
+
+
+/* /////////////////////////////////// */
 
 
 .show {
@@ -269,6 +443,7 @@
   box-shadow: .1rem .1rem .4rem rgba(0, 0, 0, 0.30);
 
 }
+
 .newCatBtn:active {
 
   box-shadow: .1rem .1rem .4rem rgba(0, 0, 0, 0.30);
