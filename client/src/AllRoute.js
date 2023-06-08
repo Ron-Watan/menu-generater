@@ -28,14 +28,14 @@ const AllRoute = () => {
           {/* <Route path="/generatemenu" exact Component={GenerateMenu} /> */}
 
           {/* <Route path="/" exact Component={App} /> */}
-          <Route path="/" exact Component={GenerateMenu} />
+          <Route path="/xx" exact Component={GenerateMenu} />
 
 
           {/* <Route Component={ProtectRoute}> */}
           {/* </Route> */}
-          <Route path="/mainform" exact Component={MainForm} />
+          <Route path="/" exact Component={MainForm} />
           {/* <Route path="/mainform" exact Component={MainForm} /> */}
-
+          {/* mainform */}
 
 
         </Route>

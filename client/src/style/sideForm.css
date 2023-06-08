@@ -1,0 +1,128 @@
+.sectionSideCat {
+  position: fixed;
+  top: 0;
+  right: 0;
+  min-width: 5rem;
+  width: 15vw;
+  height: 100vh;
+  background-color: #3C3D3F;
+
+  box-shadow: .1rem .1rem 1rem .2rem #0000003b;
+}
+
+.headCat {
+  position: relative;
+  font-size: 1.2rem;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: .5rem;
+  background-color: #cb2722;
+}
+
+.iconCat {
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3rem;
+  height: 100%;
+  cursor: pointer;
+  /* background-color: #4b4b4c; */
+
+}
+
+
+
+.tabCat {
+  position: relative;
+  display: flex;
+  flex-grow: 1;
+  border-bottom: #656667 solid 1px;
+  transition: all .2s;
+}
+
+.mini:hover {
+  background-color: #4b4b4c;
+}
+
+/* .tabCat:active {
+  background-color: #4b4b4c;
+} */
+.chooseCat {
+  background-color: #656667;
+  border: #aaa .5px solid;
+}
+
+.itemCat {
+  color: #656667;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 15%;
+  padding: .5rem;
+  border-right: #656667 1px solid;
+
+}
+
+.itemCatChoose {
+  color: #eee;
+  border-right: #aaa .5px solid;
+  border-left: none;
+}
+
+.btnCat {
+  display: flex;
+  flex-grow: 1;
+  font-size: 1.1rem;
+  color: #eee;
+  padding: .5rem 10%;
+
+}
+
+.deleteBox {
+  position: absolute;
+  right: 0;
+  top: 0;
+  /* display: flex;
+  flex-grow: 1;
+  font-size: 1.1rem;
+  color: #eee; */
+  height: 100%;
+
+}
+
+.deleteBtn {
+
+  background-color: #000000;
+  border-left: #656667 solid 1px;
+  color: #eee;
+  width: 3rem;
+  height: 100%;
+}
+
+.deleteBtn:hover {
+
+
+  border-left: #656667 solid 1px;
+  color: #cb2722;
+  width: 3rem;
+  height: 100%;
+}
+
+.dispBox {
+  opacity: 1;
+  visibility: visible;
+  transition: all .3s;
+}
+
+.dispNone {
+  opacity: 0;
+  visibility: hidden;
+  transition: all .3s;
+
+}

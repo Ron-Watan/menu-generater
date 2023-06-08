@@ -99,33 +99,97 @@ const AcordionSubComp = (prop) => {
   //   return checkType
   // }
 
-
-
   subListMenu.map((element, index) => {
     element.panelCode = 'panel' + index
   })
 
-  const [newSubListMenu, setNewSubListMenu] = useState(subListMenu)
 
+  // console.log(originalPrice)
+
+  const [newSubListMenu, setNewSubListMenu] = useState(subListMenu)
+  const [favorList, setFavorList] = useState([])
 
   //- Add data for functional
+  // const [originPrice, setOriginPrice] = React.useState({ ...subListMenu })
 
 
-  const addFavorite = (index) => {
-    let dataSet = [...newSubListMenu];
-    let data = dataSet[index]
-    data.vegan = true
-    prop.addFavorite(index, [...newSubListMenu], prop.listMunu.catagory, prop.indexM)
-    setExpanded(false)
+  // prop.favrite(favorList)
+  // const addFavorite1 = (index, event, name, price) => {
+  //   let dataSet = [...newSubListMenu];
+
+  //   let data = dataSet[index]
+
+  //   let favor = {
+  //     key: data.panelCode + index,
+  //     list: data['food_name']
+  //   }
+  //   sumFavorList.push(favor)
+  //   console.log(sumFavorList)
+  // }
+
+  const addFavorite = (index, panel) => {
+    // let dataSet = [...newSubListMenu];
+    // let data = dataSet[index]
+    // let favor = {
+    //   key: prop.indexM + "-" + index + '-' + data.panelCode,
+    //   name: data['food_name'],
+    //   price: data['price']
+    // }
+    // let newFavorList = favor
+    prop.addFavorite(index, [...newSubListMenu], prop.indexM)
+    // data.vegan = true
+    // setFavorList([...favorList, newFavorList])
+    // prop.favorite([...favorList, newFavorList])
+    // setExpanded(false);
+    // console.log(prop.indexM + "-" + index + '-' + data.panelCode)
   }
 
+  // const addFavorite = (index, panel) => {
+  //   let dataSet = [...newSubListMenu];
+  //   let data = dataSet[index]
+  //   let favor = {
+  //     key: prop.indexM + "-" + index + '-' + data.panelCode,
+  //     name: data['food_name'],
+  //     price: data['price']
+  //   }
+  //   let newFavorList = favor
+  //   data.vegan = true
+  //   setFavorList([...favorList, newFavorList])
+  //   prop.favorite([...favorList, newFavorList])
+  //   setExpanded(false);
+  //   console.log(prop.indexM + "-" + index + '-' + data.panelCode)
+  // }
+  // console.log(favorList)
   const removeFavorite = (index) => {
-    let dataSet = [...newSubListMenu];
-    let data = dataSet[index]
-    prop.removeFavorite(index, [...newSubListMenu],prop.indexM)
-    data.vegan = false
+    // let dataSet = [...newSubListMenu];
+    // let data = dataSet[index]
+    // console.log(prop.indexM + "-" + index + '-' + data.panelCode)
+    // let favor = favorList.filter(item => item.key !== (prop.indexM + "-" + index + '-' + data.panelCode))
+    prop.removeFavorite(index, [...newSubListMenu], prop.indexM)
+    // data.vegan = false
+    // setFavorList(favor)
+    // prop.favorite(favor)
+
   }
 
+  // console.log(favorList)
+  // const addOption = (index, event, addPrice) => {
+  //   let dataSet = [...newSubListMenu];
+  //   let data = dataSet[index]
+  //   data['price'] = Number(data['price']) + Number(addPrice)
+  //   data['text_plus'] = data['text_plus'] + 1
+  //   console.log(data)
+  //   setNewSubListMenu(dataSet);
+  // }
+
+  // const minusOption = (index, event, minusPrice,name) => {
+  //   let dataSet = [...newSubListMenu];
+  //   let data = dataSet[index]
+  //   if (data['price'] <= data['original_price']) return
+  //   data['price'] = Number(data['price']) - Number(minusPrice)
+  //   data[name] = data[name] - 1
+  //   setNewSubListMenu(dataSet);
+  // }
   // useEffect(() => {
   // console.dir(elementRef.current[0]);
   // eslint-disable-next-line
@@ -136,7 +200,7 @@ const AcordionSubComp = (prop) => {
   // }, []);
 
   //accordMoveUp
-
+  console.log(prop.indexM)
   //- //- //- //- //- //- //- //- //- //- //- //-
 
   return (
@@ -153,7 +217,7 @@ const AcordionSubComp = (prop) => {
           <div ref={(element) => { elementRef.current[index] = element; }} onClick={drag} className='' key={index}>
 
             <div className="absolute right-0 z-20 ">
-              <button onClick={event => removeFavorite(index, event, el.food_name, el.price)} className={`${!el.vegan && 'hidden'} flex justify-center gap-x-6`}>
+              <button onClick={event => removeFavorite(index, event, el.food_name, el.price)} className={`${!true && 'hidden'} flex justify-center gap-x-6`}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="red" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
                 </svg>
@@ -181,7 +245,7 @@ const AcordionSubComp = (prop) => {
                 <div className={` grid grid-cols-3 gap-1 mb-2`}>
                   <div className="col-start-3 col-end-4 text-center">
 
-                    <button onClick={event => addFavorite(index, event, el.panelCode)} className={`${el.vegan && 'opacity-0 transition-all'} flex justify-center gap-x-6`}>
+                    <button onClick={event => addFavorite(index, event, el.panelCode)} className={`${false && 'opacity-0 transition-all'} flex justify-center gap-x-6`}>
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
                       </svg>

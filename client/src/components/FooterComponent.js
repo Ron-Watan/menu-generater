@@ -17,138 +17,58 @@ import { useState } from 'react';
 
 
 
-const itemList = [
-  {
-    name: "Padthai",
-    price: 1
-  },
-  {
-    name: "PadSeew",
-    price: 2
-  },
-  {
-    name: "Papaya Sald",
-    price: 3
-  },
-  {
-    name: "Somtum",
-    price: 4
-  },
-  {
-    name: "Padthai",
-    price: 5
-  },
-  {
-    name: "Padthai",
-    price: 6
-  },
-  {
-    name: "ggggg",
-    price: 7
-  },
-  {
-    name: "rererer",
-    price: 8
-  },
-  {
-    name: "ddfdf",
-    price: 9
-  },
-
-  {
-    name: "ggggg",
-    price: 7
-  },
-  {
-    name: "rererer",
-    price: 8
-  },
-  {
-    name: "ddfdf",
-    price: 9
-  },
-]
-
 const FooterComponent = (prop) => {
-console.log(prop.favorLists)
+
   const [activeLang, setActiveLang] = useState(false)
   const [activeList, setActiveList] = useState(false)
   const [activeComment, setActiveComment] = useState(false)
-  const [overlay, setOverlay] = useState(false)
 
-  const switcher = (name) => {
-    if (name === "listBtn") {
-      setActiveList(!activeList)
-      setActiveLang(false)
-      setActiveComment(false)
-      setOverlay(!activeList)
-    } else if (name === "commentBtn") {
-      setActiveComment(!activeComment)
-      setActiveLang(false)
-      setActiveList(false)
-      setOverlay(!activeComment)
-    } else if (name === "langBtn") {
-      setActiveLang(!activeLang)
-      setActiveComment(false)
-      setActiveList(false)
-      setOverlay(false)
-    } else if (name === "overlay") {
-      setActiveComment(false)
-      setActiveList(false)
-      setOverlay(false)
-      setActiveLang(false)
+
+  const footerStateModel = { languageTab: false, listTab: false, commentTab: false, overlay: false }
+  const [footerState, setFooterState] = useState(footerStateModel)
+  const { languageTab, listTab, commentTab, overlay } = footerState
+
+
+  const switcher = name => {
+    const newfooterState = { ...footerStateModel }
+    newfooterState[name] = !footerState[name]
+    setFooterState(newfooterState)
+
+  }
+  if (languageTab || listTab || commentTab) {
+    document.body.classList.add('overflow-hidden')
+  }
+  else if (!languageTab && !listTab && !commentTab) {
+    document.body.classList.remove('overflow-hidden');
+  }
+
+  console.log(footerState)
+
+  const starModel = ['none', 'none', 'none', 'none', 'none']
+  const [starBtn, setStarBtn] = useState(starModel)
+  let score = 0
+  const addStar = (index) => {
+    const updateStar = [...starBtn]
+
+    if (index === 0 && starBtn[0] === 'red' && starBtn[1] === 'none') {
+      updateStar[0] = 'none'
+      score = 0
+      setStarBtn(starModel)
+      return
     }
-
+    updateStar.forEach((el, i) => {
+      if (i < index + 1) {
+        updateStar[i] = 'red'
+        score++
+      }
+      else {
+        updateStar[i] = 'none'
+      }
+    })
+    setStarBtn(updateStar)
+    console.log(score)
   }
 
-  const [starBtn, setStarBtn] = useState({
-    star1: 'none', star2: 'none', star3: 'none', star4: 'none', star5: 'none',
-  })
-  const { star1, star2, star3, star4, star5 } = starBtn
-
-  const addStar = (name) => {
-    // if (name === 'star1' && star1 === 'red') {
-    //   return setStarBtn({
-    //     star1: 'none', star2: 'none', star3: 'none', star4: 'none', star5: 'none',
-    //   })
-    // }
-    // switch (name) {
-    //   case 'star1': {
-    //     setStarBtn({
-    //       star1: 'red', star2: 'none', star3: 'none', star4: 'none', star5: 'none',
-    //     })
-    //   }
-    //     break;
-    //   case 'star2': {
-    //     setStarBtn({
-    //       star1: 'red', star2: 'red', star3: 'none', star4: 'none', star5: 'none',
-    //     })
-    //   }
-    //     break;
-    //   case 'star3': {
-    //     setStarBtn({
-    //       star1: 'red', star2: 'red', star3: 'red', star4: 'none', star5: 'none',
-    //     })
-    //   }
-    //     break;
-    //   case 'star4': {
-    //     setStarBtn({
-    //       star1: 'red', star2: 'red', star3: 'red', star4: 'red', star5: 'none',
-    //     })
-    //   }
-    //     break;
-    //   case 'star5': {
-    //     setStarBtn({
-    //       star1: 'red', star2: 'red', star3: 'red', star4: 'red', star5: 'red',
-    //     })
-    //   }
-    //     break;
-    //   default:
-    //     break;
-    // }
-
-    console.log("hold")
-  }
 
   const [disPlayLang, setDisPlayLang] = useState('EN')
 
@@ -156,23 +76,47 @@ console.log(prop.favorLists)
     setDisPlayLang(even.target.value)
     setActiveLang(false)
   }
+
+
   ///// Google Translate ////////////////////////////////////////////////////////////////////////////
 
-
-
+  // const result = prop.favorList.reduce(( category ) => category)
+  // console.log(result)
   //////////////////////////////////////////////////////////////////////////////////////
+
+  //-/// FAVORITE LISTS ////////////////////////////////////////////////////////////////////////////
+
+  const reformModel = []
+
+  prop.favorList.map((el, index) => {
+    reformModel[el.code] = { category: el.category, list: [] }
+  })
+  prop.favorList.map((el, index) => {
+    reformModel[el.code].list.push(el)
+  })
+
+  ///////////////////////////////
+  const [stateComment, setStateComment] = useState({
+    comment: ''
+  })
+  const inputValue = (name) => (even) => {
+    setStateComment({ ...stateComment, [name]: even.target.value })
+  }
+
+
+
+
   return (
     <div>
 
       <nav className=" fixed top-full -translate-y-full bg-C_navmain footerBar zIndex px-2">
         <div className="grid grid-cols-3 content-center">
-
           {/* Button 1 */}
           <div className={`flex items-center justify-center pt-1`}>
 
             <div className={`boxLangBtn ${activeLang && 'ringButton'}`}>
 
-              <button onClick={() => switcher('langBtn')} className='px-4'>
+              <button onClick={() => switcher('languageTab')} className='px-4'>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1"
                   stroke="#fff" className="w-7 h-7">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
@@ -181,14 +125,14 @@ console.log(prop.favorLists)
                   {disPlayLang}
                 </span>
               </button>
-              <button value='EP' onClick={switcherlng('ep')} className={`${activeLang ? 'popupLangUp1' : 'popupLang'}  popupLangText`}>
+              <button value='EP' onClick={switcherlng('ep')} className={`${languageTab ? 'popupLangUp1' : 'popupLang'}  popupLangText`}>
                 Spanish
               </button>
 
-              <button value='TH' onClick={switcherlng('th')} className={`${activeLang ? 'popupLangUp2' : 'popupLang'}  popupLangText`}>
+              <button value='TH' onClick={switcherlng('th')} className={`${languageTab ? 'popupLangUp2' : 'popupLang'}  popupLangText`}>
                 Thai
               </button>
-              <button value='EN' onClick={switcherlng('en')} className={`${activeLang ? 'popupLangUp3' : 'popupLang'}  popupLangText`}>
+              <button value='EN' onClick={switcherlng('en')} className={`${languageTab ? 'popupLangUp3' : 'popupLang'}  popupLangText`}>
                 English
               </button>
 
@@ -196,19 +140,24 @@ console.log(prop.favorLists)
             </div>
           </div>
 
+          {/* <button className='text-white' onClick={() => switcher1('languageTab')}>sssssssssssssss</button> */}
 
           {/* Button 2 */}
-          <button onClick={() => switcher('listBtn')} className={`flex items-center justify-center  pt-1 `}>
+          <button onClick={() => switcher('listTab')} className={`relative flex items-center justify-center  pt-1 `}>
             <div className={` px-20 ${activeList && 'ringButton'}`}>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                 strokeWidth="1" stroke="white" className="w-7 h-7 ">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z" />
               </svg>
+
             </div>
+            <span className='absolute right-16 -top-1 text-blue'>{prop.favorList.length}</span>
           </button>
 
+
+
           {/* Button 3 */}
-          <button onClick={() => switcher('commentBtn')} className={`flex items-center justify-center pt-1 `}>
+          <button onClick={() => switcher('commentTab')} className={`flex items-center justify-center pt-1 `}>
             <div className={` px-4 ${activeComment && 'ringButton'}`}>
 
               <svg className="svgCommment" width="25" height="25" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -252,50 +201,105 @@ console.log(prop.favorLists)
 
 
         {/* Slide Tab 1*/}
-        {/* <span onClick={() => switcher('langBtn')} className={`${activeLang ? 'popupLangUp' : 'popupLang'}  popupLangText`}>
+        {/* <span onClick={() => switcher('languageTab')} className={`${activeLang ? 'popupLangUp' : 'popupLang'}  popupLangText`}>
         </span> */}
 
-        {/* Slide Tab 2*/}
-        <span onClick={() => switcher('listBtn')} className={`${activeList ? 'popupListUp' : 'popupList'} popupListText`}>
+        {/*//- FAVORITE LIST */}
+        <span onClick={() => switcher('listTab')} className={`${listTab ? 'popupListUp' : 'popupList'} popupListText`}>
           <div className="itemList">12 Items</div>
           <div className="overflow">
-            {itemList.map((el, index) => (
 
-              <ul className="line" key={index}>
-                <li className="gridFavList">
-                  <div className="flex gap-x-4">
-                    <div className="min-w-0 flex-auto">
-                      <p className="text-sm font-semibold leading-6 text-gray-900">{el.name}</p>
-                    </div>
-                  </div>
 
-                  <div className="flex gap-x-4">
-                    <div className="min-w-0 flex-auto">
-                      <p className="text-sm font-semibold leading-6 text-gray-900">{el.price}</p>
-                    </div>
-                  </div>
+            {reformModel.map((catelog, index) => {
+              return (
+                <div className="" key={index}>{catelog.category}
+                  {catelog.list.map(el => {
+                    return (
 
-                </li>
-              </ul>
-            ))}
+                      <ul className="line" key={index} >
+                        <li className="gridFavList">
+                          <div className="flex gap-x-4">
+                            <div className="min-w-0 flex-auto">
+                              <p className="text-sm font-semibold leading-6 text-gray-900">{el.name}</p>
+                            </div>
+                          </div>
+
+                          <div className="flex gap-x-4">
+                            <div className="min-w-0 flex-auto">
+                              <p className="text-sm font-semibold leading-6 text-gray-900">{el.price}</p>
+                            </div>
+                          </div>
+
+                        </li>
+                      </ul>
+
+                    )
+
+                  })}
+
+                </div>
+              )
+
+
+              // <div className="cat">sssssdsds</div>
+              // catelog.list.map(el => {
+              //   return (
+              //     <ul className="line" key={index} >
+              //       <li className="gridFavList">
+              //         <div className="flex gap-x-4">
+              //           <div className="min-w-0 flex-auto">
+              //             <p className="text-sm font-semibold leading-6 text-gray-900">{el.name}</p>
+              //           </div>
+              //         </div>
+
+              //         <div className="flex gap-x-4">
+              //           <div className="min-w-0 flex-auto">
+              //             <p className="text-sm font-semibold leading-6 text-gray-900">{el.price}</p>
+              //           </div>
+              //         </div>
+
+              //       </li>
+              //     </ul>
+
+              //   )
+              // })
+
+
+
+
+
+
+
+            })}
 
           </div>
 
         </span>
 
 
+
+
+
         {/* Slide Tab 3*/}
-        <span className={`${activeComment ? 'popupListUp' : 'popupList'} popupListText`}>
+        <span className={`${commentTab ? 'popupListUp' : 'popupList'} popupListText`}>
 
           <div className="col-span-full">
-            <label htmlFor="about" className="block text-sm font-medium leading-6 text-gray-900">About</label>
+            <label htmlFor="comment" className="block text-sm font-medium leading-6 text-gray-900">About</label>
             <div className="mt-2">
-              <textarea id="about" name="about" rows="6" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
+              <textarea onChange={inputValue('comment')} value={stateComment.comment} id="comment" name="comment" rows="6" className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
             </div>
             <p className="mt-3 text-sm leading-6 text-gray-600">Write a few sentences about yourself.</p>
           </div>
 
           <div className="starReview">
+            {starBtn.map((el, index) => (
+              <svg onClick={() => addStar(index)} key={index} xmlns="http://www.w3.org/2000/svg" fill={el} viewBox="0 0 24 24" strokeWidth="1.5" stroke="red" className="w-8 h-8 star">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+              </svg>
+
+            ))}
+
+            {/*             
             <svg onClick={() => addStar('star1')} xmlns="http://www.w3.org/2000/svg" fill={star1} viewBox="0 0 24 24" strokeWidth="1.5" stroke="red" className="w-8 h-8 star">
               <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
             </svg>
@@ -311,14 +315,14 @@ console.log(prop.favorLists)
             </svg>
             <svg onClick={() => addStar('star5')} xmlns="http://www.w3.org/2000/svg" fill={star5} viewBox="0 0 24 24" strokeWidth="1.5" stroke="red" className="w-8 h-8 star">
               <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
-            </svg>
+            </svg> */}
           </div>
 
         </span>
 
 
-        <span onClick={() => switcher('overlay')} className={overlay ? 'overlay' : ''}></span>
-      </div>
+        <span onClick={() => switcher('overlay')} className={(languageTab || listTab || commentTab) ? 'overlay' : ''}></span>
+      </div >
 
 
 

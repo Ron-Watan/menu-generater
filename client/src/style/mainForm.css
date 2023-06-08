@@ -1,0 +1,314 @@
+.decorBar {
+  /* width: 100vw; */
+  position: -webkit-sticky;
+  background-color: #000;
+  height: 3rem;
+  position: sticky;
+  top: 0;
+}
+
+/* Decor +1 ==tranform -1 stickyBox +1 */
+.formContainer {
+  transform: translateY(-3rem);
+  display: flex;
+  justify-content: center;
+  /* padding-top: 1rem; */
+}
+
+.stickyBox1 {
+  position: sticky;
+  top: 3rem;
+  height: 1rem;
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* gap: .5rem; */
+  background-color: #000;
+  z-index: 2000;
+  outline: #000 solid 2rem;
+
+}
+
+.stickyBox {
+  position: sticky;
+  top: 4rem;
+  padding: 1rem 2rem .5rem;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  background: #ffffff;
+  z-index: 2500;
+  border-radius: .2rem;
+
+}
+
+
+.formMenu {
+  background-color: #fff;
+  width: 90%;
+  border-radius: .2rem;
+  box-shadow: .2rem .2rem 2rem .5rem #0000003b;
+}
+
+.layoutManu {
+  position: relative;
+  padding: 1rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+
+.closeBtn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: .5rem 1rem;
+  font-size: .8rem;
+}
+
+.gridCat {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  padding-bottom: .5rem;
+  border-bottom: #999 1px solid;
+
+}
+
+
+
+
+.flexIcoCat {
+  display: flex;
+  align-items: center;
+  gap: .5rem
+}
+
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
+  /* background-color: #aaa; */
+  border: #999 1px solid;
+  border-radius: .2rem;
+  padding: .2rem;
+}
+
+/* ////////////////////////////////////////////////////////// */
+.flex {
+  display: flex;
+}
+
+.item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 15%;
+  background-color: #aaa;
+  border: #999 1px solid;
+  border-right: none;
+  border-radius: .2rem 0 0 .2rem;
+}
+
+.inputTextFood {
+  width: 100%;
+  border: #999 1px solid;
+  border-radius: 0 .2rem .2rem 0;
+  padding: .5rem 1rem;
+  outline: none;
+
+}
+
+.inputTextFood:focus {
+  box-shadow: .1rem .1rem .5rem #00000047;
+  border: #aaa 1px solid;
+
+}
+
+.inputText {
+  width: 100%;
+  border: #999 1px solid;
+  border-radius: .2rem;
+  padding: .5rem 1rem;
+  outline: none;
+}
+
+.fontCat {
+  font-size: 1.2rem;
+  line-height: 1rem;
+  font-weight: 500;
+}
+
+.fontNormal {
+  font-size: 1.1rem;
+  line-height: 1rem;
+}
+
+.fontSmall {
+  font-size: 1rem;
+  line-height: 1rem;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.inputText:focus {
+  box-shadow: .1rem .1rem .5rem #00000047;
+  border: #aaa 1px solid;
+
+}
+
+.testAreaD {
+  padding-bottom: 3rem;
+}
+
+.testAreaR {
+  padding-bottom: 2rem;
+}
+
+
+
+
+.flexPhoto {
+  display: flex;
+
+}
+
+.labelPhoto {
+  cursor: pointer;
+  /* background: #000; */
+}
+
+.photoFlex {
+  display: flex;
+
+}
+
+.inputPhoto {
+  /* width: 0.1px;
+  height: 0.1px; */
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.remarkPhoto {
+  font-size: .7rem;
+  font-style: italic;
+}
+
+
+
+
+.layoutManu0 {
+
+  display: flex;
+  padding: 1rem;
+  gap: 1rem;
+  border-radius: .3rem;
+  box-shadow: .1rem .1rem .5rem rgba(0, 0, 0, 0.30);
+
+  /* border: #5a5959 1px solid; */
+}
+
+.labelPrice {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 35%;
+  background-color: #aaa;
+  border: #999 1px solid;
+  border-right: none;
+  border-radius: .2rem 0 0 .2rem;
+}
+
+
+.show {
+  opacity: 1;
+  visibility: visible;
+  transition: all .2s;
+
+}
+
+.hiddenMe {
+  opacity: 0;
+  visibility: hidden;
+  transition: all .2s;
+
+}
+
+
+.newCatBox {
+  position: sticky;
+  top: 10vh;
+
+}
+
+.newCatBtn {
+  font-size: .9rem;
+  width: 100%;
+  padding: .5rem .5rem;
+  height: 4rem;
+  background-color: #ffffff;
+  color: #cb2822cf;
+  border: #cb2822cf 2px solid;
+  box-shadow: .1rem .1rem .4rem rgba(0, 0, 0, 0.30);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.newCatBtn:hover {
+  transform: scale(1.02);
+  transition: all .2s;
+  color: #cb2722;
+  border: #cb2722 2px solid;
+  box-shadow: .1rem .1rem .4rem rgba(0, 0, 0, 0.30);
+
+}
+.newCatBtn:active {
+
+  box-shadow: .1rem .1rem .4rem rgba(0, 0, 0, 0.30);
+  transform: scale(1);
+  transition: all .2s;
+}
+
+
+
+.saveBtnBox {
+  /* background-color: #aaa; */
+  position: sticky;
+
+  top: 80vh;
+  /* transform: translateY(150%); */
+}
+
+.saveBtn {
+  font-size: .9rem;
+  width: 100%;
+  padding: .5rem .5rem;
+  height: 4rem;
+  background-color: #cb2722;
+  color: #fff;
+  box-shadow: .1rem .1rem .4rem rgba(0, 0, 0, 0.30);
+  position: absolute;
+  top: 0;
+
+}
+
+.saveBtn:hover {
+
+  box-shadow: .2rem .2rem .5rem rgba(0, 0, 0, 0.30);
+  transform: scale(1.02);
+  transition: all .2s;
+}
+
+.saveBtn:active {
+
+  box-shadow: .1rem .1rem .4rem rgba(0, 0, 0, 0.30);
+  transform: scale(1);
+  transition: all .2s;
+}

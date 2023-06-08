@@ -30,7 +30,7 @@ const theme = createTheme({
 const _MenuComponent = () => {
 
   const [clientMenu, setClientMenu] = useState([])
-  const [favorLists, setFavorList] = useState([])
+  const [favorList, setFavorList] = useState([])
   const { link } = useParams()
 
   const [started, setStarted] = useState(false)
@@ -57,7 +57,7 @@ const _MenuComponent = () => {
     axios.get(`${process.env.REACT_APP_API}/clients/${link}`)
       .then(result => {
         if (result.data.success) {
-          console.log(result.data)
+          console.log(result.data.message)
           setClientMenu(result.data.clientMenu.menu)
           // setClentMenu(result.data.userMenu.menu)
           // dispath(hideLoading())
@@ -74,13 +74,33 @@ const _MenuComponent = () => {
 
 
   // const listMenu = clentMenu.listMenu
-  console.log('Main clientMenu=> ' + Boolean(clientMenu))
+  // console.log('Main clientMenu=> ' + Boolean(clientMenu))
+
+  // const [favorList, setFavorList] = useState([])
 
 
+  const addFavorite = (index, objFromAccord, catagory, indexM) => {
+    let dataSet = objFromAccord;
+    let data = dataSet[index]
+    let favor = {
+      key: indexM + '-' + index + '-' + data.panelCode,
+      category: catagory,
+      code: indexM,
+      name: data['food_name'],
+      price: data['price']
+    }
+    let newFavorList = favor
+    data.vegan = true
+    setFavorList([...favorList, newFavorList])
+  }
 
+  const removeFavorite = (index, objFromAccord, indexM) => {
+    let dataSet = objFromAccord;
+    let data = dataSet[index]
+    let favor = favorList.filter(item => item.key !== (indexM + '-' + index + '-' + data.panelCode))
+    data.vegan = false
+    setFavorList(favor)
 
-  function favorite (favorList){
-    setFavorList(favorList)
   }
 
 
@@ -132,7 +152,12 @@ const _MenuComponent = () => {
 
           {clientMenu.map((el, index) => (
 
-            <AcordionSubComp listMunu={el} favorite={favorite} key={index}  />
+            <AcordionSubComp
+              listMunu={el}
+              indexM={index}
+              addFavorite={addFavorite}
+              removeFavorite={removeFavorite}
+              key={index} />
 
           ))}
 
@@ -151,7 +176,7 @@ const _MenuComponent = () => {
 
         <Texttest />
         <div className="footerSpace"></div>
-        <FooterComponent favorLists={favorLists}/>
+        <FooterComponent favorList={favorList} />
 
 
         <div>
