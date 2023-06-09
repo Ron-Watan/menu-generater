@@ -20,6 +20,21 @@ import { useParams } from "react-router-dom"
 // import { createTheme, ThemeProvider } from '@mui/material'
 import Resizer from "react-image-file-resizer";
 
+// Resizer.imageFileResizer(
+//   file, // Is the file of the image which will resized.
+//   maxWidth, // Is the maxWidth of the resized new image.
+//   maxHeight, // Is the maxHeight of the resized new image.
+//   compressFormat, // Is the compressFormat of the resized new image.
+//   quality, // Is the quality of the resized new image.
+//   rotation, // Is the degree of clockwise rotation to apply to uploaded image.
+//   responseUriFunc, // Is the callBack function of the resized new image URI.
+//   outputType, // Is the output type of the resized new image.
+//   minWidth, // Is the minWidth of the resized new image.
+//   minHeight // Is the minHeight of the resized new image.
+// );
+
+
+
 
 const MainForm = () => {
 
@@ -41,6 +56,11 @@ const MainForm = () => {
     })
   }, [screenSize])
 
+
+
+
+
+
   // const ref = useRef()
   const dispath = useDispatch()
   const { user } = useSelector(state => state.user)
@@ -48,14 +68,12 @@ const MainForm = () => {
   const [menuId, setMenuId] = useState('')
 
 
-  const [state, setState] = useState({
-    catagory: '', photo_path: ''
-  })
+  const [state, setState] = useState({ catagory: '' })
 
   const inputValue = (name) => (even) => {
     setState({ ...state, [name]: even.target.value })
-  }
 
+  }
   let listMenuModel = {
     food_name: '', description: '', remark: '', price: '',
     vetgeterian: false, vegan: false, gluten_free: false, halal: false, favor: false
@@ -81,6 +99,13 @@ const MainForm = () => {
     setListMenu(dataSet);
   }
 
+  // const inputListCheck = (index, event) => {
+  //   console.dir(event.target.checked)
+  //   let dataSet = [...listMenu];
+  //   let data = dataSet[index];
+  //   data[event.target.name] = event.target.checked;
+  //   setListMenu(dataSet);
+  // }
 
   const additem = () => {
 
@@ -94,6 +119,10 @@ const MainForm = () => {
     setListMenu(data)
   }
 
+  ////////////////////////////////
+  // console.log(state)
+
+
   const chooseMenu = (oneMennu) => {
     setState(oneMennu)
     setListMenu(oneMennu.listMenu)
@@ -105,8 +134,6 @@ const MainForm = () => {
   const componentDidMount = () => {
     window.scrollTo(0, 0)
   }
-
-
   //-
   const getAllMenu = () => {
     // dispath(showLoading())
@@ -359,6 +386,7 @@ const MainForm = () => {
 
   }
 
+  //-///-///-///-///-///-///-///-///-///-///-
 
   const [stateUp, setStateUp] = useState({
     file: null
@@ -368,8 +396,6 @@ const MainForm = () => {
     setStateUp({ ...stateUp, file: e.target.files[0] });
     document.getElementById('h1').textContent = e.target.files[0].name;
   };
-
-
 
   const fileUploader = () => {
     const formData = new FormData();
@@ -393,55 +419,51 @@ const MainForm = () => {
     // console.log(state.file)
   };
 
-  //-///-///-///-///-///-///-///-///-///-///-
-  const [file, setFile] = useState({})
+
+  const [file, setFile] = useState()
   // const [description, setDescription] = useState("")
-  const [originalName, setOriginalName] = useState('')
+  const [imageName, setImageName] = useState()
+
+  console.log(file)
 
   const resizeFile = (file) =>
     new Promise((resolve) => {
       Resizer.imageFileResizer(
         file,
-        390,
-        693,
+        300,
+        300,
         "JPEG",
         100,
         0,
         (uri) => {
-          setFile(uri);
+          console.log(uri);
+          setFile({ newImage: uri });
         },
         "base64"
       );
     });
 
 
-  const dataURIToBlob = (dataURI) => {
-    const splitDataURI = dataURI.split(",");
-    const byteString =
-      splitDataURI[0].indexOf("base64") >= 0
-        ? atob(splitDataURI[1])
-        : decodeURI(splitDataURI[1]);
-    const mimeString = splitDataURI[0].split(":")[1].split(";")[0];
 
-    const ia = new Uint8Array(byteString.length);
-    for (let i = 0; i < byteString.length; i++) ia[i] = byteString.charCodeAt(i);
+  const onChangeImg = (e) => {
+    e.preventDefault()
+    // try {
+    // const file = e;
+    // console.log(file)
+    resizeFile(file).then(res => {
+      console.log(res);
 
-    return new Blob([ia], { type: mimeString });
+    })
+
+    // uploadImage()
+
   };
-
-  console.log(originalName)
 
   const uploadImage = (e) => {
     e.preventDefault()
-    // const formData = new FormData()
-    // formData.append("avatar", file)
+    const formData = new FormData()
+    formData.append("avatar", file)
     // formData.append("description", description)
-    // console.log('dsadadasdasdasdas')
-
-    const newFile = dataURIToBlob(file);
-    const formData = new FormData();
-
-    formData.append("avatar", newFile, originalName);
 
     axios
       .post(`${process.env.REACT_APP_API}/user/images`, formData)
@@ -465,48 +487,13 @@ const MainForm = () => {
     // console.log(result.data)
   }
 
-  const onChangeImg = (e) => {
-    e.preventDefault()
-    resizeFile(file).then(res => {
-      console.log('fffffffffffffffffff')
-    })
-
-  };
-
-
-  function App() {
-    const onChange = async (event) => {
-      const file = event.target.files[0];
-      const image = await resizeFile(file);
-      console.log(image);
-      const newFile = dataURIToBlob(image);
-      const formData = new FormData();
-      formData.append("image", newFile);
-      const res = await fetch(
-        "https://run.mocky.io/v3/c5189845-2a93-49aa-85c7-70bc64e8af90",
-        {
-          method: "POST",
-          body: formData
-        }
-      );
-      const data = await res.text();
-      console.log(data);
-    };
-
-    return (
-      <div className="App">
-        <input onChange={onChange} type="file" />
-      </div>
-    );
-  }
-
   const getImage = (e) => {
 
     axios
       .get(`${process.env.REACT_APP_API}/user/images/`)
       .then((result) => {
         console.log(result.data)
-        setOriginalName(result.data.originalName)
+        setImageName(result.data.imageName)
 
         // setImageName(result.data.imageName)
         // const data = res.data;
@@ -537,23 +524,55 @@ const MainForm = () => {
       <div className="decorBar"></div>
       <div className="monitor ">
 
-        {/* <NavbarComponent /> */}
+        <NavbarComponent />
+
+
+
+        {/* <form onSubmit={uploadImage}>
+          <input name='avatar' filename={file} onChange={e => setFile(e.target.files[0])} type="file" accept="image/*" />
+          <input onChange={e => setDescription(e.target.value)} type="text" />
+          <button type="submit">Submit</button>
+
+        </form> */}
+        <form onSubmit={onChangeImg}>
+          <input name='avatar' onChange={e => setFile(e.target.files[0])} type="file" />
+
+          {/* <input name='avatar' onChange={e => setFile(e.target.files[0])} type="file" /> */}
+          {/* <input onChange={e => setDescription(e.target.value)} type="text" /> */}
+          <button type="submit">Submit</button>
+          <img src={file.newImage} alt="" />
+        </form>
+        {/* <form class="mt-4"
+          action="/multiple-upload"
+          method="POST"
+          enctype="multipart/form-data"
+        >
+          <input
+            type="file"
+            name="images"
+            multiple
+            id="input-images"
+            class="form-control-file border"
+          />
+          <button type="submit" class="btn btn-primary mt-2">Submit</button>
+        </form> */}
+
+
+        {/* <div className="container">
+          <input type="file" onChange={fileHandler} id="input" /> <br />
+          <label htmlFor="input">
+            <div className="label">
+              <div className="h1">
+                <h1 id="h1">Add File</h1>
+              </div>
+              <button onClick={fileUploader} className="button">
+                Send File
+              </button>
+            </div>
+          </label>
+        </div> */}
 
         <div className="monitor1">
-
-          <form onSubmit={uploadImage} encType="multipart/form-data" >
-            <input name='avatar' onChange={e => {
-              setOriginalName(e.target.files[0].name)
-              resizeFile(e.target.files[0]).then(res => {
-              })
-            }} type="file" />
-
-            <button type="submit">Submit</button>
-            <img src={file} alt="" />
-
-          </form>
-
-
 
         </div>
 

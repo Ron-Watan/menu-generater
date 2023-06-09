@@ -90,7 +90,7 @@ const _MenuComponent = () => {
       price: data['price']
     }
     let newFavorList = favor
-    data.vegan = true
+    data.favor = true
     setFavorList([...favorList, newFavorList])
   }
 
@@ -98,7 +98,7 @@ const _MenuComponent = () => {
     let dataSet = objFromAccord;
     let data = dataSet[index]
     let favor = favorList.filter(item => item.key !== (indexM + '-' + index + '-' + data.panelCode))
-    data.vegan = false
+    data.favor = false
     setFavorList(favor)
 
   }

@@ -81,7 +81,7 @@
   /* display: grid;
   grid-template-columns: repeat(2, 1fr); */
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
   padding-bottom: 1rem;
   border-bottom: #999 1px solid;
 
@@ -163,6 +163,12 @@
 .fontSmall {
   font-size: 1rem;
   line-height: 1rem;
+}
+
+.fontXSmall {
+  font-size: .9rem;
+  line-height: 1rem;
+
 }
 
 .italic {
@@ -371,16 +377,26 @@
 
 }
 
+.hideCheckBox {
+  opacity: 0;
+  position: absolute;
+  background-color: #fff;
+}
 
+.hideCheckBox:checked+svg {
+
+  fill: #cb2822cf;
+}
 
 /* input[type="checkbox"].checkbox1:checked+span {
   border-color: red;
   background-color: red;
 } */
 
-.main input:checked ~ .geekmark {
+.main input:checked~.geekmark {
   background-color: green;
 }
+
 .main .geekmark:after {
   left: 8px;
   bottom: 5px;

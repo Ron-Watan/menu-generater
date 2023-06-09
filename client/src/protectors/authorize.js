@@ -8,7 +8,7 @@ export const authenticate = (result, next) => {
     // sessionStorage.setItem('id', JSON.stringify(result.data.userId))
   }
   next()
-  // window.location.reload(false);
+  window.location.reload(false);
 
 }
 // function refreshPage() {

@@ -8,7 +8,6 @@ import Clients from "../_3models/clientModel.js";
 
 export const getClentMenu = (req, res) => {
   const { link } = req.params
-  console.log(req.params)
   Clients.findOne({ link }).then((result) => {
  
     res.send({

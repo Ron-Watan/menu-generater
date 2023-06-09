@@ -7,6 +7,7 @@
 body {
   font-size: 62.5%;
   overflow-x: hidden;
+
 }
 
 
@@ -31,6 +32,7 @@ body {
   /* background: linear-gradient(to bottom, #000000, #000000 3rem, #fff 3rem, #eee 90%); */
   /* overflow-y: hidden; */
   min-height: 105vh;
+
   /* position: -webkit-sticky; */
   /* position: sticky;
   top: 0; */
