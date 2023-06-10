@@ -10,7 +10,6 @@ import NavbarComponent from "./NavbarComponent"
 import "../style/mainForm.css"
 import "../style/sideForm.css"
 import { BsSquare, BsCheckSquare } from "react-icons/bs";
-import { v4 as uuidv4 } from 'uuid'
 
 import fileDownload from 'js-file-download';
 import b64toBlob from 'b64-to-blob';
@@ -50,7 +49,7 @@ const MainForm = () => {
 
 
   const [state, setState] = useState({
-    catagory: '', imgId: ''
+    catagory: '', photo_path: ''
   })
 
   const inputValue = (name) => (even) => {
@@ -82,9 +81,30 @@ const MainForm = () => {
     setListMenu(dataSet);
   }
 
-  const [file, setFile] = useState('')
-  // const [description, setDescription] = useState("")
-  const [originalName, setOriginalName] = useState('')
+
+  const additem = () => {
+
+    let newListMenu = listMenuModel
+    setListMenu([...listMenu, newListMenu])
+  }
+
+  const removeItem = (index) => {
+    let data = [...listMenu];
+    data.splice(index, 1)
+    setListMenu(data)
+  }
+
+  const chooseMenu = (oneMennu) => {
+    setState(oneMennu)
+    setListMenu(oneMennu.listMenu)
+    setMenuId(oneMennu.menuId)
+
+  }
+
+
+  const componentDidMount = () => {
+    window.scrollTo(0, 0)
+  }
 
 
   //-
@@ -109,7 +129,7 @@ const MainForm = () => {
   }
 
 
-  const imgId = uuidv4()
+
 
   const submitCatagory = (e) => {
     e.preventDefault();
@@ -117,22 +137,19 @@ const MainForm = () => {
     componentDidMount()
     if (!state.catagory.trim()) return
 
-    file && uploadImage()
+    uploadImage()
 
     // dispath(showLoading())
     axios.post(`${process.env.REACT_APP_API}/user/create-manu`,
-      {
-        catagory: state.catagory,
-        imgId: imgId,
-        listMenu: [...listMenu], userId: user.userId, link: user.link
-      }, ticketPass)
+      { catagory: state.catagory, listMenu: [...listMenu], userId: user.userId, link: user.link }, ticketPass)
       .then(result => {
         if (result.data.success) {
           getAllMenu()
           dispath(setUser(result.data.userMenu));
           actionDelay()
           Unchecked()
-          setNothing()
+          setListMenu([listMenuModel])
+          setState({ catagory: '' })
           dispath(hideLoading())
 
           Swal.fire({
@@ -229,29 +246,9 @@ const MainForm = () => {
       })
   }
 
-  const additem = () => {
 
-    let newListMenu = listMenuModel
-    setListMenu([...listMenu, newListMenu])
-  }
+  // const [switchAction, setSwitAction] = useState(false)
 
-  const removeItem = (index) => {
-    let data = [...listMenu];
-    data.splice(index, 1)
-    setListMenu(data)
-  }
-
-  const chooseMenu = (oneMennu) => {
-    setState(oneMennu)
-    setListMenu(oneMennu.listMenu)
-    setMenuId(oneMennu.menuId)
-    getImage()
-  }
-
-
-  const componentDidMount = () => {
-    window.scrollTo(0, 0)
-  }
 
 
 
@@ -267,7 +264,9 @@ const MainForm = () => {
         if (result.data.success) {
 
           dispath(setUser(result.data.userMenu));
-          setNothing()
+          setMenuId('')
+          setState({ catagory: '' })
+          setListMenu([listMenuModel])
           actionDelay()
           // Swal.fire(result.data.message)
           dispath(hideLoading())
@@ -311,7 +310,33 @@ const MainForm = () => {
   }
 
 
+  const reloadPage = () => {
+    setStart(true)
+    setMenuId('')
+    setListMenu([listMenuModel])
+    setState({ catagory: '' })
+    // window.location.reload(false)
 
+  }
+
+
+  useEffect(() => {
+    getAllMenu()
+    // eslint-disable-next-line
+  }, [user])
+
+
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  })
 
 
   const ref = useRef([]);
@@ -341,7 +366,7 @@ const MainForm = () => {
     file: null
   });
   const fileHandler = (e) => {
-
+    console.log(e.target.files[0].name);
     setStateUp({ ...stateUp, file: e.target.files[0] });
     document.getElementById('h1').textContent = e.target.files[0].name;
   };
@@ -349,8 +374,10 @@ const MainForm = () => {
 
 
 
-
-
+  //-///-///-///-///-///-///-///-///-///-///-
+  const [file, setFile] = useState({})
+  // const [description, setDescription] = useState("")
+  const [originalName, setOriginalName] = useState('')
 
   const resizeFile = (file) =>
     new Promise((resolve) => {
@@ -362,7 +389,6 @@ const MainForm = () => {
         100,
         0,
         (uri) => {
-          console.log('re' + Boolean(file))
           setFile(uri);
         },
         "base64"
@@ -384,9 +410,8 @@ const MainForm = () => {
     return new Blob([ia], { type: mimeString });
   };
 
-  // console.log(originalName)
+  console.log(originalName)
 
-  //-///-///-///-///-///-///-///-///-///-///-
   const uploadImage = (e) => {
     // e.preventDefault()
     // const formData = new FormData()
@@ -397,13 +422,58 @@ const MainForm = () => {
     const newFile = dataURIToBlob(file);
     const formData = new FormData();
 
-    formData.append("avatar", newFile, imgId);
+    formData.append("avatar", newFile, originalName);
 
     axios
       .post(`${process.env.REACT_APP_API}/user/images`, formData)
 
       // .post(`${process.env.REACT_APP_API}/user/images`, formData, { headers: { 'Content-Type': 'multipart/form-data' } })
       .then((result) => {
+        console.log(result)
+        // setImageName(result.data.imageName)
+        // const data = res.data;
+        // console.log(data);
+        // const blob = b64toBlob(data.b64Data, data.contentType);
+        // console.log(blob);
+        // const [fileName] = stateUp.file.name.split('.');
+        // fileDownload(blob, `${fileName}-resized.${data.extension}`);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+
+    // const result = await axios.post('/api/images', formData, { headers: { 'Content-Type': 'multipart/form-data' } })
+    // console.log(result.data)
+  }
+
+  const onChangeImg = (e) => {
+    e.preventDefault()
+    resizeFile(file).then(res => {
+      console.log('fffffffffffffffffff')
+    })
+
+  };
+
+  function arrayBufferToBase64(buffer) {
+    var binary = '';
+    var bytes = [].slice.call(new Uint8Array(buffer));
+    bytes.forEach((b) => binary += String.fromCharCode(b));
+    return window.btoa(binary);
+  };
+
+  const [curImg, setCurImg] = useState('')
+
+  const getImage = (e) => {
+   
+    axios
+      .get(`${process.env.REACT_APP_API}/user/images/`)
+      .then((result) => {
+        const getResult = result.data.images[0]
+        const base64Flag = 'data:image/png;base64,';
+        const imageStr = arrayBufferToBase64(getResult.img.data.data)
+        const tagImage = base64Flag + imageStr
+        setCurImg(tagImage)
+        // setOriginalName(result.data.originalName)
 
         // setImageName(result.data.imageName)
         // const data = res.data;
@@ -421,67 +491,9 @@ const MainForm = () => {
     // console.log(result.data)
   }
 
-
-  function arrayBufferToBase64(buffer) {
-    var binary = '';
-    var bytes = [].slice.call(new Uint8Array(buffer));
-    bytes.forEach((b) => binary += String.fromCharCode(b));
-    return window.btoa(binary);
-  };
-
-  const [curImg, setCurImg] = useState('')
-
-  const getImage = () => {
-    axios
-      .post(`${process.env.REACT_APP_API}/user/images/preview`, { imgId: state.imgId })
-      .then((result) => {
-        console.log(result.data.images)
-        const getResult = result.data.images
-        const base64Flag = 'data:image/png;base64,';
-        const imageStr = arrayBufferToBase64(getResult.img.data.data)
-        const tagImage = base64Flag + imageStr
-        setCurImg(tagImage)
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }
-
-
-  const onChangeImg = (e) => {
-    e.preventDefault()
-    resizeFile(file).then(res => {
-
-    })
-
-  };
-
-  const reloadPage = () => {
-    setStart(true)
-    setMenuId('')
-    setListMenu([listMenuModel])
-    setState({ catagory: '', imgId: '' })
-    setFile('')
-    setCurImg('')
-    // window.location.reload(false)
-  }
-
-  const setNothing = () => {
-    setMenuId('')
-    setListMenu([listMenuModel])
-    setState({ catagory: '', imgId: '' })
-    setFile('')
-    setCurImg('')
-  }
-
-  useEffect(() => {
-    getAllMenu()
-    // eslint-disable-next-line
-  }, [user])
-
-
-
-  console.log(curImg)
+  // useEffect(() => {
+  //   getImage()
+  // }, [])
 
   //-///-///-///-///-///-///-///-///-///-///-
 
@@ -532,8 +544,10 @@ const MainForm = () => {
                   </div>
                 </div>
 
-                <i className="sr-only">//-!Photo//-</i>
+                <i className="sr-only">!Photo</i>
                 <div className="flexPhoto">
+                  {/* <div className=""> */}
+
 
                   {/* <form onSubmit={uploadImage} encType="multipart/form-data" >
                     <input name='avatar' onChange={e => {
@@ -554,7 +568,7 @@ const MainForm = () => {
                       // setvaluePhoto(e.target.value)\
                       setvaluePhoto('')
 
-                      setOriginalName(e.target.files[0]?.name)
+                      setOriginalName(e.target.files[0].name)
                       resizeFile(e.target.files[0]).then(res => {
                       })
 
@@ -567,7 +581,7 @@ const MainForm = () => {
                         <path fillRule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clipRule="evenodd" />
                       </svg> */}
                       <img className="boxPhoto" src={file} alt="" />
-                      <img className="boxPhoto" src={curImg} />
+                      <img src={curImg} />
                       <div className="photoText fontNormal">
                         <div className="">{valuePhoto}</div>
                       </div>

@@ -197,6 +197,7 @@
   padding: 0;
 }
 
+
 .flexPhoto {
   display: flex;
   align-items: center;
@@ -223,6 +224,12 @@
   outline: none;
 
 }
+
+.boxPhoto{
+  width: 10rem;
+  height: 5.6rem;
+}
+
 
 .photoText {
   width: 100%;

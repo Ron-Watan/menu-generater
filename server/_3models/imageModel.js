@@ -1,13 +1,14 @@
 import mongoose from 'mongoose'
 
 const imagesSchema = mongoose.Schema({
-  name: String,
-  desc: String,
-  img:
-  {
-      data: Buffer,
-      contentType: String
-  }
+  imgId: String,
+  destination: String,
+  img: {
+    data: Buffer,
+    contentType: String
+  },
+  size: Number,
+
 
 }, { timestamps: true })
 

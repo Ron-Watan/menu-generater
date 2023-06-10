@@ -25,6 +25,7 @@ app.use('/api/clients', clientsRoute)
 
 
 app.use(bodyparser.urlencoded({ extended: true }))
+app.use(bodyparser.json())
 // app.use('/images', express.static('images'))
 
 

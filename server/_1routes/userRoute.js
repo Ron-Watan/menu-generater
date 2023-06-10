@@ -31,7 +31,7 @@ router.post('/generateMenu', requireLogin, generateMenu)
 
 
 router.post('/images', upload.single("avatar"), uploadImage)
-// router.get('/images/:imageName', getImage)
+router.post('/images/preview', getImage)
 // app.listen(3000, () => {
 //   console.log("Server Running!")
 // })

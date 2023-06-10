@@ -27,13 +27,12 @@ export const getAllMenu = (req, res) => {
 //-
 export const createManu = (req, res) => {
   // console.log(req.body)
-  const { userId, catagory, imgId, listMenu, link } = req.body;
+  const { userId, catagory, listMenu, link } = req.body;
 
   Users.findOne({ userId: userId }).select('menu userId link').then((user) => {
     user.menu.push({
       menuId: uuidv4(),
       catagory: catagory,
-      imgId: imgId,
       listMenu: listMenu,
     });
     user.save();
@@ -150,8 +149,7 @@ export const uploadImage = (req, res) => {
     }
   })
   var image = {
-    // imgId: req.file.filename,
-    imgId: req.file.originalname,
+    name: req.file.originalname,
     destination: req.file.destination,
     size: req.file.size / 1000,
     img: {
@@ -165,10 +163,8 @@ export const uploadImage = (req, res) => {
 };
 
 export const getImage = (req, res) => {
-
-  const { imgId } = req.body
-  console.log(imgId)
-  Images.findOne({imgId:imgId}).then(result => {
+  console.log('ffffimg')
+  Images.find({}).then(result => {
     res.send({
       message: 'Success',
       images: result,
