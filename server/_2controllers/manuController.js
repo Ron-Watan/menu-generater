@@ -27,10 +27,11 @@ export const getAllMenu = (req, res) => {
 //-
 export const createManu = (req, res) => {
   // console.log(req.body)
-  const { userId, catagory, imgId, listMenu, link } = req.body;
+  const { userId, catagory, imgId, listMenu, menuTime, link } = req.body;
 
   Users.findOne({ userId: userId }).select('menu userId link').then((user) => {
     user.menu.push({
+      menuTime: menuTime,
       menuId: uuidv4(),
       catagory: catagory,
       imgId: imgId,
@@ -168,7 +169,7 @@ export const getImage = (req, res) => {
 
   const { imgId } = req.body
   console.log(imgId)
-  Images.findOne({imgId:imgId}).then(result => {
+  Images.findOne({ imgId: imgId }).then(result => {
     res.send({
       message: 'Success',
       images: result,

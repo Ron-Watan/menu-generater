@@ -102,8 +102,10 @@ const _MenuComponent = () => {
     setFavorList(favor)
 
   }
+  const [menuTimer, setMenuTimer] = useState('')
 
 
+ 
   useEffect(() => {
     getClientMenu()
 
@@ -124,7 +126,7 @@ const _MenuComponent = () => {
 
               <div className=" relative flex items-center ml-2">
                 <div className=" flex justify-self-end text-sm text-white">
-                  LUNCH MENU
+                  {menuTimer}
                 </div>
 
                 <button type="button" className=" inline-flex items-center justify-center ml-2
