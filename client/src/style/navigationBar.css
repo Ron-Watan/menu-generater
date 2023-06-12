@@ -1,9 +1,84 @@
 .sectionNavigation {
   position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   top: 0;
   left: 0;
   min-width: 3rem;
   width: 5vw;
   height: 100vh;
   background: #3C3D3F;
+  /* gap: 1rem; */
+  ;
+}
+
+.section1 {
+
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #cb2722;
+}
+
+.iconBarcode {
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+}
+
+.iconBarcode rect {
+  stroke: #fff;
+}
+
+.extra {
+  fill: #fff;
+}
+
+.section2 {
+  display: flex;
+  flex-direction: column;
+  /* border-top: 1px solid #777; */
+  border-bottom: 1px solid #777;
+  gap: 1.5rem;
+  padding: 1rem 0;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+
+}
+
+.myIconSideBar {
+  width: 40px;
+  height: 40px;
+  ;
+  stroke: #777;
+}
+
+.myIconSideBar path {
+  fill: #777
+}
+
+.active{
+  stroke: #fff;
+
+}
+.active path {
+  fill: #fff
+}
+.endSection {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+
+
+
+.focus:focus {
+  stroke: red;
 }

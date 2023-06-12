@@ -26,10 +26,21 @@ const theme = createTheme({
   },
 });
 
+const dateTime = new Date();
+// console.log(dateTime)
+
+const h = dateTime.getHours()
+const m = dateTime.getMinutes()
+const s = dateTime.getSeconds()
+
+
+const nowTime = h * 60 * 60 + m * 60 + s
 
 const _MenuComponent = () => {
 
   const [clientMenu, setClientMenu] = useState([])
+  const [menuTime, setMenuTime] = useState(1)
+
   const [favorList, setFavorList] = useState([])
   const { link } = useParams()
 
@@ -50,7 +61,10 @@ const _MenuComponent = () => {
 
   }, [])
 
-
+  console.log(nowTime)
+  const timeSwitcher = () => {
+    if (nowTime >= 18000 && nowTime <= 30000) setMenuTime(2)
+  }
 
   const getClientMenu = () => {
     // dispath(showLoading())
@@ -105,12 +119,12 @@ const _MenuComponent = () => {
   const [menuTimer, setMenuTimer] = useState('')
 
 
- 
+
   useEffect(() => {
     getClientMenu()
-
+    timeSwitcher()
   }, [])
-
+  // categoryList.filter((el) => el.menuTime == menuTime)
 
   return (
     <div className=''>
@@ -152,7 +166,7 @@ const _MenuComponent = () => {
         <CssBaseline />
         <ThemeProvider theme={theme}>
 
-          {clientMenu.map((el, index) => (
+          {clientMenu.filter((el) => el.menuTime == menuTime).map((el, index) => (
 
             <AcordionSubComp
               listMunu={el}

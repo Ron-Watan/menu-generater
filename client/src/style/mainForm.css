@@ -7,6 +7,15 @@
   top: 0;
 }
 
+.decorBg {
+  position: fixed;
+  background: radial-gradient(49.55% 49.55% at 50% 25%, rgba(217, 217, 217, 0.55) 0%, rgba(217, 217, 217, 0) 100%);
+  height: 10rem;
+  width: 100%;
+  top: 70vh;
+  left: 0;
+}
+
 /* Decor +1 ==tranform -1 stickyBox +1 */
 .formContainer {
   transform: translateY(-3rem);
@@ -225,7 +234,7 @@
 
 }
 
-.boxPhoto{
+.boxPhoto {
   width: 10rem;
   height: 5.6rem;
 }
