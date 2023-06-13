@@ -13,7 +13,7 @@ import path from 'path';
 export const getAllMenu = (req, res) => {
   // res.send({ message: "Success", success: true, }) //send to client side
   const { userId } = req.body;
-  Users.findOne({ userId: userId }).select('menu userId link').then((user) => {
+  Users.findOne({ userId: userId }).select('menu userId menu_1 menu_2 menu_3 link').then((user) => {
 
     res.send({
       message: 'Success',
@@ -27,11 +27,12 @@ export const getAllMenu = (req, res) => {
 //-
 export const createManu = (req, res) => {
   // console.log(req.body)
-  const { userId, catagory, imgId, listMenu, menuTime, link } = req.body;
+  const { userId, catagory, imgId, listMenu, menuTime, menuTimeName, link } = req.body;
 
   Users.findOne({ userId: userId }).select('menu userId link').then((user) => {
     user.menu.push({
       menuTime: menuTime,
+      menuTimeName: menuTimeName,
       menuId: uuidv4(),
       catagory: catagory,
       imgId: imgId,
@@ -57,12 +58,16 @@ export const createManu = (req, res) => {
 
 //- // componentusers/MainForm.js
 export const saveEditMenu = (req, res) => {
-  const { menuId, catagory, listMenu, link } = req.body;
+
+  const { menuId, catagory, imgId, listMenu, menuTime, menuTimeName } = req.body;
   Users.findOneAndUpdate({ 'menu.menuId': menuId }, {
     $set: {
       "menu.$": {
+        menuTime: menuTime,
+        menuTimeName: menuTimeName,
         menuId: menuId,
         catagory: catagory,
+        imgId: imgId,
         listMenu: listMenu,
       }
     }
@@ -76,8 +81,11 @@ export const saveEditMenu = (req, res) => {
   Clients.findOneAndUpdate({ 'menu.menuId': menuId }, {
     $set: {
       "menu.$": {
+        menuTime: menuTime,
+        menuTimeName: menuTimeName,
         menuId: menuId,
         catagory: catagory,
+        imgId: imgId,
         listMenu: listMenu,
       }
     }
@@ -86,6 +94,29 @@ export const saveEditMenu = (req, res) => {
   })
 
 };
+
+export const saveNameMenu = (req, res) => {
+  const { userId, menu_1, menu_2, menu_3 } = req.body;
+
+  console.log(menu_1, menu_2, menu_3)
+  Users.findOne({ userId: userId }).select('menu_1 menu_2 menu_3').then(user => {
+    user.menu_1 = menu_1
+    user.menu_2 = menu_2
+    user.menu_3 = menu_3
+    user.save()
+
+    res.send({
+      message: 'Success',
+      nameMenu: user,
+      success: true
+    }); //send to client side
+
+
+  })
+
+};
+
+
 
 //-
 
@@ -144,14 +175,14 @@ export const findOneMenu = (req, res) => {
 
 export const uploadImage = (req, res) => {
   console.log(req.file)
-
+  const { userId } = req.body
   fs.access('./images/', (err) => {
     if (err) {
       fs.mkdirSync('./images/')
     }
   })
   var image = {
-    // imgId: req.file.filename,
+    userId: userId,
     imgId: req.file.originalname,
     destination: req.file.destination,
     size: req.file.size / 1000,
@@ -164,6 +195,22 @@ export const uploadImage = (req, res) => {
   Images.create(image)
 
 };
+
+
+export const getAllImage = (req, res) => {
+
+  const { userId } = req.body
+  console.log(userId)
+  Images.find({ userId: userId }).then(result => {
+    res.send({
+      message: 'Success',
+      images: result,
+      success: true
+    });
+  })
+
+}
+
 
 export const getImage = (req, res) => {
 

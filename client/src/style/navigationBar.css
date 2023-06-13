@@ -28,11 +28,11 @@
 }
 
 .iconBarcode rect {
-  stroke: #fff;
+  stroke: #eee;
 }
 
 .extra {
-  fill: #fff;
+  fill: #eee;
 }
 
 .section2 {
@@ -48,24 +48,8 @@
 
 }
 
-.myIconSideBar {
-  width: 40px;
-  height: 40px;
-  ;
-  stroke: #777;
-}
 
-.myIconSideBar path {
-  fill: #777
-}
 
-.active{
-  stroke: #fff;
-
-}
-.active path {
-  fill: #fff
-}
 .endSection {
   display: flex;
   flex-direction: column;
@@ -77,8 +61,80 @@
 }
 
 
+.myIconBanner {
+  width: 40px;
+  height: 40px;
+  ;
+  stroke: #777;
+}
+
+.myIconSideBar {
+  width: 40px;
+  height: 40px;
+  ;
+  stroke: #777;
+}
+
+.myIconSideBar path {
+  fill: #777
+}
+
+.active {
+  stroke: #eee;
+
+}
+
+.active path {
+  fill: #eee
+}
 
 
-.focus:focus {
-  stroke: red;
+
+
+
+.activeBanner>.rs {
+  stroke: #eee;
+
+}
+
+.activeBanner>.rf {
+  fill: #eee
+}
+
+.activeBanner>.ps {
+  stroke: #eee;
+}
+
+.activeBanner>.pf {
+  fill: #eee
+}
+
+.activeBanner line {
+  stroke: #eee;
+
+}
+
+
+.activeTime circle,
+.activeTime line {
+  stroke: #eee;
+}
+
+.myIconMd {
+  width: 35px;
+  height: 35px;
+
+  stroke: #777;
+}
+
+
+.activeLang circle,
+.activeLang path {
+  stroke: #eee;
+
+}
+
+.activeLang .pf {
+  fill: #eee;
+
 }

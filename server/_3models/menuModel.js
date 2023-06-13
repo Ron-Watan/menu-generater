@@ -36,6 +36,15 @@ const userSchema = mongoose.Schema({
     default: []
 
   },
+  menu_1: {
+    type: String,
+  },
+  menu_2: {
+    type: String,
+  },
+  menu_3: {
+    type: String,
+  },
   link: {
     type: String,
   }

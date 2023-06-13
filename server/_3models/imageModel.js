@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 
 const imagesSchema = mongoose.Schema({
+  userId: String,
   imgId: String,
   destination: String,
   img: {

@@ -10,15 +10,30 @@ import '../style/mainForm.css';
 import '../style/sideForm.css';
 import { BsSquare, BsCheckSquare } from 'react-icons/bs';
 import { v4 as uuidv4 } from 'uuid';
-import TimePicker from './TimePicker';
-import fileDownload from 'js-file-download';
-import b64toBlob from 'b64-to-blob';
-import { useParams } from 'react-router-dom';
-// import MenuComponent from "../components/MenuComponent"
-// import {theme} from "../components/MenuComponent"
-// import { useForm } from 'react-hook-form';
-// import { createTheme, ThemeProvider } from '@mui/material'
+import iconPhoto from '../icon/downloadIcon.svg'
 import Resizer from 'react-image-file-resizer';
+import GenerateMenu from './GenerateMenu';
+
+/*
+qqq
+
+001_getAllMenu
+
+
+
+005_findOneMenu
+
+
+901_chooseMenu
+
+//-///-///-///-///-///-///-///-///-///-
+
+<i className='sr-only'>//-!Photo//-</i>
+
+*/
+
+
+
 
 const MainForm = () => {
   function getCurrentDimension() {
@@ -46,7 +61,31 @@ const MainForm = () => {
   const [categoryList, setCategoryList] = useState([]);
   const [menuId, setMenuId] = useState('');
 
-  const [menuTime, setMenuTime] = useState(1);
+  const [menuTime, setMenuTime] = useState(1); // timeSwitcher()
+
+
+  const [menuName, setMenuName] = useState({
+    menu_1: '', menu_2: '', menu_3: ''
+  }); // timeSwitcher()
+
+  const [menuTimeName, setMenuTimeName] = useState(''); // timeSwitcher()
+
+  const inputMenuTimeName = (e) => {
+    setMenuTimeName(e.target.value)
+    if (menuTime === 1) return setMenuName({ ...menuName, menu_1: e.target.value })
+    if (menuTime === 2) return setMenuName({ ...menuName, menu_2: e.target.value })
+    if (menuTime === 3) return setMenuName({ ...menuName, menu_3: e.target.value })
+
+  }
+
+  const callmenuName = (no) => {
+    if (no === 1) return setMenuTimeName(menuName.menu_1)
+    if (no === 2) return setMenuTimeName(menuName.menu_2)
+    if (no === 3) return setMenuTimeName(menuName.menu_3)
+
+  }
+
+
 
 
   const [state, setState] = useState({
@@ -89,9 +128,10 @@ const MainForm = () => {
 
   const [file, setFile] = useState('');
   // const [description, setDescription] = useState("")
-  const [originalName, setOriginalName] = useState('');
+  const [originalName, setOriginalName] = useState('')
 
-  //-
+
+  //- 001_getAllMenu
   const getAllMenu = () => {
     // dispath(showLoading())
     axios
@@ -99,12 +139,17 @@ const MainForm = () => {
       .then((result) => {
         if (result.data.success) {
           // Swal.fire(result.data.message)
-          const getReult = result.data.userMenu.menu;
+          const getReult = result.data.userMenu;
+          setCategoryList(getReult.menu);
+
           //   const checkTime = getReult.filter((el) => el.menuTime == menuTime;
           //   return el.menuTime == menuTime;
           // });
 
-          setCategoryList(getReult);
+          setMenuName({
+            menu_1: getReult.menu_1, menu_2: getReult.menu_2, menu_3: getReult.menu_3
+          })
+
 
           // console.log(checkTime);
           // setCategoryList(result.data.userMenu.menu)
@@ -124,6 +169,10 @@ const MainForm = () => {
       });
   };
 
+
+
+
+
   const imgId = uuidv4();
 
   const submitCatagory = (e) => {
@@ -139,12 +188,14 @@ const MainForm = () => {
       .post(
         `${process.env.REACT_APP_API}/user/create-manu`,
         {
+          userId: user.userId,
           menuTime: menuTime,
+          menu_1: menuName.menu_1, menu_2: menuName.menu_2, menu_3: menuName.menu_3,
           catagory: state.catagory,
           imgId: imgId,
-          listMenu: [...listMenu],
-          userId: user.userId,
           link: user.link,
+
+          listMenu: [...listMenu],
         },
         ticketPass
       )
@@ -188,7 +239,19 @@ const MainForm = () => {
     e.preventDefault();
     dispath(showLoading());
     axios
-      .post(`${process.env.REACT_APP_API}/user/saveEditMenu`, { menuId: menuId, catagory: state.catagory, listMenu: [...listMenu], userId: user.userId, link: user.link }, ticketPass)
+      .post(`${process.env.REACT_APP_API}/user/saveEditMenu`,
+        {
+          userId: user.userId,
+          menuId: menuId,
+          menuTime: menuTime,
+
+          catagory: state.catagory,
+          imgId: imgId,
+          link: user.link,
+
+          listMenu: [...listMenu],
+
+        }, ticketPass)
       .then((result) => {
         if (result.data.success) {
           // Swal.fire(result.data.message)
@@ -220,7 +283,7 @@ const MainForm = () => {
       });
   };
 
-  //- ////////////////////////////////////////////////////////
+  //- 005_findOneMenu
 
   const findOneMenu = (e) => {
     e.preventDefault();
@@ -228,25 +291,77 @@ const MainForm = () => {
     const menuId = e.target.name;
     setMenuId(menuId);
     componentDidMount();
+    user.menu.map(el => {
+      if (el.menuId == menuId) {
+        chooseMenu(el)
+      }
+    })
+
+
+    // chooseMenu(oneMenu);
+
+    // chooseMenu(result.data.userMenu);
     // dispath(showLoading())
+    // axios
+    //   .post(`${process.env.REACT_APP_API}/user/findOneMenu`, { menuId: menuId, userId: user.userId }, ticketPass)
+    //   .then((result) => {
+    //     if (result.data.success) {
+    //       // Swal.fire(result.data.message)
+    //       // console.log(result.data.userMenu)
+    //       // setMenus(result.data.userMenu.menu)
+    //       // dispath(hideLoading())
+    //       chooseMenu(result.data.userMenu);
+    //       actionDelay();
+    //     } else {
+    //       Swal.fire(result.data.message);
+    //       // dispath(hideLoading())
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     // dispath(hideLoading())
+    //     console.log("Can't not connect the server", err);
+    //     Swal.fire("Can't not connect the server");
+    //   });
+  };
+
+  const saveNameMenu = () => {
+
+    dispath(showLoading());
+
     axios
-      .post(`${process.env.REACT_APP_API}/user/findOneMenu`, { menuId: menuId, userId: user.userId }, ticketPass)
+      .post(`${process.env.REACT_APP_API}/user/saveNameMenu`,
+        {
+          userId: user.userId,
+          menu_1: menuName.menu_1, menu_2: menuName.menu_2, menu_3: menuName.menu_3,
+        }, ticketPass)
       .then((result) => {
         if (result.data.success) {
           // Swal.fire(result.data.message)
-          // console.log(result.data.userMenu)
-          // setMenus(result.data.userMenu.menu)
-          // dispath(hideLoading())
-          chooseMenu(result.data.userMenu);
+          setMenuName(result.data.nameMenu)
           actionDelay();
+          setMenuTimeName('')
+          dispath(hideLoading());
+          Swal.fire({
+            title: 'SAVED',
+            text: 'Your menu has been saved',
+            toast: true,
+            icon: 'success',
+            // confirmButtonText: 'SAVED',
+            showConfirmButton: false,
+            // width: '16rem',
+            // height: '5rem',
+            iconColor: '#cb2722',
+            // confirmButtonColor: '#cb2722',
+            timer: 2000,
+          });
         } else {
           Swal.fire(result.data.message);
-          // dispath(hideLoading())
+          dispath(hideLoading());
         }
       })
       .catch((err) => {
-        // dispath(hideLoading())
-        console.log("Can't not connect the server", err);
+        dispath(hideLoading());
+        console.log("Can't not connect the server");
         Swal.fire("Can't not connect the server");
       });
   };
@@ -262,17 +377,6 @@ const MainForm = () => {
     setListMenu(data);
   };
 
-  const chooseMenu = (oneMennu) => {
-    setState(oneMennu);
-    setListMenu(oneMennu.listMenu);
-    setMenuId(oneMennu.menuId);
-    getImage();
-    actionDelay();
-  };
-
-  const componentDidMount = () => {
-    window.scrollTo(0, 0);
-  };
 
   const deleteMenu = (e) => {
     e.preventDefault();
@@ -371,21 +475,17 @@ const MainForm = () => {
     return new Blob([ia], { type: mimeString });
   };
 
-  // console.log(originalName)
 
   //-///-///-///-///-///-///-///-///-///-///-
-  const uploadImage = (e) => {
-    // e.preventDefault()
-    // const formData = new FormData()
-    // formData.append("avatar", file)
-    // formData.append("description", description)
-    // console.log('dsadadasdasdasdas')
+  const uploadImage = () => {
 
     const newFile = dataURIToBlob(file);
     const formData = new FormData();
 
     formData.append('avatar', newFile, imgId);
+    formData.append('userId', user.userId);
 
+    console.log(user.userId)
     axios
       .post(`${process.env.REACT_APP_API}/user/images`, formData)
 
@@ -416,6 +516,25 @@ const MainForm = () => {
 
   const [curImg, setCurImg] = useState('');
 
+
+
+  const getAllImage = () => {
+    axios
+      .post(`${process.env.REACT_APP_API}/user/images/all`, { userId: user.userId })
+      .then((result) => {
+        console.log(result.data.images);
+        const getResult = result.data.images;
+        const base64Flag = 'data:image/png;base64,';
+        const imageStr = arrayBufferToBase64(getResult.img.data.data);
+        const tagImage = base64Flag + imageStr;
+        // console.log(tagImage)
+        setFile(tagImage);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
   const getImage = () => {
     axios
       .post(`${process.env.REACT_APP_API}/user/images/preview`, { imgId: state.imgId })
@@ -425,7 +544,8 @@ const MainForm = () => {
         const base64Flag = 'data:image/png;base64,';
         const imageStr = arrayBufferToBase64(getResult.img.data.data);
         const tagImage = base64Flag + imageStr;
-        setCurImg(tagImage);
+        // console.log(tagImage)
+        setFile(tagImage);
       })
       .catch((err) => {
         console.error(err);
@@ -440,6 +560,7 @@ const MainForm = () => {
   function actionDelay() {
     setTimeout(() => {
       getAllMenu();
+
     }, 2000);
   }
 
@@ -462,17 +583,42 @@ const MainForm = () => {
     setCurImg('');
   };
 
+  // 901_chooseMenu
+  const chooseMenu = (oneMennu) => {
+    setState({ catagory: oneMennu.catagory, imgId: oneMennu.imgId });
+    setListMenu(oneMennu.listMenu);
+    setMenuId(oneMennu.menuId);
+    getImage();
+    // actionDelay();
+    console.log(oneMennu)
+
+  };
+
+
+
+  const timeSwitcher = (menuNo) => {
+    setMenuTime(menuNo);
+    callmenuName(menuNo)
+    // menuTimeNameFn(menuNo)
+    setNothing()
+
+    // actionDelay();
+  };
   useEffect(() => {
     getAllMenu();
+    getAllImage()
     // eslint-disable-next-line
   }, [user]);
 
-  const timeSwitcher = (menu) => {
-    setMenuTime(menu);
-    setNothing()
-    // actionDelay();
+
+
+
+  const componentDidMount = () => {
+    window.scrollTo(0, 0);
   };
 
+
+  const [activeInput, setactiveInput] = useState(false)
 
 
 
@@ -487,12 +633,12 @@ const MainForm = () => {
 
         <div className='monitor1'>
 
+          <GenerateMenu />
 
-         
         </div>
         <div className="containerMiddle">
 
-        {/* <TimePicker/> */}
+          {/* <TimePicker/> */}
           <div onClick={() => setDeleteBtn(false)} className='monitor2 formContainer '>
             <form id='foodForm' encType='multipart/form-data' className={` formMenu ${start ? 'show' : 'hiddenMe'}`} onSubmit={submitCatagory}>
               <div className='stickyBox1'></div>
@@ -558,18 +704,25 @@ const MainForm = () => {
                       />
 
                       <div name='photo' className='photoFlex'>
-                        {/* <svg className="iconPhoto" viewBox="0 0 24 24" fill="#999" aria-hidden="true">
-                        <path fillRule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clipRule="evenodd" />
-                      </svg> */}
+                        {/* <svg className='hidden' width="160" height="90" viewBox="0 0 160 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M69.8812 70.1842C84.04 70.1547 98.1968 70.1547 112.352 70.1842C112.757 70.1858 113.146 70.3485 113.434 70.6369C113.721 70.9252 113.885 71.3161 113.888 71.7248C113.888 74.0294 112.922 78.5376 107.749 78.5376H74.49C69.3168 78.5376 68.3574 74.0294 68.3574 71.7248C68.3591 71.3178 68.5199 70.9278 68.8051 70.6395C69.0904 70.3511 69.477 70.1875 69.8812 70.1842ZM105.535 32.9318C117.343 42.0871 121.557 38.4755 128.323 35.1165C133.508 32.5467 135.534 30.1095 141.829 32.6793V23.3472H105.548V32.9318H105.535ZM128.586 20.5375L130.956 11.698C131.028 11.3858 131.167 11.0936 131.364 10.8424C131.562 10.5913 131.812 10.3874 132.097 10.2458L141.804 5.25142C142.308 4.9856 142.894 4.928 143.439 5.09086C143.984 5.25372 144.444 5.62419 144.722 6.12348C144.999 6.62277 145.073 7.21147 144.926 7.76435C144.779 8.31724 144.424 8.79069 143.936 9.08399L134.982 13.6679L133.101 20.5375L133.27 20.0071H143.616C143.978 20.0137 144.323 20.1616 144.578 20.4197C144.833 20.6778 144.979 21.0258 144.983 21.3899V39.2331C144.983 50.8193 138.713 59.8104 126.962 60.7006V77.0033H136.086C136.857 77.0033 137.471 78.2282 137.471 78.9985C137.471 79.7688 136.844 81 136.086 81H116.17L116.471 80.678C117.431 79.5987 118.189 78.3538 118.71 77.0033H121.08V60.7511C120.453 60.7511 119.826 60.6754 119.199 60.6059C119.028 60.0455 118.805 59.5022 118.534 58.9832C118.83 58.6085 119.095 58.2093 119.324 57.7899C119.907 56.7126 120.264 55.526 120.372 54.304C120.48 53.0819 120.337 51.8506 119.951 50.6867C119.32 48.7379 118.292 46.9426 116.935 45.4145C114.063 42.0808 109.003 38.6838 102.218 36.8275V21.3899C102.218 21.0198 102.364 20.6649 102.624 20.4032C102.884 20.1415 103.237 19.9945 103.604 19.9945H128.743L128.586 20.5249V20.5375ZM110.358 56.6092H72.3894C71.2252 56.6092 70.1088 56.1435 69.2856 55.3146C68.4625 54.4858 68 53.3616 68 52.1894C68 45.8754 80.447 41.3231 90.9063 41.222C111.474 41.0137 120.704 56.6029 110.345 56.6029L110.358 56.6092ZM101.579 46.4184C102.047 46.4172 102.504 46.5557 102.894 46.8165C103.283 47.0773 103.587 47.4487 103.767 47.8835C103.947 48.3183 103.995 48.7971 103.904 49.2593C103.814 49.7215 103.589 50.1462 103.259 50.4797C102.928 50.8133 102.507 51.0406 102.049 51.133C101.59 51.2253 101.114 51.1785 100.682 50.9986C100.249 50.8186 99.8799 50.5135 99.6199 50.1219C99.3598 49.7303 99.221 49.2699 99.221 48.7988C99.221 48.1686 99.4692 47.5641 99.9112 47.1179C100.353 46.6716 100.953 46.4201 101.579 46.4184ZM81.0051 46.5889C81.4734 46.5852 81.9323 46.7216 82.3236 46.9808C82.7148 47.2401 83.0207 47.6105 83.2025 48.0452C83.3843 48.4798 83.4338 48.959 83.3448 49.4219C83.2557 49.8849 83.032 50.3108 82.7022 50.6456C82.3723 50.9804 81.9511 51.209 81.4921 51.3024C81.033 51.3958 80.5567 51.3498 80.1237 51.1702C79.6906 50.9906 79.3203 50.6855 79.0597 50.2937C78.7991 49.9018 78.6599 49.4409 78.6599 48.9693C78.6599 48.3391 78.9081 47.7346 79.3501 47.2883C79.7921 46.8421 80.3918 46.5906 81.0176 46.5889H81.0051ZM91.2135 44.3222C91.6811 44.3222 92.1381 44.4618 92.5269 44.7234C92.9157 44.9849 93.2187 45.3567 93.3976 45.7916C93.5765 46.2266 93.6233 46.7052 93.5321 47.167C93.4409 47.6287 93.2157 48.0528 92.8851 48.3857C92.5545 48.7186 92.1333 48.9453 91.6747 49.0372C91.2162 49.129 90.7408 49.0819 90.3089 48.9017C89.8769 48.7216 89.5077 48.4165 89.248 48.025C88.9882 47.6336 88.8495 47.1734 88.8495 46.7026C88.8495 46.0713 89.0986 45.4658 89.5419 45.0194C89.9853 44.573 90.5866 44.3222 91.2135 44.3222ZM113.775 62.6706C113.838 62.7776 113.873 62.8995 113.875 63.0242C113.875 63.1062 113.875 63.1946 113.875 63.283C113.875 63.3714 113.875 63.4598 113.875 63.5356C113.873 63.6622 113.838 63.7862 113.775 63.8955C113.43 65.4235 112.032 67.4313 107.743 67.4313H74.49C70.201 67.4313 68.8089 65.4298 68.4577 63.8955C68.3942 63.7862 68.3597 63.6622 68.3574 63.5356C68.3574 63.4598 68.3574 63.3714 68.3574 63.283C68.3513 63.1968 68.3513 63.1103 68.3574 63.0242C68.3596 62.8995 68.3942 62.7776 68.4577 62.6706C68.8089 61.1363 70.2072 59.1348 74.49 59.1348H91.7215L98.0986 65.7392L104.369 59.1348H107.749C112.038 59.1348 113.436 61.1363 113.781 62.6706H113.775Z" fill="#AAAAAA" />
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M48.7612 4C48.2972 3.74733 48 3.26584 48 2.73757V1.74962C48 0.783333 48.7833 0 49.7496 0H156H158C159.105 0 160 0.895431 160 2V4V86V88C160 89.1046 159.105 90 158 90H156H4H2C0.895431 90 0 89.1046 0 88V86V49.7488V48.9006C0 47.8509 0.850918 47 1.90058 47C2.63759 47 3.30383 47.4284 3.64117 48.0836C3.75823 48.311 3.87785 48.5369 4 48.7612C9.5933 59.0309 20.4828 66 33 66C51.2254 66 66 51.2254 66 33C66 20.4828 59.0309 9.5933 48.7612 4ZM154 86C155.105 86 156 85.1046 156 84V6C156 4.89543 155.105 4 154 4H63.0311L63.0408 3.98083L57.1248 3.8539L59.8006 7.32741C59.8948 7.53071 60.0216 7.72356 60.1835 7.89873C60.3087 8.03428 60.4329 8.17076 60.5561 8.30817L60.736 8.54159L60.7461 8.5216C66.5054 15.0444 70 23.6138 70 33C70 53.4345 53.4345 70 33 70C23.3114 70 14.4939 66.2771 7.89882 60.1834C7.77669 60.0706 7.64597 59.9748 7.5091 59.8952L4.08114 56.9595L4.01124 61.5014C4.00382 61.5723 4 61.6448 4 61.7187V62.2321L3.98943 62.9189L4 62.9142V84C4 85.1046 4.89543 86 6 86H154Z" fill="#AAAAAA" />
+                          <circle cx="33" cy="32" r="28" stroke="#AAAAAA" strokeWidth="4" />
+                          <path d="M30.8444 13.4427C31.6378 12.2722 33.3622 12.2722 34.1556 13.4427L47.2715 32.7946C48.1716 34.1226 47.2202 35.9167 45.6159 35.9167H19.3841C17.7798 35.9167 16.8284 34.1226 17.7285 32.7946L30.8444 13.4427Z" fill="#AAAAAA" />
+                          <rect x="26.5" y="32.6667" width="12" height="17.3333" rx="2" fill="#AAAAAA" />
+                        </svg> */}
+
+
                         {/* <img className="boxPhoto" src={file} alt="" /> */}
-                        <img className='boxPhoto' src={curImg} />
+                        <img className="boxPhoto" src={file ? file : iconPhoto} alt="" />
+                        {/* <img className='boxPhoto' src={curImg} /> */}
                         {/* {file ? <img className="boxPhoto" src={file} alt="" /> : <svg className="iconPhoto" viewBox="0 0 24 24" fill="#999" aria-hidden="true">
                         <path fillRule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clipRule="evenodd" />
                       </svg>} */}
-                        <div className='photoText fontNormal'>
-                          <div className=''>{valuePhoto}</div>
-                        </div>
-                        <p className='remarkPhoto'>Upload a file PNG, JPG up to 5MB</p>
+                        {/* <div className='photoText fontNormal'> */}
+                        {/* <div className=''>{valuePhoto}</div> */}
+                        {/* </div> */}
+                        <p className='remarkPhoto'>Upload a file PNG, JPG <br />up to 5MB</p>
                       </div>
                     </label>
 
@@ -759,47 +912,86 @@ const MainForm = () => {
             {/* ${!menuId ? 'hiddenMe' : 'show'} */}
           </div>
         </div>
-        
-          <div onClick={() => setDeleteBtn(false)} className='monitorSpace '>
-            <div className='newCatBox'>
-              <div className={``}>
-                <button onClick={reloadPage} type='button' form='foodForm' className='newCatBtn'>
-                  <span>
-                    <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' strokeWidth='1.5' stroke='currentColor' className='w-8 h-8'>
-                      <path strokeLinecap='round' strokeLinejoin='round' d='M12 4.5v15m7.5-7.5h-15' />
-                    </svg>
-                  </span>
-                  <span>NEW CATEGORY</span>
-                </button>
-              </div>
-            </div>
 
-            <i className='sr-only'>!SAVE</i>
-            <div className='saveBtnBox'>
-              <div className={`${menuId ? 'hiddenMe' : 'show'} ${start ? 'show' : 'hiddenMe'}`}>
-                <button type='submit' form='foodForm' className='saveBtn'>
-                  SAVE NEW CATEGORY
-                </button>
-              </div>
-
-              <div className={` ${!menuId ? 'hiddenMe' : 'show'}`}>
-                <button onClick={saveEditMenu} type='' className='saveBtn'>
-                  SAVE
-                </button>
-              </div>
+        <div onClick={() => setDeleteBtn(false)} className='monitorSpace '>
+          <div className='newCatBox'>
+            <div className={``}>
+              <button onClick={reloadPage} type='button' form='foodForm' className='newCatBtn'>
+                <span>
+                  <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' strokeWidth='1.5' stroke='currentColor' className='w-8 h-8'>
+                    <path strokeLinecap='round' strokeLinejoin='round' d='M12 4.5v15m7.5-7.5h-15' />
+                  </svg>
+                </span>
+                <span>NEW CATEGORY</span>
+              </button>
             </div>
           </div>
 
-          <div className='monitorSpace'></div>
+          <i className='sr-only'>!SAVE</i>
+          <div className='saveBtnBox'>
+            <div className={`${menuId ? 'hiddenMe' : 'show'} ${start ? 'show' : 'hiddenMe'}`}>
+              <button type='submit' form='foodForm' className='saveBtn'>
+                SAVE NEW CATEGORY
+              </button>
+            </div>
 
-          <i className='sr-only'>!SIDE CATEGORY</i>
+            <div className={` ${!menuId ? 'hiddenMe' : 'show'}`}>
+              <button onClick={saveEditMenu} type='' className='saveBtn'>
+                SAVE
+              </button>
+            </div>
+          </div>
+        </div>
 
-          <div className='moitor3'>
-            <div className='sectionSideCat'>
-              <div className='headCat'>
+        <div className='monitorSpace'></div>
+
+        <i className='sr-only'>!SIDE CATEGORY</i>
+
+        <div className='moitor3'>
+          <div className='sectionSideCat'>
+            <div className='headCat'>
+
+
+              <div className="menuNameBox">
+
+                <div className={`flexNameMenu ${activeInput ? 'showMe' : 'hiddenMe'}`}>
+                  <input onChange={inputMenuTimeName} value={menuTimeName} type='text' maxLength="15" name='' id='' autoComplete='off' className='inputMenuName' placeholder='' />
+
+                  <button onClick={() => {
+                    saveNameMenu()
+                    setactiveInput(false)
+                  }
+                  }>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                    </svg>
+                  </button>
+
+                  <button onClick={() => {
+                    setMenuTimeName('')
+                    setactiveInput(false)
+                  }}>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+
+                <div className={`flexNameMenuReal ${!activeInput ? 'showMe' : 'hiddenMe'}`}>
+                  <div className='text'>&nbsp;{!menuTimeName ? menuName.menu_1 : menuTimeName}</div>
+                  <button onClick={() => setactiveInput(true)} className='btnAbs'>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                    </svg>
+                  </button>
+                </div>
+
+              </div>
+
+              <div className="headCat2">
                 <div>CATEGORY</div>
 
-                <div onClick={() => setDeleteBtn(!deleteBtn)} className='iconCat'>
+                <button onClick={() => setDeleteBtn(!deleteBtn)} className='btnAbs'>
                   <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' strokeWidth='1.5' stroke='currentColor' className='w-6 h-6'>
                     <path
                       strokeLinecap='round'
@@ -808,50 +1000,33 @@ const MainForm = () => {
                     />
                     <path strokeLinecap='round' strokeLinejoin='round' d='M15 12a3 3 0 11-6 0 3 3 0 016 0z' />
                   </svg>
+                </button>
+
+              </div>
+            </div>
+
+            {categoryList.filter((el) => el.menuTime == menuTime).map((el, index) => (
+              <div key={index} className={`tabCat ${menuId === el.menuId ? 'chooseCat' : 'mini'}`}>
+                <button name={el.menuId} onClick={findOneMenu} className={`itemCat  ${menuId === el.menuId ? 'itemCatChoose' : ''}`}>
+                  {index + 1}
+                </button>
+                <button name={el.menuId} onClick={findOneMenu} className='btnCat'>
+                  {el.catagory}
+                </button>
+
+                <div className={`${deleteBtn ? 'dispBox' : 'dispNone'} deleteBox`}>
+                  <button onClick={deleteMenu} value={el.menuId} type='submit' className='deleteBtn'>
+                    X
+                  </button>
                 </div>
               </div>
-
-              {categoryList.filter((el) => el.menuTime == menuTime).map((el, index) => (
-                <div key={index} className={`tabCat ${menuId === el.menuId ? 'chooseCat' : 'mini'}`}>
-                  <button name={el.menuId} onClick={findOneMenu} className={`itemCat  ${menuId === el.menuId ? 'itemCatChoose' : ''}`}>
-                    {index + 1}
-                  </button>
-                  <button name={el.menuId} onClick={findOneMenu} className='btnCat'>
-                    {el.catagory}
-                  </button>
-                  <div className={`${deleteBtn ? 'dispBox' : 'dispNone'} deleteBox`}>
-                    <button onClick={deleteMenu} value={el.menuId} type='submit' className='deleteBtn'>
-                      X
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
+            ))}
           </div>
         </div>
-        <div id='end' className=''></div>
       </div>
-      );
+      <div id='end' className=''></div>
+    </div>
+  );
 };
 
-      export default MainForm;
-
-//-
-// const getAllMenu = () => {
-//   dispath(showLoading())
-//   axios.post(`${process.env.REACT_APP_API}/user/getAllMenu`, { userId: user.userId }, ticketPass)
-//     .then(result => {
-//       if (result.data.success) {
-//         // Swal.fire(result.data.message)
-//         setMenus(result.data.userMenu.menu)
-//         dispath(hideLoading())
-//       } else {
-//         // Swal.fire(result.data.message)
-//         dispath(hideLoading())
-//       }
-//     }).catch(err => {
-//       dispath(hideLoading())
-//       console.log("Can't not connect the server", err)
-//       // Swal.fire("Can't not connect the server")
-//     })
-// }
+export default MainForm;

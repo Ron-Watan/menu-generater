@@ -20,6 +20,7 @@ const GenerateMenu = () => {
     restaurantName: '',
 
   })
+  console.log()
   const { restaurantName } = state
 
   const inputValue = (name) => (even) => {
@@ -82,10 +83,11 @@ const GenerateMenu = () => {
     downloadLink.click();
     document.body.removeChild(downloadLink);
   };
+
   return (
     <div className="">
 
-      {/* <div className="flex flex-col justify-center items-center mt-20 ">
+      <div className="flex flex-col justify-center items-center mt-20 ">
         <div className="w-full max-w-md -translate-y-18">
           <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
 
@@ -122,7 +124,8 @@ const GenerateMenu = () => {
 
           </p>
         </div>
-      </div> */}
+      </div> 
+      <a href={`http://localhost:3000/customer/${user.link}`}>ssssssssssssssssssssssssssss</a>
 
 
       <div className="">
@@ -135,14 +138,14 @@ const GenerateMenu = () => {
               // size={1000}
               level={"L"}
               style={{ height: "auto", maxWidth: "100%", width: "100%", border: '1px solid #000' }}
-              value={'http://localhost:3000/customer/344e0c43-admin'}
+              value={`http://localhost:3000/customer/${user.link}`}
               viewBox={`0 0 256 256`}
               bgColor='#fff'
               fgColor='#000'
               includeMargin='true'
             />
+
           </a>
-          {/* {`${qrValue}`} */}
         </div>
       </div>
 

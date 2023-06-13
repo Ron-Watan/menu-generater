@@ -40,7 +40,7 @@
 .stickyBox {
   position: sticky;
   top: 4rem;
-  padding: 2rem 2rem .5rem;
+  padding: 1.5rem 2rem .5rem;
   display: flex;
   flex-direction: column;
   gap: .5rem;
@@ -102,7 +102,7 @@
 .flexIcoCat {
   width: 55%;
   display: flex;
-  align-items: center;
+  align-items: end;
   gap: .5rem
 }
 
@@ -224,19 +224,25 @@
 .photoFlex {
   position: relative;
   display: flex;
-  align-items: center;
+  /* flex-direction: column; */
+  /* align-items: center; */
   width: 100%;
-  border: #999 1px solid;
-  border-radius: .2rem;
-  gap: 1rem;
+  /* border: #999 1px solid; */
+  /* border-radius: .2rem; */
+  gap: .2rem;
   /* padding: .5rem 1rem; */
   outline: none;
+ 
 
 }
 
 .boxPhoto {
   width: 10rem;
   height: 5.6rem;
+  border-radius: .3rem;
+  border: #eee 1px solid;
+  box-shadow: .1rem .1rem 2rem .1rem rgba(0, 0, 0, 0.10);
+
 }
 
 
@@ -255,14 +261,15 @@
 }
 
 .remarkPhoto {
-  position: absolute;
-  bottom: 0;
-  right: 0;
+  /* position: absolute; */
+  /* bottom: 0; */
+  /* right: 0; */
+  align-self: end;
   font-size: .7rem;
   font-style: italic;
-  transform: translateY(100%);
+  /* transform: translateY(100%); */
   color: #999;
-
+/* line-height: .6; */
 }
 
 
