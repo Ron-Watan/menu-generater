@@ -13,7 +13,7 @@ const AllRoute = () => {
 
   return (
     <BrowserRouter >
-      {loading && (<div className="loadering z-40">
+      {/* {loading && (<div className="loadering z-40">
         <div className="fixed top-50 left-0 right-0 top-0 items-center block max-w-full min-h-screen  bg-opacity-100 
          rounded-lg shadow-md">
           <div role="status" className="absolute -translate-x-1/2 -translate-y-1/2 top-1/4 left-1/2">
@@ -22,7 +22,15 @@ const AllRoute = () => {
             <span className="sr-only">Loading...</span>
           </div>
         </div>
-      </div>)}
+      </div>)} */}
+
+      {/* {loading && (<div className=" photoLoading">
+        <div className="iconLoading">
+          <span className='barOne'></span > <span className='barTwo'></span> <span className='barThree'></span>
+        </div>
+      </div>)} */}
+
+
       <Routes>
         <Route Component={ProtectRoute}>
           {/* <Route path="/generatemenu" exact Component={GenerateMenu} /> */}

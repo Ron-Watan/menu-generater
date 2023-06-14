@@ -1,0 +1,224 @@
+.topbox {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  height: 100vh;
+  /* flex-direction: column; */
+  /* gap: 3rem; */
+
+}
+
+
+.bannerSectionForm {
+  width: 100%;
+  flex-grow: 1;
+  transform: translateY(-10%);
+  /* font-size: 62.5%; */
+  /* position: absolute; */
+  /* top: 50%; */
+  /* left: 50%; */
+
+  /* transform: translate(-50%, -50%); */
+  /* transform-origin: center; */
+  /* justify-self: stretch; */
+  /* height: 100%; */
+  /* min-height: 50rem; */
+
+}
+
+/* .bannerBoxLoading {
+  width: 100%; 
+  height: 100vh;
+ min-height: 50rem;
+} */
+
+
+.boxImageForm {
+  max-width: 51.2rem;
+
+  width: 100%;
+  /* width: 100%; */
+
+  /* height: 18rem; */
+
+  /* height: 18rem; */
+
+}
+
+.imageBannerForm {
+  display: block;
+  /* width: 100%; */
+  border-radius: 5px;
+
+  /* height: 100%; */
+  box-shadow: .3rem .3rem .4rem .1rem rgba(0, 0, 0, 0.30);
+}
+
+/* .accordMoveUpForm { */
+/* transform: translateY(-28%); */
+/* top: 10rem */
+/* } */
+/* .moveBardot{
+  transform: translateY(-20%);
+} */
+
+.dotBarForm {
+  display: flex;
+  margin: 1rem auto;
+
+  width: 60%;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+  transform: translateY(-20%);
+}
+
+.dotForm {
+  width: 10%;
+  height: .2rem;
+  background-color: #cdcdcd;
+  border-radius: 2px;
+  font-size: 0rem;
+  color: #aaa;
+  display: flex;
+  justify-content: center;
+  font-weight: 500;
+  /* transform: scale(.7) */
+}
+
+.dotActiveForm {
+  font-size: 1.3rem;
+  background-color: #5a5959;
+  color: #777;
+
+
+}
+
+/* ///// */
+.rtds-single-slide-styles {
+  /* width: 500px !important; */
+  /* height: 250px !important; */
+  /* min-height: 22.5rem !important; */
+
+  transition: transform 0.2s ease-out 0s;
+
+
+}
+
+.rtds-slider-styles {
+  padding: 0 !important;
+  margin: 0 !important;
+  gap: 0 !important;
+
+}
+
+.rtds-single-slide-styles {
+  height: 26rem !important;
+  /* width: 40rem !important; */
+}
+
+.rtds-single-slide-styles img {
+  width: 40rem !important;
+  height: 22.5rem !important;
+}
+
+.inputPhotoBanner {
+  width: 20rem;
+  height: 20rem;
+}
+
+
+/* //////////////////////// */
+.addBtn {
+  font-size: .9rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+  padding: .5rem 1rem;
+  height: 4rem;
+  background-color: #cb2722;
+  color: #fff;
+  box-shadow: .1rem .1rem .4rem rgba(0, 0, 0, 0.30);
+  position: absolute;
+  top: 85vh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.addBtn:hover {
+
+  box-shadow: .2rem .2rem .5rem rgba(0, 0, 0, 0.30);
+  transform: translateX(-50%) scale(1.02);
+  transition: all .2s;
+}
+
+.addBtn:active {
+
+  box-shadow: .1rem .1rem .4rem rgba(0, 0, 0, 0.30);
+  transform: translateX(-50%) scale(1);
+  transition: all .2s;
+}
+
+.trashBtn {
+  z-index: 5000;
+  position: absolute;
+  bottom: 2%;
+  right: 12%;
+}
+
+.saveBnerBtn {
+  position: absolute;
+  top: 85vh;
+  right: 0%;
+  font-size: .9rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+  padding: .5rem 1rem;
+  height: 4rem;
+  background-color: #cb2722;
+  color: #fff;
+  box-shadow: .1rem .1rem .4rem rgba(0, 0, 0, 0.30);
+  transform: translateX(100%);
+  display: flex;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.saveBnerBtn:hover {
+
+  box-shadow: .2rem .2rem .5rem rgba(0, 0, 0, 0.30);
+  transform: translateX(100%) scale(1.02);
+  transition: all .2s;
+}
+
+.saveBnerBtn:active {
+
+  box-shadow: .1rem .1rem .4rem rgba(0, 0, 0, 0.30);
+  transform: translateX(100%) scale(1);
+  transition: all .2s;
+}
+
+.iconLoadingBanner {
+  position: absolute;
+  display: flex;
+  gap: .3rem;
+  /* width: 100%; */
+  /* height: 100%; */
+
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.iconLoadingBanner span {
+  width: .4rem;
+  height: 1rem;
+  border-radius: 1px;
+  box-shadow: .1rem .1rem .5rem .1rem rgba(0, 0, 0, 0.15);
+
+}

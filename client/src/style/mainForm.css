@@ -1,10 +1,18 @@
+/*
+qqq
+
+buttonFormContainer
+
+*/
 .decorBar {
   /* width: 100vw; */
   position: -webkit-sticky;
   background-color: #000;
-  height: 3rem;
+  /* height: 3rem; */
+  height: 4.5rem;
   position: sticky;
   top: 0;
+
 }
 
 .decorBg {
@@ -18,44 +26,51 @@
 
 /* Decor +1 ==tranform -1 stickyBox +1 */
 .formContainer {
-  transform: translateY(-3rem);
+  /* transform: translateY(-3rem); */
+  transform: translateY(-4.5rem);
   display: flex;
-  justify-content: center;
-  /* padding-top: 1rem; */
+  gap: 2.5%;
+  justify-content: end;
+
+  padding-right: 2.5%;
+  min-height: 92vh;
 }
 
 .stickyBox1 {
   position: sticky;
   top: 3rem;
   height: 1rem;
-  /* display: flex; */
-  /* flex-direction: column; */
-  /* gap: .5rem; */
   background-color: #000;
-  z-index: 2000;
+
+  z-index: 1500;
   outline: #000 solid 2rem;
 
 }
 
 .stickyBox {
   position: sticky;
-  top: 4rem;
+  /* top: 4rem; */
+  top: 5.5rem;
   padding: 1.5rem 2rem .5rem;
   display: flex;
   flex-direction: column;
   gap: .5rem;
   background: #ffffff;
-  z-index: 2500;
+  z-index: 2000;
   border-radius: .2rem;
+
+
 
 }
 
 
 .formMenu {
   background-color: #fff;
-  width: 90%;
+  width: 60%;
   border-radius: .2rem;
   box-shadow: .2rem .2rem 2rem .5rem #0000003b;
+  position: relative;
+  /* transform: translateX(5%); */
 }
 
 .layoutManu {
@@ -214,10 +229,118 @@
   flex-grow: 1;
 }
 
-.labelPhoto {
-  cursor: pointer;
+.xxx {
+  position: relative;
+  height: 100%;
+
+  display: flex;
+
+
+}
+
+.photoLoading {
+  position: absolute;
+  z-index: 2800;
+  top: 0;
+  left: 0;
   width: 100%;
-  /* background: #000; */
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.40);
+  /* background-color: rgba(235, 7, 7, 0.817); */
+
+}
+
+.iconLoading {
+  position: absolute;
+  display: flex;
+  gap: .3rem;
+  /* width: 100%; */
+  /* height: 100%; */
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.iconLoading span {
+  width: .4rem;
+  height: 1rem;
+  border-radius: 1px;
+  box-shadow: .1rem .1rem .5rem .1rem rgba(0, 0, 0, 0.15);
+
+}
+
+@keyframes barloading {
+  0% {
+    transform: scaleY(.3);
+  }
+
+  30% {
+    transform: scaleY(1.2)
+  }
+
+  100% {
+    transform: scaleY(.3)
+  }
+}
+
+.barOne {
+  background-color: #745f5f;
+  animation: barloading 2s infinite;
+  animation-delay: 0s;
+  /* border: 2px solid #745f5f; */
+  /* animation: name duration timing-function delay iteration-count direction fill-mode; */
+}
+
+.barTwo {
+  background-color: #50201e;
+  animation: barloading 2s infinite;
+  animation-delay: .125s;
+  /* border: 2px solid #662a2a; */
+}
+
+.barThree {
+  background-color: #cb2722;
+  animation: barloading 2s infinite;
+  animation-delay: .25s;
+  /* border: 2px solid #8d1111; */
+}
+
+
+.labelPhoto {
+
+  cursor: pointer;
+  /* height: 100%; */
+  /* width: 100%; */
+
+}
+
+
+.labelPhoto:hover~.delPhoto {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+.delPhoto {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 50;
+  background: #000;
+  width: 1.5rem;
+  height: 1.5rem;
+
+  cursor: pointer;
+  color: #cb2722;
+  opacity: 0;
+  visibility: hidden;
+  transition: all .3s;
+}
+
+.delPhoto:hover {
+  opacity: 1;
+  visibility: visible;
 }
 
 
@@ -232,7 +355,7 @@
   gap: .2rem;
   /* padding: .5rem 1rem; */
   outline: none;
- 
+
 
 }
 
@@ -269,7 +392,9 @@
   font-style: italic;
   /* transform: translateY(100%); */
   color: #999;
-/* line-height: .6; */
+  padding-left: .3rem;
+  padding-bottom: .3rem;
+  /* line-height: .6; */
 }
 
 
@@ -439,7 +564,7 @@
 /* /////////////////////////////////// */
 
 
-.show {
+.showMe {
   opacity: 1;
   visibility: visible;
   transition: all .2s;
@@ -451,76 +576,96 @@
   visibility: hidden;
   transition: all .2s;
 
-}
-
-
-.newCatBox {
-  position: sticky;
-  top: 10vh;
 
 }
+.displayFlex{
+  display: flex;
+}
+.displayNone{
+  display: none;
+}
+
+/* /////////////////////////////////// */
+
+/* .buttonFormContainer{
+display: flex;
+} */
+
+/* .newCatbtnBox { */
+/* position: sticky; */
+/* top: 4.7rem; */
+/* z-index: 2500; */
+/* } */
 
 .newCatBtn {
   font-size: .9rem;
-  width: 100%;
-  padding: .5rem .5rem;
-  height: 4rem;
-  background-color: #ffffff;
-  color: #cb2822cf;
-  border: #cb2822cf 2px solid;
+  padding: .4rem .4rem;
+  color: #eee;
+  border: #eee 2px solid;
   box-shadow: .1rem .1rem .4rem rgba(0, 0, 0, 0.30);
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: .5rem;
+  border-radius: 3px;
 }
 
 .newCatBtn:hover {
-  transform: scale(1.02);
+
   transition: all .2s;
-  color: #cb2722;
-  border: #cb2722 2px solid;
-  box-shadow: .1rem .1rem .4rem rgba(0, 0, 0, 0.30);
+  transform: scale(1.02);
+  /* transform: translateY(-5%) */
+  /* border: #ffffff 2px solid; */
+  box-shadow: .2rem .2rem .4rem rgba(0, 0, 0, 0.30);
+  /* box-shadow: .1rem .1rem .4rem rgba(255, 255, 255, 0.3); */
+
 
 }
 
 .newCatBtn:active {
 
   box-shadow: .1rem .1rem .4rem rgba(0, 0, 0, 0.30);
-  transform: scale(1);
+  transform: scale(.98);
   transition: all .2s;
 }
 
 
 
 .saveBtnBox {
-  /* background-color: #aaa; */
+  display: flex;
+  justify-content: center;
   position: sticky;
-
-  top: 80vh;
-  /* transform: translateY(150%); */
+  width: 10rem;
+  top: 90vh;
 }
 
 .saveBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-self: stretch;
+  gap: 1rem;
   font-size: .9rem;
-  width: 100%;
-  padding: .5rem .5rem;
-  height: 4rem;
+  padding: .6rem 1rem;
+
+  /* height: 4rem; */
   background-color: #cb2722;
   color: #fff;
   box-shadow: .1rem .1rem .4rem rgba(0, 0, 0, 0.30);
-  position: absolute;
-  top: 0;
-
+  /* position: absolute; */
+  /* top: 0; */
+  border-radius: 3px;
+  
 }
 
-.saveBtn:hover {
+.btnhover:hover {
 
   box-shadow: .2rem .2rem .5rem rgba(0, 0, 0, 0.30);
   transform: scale(1.02);
   transition: all .2s;
 }
 
-.saveBtn:active {
+.btnactive:active {
 
   box-shadow: .1rem .1rem .4rem rgba(0, 0, 0, 0.30);
   transform: scale(1);

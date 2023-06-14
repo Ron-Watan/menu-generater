@@ -34,7 +34,6 @@ const userSchema = mongoose.Schema({
   menu: {
     type: Array,
     default: []
-
   },
   menu_1: {
     type: String,
@@ -44,6 +43,10 @@ const userSchema = mongoose.Schema({
   },
   menu_3: {
     type: String,
+  },
+  bannerImage: {
+    type: Array,
+    default: []
   },
   link: {
     type: String,

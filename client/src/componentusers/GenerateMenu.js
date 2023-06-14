@@ -85,9 +85,9 @@ const GenerateMenu = () => {
   };
 
   return (
-    <div className="">
+    <div className="barcodeFix ">
 
-      <div className="flex flex-col justify-center items-center mt-20 ">
+      {/* <div className="flex flex-col justify-center items-center mt-20 ">
         <div className="w-full max-w-md -translate-y-18">
           <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
 
@@ -124,12 +124,12 @@ const GenerateMenu = () => {
 
           </p>
         </div>
-      </div> 
-      <a href={`http://localhost:3000/customer/${user.link}`}>ssssssssssssssssssssssssssss</a>
+      </div>  */}
+      {/* <a href={`http://localhost:3000/customer/${user.link}`}>ssss</a> */}
 
 
-      <div className="">
-        <div className="" style={{ height: "auto", margin: "0 auto", maxWidth: 250, width: "100%" }}>
+      <div className="barcodeSection">
+        <div className="" style={{ height: "auto", margin: "0 auto", maxWidth: 150, width: "100%" }}>
           <a onClick={downloadQRCode} type="button" >
             <QRCodeCanvas
               id="qrGenerate"

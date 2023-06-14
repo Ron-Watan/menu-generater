@@ -1,9 +1,13 @@
 import Users from '../_3models/menuModel.js';
 import Images from '../_3models/imageModel.js';
+import Banners from '../_3models/bannerModel.js';
+
 import { v4 as uuidv4 } from 'uuid';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import Clients from '../_3models/clientModel.js';
+
+
 import fs, { mkdirSync } from "fs";
 import sharp from "sharp";
 import formidable from 'formidable';
@@ -174,7 +178,7 @@ export const findOneMenu = (req, res) => {
 
 
 export const uploadImage = (req, res) => {
-  console.log(req.file)
+  // console.log(req.file)
   const { userId } = req.body
   fs.access('./images/', (err) => {
     if (err) {
@@ -197,10 +201,47 @@ export const uploadImage = (req, res) => {
 };
 
 
+export const saveImage = (req, res) => {
+
+  // console.log(req.file)
+  const { originalname } = req.file
+  const { userId } = req.body
+
+  Images.findOneAndDelete({ imgId: originalname }).then((user) => {
+
+    console.log(user)
+    var image = {
+      userId: userId,
+      imgId: originalname,
+      destination: req.file.destination,
+      size: req.file.size / 1000,
+      img: {
+        data: fs.readFileSync(path.join('./images/' + req.file.filename)),
+        contentType: 'image/png'
+      }
+    }
+    Images.create(image)
+  })
+
+}
+
+
+export const delelteImage = (req, res) => {
+
+  const { imgId } = req.body
+
+  Images.findOneAndDelete({ imgId: imgId }).then((image) => {
+    console.log('Delete Image')
+  })
+
+};
+
+
+
 export const getAllImage = (req, res) => {
 
   const { userId } = req.body
-  console.log(userId)
+  // console.log(userId)
   Images.find({ userId: userId }).then(result => {
     res.send({
       message: 'Success',
@@ -210,6 +251,8 @@ export const getAllImage = (req, res) => {
   })
 
 }
+
+
 
 
 export const getImage = (req, res) => {
@@ -226,3 +269,127 @@ export const getImage = (req, res) => {
 
 }
 
+
+export const getAllImageBanner = (req, res) => {
+
+  const { userId } = req.body
+  // console.log(userId)
+  Banners.find({ userId: userId }).then(result => {
+    res.send({
+      message: 'Success',
+      images: result,
+      success: true
+    });
+  })
+
+}
+
+
+
+export const uploadImageBanner = (req, res) => {
+  const { userId } = req.body
+  const arrayBannerImg = req.files
+  // console.log(req.body)
+  // console.log(req.files)
+  Banners.deleteMany({ userId: userId }).then(result => {
+    console.log(result)
+
+    arrayBannerImg.map(el => {
+      fs.access('./images/', (err) => {
+        if (err) {
+          fs.mkdirSync('./images/')
+        }
+      })
+      var image = {
+        userId: userId,
+        imgId: 'banner',
+        destination: el.destination,
+        size: el.size / 1000,
+        img: {
+          data: fs.readFileSync(path.join('./images/' + el.filename)),
+          contentType: 'image/png'
+        }
+      }
+      Banners.create(image)
+
+    })
+
+
+  })
+
+
+
+  // Users.findOne({ userId: userId }).select('bannerImage').then(user => {
+  //   const bannerId = originalname
+  //   user.bannerImage.push(bannerId)
+  //   user.save()
+  //   res.send({
+  //     message: 'Success',
+  //     userBanner: user,
+  //     success: true
+  //   });
+  // })
+
+}
+
+
+
+// export const uploadImageBanner = (req, res) => {
+//   const { userId } = req.body
+//   const { originalname } = req.file
+//   // console.log(req.body)
+//   // console.log(req.files)
+//   Banners.deleteMany({ userId: userId }).then(result => {
+
+//     console.log(result)
+//   })
+
+//   fs.access('./images/', (err) => {
+//     if (err) {
+//       fs.mkdirSync('./images/')
+//     }
+//   })
+//   var image = {
+//     userId: userId,
+//     imgId: originalname,
+//     destination: req.file.destination,
+//     size: req.file.size / 1000,
+//     img: {
+//       data: fs.readFileSync(path.join('./images/' + req.file.filename)),
+//       contentType: 'image/png'
+//     }
+//   }
+//   Banners.create(image)
+
+//   Users.findOne({ userId: userId }).select('bannerImage').then(user => {
+//     const bannerId = originalname
+//     user.bannerImage.push(bannerId)
+//     user.save()
+//     res.send({
+//       message: 'Success',
+//       userBanner: user,
+//       success: true
+//     });
+//   })
+
+// }
+
+
+
+// const { userId, menu_1, menu_2, menu_3 } = req.body;
+
+// console.log(menu_1, menu_2, menu_3)
+// Users.findOne({ userId: userId }).select('menu_1 menu_2 menu_3').then(user => {
+//   user.menu_1 = menu_1
+//   user.menu_2 = menu_2
+//   user.menu_3 = menu_3
+//   user.save()
+
+//   res.send({
+//     message: 'Success',
+//     nameMenu: user,
+//     success: true
+//   }); //send to client side
+
+
+// })

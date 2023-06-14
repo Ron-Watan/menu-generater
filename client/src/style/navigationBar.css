@@ -9,6 +9,7 @@
   width: 5vw;
   height: 100vh;
   background: #3C3D3F;
+  z-index: 1000;
   /* gap: 1rem; */
   ;
 }
@@ -138,3 +139,4 @@
   fill: #eee;
 
 }
+

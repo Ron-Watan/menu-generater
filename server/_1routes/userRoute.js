@@ -1,6 +1,10 @@
 import express from 'express'
 import { register, login, getInfoUserToStore, requireLogin, generateMenu } from '../_2controllers/userController.js'
-import { findOneMenu, createManu, getAllMenu, saveEditMenu, deleteMenu, uploadImage,getAllImage, getImage, saveNameMenu } from '../_2controllers/manuController.js'
+import {
+  findOneMenu, createManu, getAllMenu, saveEditMenu, deleteMenu,
+  uploadImageBanner, getAllImageBanner,
+  uploadImage, saveImage, getAllImage, getImage, delelteImage, saveNameMenu
+} from '../_2controllers/manuController.js'
 import multer from "multer";
 import formidable from "formidable";
 import fs from "fs";
@@ -33,9 +37,24 @@ router.post('/saveNameMenu', requireLogin, saveNameMenu)
 router.post('/generateMenu', requireLogin, generateMenu)
 
 
-router.post('/images', upload.single("avatar"), uploadImage)
+
+// router.post('/images/uplaodBanner', upload.single("avatar"), uploadImageBanner)
+router.post('/images/uplaodBanner', upload.array("avatar", 12), uploadImageBanner)
+
+
+router.post('/images/', upload.single("avatar"), getImage)
+router.post('/images/uplaod', upload.single("avatar"), uploadImage)
+router.post('/images/save', upload.single("avatar"), saveImage)
+router.post('/images/delete', upload.single("avatar"), delelteImage)
+
+
+
+
+
 router.post('/images/preview', getImage)
 router.post('/images/all', getAllImage)
+router.post('/images/allBanner', getAllImageBanner)
+
 // app.listen(3000, () => {
 //   console.log("Server Running!")
 // })
