@@ -90,17 +90,19 @@ export const requireLogin = (req, res, next) => {
 
 //- GET USER INFO to SAVE IN REDUX at Protector Compo
 export const getInfoUserToStore = (req, res) => {
-  Users.findOne({ userId: req.proved.userToken }).select('menu userId link').then(result => {
-    if (!result) return res.status(200).send({ message: "User doues not exit", success: false })
-    else {
+  Users.findOne({ userId: req.proved.userToken })
+    .select('menu userId menu_1 menu_2 menu_3 link')
+    .then(result => {
+      if (!result) return res.status(200).send({ message: "User doues not exit", success: false })
+      else {
 
-      res.status(200).send({
-        success: true,
-        data: { result }
-      })
+        res.status(200).send({
+          success: true,
+          data: { result }
+        })
 
-    }
-  }).catch(err => { res.status(404).json(err) })
+      }
+    }).catch(err => { res.status(404).json(err) })
 }
 
 

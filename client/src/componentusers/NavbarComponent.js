@@ -3,48 +3,54 @@ import { useEffect, useState } from "react"
 import "../style/navigationBar.css"
 
 const NavbarComponent = (prop) => {
-  const iconWhiteModel = {
-    banner: false, menu1: false, menu2: false, menu3: false,
-    menuTime: false, menuLang: false,
-  }
-  const [avtiveIconWhite, setActiveIconWhite] = useState('menu1')
-  const buttunSwitcher = (name) => {
-    // if(avtiveIconWhite === name) return setActiveIconWhite('')
-    setActiveIconWhite(name)
 
-  }
+  const [avtiveIconWhite, setActiveIconWhite] = useState('menu1')
+  // const buttunSwitcher = (name) => {
+    // if(avtiveIconWhite === name) return setActiveIconWhite('')
+    // setActiveIconWhite(name)
+
+  // }
 
 
 
   const checkOnOff = (name) => {
-    if (name === 'banner') {
-      prop.setOnoffQrCode(false)
-      prop.setOnoffMenu1(false)
-      prop.setOnoffMenu2(false)
-      prop.setOnoffMenu3(false)
+    if (name == 'qrCode') {
+      // prop.setOnoffBanner(false)
     }
-    else if (name == 'qrCode') {
-      prop.setOnoffBanner(false)
+    else if (name === 'banner') {
+      prop.setOnoffMenu1({ switch: false })
+      prop.setOnoffMenu2({ switch: false })
+      prop.setOnoffMenu3({ switch: false })
+      prop.setonOffMenuTime(false)
     }
     else if (name == 'menu1') {
       prop.setOnoffBanner(false)
-      prop.setOnoffMenu2(false)
-      prop.setOnoffMenu3(false)
+      prop.setOnoffMenu2({ switch: false })
+      prop.setOnoffMenu3({ switch: false })
+      prop.setonOffMenuTime(false)
+
     }
     else if (name == 'menu2') {
       prop.setOnoffBanner(false)
-      prop.setOnoffMenu1(false)
-      prop.setOnoffMenu3(false)
+      prop.setOnoffMenu1({ switch: false })
+      prop.setOnoffMenu3({ switch: false })
+      prop.setonOffMenuTime(false)
+
     }
     else if (name == 'menu3') {
       prop.setOnoffBanner(false)
-      prop.setOnoffMenu1(false)
-      prop.setOnoffMenu2(false)
+      prop.setOnoffMenu1({ switch: false })
+      prop.setOnoffMenu2({ switch: false })
+      prop.setonOffMenuTime(false)
+
+    }
+    else if (name == 'menuTime') {
+      prop.setOnoffBanner(false)
+      prop.setOnoffMenu1({ switch: false })
+      prop.setOnoffMenu2({ switch: false })
+      prop.setOnoffMenu3({ switch: false })
     }
   }
-
-
-
 
   return (
     <div className="sectionNavigation">
@@ -70,10 +76,11 @@ const NavbarComponent = (prop) => {
 
         </button>
       </div>
+
       <div className="section2">
         <button onClick={() => {
-          prop.timeSwitcher(0)
-          buttunSwitcher('banner')
+          // prop.timeSwitcher(0)
+          // buttunSwitcher('banner')
           prop.setOnoffBanner(!prop.onOffBanner)
           checkOnOff('banner')
 
@@ -92,12 +99,12 @@ const NavbarComponent = (prop) => {
 
 
         <button onClick={() => {
-          prop.timeSwitcher(1)
+          prop.setMenuTime(1)
           // buttunSwitcher('menu1')
-          prop.setOnoffMenu1(!prop.onOffMenu1)
+          prop.setOnoffMenu1({ switch: !(prop.onOffMenu1.switch) })
           checkOnOff('menu1')
         }} name='menu1'>
-          <svg className={`myIconSideBar ${prop.onOffMenu1 && 'active'}`} width="69" height="64" viewBox="0 0 69 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg className={`myIconSideBar ${prop.onOffMenu1.switch && 'active'}`} width="69" height="64" viewBox="0 0 69 64" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="6" y="1" width="62" height="62" stroke="" strokeWidth="2" />
             <line y1="33" x2="15" y2="33" stroke="" strokeWidth="2" />
             <line y1="17" x2="15" y2="17" stroke="" strokeWidth="2" />
@@ -107,12 +114,12 @@ const NavbarComponent = (prop) => {
           </svg>
         </button>
         <button onClick={() => {
-          prop.timeSwitcher(2)
+          prop.setMenuTime(2)
           // buttunSwitcher('menu2')
-          prop.setOnoffMenu2(!prop.onOffMenu2)
+          prop.setOnoffMenu2({ switch: !(prop.onOffMenu2.switch) })
           checkOnOff('menu2')
         }} name='menu2'>
-          <svg className={`myIconSideBar ${prop.onOffMenu2 && 'active'}`} width="69" height="64" viewBox="0 0 69 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg className={`myIconSideBar ${prop.onOffMenu2.switch && 'active'}`} width="69" height="64" viewBox="0 0 69 64" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="6" y="1" width="62" height="62" stroke="" strokeWidth="2" />
             <line y1="33" x2="15" y2="33" stroke="" strokeWidth="2" />
             <line y1="17" x2="15" y2="17" stroke="" strokeWidth="2" />
@@ -123,12 +130,12 @@ const NavbarComponent = (prop) => {
 
         </button>
         <button onClick={() => {
-          prop.timeSwitcher(3)
+          prop.setMenuTime(3)
           // buttunSwitcher('menu3')
-          prop.setOnoffMenu3(!prop.onOffMenu3)
+          prop.setOnoffMenu3({ switch: !(prop.onOffMenu3.switch) })
           checkOnOff('menu3')
         }} name='menu3'>
-          <svg className={`myIconSideBar ${prop.onOffMenu3 && 'active'}`} width="69" height="64" viewBox="0 0 69 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg className={`myIconSideBar ${prop.onOffMenu3.switch && 'active'}`} width="69" height="64" viewBox="0 0 69 64" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="6" y="1" width="62" height="62" stroke="" strokeWidth="2" />
             <line y1="33" x2="15" y2="33" stroke="" strokeWidth="2" />
             <line y1="17" x2="15" y2="17" stroke="" strokeWidth="2" />
@@ -140,10 +147,10 @@ const NavbarComponent = (prop) => {
 
         </button>
         <button onClick={() => {
-          buttunSwitcher('menuTime')
+          prop.setonOffMenuTime(!prop.onOffMenuTime)
+          checkOnOff('menuTime')
         }} name='menuTime'>
-
-          <svg className={`myIconMd ${avtiveIconWhite == 'menuTime' && 'activeTime'}`} width="35" height="35" viewBox="0 0 65 65" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg className={`myIconMd ${prop.onOffMenuTime && 'activeTime'}`} width="35" height="35" viewBox="0 0 65 65" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="32.5" cy="32.5" r="31.5" stroke="#777777" strokeWidth="2" />
             <line x1="33" y1="1" x2="33" y2="10" stroke="#777777" strokeWidth="2" />
             <line x1="33" y1="15" x2="33" y2="33" stroke="#777777" strokeWidth="2" />
@@ -156,7 +163,7 @@ const NavbarComponent = (prop) => {
         </button>
 
         <button onClick={() => {
-          buttunSwitcher('menuLang')
+          // buttunSwitcher('menuLang')
         }} name='menuLang'>
           <svg className={`myIconMd ${avtiveIconWhite == 'menuLang' && 'activeLang'}`} width="35" height="35" viewBox="0 0 65 65" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path className='pf' d="M54.1094 32.1719V39H37V36.2656L39.4219 35.7969V19.4688L37 19V16.25H46.7344V19L43.9844 19.4688V35.5H50.4062L50.625 32.1719H54.1094Z" fill="#777777" />
@@ -173,7 +180,7 @@ const NavbarComponent = (prop) => {
       </div>
       <div className="endSection">
         <button onClick={() => {
-          buttunSwitcher('feedback')
+          // buttunSwitcher('feedback')
         }} name='feedback'>
           <svg width="35" height="35" viewBox="0 0 65 65" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="32.5" cy="32.5" r="31.5" stroke="#777777" strokeWidth="2" />

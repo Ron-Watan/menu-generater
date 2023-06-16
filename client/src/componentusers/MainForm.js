@@ -14,7 +14,8 @@ import iconPhoto from '../icon/downloadIcon.svg'
 import Resizer from 'react-image-file-resizer';
 import GenerateMenu from './GenerateMenu';
 import BannerMainForm from './BannerMainForm';
-
+import EditMenuName from './EditMenuName';
+import TimePicker from './TimePicker';
 /*
 qqq
 
@@ -66,25 +67,25 @@ const MainForm = () => {
 
 
   const [menuName, setMenuName] = useState({
-    menu_1: '', menu_2: '', menu_3: ''
+    menu_1: 'All Day Menu', menu_2: 'Lunch', menu_3: 'Dinner'
   }); // timeSwitcher()
 
-  const [menuTimeName, setMenuTimeName] = useState(''); // timeSwitcher()
+  // const [menuTimeName, setMenuTimeName] = useState(''); // timeSwitcher()
 
-  const inputMenuTimeName = (e) => {
-    setMenuTimeName(e.target.value)
-    if (menuTime === 1) return setMenuName({ ...menuName, menu_1: e.target.value })
-    if (menuTime === 2) return setMenuName({ ...menuName, menu_2: e.target.value })
-    if (menuTime === 3) return setMenuName({ ...menuName, menu_3: e.target.value })
+  // const inputMenuTimeName = (e) => {
+  //   setMenuTimeName(e.target.value)
+  //   if (menuTime === 1) return setMenuName({ ...menuName, menu_1: e.target.value })
+  //   if (menuTime === 2) return setMenuName({ ...menuName, menu_2: e.target.value })
+  //   if (menuTime === 3) return setMenuName({ ...menuName, menu_3: e.target.value })
 
-  }
+  // }
 
-  const callmenuName = (no) => {
-    if (no === 1) return setMenuTimeName(menuName.menu_1)
-    if (no === 2) return setMenuTimeName(menuName.menu_2)
-    if (no === 3) return setMenuTimeName(menuName.menu_3)
+  // const callmenuName = (no) => {
+  //   if (no === 1) return setMenuTimeName(menuName.menu_1)
+  //   if (no === 2) return setMenuTimeName(menuName.menu_2)
+  //   if (no === 3) return setMenuTimeName(menuName.menu_3)
 
-  }
+  // }
 
 
 
@@ -143,15 +144,16 @@ const MainForm = () => {
         if (result.data.success) {
           // Swal.fire(result.data.message)
           const getReult = result.data.userMenu;
+          // dispath(setUser(getReult))
           setCategoryList(getReult.menu);
+          setMenuName({
+            menu_1: getReult.menu_1, menu_2: getReult.menu_2, menu_3: getReult.menu_3
+          })
 
           //   const checkTime = getReult.filter((el) => el.menuTime == menuTime;
           //   return el.menuTime == menuTime;
           // });
 
-          setMenuName({
-            menu_1: getReult.menu_1, menu_2: getReult.menu_2, menu_3: getReult.menu_3
-          })
 
 
           // console.log(checkTime);
@@ -193,7 +195,6 @@ const MainForm = () => {
         {
           userId: user.userId,
           menuTime: menuTime,
-          menu_1: menuName.menu_1, menu_2: menuName.menu_2, menu_3: menuName.menu_3,
           catagory: state.catagory,
           imgId: imgId,
           link: user.link,
@@ -204,7 +205,9 @@ const MainForm = () => {
       )
       .then((result) => {
         if (result.data.success) {
-          dispath(setUser(result.data.userMenu))
+          const getReult = result.data.userMenu;
+
+          dispath(setUser(getReult))
           getAllMenu();;
           actionDelay();
           Unchecked();
@@ -247,7 +250,6 @@ const MainForm = () => {
     dispath(showLoading());
 
     file && saveImage();
-    console.log(state.imgId)
 
     axios
       .post(`${process.env.REACT_APP_API}/user/saveEditMenu`,
@@ -322,48 +324,6 @@ const MainForm = () => {
       });
   };
 
-  const saveNameMenu = () => {
-
-    dispath(showLoading());
-
-    axios
-      .post(`${process.env.REACT_APP_API}/user/saveNameMenu`,
-        {
-          userId: user.userId,
-          menu_1: menuName.menu_1, menu_2: menuName.menu_2, menu_3: menuName.menu_3,
-        }, ticketPass)
-      .then((result) => {
-        if (result.data.success) {
-          // Swal.fire(result.data.message)
-          setMenuName(result.data.nameMenu)
-          actionDelay();
-          setMenuTimeName('')
-
-          Swal.fire({
-            title: 'SAVED',
-            text: 'Your menu has been saved',
-            toast: true,
-            icon: 'success',
-            // confirmButtonText: 'SAVED',
-            showConfirmButton: false,
-            // width: '16rem',
-            // height: '5rem',
-            iconColor: '#cb2722',
-            // confirmButtonColor: '#cb2722',
-            timer: 2000,
-          });
-          dispath(hideLoading());
-        } else {
-          Swal.fire(result.data.message);
-          dispath(hideLoading());
-        }
-      })
-      .catch((err) => {
-        dispath(hideLoading());
-        console.log("Can't not connect the server");
-        Swal.fire("Can't not connect the server");
-      });
-  };
 
   const additem = () => {
     let newListMenu = listMenuModel;
@@ -461,7 +421,6 @@ const MainForm = () => {
         100,
         0,
         (uri) => {
-          console.log('re' + Boolean(file));
           setFile(uri);
           // setTimeout(() => {
           //   dispath(hideLoading());
@@ -566,12 +525,12 @@ const MainForm = () => {
           setFile('')
           return dispath(hideLoading());
         }
-        console.log(result.data.images);
+
         const getResult = result.data.images;
         const base64Flag = 'data:image/png;base64,';
         const imageStr = arrayBufferToBase64(getResult.img.data.data);
         const tagImage = base64Flag + imageStr;
-        console.log(tagImage)
+
         // console.log(tagImage)
 
         setFile(tagImage);
@@ -586,7 +545,7 @@ const MainForm = () => {
   };
 
   const getImage1 = (imgId) => {
-    console.log(imgId)
+
     allImage.map(el => {
       if (el.imgId === imgId) {
 
@@ -620,7 +579,7 @@ const MainForm = () => {
     }, 2000);
   }
 
-  const reloadPage = () => {
+  const openForm = () => {
     setStart(true);
     setMenuId('');
     setListMenu([listMenuModel]);
@@ -651,14 +610,9 @@ const MainForm = () => {
   };
 
 
-  const timeSwitcher = (menuNo) => {
-    setMenuTime(menuNo);
-    callmenuName(menuNo)
-    // menuTimeNameFn(menuNo)
-    setNothing()
 
-    // actionDelay();
-  };
+
+
   useEffect(() => {
     getAllMenu();
     // getAllImage()
@@ -675,17 +629,32 @@ const MainForm = () => {
   const [activeInput, setactiveInput] = useState(false)
 
 
+
+
   /////// CLOSE CONTROL /////////////////////////
+  // function timeSwitcher(menuNo) {
+  // setMenuTime(menuNo);
+  // callmenuName(menuNo)
+  // menuTimeNameFn(menuNo)
+  // setNothing()
+
+  // actionDelay();
+  // };
+
+
   const [onOffQrCode, setOnoffQrCode] = useState(true)
   const [onOffBanner, setOnoffBanner] = useState(false)
-  const [onOffMenu1, setOnoffMenu1] = useState(true)
-  const [onOffMenu2, setOnoffMenu2] = useState(false)
-  const [onOffMenu3, setOnoffMenu3] = useState(false)
+  const [onOffMenu1, setOnoffMenu1] = useState({ switch: true, value: 1 })
+  const [onOffMenu2, setOnoffMenu2] = useState({ switch: false, value: 2 })
+  const [onOffMenu3, setOnoffMenu3] = useState({ switch: false, value: 3 })
+  const [onOffMenuTime, setonOffMenuTime] = useState(false)
 
 
+  const [activeInputEn, setActiveInputEn] = useState(false) // Edit Name
 
 
-  //-///-///-///-///-///-///-///-///-///-///- //-///-///-///-///-///-///-///-///-///-///-
+  // qqq
+  //-///-///-///-///-///-///-///-///-   END FUNCTION   ///-///-///-///-///-///-///-///-///-
 
   const { loading } = useSelector((state) => state.alerts);
 
@@ -693,17 +662,36 @@ const MainForm = () => {
 
     <div>
 
-      <div className='decorBar'></div>
+      <div className='decorBar'>
+        <div className={`containerEditMenuName ${!(onOffMenu1.switch || onOffMenu2.switch || onOffMenu3.switch) && 'hiddenMe'}`}>
+
+          <EditMenuName
+            menuName={menuName}
+            setMenuName={setMenuName}
+            onOffMenu1={onOffMenu1}
+            onOffMenu2={onOffMenu2}
+            onOffMenu3={onOffMenu3}
+
+            menuTime={menuTime}
+
+            activeInputEn={activeInputEn}
+            setActiveInputEn={setActiveInputEn}
+          />
+        </div>
+      </div>
+
       <div className='decorBg'></div>
-      <div className='monitor '>
+
+      <div className='monitor ' id='monitor'>
         <NavbarComponent
-          timeSwitcher={timeSwitcher}
+          // timeSwitcher={timeSwitcher}
+          setMenuTime={setMenuTime}
           onOffQrCode={onOffQrCode} setOnoffQrCode={setOnoffQrCode}
           onOffBanner={onOffBanner} setOnoffBanner={setOnoffBanner}
           onOffMenu1={onOffMenu1} setOnoffMenu1={setOnoffMenu1}
           onOffMenu2={onOffMenu2} setOnoffMenu2={setOnoffMenu2}
           onOffMenu3={onOffMenu3} setOnoffMenu3={setOnoffMenu3}
-
+          onOffMenuTime={onOffMenuTime} setonOffMenuTime={setonOffMenuTime}
 
         />
 
@@ -712,21 +700,28 @@ const MainForm = () => {
         </div>
 
 
-        <div onClick={() => setDeleteBtn(false)} className='monitor2 '>
+        <div onClick={() => {
+          setDeleteBtn(false)
+          setActiveInputEn(false)
+        }} className='monitor2 '>
 
           <div className={`${onOffQrCode ? 'showMe' : 'hiddenMe'}`}>
             <GenerateMenu />
           </div>
 
-          {/* <div className={`${onOffBanner ? 'showMe' : 'hiddenMe'}`}>
+          <div className={`${onOffBanner ? 'showMe' : 'hiddenMe'}`}>
             <BannerMainForm />
-          </div> */}
-          {/* <TimePicker/> */}
+          </div>
 
-          <div className="formContainer">
+          <div className={`timePikerSection ${onOffMenuTime ? 'showMe' : 'hiddenMe'}`}>
+            <TimePicker />
+          </div>
 
 
-            <form id='foodForm' encType='multipart/form-data' className={`formMenu ${start ? 'show' : 'hiddenMe'}`} onSubmit={submitCatagory}>
+          <div className={` formContainer ${start ? 'showMe' : 'hiddenMe'}`}>
+
+
+            <form id='foodForm' encType='multipart/form-data' className={` formMenu`} onSubmit={submitCatagory}>
 
 
               <div className='stickyBox1'></div>
@@ -1025,79 +1020,15 @@ const MainForm = () => {
             <div onClick={() => setDeleteBtn(false)} className='buttonFormContainer '>
 
 
-
-              {/* <div className="menuNameBox">
-
-                <div className={`flexNameMenu ${activeInput ? 'showMe' : 'hiddenMe'}`}>
-
-                  <input onChange={inputMenuTimeName} value={menuTimeName} type='text' maxLength="15" name='' id='' autoComplete='off' className='inputMenuName' placeholder='' />
-
-                  <button onClick={() => {
-                    saveNameMenu()
-                    setactiveInput(false)
-                  }
-                  }>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#eee" className="w-5 h-5">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                    </svg>
-                  </button>
-
-                  <button onClick={() => {
-                    setMenuTimeName('')
-                    setactiveInput(false)
-                  }}>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#eee" className="w-5 h-5">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
-                </div>
-
-                
-                <div className={`flexNameMenuReal ${!activeInput ? 'showMe' : 'hiddenMe'}`}>
-                  <div className='text'>&nbsp;{!menuTimeName ? menuName.menu_1 : menuTimeName}</div>
-                  <button onClick={() => setactiveInput(true)} className='btnAbs'>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#eee" className="w-5 h-5">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-                    </svg>
-                  </button>
-                </div>
-
-              </div> */}
-
-
-
-
-
-
-
-
-
-
-
-
-              {/* <div className='newCatbtnBox'>
-                <div className={``}>
-                  <button onClick={reloadPage} type='button' form='foodForm' className='newCatBtn'>
-      
-                    <svg width="40" height="40" viewBox="0 0 65 65" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <rect x="1" y="1" width="63" height="63" rx="2" stroke="white" stroke-width="2" />
-                      <path d="M32 12L32 53" stroke="white" stroke-width="2" stroke-linecap="round" />
-                      <path d="M12 32L53 32" stroke="white" stroke-width="2" stroke-linecap="round" />
-                    </svg>
-                    <span>CATEGORY</span>
-                  </button>
-                </div>
-              </div> */}
-
               <i className='sr-only'>!SAVE</i>
               <div className='saveBtnBox'>
                 <div className={`${menuId ? 'displayNone' : 'displayFlex'} ${start ? 'displayFlex' : 'displayNone'}`}>
                   <button type='submit' form='foodForm' className='saveBtn btnhover btnactive'>
                     <svg width="35" height="35" viewBox="0 0 65 65" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <rect x="1" y="1" width="63" height="63" rx="2" stroke="white" stroke-width="2" />
-                      <path d="M32 12L32 53" stroke="white" stroke-width="2" stroke-linecap="round" />
-                      <path d="M32 53L12 33" stroke="white" stroke-width="2" stroke-linecap="round" />
-                      <path d="M32 53L52 33" stroke="white" stroke-width="2" stroke-linecap="round" />
+                      <rect x="1" y="1" width="63" height="63" rx="2" stroke="white" strokeWidth="2" />
+                      <path d="M32 12L32 53" stroke="white" strokeWidth="2" strokeLinecap="round" />
+                      <path d="M32 53L12 33" stroke="white" strokeWidth="2" strokeLinecap="round" />
+                      <path d="M32 53L52 33" stroke="white" strokeWidth="2" strokeLinecap="round" />
                     </svg>
                     <span> SAVE NEW<br />CATEGORY</span>
                   </button>
@@ -1106,10 +1037,10 @@ const MainForm = () => {
                 <div className={` ${!menuId ? 'displayNone' : 'displayFlex'}`}>
                   <button onClick={saveEditMenu} type='' className='saveBtn btnhover btnactive'>
                     <svg width="35" height="35" viewBox="0 0 65 65" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <rect x="1" y="1" width="63" height="63" rx="2" stroke="white" stroke-width="2" />
-                      <path d="M32 12L32 53" stroke="white" stroke-width="2" stroke-linecap="round" />
-                      <path d="M32 53L12 33" stroke="white" stroke-width="2" stroke-linecap="round" />
-                      <path d="M32 53L52 33" stroke="white" stroke-width="2" stroke-linecap="round" />
+                      <rect x="1" y="1" width="63" height="63" rx="2" stroke="white" strokeWidth="2" />
+                      <path d="M32 12L32 53" stroke="white" strokeWidth="2" strokeLinecap="round" />
+                      <path d="M32 53L12 33" stroke="white" strokeWidth="2" strokeLinecap="round" />
+                      <path d="M32 53L52 33" stroke="white" strokeWidth="2" strokeLinecap="round" />
                     </svg>
                     <span> SAVE</span>
 
@@ -1123,102 +1054,50 @@ const MainForm = () => {
 
 
 
-        <i className='sr-only'>!SIDE CATEGORY</i>
-
-        {/* <div className='moitor3'> */}
-        <div className='sectionSideCat'>
-
-
-
-
+        {/* RIGHTBAR SECTION */}
+        {/* translateSideCat */}
+        <div className={`sectionSideCat 
+        ${!(onOffMenu1.switch || onOffMenu2.switch || onOffMenu3.switch) && ''}`}>
 
           <div className='headCat'>
-            {/* <div className='newCatbtnBox'> */}
-            {/* <div className={``}> */}
-            <button onClick={reloadPage} type='button' form='foodForm' className='newCatBtn'>
 
+            <button onClick={openForm} type='button' form='foodForm' className='newCatBtn'>
               <svg width="35" height="35" viewBox="0 0 65 65" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="1" y="1" width="63" height="63" rx="2" stroke="white" stroke-width="2" />
-                <path d="M32 12L32 53" stroke="white" stroke-width="2" stroke-linecap="round" />
-                <path d="M12 32L53 32" stroke="white" stroke-width="2" stroke-linecap="round" />
+                <rect x="1" y="1" width="63" height="63" rx="2" stroke="white" strokeWidth="2" />
+                <path d="M32 12L32 53" stroke="white" strokeWidth="2" strokeLinecap="round" />
+                <path d="M12 32L53 32" stroke="white" strokeWidth="2" strokeLinecap="round" />
               </svg>
               <span>NEW CATEGORY</span>
             </button>
-            {/* </div> */}
-            {/* </div> */}
 
-
-            {/* <div className="menuNameBox">
-
-              <div className={`flexNameMenu ${activeInput ? 'showMe' : 'hiddenMe'}`}>
-                <input onChange={inputMenuTimeName} value={menuTimeName} type='text' maxLength="15" name='' id='' autoComplete='off' className='inputMenuName' placeholder='' />
-
-                <button onClick={() => {
-                  saveNameMenu()
-                  setactiveInput(false)
-                }
-                }>
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                  </svg>
-                </button>
-
-                <button onClick={() => {
-                  setMenuTimeName('')
-                  setactiveInput(false)
-                }}>
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-
-              <div className={`flexNameMenuReal ${!activeInput ? 'showMe' : 'hiddenMe'}`}>
-                <div className='text'>&nbsp;{!menuTimeName ? menuName.menu_1 : menuTimeName}</div>
-                <button onClick={() => setactiveInput(true)} className='btnAbs'>
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-                  </svg>
-                </button>
-              </div>
-
-            </div> */}
-
-            {/* <div className="headCat2">
-              <div>CATEGORY</div>
-
-              <button onClick={() => setDeleteBtn(!deleteBtn)} className='btnAbs'>
-                <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' strokeWidth='1.5' stroke='currentColor' className='w-6 h-6'>
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    d='M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 011.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.56.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.893.149c-.425.07-.765.383-.93.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 01-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.397.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 01-.12-1.45l.527-.737c.25-.35.273-.806.108-1.204-.165-.397-.505-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.107-1.204l-.527-.738a1.125 1.125 0 01.12-1.45l.773-.773a1.125 1.125 0 011.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894z'
-                  />
-                  <path strokeLinecap='round' strokeLinejoin='round' d='M15 12a3 3 0 11-6 0 3 3 0 016 0z' />
-                </svg>
-              </button>
-
-            </div> */}
           </div>
 
-          {categoryList.filter((el) => el.menuTime == menuTime).map((el, index) => (
-            <div key={index} className={`tabCat ${menuId === el.menuId ? 'chooseCat' : 'mini'}`}>
-              <button name={el.menuId} onClick={findOneMenu} className={`itemCat  ${menuId === el.menuId ? 'itemCatChoose' : ''}`}>
-                {index + 1}
-              </button>
-              <button name={el.menuId} onClick={findOneMenu} className='btnCat'>
-                {el.catagory}
-              </button>
+          <div className="">
 
-              <div className={`${deleteBtn ? 'dispBox' : 'dispNone'} deleteBox`}>
-                <button onClick={deleteMenu} value={el.menuId} type='submit' className='deleteBtn'>
-                  X
+            {categoryList.filter((el) => el.menuTime == menuTime).map((el, index) => (
+              <div key={index} className={`tabCat ${menuId === el.menuId ? 'chooseCat' : 'mini'}`}>
+                <button name={el.menuId} onClick={findOneMenu} className={`itemCat  ${menuId === el.menuId ? 'itemCatChoose' : ''}`}>
+                  {index + 1}
                 </button>
+                <button name={el.menuId} onClick={findOneMenu} className='btnCat'>
+                  {el.catagory}
+                </button>
+
+                <div className={`${deleteBtn ? 'dispBox' : 'dispNone'} deleteBox`}>
+                  <button onClick={deleteMenu} value={el.menuId} type='submit' className='deleteBtn'>
+                    X
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+
+          </div>
+
+
+
+
         </div>
-        {/* </div> */}
+
       </div >
       <div id='end' className=''></div>
     </div >

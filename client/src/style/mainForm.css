@@ -12,6 +12,16 @@ buttonFormContainer
   height: 4.5rem;
   position: sticky;
   top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.containerEditMenuName {
+  /* background-color: #ccb2b2; */
+  width: 20rem;
+  /* align-self:stretch; */
+
 
 }
 
@@ -66,7 +76,7 @@ buttonFormContainer
 
 .formMenu {
   background-color: #fff;
-  width: 60%;
+  width: 58%;
   border-radius: .2rem;
   box-shadow: .2rem .2rem 2rem .5rem #0000003b;
   position: relative;
@@ -569,19 +579,22 @@ buttonFormContainer
   visibility: visible;
   transition: all .2s;
 
+
 }
 
 .hiddenMe {
   opacity: 0;
   visibility: hidden;
   transition: all .2s;
-
+  /* z-index: -3000; */
 
 }
-.displayFlex{
+
+.displayFlex {
   display: flex;
 }
-.displayNone{
+
+.displayNone {
   display: none;
 }
 
@@ -655,7 +668,7 @@ display: flex;
   /* position: absolute; */
   /* top: 0; */
   border-radius: 3px;
-  
+
 }
 
 .btnhover:hover {

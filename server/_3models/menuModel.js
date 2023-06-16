@@ -48,6 +48,10 @@ const userSchema = mongoose.Schema({
     type: Array,
     default: []
   },
+  setting_time: {
+    type: Object,
+    default: {}
+  },
   link: {
     type: String,
   }

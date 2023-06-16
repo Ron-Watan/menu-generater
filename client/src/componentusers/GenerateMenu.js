@@ -125,7 +125,7 @@ const GenerateMenu = () => {
           </p>
         </div>
       </div>  */}
-      {/* <a href={`http://localhost:3000/customer/${user.link}`}>ssss</a> */}
+      <a href={`http://localhost:3000/customer/${user.link}`}>ssss</a>
 
 
       <div className="barcodeSection">

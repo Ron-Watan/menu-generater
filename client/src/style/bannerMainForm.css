@@ -1,18 +1,25 @@
 .topbox {
-  width: 100%;
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  height: 100vh;
-  /* flex-direction: column; */
-  /* gap: 3rem; */
+  width: 53%;
+
+  height: 95vh;
+  position: fixed;
+  top: 0vh;
+  left: 25%;
+
+  gap: 2rem;
 
 }
 
 
 .bannerSectionForm {
   width: 100%;
-  flex-grow: 1;
-  transform: translateY(-10%);
+  /* flex-grow: 1; */
+  /* transform: translateY(-10%); */
+  /* transform: translateX(20%%); */
   /* font-size: 62.5%; */
   /* position: absolute; */
   /* top: 50%; */
@@ -34,6 +41,7 @@
 
 
 .boxImageForm {
+  /* max-width: 51.2rem; */
   max-width: 51.2rem;
 
   width: 100%;
@@ -94,7 +102,148 @@
 
 }
 
-/* ///// */
+
+.inputPhotoBanner {
+  width: 20rem;
+  height: 20rem;
+}
+
+
+/* //////////////////////// */
+
+.btnBannerBox {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+
+}
+
+.addBtn {
+  font-size: .9rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+  padding: .5rem 1rem;
+  height: 4rem;
+  background-color: #cb2722;
+  color: #fff;
+  box-shadow: .1rem .1rem .4rem rgba(0, 0, 0, 0.30);
+  /* position: absolute; */
+  /* top: 85vh; */
+  /* left: 50%; */
+  /* transform: translateX(-50%); */
+  display: flex;
+  cursor: pointer;
+  border-radius: 3px;
+  /* width: 20%; */
+}
+
+.addBtn:hover {
+
+  box-shadow: .2rem .2rem .5rem rgba(0, 0, 0, 0.30);
+  transform: scale(1.02);
+  transition: all .2s;
+}
+
+.addBtn:active {
+
+  box-shadow: .1rem .1rem .4rem rgba(0, 0, 0, 0.30);
+  transform: scale(1);
+  transition: all .2s;
+}
+
+.trashBtn {
+  z-index: 5000;
+  position: absolute;
+  bottom: 20%;
+  right: 10%;
+}
+
+/* SAVE BUTTON */
+
+.saveAndCancelBox {
+  display: flex;
+  gap: 1rem;
+  position: absolute;
+  transform: translateX(100%);
+  bottom: 0;
+  right: 0%;
+}
+
+.saveBnerBtn {
+
+  font-size: .9rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+  padding: .5rem 1rem;
+  height: 4rem;
+  background-color: #cb2722;
+  color: #fff;
+  box-shadow: .1rem .1rem .4rem rgba(0, 0, 0, 0.30);
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.saveBnerBtn:hover {
+
+  box-shadow: .2rem .2rem .5rem rgba(0, 0, 0, 0.30);
+  transform: scale(1.02);
+  transition: all .2s;
+}
+
+.saveBnerBtn:active {
+
+  box-shadow: .1rem .1rem .4rem rgba(0, 0, 0, 0.30);
+  transform: scale(1);
+  transition: all .2s;
+}
+
+
+
+
+.bannerLoading {
+  position: absolute;
+  display: flex;
+  /* gap: .3rem; */
+  width: 80%;
+  height: 100%;
+
+  background-color: rgba(255, 255, 255, 0.40);
+
+
+}
+
+.iconLoadingBanner {
+  position: absolute;
+  display: flex;
+  gap: .3rem;
+  /* width: 100%; */
+  /* height: 100%; */
+
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.iconLoadingBanner span {
+  width: .4rem;
+  height: 1rem;
+  border-radius: 1px;
+  box-shadow: .1rem .1rem .5rem .1rem rgba(0, 0, 0, 0.15);
+
+}
+
+
+.disable-text-selection{
+  -moz-user-select:none; /* firefox */
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE*/
+  user-select: none; /* Standard syntax */
+}
+
 .rtds-single-slide-styles {
   /* width: 500px !important; */
   /* height: 250px !important; */
@@ -120,105 +269,4 @@
 .rtds-single-slide-styles img {
   width: 40rem !important;
   height: 22.5rem !important;
-}
-
-.inputPhotoBanner {
-  width: 20rem;
-  height: 20rem;
-}
-
-
-/* //////////////////////// */
-.addBtn {
-  font-size: .9rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: .5rem;
-  padding: .5rem 1rem;
-  height: 4rem;
-  background-color: #cb2722;
-  color: #fff;
-  box-shadow: .1rem .1rem .4rem rgba(0, 0, 0, 0.30);
-  position: absolute;
-  top: 85vh;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  cursor: pointer;
-  border-radius: 3px;
-}
-
-.addBtn:hover {
-
-  box-shadow: .2rem .2rem .5rem rgba(0, 0, 0, 0.30);
-  transform: translateX(-50%) scale(1.02);
-  transition: all .2s;
-}
-
-.addBtn:active {
-
-  box-shadow: .1rem .1rem .4rem rgba(0, 0, 0, 0.30);
-  transform: translateX(-50%) scale(1);
-  transition: all .2s;
-}
-
-.trashBtn {
-  z-index: 5000;
-  position: absolute;
-  bottom: 2%;
-  right: 12%;
-}
-
-.saveBnerBtn {
-  position: absolute;
-  top: 85vh;
-  right: 0%;
-  font-size: .9rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: .5rem;
-  padding: .5rem 1rem;
-  height: 4rem;
-  background-color: #cb2722;
-  color: #fff;
-  box-shadow: .1rem .1rem .4rem rgba(0, 0, 0, 0.30);
-  transform: translateX(100%);
-  display: flex;
-  cursor: pointer;
-  border-radius: 3px;
-}
-
-.saveBnerBtn:hover {
-
-  box-shadow: .2rem .2rem .5rem rgba(0, 0, 0, 0.30);
-  transform: translateX(100%) scale(1.02);
-  transition: all .2s;
-}
-
-.saveBnerBtn:active {
-
-  box-shadow: .1rem .1rem .4rem rgba(0, 0, 0, 0.30);
-  transform: translateX(100%) scale(1);
-  transition: all .2s;
-}
-
-.iconLoadingBanner {
-  position: absolute;
-  display: flex;
-  gap: .3rem;
-  /* width: 100%; */
-  /* height: 100%; */
-
-  top: 30%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-.iconLoadingBanner span {
-  width: .4rem;
-  height: 1rem;
-  border-radius: 1px;
-  box-shadow: .1rem .1rem .5rem .1rem rgba(0, 0, 0, 0.15);
-
 }

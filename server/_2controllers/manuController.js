@@ -17,8 +17,8 @@ import path from 'path';
 export const getAllMenu = (req, res) => {
   // res.send({ message: "Success", success: true, }) //send to client side
   const { userId } = req.body;
-  Users.findOne({ userId: userId }).select('menu userId menu_1 menu_2 menu_3 link').then((user) => {
-
+  Users.findOne({ userId: userId }).select('menu userId menu_1 menu_2 menu_3  bannerImage setting_time link').then((user) => {
+    console.log(user)
     res.send({
       message: 'Success',
       userMenu: user,
@@ -31,12 +31,11 @@ export const getAllMenu = (req, res) => {
 //-
 export const createManu = (req, res) => {
   // console.log(req.body)
-  const { userId, catagory, imgId, listMenu, menuTime, menuTimeName, link } = req.body;
+  const { userId, catagory, imgId, listMenu, menuTime, link } = req.body;
 
   Users.findOne({ userId: userId }).select('menu userId link').then((user) => {
     user.menu.push({
       menuTime: menuTime,
-      menuTimeName: menuTimeName,
       menuId: uuidv4(),
       catagory: catagory,
       imgId: imgId,
@@ -103,7 +102,7 @@ export const saveNameMenu = (req, res) => {
   const { userId, menu_1, menu_2, menu_3 } = req.body;
 
   console.log(menu_1, menu_2, menu_3)
-  Users.findOne({ userId: userId }).select('menu_1 menu_2 menu_3').then(user => {
+  Users.findOne({ userId: userId }).select('menu userId menu_1 menu_2 menu_3 link').then(user => {
     user.menu_1 = menu_1
     user.menu_2 = menu_2
     user.menu_3 = menu_3
@@ -111,7 +110,7 @@ export const saveNameMenu = (req, res) => {
 
     res.send({
       message: 'Success',
-      nameMenu: user,
+      userMenu: user,
       success: true
     }); //send to client side
 

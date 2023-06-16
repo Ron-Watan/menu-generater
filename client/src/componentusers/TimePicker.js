@@ -1,432 +1,13 @@
 import React, { useState } from 'react'
 
-
+import { timePickerData } from './timePickerData';
+import { timePickerBaseData } from './timePickerData';
+import "../style/timePicker.css"
+import { useDispatch, useSelector } from 'react-redux';
 
 const TimePicker = () => {
-
-  let timePicker = [
-    '0000', '0014', '0015', '0029', '0030', '0044', '0045', '0059',
-    '0100', '0114', '0115', '0129', '0130', '0144', '0145', '0159',
-    '0200', '0214', '0215', '0229', '0230', '0244', '0245', '0259',
-    '0300', '0314', '0315', '0329', '0330', '0344', '0345', '0359',
-    '0400', '0414', '0415', '0429', '0430', '0444', '0445', '0459',
-    '0500', '0514', '0515', '0529', '0530', '0544', '0545', '0559',
-    '0600', '0614', '0615', '0629', '0630', '0644', '0645', '0659',
-    '0700', '0714', '0715', '0729', '0730', '0744', '0745', '0759',
-    '0800', '0814', '0815', '0829', '0830', '0844', '0845', '0859',
-    '0900', '0914', '0915', '0929', '0930', '0944', '0945', '0959',
-    '1000', '1014', '1015', '1029', '1030', '1044', '1045', '1059',
-    '1100', '1114', '1115', '1129', '1130', '1144', '1145', '1159',
-    '1200', '1214', '1215', '1229', '1230', '1244', '1245', '1259',
-    '1300', '1314', '1315', '1329', '1330', '1344', '1345', '1359',
-    '1400', '1414', '1415', '1429', '1430', '1444', '1445', '1459',
-    '1500', '1514', '1515', '1529', '1530', '1544', '1545', '1559',
-    '1600', '1614', '1615', '1629', '1630', '1644', '1645', '1659',
-    '1700', '1714', '1715', '1729', '1730', '1744', '1745', '1759',
-    '1800', '1814', '1815', '1829', '1830', '1844', '1845', '1859',
-    '1900', '1914', '1915', '1929', '1930', '1944', '1945', '1959',
-    '2000', '2014', '2015', '2029', '2030', '2044', '2045', '2059',
-    '2100', '2114', '2115', '2129', '2130', '2144', '2145', '2159',
-    '2200', '2214', '2215', '2229', '2230', '2244', '2245', '2259',
-    '2300', '2314', '2315', '2329', '2330', '2344', '2345', '2359',
-    '2400'
-
-  ]
-  let timePickerBase = [
-    0, 840, 900, 1740, 1800, 2640, 2700, 3540,
-    3600, 4440, 4500, 5340, 5400,
-    6240,
-    6300,
-    7140,
-    7200,
-    8040,
-    8100,
-    8940,
-    9000,
-    9840,
-    9900,
-    10740,
-    10800,
-    11640,
-    11700,
-    12540,
-    12600,
-    13440,
-    13500,
-    14340,
-    14400,
-    15240,
-    15300,
-    16140,
-    16200,
-    17040,
-    17100,
-    17940,
-    18000,
-    18840,
-    18900,
-    19740,
-    19800,
-    20640,
-    20700,
-    21540,
-    21600,
-    22440,
-    22500,
-    23340,
-    23400,
-    24240,
-    24300,
-    25140,
-    25200,
-    26040,
-    26100,
-    26940,
-    27000,
-    27840,
-    27900,
-    28740,
-    28800,
-    29640,
-    29700,
-    30540,
-    30600,
-    31440,
-    31500,
-    32340,
-    32400,
-    33240,
-    33300,
-    34140,
-    34200,
-    35040,
-    35100,
-    35940,
-    36000,
-    36840,
-    36900,
-    37740,
-    37800,
-    38640,
-    38700,
-    39540,
-    39600,
-    40440,
-    40500,
-    41340,
-    41400,
-    42240,
-    42300,
-    43140,
-    43200,
-    44040,
-    44100,
-    44940,
-    45000,
-    45840,
-    45900,
-    46740,
-    46800,
-    47640,
-    47700,
-    48540,
-    48600,
-    49440,
-    49500,
-    50340,
-    50400,
-    51240,
-    51300,
-    52140,
-    52200,
-    53040,
-    53100,
-    53940,
-    54000,
-    54840,
-    54900,
-    55740,
-    55800,
-    56640,
-    56700,
-    57540,
-    57600,
-    58440,
-    58500,
-    59340,
-    59400,
-    60240,
-    60300,
-    61140,
-    61200,
-    62040,
-    62100,
-    62940,
-    63000,
-    63840,
-    63900,
-    64740,
-    64800,
-    65640,
-    65700,
-    66540,
-    66600,
-    67440,
-    67500,
-    68340,
-    68400,
-    69240,
-    69300,
-    70140,
-    70200,
-    71040,
-    71100,
-    71940,
-    72000,
-    72840,
-    72900,
-    73740,
-    73800,
-    74640,
-    74700,
-    75540,
-    75600,
-    76440,
-    76500,
-    77340,
-    77400,
-    78240,
-    78300,
-    79140,
-    79200,
-    80040,
-    80100,
-    80940,
-    81000,
-    81840,
-    81900,
-    82740,
-    82800,
-    83640,
-    83700,
-    84540,
-    84600,
-    85440,
-    85500,
-    86340,
-    86400
-  ]
-  let timePicker1 = [
-    0,
-    840,
-    900,
-    1740,
-    1800,
-    2640,
-    2700,
-    3540,
-    3600,
-    4440,
-    4500,
-    5340,
-    5400,
-    6240,
-    6300,
-    7140,
-    7200,
-    8040,
-    8100,
-    8940,
-    9000,
-    9840,
-    9900,
-    10740,
-    10800,
-    11640,
-    11700,
-    12540,
-    12600,
-    13440,
-    13500,
-    14340,
-    14400,
-    15240,
-    15300,
-    16140,
-    16200,
-    17040,
-    17100,
-    17940,
-    18000,
-    18840,
-    18900,
-    19740,
-    19800,
-    20640,
-    20700,
-    21540,
-    21600,
-    22440,
-    22500,
-    23340,
-    23400,
-    24240,
-    24300,
-    25140,
-    25200,
-    26040,
-    26100,
-    26940,
-    27000,
-    27840,
-    27900,
-    28740,
-    28800,
-    29640,
-    29700,
-    30540,
-    30600,
-    31440,
-    31500,
-    32340,
-    32400,
-    33240,
-    33300,
-    34140,
-    34200,
-    35040,
-    35100,
-    35940,
-    36000,
-    36840,
-    36900,
-    37740,
-    37800,
-    38640,
-    38700,
-    39540,
-    39600,
-    40440,
-    40500,
-    41340,
-    41400,
-    42240,
-    42300,
-    43140,
-    43200,
-    44040,
-    44100,
-    44940,
-    45000,
-    45840,
-    45900,
-    46740,
-    46800,
-    47640,
-    47700,
-    48540,
-    48600,
-    49440,
-    49500,
-    50340,
-    50400,
-    51240,
-    51300,
-    52140,
-    52200,
-    53040,
-    53100,
-    53940,
-    54000,
-    54840,
-    54900,
-    55740,
-    55800,
-    56640,
-    56700,
-    57540,
-    57600,
-    58440,
-    58500,
-    59340,
-    59400,
-    60240,
-    60300,
-    61140,
-    61200,
-    62040,
-    62100,
-    62940,
-    63000,
-    63840,
-    63900,
-    64740,
-    64800,
-    65640,
-    65700,
-    66540,
-    66600,
-    67440,
-    67500,
-    68340,
-    68400,
-    69240,
-    69300,
-    70140,
-    70200,
-    71040,
-    71100,
-    71940,
-    72000,
-    72840,
-    72900,
-    73740,
-    73800,
-    74640,
-    74700,
-    75540,
-    75600,
-    76440,
-    76500,
-    77340,
-    77400,
-    78240,
-    78300,
-    79140,
-    79200,
-    80040,
-    80100,
-    80940,
-    81000,
-    81840,
-    81900,
-    82740,
-    82800,
-    83640,
-    83700,
-    84540,
-    84600,
-    85440,
-    85500,
-    86340,
-    86400
-  ]
-
-  // const newValue = timePicker.map(el => {
-  //   return Number(el.slice(0, 2)) * 60 * 60 + Number(el.slice(2, 4)) * 60
-  // })
-  // console.log(Number(timePicker[14].slice(0,2))*60*60+Number(timePicker[14].slice(2,4))*60)
-  // console.log(newValue)
-
-  const dateTime = new Date();
-  // console.log(dateTime)
-
-  const h = dateTime.getHours()
-  const m = dateTime.getMinutes()
-  const s = dateTime.getSeconds()
-  // console.log()
-
-  const nowTime = h * 60 * 60 + m * 60 + s
+  const { user } = useSelector((state) => state.user);
+  const dispath = useDispatch();
 
   const [timeStart, setTimeStart] = useState({
     hrsM1: '00', minsM1: '00',
@@ -442,25 +23,18 @@ const TimePicker = () => {
 
   const timeStartFn = (name) => (e) => {
     setTimeStart({ ...timeStart, [name]: e.target.value })
-
   }
 
   const timeEndFn = (name) => (e) => {
     setTimeEnd({ ...timeEnd, [name]: e.target.value })
-
   }
 
   const [sumTimeM1, setSumTimeM1] = useState({ start: '', end: '' })
   const [sumTimeM2, setSumTimeM2] = useState({ start: '', end: '' })
   const [sumTimeM3, setSumTimeM3] = useState({ start: '', end: '' })
 
-  // console.log(sumTimeM1.start, sumTimeM1.end)
-  // console.log(sumTimeM2.start, sumTimeM2.end)
-  // console.log(sumTimeM3.start, sumTimeM3.end)
-
-
-
-  // 1 , 2 ,3 , 1 2 ,1 3 , 2 3, 1 2 3
+  const [timePicker, setTimePicker] = useState([...timePickerData])
+  const [timePickerBase, setTimePickerBase] = useState(timePickerBaseData)
 
   function checklengthBase(arrayStart, arrayEnd) {
     const startSliceBase = timePickerBase.indexOf(arrayStart)
@@ -477,603 +51,543 @@ const TimePicker = () => {
 
 
 
-  const setTime = () => {
-    const choose = 4
+  function menu_1() {
 
-    console.log('Menu Time Control :' + choose)
+    //- 
+    const arrayStartM1 = sumValueOftiem(timeStart.hrsM1, timeStart.minsM1)
+    const arrayEndM1 = sumValueOftiem(timeEnd.hrsM1, timeEnd.minsM1) - 60 // need to find in Array
+
+    const startSliceM1 = timePicker.indexOf(arrayStartM1)
+    const endSliceM1 = timePicker.indexOf(arrayEndM1)
+
+    if (startSliceM1 === -1 || endSliceM1 === -1) alert('time 1 slice no match')
+
+    const minusM1 = (endSliceM1 - startSliceM1)
+    if (minusM1 <= 0) alert('time 1 minus no match')
+
+    timePicker.splice(startSliceM1, minusM1 + 1)
+
+    setSumTimeM1({ start: arrayStartM1, end: arrayEndM1 + 59 })
+
+    console.log('Complete Schedule 1')
+
+  }
+  console.log(sumTimeM1)
+
+  function menu_2() {
+    const arrayStartM2 = sumValueOftiem(timeStart.hrsM2, timeStart.minsM2)
+    const arrayEndM2 = sumValueOftiem(timeEnd.hrsM2, timeEnd.minsM2) - 60
+
+    const startSliceM2 = timePicker.indexOf(arrayStartM2)
+    const endSliceM2 = timePicker.indexOf(arrayEndM2)
+    console.log(startSliceM2, endSliceM2)
+
+    if (startSliceM2 === -1 || endSliceM2 === -1) alert('time 2 slice no match')
+
+    const minusM2 = (endSliceM2 - startSliceM2)
+    if (minusM2 <= 0) alert('time 2 minus no match')
+
+    const checklengthBase2 = checklengthBase(arrayStartM2, arrayEndM2)
+    const checklengthM2 = timePicker.splice(startSliceM2, minusM2 + 1).length
+    if (checklengthBase2 !== checklengthM2) return alert('!!!!')
 
 
-    if (choose === 1) {
+    setSumTimeM2({ start: arrayStartM2, end: arrayEndM2 + 59 })
 
-      const arrayStartM1 = sumValueOftiem(timeStart.hrsM1, timeStart.minsM1)
-      const arrayEndM1 = sumValueOftiem(timeEnd.hrsM1, timeEnd.minsM1) - 60
+    console.log('Complete Schedule 2')
+  }
 
-      const startSliceM1 = timePicker1.indexOf(arrayStartM1)
-      const endSliceM1 = timePicker1.indexOf(arrayEndM1)
-      console.log(startSliceM1, endSliceM1)
-      if (startSliceM1 === -1 || endSliceM1 === -1) alert('time 1 slice no match')
+  console.log(sumTimeM2)
 
-      const minusM1 = (endSliceM1 - startSliceM1)
-      if (minusM1 <= 0) alert('time 1 minus no match')
+  function menu_3() {
+    const arrayStartM3 = sumValueOftiem(timeStart.hrsM3, timeStart.minsM3)
+    const arrayEndM3 = sumValueOftiem(timeEnd.hrsM3, timeEnd.minsM3) - 60
 
-      console.log(arrayEndM1)
-      // checklengthBase(arrayStartM1, arrayEndM1)
-      const checklengthBase1 = checklengthBase(arrayStartM1, arrayEndM1)
+    const startSliceM3 = timePicker.indexOf(arrayStartM3)
+    const endSliceM3 = timePicker.indexOf(arrayEndM3)
+
+    if (startSliceM3 === -1 || endSliceM3 === -1) alert('time 3 slice no match')
+
+    const minusM3 = (endSliceM3 - startSliceM3)
+    if (minusM3 <= 0) alert('time 3 minus no match')
+
+    const checklengthBase3 = checklengthBase(arrayStartM3, arrayEndM3)
+    const checklengthM3 = timePicker.splice(startSliceM3, minusM3 + 1).length
+    if (checklengthBase3 !== checklengthM3) return alert('!!!!')
+
+    setSumTimeM3({ start: arrayStartM3, end: arrayEndM3 + 59 })
+
+    console.log('Complete Schedule 3')
+
+  }
+  console.log(sumTimeM3)
+
+  function reverseToTimeStart(numberTime) {
+    if (!numberTime) return '00'
+    let hrs = Math.floor(numberTime / 60 / 60)
+    let mins = ((numberTime / 60 / 60) - hrs) * 60
+    if (mins == 0) mins = `${mins}0`
+
+    return `${hrs}:${mins}`
+  }
+
+  function reverseToTimeEnd(numberTime) {
+    if (!numberTime) return '00'
+
+    let numberTimePlus = numberTime + 1
+    return reverseToTimeStart(numberTimePlus)
+  }
 
 
-      // console.log(timePickerBase)
-      timePicker1.splice(startSliceM1, minusM1 + 1)
-      // timePicker1.splice(startSliceM1, minusM1 + 1)
+  // client need typetime to load data menu and time and button style
+  const [onOffMenu, setOnOffMenu] = useState(true)
+  const [timeType, setTimeType] = useState(true)
 
-      console.log('Complete Schedule 1')
+  const [menuAllDayType, setMenuAllDayType] = useState({
+    menu_1: true, menu_2: false, menu_3: false,
+  })
+  const [menuSelectType, setMenuSelectType] = useState({
+    menu_1: '', menu_2: '', menu_3: '',
+  })
 
-      // let sumTimeStart1 = (Number(timeStart.hrsM1) * 60 * 60 + Number(timeStart.minsM1) * 60)
-      // let sumTimeEnd1 = (Number(timeEnd.hrsM1) * 60 * 60 + Number(timeEnd.minsM1) * 60) - 1
 
-      setSumTimeM1({ start: arrayStartM1, end: arrayEndM1 + 59 })
-      console.log(timePicker1)
+  const menuAllDayTypeValue = (name) => {
+    setMenuAllDayType({ ...menuAllDayType, [name]: !menuAllDayType[name] })
+  }
+
+  const setTimeTypeFn = (valBool) => {
+    if (valBool === true) {
+      setTimeType(true)
+      setSumTimeM1({ start: '', end: '' })
+      setSumTimeM2({ start: '', end: '' })
+      setSumTimeM3({ start: '', end: '' })
+    }
+  }
+
+  const menuSelectTypeValue = (name, e) => {
+    if (e.target.checked) {
+      setMenuSelectType({ ...menuSelectType, [name]: e.target.value })
+    } else {
+      setMenuSelectType({ ...menuSelectType, [name]: '' })
+      if (name === 'menu_1') return setSumTimeM1({ start: '', end: '' })
+      if (name === 'menu_2') return setSumTimeM2({ start: '', end: '' })
+      if (name === 'menu_3') return setSumTimeM3({ start: '', end: '' })
 
     }
-    // else if (choose === 2) {
-
-    //   //-  //- 2 ///////////////////////////////////////
-
-    //   const arrayStartM2 = timeStart.hrsM2 + timeStart.minsM2
-    //   const arrayEndM2 = timeEnd.hrsM2 + timeEnd.minsM2
-
-    //   const startSliceM2 = timePickerStart.indexOf(arrayStartM2)
-    //   const endSliceM2 = timePickerEnd.indexOf(arrayEndM2)
-    //   if (startSliceM2 === -1 || endSliceM2 === -1) alert('time 2 slice no match')
+  }
 
 
-    //   const minusM2 = (endSliceM2 - startSliceM2)
-
-    //   // // const testMinus2=
-    //   if (minusM2 <= 0) alert('time 2 minus no match')
-
-    //   timePickerStart.splice(startSliceM2, minusM2)
-    //   timePickerEnd.splice(startSliceM2 + 1, minusM2)
-
-    //   console.log('Complete Schedule 2')
-
-    //   let sumTimeStart2 = (Number(timeStart.hrsM2) * 60 * 60 + Number(timeStart.minsM2) * 60)
-    //   let sumTimeEnd2 = (Number(timeEnd.hrsM2) * 60 * 60 + Number(timeEnd.minsM2) * 60) - 1
-
-    //   setSumTimeM2({ start: sumTimeStart2, end: sumTimeEnd2 })
-
-    // } else if (choose === 3) {
-
-    //   //-  //-  //- 3 ///////////////////////////////////////
-
-    //   const arrayStartM3 = timeStart.hrsM3 + timeStart.minsM3
-    //   const arrayEndM3 = timeEnd.hrsM3 + timeEnd.minsM3
-
-    //   const startSliceM3 = timePickerStart.indexOf(arrayStartM3)
-    //   const endSliceM3 = timePickerEnd.indexOf(arrayEndM3)
-
-    //   if (startSliceM3 === -1 || endSliceM3 === -1) alert('time 3 slice no match')
-
-    //   const minusM3 = (endSliceM3 - startSliceM3)
-    //   if (minusM3 <= 0) alert('time 3 minus no match')
-
-    //   timePickerStart.splice(startSliceM3, minusM3)
-    //   timePickerEnd.splice(startSliceM3 + 1, minusM3)
-
-    //   console.log('Complete Schedule 3')
-
-    //   let sumTimeStart3 = (Number(timeStart.hrsM3) * 60 * 60 + Number(timeStart.minsM3) * 60)
-    //   let sumTimeEnd3 = (Number(timeEnd.hrsM3) * 60 * 60 + Number(timeEnd.minsM3) * 60) - 1
-
-    //   setSumTimeM3({ start: sumTimeStart3, end: sumTimeEnd3 })
+  let code = menuSelectType.menu_1 + menuSelectType.menu_2 + menuSelectType.menu_3
 
 
-    // } 
-    else if (choose === 4) {
-
-      //-  //-  //-  //- 4 ///////////////////////////////////////
-
-
-      const arrayStartM1 = sumValueOftiem(timeStart.hrsM1, timeStart.minsM1)
-      const arrayEndM1 = sumValueOftiem(timeEnd.hrsM1, timeEnd.minsM1) - 60
-      const arrayStartM2 = sumValueOftiem(timeStart.hrsM2, timeStart.minsM2)
-      const arrayEndM2 = sumValueOftiem(timeEnd.hrsM2, timeEnd.minsM2) - 60
-
-
-
-      const startSliceM1 = timePicker1.indexOf(arrayStartM1)
-      const endSliceM1 = timePicker1.indexOf(arrayEndM1)
-      console.log(startSliceM1, endSliceM1)
-      if (startSliceM1 === -1 || endSliceM1 === -1) alert('time 1 slice no match')
-
-      const minusM1 = (endSliceM1 - startSliceM1)
-      if (minusM1 <= 0) alert('time 1 minus no match')
-
-      const checklengthBase1 = checklengthBase(arrayStartM1, arrayEndM1)
-      timePicker1.splice(startSliceM1, minusM1 + 1)
-
-
-      const startSliceM2 = timePicker1.indexOf(arrayStartM2)
-      const endSliceM2 = timePicker1.indexOf(arrayEndM2)
-      console.log(startSliceM2, endSliceM2)
-
-      if (startSliceM2 === -1 || endSliceM2 === -1) alert('time 2 slice no match')
-
-      const minusM2 = (endSliceM2 - startSliceM2)
-      if (minusM2 <= 0) alert('time 2 minus no match')
-
-      const checklengthBase2 = checklengthBase(arrayStartM2, arrayEndM2)
-      const checklengthM2 = timePicker1.splice(startSliceM2, minusM2 + 1).length
-      if (checklengthBase2 !== checklengthM2) return alert('!!!!')
-      // timePicker1.splice(startSliceM2, minusM2 + 1)
-
-
-      console.log('Complete Schedule 1 and 2')
-
-      // let sumTimeStart1 = (Number(timeStart.hrsM1) * 60 * 60 + Number(timeStart.minsM1) * 60)
-      // let sumTimeEnd1 = (Number(timeEnd.hrsM1) * 60 * 60 + Number(timeEnd.minsM1) * 60) - 1
-
-      // let sumTimeStart2 = (Number(timeStart.hrsM2) * 60 * 60 + Number(timeStart.minsM2) * 60)
-      // let sumTimeEnd2 = (Number(timeEnd.hrsM2) * 60 * 60 + Number(timeEnd.minsM2) * 60) - 1
-
-      setSumTimeM1({ start: arrayStartM1, end: arrayEndM1 + 59 })
-      setSumTimeM2({ start: arrayStartM2, end: arrayEndM2 + 59 })
-
-
-      console.log(timePicker1)
-
-
+  const setTimeValue = (code) => {
+    switch (code) {
+      case '1':
+        menu_1()
+        break;
+      case '2':
+        menu_2()
+        break;
+      case '3':
+        menu_3()
+        break;
+      case '12':
+        menu_1()
+        menu_2()
+        break;
+      case '13':
+        menu_1()
+        menu_3()
+        break;
+      case '23':
+        menu_2()
+        menu_3()
+        break;
+      case '123':
+        menu_1()
+        menu_2()
+        menu_3()
+        break;
+      default:
+        break;
     }
-    // else if (choose === 5) {
-
-    //   //-  //-  //-  //-  //- 5 ///////////////////////////////////////
-
-
-    //   const arrayStartM1 = timeStart.hrsM1 + timeStart.minsM1
-    //   const arrayEndM1 = timeEnd.hrsM1 + timeEnd.minsM1
-    //   const arrayStartM3 = timeStart.hrsM3 + timeStart.minsM3
-    //   const arrayEndM3 = timeEnd.hrsM3 + timeEnd.minsM3
-
-    //   const startSliceM1 = timePickerStart.indexOf(arrayStartM1)
-    //   const endSliceM1 = timePickerEnd.indexOf(arrayEndM1)
-
-    //   if (startSliceM1 === -1 || endSliceM1 === -1) alert('time 1 slice no match')
-
-    //   const minusM1 = (endSliceM1 - startSliceM1)
-    //   if (minusM1 <= 0) alert('time 1 minus no match')
-
-    //   timePickerStart.splice(startSliceM1, minusM1)
-    //   timePickerEnd.splice(startSliceM1 + 1, minusM1)
-
-
-    //   const startSliceM3 = timePickerStart.indexOf(arrayStartM3)
-    //   const endSliceM3 = timePickerEnd.indexOf(arrayEndM3)
-
-    //   if (startSliceM3 === -1 || endSliceM3 === -1) alert('time 3 slice no match')
-
-    //   const minusM3 = (endSliceM3 - startSliceM3)
-    //   if (minusM3 <= 0) alert('time 3 minus no match')
-
-    //   timePickerStart.splice(startSliceM3, minusM3)
-    //   timePickerEnd.splice(startSliceM3 + 1, minusM3)
-
-    //   console.log('Complete Schedule 1 and 3')
-
-    //   let sumTimeStart1 = (Number(timeStart.hrsM1) * 60 * 60 + Number(timeStart.minsM1) * 60)
-    //   let sumTimeEnd1 = (Number(timeEnd.hrsM1) * 60 * 60 + Number(timeEnd.minsM1) * 60) - 1
-    //   let sumTimeStart3 = (Number(timeStart.hrsM3) * 60 * 60 + Number(timeStart.minsM3) * 60)
-    //   let sumTimeEnd3 = (Number(timeEnd.hrsM3) * 60 * 60 + Number(timeEnd.minsM3) * 60) - 1
-
-    //   setSumTimeM1({ start: sumTimeStart1, end: sumTimeEnd1 })
-    //   setSumTimeM3({ start: sumTimeStart3, end: sumTimeEnd3 })
-
-    // } else if (choose === 6) {
-
-    //   //-  //-  //-  //-  //-  //- ////////////////////////////////////
-
-
-    //   const arrayStartM2 = timeStart.hrsM2 + timeStart.minsM2
-    //   const arrayEndM2 = timeEnd.hrsM2 + timeEnd.minsM2
-    //   const arrayStartM3 = timeStart.hrsM3 + timeStart.minsM3
-    //   const arrayEndM3 = timeEnd.hrsM3 + timeEnd.minsM3
-
-
-
-    //   const startSliceM2 = timePickerStart.indexOf(arrayStartM2)
-    //   const endSliceM2 = timePickerEnd.indexOf(arrayEndM2)
-
-    //   if (startSliceM2 === -1 || endSliceM2 === -1) alert('time 2 slice no match')
-
-
-    //   const minusM2 = (endSliceM2 - startSliceM2)
-
-    //   // // const testMinus2=
-    //   if (minusM2 <= 0) alert('time 2 minus no match')
-
-    //   timePickerStart.splice(startSliceM2, minusM2)
-    //   timePickerEnd.splice(startSliceM2 + 1, minusM2)
-
-
-    //   const startSliceM3 = timePickerStart.indexOf(arrayStartM3)
-    //   const endSliceM3 = timePickerEnd.indexOf(arrayEndM3)
-
-    //   if (startSliceM3 === -1 || endSliceM3 === -1) alert('time 3 slice no match')
-
-    //   const minusM3 = (endSliceM3 - startSliceM3)
-    //   if (minusM3 <= 0) alert('time 3 minus no match')
-
-    //   timePickerStart.splice(startSliceM3, minusM3)
-    //   timePickerEnd.splice(startSliceM3 + 1, minusM3)
-
-
-
-    //   console.log('Complete Schedule 2 and 3')
-    //   let sumTimeStart2 = (Number(timeStart.hrsM2) * 60 * 60 + Number(timeStart.minsM2) * 60)
-    //   let sumTimeEnd2 = (Number(timeEnd.hrsM2) * 60 * 60 + Number(timeEnd.minsM2) * 60) - 1
-    //   let sumTimeStart3 = (Number(timeStart.hrsM3) * 60 * 60 + Number(timeStart.minsM3) * 60)
-    //   let sumTimeEnd3 = (Number(timeEnd.hrsM3) * 60 * 60 + Number(timeEnd.minsM3) * 60) - 1
-
-    //   setSumTimeM2({ start: sumTimeStart2, end: sumTimeEnd2 })
-    //   setSumTimeM3({ start: sumTimeStart3, end: sumTimeEnd3 })
-
-    // } else if (choose === 7) {
-
-    //   //-  //-  //-  //-  //-  //-  //- /////////////////////////////
-
-
-    //   const arrayStartM1 = timeStart.hrsM1 + timeStart.minsM1
-    //   const arrayEndM1 = timeEnd.hrsM1 + timeEnd.minsM1
-    //   const arrayStartM2 = timeStart.hrsM2 + timeStart.minsM2
-    //   const arrayEndM2 = timeEnd.hrsM2 + timeEnd.minsM2
-    //   const arrayStartM3 = timeStart.hrsM3 + timeStart.minsM3
-    //   const arrayEndM3 = timeEnd.hrsM3 + timeEnd.minsM3
-
-
-
-    //   const startSliceM1 = timePickerStart.indexOf(arrayStartM1)
-    //   const endSliceM1 = timePickerEnd.indexOf(arrayEndM1)
-
-
-    //   if (startSliceM1 === -1 || endSliceM1 === -1) alert('time 1 slice no match')
-
-    //   const minusM1 = (endSliceM1 - startSliceM1)
-    //   if (minusM1 <= 0) alert('time 1 minus no match')
-
-    //   timePickerStart.splice(startSliceM1, minusM1)
-    //   timePickerEnd.splice(startSliceM1 + 1, minusM1)
-
-
-    //   const startSliceM2 = timePickerStart.indexOf(arrayStartM2)
-    //   const endSliceM2 = timePickerEnd.indexOf(arrayEndM2)
-
-    //   if (startSliceM2 === -1 || endSliceM2 === -1) alert('time 2 slice no match')
-
-
-    //   const minusM2 = (endSliceM2 - startSliceM2)
-
-    //   // // const testMinus2=
-    //   if (minusM2 <= 0) alert('time 2 minus no match')
-
-    //   timePickerStart.splice(startSliceM2, minusM2)
-    //   timePickerEnd.splice(startSliceM2 + 1, minusM2)
-
-
-    //   const startSliceM3 = timePickerStart.indexOf(arrayStartM3)
-    //   const endSliceM3 = timePickerEnd.indexOf(arrayEndM3)
-    //   console.log(startSliceM3, endSliceM3)
-    //   if (startSliceM3 === -1 || endSliceM3 === -1) alert('time 3 slice no match')
-
-    //   const minusM3 = (endSliceM3 - startSliceM3)
-    //   if (minusM3 <= 0) alert('time 3 minus no match')
-
-    //   timePickerStart.splice(startSliceM3, minusM3)
-    //   timePickerEnd.splice(startSliceM3 + 1, minusM3)
-
-    //   console.log('Complete Schedule 1. 2 and 3')
-
-    //   let sumTimeStart1 = (Number(timeStart.hrsM1) * 60 * 60 + Number(timeStart.minsM1) * 60)
-    //   let sumTimeEnd1 = (Number(timeEnd.hrsM1) * 60 * 60 + Number(timeEnd.minsM1) * 60) - 1
-
-    //   let sumTimeStart2 = (Number(timeStart.hrsM2) * 60 * 60 + Number(timeStart.minsM2) * 60)
-    //   let sumTimeEnd2 = (Number(timeEnd.hrsM2) * 60 * 60 + Number(timeEnd.minsM2) * 60) - 1
-
-    //   let sumTimeStart3 = (Number(timeStart.hrsM3) * 60 * 60 + Number(timeStart.minsM3) * 60)
-    //   let sumTimeEnd3 = (Number(timeEnd.hrsM3) * 60 * 60 + Number(timeEnd.minsM3) * 60) - 1
-
-
-    //   setSumTimeM1({ start: sumTimeStart1, end: sumTimeEnd1 })
-    //   setSumTimeM2({ start: sumTimeStart2, end: sumTimeEnd2 })
-    //   setSumTimeM3({ start: sumTimeStart3, end: sumTimeEnd3 })
-
-
-    // }
 
   }
 
+
+  ///////////////////////
+
+
+
+
+
+
+  //-///-///-///-///-///-///-///-///-   END FUNCTION   ///-///-///-///-///-///-///-///-///-
+
   return (
-    <div>
-      <div className='flex'>
-        <div className="container mx-auto my-12 p-12 bg-gray-100">
-          <div className="inline-flex text-lg border rounded-sm shadow-lg p-2">
-            <select value={timeStart.hrsM1} onChange={timeStartFn('hrsM1')} name="hrsM1" id="" className="px-4 outline-none appearance-none bg-transparent">
-              <option value="00">00</option>
-              <option value="01">01</option>
-              <option value="02">02</option>
-              <option value="03">03</option>
-              <option value="04">04</option>
-              <option value="05">05</option>
-              <option value="06">06</option>
-              <option value="07">07</option>
-              <option value="08">08</option>
-              <option value="09">09</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="12">12</option>
-              <option value="13">13</option>
-              <option value="14">14</option>
-              <option value="15">15</option>
-              <option value="16">16</option>
-              <option value="17">17</option>
-              <option value="18">18</option>
-              <option value="19">19</option>
-              <option value="20">20</option>
-              <option value="21">21</option>
-              <option value="22">22</option>
-              <option value="23">23</option>
+    <div className='timePikerWrapper'>
+      <div className="timePikerGrid">
+        {/* <label className="timePikerContainer mainOnOff switch"><input type="checkbox" name="menu_1" id="" /> <span class="slider"></span></label> */}
 
+        {/* <div className="flexRowTime"> */}
+        {/* <div className="nameTimepicker"> */}
+        <div className="timePikerContainer header1" >Header</div>
+        <div className="timePikerContainer titleTime1">{user.menu_1}</div>
+        <div className="timePikerContainer titleTime2">{user.menu_2}</div>
+        <div className="timePikerContainer titleTime3">{user.menu_3}</div>
 
-            </select>
-            <span className="px-2">:</span>
-            <select onChange={timeStartFn('minsM1')} name="mins" id="" className="px-4 outline-none appearance-none bg-transparent">
-              <option value="00">00</option>
-              <option value="15">15</option>
-              <option value="30">30</option>
-              <option value="45">45</option>
-            </select>
+        {/* </div> */}
+        {/* <div className="allDayTimepicker">setMenuAllDayType */}
+        <label htmlFor='allDay' className="timePikerContainer header2 switch">  <input onChange={() => setTimeTypeFn(true)} type="radio" name="timeType" id="allDay" checked={timeType} /><span class="slider"></span></label>
+        <label className={`timePikerContainer allday1  switch ${!timeType && 'opcaityTime'}`}>  <input onChange={() => menuAllDayTypeValue('menu_1')} type="checkbox" name="menu_1" checked={!timeType ? false : null} disabled={!timeType} /><span class="slider"></span></label>
+        <label className={`timePikerContainer allday2  switch ${!timeType && 'opcaityTime'}`}>  <input onChange={() => menuAllDayTypeValue('menu_2')} type="checkbox" name="menu_2" checked={!timeType ? false : null} id="" disabled={!timeType} /><span class="slider"></span></label>
+        <label className={`timePikerContainer allday3  switch ${!timeType && 'opcaityTime'}`}>  <input onChange={() => menuAllDayTypeValue('menu_3')} type="checkbox" name="menu_3" checked={!timeType ? false : null} id="" disabled={!timeType} /><span class="slider"></span></label>
+        {/* </div> */}
 
-            {/* <select onChange={timeStartFn('ampm')} id="" className="px-2 outline-none appearance-none bg-transparent">
-            <option value="0">AM</option>
-            <option value="12">PM</option>
-          </select> */}
-          </div>
-        </div>
+        {/* <div className="selectDayTimepicker"> */}
+        <label htmlFor='schedule' className="timePikerContainer header3 switch"><input onChange={() => setTimeType(false)} type="radio" name="timeType" id="schedule" /><span class="slider"></span></label>
 
-        {/* //-///////////////////////////////////////// */}
+        <label className={`timePikerContainer select1 switch ${timeType && 'opcaityTime'}`}> <input onChange={(e) => menuSelectTypeValue('menu_1', e)} type="checkbox" checked={timeType ? false : null} name="menu_1" value="1" id="" disabled={timeType} /><span class="slider"></span></label>
+        <label className={`timePikerContainer select2 switch ${timeType && 'opcaityTime'}`}> <input onChange={(e) => menuSelectTypeValue('menu_2', e)} type="checkbox" checked={timeType ? false : null} name="menu_2" value="2" id="" disabled={timeType} /><span class="slider"></span></label>
+        <label className={`timePikerContainer select3 switch ${timeType && 'opcaityTime'}`}> <input onChange={(e) => menuSelectTypeValue('menu_3', e)} type="checkbox" checked={timeType ? false : null} name="menu_3" value="3" id="" disabled={timeType} /><span class="slider"></span></label>
 
-        <div className="container mx-auto my-12 p-12 bg-gray-100">
-          <div className="inline-flex text-lg border rounded-sm shadow-lg p-2">
-            <select value={timeEnd.hrsM1} onChange={timeEndFn('hrsM1')} name="hrsM1" id="" className="px-4 outline-none appearance-none bg-transparent">
-              <option value="00">00</option>
-              <option value="01">01</option>
-              <option value="02">02</option>
-              <option value="03">03</option>
-              <option value="04">04</option>
-              <option value="05">05</option>
-              <option value="06">06</option>
-              <option value="07">07</option>
-              <option value="08">08</option>
-              <option value="09">09</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="12">12</option>
-              <option value="13">13</option>
-              <option value="14">14</option>
-              <option value="15">15</option>
-              <option value="16">16</option>
-              <option value="17">17</option>
-              <option value="18">18</option>
-              <option value="19">19</option>
-              <option value="20">20</option>
-              <option value="21">21</option>
-              <option value="22">22</option>
-              <option value="23">23</option>
-              <option value="24">24</option>
+        {/* </div> */}
+        {/* <div className="allTimePicker"> */}
+        <div className="timePikerContainer header4">timeeeee</div>
+        <div className={`timePikerContainer timeInput1 ${timeType && 'opcaityTime'}`}>
+          {/* <div className="container mx-auto my-12 p-12 bg-gray-100"> */}
+          {/* <div className="inline-flex text-lg border rounded-sm shadow-lg p-2"> */}
 
-            </select>
-            <span className="px-2">:</span>
-            <select value={timeEnd.minsM1} onChange={timeEndFn('minsM1')} name="minsM1" id="" className="px-4 outline-none appearance-none bg-transparent">
-              <option value="00">00</option>
-              {timeEnd.hrsM1 === "24" ? '' : <>
+          <div className="timeBox">
+            {/*  */}
+            <div className="inputTime">
+
+              <select value={timeStart.hrsM1} onChange={timeStartFn('hrsM1')} name="hrsM1" id="" disabled={timeType} className="" >
+                <option value="00">00</option>
+                <option value="01">01</option>
+                <option value="02">02</option>
+                <option value="03">03</option>
+                <option value="04">04</option>
+                <option value="05">05</option>
+                <option value="06">06</option>
+                <option value="07">07</option>
+                <option value="08">08</option>
+                <option value="09">09</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+              </select>
+              {/* <select value={timeStart.hrsM1} onChange={timeStartFn('hrsM1')} name="hrsM1" id="" disabled={timeType} className="" >
+                <option value="00">00</option>
+                <option value="01">01</option>
+                <option value="02">02</option>
+                <option value="03">03</option>
+                <option value="04">04</option>
+                <option value="05">05</option>
+                <option value="06">06</option>
+                <option value="07">07</option>
+                <option value="08">08</option>
+                <option value="09">09</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+              </select> */}
+              <span className="px-2">:</span>
+              <select onChange={timeStartFn('minsM1')} name="mins" id="" disabled={timeType} className="">
+                <option value="00">00</option>
                 <option value="15">15</option>
                 <option value="30">30</option>
                 <option value="45">45</option>
-              </>}
-            </select>
+              </select>
 
-          </div>
-        </div>
-      </div>
-
-      {/* //-///////////////////////////////////////// */}{/* //-///////////////////////////////////////// */}
-
-      <div className='flex'>
-        <div className="container mx-auto my-12 p-12 bg-gray-100">
-          <div className="inline-flex text-lg border rounded-sm shadow-lg p-2">
-            <select value={timeStart.hrsM2} onChange={timeStartFn('hrsM2')} name="hrsM2" id="" className="px-4 outline-none appearance-none bg-transparent">
-              <option value="00">00</option>
-              <option value="01">01</option>
-              <option value="02">02</option>
-              <option value="03">03</option>
-              <option value="04">04</option>
-              <option value="05">05</option>
-              <option value="06">06</option>
-              <option value="07">07</option>
-              <option value="08">08</option>
-              <option value="09">09</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="12">12</option>
-              <option value="13">13</option>
-              <option value="14">14</option>
-              <option value="15">15</option>
-              <option value="16">16</option>
-              <option value="17">17</option>
-              <option value="18">18</option>
-              <option value="19">19</option>
-              <option value="20">20</option>
-              <option value="21">21</option>
-              <option value="22">22</option>
-              <option value="23">23</option>
-
-
-            </select>
-            <span className="px-2">:</span>
-            <select onChange={timeStartFn('minsM2')} name="minsM2" id="" className="px-4 outline-none appearance-none bg-transparent">
-              <option value="00">00</option>
-              <option value="15">15</option>
-              <option value="30">30</option>
-              <option value="45">45</option>
-            </select>
-
-            {/* <select onChange={timeStartFn('ampm')} id="" className="px-2 outline-none appearance-none bg-transparent">
+              {/* <select onChange={timeStartFn('ampm')} id="" className="px-2 outline-none appearance-none bg-transparent">
             <option value="0">AM</option>
             <option value="12">PM</option>
           </select> */}
+            </div>
+          </div>
+
+          <div className="textTo">to</div>
+
+          <div className="timeBox">
+
+            <div className="inputTime">
+
+              <select value={timeEnd.hrsM1} onChange={timeEndFn('hrsM1')} name="hrsM1" id="" disabled={timeType} className="">
+                <option value="00">00</option>
+                <option value="01">01</option>
+                <option value="02">02</option>
+                <option value="03">03</option>
+                <option value="04">04</option>
+                <option value="05">05</option>
+                <option value="06">06</option>
+                <option value="07">07</option>
+                <option value="08">08</option>
+                <option value="09">09</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+                <option value="24">24</option>
+              </select>
+              <span className="px-2">:</span>
+              <select value={timeEnd.minsM1} onChange={timeEndFn('minsM1')} name="minsM1" id="" disabled={timeType} className="">
+                <option value="00">00</option>
+                {timeEnd.hrsM1 === "24" ? '' : <>
+                  <option value="15">15</option>
+                  <option value="30">30</option>
+                  <option value="45">45</option>
+                </>}
+              </select>
+
+            </div>
           </div>
         </div>
 
-        {/* //-///////////////////////////////////////// */}
+        {/* //-///////////////////////////////////////// */}{/* //-///////////////////////////////////////// */}
 
-        <div className="container mx-auto my-12 p-12 bg-gray-100">
-          <div className="inline-flex text-lg border rounded-sm shadow-lg p-2">
-            <select value={timeEnd.hrsM2} onChange={timeEndFn('hrsM2')} name="hrsM2" id="" className="px-4 outline-none appearance-none bg-transparent">
-              <option value="00">00</option>
-              <option value="01">01</option>
-              <option value="02">02</option>
-              <option value="03">03</option>
-              <option value="04">04</option>
-              <option value="05">05</option>
-              <option value="06">06</option>
-              <option value="07">07</option>
-              <option value="08">08</option>
-              <option value="09">09</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="12">12</option>
-              <option value="13">13</option>
-              <option value="14">14</option>
-              <option value="15">15</option>
-              <option value="16">16</option>
-              <option value="17">17</option>
-              <option value="18">18</option>
-              <option value="19">19</option>
-              <option value="20">20</option>
-              <option value="21">21</option>
-              <option value="22">22</option>
-              <option value="23">23</option>
-              <option value="24">24</option>
-            </select>
-            <span className="px-2">:</span>
-            <select value={timeEnd.minsM2} onChange={timeEndFn('minsM2')} name="minsM2" id="" className="px-4 outline-none appearance-none bg-transparent">
-              <option value="00">00</option>
-              {timeEnd.hrsM2 === "24" ? '' : <>
+        <div className={`timePikerContainer timeInput2 ${timeType && 'opcaityTime'}`}>
+          <div className="timeBox">
+            <div className="inputTime">
+              <select value={timeStart.hrsM2} onChange={timeStartFn('hrsM2')} name="hrsM2" id="" disabled={timeType} className="">
+                <option value="00">00</option>
+                <option value="01">01</option>
+                <option value="02">02</option>
+                <option value="03">03</option>
+                <option value="04">04</option>
+                <option value="05">05</option>
+                <option value="06">06</option>
+                <option value="07">07</option>
+                <option value="08">08</option>
+                <option value="09">09</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+
+
+              </select>
+              <span className="px-2">:</span>
+              <select onChange={timeStartFn('minsM2')} name="minsM2" id="" disabled={timeType} className="">
+                <option value="00">00</option>
                 <option value="15">15</option>
                 <option value="30">30</option>
                 <option value="45">45</option>
-              </>}
-            </select>
+              </select>
 
-          </div>
-        </div>
-
-
-      </div>
-      {/* //-///////////////////////////////////////// */}{/* //-///////////////////////////////////////// */}
-
-      <div className='flex'>
-        <div className="container mx-auto my-12 p-12 bg-gray-100">
-          <div className="inline-flex text-lg border rounded-sm shadow-lg p-2">
-            <select value={timeStart.hrsM3} onChange={timeStartFn('hrsM3')} name="hrsM3" id="" className="px-4 outline-none appearance-none bg-transparent">
-              <option value="00">00</option>
-              <option value="01">01</option>
-              <option value="02">02</option>
-              <option value="03">03</option>
-              <option value="04">04</option>
-              <option value="05">05</option>
-              <option value="06">06</option>
-              <option value="07">07</option>
-              <option value="08">08</option>
-              <option value="09">09</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="12">12</option>
-              <option value="13">13</option>
-              <option value="14">14</option>
-              <option value="15">15</option>
-              <option value="16">16</option>
-              <option value="17">17</option>
-              <option value="18">18</option>
-              <option value="19">19</option>
-              <option value="20">20</option>
-              <option value="21">21</option>
-              <option value="22">22</option>
-              <option value="23">23</option>
-
-
-            </select>
-            <span className="px-2">:</span>
-            <select onChange={timeStartFn('minsM3')} name="minsM3" id="" className="px-4 outline-none appearance-none bg-transparent">
-              <option value="00">00</option>
-              <option value="15">15</option>
-              <option value="30">30</option>
-              <option value="45">45</option>
-            </select>
-
-            {/* <select onChange={timeStartFn('ampm')} id="" className="px-2 outline-none appearance-none bg-transparent">
+              {/* <select onChange={timeStartFn('ampm')} id="" className="px-2 outline-none appearance-none bg-transparent">
             <option value="0">AM</option>
             <option value="12">PM</option>
           </select> */}
+            </div>
           </div>
+
+          <div className="textTo">to</div>
+
+          <div className="timeBox">
+            <div className="inputTime">
+              <select value={timeEnd.hrsM2} onChange={timeEndFn('hrsM2')} name="hrsM2" id="" disabled={timeType} className="">
+                <option value="00">00</option>
+                <option value="01">01</option>
+                <option value="02">02</option>
+                <option value="03">03</option>
+                <option value="04">04</option>
+                <option value="05">05</option>
+                <option value="06">06</option>
+                <option value="07">07</option>
+                <option value="08">08</option>
+                <option value="09">09</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+                <option value="24">24</option>
+              </select>
+              <span className="px-2">:</span>
+              <select value={timeEnd.minsM2} onChange={timeEndFn('minsM2')} name="minsM2" id="" disabled={timeType} className="">
+                <option value="00">00</option>
+                {timeEnd.hrsM2 === "24" ? '' : <>
+                  <option value="15">15</option>
+                  <option value="30">30</option>
+                  <option value="45">45</option>
+                </>}
+              </select>
+
+            </div>
+          </div>
+
+
         </div>
+        {/* //-///////////////////////////////////////// */}{/* //-///////////////////////////////////////// */}
 
-        {/* //-///////////////////////////////////////// */}
-
-        <div className="container mx-auto my-12 p-12 bg-gray-100">
-          <div className="inline-flex text-lg border rounded-sm shadow-lg p-2">
-            <select value={timeEnd.hrsM3} onChange={timeEndFn('hrsM3')} name="hrsM3" id="" className="px-4 outline-none appearance-none bg-transparent">
-              <option value="00">00</option>
-              <option value="01">01</option>
-              <option value="02">02</option>
-              <option value="03">03</option>
-              <option value="04">04</option>
-              <option value="05">05</option>
-              <option value="06">06</option>
-              <option value="07">07</option>
-              <option value="08">08</option>
-              <option value="09">09</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="12">12</option>
-              <option value="13">13</option>
-              <option value="14">14</option>
-              <option value="15">15</option>
-              <option value="16">16</option>
-              <option value="17">17</option>
-              <option value="18">18</option>
-              <option value="19">19</option>
-              <option value="20">20</option>
-              <option value="21">21</option>
-              <option value="22">22</option>
-              <option value="23">23</option>
-              <option value="24">24</option>
+        <div className={`timePikerContainer timeInput3 ${timeType && 'opcaityTime'}`}>
+          <div className="timeBox">
+            <div className="inputTime">
+              <select value={timeStart.hrsM3} onChange={timeStartFn('hrsM3')} name="hrsM3" id="" disabled={timeType} className="">
+                <option value="00">00</option>
+                <option value="01">01</option>
+                <option value="02">02</option>
+                <option value="03">03</option>
+                <option value="04">04</option>
+                <option value="05">05</option>
+                <option value="06">06</option>
+                <option value="07">07</option>
+                <option value="08">08</option>
+                <option value="09">09</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
 
 
-            </select>
-            <span className="px-2">:</span>
-            <select value={timeEnd.minsM3} onChange={timeEndFn('minsM3')} name="minsM3" id="" className="px-4 outline-none appearance-none bg-transparent">
-              <option value="00">00</option>
-              {timeEnd.hrsM3 === "24" ? '' : <>
+              </select>
+              <span className="px-2">:</span>
+              <select onChange={timeStartFn('minsM3')} name="minsM3" id="" disabled={timeType} className="">
+                <option value="00">00</option>
                 <option value="15">15</option>
                 <option value="30">30</option>
                 <option value="45">45</option>
-              </>}
-            </select>
+              </select>
+
+              {/* <select onChange={timeStartFn('ampm')} id="" className="px-2 outline-none appearance-none bg-transparent">
+            <option value="0">AM</option>
+            <option value="12">PM</option>
+          </select> */}
+            </div>
+          </div>
+
+          <div className="textTo">to</div>
+
+          <div className="timeBox">
+            <div className="inputTime">
+              <select value={timeEnd.hrsM3} onChange={timeEndFn('hrsM3')} name="hrsM3" id="" disabled={timeType} className="">
+                <option value="00">00</option>
+                <option value="01">01</option>
+                <option value="02">02</option>
+                <option value="03">03</option>
+                <option value="04">04</option>
+                <option value="05">05</option>
+                <option value="06">06</option>
+                <option value="07">07</option>
+                <option value="08">08</option>
+                <option value="09">09</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+                <option value="24">24</option>
+
+
+              </select>
+              <span className="px-2">:</span>
+              <select value={timeEnd.minsM3} onChange={timeEndFn('minsM3')} name="minsM3" id="" disabled={timeType} className="">
+                <option value="00">00</option>
+                {timeEnd.hrsM3 === "24" ? '' : <>
+                  <option value="15">15</option>
+                  <option value="30">30</option>
+                  <option value="45">45</option>
+                </>}
+              </select>
+
+            </div>
+            {/* </div> */}
+
 
           </div>
         </div>
 
-
+        {/* </div> */}
       </div>
-      <button onClick={setTime}>tttt</button>
+      <button onClick={() => {
+        setTimeValue(code)
+
+        setTimePicker([...timePickerData])
+        // getAllImageBanner()
+      }
+      } className='saveBnerBtn btnhover btnactive setTimeMargin'>
+        <svg width="35" height="35" viewBox="0 0 65 65" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1" y="1" width="63" height="63" rx="2" stroke="white" strokeWidth="2" />
+          <path d="M32 12L32 53" stroke="white" strokeWidth="2" strokeLinecap="round" />
+          <path d="M32 53L12 33" stroke="white" strokeWidth="2" strokeLinecap="round" />
+          <path d="M32 53L52 33" stroke="white" strokeWidth="2" strokeLinecap="round" />
+        </svg>
+        <span>SET TIME</span>
+      </button>
+      <div className=""> {` time1 : ${reverseToTimeStart(sumTimeM1.start)} - ${reverseToTimeEnd(sumTimeM1.end)} `}</div>
+      <div className=""> {` time2 : ${reverseToTimeStart(sumTimeM2.start)} - ${reverseToTimeEnd(sumTimeM2.end)} `}</div>
+      <div className=""> {` time3 : ${reverseToTimeStart(sumTimeM3.start)} - ${reverseToTimeEnd(sumTimeM3.end)} `}</div>
 
     </div>
   )

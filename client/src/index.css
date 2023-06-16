@@ -55,6 +55,8 @@ body::-webkit-scrollbar-thumb:hover {
 
 .monitor1 {
   grid-column: 1/2;
+  position: relative;
+  z-index: 0;
 }
 
 .monitor2 {
