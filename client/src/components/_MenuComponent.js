@@ -8,8 +8,8 @@ import { createTheme, ThemeProvider } from '@mui/material'
 import SidebarSubComp from './SidebarSubComp';
 import FooterComponent from './FooterComponent';
 import BannerSubCompo from './BannerSubCompo';
-import Texttest from './Text';
-import i18n from './multiLanguage/i18n';
+// import i18n from './multiLanguage/i18n';
+
 import axios from 'axios';
 import { ticketPass } from '../protectors/authorize';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -36,6 +36,9 @@ const s = dateTime.getSeconds()
 
 const nowTime = h * 60 * 60 + m * 60 + s
 
+
+
+
 const _MenuComponent = () => {
 
   const [clientMenu, setClientMenu] = useState([])
@@ -46,24 +49,30 @@ const _MenuComponent = () => {
 
   const [started, setStarted] = useState(false)
 
+
+
   const switcher = (even) => {
     setStarted(!started)
   }
 
-  const [language, setLanguage] = useState('th');
+  ///////////////////////////////////////////////////////
 
-  const changeLocale = (lang) => {
-    i18n.changeLanguage(lang);
-  }
-  useEffect(() => {
 
-    i18n.changeLanguage(language);
+  
 
-  }, [])
 
+
+  // useEffect(() => {
+
+  //   getLanguages(language)
+
+  // }, [])
+
+
+  ////////////////////////////////////////////////
   console.log(nowTime)
   const timeSwitcher = () => {
-    if (nowTime >= 18000 && nowTime <= 30000) setMenuTime(2)
+    if (nowTime >= 18000 && nowTime <= 30000) setMenuTime(1)
   }
 
   const getClientMenu = () => {
@@ -156,9 +165,9 @@ const _MenuComponent = () => {
             </div>
           </div>
         </nav>
-
+   
         {/* == SIDE BAR == */}
-        < SidebarSubComp />
+        {/* < SidebarSubComp /> */}
 
         {/* == <BannerExample /> == */}
         <BannerSubCompo />
@@ -187,10 +196,6 @@ const _MenuComponent = () => {
           <AcordionSubComp /> */}
         </ThemeProvider>
 
-
-
-
-        <Texttest />
         <div className="footerSpace"></div>
         <FooterComponent favorList={favorList} />
 

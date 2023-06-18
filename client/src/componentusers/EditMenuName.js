@@ -7,6 +7,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import { ticketPass } from '../protectors/authorize';
 import { setUser } from '../redux/userSlice';
+
 const EditMenuName = (prop) => {
 
   const { user } = useSelector((state) => state.user);
@@ -16,18 +17,9 @@ const EditMenuName = (prop) => {
 
   const currentMenuName = 'menu_' + prop.menuTime
   const inputMenuTimeName = (e) => {
-    // setMenuTimeName(e.target.value)
     prop.setMenuName({ ...prop.menuName, [currentMenuName]: e.target.value })
 
   }
-
-
-  // const callmenuName = (no) => {
-  //   if (no === 1) return prop.setMenuTimeName(prop.menuName.menu_1)
-  //   if (no === 2) return prop.setMenuTimeName(prop.menuName.menu_2)
-  //   if (no === 3) return prop.setMenuTimeName(.propmenuName.menu_3)
-
-  // }
 
   const saveNameMenu = () => {
     dispath(showLoading());

@@ -8,6 +8,9 @@ import { setUser } from '../redux/userSlice';
 import NavbarComponent from './NavbarComponent';
 import '../style/mainForm.css';
 import '../style/sideForm.css';
+import '../style/addLanguage.css';
+
+
 import { BsSquare, BsCheckSquare } from 'react-icons/bs';
 import { v4 as uuidv4 } from 'uuid';
 import iconPhoto from '../icon/downloadIcon.svg'
@@ -16,6 +19,7 @@ import GenerateMenu from './GenerateMenu';
 import BannerMainForm from './BannerMainForm';
 import EditMenuName from './EditMenuName';
 import TimePicker from './TimePicker';
+import AddLanguage from './AddLanguage';
 /*
 qqq
 
@@ -57,6 +61,9 @@ const MainForm = () => {
   }, [screenSize]);
 
   // const ref = useRef()
+
+
+
   const dispath = useDispatch();
   const { user } = useSelector((state) => state.user);
 
@@ -113,6 +120,8 @@ const MainForm = () => {
 
   const [listMenu, setListMenu] = useState([listMenuModel]);
 
+
+
   const inputListValue = (index, event) => {
     const option = event.target.value;
     if (option === 'vetgeterian' || option === 'vegan' || option === 'gluten_free' || option === 'halal') {
@@ -129,7 +138,6 @@ const MainForm = () => {
   };
 
   const [file, setFile] = useState();
-  const [curImgId, setCurImgId] = useState('');
 
   // const [description, setDescription] = useState("")
   const [originalName, setOriginalName] = useState('')
@@ -179,7 +187,6 @@ const MainForm = () => {
 
 
   let imgId = uuidv4();
-
   const submitCatagory = (e) => {
     e.preventDefault();
     if (categoryList.length > 14) return alert('DDDD');
@@ -663,7 +670,7 @@ const MainForm = () => {
     <div>
 
       <div className='decorBar'>
-        <div className={`containerEditMenuName ${!(onOffMenu1.switch || onOffMenu2.switch || onOffMenu3.switch) && 'hiddenMe'}`}>
+        {/* <div className={`containerEditMenuName ${!(onOffMenu1.switch || onOffMenu2.switch || onOffMenu3.switch) && 'hiddenMe'}`}>
 
           <EditMenuName
             menuName={menuName}
@@ -677,13 +684,13 @@ const MainForm = () => {
             activeInputEn={activeInputEn}
             setActiveInputEn={setActiveInputEn}
           />
-        </div>
+        </div> */}
       </div>
 
       <div className='decorBg'></div>
 
       <div className='monitor ' id='monitor'>
-        <NavbarComponent
+        {/* <NavbarComponent
           // timeSwitcher={timeSwitcher}
           setMenuTime={setMenuTime}
           onOffQrCode={onOffQrCode} setOnoffQrCode={setOnoffQrCode}
@@ -693,7 +700,7 @@ const MainForm = () => {
           onOffMenu3={onOffMenu3} setOnoffMenu3={setOnoffMenu3}
           onOffMenuTime={onOffMenuTime} setonOffMenuTime={setonOffMenuTime}
 
-        />
+        /> */}
 
         <div className='monitor1'>
 
@@ -705,18 +712,27 @@ const MainForm = () => {
           setActiveInputEn(false)
         }} className='monitor2 '>
 
-          <div className={`${onOffQrCode ? 'showMe' : 'hiddenMe'}`}>
+          {/* <div className={`${onOffQrCode ? 'showMe' : 'hiddenMe'}`}>
             <GenerateMenu />
-          </div>
+          </div> */}
 
-          <div className={`${onOffBanner ? 'showMe' : 'hiddenMe'}`}>
+          {/* <div className={`${onOffBanner ? 'showMe' : 'hiddenMe'}`}>
             <BannerMainForm />
-          </div>
+          </div> */}
 
-          <div className={`timePikerSection ${onOffMenuTime ? 'showMe' : 'hiddenMe'}`}>
+          {/* <div className={`timePikerSection ${onOffMenuTime ? 'showMe' : 'hiddenMe'}`}>
             <TimePicker />
-          </div>
+          </div> */}
 
+          <div className={`addLanguageSection ${true ? 'showMe' : 'hiddenMe'}`}>
+            {/* aaa */}
+            <AddLanguage
+              state={state} setState={setState}
+              listMenu={listMenu} setListMenu={setListMenu}
+              user={user}
+            />
+
+          </div>
 
           <div className={` formContainer ${start ? 'showMe' : 'hiddenMe'}`}>
 
@@ -1009,10 +1025,10 @@ const MainForm = () => {
                     ADD ITEM
                   </a>
                 </div>
-              </div>{' '}
-              <i className='sr-only'>!END CATAGORY</i>
-              <i className='sr-only'>!END FORM</i>
+              </div>
+
             </form>
+
 
             {/* ${!start ? 'show' : 'hiddenMe'} ${menuId ? 'hiddenMe' : 'show'} */}
             {/* ${!menuId ? 'hiddenMe' : 'show'} */}

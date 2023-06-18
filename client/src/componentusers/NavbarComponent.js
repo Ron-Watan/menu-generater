@@ -6,8 +6,8 @@ const NavbarComponent = (prop) => {
 
   const [avtiveIconWhite, setActiveIconWhite] = useState('menu1')
   // const buttunSwitcher = (name) => {
-    // if(avtiveIconWhite === name) return setActiveIconWhite('')
-    // setActiveIconWhite(name)
+  // if(avtiveIconWhite === name) return setActiveIconWhite('')
+  // setActiveIconWhite(name)
 
   // }
 
@@ -97,7 +97,7 @@ const NavbarComponent = (prop) => {
           </svg>
         </button>
 
-
+        {/* MENU 1 */}
         <button onClick={() => {
           prop.setMenuTime(1)
           // buttunSwitcher('menu1')
@@ -113,6 +113,8 @@ const NavbarComponent = (prop) => {
             <path d="M39.3906 15.25V35.5938L42.8906 36.0312V38H32.7969V36.0312L36.3125 35.5938V18.5469L32.7344 18.6094V16.6875L39.3906 15.25Z" fill="" />
           </svg>
         </button>
+
+        {/* MENU 2 */}
         <button onClick={() => {
           prop.setMenuTime(2)
           // buttunSwitcher('menu2')
@@ -129,6 +131,7 @@ const NavbarComponent = (prop) => {
           </svg>
 
         </button>
+        {/* MENU 3 */}
         <button onClick={() => {
           prop.setMenuTime(3)
           // buttunSwitcher('menu3')

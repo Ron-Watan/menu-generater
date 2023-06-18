@@ -8,9 +8,12 @@ import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import catalog1 from '../img/promotion1.png'
 import useEnhancedEffect from '@mui/material/utils/useEnhancedEffect';
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 // import { Hidden } from '@mui/material';
 // import { Checkbox, FormControlLabel, FormGroup } from '@mui/material';
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 
 const Accordion = styled((props) => (
@@ -135,11 +138,107 @@ const AcordionSubComp = (prop) => {
   // eslint-disable-next-line
   // }, []);
 
+  //accordMoveUp
+  const temmm = {
+    en: {
+      translation: {
+        "text": "hello world",
+        "menu1":"wwwwwwwww"
+      }
+    },
+    th: {
+      translation: {
+        text: "thai",
+        "menu1":"ZXXXXXXX"
 
-  // useEffect(() => {
- 
+      }
+    },
+  }
 
-  // }, [])
+  let [donedata, setDonedata] = useState([])
+
+
+  const reDataLanguage = () => {
+    newSubListMenu.map(el => {
+      let ttlanf = {
+        en: {
+          translation: {
+            food_name: el.food_name,
+            description: el.description,
+            remark: el.remark,
+            price: el.price,
+            vetgeterian: el.vetgeterian,
+            vegan: el.vegan,
+            gluten_free: el.gluten_free,
+            halal: el.halal,
+            favor: el.favor,
+          }
+        },
+        th: {
+          translation: {
+            food_name: "tttttt",
+            description: "tttttttttt",
+            remark: "tttttttttttttt",
+
+          }
+        },
+      }
+      donedata.push(ttlanf)
+      setDonedata(donedata)
+    })
+
+  }
+  console.log(donedata, newSubListMenu)
+
+
+
+  const [data, setData] = useState(donedata[0])
+
+
+  const [language, setLanguage] = useState('en');
+
+  const { t } = useTranslation();
+  const changeLocale = (lang) => {
+    // i18n.changeLanguage(lang);
+  }
+  function getLanguages(language) {
+    i18n
+      .use(initReactI18next) // passes i18n down to react-i18next
+      .init({
+        fallbackLng: 'en',
+        debug: false,
+        interpolation: {
+          escapeValue: false // react already safes from xss
+        },
+        resources: donedata[0]
+        // {
+        //   en: {
+        //     translation: {
+        //       "text": "hello world",
+        //       "menu1": "wwwwwwwww"
+        //     }
+        //   },
+        //   th: {
+        //     translation: {
+        //       "text": "thai",
+        //       "menu1": "ZXXXXXXX"
+
+        //     }
+        //   },
+        // }
+
+
+
+      });
+    i18n.changeLanguage(language);
+  }
+
+
+  useEffect(() => {
+    reDataLanguage()
+    getLanguages(language)
+
+  }, [])
 
 
 
@@ -152,6 +251,11 @@ const AcordionSubComp = (prop) => {
 
   return (
     <div id='2' className="mx-auto max-w-7xl">
+
+      <p>{t('food_name')}</p>
+      <p>{t('description')}</p>
+      <p>{t('text')}</p>
+
 
       <div className="h-40" style={{
         backgroundImage: `url(${catalog1})`,
@@ -176,11 +280,8 @@ const AcordionSubComp = (prop) => {
               <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
                 {/* <Typography ><span className='test44'>{el.food_name}</span><span>{el.price}</span></Typography> */}
                 <span className='test44'>{el.food_name}</span>
-
                 <div className='flex'><span>{el.price}</span>
 
-
-                  {/* <p>{t(`food_name.${index}`)}</p> */}
                 </div>
 
               </AccordionSummary>

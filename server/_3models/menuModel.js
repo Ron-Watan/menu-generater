@@ -37,12 +37,17 @@ const userSchema = mongoose.Schema({
   },
   menu_1: {
     type: String,
+    default: 'All Day Menu'
   },
   menu_2: {
     type: String,
+    default: 'Luanch'
+
   },
   menu_3: {
     type: String,
+    default: 'Dinner'
+
   },
   bannerImage: {
     type: Array,

@@ -11,6 +11,9 @@ import useEnhancedEffect from '@mui/material/utils/useEnhancedEffect';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 // import { Hidden } from '@mui/material';
 // import { Checkbox, FormControlLabel, FormGroup } from '@mui/material';
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 
 const Accordion = styled((props) => (
@@ -135,11 +138,131 @@ const AcordionSubComp = (prop) => {
   // eslint-disable-next-line
   // }, []);
 
+  //accordMoveUp
+  const temmm = {
+    en: {
+      translation: {
+        "text": "hello world",
+        "menu1": "wwwwwwwww"
+      }
+    },
+    th: {
+      translation: {
+        "text": "thai",
+        "menu1": "ZXXXXXXX"
 
-  // useEffect(() => {
- 
+      }
+    },
+  }
+  let ttw = {
+    en: {
+      translation: {
+        food_name: [],
+        description: [],
+        remark: [],
+        price: [],
+        vetgeterian: [],
+        vegan: [],
+        gluten_free: [],
+        halal: [],
+        favor: [],
+      }
+    },
+    th: {
+      translation: {
+        food_name: [],
+        description: [],
+        remark: [],
 
-  // }, [])
+      }
+    },
+  }
+
+
+
+  const [donedata, setDonedata] = useState(ttw)
+  console.log(Boolean(donedata))
+
+  const reDataLanguage = () => {
+
+    newSubListMenu.map(el => {
+      ttw.en.translation.food_name.push(el.food_name)
+      ttw.en.translation.description.push(el.description)
+      ttw.en.translation.remark.push(el.remark)
+      ttw.en.translation.price.push(el.price)
+      ttw.en.translation.vetgeterian.push(el.vetgeterian)
+      ttw.en.translation.vegan.push(el.vegan)
+      ttw.en.translation.gluten_free.push(el.gluten_free)
+      ttw.en.translation.halal.push(el.halal)
+      ttw.en.translation.favor.push(el.favor)
+      // donedata.push(ttlanf)
+      // setDonedata(donedata)
+    })
+
+    setDonedata(ttw)
+    console.log('5')
+  }
+  console.log(donedata)
+
+
+
+  // const [data, setData] = useState(donedata[0])
+
+
+  const [language, setLanguage] = useState('en');
+
+  const [lang, setlang] = useState(0);
+
+  const { t } = useTranslation();
+  const changeLocale = (lang) => {
+    // i18n.changeLanguage(lang);
+  }
+  function getLanguages(language) {
+    i18n
+      .use(initReactI18next) // passes i18n down to react-i18next
+      .init({
+        fallbackLng: 'en',
+        debug: false,
+        interpolation: {
+          escapeValue: false // react already safes from xss
+        },
+        resources: donedata
+        // {
+        //   en: {
+        //     translation: {
+        //       "text": "hello world",
+        //       "menu1": "wwwwwwwww"
+        //     }
+        //   },
+        //   th: {
+        //     translation: {
+        //       "text": "thai",
+        //       "menu1": "ZXXXXXXX"
+
+        //     }
+        //   },
+        // }
+
+
+
+      })
+
+    i18n.changeLanguage(language)
+
+
+
+
+  }
+
+
+  useEffect(() => {
+    reDataLanguage()
+    setLanguage('en')
+    getLanguages(language)
+
+
+
+  }, [])
 
 
 
@@ -152,6 +275,7 @@ const AcordionSubComp = (prop) => {
 
   return (
     <div id='2' className="mx-auto max-w-7xl">
+
 
       <div className="h-40" style={{
         backgroundImage: `url(${catalog1})`,

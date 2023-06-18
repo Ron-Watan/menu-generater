@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
-import { timePickerData } from './timePickerData';
-import { timePickerBaseData } from './timePickerData';
+import { timePickerData } from './TimePickerData';
+import { timePickerBaseData } from './TimePickerData';
 import "../style/timePicker.css"
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -72,7 +72,7 @@ const TimePicker = () => {
     console.log('Complete Schedule 1')
 
   }
-  console.log(sumTimeM1)
+
 
   function menu_2() {
     const arrayStartM2 = sumValueOftiem(timeStart.hrsM2, timeStart.minsM2)
@@ -97,7 +97,6 @@ const TimePicker = () => {
     console.log('Complete Schedule 2')
   }
 
-  console.log(sumTimeM2)
 
   function menu_3() {
     const arrayStartM3 = sumValueOftiem(timeStart.hrsM3, timeStart.minsM3)
@@ -120,7 +119,7 @@ const TimePicker = () => {
     console.log('Complete Schedule 3')
 
   }
-  console.log(sumTimeM3)
+ 
 
   function reverseToTimeStart(numberTime) {
     if (!numberTime) return '00'
@@ -227,7 +226,7 @@ const TimePicker = () => {
   return (
     <div className='timePikerWrapper'>
       <div className="timePikerGrid">
-        {/* <label className="timePikerContainer mainOnOff switch"><input type="checkbox" name="menu_1" id="" /> <span class="slider"></span></label> */}
+        {/* <label className="timePikerContainer mainOnOff switch"><input type="checkbox" name="menu_1" id="" /> <span className="slider"></span></label> */}
 
         {/* <div className="flexRowTime"> */}
         {/* <div className="nameTimepicker"> */}
@@ -238,18 +237,18 @@ const TimePicker = () => {
 
         {/* </div> */}
         {/* <div className="allDayTimepicker">setMenuAllDayType */}
-        <label htmlFor='allDay' className="timePikerContainer header2 switch">  <input onChange={() => setTimeTypeFn(true)} type="radio" name="timeType" id="allDay" checked={timeType} /><span class="slider"></span></label>
-        <label className={`timePikerContainer allday1  switch ${!timeType && 'opcaityTime'}`}>  <input onChange={() => menuAllDayTypeValue('menu_1')} type="checkbox" name="menu_1" checked={!timeType ? false : null} disabled={!timeType} /><span class="slider"></span></label>
-        <label className={`timePikerContainer allday2  switch ${!timeType && 'opcaityTime'}`}>  <input onChange={() => menuAllDayTypeValue('menu_2')} type="checkbox" name="menu_2" checked={!timeType ? false : null} id="" disabled={!timeType} /><span class="slider"></span></label>
-        <label className={`timePikerContainer allday3  switch ${!timeType && 'opcaityTime'}`}>  <input onChange={() => menuAllDayTypeValue('menu_3')} type="checkbox" name="menu_3" checked={!timeType ? false : null} id="" disabled={!timeType} /><span class="slider"></span></label>
+        <label htmlFor='allDay' className="timePikerContainer header2 switch">  <input onChange={() => setTimeTypeFn(true)} type="radio" name="timeType" id="allDay" checked={timeType} /><span className="slider"></span></label>
+        <label className={`timePikerContainer allday1  switch ${!timeType && 'opcaityTime'}`}>  <input onChange={() => menuAllDayTypeValue('menu_1')} type="checkbox" name="menu_1" checked={!timeType ? false : null} disabled={!timeType} /><span className="slider"></span></label>
+        <label className={`timePikerContainer allday2  switch ${!timeType && 'opcaityTime'}`}>  <input onChange={() => menuAllDayTypeValue('menu_2')} type="checkbox" name="menu_2" checked={!timeType ? false : null} id="" disabled={!timeType} /><span className="slider"></span></label>
+        <label className={`timePikerContainer allday3  switch ${!timeType && 'opcaityTime'}`}>  <input onChange={() => menuAllDayTypeValue('menu_3')} type="checkbox" name="menu_3" checked={!timeType ? false : null} id="" disabled={!timeType} /><span className="slider"></span></label>
         {/* </div> */}
 
         {/* <div className="selectDayTimepicker"> */}
-        <label htmlFor='schedule' className="timePikerContainer header3 switch"><input onChange={() => setTimeType(false)} type="radio" name="timeType" id="schedule" /><span class="slider"></span></label>
+        <label htmlFor='schedule' className="timePikerContainer header3 switch"><input onChange={() => setTimeType(false)} type="radio" name="timeType" id="schedule" /><span className="slider"></span></label>
 
-        <label className={`timePikerContainer select1 switch ${timeType && 'opcaityTime'}`}> <input onChange={(e) => menuSelectTypeValue('menu_1', e)} type="checkbox" checked={timeType ? false : null} name="menu_1" value="1" id="" disabled={timeType} /><span class="slider"></span></label>
-        <label className={`timePikerContainer select2 switch ${timeType && 'opcaityTime'}`}> <input onChange={(e) => menuSelectTypeValue('menu_2', e)} type="checkbox" checked={timeType ? false : null} name="menu_2" value="2" id="" disabled={timeType} /><span class="slider"></span></label>
-        <label className={`timePikerContainer select3 switch ${timeType && 'opcaityTime'}`}> <input onChange={(e) => menuSelectTypeValue('menu_3', e)} type="checkbox" checked={timeType ? false : null} name="menu_3" value="3" id="" disabled={timeType} /><span class="slider"></span></label>
+        <label className={`timePikerContainer select1 switch ${timeType && 'opcaityTime'}`}> <input onChange={(e) => menuSelectTypeValue('menu_1', e)} type="checkbox" checked={timeType ? false : null} name="menu_1" value="1" id="" disabled={timeType} /><span className="slider"></span></label>
+        <label className={`timePikerContainer select2 switch ${timeType && 'opcaityTime'}`}> <input onChange={(e) => menuSelectTypeValue('menu_2', e)} type="checkbox" checked={timeType ? false : null} name="menu_2" value="2" id="" disabled={timeType} /><span className="slider"></span></label>
+        <label className={`timePikerContainer select3 switch ${timeType && 'opcaityTime'}`}> <input onChange={(e) => menuSelectTypeValue('menu_3', e)} type="checkbox" checked={timeType ? false : null} name="menu_3" value="3" id="" disabled={timeType} /><span className="slider"></span></label>
 
         {/* </div> */}
         {/* <div className="allTimePicker"> */}

@@ -58,8 +58,7 @@ const BannerMainForm = (prop) => {
   const { user } = useSelector((state) => state.user);
   const [bannerImgArr, setBannerImgArr] = useState([]);
 
-  console.log(indexDot)
-  console.log(indexDot)
+  
   // const [bannerImg, setBannerImg] = useState();
   // const addBanner = (uri) => {
   //   let newBannerImg = uri;
@@ -259,7 +258,7 @@ const BannerMainForm = (prop) => {
           <Slider
             onSlideComplete={setFinishedIndex}
             onSlideStart={(i) => {
-              console.log('dddd ' + i)
+
             }}
             activeIndex={chooseIdex}//bannerImgArr.length - 1
             threshHold={20}

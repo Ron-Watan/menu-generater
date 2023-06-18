@@ -6,7 +6,7 @@ import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { authenticate, ticketPass } from "../protectors/authorize"
-import SubAddFood from "./SubAddFood"
+import SubAddFood from "./ZSubAddFood"
 import SubOption from "./SubOption"
 import SubOptionTest from "./SubOption"
 

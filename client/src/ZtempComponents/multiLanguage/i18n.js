@@ -14,12 +14,15 @@ i18n
     resources: {
       en: {
         translation: {
-          "text": "hello world"
+          "text": "hello world",
+          "menu1":"wwwwwwwww"
         }
       },
       th: {
         translation: {
-          "text": "thai"
+          "text": "thai",
+          "menu1":"ZXXXXXXX"
+
         }
       },
     }
