@@ -5,7 +5,7 @@ import { timePickerBaseData } from './TimePickerData';
 import "../style/timePicker.css"
 import { useDispatch, useSelector } from 'react-redux';
 
-const TimePicker = () => {
+const TimePicker = (prop) => {
   const { user } = useSelector((state) => state.user);
   const dispath = useDispatch();
 
@@ -119,7 +119,7 @@ const TimePicker = () => {
     console.log('Complete Schedule 3')
 
   }
- 
+
 
   function reverseToTimeStart(numberTime) {
     if (!numberTime) return '00'
@@ -160,6 +160,9 @@ const TimePicker = () => {
       setSumTimeM1({ start: '', end: '' })
       setSumTimeM2({ start: '', end: '' })
       setSumTimeM3({ start: '', end: '' })
+      setMenuSelectType({ menu_1: '', menu_2: '', menu_3: '' })
+
+
     }
   }
 
@@ -224,370 +227,377 @@ const TimePicker = () => {
   //-///-///-///-///-///-///-///-///-   END FUNCTION   ///-///-///-///-///-///-///-///-///-
 
   return (
-    <div className='timePikerWrapper'>
-      <div className="timePikerGrid">
-        {/* <label className="timePikerContainer mainOnOff switch"><input type="checkbox" name="menu_1" id="" /> <span className="slider"></span></label> */}
+    <div className="timePickerWinControl">
+      <div className='timePikerWrapper'>
+        <div className="topbarWin">
+          <button onClick={() => prop.setonOffMenuTime(false)} className='boxCancel'>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1" stroke="#fff" className="w-6 h-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
 
-        {/* <div className="flexRowTime"> */}
-        {/* <div className="nameTimepicker"> */}
-        <div className="timePikerContainer header1" >Header</div>
-        <div className="timePikerContainer titleTime1">{user.menu_1}</div>
-        <div className="timePikerContainer titleTime2">{user.menu_2}</div>
-        <div className="timePikerContainer titleTime3">{user.menu_3}</div>
+        <div className="timePikerGrid">
+          {/* <label className="mainOnOff switch"><input type="checkbox" name="menu_1" id="" /> <span className="slider"></span></label> */}
 
-        {/* </div> */}
-        {/* <div className="allDayTimepicker">setMenuAllDayType */}
-        <label htmlFor='allDay' className="timePikerContainer header2 switch">  <input onChange={() => setTimeTypeFn(true)} type="radio" name="timeType" id="allDay" checked={timeType} /><span className="slider"></span></label>
-        <label className={`timePikerContainer allday1  switch ${!timeType && 'opcaityTime'}`}>  <input onChange={() => menuAllDayTypeValue('menu_1')} type="checkbox" name="menu_1" checked={!timeType ? false : null} disabled={!timeType} /><span className="slider"></span></label>
-        <label className={`timePikerContainer allday2  switch ${!timeType && 'opcaityTime'}`}>  <input onChange={() => menuAllDayTypeValue('menu_2')} type="checkbox" name="menu_2" checked={!timeType ? false : null} id="" disabled={!timeType} /><span className="slider"></span></label>
-        <label className={`timePikerContainer allday3  switch ${!timeType && 'opcaityTime'}`}>  <input onChange={() => menuAllDayTypeValue('menu_3')} type="checkbox" name="menu_3" checked={!timeType ? false : null} id="" disabled={!timeType} /><span className="slider"></span></label>
-        {/* </div> */}
+          {/* <div className="flexRowTime"> */}
+          {/* <div className="nameTimepicker"> */}
+          <div className="header1 flexHeaderTime" >Menu</div>
+          <div className="titleTime1">{user.menu_1}</div>
+          <div className="titleTime2">{user.menu_2}</div>
+          <div className="titleTime3">{user.menu_3}</div>
 
-        {/* <div className="selectDayTimepicker"> */}
-        <label htmlFor='schedule' className="timePikerContainer header3 switch"><input onChange={() => setTimeType(false)} type="radio" name="timeType" id="schedule" /><span className="slider"></span></label>
+          {/* </div> */}
+          {/* <div className="allDayTimepicker">setMenuAllDayType */}
+          <label htmlFor='allDay' className="header2 flexHeaderTime"><span>All day</span> <div className=""> <input onChange={() => setTimeTypeFn(true)} type="radio" name="timeType" id="allDay" checked={timeType} /><span className=""></span></div></label>
+          <label className={`allday1`}> <div className={`switch  ${!timeType && 'opcaityTime'}`}> <input onChange={() => menuAllDayTypeValue('menu_1')} type="checkbox" name="menu_1" checked={!timeType ? false : null} disabled={!timeType} /><span className="slider"></span></div></label>
+          <label className={`allday2`}> <div className={`switch  ${!timeType && 'opcaityTime'}`}> <input onChange={() => menuAllDayTypeValue('menu_2')} type="checkbox" name="menu_2" checked={!timeType ? false : null} id="" disabled={!timeType} /><span className="slider"></span></div></label>
+          <label className={`allday3`}> <div className={`switch  ${!timeType && 'opcaityTime'}`}> <input onChange={() => menuAllDayTypeValue('menu_3')} type="checkbox" name="menu_3" checked={!timeType ? false : null} id="" disabled={!timeType} /><span className="slider"></span></div></label>
+          {/* </div> */}
 
-        <label className={`timePikerContainer select1 switch ${timeType && 'opcaityTime'}`}> <input onChange={(e) => menuSelectTypeValue('menu_1', e)} type="checkbox" checked={timeType ? false : null} name="menu_1" value="1" id="" disabled={timeType} /><span className="slider"></span></label>
-        <label className={`timePikerContainer select2 switch ${timeType && 'opcaityTime'}`}> <input onChange={(e) => menuSelectTypeValue('menu_2', e)} type="checkbox" checked={timeType ? false : null} name="menu_2" value="2" id="" disabled={timeType} /><span className="slider"></span></label>
-        <label className={`timePikerContainer select3 switch ${timeType && 'opcaityTime'}`}> <input onChange={(e) => menuSelectTypeValue('menu_3', e)} type="checkbox" checked={timeType ? false : null} name="menu_3" value="3" id="" disabled={timeType} /><span className="slider"></span></label>
+          {/* <div className="selectDayTimepicker"> */}
+          <label htmlFor='schedule' className="header3 flexHeaderTime"><span>Schedule</span> <div className=""><input onChange={() => setTimeType(false)} type="radio" name="timeType" id="schedule" /><span className=""></span></div></label>
 
-        {/* </div> */}
-        {/* <div className="allTimePicker"> */}
-        <div className="timePikerContainer header4">timeeeee</div>
-        <div className={`timePikerContainer timeInput1 ${timeType && 'opcaityTime'}`}>
-          {/* <div className="container mx-auto my-12 p-12 bg-gray-100"> */}
-          {/* <div className="inline-flex text-lg border rounded-sm shadow-lg p-2"> */}
+          <label className={`select1 `}><div className={`switch ${timeType && 'opcaityTime'}`}> <input onChange={(e) => menuSelectTypeValue('menu_1', e)} type="checkbox" checked={timeType ? false : null} name="menu_1" value="1" id="" disabled={timeType} /><span className="slider"></span></div></label>
+          <label className={`select2 `}> <div className={`switch ${timeType && 'opcaityTime'}`}><input onChange={(e) => menuSelectTypeValue('menu_2', e)} type="checkbox" checked={timeType ? false : null} name="menu_2" value="2" id="" disabled={timeType} /><span className="slider"></span></div></label>
+          <label className={`select3 `}> <div className={`switch ${timeType && 'opcaityTime'}`}><input onChange={(e) => menuSelectTypeValue('menu_3', e)} type="checkbox" checked={timeType ? false : null} name="menu_3" value="3" id="" disabled={timeType} /><span className="slider"></span></div></label>
 
-          <div className="timeBox">
-            {/*  */}
-            <div className="inputTime">
+          {/* </div> */}
+          {/* <div className="allTimePicker"> */}
+          <div className=" header4 flexHeaderTime">Time Settings</div>
+          <div className={`timePikerContainer timeInput1 `}>
 
-              <select value={timeStart.hrsM1} onChange={timeStartFn('hrsM1')} name="hrsM1" id="" disabled={timeType} className="" >
-                <option value="00">00</option>
-                <option value="01">01</option>
-                <option value="02">02</option>
-                <option value="03">03</option>
-                <option value="04">04</option>
-                <option value="05">05</option>
-                <option value="06">06</option>
-                <option value="07">07</option>
-                <option value="08">08</option>
-                <option value="09">09</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-                <option value="13">13</option>
-                <option value="14">14</option>
-                <option value="15">15</option>
-                <option value="16">16</option>
-                <option value="17">17</option>
-                <option value="18">18</option>
-                <option value="19">19</option>
-                <option value="20">20</option>
-                <option value="21">21</option>
-                <option value="22">22</option>
-                <option value="23">23</option>
-              </select>
-              {/* <select value={timeStart.hrsM1} onChange={timeStartFn('hrsM1')} name="hrsM1" id="" disabled={timeType} className="" >
-                <option value="00">00</option>
-                <option value="01">01</option>
-                <option value="02">02</option>
-                <option value="03">03</option>
-                <option value="04">04</option>
-                <option value="05">05</option>
-                <option value="06">06</option>
-                <option value="07">07</option>
-                <option value="08">08</option>
-                <option value="09">09</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-                <option value="13">13</option>
-                <option value="14">14</option>
-                <option value="15">15</option>
-                <option value="16">16</option>
-                <option value="17">17</option>
-                <option value="18">18</option>
-                <option value="19">19</option>
-                <option value="20">20</option>
-                <option value="21">21</option>
-                <option value="22">22</option>
-                <option value="23">23</option>
-              </select> */}
-              <span className="px-2">:</span>
-              <select onChange={timeStartFn('minsM1')} name="mins" id="" disabled={timeType} className="">
-                <option value="00">00</option>
-                <option value="15">15</option>
-                <option value="30">30</option>
-                <option value="45">45</option>
-              </select>
+            <div className={`flexTime  ${menuSelectType.menu_1 !== '1' && 'opcaityTime'}`}>
+              <div className="timeBox">
 
-              {/* <select onChange={timeStartFn('ampm')} id="" className="px-2 outline-none appearance-none bg-transparent">
+                <div className="inputTime">
+
+                  <select value={timeStart.hrsM1} onChange={timeStartFn('hrsM1')} name="hrsM1" id="" disabled={menuSelectType.menu_1 !== '1'} className="" >
+                    <option value="00">00</option>
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="06">06</option>
+                    <option value="07">07</option>
+                    <option value="08">08</option>
+                    <option value="09">09</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                  </select>
+
+                  <span className="px-2">:</span>
+                  <select onChange={timeStartFn('minsM1')} name="mins" id="" disabled={menuSelectType.menu_1 !== '1'} className="">
+                    <option value="00">00</option>
+                    <option value="15">15</option>
+                    <option value="30">30</option>
+                    <option value="45">45</option>
+                  </select>
+
+
+                </div>
+              </div>
+
+              <div className="textTo">to</div>
+
+              <div className="timeBox">
+
+                <div className="inputTime">
+
+                  <select value={timeEnd.hrsM1} onChange={timeEndFn('hrsM1')} name="hrsM1" id="" disabled={menuSelectType.menu_1 !== '1'} className="">
+                    <option value="00">00</option>
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="06">06</option>
+                    <option value="07">07</option>
+                    <option value="08">08</option>
+                    <option value="09">09</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                    <option value="24">24</option>
+                  </select>
+                  <span className="px-2">:</span>
+                  <select value={timeEnd.minsM1} onChange={timeEndFn('minsM1')} name="minsM1" id="" disabled={menuSelectType.menu_1 !== '1'} className="">
+                    <option value="00">00</option>
+                    {timeEnd.hrsM1 === "24" ? '' : <>
+                      <option value="15">15</option>
+                      <option value="30">30</option>
+                      <option value="45">45</option>
+                    </>}
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* //-///////////////////////////////////////// */}{/* //-///////////////////////////////////////// */}
+
+          <div className={`timePikerContainer timeInput2 `}>
+            <div className={`flexTime  ${menuSelectType.menu_2 !== '2' && 'opcaityTime'}`}>
+
+              <div className={`timeBox`}>
+
+                <div className="inputTime">
+                  <select value={timeStart.hrsM2} onChange={timeStartFn('hrsM2')} name="hrsM2" id="" disabled={menuSelectType.menu_2 !== '2'} className="">
+                    <option value="00">00</option>
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="06">06</option>
+                    <option value="07">07</option>
+                    <option value="08">08</option>
+                    <option value="09">09</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+
+
+                  </select>
+                  <span className="px-2">:</span>
+                  <select onChange={timeStartFn('minsM2')} name="minsM2" id="" disabled={menuSelectType.menu_2 !== '2'} className="">
+                    <option value="00">00</option>
+                    <option value="15">15</option>
+                    <option value="30">30</option>
+                    <option value="45">45</option>
+                  </select>
+
+
+                </div>
+              </div>
+
+              <div className={`textTo`}>to</div>
+
+              <div className="timeBox">
+                <div className="inputTime">
+                  <select value={timeEnd.hrsM2} onChange={timeEndFn('hrsM2')} name="hrsM2" id="" disabled={menuSelectType.menu_2 !== '2'} className="">
+                    <option value="00">00</option>
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="06">06</option>
+                    <option value="07">07</option>
+                    <option value="08">08</option>
+                    <option value="09">09</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                    <option value="24">24</option>
+                  </select>
+                  <span className="px-2">:</span>
+                  <select value={timeEnd.minsM2} onChange={timeEndFn('minsM2')} name="minsM2" id="" disabled={menuSelectType.menu_2 !== '2'} className="">
+                    <option value="00">00</option>
+                    {timeEnd.hrsM2 === "24" ? '' : <>
+                      <option value="15">15</option>
+                      <option value="30">30</option>
+                      <option value="45">45</option>
+                    </>}
+                  </select>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+          {/* //-///////////////////////////////////////// */}{/* //-///////////////////////////////////////// */}
+
+          <div className={`timePikerContainer timeInput3`}>
+            <div className={`flexTime  ${menuSelectType.menu_3 !== '3' && 'opcaityTime'}`}>
+
+              <div className="timeBox">
+                <div className="inputTime">
+                  <select value={timeStart.hrsM3} onChange={timeStartFn('hrsM3')} name="hrsM3" id="" disabled={menuSelectType.menu_3 !== '3'} className="">
+                    <option value="00">00</option>
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="06">06</option>
+                    <option value="07">07</option>
+                    <option value="08">08</option>
+                    <option value="09">09</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+
+
+                  </select>
+                  <span className="px-2">:</span>
+                  <select onChange={timeStartFn('minsM3')} name="minsM3" id="" disabled={menuSelectType.menu_3 !== '3'} className="">
+                    <option value="00">00</option>
+                    <option value="15">15</option>
+                    <option value="30">30</option>
+                    <option value="45">45</option>
+                  </select>
+
+                  {/* <select onChange={timeStartFn('ampm')} id="" className="px-2 outline-none appearance-none bg-transparent">
             <option value="0">AM</option>
             <option value="12">PM</option>
           </select> */}
+                </div>
+              </div>
+
+              <div className="textTo">to</div>
+
+              <div className="timeBox">
+                <div className="inputTime">
+                  <select value={timeEnd.hrsM3} onChange={timeEndFn('hrsM3')} name="hrsM3" id="" disabled={menuSelectType.menu_3 !== '3'} className="">
+                    <option value="00">00</option>
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="06">06</option>
+                    <option value="07">07</option>
+                    <option value="08">08</option>
+                    <option value="09">09</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                    <option value="24">24</option>
+
+
+                  </select>
+                  <span className="px-2">:</span>
+                  <select value={timeEnd.minsM3} onChange={timeEndFn('minsM3')} name="minsM3" id="" disabled={menuSelectType.menu_3 !== '3'} className="">
+                    <option value="00">00</option>
+                    {timeEnd.hrsM3 === "24" ? '' : <>
+                      <option value="15">15</option>
+                      <option value="30">30</option>
+                      <option value="45">45</option>
+                    </>}
+                  </select>
+
+                </div>
+                {/* </div> */}
+              </div>
+
             </div>
           </div>
 
-          <div className="textTo">to</div>
-
-          <div className="timeBox">
-
-            <div className="inputTime">
-
-              <select value={timeEnd.hrsM1} onChange={timeEndFn('hrsM1')} name="hrsM1" id="" disabled={timeType} className="">
-                <option value="00">00</option>
-                <option value="01">01</option>
-                <option value="02">02</option>
-                <option value="03">03</option>
-                <option value="04">04</option>
-                <option value="05">05</option>
-                <option value="06">06</option>
-                <option value="07">07</option>
-                <option value="08">08</option>
-                <option value="09">09</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-                <option value="13">13</option>
-                <option value="14">14</option>
-                <option value="15">15</option>
-                <option value="16">16</option>
-                <option value="17">17</option>
-                <option value="18">18</option>
-                <option value="19">19</option>
-                <option value="20">20</option>
-                <option value="21">21</option>
-                <option value="22">22</option>
-                <option value="23">23</option>
-                <option value="24">24</option>
-              </select>
-              <span className="px-2">:</span>
-              <select value={timeEnd.minsM1} onChange={timeEndFn('minsM1')} name="minsM1" id="" disabled={timeType} className="">
-                <option value="00">00</option>
-                {timeEnd.hrsM1 === "24" ? '' : <>
-                  <option value="15">15</option>
-                  <option value="30">30</option>
-                  <option value="45">45</option>
-                </>}
-              </select>
-
-            </div>
-          </div>
+          {/* </div> */}
         </div>
+        <div className="boxBtnLang">
+          <button onClick={() => {
+            setTimeValue(code)
+            setTimePicker([...timePickerData])
+            // getAllImageBanner()
+          }
+          } className='mainBtn saveBtnColor'>
+            <svg width="30" height="30" viewBox="0 0 65 65" fill="none">
+              <rect x="1" y="1" width="63" height="63" rx="2" stroke="white" strokeWidth="2" />
+              <path d="M32 12L32 53" stroke="white" strokeWidth="2" strokeLinecap="round" />
+              <path d="M32 53L12 33" stroke="white" strokeWidth="2" strokeLinecap="round" />
+              <path d="M32 53L52 33" stroke="white" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+            <span>SAVE</span>
+          </button>
+          <button onClick={() => prop.setonOffMenuTime(false)} className='mainBtn cancelBtnColor'>
+            <svg width="30" height="30" viewBox="0 0 65 65" fill="none">
+              <path d="M12 12L53 54" stroke="white" strokeWidth="2" strokeLinecap="round" />
+              <path d="M12 54L53 12" stroke="white" strokeWidth="2" strokeLinecap="round" />
+              <path d="M62 1H3C1.89543 1 1 1.89543 1 3V62C1 63.1046 1.89543 64 3 64H62C63.1046 64 64 63.1046 64 62V3C64 1.89543 63.1046 1 62 1Z" stroke="white" strokeWidth="2" />
+            </svg>
 
-        {/* //-///////////////////////////////////////// */}{/* //-///////////////////////////////////////// */}
-
-        <div className={`timePikerContainer timeInput2 ${timeType && 'opcaityTime'}`}>
-          <div className="timeBox">
-            <div className="inputTime">
-              <select value={timeStart.hrsM2} onChange={timeStartFn('hrsM2')} name="hrsM2" id="" disabled={timeType} className="">
-                <option value="00">00</option>
-                <option value="01">01</option>
-                <option value="02">02</option>
-                <option value="03">03</option>
-                <option value="04">04</option>
-                <option value="05">05</option>
-                <option value="06">06</option>
-                <option value="07">07</option>
-                <option value="08">08</option>
-                <option value="09">09</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-                <option value="13">13</option>
-                <option value="14">14</option>
-                <option value="15">15</option>
-                <option value="16">16</option>
-                <option value="17">17</option>
-                <option value="18">18</option>
-                <option value="19">19</option>
-                <option value="20">20</option>
-                <option value="21">21</option>
-                <option value="22">22</option>
-                <option value="23">23</option>
-
-
-              </select>
-              <span className="px-2">:</span>
-              <select onChange={timeStartFn('minsM2')} name="minsM2" id="" disabled={timeType} className="">
-                <option value="00">00</option>
-                <option value="15">15</option>
-                <option value="30">30</option>
-                <option value="45">45</option>
-              </select>
-
-              {/* <select onChange={timeStartFn('ampm')} id="" className="px-2 outline-none appearance-none bg-transparent">
-            <option value="0">AM</option>
-            <option value="12">PM</option>
-          </select> */}
-            </div>
-          </div>
-
-          <div className="textTo">to</div>
-
-          <div className="timeBox">
-            <div className="inputTime">
-              <select value={timeEnd.hrsM2} onChange={timeEndFn('hrsM2')} name="hrsM2" id="" disabled={timeType} className="">
-                <option value="00">00</option>
-                <option value="01">01</option>
-                <option value="02">02</option>
-                <option value="03">03</option>
-                <option value="04">04</option>
-                <option value="05">05</option>
-                <option value="06">06</option>
-                <option value="07">07</option>
-                <option value="08">08</option>
-                <option value="09">09</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-                <option value="13">13</option>
-                <option value="14">14</option>
-                <option value="15">15</option>
-                <option value="16">16</option>
-                <option value="17">17</option>
-                <option value="18">18</option>
-                <option value="19">19</option>
-                <option value="20">20</option>
-                <option value="21">21</option>
-                <option value="22">22</option>
-                <option value="23">23</option>
-                <option value="24">24</option>
-              </select>
-              <span className="px-2">:</span>
-              <select value={timeEnd.minsM2} onChange={timeEndFn('minsM2')} name="minsM2" id="" disabled={timeType} className="">
-                <option value="00">00</option>
-                {timeEnd.hrsM2 === "24" ? '' : <>
-                  <option value="15">15</option>
-                  <option value="30">30</option>
-                  <option value="45">45</option>
-                </>}
-              </select>
-
-            </div>
-          </div>
-
-
+            <span>CANCEL</span>
+          </button>
         </div>
-        {/* //-///////////////////////////////////////// */}{/* //-///////////////////////////////////////// */}
+        {/* <button onClick={() => {
+          setTimeValue(code)
 
-        <div className={`timePikerContainer timeInput3 ${timeType && 'opcaityTime'}`}>
-          <div className="timeBox">
-            <div className="inputTime">
-              <select value={timeStart.hrsM3} onChange={timeStartFn('hrsM3')} name="hrsM3" id="" disabled={timeType} className="">
-                <option value="00">00</option>
-                <option value="01">01</option>
-                <option value="02">02</option>
-                <option value="03">03</option>
-                <option value="04">04</option>
-                <option value="05">05</option>
-                <option value="06">06</option>
-                <option value="07">07</option>
-                <option value="08">08</option>
-                <option value="09">09</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-                <option value="13">13</option>
-                <option value="14">14</option>
-                <option value="15">15</option>
-                <option value="16">16</option>
-                <option value="17">17</option>
-                <option value="18">18</option>
-                <option value="19">19</option>
-                <option value="20">20</option>
-                <option value="21">21</option>
-                <option value="22">22</option>
-                <option value="23">23</option>
-
-
-              </select>
-              <span className="px-2">:</span>
-              <select onChange={timeStartFn('minsM3')} name="minsM3" id="" disabled={timeType} className="">
-                <option value="00">00</option>
-                <option value="15">15</option>
-                <option value="30">30</option>
-                <option value="45">45</option>
-              </select>
-
-              {/* <select onChange={timeStartFn('ampm')} id="" className="px-2 outline-none appearance-none bg-transparent">
-            <option value="0">AM</option>
-            <option value="12">PM</option>
-          </select> */}
-            </div>
-          </div>
-
-          <div className="textTo">to</div>
-
-          <div className="timeBox">
-            <div className="inputTime">
-              <select value={timeEnd.hrsM3} onChange={timeEndFn('hrsM3')} name="hrsM3" id="" disabled={timeType} className="">
-                <option value="00">00</option>
-                <option value="01">01</option>
-                <option value="02">02</option>
-                <option value="03">03</option>
-                <option value="04">04</option>
-                <option value="05">05</option>
-                <option value="06">06</option>
-                <option value="07">07</option>
-                <option value="08">08</option>
-                <option value="09">09</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-                <option value="13">13</option>
-                <option value="14">14</option>
-                <option value="15">15</option>
-                <option value="16">16</option>
-                <option value="17">17</option>
-                <option value="18">18</option>
-                <option value="19">19</option>
-                <option value="20">20</option>
-                <option value="21">21</option>
-                <option value="22">22</option>
-                <option value="23">23</option>
-                <option value="24">24</option>
-
-
-              </select>
-              <span className="px-2">:</span>
-              <select value={timeEnd.minsM3} onChange={timeEndFn('minsM3')} name="minsM3" id="" disabled={timeType} className="">
-                <option value="00">00</option>
-                {timeEnd.hrsM3 === "24" ? '' : <>
-                  <option value="15">15</option>
-                  <option value="30">30</option>
-                  <option value="45">45</option>
-                </>}
-              </select>
-
-            </div>
-            {/* </div> */}
-
-
-          </div>
-        </div>
-
-        {/* </div> */}
+          setTimePicker([...timePickerData])
+          // getAllImageBanner()
+        }
+        } className='saveBnerBtn btnhover btnactive setTimeMargin'>
+          <svg width="35" height="35" viewBox="0 0 65 65" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="1" y="1" width="63" height="63" rx="2" stroke="white" strokeWidth="2" />
+            <path d="M32 12L32 53" stroke="white" strokeWidth="2" strokeLinecap="round" />
+            <path d="M32 53L12 33" stroke="white" strokeWidth="2" strokeLinecap="round" />
+            <path d="M32 53L52 33" stroke="white" strokeWidth="2" strokeLinecap="round" />
+          </svg>
+          <span>SET TIME</span>
+        </button>*/}
+        <div className=""> {` time1 : ${reverseToTimeStart(sumTimeM1.start)} - ${reverseToTimeEnd(sumTimeM1.end)} `}</div>
+        <div className=""> {` time2 : ${reverseToTimeStart(sumTimeM2.start)} - ${reverseToTimeEnd(sumTimeM2.end)} `}</div>
+        <div className=""> {` time3 : ${reverseToTimeStart(sumTimeM3.start)} - ${reverseToTimeEnd(sumTimeM3.end)} `}</div>
       </div>
-      <button onClick={() => {
-        setTimeValue(code)
-
-        setTimePicker([...timePickerData])
-        // getAllImageBanner()
-      }
-      } className='saveBnerBtn btnhover btnactive setTimeMargin'>
-        <svg width="35" height="35" viewBox="0 0 65 65" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="1" y="1" width="63" height="63" rx="2" stroke="white" strokeWidth="2" />
-          <path d="M32 12L32 53" stroke="white" strokeWidth="2" strokeLinecap="round" />
-          <path d="M32 53L12 33" stroke="white" strokeWidth="2" strokeLinecap="round" />
-          <path d="M32 53L52 33" stroke="white" strokeWidth="2" strokeLinecap="round" />
-        </svg>
-        <span>SET TIME</span>
-      </button>
-      <div className=""> {` time1 : ${reverseToTimeStart(sumTimeM1.start)} - ${reverseToTimeEnd(sumTimeM1.end)} `}</div>
-      <div className=""> {` time2 : ${reverseToTimeStart(sumTimeM2.start)} - ${reverseToTimeEnd(sumTimeM2.end)} `}</div>
-      <div className=""> {` time3 : ${reverseToTimeStart(sumTimeM3.start)} - ${reverseToTimeEnd(sumTimeM3.end)} `}</div>
-
     </div>
   )
 }

@@ -53,10 +53,26 @@ const userSchema = mongoose.Schema({
     type: Array,
     default: []
   },
-  setting_time: {
-    type: Object,
-    default: {}
+
+  
+  menu_1_currency: {
+    type: {},
   },
+  menu_2__currency: {
+    type: {},
+
+  },
+  menu_3__currency: {
+    type: {},
+
+  },
+
+
+
+
+
+
+
   link: {
     type: String,
   }

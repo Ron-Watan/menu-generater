@@ -23,32 +23,38 @@ const NavbarComponent = (prop) => {
       prop.setOnoffMenu3({ switch: false })
       prop.setonOffMenuTime(false)
     }
-    else if (name == 'menu1') {
+    else if (name === 'menu1') {
       prop.setOnoffBanner(false)
       prop.setOnoffMenu2({ switch: false })
       prop.setOnoffMenu3({ switch: false })
       prop.setonOffMenuTime(false)
 
     }
-    else if (name == 'menu2') {
+    else if (name === 'menu2') {
       prop.setOnoffBanner(false)
       prop.setOnoffMenu1({ switch: false })
       prop.setOnoffMenu3({ switch: false })
       prop.setonOffMenuTime(false)
 
     }
-    else if (name == 'menu3') {
+    else if (name === 'menu3') {
       prop.setOnoffBanner(false)
       prop.setOnoffMenu1({ switch: false })
       prop.setOnoffMenu2({ switch: false })
       prop.setonOffMenuTime(false)
 
     }
-    else if (name == 'menuTime') {
-      prop.setOnoffBanner(false)
-      prop.setOnoffMenu1({ switch: false })
-      prop.setOnoffMenu2({ switch: false })
-      prop.setOnoffMenu3({ switch: false })
+    else if (name === 'menuTime') {
+      // prop.setOnoffBanner(false)
+      // prop.setOnoffMenu1({ switch: false })
+      // prop.setOnoffMenu2({ switch: false })
+      // prop.setOnoffMenu3({ switch: false })
+    }
+    else if (name === 'menuLang') {
+      // prop.setOnoffBanner(false)
+      // prop.setOnoffMenu1({ switch: false })
+      // prop.setOnoffMenu2({ switch: false })
+      // prop.setOnoffMenu3({ switch: false })
     }
   }
 
@@ -101,7 +107,7 @@ const NavbarComponent = (prop) => {
         <button onClick={() => {
           prop.setMenuTime(1)
           // buttunSwitcher('menu1')
-          prop.setOnoffMenu1({ switch: !(prop.onOffMenu1.switch) })
+          prop.setOnoffMenu1({ switch: true })
           checkOnOff('menu1')
         }} name='menu1'>
           <svg className={`myIconSideBar ${prop.onOffMenu1.switch && 'active'}`} width="69" height="64" viewBox="0 0 69 64" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -118,7 +124,7 @@ const NavbarComponent = (prop) => {
         <button onClick={() => {
           prop.setMenuTime(2)
           // buttunSwitcher('menu2')
-          prop.setOnoffMenu2({ switch: !(prop.onOffMenu2.switch) })
+          prop.setOnoffMenu2({ switch: true })
           checkOnOff('menu2')
         }} name='menu2'>
           <svg className={`myIconSideBar ${prop.onOffMenu2.switch && 'active'}`} width="69" height="64" viewBox="0 0 69 64" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -135,7 +141,7 @@ const NavbarComponent = (prop) => {
         <button onClick={() => {
           prop.setMenuTime(3)
           // buttunSwitcher('menu3')
-          prop.setOnoffMenu3({ switch: !(prop.onOffMenu3.switch) })
+          prop.setOnoffMenu3({ switch: true })
           checkOnOff('menu3')
         }} name='menu3'>
           <svg className={`myIconSideBar ${prop.onOffMenu3.switch && 'active'}`} width="69" height="64" viewBox="0 0 69 64" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -146,9 +152,9 @@ const NavbarComponent = (prop) => {
             <path d="M20.9588 46.2727H22.5568L25.3352 53.0568H25.4375L28.2159 46.2727H29.8139V55H28.5611V48.6847H28.4801L25.9062 54.9872H24.8665L22.2926 48.6804H22.2116V55H20.9588V46.2727ZM31.7283 55V46.2727H37.1999V47.4062H33.0451V50.0653H36.9144V51.1946H33.0451V53.8665H37.2511V55H31.7283ZM46.0028 46.2727V55H44.7926L40.3565 48.5994H40.2756V55H38.9588V46.2727H40.1776L44.6179 52.6818H44.6989V46.2727H46.0028ZM53.5359 46.2727H54.8569V52.0128C54.8569 52.6236 54.7134 53.1648 54.4265 53.6364C54.1396 54.1051 53.7362 54.4744 53.2163 54.7443C52.6964 55.0114 52.087 55.1449 51.3881 55.1449C50.6921 55.1449 50.0842 55.0114 49.5643 54.7443C49.0444 54.4744 48.641 54.1051 48.354 53.6364C48.0671 53.1648 47.9237 52.6236 47.9237 52.0128V46.2727H49.2404V51.9062C49.2404 52.3011 49.3271 52.652 49.5004 52.9588C49.6765 53.2656 49.9251 53.5071 50.2461 53.6832C50.5671 53.8565 50.9478 53.9432 51.3881 53.9432C51.8313 53.9432 52.2134 53.8565 52.5344 53.6832C52.8583 53.5071 53.1055 53.2656 53.2759 52.9588C53.4492 52.652 53.5359 52.3011 53.5359 51.9062V46.2727Z" fill="" />
             <path d="M37.0312 12.3867C38.5286 12.3867 39.8372 12.6536 40.957 13.1875C42.0768 13.7083 42.9427 14.457 43.5547 15.4336C44.1667 16.3971 44.4727 17.5299 44.4727 18.832C44.4727 19.9518 44.2122 20.9219 43.6914 21.7422C43.1706 22.5495 42.4349 23.194 41.4844 23.6758C42.6693 24.1706 43.5872 24.8932 44.2383 25.8438C44.9023 26.7943 45.2344 27.9336 45.2344 29.2617C45.2344 30.681 44.9154 31.931 44.2773 33.0117C43.6523 34.0924 42.7344 34.9323 41.5234 35.5312C40.3125 36.1302 38.8672 36.4297 37.1875 36.4297C35.9115 36.4297 34.6224 36.2083 33.3203 35.7656C32.0182 35.3229 30.8529 34.724 29.8242 33.9688C29.4336 33.6823 29.2383 33.3568 29.2383 32.9922C29.2383 32.7318 29.349 32.4128 29.5703 32.0352C29.9089 31.4883 30.2865 31.2148 30.7031 31.2148C30.9115 31.2148 31.1328 31.2995 31.3672 31.4688C32.2266 32.1068 33.1576 32.6146 34.1602 32.9922C35.1628 33.3568 36.1719 33.5391 37.1875 33.5391C38.8021 33.5391 40.0326 33.1615 40.8789 32.4062C41.7253 31.638 42.1484 30.5898 42.1484 29.2617C42.1484 27.9206 41.7188 26.9049 40.8594 26.2148C40.013 25.5117 38.8216 25.1602 37.2852 25.1602H35.8594C35.4167 25.1602 35.0977 25.0625 34.9023 24.8672C34.7201 24.6589 34.6289 24.3138 34.6289 23.832C34.6289 23.3503 34.7201 23.0117 34.9023 22.8164C35.0977 22.6081 35.4167 22.5039 35.8594 22.5039H36.9336C38.418 22.5039 39.5443 22.1914 40.3125 21.5664C41.0807 20.9414 41.4648 20.0299 41.4648 18.832C41.4648 17.7253 41.0807 16.8594 40.3125 16.2344C39.5443 15.5964 38.457 15.2773 37.0508 15.2773C35.5404 15.2773 34.2578 15.5312 33.2031 16.0391V17.3477C33.2031 17.8034 33.0924 18.1289 32.8711 18.3242C32.6497 18.5195 32.2721 18.6172 31.7383 18.6172C31.2044 18.6172 30.8268 18.5195 30.6055 18.3242C30.3841 18.1289 30.2734 17.8034 30.2734 17.3477V15.2188C30.2734 14.9323 30.3125 14.7044 30.3906 14.5352C30.4818 14.3659 30.6185 14.2227 30.8008 14.1055C32.6628 12.9596 34.7396 12.3867 37.0312 12.3867Z" fill="" />
           </svg>
-
-
         </button>
+
+        {/* MENU TIME */}
         <button onClick={() => {
           prop.setonOffMenuTime(!prop.onOffMenuTime)
           checkOnOff('menuTime')
@@ -162,13 +168,14 @@ const NavbarComponent = (prop) => {
             <line y1="32" x2="9" y2="32" stroke="#777777" strokeWidth="2" />
             <line x1="56" y1="32" x2="65" y2="32" stroke="#777777" strokeWidth="2" />
           </svg>
-
         </button>
 
+        {/* MENU LANGUAGE */}
         <button onClick={() => {
-          // buttunSwitcher('menuLang')
+          prop.setOnOffLangSetup(true)
+          checkOnOff('menuLang')
         }} name='menuLang'>
-          <svg className={`myIconMd ${avtiveIconWhite == 'menuLang' && 'activeLang'}`} width="35" height="35" viewBox="0 0 65 65" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg className={`myIconMd ${prop.onOffLangSetup&& 'activeLang'}`} width="35" height="35" viewBox="0 0 65 65" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path className='pf' d="M54.1094 32.1719V39H37V36.2656L39.4219 35.7969V19.4688L37 19V16.25H46.7344V19L43.9844 19.4688V35.5H50.4062L50.625 32.1719H54.1094Z" fill="#777777" />
             <circle cx="32.5" cy="32.5" r="31.5" stroke="#777777" strokeWidth="2" />
             <path d="M27.2499 1.74951C22.9642 11.7697 21.2499 11.6184 21.2499 33.0626C21.2499 54.5069 23.8214 56.8606 27.2499 63.7495" stroke="#777777" strokeWidth="2" />
@@ -179,8 +186,9 @@ const NavbarComponent = (prop) => {
           </svg>
 
         </button>
-
       </div>
+
+      {/* FEEDBACK */}
       <div className="endSection">
         <button onClick={() => {
           // buttunSwitcher('feedback')

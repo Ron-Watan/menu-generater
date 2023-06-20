@@ -1,98 +1,183 @@
-.addLanguageSection {
+/* .formMenuLang{ */
+/* width: 110%; */
+/* } */
+
+.setupLangSection {
   position: fixed;
-  /* top: 0vh; */
-  /* top: 20%; */
-
   display: flex;
-  width: 100%;
-  /* background: #000; */
-}
-
-.chooseMenuLang {
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.384);
-  top: 4.5rem;
-  position: absolute;
+  top: 0vh;
+  left: 0vw;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.40);
   z-index: 2000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .windowFloatLang {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-60%, -60%);
 
-
-  transform: translate(-20%, -40%);
-  width: 40rem;
-  height: 15rem;
+  width: 55vw;
+  min-width: 40rem;
   background-color: #fff;
   border-radius: .3rem;
-  padding: .3rem;
+
 }
+
+
+
+
 
 .windowFloatLangBorder {
   position: relative;
   z-index: 1;
   width: 100%;
   height: 100%;
-  border-radius: .3rem;
 
-  border: #aaa solid 1px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   justify-items: center;
   align-items: center;
-
-
-}
-
-.myIconSideBar.forLang {
-  width: 70px;
-  height: 70px;
-
-}
-
-
-
-.btnChooseLang {
-  display: flex;
-  flex-direction: column;
-  color: black;
-  justify-content: center;
-  align-items: center;
+  padding: .5rem;
   gap: .5rem;
 }
 
+/* //- */
 
-.gridLang1 {
-  grid-area: 1/1/2/2 !important;
-}
 
-.gridLang2 {
-  grid-area: 1/2/2/3;
-}
-
-.gridLang3 {
-  grid-area: 1/3/2/4;
-}
-
-.langSetMenu {
-  position: absolute;
-  background-color: aqua;
+.titletopLang {
+  background-color: #eee;
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   display: flex;
-  gap: 2rem;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+  border-radius: .3rem .3rem 0 0;
+  border: #aaa solid 1px;
+  border-bottom: none;
+  padding: .8rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #444;
+}
+
+.langSetMenuAb {
+
+  background-color: #fff;
+  width: 100%;
+  /* height: 100%; */
+  display: flex;
+  border-radius: 0 0 .3rem .3rem;
+  border: #aaa solid 1px;
+  padding: 2rem .1rem;
+  color: #444;
+}
+
+
+.LangSet {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  justify-content: center;
   align-items: center;
 }
 
+
 .langName {
   display: flex;
+  gap: 2rem;
+  width: 90%;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #444;
+}
+
+
+
+.langStyle {
+  position: relative;
+  display: flex;
   flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+
+  /* border-radius: .3rem; */
+  /* border: #aaa solid 1px; */
+  /* padding: .3rem; */
+  /* width: 90%; */
+}
+
+/* .symbolAb{
+  position: absolute;
+  top: 0;right: 0;
+  transform: translate(-5%,-55%);
+  background-color: #fff;
+
+} */
+
+.ex25 {
+  font-size: 2rem;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #888;
+
+}
+
+/* .boxSymStyle { */
+/* display: flex;
+  gap:2rem */
+
+/* } */
+
+.symStyle-text {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.boxSymStyle {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: start;
+}
+
+.radioLang {
+  width: .9rem;
+
+}
+
+.flexStyleBeAf {
+  display: flex;
+
+  align-items: center;
+  gap: 1rem;
+}
+
+.labelLangRadio {
+  display: flex;
+  gap: .5rem;
+  cursor: pointer;
+}
+
+
+.containerSwitch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 2rem;
 }
+
+
+
+
+
+
+
 
 .formContainerLang {
   /* transform: translateY(-3rem); */
@@ -105,3 +190,62 @@
   min-height: 92vh;
 
 }
+
+.inputTextLang {
+
+  border: #999 1px solid;
+  border-radius: .2rem;
+  padding: .5rem 1rem;
+  outline: none;
+}
+
+.lmed {
+  width: 70%;
+
+}
+
+.lsmall {
+  width: 30%
+}
+
+
+
+.boxBtnLang {
+  position: absolute;
+  display: flex;
+  gap: 1rem;
+  right: 0;
+  bottom: -5rem;
+}
+
+
+
+/* .myIconSideBar.forLang {
+  width: 70px;
+  height: 70px;
+
+} */
+
+
+
+/* .btnChooseLang {
+  display: flex;
+  flex-direction: column;
+  color: black;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+} */
+
+
+/* .gridLang1 {
+  grid-area: 1/1/2/2 !important;
+}
+
+.gridLang2 {
+  grid-area: 1/2/2/3;
+}
+
+.gridLang3 {
+  grid-area: 1/3/2/4;
+} */

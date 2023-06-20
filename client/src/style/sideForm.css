@@ -23,14 +23,18 @@
 .headCat {
   position: relative;
   color: white;
-  display: flex;
   height: 4.5rem;
-  justify-content: center;
-  align-items: center;
-  padding: .3rem;
   /* padding-top: .3rem; */
   background-color: #cb2722;
   /* gap: .5rem; */
+}
+
+.headCat1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 4.5rem;
+  padding: .3rem;
 }
 
 .headCat2 {
@@ -96,29 +100,60 @@
   border-left: none;
 }
 
+
+
+.langBtnL {
+
+  width: 2rem;
+  color: #aaa;
+
+  /* height: 100%; */
+}
+
+.langBtnL:hover {
+  color: #fff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 .btnCat {
   display: flex;
   flex-grow: 1;
   font-size: 1.1rem;
   color: #eee;
   padding: .5rem 10%;
-
 }
 
-.deleteBox {
+.iconSideBox {
   position: absolute;
   right: 0;
   top: 0;
-  /* display: flex;
-  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* flex-grow: 1;
   font-size: 1.1rem;
   color: #eee; */
   height: 100%;
 
 }
 
-.deleteBtn {
 
+
+
+
+
+
+.deleteBtn {
   background-color: #000000;
   border-left: #656667 solid 1px;
   color: #eee;
@@ -134,6 +169,7 @@
   width: 3rem;
   height: 100%;
 }
+
 
 .dispBox {
   opacity: 1;
@@ -151,4 +187,41 @@
 
 .hidden {
   display: none;
+}
+
+/* ////////////////////////////// */
+.photoListBox {
+  height: 11vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.photoList {
+  height: 100%;
+}
+
+.bannerListContaner {
+  position: relative;
+  display: flex;
+  height: 88%;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* .bannerWrapperList {} */
+
+.boxBtnPhotoList {
+  /* position: absolute; */
+  /* left: 0; */
+  /* bottom: 3vh; */
+  width: 100%;
+  /* transform: translateY(-100%); */
+  /* flex-grow: 1; */
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  /* gap: .8rem */
 }

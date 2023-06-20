@@ -18,7 +18,7 @@ const el = document.querySelector('#tester')
 
 require.context('./images', false, /\.(png|jpe?g|svg)$/)
 
-const BannerMainForm = (prop) => {
+const BannerMainForm = (prop, ref) => {
 
   // function importAll(r) {
   //   let images = {};
@@ -49,16 +49,24 @@ const BannerMainForm = (prop) => {
 
   function setFinishedIndex(i) {
     // console.log("finished dragging on slide", i);
-    setIndexDot(i);
+    // setIndexDot(i);
+    prop.setIndexToBanner(i)
 
   };
   ///////////////////////////////
+  // prop.indexToBanner
+  // prop.setIndexToBanner 
+
+
   const dispath = useDispatch();
 
   const { user } = useSelector((state) => state.user);
-  const [bannerImgArr, setBannerImgArr] = useState([]);
 
-  
+  // const [prop.indexToBanner, prop.setIndexToBanner ] = useState(0)
+  // const [prop.bannerImgArr, prop.prop.setBannerImgArr] = useState([]);
+  // prop.setCloneBanner(prop.bannerImgArr)
+  // console.log(prop.indexToBanner)
+
   // const [bannerImg, setBannerImg] = useState();
   // const addBanner = (uri) => {
   //   let newBannerImg = uri;
@@ -77,12 +85,12 @@ const BannerMainForm = (prop) => {
         80,
         0,
         (uri) => {
-          if (bannerImgArr.length > 6) return setLoadingManual(false)
+          if (prop.bannerImgArr.length > 6) return setLoadingManual(false)
           // setBannerImg(uri);
-          setBannerImgArr([...bannerImgArr, uri])
+          prop.setBannerImgArr([...prop.bannerImgArr, uri])
           // getAllImageBanner()
-          setChooseIdex(bannerImgArr.length)
-          setFinishedIndex(bannerImgArr.length)
+          prop.setIndexToBanner(prop.bannerImgArr.length)
+          setFinishedIndex(prop.bannerImgArr.length)
           setLoadingManual(false)
         },
         'base64'
@@ -112,7 +120,8 @@ const BannerMainForm = (prop) => {
     dispath(showLoading())
     const formData = new FormData();
     formData.append('userId', user.userId);
-    bannerImgArr.forEach(bannerImg => {
+    prop.bannerImgArr.forEach(bannerImg => {
+      console.log(bannerImg)
       const newFile = dataURIToBlobBanner(bannerImg);
 
       formData.append('avatar', newFile);
@@ -129,19 +138,14 @@ const BannerMainForm = (prop) => {
       });
 
 
-    // dispath(hideLoading());
-
     setTimeout(() => {
-      // window.location.reload(false);
       dispath(hideLoading());
     }, 2000);
 
-    // setTimeout(() => {
-    //   getAllImageBanner()
-
-    // }, 3000);
 
   };
+
+
   let t = 0
   function countgetBanner() {
     console.log('getAllImageBanner= ' + t++)
@@ -165,7 +169,7 @@ const BannerMainForm = (prop) => {
           const tagImage = base64Flag + imageStr;
           return tagImage
         })
-        setBannerImgArr(mapArrayBanner)
+        prop.setBannerImgArr(mapArrayBanner)
 
         dispath(hideLoading());
         setLoadingManual(false)
@@ -176,42 +180,56 @@ const BannerMainForm = (prop) => {
 
   };
 
-
-
-  // console.log(indexDot)
-  // console.log(bannerImgArr)
   const deleteImageBanner = () => {
+    if (prop.indexToBanner === 0) {
+      prop.setIndexToBanner(prop.indexToBanner + 1)
+      setFinishedIndex(prop.indexToBanner + 1)
+      setTimeout(() => {
+        prop.setIndexToBanner(prop.indexToBanner)
+        setFinishedIndex(prop.indexToBanner)
+      }, 1);
 
-    setChooseIdex(indexDot - 1)
-    setFinishedIndex(indexDot - 1)
+    } else {
+      prop.setIndexToBanner(prop.indexToBanner - 1)
+      setFinishedIndex(prop.indexToBanner - 1)
 
-    // setTimeout(() => {
+    }
 
+    prop.bannerImgArr.splice(prop.indexToBanner, 1)
+    prop.setBannerImgArr(prop.bannerImgArr)
 
-    bannerImgArr.splice(indexDot, 1)
-    // }, 1000);
-    setBannerImgArr(bannerImgArr)
-
-    // setIndexDot(indexDot - 1)
-    // setChooseIdex(indexDot- 1)
-
-
-    // setFinishedIndex(bannerImgArr.length - 1)
-    // setChooseIdex(bannerImgArr.length)
-    // setFinishedIndex(bannerImgArr.length)
-
-    // setFinishedIndex(index)
   }
-  // if (prop.test) {
-  //   getAllImageBanner()
-  // }
+
+
+  useEffect(() => {
+    if (prop.resizeFileBannerTG) {
+      resizeFileBanner(prop.resizeFileBannerTG);
+    }
+  }, [prop.resizeFileBannerTG]);
+
+
+  useEffect(() => {
+    if (prop.saveImageBannerTG) {
+      uploadImageBanner();
+    }
+  }, [prop.saveImageBannerTG]);
+
+  useEffect(() => {
+    if (prop.deleteImageBannerTG) {
+      deleteImageBanner();
+    }
+  }, [prop.deleteImageBannerTG]);
+
+
+
+
 
   useEffect(() => {
     getAllImageBanner()
     countgetBanner()
+
   }, [user])
 
-  const [chooseIdex, setChooseIdex] = useState(0)
 
   const { loading } = useSelector((state) => state.alerts);
 
@@ -219,7 +237,7 @@ const BannerMainForm = (prop) => {
   //-///-///-///-///-///-///-///-///-   END FUNCTION   ///-///-///-///-///-///-///-///-///-
 
   return (
-    <div className="topbox">
+    <div className="bannerWrapper">
 
       <div className="bannerBoxLoading">
         {/* LOADING... */}
@@ -243,7 +261,7 @@ const BannerMainForm = (prop) => {
         <div className="boxImageForm">
 
           {/* DELETE BUTTON */}
-          <div className={`${bannerImgArr.length === 0 && 'hidden'} trashBtn`}>
+          {/* <div className={`${prop.bannerImgArr.length === 0 && 'hidden'} trashBtn`}>
             <button onClick={
               deleteImageBanner
 
@@ -252,7 +270,7 @@ const BannerMainForm = (prop) => {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
               </svg>
             </button>
-          </div>
+          </div> */}
 
 
           <Slider
@@ -260,7 +278,7 @@ const BannerMainForm = (prop) => {
             onSlideStart={(i) => {
 
             }}
-            activeIndex={chooseIdex}//bannerImgArr.length - 1
+            activeIndex={prop.indexToBanner}//prop.bannerImgArr.length - 1
             threshHold={20}
             transition={0.5}
             scaleOnDrag={false}
@@ -268,7 +286,7 @@ const BannerMainForm = (prop) => {
 
 
             {
-              bannerImgArr.map((el, index) => (
+              prop.bannerImgArr.map((el, index) => (
                 <div className="" key={index}>
                   {/* LOADING... 1 */}
                   {loading && (<div className={`${loading ? 'showMe' : 'hiddenMe'} bannerLoading`}>
@@ -301,12 +319,13 @@ const BannerMainForm = (prop) => {
 
           {/* DOT BUTTON*/}
           <div className="dotBarForm">
-            {Array.from({ length: bannerImgArr.length }).map((item, index) => (
+            {Array.from({ length: prop.bannerImgArr.length }).map((item, index) => (
               <button onClick={() => {
-                setChooseIdex(index)
+                prop.setIndexToBanner(index)
                 setFinishedIndex(index)
+
               }}
-                className={indexDot === index ? "dotForm dotActiveForm" : "dotForm"}
+                className={prop.indexToBanner === index ? "dotForm dotActiveForm" : "dotForm"}
                 key={index}>{index + 1}</button>
             ))}
 
@@ -316,8 +335,8 @@ const BannerMainForm = (prop) => {
 
 
       </div >
-      <div className="saveAndCancelBox">
-        {/* CANCEL BUTTON */}
+      {/* <div className="saveAndCancelBox">
+   
         <button onClick={() => {
           getAllImageBanner()
         }
@@ -330,10 +349,10 @@ const BannerMainForm = (prop) => {
           </svg>
           <span>CANCEL</span>
         </button>
-        {/* SAVE BUTTON */}
+
         <button onClick={() => {
           uploadImageBanner()
-          // getAllImageBanner()
+          getAllImageBanner()
         }
         } className='saveBnerBtn btnhover btnactive'>
           <svg width="35" height="35" viewBox="0 0 65 65" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -344,35 +363,11 @@ const BannerMainForm = (prop) => {
           </svg>
           <span>SAVE</span>
         </button>
-      </div>
+      </div> */}
 
       {/* UPLOAD BUTTON */}
       {/* <div className={'btnBannerBox'}> */}
-      <label htmlFor='file-uploadBanner' className='addBtn'>
-
-        <svg width="35" height="35" viewBox="0 0 65 65" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="1" y="1" width="63" height="63" rx="2" stroke="white" strokeWidth="2" />
-          <path d="M32 12L32 53" stroke="white" strokeWidth="2" strokeLinecap="round" />
-          <path d="M12 32L53 32" stroke="white" strokeWidth="2" strokeLinecap="round" />
-        </svg>
-
-        <input
-          onChange={(e) => {
-
-            // setvaluePhoto('');
-            if (e.target.files.length === 0) return
-            resizeFileBanner(e.target.files[0]).then((res) => { });
-
-          }}
-          id='file-uploadBanner'
-          name='file-uploadBanner'
-          type='file'
-          className='inputPhoto'
-        />
-
-        <span className='disable-text-selection' >PROMOTION PHOTO</span>
-
-      </label>
+     
       {/* </div> */}
 
     </div >

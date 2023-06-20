@@ -40,8 +40,8 @@ body::-webkit-scrollbar-thumb:hover {
   opacity: 0;
   visibility: hidden;
   transition: all .2s;
-  /* z-index: -3000; */
-  position: absolute;
+  z-index: -3000;
+
 
 }
 

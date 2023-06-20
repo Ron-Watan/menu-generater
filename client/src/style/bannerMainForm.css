@@ -1,4 +1,24 @@
-.topbox {
+
+
+.bannerSection {
+  /* position: fixed;
+  top: 20%;
+  display: flex;
+  width: 100%; */
+
+  position: fixed;
+  display: flex;
+
+  width: 80vw;
+  height: 100vh;
+  /* background-color: rgba(0, 0, 0, 0.40); */
+  z-index: 2000;
+
+}
+
+
+
+.bannerWrapper {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -55,10 +75,7 @@
 
 .imageBannerForm {
   display: block;
-  /* width: 100%; */
   border-radius: 5px;
-
-  /* height: 100%; */
   box-shadow: .3rem .3rem .4rem .1rem rgba(0, 0, 0, 0.30);
 }
 
@@ -242,6 +259,13 @@
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE*/
   user-select: none; /* Standard syntax */
+}
+
+
+
+.delImageBoxbtn{
+  position: absolute;
+  
 }
 
 .rtds-single-slide-styles {

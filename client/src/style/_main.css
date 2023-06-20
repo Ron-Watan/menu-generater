@@ -1,0 +1,331 @@
+.topbarWin {
+  background-color: #3C3D3F;
+  width: 100%;
+  /* height: 100%; */
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  border-radius: .3rem .3rem 0 0;
+  border: #3C3D3F solid 1px;
+  border-bottom: #cb2722 solid 2px;
+  padding: .1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #444;
+
+}
+
+
+.mainBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-self: stretch;
+  gap: 1rem;
+  font-size: .9rem;
+  padding: .6rem .5rem;
+  /* height: 4rem; */
+
+  color: #fff;
+  box-shadow: .1rem .1rem .4rem rgba(0, 0, 0, 0.30);
+  border-radius: 3px;
+  min-width: 8rem;
+}
+
+.mainBtn:hover {
+
+  box-shadow: .2rem .2rem .5rem rgba(0, 0, 0, 0.30);
+  transform: scale(1.02);
+  transition: all .2s;
+}
+
+.mainBtn:active {
+  box-shadow: .1rem .1rem .4rem rgba(0, 0, 0, 0.30);
+  transform: scale(1);
+  transition: all .2s;
+}
+
+.saveBtnColor {
+  background-color: #cb2722;
+}
+
+.cancelBtnColor {
+  background-color: #3C3D3F;
+}
+
+.boxCancel {
+  display: flex;
+  border-radius: .2rem;
+  border: #444 1px solid;
+}
+
+.boxCancel:hover {
+  background-color: #cb2722;
+
+}
+
+.boxCancel:active {
+  background-color: #cb282293;
+
+}
+
+.closeIconHover svg:hover {
+  stroke: #fff
+}
+
+
+.smallMainBtn{
+  font-size: .8rem;
+  padding: .4rem .3rem;
+  min-width: 7rem;
+  border: #000000 1px solid;
+}
+
+.smallMainBtn:hover{
+  border: #eee 1px solid;
+
+}
+
+/* //////////////////////////////////////// */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 2.9rem;
+  height: 1.42rem;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* border: #aaa 1px solid; */
+  border: 2px solid #777;
+
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 1rem;
+  box-shadow: .1rem .1rem 2rem rgba(0, 0, 0, 0.10);
+  background-color: #eee;
+
+}
+
+.slider:before {
+  position: absolute;
+  content: "OFF";
+  font-size: .7rem;
+  color: #eee;
+  text-align: center;
+
+  height: 1.1rem;
+  width: 1.8rem;
+  left: .9px;
+  bottom: 1px;
+  background-color: #777;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: .8rem;
+
+}
+
+input:checked+.slider {
+  /* background-color: #cb2722; */
+  /* background-color: #cdcccc; */
+  border: 2px solid #777;
+  background-color: #fff;
+
+}
+
+input:checked+.slider:before {
+  font-size: .7rem;
+  color: #eee;
+  text-align: center;
+  content: "ON";
+  background-color: #cb2722;
+  /* background-color: #cdcccc; */
+  /* border: #cb2722 1px solid; */
+
+}
+
+/* input:focus+.slider { */
+/* box-shadow: 0 0 1px #cb2722; */
+/* } */
+
+input:checked+.slider:before {
+  -webkit-transform: translateX(.7rem);
+  -ms-transform: translateX(.7rem);
+  transform: translateX(.7rem);
+}
+
+.opcaityTime {
+  opacity: .4;
+  cursor: default !important;
+}
+
+.greaySwitch {
+  border: #aaa 1px solid !important;
+}
+
+.greaySwitch:checked+.slider {
+  border: #aaa 1px solid !important;
+}
+
+.greaySwitch:checked+.slider:before {
+  background-color: #aaa !important;
+
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+
+/* ///////////////////////////////// */
+.switchLang {
+  position: relative;
+  display: inline-block;
+  width: 4.8rem;
+  height: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+
+}
+
+.switchLang input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.sliderLang {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: #777 2px solid;
+
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius:1rem;
+  box-shadow: .1rem .1rem 2rem rgba(0, 0, 0, 0.10);
+
+}
+
+.sliderLang:before {
+  position: absolute;
+  content: "Before";
+  font-size: .7rem;
+  color: #eee;
+  text-align: center;
+  height: 1.2rem;
+  width: 2.8rem;
+  left: 1.2px;
+  bottom: 0.6px;
+  background-color: #cb2722;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: .8rem;
+
+}
+
+input:checked+.sliderLang {
+
+  border: #777 2px solid;
+
+}
+
+input:checked+.sliderLang:before {
+  font-size: .7rem;
+  color: #eee;
+  text-align: center;
+  content: "After";
+  background-color: #cb2722;
+
+}
+
+input:checked+.sliderLang:before {
+  -webkit-transform: translateX(1.6rem);
+  -ms-transform: translateX(1.6rem);
+  transform: translateX(1.6rem);
+}
+
+
+
+
+
+/* /////////////////////////////////////// */
+
+
+input[type="radio"] {
+  /* Add if not using autoprefixer */
+  -webkit-appearance: none;
+  appearance: none;
+  /* For iOS < 15 to remove gradient background */
+  background-color: #fff;
+  /* Not removed via appearance */
+  margin: 0;
+  font: inherit;
+  color: currentColor;
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.15em solid #777;
+  border-radius: 50%;
+  transform: translateY(-0.075em);
+  cursor: pointer;
+}
+
+input[type="radio"] {
+  /* ...existing styles */
+  display: grid;
+  /* justify-content: center; */
+  /* align-items: center; */
+  place-content: center;
+}
+
+input[type="radio"]::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  border-radius: 50%;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  /* box-shadow: inset 1em 1em var(--form-control-color); */
+  background-color: red;
+}
+
+input[type="radio"]:checked::before {
+  transform: scale(1);
+}
+
+/* //////////////////////////////////////// */
+
+
+
+
+
+
+.mainHeaderFont{
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #444;
+}
