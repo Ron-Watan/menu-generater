@@ -180,7 +180,7 @@ const _MenuComponent = () => {
         <CssBaseline />
         <ThemeProvider theme={theme}>
 
-          {/* {clientMenu.filter((el) => el.menuTime == 1).map((el, index) => (
+          {clientMenu.filter((el) => el.menuTime == 1).map((el, index) => (
 
             <AcordionSubComp
               listMunu={el}
@@ -189,7 +189,7 @@ const _MenuComponent = () => {
               removeFavorite={removeFavorite}
               key={index} />
 
-          ))} */}
+          ))}
 
           {/* <AcordionSubComp />
           <AcordionSubComp />
@@ -201,7 +201,7 @@ const _MenuComponent = () => {
           <AcordionSubComp /> */}
         </ThemeProvider>
 
-        <div className="footerSpace"></div>
+        {/* <div className="footerSpace"></div> */}
         <FooterComponent favorList={favorList} />
 
 
@@ -284,6 +284,9 @@ const _MenuComponent = () => {
         </div>
 
 
+      </div>
+      <div className="test">
+        dfddgs
       </div>
     </div >
   )

@@ -1,5 +1,10 @@
 .mobileViewport{
   width: 100vw;
-  height: 100vh;
-  min-width: 900px;
+  /* height: 100vh; */
+
+  overflow-x: hidden;
+}
+.test{
+height: 1000rem;
+background-color: rgba(121, 121, 121, 0.24);
 }
