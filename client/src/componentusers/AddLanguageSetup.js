@@ -1,27 +1,96 @@
 
-import React, { useState } from 'react'
-
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import Swal from 'sweetalert2'
+import { useDispatch, useSelector } from 'react-redux';
+import { ticketPass } from '../protectors/authorize';
+import { setUser } from '../redux/userSlice';
 const AddLanguageSetup = (prop) => {
 
   // SETUP STYLE CURRENTCY
+  const dispath = useDispatch();
+  const { user } = useSelector((state) => state.user);
 
-  const [styleSymbole, setStyleSymbole] = useState({
+  const [languageSetup, setLanguageSetup] = useState({
+    onLanguage_2: false,
     language_1: 'English', code_1: 'EN', symbol_1: '$', style_1: false, followed_1: true,
     language_2: '', code_2: '', symbol_2: '', style_2: true, followed_2: true,
   })
 
   const styleSymboleFn0 = (name) => (even) => {
-    setStyleSymbole({ ...styleSymbole, [name]: even.target.value })
+    setLanguageSetup({ ...languageSetup, [name]: even.target.value })
   }
   const styleSymboleFn1 = (name, valBoolean) => {
-    setStyleSymbole({ ...styleSymbole, [name]: valBoolean })
+    setLanguageSetup({ ...languageSetup, [name]: valBoolean })
   }
   const styleSymboleFn2 = (name) => (e) => {
-    setStyleSymbole({ ...styleSymbole, [name]: !e.target.checked })
+    setLanguageSetup({ ...languageSetup, [name]: !e.target.checked })
+  }
+
+  const [onOffChoose, setnOffChoose] = useState(true)
+
+
+
+
+  const saveLangSetup = () => {
+
+    // dispath(showLoading());
+
+    axios
+      .post(`${process.env.REACT_APP_API}/user/saveLangSetup`,
+        {
+          userId: user.userId, languageSetup
+
+        }, ticketPass)
+      .then((result) => {
+        if (result.data.success) {
+          // Swal.fire(result.data.message)
+          dispath(setUser(result.data.userMenu));
+          // dispath(hideLoading());
+          Swal.fire({
+            title: 'SAVED',
+            text: 'Your menu has been saved',
+            toast: true,
+            icon: 'success',
+            showConfirmButton: false,
+            iconColor: '#cb2722',
+            timer: 2000,
+          });
+
+
+        } else {
+          Swal.fire(result.data.message);
+          // dispath(hideLoading());
+        }
+      })
+      .catch((err) => {
+        // dispath(hideLoading());
+        console.log("Can't not connect the server");
+        Swal.fire("Can't not connect the server");
+      });
+  };
+
+
+
+
+
+
+
+  const getLangFromProp = () => {
+    setLanguageSetup(prop.languageSetup)
   }
 
 
-  const [onOffChoose, setnOffChoose] = useState(true)
+  useEffect(() => {
+    if (prop.navLang2LangSetUp) {
+      getLangFromProp();
+    }
+  }, [prop.navLang2LangSetUp]);
+
+
+  console.log(languageSetup)
+
+
 
   //-//=//-//=//-//=//-//=//-
 
@@ -49,9 +118,9 @@ const AddLanguageSetup = (prop) => {
 
                 <div className="langName">
 
-                  <input onChange={styleSymboleFn0('language_1')} value={styleSymbole.language_1} className='inputTextLang lmed fontSmall' type="text" name="" maxLength='8' placeholder='Language' id="" />
-                  <input onChange={styleSymboleFn0('code_1')} value={styleSymbole.code_1} className='inputTextLang lsmall fontSmall' type="text" name="" maxLength='3' placeholder='Code' id="" />
-                  <input onChange={styleSymboleFn0('symbol_1')} value={styleSymbole.symbol_1} className='labelLn3 inputTextLang lsmall fontSmall' type="text" name="" maxLength='5' placeholder='Symbole' id="" />
+                  <input onChange={styleSymboleFn0('language_1')} value={languageSetup.language_1} className='inputTextLang lmed fontSmall' type="text" name="" maxLength='8' placeholder='Language' id="" />
+                  <input onChange={styleSymboleFn0('code_1')} value={languageSetup.code_1} className='inputTextLang lsmall fontSmall' type="text" name="" maxLength='3' placeholder='Code' id="" />
+                  <input onChange={styleSymboleFn0('symbol_1')} value={languageSetup.symbol_1} className='labelLn3 inputTextLang lsmall fontSmall' type="text" name="" maxLength='5' placeholder='Symbole' id="" />
 
                 </div>
                 <div className="langStyle">
@@ -59,8 +128,8 @@ const AddLanguageSetup = (prop) => {
 
                   {/* STYLE 1 */}
 
-                  {styleSymbole.style_1 ?
-                    <div className="ex25"><span>{styleSymbole.followed_1 && styleSymbole.symbol_1}</span> <span>25</span> <span>&nbsp;{!styleSymbole.followed_1 && styleSymbole.symbol_1}</span> </div>
+                  {languageSetup.style_1 ?
+                    <div className="ex25"><span>{languageSetup.followed_1 && languageSetup.symbol_1}</span> <span>25</span> <span>&nbsp;{!languageSetup.followed_1 && languageSetup.symbol_1}</span> </div>
                     : <div className="ex25"><span></span><span>25</span><span></span></div>}
 
                   {/* <div className="boxSymStyle"> */}
@@ -69,7 +138,7 @@ const AddLanguageSetup = (prop) => {
                   <div className="boxSymStyle">
                     {/* NONE */}
                     <label htmlFor="none" className="labelLangRadio">
-                      <input onChange={() => styleSymboleFn1('style_1', false)} checked={!styleSymbole.style_1} className='radioLang' type="radio" name="cstyle1" id="none" />
+                      <input onChange={() => styleSymboleFn1('style_1', false)} checked={!languageSetup.style_1} className='radioLang' type="radio" name="cstyle1" id="none" />
                       <span>None</span>
                     </label>
 
@@ -77,12 +146,12 @@ const AddLanguageSetup = (prop) => {
                     <div className="flexStyleBeAf">
                       {/* STYLED */}
                       <label htmlFor="Styled" className="labelLangRadio">
-                        <input onChange={() => styleSymboleFn1('style_1', true)} checked={styleSymbole.style_1} className='radioLang' type="radio" name="cstyle1" id="Styled" />
+                        <input onChange={() => styleSymboleFn1('style_1', true)} checked={languageSetup.style_1} className='radioLang' type="radio" name="cstyle1" id="Styled" />
                         <span>Styled</span>
                       </label>
                       {/* SWITCH */}
-                      <label htmlFor='followed1' className={`containerSwitch switchLang ${!styleSymbole.style_1 && 'opcaityTime'}`}>
-                        <input onChange={styleSymboleFn2('followed_1')} disabled={!styleSymbole.style_1} type="checkbox" name="followed1" id="followed1" /> <span className="sliderLang"></span>
+                      <label htmlFor='followed1' className={`containerSwitch switchLang ${!languageSetup.style_1 && 'opcaityTime'}`}>
+                        <input onChange={styleSymboleFn2('followed_1')} disabled={!languageSetup.style_1} type="checkbox" name="followed1" id="followed1" /> <span className="sliderLang"></span>
                       </label>
 
 
@@ -104,9 +173,9 @@ const AddLanguageSetup = (prop) => {
               <div className="LangSet">
 
                 <div className="langName">
-                  <input onChange={styleSymboleFn0('language_2')} value={styleSymbole.language_2} className='inputTextLang lmed fontSmall' type="text" name="" maxLength='8' placeholder='Language' id="" />
-                  <input onChange={styleSymboleFn0('code_2')} value={styleSymbole.code_2} className='inputTextLang lsmall fontSmall' type="text" name="" maxLength='3' placeholder='Code' id="" />
-                  <input onChange={styleSymboleFn0('symbol_2')} value={styleSymbole.symbol_2} className='labelLn3 inputTextLang lsmall fontSmall' type="text" name="" maxLength='5' placeholder='Symbole' id="" />
+                  <input onChange={styleSymboleFn0('language_2')} value={languageSetup.language_2} className='inputTextLang lmed fontSmall' type="text" name="" maxLength='8' placeholder='Language' id="" />
+                  <input onChange={styleSymboleFn0('code_2')} value={languageSetup.code_2} className='inputTextLang lsmall fontSmall' type="text" name="" maxLength='3' placeholder='Code' id="" />
+                  <input onChange={styleSymboleFn0('symbol_2')} value={languageSetup.symbol_2} className='labelLn3 inputTextLang lsmall fontSmall' type="text" name="" maxLength='5' placeholder='Symbole' id="" />
 
                 </div>
                 <div className="langStyle">
@@ -114,8 +183,8 @@ const AddLanguageSetup = (prop) => {
 
                   {/* STYLE 1 */}
 
-                  {styleSymbole.style_2 ?
-                    <div className="ex25"><span>{styleSymbole.followed_2 && styleSymbole.symbol_2}</span> <span>25</span> <span>&nbsp;{!styleSymbole.followed_2 && styleSymbole.symbol_2}</span> </div>
+                  {languageSetup.style_2 ?
+                    <div className="ex25"><span>{languageSetup.followed_2 && languageSetup.symbol_2}</span> <span>25</span> <span>&nbsp;{!languageSetup.followed_2 && languageSetup.symbol_2}</span> </div>
                     : <div className="ex25"><span></span><span>25</span><span></span></div>}
 
                   {/* <div className="boxSymStyle"> */}
@@ -124,7 +193,7 @@ const AddLanguageSetup = (prop) => {
                   <div className="boxSymStyle">
                     {/* NONE */}
                     <label htmlFor="none2" className="labelLangRadio">
-                      <input onChange={() => styleSymboleFn1('style_2', false)} checked={!styleSymbole.style_2} className='radioLang' type="radio" name="cstyle2" id="none2" />
+                      <input onChange={() => styleSymboleFn1('style_2', false)} checked={!languageSetup.style_2} className='radioLang' type="radio" name="cstyle2" id="none2" />
                       <span>None</span>
                     </label>
 
@@ -132,12 +201,12 @@ const AddLanguageSetup = (prop) => {
                     <div className="flexStyleBeAf">
                       {/* STYLED */}
                       <label htmlFor="Styled2" className="labelLangRadio">
-                        <input onChange={() => styleSymboleFn1('style_2', true)} checked={styleSymbole.style_2} className='radioLang' type="radio" name="cstyle2" id="Styled2" />
+                        <input onChange={() => styleSymboleFn1('style_2', true)} checked={languageSetup.style_2} className='radioLang' type="radio" name="cstyle2" id="Styled2" />
                         <span>Styled</span>
                       </label>
                       {/* SWITCH */}
-                      <label htmlFor='followed2' className={`containerSwitch switchLang ${!styleSymbole.style_2 && 'opcaityTime'}`}>
-                        <input onChange={styleSymboleFn2('followed_2')} disabled={!styleSymbole.style_2} type="checkbox" name="followed2" id="followed2" /> <span className="sliderLang"></span>
+                      <label htmlFor='followed2' className={`containerSwitch switchLang ${!languageSetup.style_2 && 'opcaityTime'}`}>
+                        <input onChange={styleSymboleFn2('followed_2')} disabled={!languageSetup.style_2} type="checkbox" name="followed2" id="followed2" /> <span className="sliderLang"></span>
                       </label>
 
 
@@ -153,7 +222,7 @@ const AddLanguageSetup = (prop) => {
 
         </div>
         <div className="boxBtnLang">
-          <button className='mainBtn saveBtnColor'>
+          <button onClick={saveLangSetup} className='mainBtn saveBtnColor'>
             <svg width="30" height="30" viewBox="0 0 65 65" fill="none">
               <rect x="1" y="1" width="63" height="63" rx="2" stroke="white" strokeWidth="2" />
               <path d="M32 12L32 53" stroke="white" strokeWidth="2" strokeLinecap="round" />

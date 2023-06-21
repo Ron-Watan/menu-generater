@@ -143,6 +143,7 @@ const NavbarComponent = (prop) => {
           // buttunSwitcher('menu3')
           prop.setOnoffMenu3({ switch: true })
           checkOnOff('menu3')
+
         }} name='menu3'>
           <svg className={`myIconSideBar ${prop.onOffMenu3.switch && 'active'}`} width="69" height="64" viewBox="0 0 69 64" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="6" y="1" width="62" height="62" stroke="" strokeWidth="2" />
@@ -157,6 +158,7 @@ const NavbarComponent = (prop) => {
         {/* MENU TIME */}
         <button onClick={() => {
           prop.setonOffMenuTime(!prop.onOffMenuTime)
+          prop.setNavTime2TimePicker((testTG) => prop.navTime2TimePicker + 1)
           checkOnOff('menuTime')
         }} name='menuTime'>
           <svg className={`myIconMd ${prop.onOffMenuTime && 'activeTime'}`} width="35" height="35" viewBox="0 0 65 65" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -173,9 +175,10 @@ const NavbarComponent = (prop) => {
         {/* MENU LANGUAGE */}
         <button onClick={() => {
           prop.setOnOffLangSetup(true)
+          prop.setNavLang2LangSetUp((any) => prop.navLang2LangSetUp + 1)
           checkOnOff('menuLang')
         }} name='menuLang'>
-          <svg className={`myIconMd ${prop.onOffLangSetup&& 'activeLang'}`} width="35" height="35" viewBox="0 0 65 65" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg className={`myIconMd ${prop.onOffLangSetup && 'activeLang'}`} width="35" height="35" viewBox="0 0 65 65" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path className='pf' d="M54.1094 32.1719V39H37V36.2656L39.4219 35.7969V19.4688L37 19V16.25H46.7344V19L43.9844 19.4688V35.5H50.4062L50.625 32.1719H54.1094Z" fill="#777777" />
             <circle cx="32.5" cy="32.5" r="31.5" stroke="#777777" strokeWidth="2" />
             <path d="M27.2499 1.74951C22.9642 11.7697 21.2499 11.6184 21.2499 33.0626C21.2499 54.5069 23.8214 56.8606 27.2499 63.7495" stroke="#777777" strokeWidth="2" />
@@ -213,7 +216,7 @@ const NavbarComponent = (prop) => {
         </button>
 
       </div>
-    </div>
+    </div >
   )
 
 }

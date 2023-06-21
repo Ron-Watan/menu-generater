@@ -42,7 +42,7 @@ const FooterComponent = (prop) => {
     document.body.classList.remove('overflow-hidden');
   }
 
-  console.log(footerState)
+
 
   const starModel = ['none', 'none', 'none', 'none', 'none']
   const [starBtn, setStarBtn] = useState(starModel)

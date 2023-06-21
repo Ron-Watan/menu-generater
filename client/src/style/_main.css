@@ -30,6 +30,7 @@
   box-shadow: .1rem .1rem .4rem rgba(0, 0, 0, 0.30);
   border-radius: 3px;
   min-width: 8rem;
+  cursor: pointer;
 }
 
 .mainBtn:hover {
@@ -74,16 +75,21 @@
 }
 
 
-.smallMainBtn{
+.smallMainBtn {
   font-size: .8rem;
   padding: .4rem .3rem;
   min-width: 7rem;
   border: #000000 1px solid;
 }
 
-.smallMainBtn:hover{
+.smallMainBtn:hover {
   border: #eee 1px solid;
 
+}
+
+
+.borderBtnRed {
+  border: #eee 2px solid;
 }
 
 /* //////////////////////////////////////// */
@@ -226,7 +232,7 @@ input:checked+.slider:before {
 
   -webkit-transition: .4s;
   transition: .4s;
-  border-radius:1rem;
+  border-radius: 1rem;
   box-shadow: .1rem .1rem 2rem rgba(0, 0, 0, 0.10);
 
 }
@@ -320,12 +326,25 @@ input[type="radio"]:checked::before {
 /* //////////////////////////////////////// */
 
 
-
-
-
-
-.mainHeaderFont{
+.mainHeaderFont {
   font-size: 1.1rem;
   font-weight: 600;
   color: #444;
+}
+
+
+.hiddenAnimate {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .2s, transform .1s .2s;
+  transform: scale(0);
+
+}
+
+.showAnimate {
+  opacity: 1;
+  visibility: visible;
+  transition: transform 0s, opacity .2s .1s;
+  transform: scale(1);
+
 }

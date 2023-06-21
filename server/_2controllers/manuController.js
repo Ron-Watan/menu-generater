@@ -17,8 +17,8 @@ import path from 'path';
 export const getAllMenu = (req, res) => {
   // res.send({ message: "Success", success: true, }) //send to client side
   const { userId } = req.body;
-  Users.findOne({ userId: userId }).select('menu userId menu_1 menu_2 menu_3  bannerImage setting_time link').then((user) => {
-    console.log(user)
+  Users.findOne({ userId: userId }).select('userId restaurentName menu menuName  bannerImage languageSetup timeSetup clientId link').then((user) => {
+
     res.send({
       message: 'Success',
       userMenu: user,
@@ -31,28 +31,47 @@ export const getAllMenu = (req, res) => {
 //-
 export const createManu = (req, res) => {
   // console.log(req.body)
-  const { userId, catagory, imgId, listMenu, menuTime, link } = req.body;
+  const { userId, clientId, catagory, imgId, listMenu, menuTime } = req.body;
+  const menuId = uuidv4()
 
-  Users.findOne({ userId: userId }).select('menu userId link').then((user) => {
+  Users.findOne({ userId: userId }).select('userId restaurentName menu menuName  bannerImage languageSetup timeSetup clientId link').then((user) => {
     user.menu.push({
       menuTime: menuTime,
-      menuId: uuidv4(),
+      menuId: menuId,
       catagory: catagory,
       imgId: imgId,
       listMenu: listMenu,
     });
     user.save();
-
-    Clients.findOneAndReplace({ link: user.link }, {
-      link: user.link,
-      menu: user.menu
-    }).then(client => {
-      res.send({
-        message: 'Success',
-        userMenu: user,
-        success: true
+    res.send({
+      message: 'Success',
+      userMenu: user,
+      success: true
+    });
+    Clients.findOne({ clientId: clientId }).then(client => {
+      client.menu.push({
+        menuTime: menuTime,
+        menuId: menuId,
+        catagory: catagory,
+        imgId: imgId,
+        listMenu: listMenu,
       });
+      client.save();
     })
+
+
+
+
+    // Clients.findOneAndReplace({ link: user.link }, {
+    //   link: user.link,
+    //   menu: user.menu
+    // }).then(client => {
+    //   res.send({
+    //     message: 'Success',
+    //     userMenu: user,
+    //     success: true
+    //   });
+    // })
 
   });
 };
@@ -98,24 +117,27 @@ export const saveEditMenu = (req, res) => {
 
 };
 
+
 export const saveNameMenu = (req, res) => {
-  const { userId, menu_1, menu_2, menu_3 } = req.body;
+  const { userId, clientId, menuName } = req.body;
+  // console.log(menuName)
+  Users.findOne({ userId: userId }).select('userId restaurentName menu menuName  bannerImage languageSetup timeSetup clientId link').then(user => {
 
-  console.log(menu_1, menu_2, menu_3)
-  Users.findOne({ userId: userId }).select('menu userId menu_1 menu_2 menu_3 link').then(user => {
-    user.menu_1 = menu_1
-    user.menu_2 = menu_2
-    user.menu_3 = menu_3
+    user.menuName = menuName
     user.save()
-
     res.send({
       message: 'Success',
       userMenu: user,
       success: true
     }); //send to client side
 
+  })
+  Clients.findOne({ clientId: clientId }).then(client => {
+    client.menuName = menuName
+    client.save()
 
   })
+
 
 };
 
@@ -208,7 +230,7 @@ export const saveImage = (req, res) => {
 
   Images.findOneAndDelete({ imgId: originalname }).then((user) => {
 
-    console.log(user)
+
     var image = {
       userId: userId,
       imgId: originalname,
@@ -257,7 +279,6 @@ export const getAllImage = (req, res) => {
 export const getImage = (req, res) => {
 
   const { imgId } = req.body
-  console.log(imgId)
   Images.findOne({ imgId: imgId }).then(result => {
     res.send({
       message: 'Success',
@@ -286,12 +307,9 @@ export const getAllImageBanner = (req, res) => {
 
 
 export const uploadImageBanner = (req, res) => {
-  const { userId } = req.body
+  const { userId, link } = req.body
   const arrayBannerImg = req.files
-  // console.log(req.body)
-  // console.log(req.files)
   Banners.deleteMany({ userId: userId }).then(result => {
-    console.log(result)
 
     arrayBannerImg.map(el => {
       fs.access('./images/', (err) => {
@@ -301,6 +319,7 @@ export const uploadImageBanner = (req, res) => {
       })
       var image = {
         userId: userId,
+        link:link,
         imgId: 'banner',
         destination: el.destination,
         size: el.size / 1000,
@@ -333,6 +352,58 @@ export const uploadImageBanner = (req, res) => {
 
 
 
+
+
+export const saveTimeSetup = (req, res) => {
+  console.log('eeeeeeeeeeeeeee')
+  const { userId, timeSetup } = req.body
+  console.log(timeSetup)
+
+  Users.findOne({ userId: userId }).select('userId restaurentName menu menuName  bannerImage languageSetup timeSetup clientId link').then(user => {
+    user.timeSetup = timeSetup
+    user.save()
+    res.send({
+      message: 'Success',
+      userMenu: user,
+      success: true
+    }); //send to client side
+
+    Clients.findOne({ clientId: user.clientId }).then(client => {
+      client.timeSetup = timeSetup
+      client.save()
+
+    })
+
+  })
+
+};
+
+
+
+
+export const saveLangSetup = (req, res) => {
+  console.log('eeeeeeeeeeeeeee')
+  const { userId, languageSetup } = req.body
+  console.log(languageSetup)
+
+  Users.findOne({ userId: userId }).select('userId restaurentName menu menuName  bannerImage languageSetup timeSetup clientId link').then(user => {
+    user.languageSetup = languageSetup
+    user.save()
+    res.send({
+      message: 'Success',
+      userMenu: user,
+      success: true
+    }); //send to client side
+
+    Clients.findOne({ clientId: user.clientId }).then(client => {
+      client.languageSetup = languageSetup
+      client.save()
+
+    })
+
+  })
+
+};
 // export const uploadImageBanner = (req, res) => {
 //   const { userId } = req.body
 //   const { originalname } = req.file

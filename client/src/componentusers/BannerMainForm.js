@@ -120,10 +120,9 @@ const BannerMainForm = (prop, ref) => {
     dispath(showLoading())
     const formData = new FormData();
     formData.append('userId', user.userId);
+    formData.append('link', user.link);
     prop.bannerImgArr.forEach(bannerImg => {
-      console.log(bannerImg)
       const newFile = dataURIToBlobBanner(bannerImg);
-
       formData.append('avatar', newFile);
 
     })
@@ -146,10 +145,7 @@ const BannerMainForm = (prop, ref) => {
   };
 
 
-  let t = 0
-  function countgetBanner() {
-    console.log('getAllImageBanner= ' + t++)
-  }
+
 
 
   // GET ALL IMAGE
@@ -157,7 +153,6 @@ const BannerMainForm = (prop, ref) => {
   const getAllImageBanner = () => {
     dispath(showLoading())
     setLoadingManual(true)
-    countgetBanner()
     axios
       .post(`${process.env.REACT_APP_API}/user/images/allBanner`, { userId: user.userId })
       .then((result) => {
@@ -221,12 +216,16 @@ const BannerMainForm = (prop, ref) => {
   }, [prop.deleteImageBannerTG]);
 
 
+  useEffect(() => {
+    if (prop.getAllImageBannerTG) {
+      getAllImageBanner();
+    }
+  }, [prop.getAllImageBannerTG]);
 
 
 
   useEffect(() => {
     getAllImageBanner()
-    countgetBanner()
 
   }, [user])
 
@@ -365,10 +364,6 @@ const BannerMainForm = (prop, ref) => {
         </button>
       </div> */}
 
-      {/* UPLOAD BUTTON */}
-      {/* <div className={'btnBannerBox'}> */}
-     
-      {/* </div> */}
 
     </div >
 

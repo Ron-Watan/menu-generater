@@ -14,6 +14,9 @@ import axios from 'axios';
 import { ticketPass } from '../protectors/authorize';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import '../styleClient/mainClient.css'
+import '../styleClient/sidebarClient.css'
+import '../styleClient/footerClient.css'
 
 // import LocaleContext from './LocaleContext';
 // import images from './images'
@@ -38,7 +41,7 @@ const nowTime = h * 60 * 60 + m * 60 + s
 
 
 
-
+//=
 const _MenuComponent = () => {
 
   const [clientMenu, setClientMenu] = useState([])
@@ -49,8 +52,6 @@ const _MenuComponent = () => {
 
   const [started, setStarted] = useState(false)
 
-
-
   const switcher = (even) => {
     setStarted(!started)
   }
@@ -58,7 +59,7 @@ const _MenuComponent = () => {
   ///////////////////////////////////////////////////////
 
 
-  
+
 
 
 
@@ -70,17 +71,19 @@ const _MenuComponent = () => {
 
 
   ////////////////////////////////////////////////
-  console.log(nowTime)
+
   const timeSwitcher = () => {
-    if (nowTime >= 18000 && nowTime <= 30000) setMenuTime(1)
+    if (nowTime >= 0 && nowTime <= 64000) setMenuTime(1)
   }
 
+
+  //=
   const getClientMenu = () => {
     // dispath(showLoading())
     axios.get(`${process.env.REACT_APP_API}/clients/${link}`)
       .then(result => {
         if (result.data.success) {
-          console.log(result.data.message)
+          console.log(result.data.clientMenu)
           setClientMenu(result.data.clientMenu.menu)
           // setClentMenu(result.data.userMenu.menu)
           // dispath(hideLoading())
@@ -134,9 +137,9 @@ const _MenuComponent = () => {
     timeSwitcher()
   }, [])
   // categoryList.filter((el) => el.menuTime == menuTime)
-
+  console.log(clientMenu)
   return (
-    <div className=''>
+    <div className='mobileViewport'>
 
       <div className='relative max-w-lg'>
 
@@ -165,17 +168,19 @@ const _MenuComponent = () => {
             </div>
           </div>
         </nav>
-   
+
         {/* == SIDE BAR == */}
-        {/* < SidebarSubComp /> */}
+        < SidebarSubComp />
 
         {/* == <BannerExample /> == */}
-        <BannerSubCompo />
+        <div className="bannerSectionC">
+          <BannerSubCompo />
+        </div>
         {/* == MENU == */}
         <CssBaseline />
         <ThemeProvider theme={theme}>
 
-          {clientMenu.filter((el) => el.menuTime == menuTime).map((el, index) => (
+          {/* {clientMenu.filter((el) => el.menuTime == 1).map((el, index) => (
 
             <AcordionSubComp
               listMunu={el}
@@ -184,7 +189,7 @@ const _MenuComponent = () => {
               removeFavorite={removeFavorite}
               key={index} />
 
-          ))}
+          ))} */}
 
           {/* <AcordionSubComp />
           <AcordionSubComp />

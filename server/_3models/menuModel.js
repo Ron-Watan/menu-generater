@@ -27,51 +27,57 @@ const userSchema = mongoose.Schema({
     // required: true
   },
 
-  namerestaurent: {
+  restaurentName: {
     type: String,
-
+    default: "My Thai Restaurant"
   },
   menu: {
     type: Array,
     default: []
   },
-  menu_1: {
-    type: String,
-    default: 'All Day Menu'
-  },
-  menu_2: {
-    type: String,
-    default: 'Luanch'
+  menuName: {
+    menu_1: {
+      type: String,
+      default: 'My Menu'
+    },
+    menu_2: {
+      type: String,
+      default: 'Lunch'
 
+    },
+    menu_3: {
+      type: String,
+      default: 'Dinner'
+    },
   },
-  menu_3: {
-    type: String,
-    default: 'Dinner'
 
-  },
   bannerImage: {
     type: Array,
     default: []
   },
-
-  
-  menu_1_currency: {
-    type: {},
+  languageSetup: {
+    type: Object,
+    default: {
+      onLanguage_2: false,
+      language_1: 'English', code_1: 'EN', symbol_1: '$', style_1: false, followed_1: true,
+      language_2: '', code_2: '', symbol_2: '', style_2: true, followed_2: true,
+    }
   },
-  menu_2__currency: {
-    type: {},
-
+  timeSetup: {
+    type: Object,
+    default: {
+      timeType: true,
+      allDayType: { menu_1: true, menu_2: false, menu_3: false },
+      codeSelectType: { menu_1: '', menu_2: '', menu_3: '' },
+      selectType: {
+        menu_1: { start: '', end: '' }, menu_2: { start: '', end: '' }, menu_3: { start: '', end: '' },
+      }
+    }
   },
-  menu_3__currency: {
-    type: {},
 
+  clientId: {
+    type: String,
   },
-
-
-
-
-
-
 
   link: {
     type: String,

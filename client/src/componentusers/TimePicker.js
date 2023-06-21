@@ -1,13 +1,18 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { timePickerData } from './TimePickerData';
 import { timePickerBaseData } from './TimePickerData';
 import "../style/timePicker.css"
 import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
+import { ticketPass } from '../protectors/authorize';
+import { setUser } from '../redux/userSlice';
+import Swal from 'sweetalert2';
 
 const TimePicker = (prop) => {
-  const { user } = useSelector((state) => state.user);
+  //= prop.timeSetup prop.setTimeSetup
   const dispath = useDispatch();
+  const { user } = useSelector((state) => state.user);
 
   const [timeStart, setTimeStart] = useState({
     hrsM1: '00', minsM1: '00',
@@ -24,6 +29,7 @@ const TimePicker = (prop) => {
   const timeStartFn = (name) => (e) => {
     setTimeStart({ ...timeStart, [name]: e.target.value })
   }
+
 
   const timeEndFn = (name) => (e) => {
     setTimeEnd({ ...timeEnd, [name]: e.target.value })
@@ -48,8 +54,6 @@ const TimePicker = (prop) => {
     return Number(timeHrs) * 60 * 60 + Number(timeMims) * 60
 
   }
-
-
 
   function menu_1() {
 
@@ -121,34 +125,59 @@ const TimePicker = (prop) => {
   }
 
 
-  function reverseToTimeStart(numberTime) {
+  // function reverseToTimeStart(numberTime) {
+  //   if (!numberTime) return '00'
+  //   let hrs = Math.floor(numberTime / 60 / 60)
+  //   let mins = ((numberTime / 60 / 60) - hrs) * 60
+
+  //   if (mins === 0) mins = `${mins}0`
+  //   if (hrs < 10) hrs = `0${hrs}`
+
+  //   return `${hrs}:${mins}`
+  // }
+
+  // function reverseToTimeEnd(numberTime) {
+  //   if (!numberTime) return '00'
+  //   let numberTimePlus = numberTime + 1
+  //   return reverseToTimeStart(numberTimePlus)
+  // }
+
+  function reverseStartHrs(numberTime) {
+    if (!numberTime) return '00'
+    let hrs = Math.floor(numberTime / 60 / 60)
+    if (hrs < 10) hrs = `0${hrs}`
+    return `${hrs}`
+  }
+  function reverseStartMins(numberTime) {
     if (!numberTime) return '00'
     let hrs = Math.floor(numberTime / 60 / 60)
     let mins = ((numberTime / 60 / 60) - hrs) * 60
-    if (mins == 0) mins = `${mins}0`
-
-    return `${hrs}:${mins}`
+    if (mins === 0) mins = `${mins}0`
+    return `${mins}`
   }
 
-  function reverseToTimeEnd(numberTime) {
+  function reverseEndHrs(numberTime) {
     if (!numberTime) return '00'
-
     let numberTimePlus = numberTime + 1
-    return reverseToTimeStart(numberTimePlus)
+    return reverseStartHrs(numberTimePlus)
+  }
+  function reverseEndMins(numberTime) {
+    if (!numberTime) return '00'
+    let numberTimePlus = numberTime + 1
+    return reverseStartMins(numberTimePlus)
   }
 
 
+  // qqq
   // client need typetime to load data menu and time and button style
-  const [onOffMenu, setOnOffMenu] = useState(true)
+  const [onOffMenu, setOnOffMenu] = useState(false)
   const [timeType, setTimeType] = useState(true)
-
   const [menuAllDayType, setMenuAllDayType] = useState({
     menu_1: true, menu_2: false, menu_3: false,
   })
   const [menuSelectType, setMenuSelectType] = useState({
     menu_1: '', menu_2: '', menu_3: '',
   })
-
 
   const menuAllDayTypeValue = (name) => {
     setMenuAllDayType({ ...menuAllDayType, [name]: !menuAllDayType[name] })
@@ -165,6 +194,7 @@ const TimePicker = (prop) => {
 
     }
   }
+
 
   const menuSelectTypeValue = (name, e) => {
     if (e.target.checked) {
@@ -217,17 +247,112 @@ const TimePicker = (prop) => {
   }
 
 
-  ///////////////////////
+
+  const saveTimeSetup = () => {
+    // dispath(showLoading());
+
+    axios
+      .post(`${process.env.REACT_APP_API}/user/saveTimeSetup`,
+        {
+          userId: user.userId,
+          timeSetup: {
+            timeType: timeType,
+            allDayType: menuAllDayType,
+            codeSelectType: menuSelectType,
+            selectType: {
+              menu_1: sumTimeM1,
+              menu_2: sumTimeM2,
+              menu_3: sumTimeM3,
+            }
+          },
+        }, ticketPass)
+      .then((result) => {
+        if (result.data.success) {
+          // Swal.fire(result.data.message)
+          dispath(setUser(result.data.userMenu));
+          // dispath(hideLoading());
+          Swal.fire({
+            title: 'SAVED',
+            text: 'Your menu has been saved',
+            toast: true,
+            icon: 'success',
+            showConfirmButton: false,
+            iconColor: '#cb2722',
+            timer: 2000,
+          });
 
 
+        } else {
+          Swal.fire(result.data.message);
+          // dispath(hideLoading());
+        }
+      })
+      .catch((err) => {
+        // dispath(hideLoading());
+        console.log("Can't not connect the server");
+        Swal.fire("Can't not connect the server");
+      });
+  };
+
+  // const fu = () => {
+  //   reverseToTimeStart(sumTimeM1.start) - reverseToTimeEnd(sumTimeM1.end)
+  //   reverseToTimeStart(sumTimeM2.start) - reverseToTimeEnd(sumTimeM2.end)
+  //   reverseToTimeStart(sumTimeM3.start) - reverseToTimeEnd(sumTimeM3.end)
+  // }
+  // const [timeStart1, setTimeStart1] = useState({
+  //   hrsM1: '00', minsM1: '00',
+  //   hrsM2: '00', minsM2: '00',
+  //   hrsM3: '00', minsM3: '00'
+  // })
+
+  // const [timeEnd1, setTimeEnd1] = useState({
+  //   hrsM1: '00', minsM1: '00',
+  //   hrsM2: '00', minsM2: '00',
+  //   hrsM3: '00', minsM3: '00'
+  // })
+  // reverseStartHrs()
+  // reverseStartMins()
+  // reverseEndHrs()
+  // reverseEndMins()
+
+  const getTimeFromProp = () => {
+    setTimeType(prop.timeSetup.timeType)
+    setMenuAllDayType(prop.timeSetup.allDayType)
+    setMenuSelectType(prop.timeSetup.codeSelectType)
+    const selectType1 = prop.timeSetup.selectType.menu_1
+    const selectType2 = prop.timeSetup.selectType.menu_2
+    const selectType3 = prop.timeSetup.selectType.menu_3
+    setSumTimeM1(selectType1)
+    setSumTimeM2(selectType2)
+    setSumTimeM3(selectType3)
+
+    setTimeStart({
+      hrsM1: reverseStartHrs(selectType1.start), minsM1: reverseStartMins(selectType1.start),
+      hrsM2: reverseStartHrs(selectType2.start), minsM2: reverseStartMins(selectType2.start),
+      hrsM3: reverseStartHrs(selectType3.start), minsM3: reverseStartMins(selectType3.start)
+    })
+    setTimeEnd({
+      hrsM1: reverseEndHrs(selectType1.end), minsM1: reverseEndMins(selectType1.end),
+      hrsM2: reverseEndHrs(selectType2.end), minsM2: reverseEndMins(selectType2.end),
+      hrsM3: reverseEndHrs(selectType3.end), minsM3: reverseEndMins(selectType3.end)
+    })
+
+  }
+  // console.log
+  useEffect(() => {
+    if (prop.navTime2TimePicker) {
+      getTimeFromProp();
+    }
+  }, [prop.navTime2TimePicker]);
 
 
-
+  // qqq
 
   //-///-///-///-///-///-///-///-///-   END FUNCTION   ///-///-///-///-///-///-///-///-///-
 
   return (
     <div className="timePickerWinControl">
+
       <div className='timePikerWrapper'>
         <div className="topbarWin">
           <button onClick={() => prop.setonOffMenuTime(false)} className='boxCancel'>
@@ -236,31 +361,32 @@ const TimePicker = (prop) => {
             </svg>
           </button>
         </div>
-
         <div className="timePikerGrid">
+
+          {/* <button onClick={ssssssssss}>sssssssssssss</button> */}
           {/* <label className="mainOnOff switch"><input type="checkbox" name="menu_1" id="" /> <span className="slider"></span></label> */}
 
           {/* <div className="flexRowTime"> */}
           {/* <div className="nameTimepicker"> */}
           <div className="header1 flexHeaderTime" >Menu</div>
-          <div className="titleTime1">{user.menu_1}</div>
-          <div className="titleTime2">{user.menu_2}</div>
-          <div className="titleTime3">{user.menu_3}</div>
+          <div className="titleTime1">{prop.menuName.menu_1}</div>
+          <div className="titleTime2">{prop.menuName.menu_2}</div>
+          <div className="titleTime3">{prop.menuName.menu_3}</div>
 
           {/* </div> */}
           {/* <div className="allDayTimepicker">setMenuAllDayType */}
           <label htmlFor='allDay' className="header2 flexHeaderTime"><span>All day</span> <div className=""> <input onChange={() => setTimeTypeFn(true)} type="radio" name="timeType" id="allDay" checked={timeType} /><span className=""></span></div></label>
-          <label className={`allday1`}> <div className={`switch  ${!timeType && 'opcaityTime'}`}> <input onChange={() => menuAllDayTypeValue('menu_1')} type="checkbox" name="menu_1" checked={!timeType ? false : null} disabled={!timeType} /><span className="slider"></span></div></label>
-          <label className={`allday2`}> <div className={`switch  ${!timeType && 'opcaityTime'}`}> <input onChange={() => menuAllDayTypeValue('menu_2')} type="checkbox" name="menu_2" checked={!timeType ? false : null} id="" disabled={!timeType} /><span className="slider"></span></div></label>
-          <label className={`allday3`}> <div className={`switch  ${!timeType && 'opcaityTime'}`}> <input onChange={() => menuAllDayTypeValue('menu_3')} type="checkbox" name="menu_3" checked={!timeType ? false : null} id="" disabled={!timeType} /><span className="slider"></span></div></label>
+          <label className={`allday1`}> <div className={`switch  ${!timeType && 'opcaityTime'}`}> <input onChange={() => menuAllDayTypeValue('menu_1')} type="checkbox" name="menu_1" checked={timeType && menuAllDayType.menu_1} disabled={!timeType} /><span className="slider"></span></div></label>
+          <label className={`allday2`}> <div className={`switch  ${!timeType && 'opcaityTime'}`}> <input onChange={() => menuAllDayTypeValue('menu_2')} type="checkbox" name="menu_2" checked={timeType && menuAllDayType.menu_2} id="" disabled={!timeType} /><span className="slider"></span></div></label>
+          <label className={`allday3`}> <div className={`switch  ${!timeType && 'opcaityTime'}`}> <input onChange={() => menuAllDayTypeValue('menu_3')} type="checkbox" name="menu_3" checked={timeType && menuAllDayType.menu_3} id="" disabled={!timeType} /><span className="slider"></span></div></label>
           {/* </div> */}
 
           {/* <div className="selectDayTimepicker"> */}
-          <label htmlFor='schedule' className="header3 flexHeaderTime"><span>Schedule</span> <div className=""><input onChange={() => setTimeType(false)} type="radio" name="timeType" id="schedule" /><span className=""></span></div></label>
+          <label htmlFor='schedule' className="header3 flexHeaderTime"><span>Schedule</span> <div className=""><input onChange={() => setTimeType(false)} type="radio" name="timeType" id="schedule" checked={!timeType} /><span className=""></span></div></label>
 
-          <label className={`select1 `}><div className={`switch ${timeType && 'opcaityTime'}`}> <input onChange={(e) => menuSelectTypeValue('menu_1', e)} type="checkbox" checked={timeType ? false : null} name="menu_1" value="1" id="" disabled={timeType} /><span className="slider"></span></div></label>
-          <label className={`select2 `}> <div className={`switch ${timeType && 'opcaityTime'}`}><input onChange={(e) => menuSelectTypeValue('menu_2', e)} type="checkbox" checked={timeType ? false : null} name="menu_2" value="2" id="" disabled={timeType} /><span className="slider"></span></div></label>
-          <label className={`select3 `}> <div className={`switch ${timeType && 'opcaityTime'}`}><input onChange={(e) => menuSelectTypeValue('menu_3', e)} type="checkbox" checked={timeType ? false : null} name="menu_3" value="3" id="" disabled={timeType} /><span className="slider"></span></div></label>
+          <label className={`select1 `}><div className={`switch ${timeType && 'opcaityTime'}`}> <input onChange={(e) => menuSelectTypeValue('menu_1', e)} type="checkbox" checked={!timeType && menuSelectType.menu_1} name="menu_1" value="1" id="" disabled={timeType} /><span className="slider"></span></div></label>
+          <label className={`select2 `}> <div className={`switch ${timeType && 'opcaityTime'}`}><input onChange={(e) => menuSelectTypeValue('menu_2', e)} type="checkbox" checked={!timeType && menuSelectType.menu_2} name="menu_2" value="2" id="" disabled={timeType} /><span className="slider"></span></div></label>
+          <label className={`select3 `}> <div className={`switch ${timeType && 'opcaityTime'}`}><input onChange={(e) => menuSelectTypeValue('menu_3', e)} type="checkbox" checked={!timeType && menuSelectType.menu_3} name="menu_3" value="3" id="" disabled={timeType} /><span className="slider"></span></div></label>
 
           {/* </div> */}
           {/* <div className="allTimePicker"> */}
@@ -556,8 +682,7 @@ const TimePicker = (prop) => {
         </div>
         <div className="boxBtnLang">
           <button onClick={() => {
-            setTimeValue(code)
-            setTimePicker([...timePickerData])
+            saveTimeSetup()
             // getAllImageBanner()
           }
           } className='mainBtn saveBtnColor'>
@@ -568,6 +693,19 @@ const TimePicker = (prop) => {
               <path d="M32 53L52 33" stroke="white" strokeWidth="2" strokeLinecap="round" />
             </svg>
             <span>SAVE</span>
+          </button>
+          <button onClick={() => {
+            setTimeValue(code)
+            setTimePicker([...timePickerData])
+          }
+          } className='mainBtn saveBtnColor'>
+            <svg width="30" height="30" viewBox="0 0 65 65" fill="none">
+              <rect x="1" y="1" width="63" height="63" rx="2" stroke="white" strokeWidth="2" />
+              <path d="M32 12L32 53" stroke="white" strokeWidth="2" strokeLinecap="round" />
+              <path d="M32 53L12 33" stroke="white" strokeWidth="2" strokeLinecap="round" />
+              <path d="M32 53L52 33" stroke="white" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+            <span>pre</span>
           </button>
           <button onClick={() => prop.setonOffMenuTime(false)} className='mainBtn cancelBtnColor'>
             <svg width="30" height="30" viewBox="0 0 65 65" fill="none">
@@ -594,9 +732,9 @@ const TimePicker = (prop) => {
           </svg>
           <span>SET TIME</span>
         </button>*/}
-        <div className=""> {` time1 : ${reverseToTimeStart(sumTimeM1.start)} - ${reverseToTimeEnd(sumTimeM1.end)} `}</div>
+        {/* <div className=""> {` time1 : ${reverseToTimeStart(sumTimeM1.start)} - ${reverseToTimeEnd(sumTimeM1.end)} `}</div>
         <div className=""> {` time2 : ${reverseToTimeStart(sumTimeM2.start)} - ${reverseToTimeEnd(sumTimeM2.end)} `}</div>
-        <div className=""> {` time3 : ${reverseToTimeStart(sumTimeM3.start)} - ${reverseToTimeEnd(sumTimeM3.end)} `}</div>
+        <div className=""> {` time3 : ${reverseToTimeStart(sumTimeM3.start)} - ${reverseToTimeEnd(sumTimeM3.end)} `}</div> */}
       </div>
     </div>
   )

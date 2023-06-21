@@ -3,7 +3,7 @@ import { register, login, getInfoUserToStore, requireLogin, generateMenu } from 
 import {
   findOneMenu, createManu, getAllMenu, saveEditMenu, deleteMenu,
   uploadImageBanner, getAllImageBanner,
-  uploadImage, saveImage, getAllImage, getImage, delelteImage, saveNameMenu
+  uploadImage, saveImage, getAllImage, getImage, delelteImage, saveNameMenu,saveTimeSetup,saveLangSetup
 } from '../_2controllers/manuController.js'
 import multer from "multer";
 import formidable from "formidable";
@@ -33,6 +33,9 @@ router.post('/findOneMenu', requireLogin, findOneMenu)
 router.post('/saveEditMenu', requireLogin, saveEditMenu)
 router.post('/deleteMenu', requireLogin, deleteMenu)
 router.post('/saveNameMenu', requireLogin, saveNameMenu)
+router.post('/saveTimeSetup', requireLogin, saveTimeSetup)
+router.post('/saveLangSetup', requireLogin, saveLangSetup)
+
 
 router.post('/generateMenu', requireLogin, generateMenu)
 
@@ -47,13 +50,14 @@ router.post('/images/uplaod', upload.single("avatar"), uploadImage)
 router.post('/images/save', upload.single("avatar"), saveImage)
 router.post('/images/delete', upload.single("avatar"), delelteImage)
 
-
-
-
-
 router.post('/images/preview', getImage)
 router.post('/images/all', getAllImage)
 router.post('/images/allBanner', getAllImageBanner)
+
+
+
+
+
 
 // app.listen(3000, () => {
 //   console.log("Server Running!")

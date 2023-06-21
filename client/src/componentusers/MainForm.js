@@ -67,37 +67,31 @@ const MainForm = () => {
 
 
   const dispath = useDispatch();
+
+  //1// 
   const { user } = useSelector((state) => state.user);
 
+  //1// After Reload SET:
   const [categoryList, setCategoryList] = useState([]);
+  const [menuName, setMenuName] = useState({
+    menu_1: '', menu_2: '', menu_3: ''
+  }); // timeSwitcher()
+
+  const [timeSetup, setTimeSetup] = useState({})
+  const [languageSetup, setLanguageSetup] = useState({})
+
+  // const timeSetup = {
+  //   timeType: timeType,
+  //   allDayType: { menu_1: menuAllDayType.menu_1, menu_2: menuAllDayType.menu_2, menu_3: menuAllDayType.menu_3 },
+  //   selectType: {
+  //     menu_1: sumTimeM1, menu_2: sumTimeM2, menu_3: sumTimeM3,
+  //   }
+  // }
+
+
   const [menuId, setMenuId] = useState('');
 
   const [menuTime, setMenuTime] = useState(1); // timeSwitcher()
-
-
-  const [menuName, setMenuName] = useState({
-    menu_1: 'All Day Menu', menu_2: 'Lunch', menu_3: 'Dinner'
-  }); // timeSwitcher()
-
-  // const [menuTimeName, setMenuTimeName] = useState(''); // timeSwitcher()
-
-  // const inputMenuTimeName = (e) => {
-  //   setMenuTimeName(e.target.value)
-  //   if (menuTime === 1) return setMenuName({ ...menuName, menu_1: e.target.value })
-  //   if (menuTime === 2) return setMenuName({ ...menuName, menu_2: e.target.value })
-  //   if (menuTime === 3) return setMenuName({ ...menuName, menu_3: e.target.value })
-
-  // }
-
-  // const callmenuName = (no) => {
-  //   if (no === 1) return setMenuTimeName(menuName.menu_1)
-  //   if (no === 2) return setMenuTimeName(menuName.menu_2)
-  //   if (no === 3) return setMenuTimeName(menuName.menu_3)
-
-  // }
-
-
-
 
   const [state, setState] = useState({
     catagory: '',
@@ -105,8 +99,6 @@ const MainForm = () => {
 
     catagory_2: ''
   });
-
-
 
   // input
   const inputValue = (name) => (even) => {
@@ -138,7 +130,6 @@ const MainForm = () => {
   const [listMenu, setListMenu] = useState([listMenuModel]);
 
 
-
   const inputListValue = (index, event) => {
 
     const option = event.target.value;
@@ -159,7 +150,7 @@ const MainForm = () => {
 
   // const [description, setDescription] = useState("")
   const [originalName, setOriginalName] = useState('')
-
+  const [onConnected, setOnConnected] = useState(false)
 
   //- 001_getAllMenu
   const getAllMenu = () => {
@@ -172,10 +163,9 @@ const MainForm = () => {
           const getReult = result.data.userMenu;
           // dispath(setUser(getReult))
           setCategoryList(getReult.menu);
-          setMenuName({
-            menu_1: getReult.menu_1, menu_2: getReult.menu_2, menu_3: getReult.menu_3
-          })
-
+          setMenuName(getReult.menuName)
+          setTimeSetup(getReult.timeSetup)
+          setLanguageSetup(getReult.languageSetup)
           //   const checkTime = getReult.filter((el) => el.menuTime == menuTime;
           //   return el.menuTime == menuTime;
           // });
@@ -186,7 +176,7 @@ const MainForm = () => {
           // setCategoryList(result.data.userMenu.menu)
           // dispath(hideLoading())
           console.log("Server: Connected");
-
+          setOnConnected(true)
         } else {
           // Swal.fire(result.data.message)
           // dispath(hideLoading())
@@ -206,7 +196,7 @@ const MainForm = () => {
 
   let imgId = uuidv4();
   const submitCatagory = (e) => {
-    console.log('ssssssssssssss')
+
     e.preventDefault();
     if (categoryList.length > 14) return alert('DDDD');
     componentDidMount();
@@ -220,11 +210,11 @@ const MainForm = () => {
         `${process.env.REACT_APP_API}/user/create-manu`,
         {
           userId: user.userId,
+          clientId: user.clientId,
           menuTime: menuTime,
           catagory: state.catagory,
           imgId: imgId,
           link: user.link,
-
           listMenu: [...listMenu],
         },
         ticketPass
@@ -433,8 +423,6 @@ const MainForm = () => {
     document.getElementById('h1').textContent = e.target.files[0].name;
   };
 
-
-  //-///-///-///-///-///-///-///-///-///-///-
 
 
   const resizeFile = (file) =>
@@ -700,24 +688,31 @@ const MainForm = () => {
 
   const [activeInputEn, setActiveInputEditName] = useState(false) // Edit Name
   // aaa
+  //=
   const [deleteImageBannerTG, setDeleteImageBannerTG] = useState(0);
   const [saveImageBannerTG, setSaveImageBannerTG] = useState(0);
   const [resizeFileBannerTG, setResizeFileBannerTG] = useState(0);
+  const [getAllImageBannerTG, setGetAllImageBannerTG] = useState(0);
+
+  // <button onClick={() => {
+  //   setGetAllImageBannerTG((getAllImageBannerTG) => getAllImageBannerTG + 1)
+  //   prop.setTestTG((prop.testTG) => prop.testTG + 1)
+  // }
+  //=
+  const [navTime2TimePicker, setNavTime2TimePicker] = useState(0);
+  const [navLang2LangSetUp, setNavLang2LangSetUp] = useState(0);
+
 
 
   useEffect(() => {
     getAllMenu();
-
-    // getAllImage()
-    // eslint-disable-next-line
   }, [user]);
 
 
 
 
-
   // qqq
-  //-///-///-///-///-///-///-///-///-   END FUNCTION   ///-///-///-///-///-///-///-///-///-
+  //-///=///-///=///-///=///-///=///-   END FUNCTION   ///-///=///-///=///-///=///-///=///-
 
   const { loading } = useSelector((state) => state.alerts);
 
@@ -734,9 +729,7 @@ const MainForm = () => {
             onOffMenu1={onOffMenu1}
             onOffMenu2={onOffMenu2}
             onOffMenu3={onOffMenu3}
-
             menuTime={menuTime}
-
             activeInputEn={activeInputEn}
             setActiveInputEditName={setActiveInputEditName}
           />
@@ -746,6 +739,8 @@ const MainForm = () => {
       <div className='decorBg'></div>
 
       <div className='monitor ' id='monitor'>
+
+
         <NavbarComponent
           // timeSwitcher={timeSwitcher}
           setMenuTime={setMenuTime}
@@ -756,7 +751,13 @@ const MainForm = () => {
           onOffMenu3={onOffMenu3} setOnoffMenu3={setOnoffMenu3}
           onOffMenuTime={onOffMenuTime} setonOffMenuTime={setonOffMenuTime}
           onOffLangSetup={onOffLangSetup} setOnOffLangSetup={setOnOffLangSetup}
+
+          navTime2TimePicker={navTime2TimePicker} setNavTime2TimePicker={setNavTime2TimePicker}
+          navLang2LangSetUp={navLang2LangSetUp} setNavLang2LangSetUp={setNavLang2LangSetUp}
+
         />
+
+        
 
         <div className='monitor1'>
 
@@ -768,29 +769,39 @@ const MainForm = () => {
           setActiveInputEditName(false)
         }} className='monitor2 '>
 
-          {/* <div className={`${onOffQrCode ? 'showMe' : 'hiddenMe'}`}>
+          <div className={`${onOffQrCode ? 'showMe' : 'hiddenMe'}`}>
             <GenerateMenu />
-          </div> */}
+          </div>
+          {onConnected &&
+            <div className={`bannerSection ${onOffBanner ? 'showAnimate' : 'hiddenAnimate'}`}>
+              <BannerMainForm
+                bannerImgArr={bannerImgArr} setBannerImgArr={setBannerImgArr}
+                indexToBanner={indexToBanner} setIndexToBanner={setIndexToBanner}
+                deleteImageBannerTG={deleteImageBannerTG}
+                saveImageBannerTG={saveImageBannerTG}
+                resizeFileBannerTG={resizeFileBannerTG}
+                getAllImageBannerTG={getAllImageBannerTG}
+              />
+            </div>}
+
           {/* aaa */}
-          <div className={`bannerSection ${onOffBanner ? 'showMe' : 'hiddenMe'}`}>
-            <BannerMainForm
-              bannerImgArr={bannerImgArr} setBannerImgArr={setBannerImgArr}
-              indexToBanner={indexToBanner} setIndexToBanner={setIndexToBanner}
-              deleteImageBannerTG={deleteImageBannerTG}
-              saveImageBannerTG={saveImageBannerTG}
-              resizeFileBannerTG={resizeFileBannerTG}
-            />
-          </div>
+          {onConnected &&
+            <div className={`timePikerSection ${onOffMenuTime ? 'showMe' : 'hiddenMe'}`}>
+              <TimePicker menuName={menuName}
+                onOffMenuTime={onOffMenuTime} setonOffMenuTime={setonOffMenuTime}
+                timeSetup={timeSetup} setTimeSetup={setTimeSetup}
+                navTime2TimePicker={navTime2TimePicker}
+              />
+            </div>}
 
 
-          <div className={`timePikerSection ${onOffMenuTime ? 'showMe' : 'hiddenMe'}`}>
-            <TimePicker onOffMenuTime={onOffMenuTime} setonOffMenuTime={setonOffMenuTime}
-            />
-          </div>
+          {onConnected && <div className={`setupLangSection ${onOffLangSetup ? 'showMe' : 'hiddenMe'}`}>
+            <AddLanguageSetup
+              setOnOffLangSetup={setOnOffLangSetup}
+              navLang2LangSetUp={navLang2LangSetUp}
+              languageSetup={languageSetup} />
+          </div>}
 
-          <div className={`setupLangSection ${onOffLangSetup ? 'showMe' : 'hiddenMe'}`}>
-            <AddLanguageSetup setOnOffLangSetup={setOnOffLangSetup} />
-          </div>
 
           <div className={`formContainer ${start ? 'showMe' : 'hiddenMe'}`}>
 
@@ -1160,20 +1171,16 @@ const MainForm = () => {
 
             {/* ADD PROMOTION PHOTO BUTTON */}
             <div className={`headCat1 ${(onOffMenu1.switch || onOffMenu2.switch || onOffMenu3.switch) && 'displayNone'}`}>
-              <label htmlFor='file-uploadBanner' className='addBtn'>
-
-                <svg width="35" height="35" viewBox="0 0 65 65" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <label htmlFor='file-uploadBanner' className='mainBtn saveBtnColor borderBtnRed'>
+                <svg width="30" height="30" viewBox="0 0 65 65" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <rect x="1" y="1" width="63" height="63" rx="2" stroke="white" strokeWidth="2" />
                   <path d="M32 12L32 53" stroke="white" strokeWidth="2" strokeLinecap="round" />
                   <path d="M12 32L53 32" stroke="white" strokeWidth="2" strokeLinecap="round" />
                 </svg>
-                {/* aaa */}
                 <input
                   onChange={(e) => {
-
                     // setvaluePhoto('');
                     if (e.target.files.length === 0) return
-                    // resizeFileBanner(e.target.files[0]).then((res) => { });
                     setResizeFileBannerTG(e.target.files[0])
                   }}
                   id='file-uploadBanner'
@@ -1181,21 +1188,10 @@ const MainForm = () => {
                   type='file'
                   className='inputPhoto'
                 />
-
                 <span className='disable-text-selection' >PROMOTION PHOTO</span>
 
               </label>
 
-              <button onClick={() => setDeleteBtn(!deleteBtn)} className='btnAbs'>
-                <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' strokeWidth='1.5' stroke='currentColor' className='w-6 h-6'>
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    d='M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 011.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.56.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.893.149c-.425.07-.765.383-.93.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 01-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.397.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 01-.12-1.45l.527-.737c.25-.35.273-.806.108-1.204-.165-.397-.505-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.107-1.204l-.527-.738a1.125 1.125 0 01.12-1.45l.773-.773a1.125 1.125 0 011.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894z'
-                  />
-                  <path strokeLinecap='round' strokeLinejoin='round' d='M15 12a3 3 0 11-6 0 3 3 0 016 0z' />
-                </svg>
-              </button>
             </div>
 
           </div>
@@ -1253,9 +1249,17 @@ const MainForm = () => {
                     <button onClick={() => {
                       setDeleteImageBannerTG((deleteImageBannerTG) => deleteImageBannerTG + 1)
                     }} value={el.menuId} type='submit'
-                      className={`langBtnL`}>
+                      className={`langBtnL trashPhoto`}>
+                      <svg width="18" height="20" viewBox="0 0 27 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 3.5L26.5 3.5" stroke="#ddd" strokeLinecap="round" />
+                        <path d="M5.95338 28L3.55142 3.5H24.4592L22.5377 28H5.95338Z" stroke="#ddd" />
+                        <rect x="9.5" y="0.5" width="9" height="3" rx="0.5" stroke="#ddd" />
+                        <path d="M8 8L10 24" stroke="#ddd" strokeLinecap="round" />
+                        <path d="M18 24L20 8" stroke="#ddd" strokeLinecap="round" />
+                        <path d="M14 8L14 24" stroke="#ddd" strokeLinecap="round" />
+                      </svg>
 
-                      X
+
                     </button>
                   </div>
 
@@ -1281,7 +1285,7 @@ const MainForm = () => {
 
               {/* CANCEL BUTTON */}
               <button onClick={() => {
-                // getAllImageBanner()
+                setGetAllImageBannerTG((getAllImageBannerTG) => getAllImageBannerTG + 1)
               }
               } className='mainBtn cancelBtnColor smallMainBtn'>
                 <svg width="30" height="30" viewBox="0 0 65 65" fill="none">
@@ -1292,16 +1296,9 @@ const MainForm = () => {
                 <span>CANCEL</span>
               </button>
 
-
             </div>
 
-
-
           </div>
-
-
-
-
 
         </div>
 

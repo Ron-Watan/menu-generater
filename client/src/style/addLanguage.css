@@ -9,7 +9,7 @@
   left: 0vw;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.40);
+  background-color: rgba(0, 0, 0, 0.50);
   z-index: 2000;
 }
 
@@ -23,6 +23,8 @@
   min-width: 40rem;
   background-color: #fff;
   border-radius: .3rem;
+  box-shadow: 0rem .5rem 2rem 0rem rgba(0, 0, 0, 0.3);
+
 
 }
 
@@ -87,7 +89,7 @@
 
 .langName {
   display: flex;
-  gap: 2rem;
+  gap: 1rem;
   width: 90%;
   font-size: 1.1rem;
   font-weight: 600;
@@ -200,12 +202,12 @@
 }
 
 .lmed {
-  width: 70%;
+  width: 80%;
 
 }
 
 .lsmall {
-  width: 30%
+  width: 35%
 }
 
 

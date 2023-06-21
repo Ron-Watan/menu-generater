@@ -12,10 +12,13 @@ export const register = (req, res) => {
 
   const { password } = req.body
   req.body.userId = uuidv4()
-  req.body.link = uuidv4().slice(0, 9) + req.body.firstName
+  req.body.clientId = uuidv4()
+  req.body.link = uuidv4().slice(0, 9) + req.body.restaurentName
+
   bcrypt.hash(password, 10, (hashErr, hash) => {
     if (hash) {
       req.body.password = hash
+
       Users.create(req.body).then(result => {
         res.status(200).send({ message: `Your account has been successfully created`, success: true })
       }).catch(err => {
@@ -30,10 +33,12 @@ export const register = (req, res) => {
 //- LOGIN
 export const login = (req, res) => {
   const { email } = req.body
+
   Users.findOne({ email }).then(userResult => {
     if (!userResult) {
       return res.send({ message: "Email does not exit" })
     }
+
     bcrypt.compare(req.body.password, userResult.password).then(result => {
       const userToken = userResult.userId
       if (result) {
@@ -41,6 +46,16 @@ export const login = (req, res) => {
         return res.send({ message: "Login Complete", success: true, token })
 
       } else res.send({ message: "Wrong Password", success: false })
+    })
+    const { clientId, link, menuName, bannerImage, languageSetup, timeSetup } = userResult;
+
+    Clients.create({
+      clientId: clientId,
+      link: link,
+      menuName: menuName,
+      bannerImage: bannerImage,
+      languageSetup: languageSetup,
+      timeSetup: timeSetup
     })
 
   }).catch(err => {
@@ -91,7 +106,7 @@ export const requireLogin = (req, res, next) => {
 //- GET USER INFO to SAVE IN REDUX at Protector Compo
 export const getInfoUserToStore = (req, res) => {
   Users.findOne({ userId: req.proved.userToken })
-    .select('menu userId menu_1 menu_2 menu_3 link')
+    .select('userId restaurentName menu menuName  bannerImage languageSetup timeSetup clientId link')
     .then(result => {
       if (!result) return res.status(200).send({ message: "User doues not exit", success: false })
       else {

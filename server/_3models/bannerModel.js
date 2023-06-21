@@ -2,6 +2,7 @@ import mongoose from 'mongoose'
 
 const bannersSchema = mongoose.Schema({
   userId: String,
+  link: String,
   imgId: String,
   destination: String,
   img: {

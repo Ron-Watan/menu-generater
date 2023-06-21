@@ -14,11 +14,9 @@ const EditMenuName = (prop) => {
   const dispath = useDispatch();
   // const [menuTimeName, setMenuTimeName] = useState(''); // timeSwitcher()
 
-
   const currentMenuName = 'menu_' + prop.menuTime
   const inputMenuTimeName = (e) => {
     prop.setMenuName({ ...prop.menuName, [currentMenuName]: e.target.value })
-
   }
 
   const saveNameMenu = () => {
@@ -27,16 +25,15 @@ const EditMenuName = (prop) => {
       .post(`${process.env.REACT_APP_API}/user/saveNameMenu`,
         {
           userId: user.userId,
-          menu_1: prop.menuName.menu_1, menu_2: prop.menuName.menu_2, menu_3: prop.menuName.menu_3,
+          clientId:user.clientId,
+          menuName: prop.menuName
         }, ticketPass)
       .then((result) => {
         if (result.data.success) {
           const getReult = result.data.userMenu;
-          dispath(setUser(getReult))
           console.log(getReult)
-          prop.setMenuName({
-            menu_1: getReult.menu_1, menu_2: getReult.menu_2, menu_3: getReult.menu_3
-          })
+          dispath(setUser(getReult))
+          prop.setMenuName(getReult.menuName)
           // Swal.fire(result.data.message)
           // setMenuName(result.data.nameMenu)
           // actionDelay();
