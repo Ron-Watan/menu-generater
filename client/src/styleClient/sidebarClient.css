@@ -1,0 +1,62 @@
+.sideBarSectionC {
+  font-size: 62.5%;
+  position: fixed;
+  top: 12rem;
+  left: .2rem;
+  z-index: 500;
+}
+
+.testlink {
+  /* fill: rgb(227, 0, 0); */
+  background-color: rgb(227, 0, 0);
+}
+
+.circleBarC {
+  display: flex;
+  flex-direction: column;
+  gap: .3rem
+}
+
+.circleBarBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+
+}
+
+.circleBarIcon {
+  display: block;
+  width: 3rem;
+  height: 3rem;
+  padding: .6rem;
+  border-radius: 3rem;
+  /* border-radius: .5rem; */
+  transition: background-color .3s;
+
+  background-color: #ffffff;
+  background-color: #cb2722;
+  border: 2px  solid #cb2722;
+
+  border: #aaa .5px solid;
+  box-shadow: .1rem .1rem .5rem rgba(0, 0, 0, 0.20);
+
+}
+
+.activeBaricon {
+  /* background-color: #cb2722; */
+  border: inset  solid #ffffff;
+  transform: scale(1.2) translate(3px,-.5px);
+  transition: all .3s;
+  box-shadow: -.1rem .2rem .6rem rgba(0, 0, 0, 0.4);
+  
+
+}
+
+.circleBarSize {
+  font-size: 1.5rem;
+}
+
+.circleBarColor {
+  color: #fff;
+}

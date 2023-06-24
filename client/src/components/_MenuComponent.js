@@ -83,7 +83,6 @@ const _MenuComponent = () => {
     axios.get(`${process.env.REACT_APP_API}/clients/${link}`)
       .then(result => {
         if (result.data.success) {
-          console.log(result.data.clientMenu)
           setClientMenu(result.data.clientMenu.menu)
           // setClentMenu(result.data.userMenu.menu)
           // dispath(hideLoading())
@@ -130,6 +129,14 @@ const _MenuComponent = () => {
   }
   const [menuTimer, setMenuTimer] = useState('')
 
+  //=
+
+
+
+  const [triggerIcon, setTriggerIcon] = useState([])
+
+
+  console.log(triggerIcon)
 
 
   useEffect(() => {
@@ -137,14 +144,14 @@ const _MenuComponent = () => {
     timeSwitcher()
   }, [])
   // categoryList.filter((el) => el.menuTime == menuTime)
-  console.log(clientMenu)
+
   return (
     <div className='mobileViewport'>
 
-      <div className='relative max-w-lg'>
+      <div className='testpos relative max-w-lg'>
 
-        <nav className="bg-C_navmain  top-0 z-50">
-          <div className="mx-auto">
+        <nav className="navBarC">
+          <div className=" mx-auto">
             <div className="relative flex h-12 items-center justify-between">
               <div className="relative flex items-center">
                 <img className="block h-6 w-auto" src={logo} alt="Your Company" />
@@ -152,10 +159,11 @@ const _MenuComponent = () => {
 
               <div className=" relative flex items-center ml-2">
                 <div className=" flex justify-self-end text-sm text-white">
+
                   {menuTimer}
                 </div>
 
-                <button type="button" className=" inline-flex items-center justify-center ml-2
+                <button type="button" className=" inline-flex items-center justify-center ml-2 mr-2
                   rounded-md p-1 text-C_icon hover:bg-gray-700 hover:text-white focus:outline-none
                   focus:ring-1 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
 
@@ -170,14 +178,16 @@ const _MenuComponent = () => {
         </nav>
 
         {/* == SIDE BAR == */}
-        < SidebarSubComp />
-
+        <div className="sideBarSectionC">
+          < SidebarSubComp triggerIcon={triggerIcon} />
+        </div>
         {/* == <BannerExample /> == */}
         <div className="bannerSectionC">
           <BannerSubCompo />
         </div>
         {/* == MENU == */}
         <CssBaseline />
+
         <ThemeProvider theme={theme}>
 
           {clientMenu.filter((el) => el.menuTime == 1).map((el, index) => (
@@ -187,6 +197,9 @@ const _MenuComponent = () => {
               indexM={index}
               addFavorite={addFavorite}
               removeFavorite={removeFavorite}
+              triggerIcon={triggerIcon}
+              setTriggerIcon={setTriggerIcon}
+
               key={index} />
 
           ))}
@@ -202,8 +215,9 @@ const _MenuComponent = () => {
         </ThemeProvider>
 
         {/* <div className="footerSpace"></div> */}
-        <FooterComponent favorList={favorList} />
-
+        <div className="footBarSectionC">
+          <FooterComponent favorList={favorList} />
+        </div>
 
         <div>
           {/* <div className="mx-auto max-w-7xl" id='1'>

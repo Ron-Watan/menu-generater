@@ -25,11 +25,12 @@ const AddLanguage = (prop) => {
         <div className='gridCat'>
           <div
             onClick={() => {
-              // setStart(false);
+
               prop.setOnOffLangForm(false)
-              // setMenuId('');
+
             }}
             className='closeBtn'>
+
             <span className='boxCancel closeIconHover'>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1" stroke="#000" className="w-6 h-6">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -37,14 +38,14 @@ const AddLanguage = (prop) => {
             </span>
           </div>
           <div className='flexIcoCatLang'>
-            {/* <div className=''> */}
+
             <input disabled={true} value={prop.state.catagory} placeholder='Catagory' type='text' name='catagory' id='catagory' autoComplete='off' className='inputText fontCat' required />
-            {/* </div> */}
+
           </div>
           <div className='flexIcoCatLang'>
-            {/* <div className=''> */}
-            <input onChange={prop.inputValue('catagory_2')} value={prop.state.catagory_2} placeholder='Catagory' type='text' name='catagory' id='catagory' autoComplete='off' className='inputText fontCat' required />
-            {/* </div> */}
+
+            <input onChange={prop.inputValue('catagory_2')} value={prop.state.catagory_2} placeholder='Catagory' type='text' name='catagory_2' id='catagory_2' autoComplete='off' className='inputText fontCat' />
+
           </div>
         </div>
       </div>

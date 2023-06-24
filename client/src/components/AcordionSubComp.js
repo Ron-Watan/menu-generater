@@ -61,10 +61,6 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 ///////////////////////////////////////////////////////////////////////////
 
 
-
-
-
-
 const AcordionSubComp = (prop) => {
 
   const subListMenu = prop.listMunu.listMenu
@@ -74,10 +70,6 @@ const AcordionSubComp = (prop) => {
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
-  const elementRef = useRef([]);
-
-
-  console.log(subListMenu)
 
 
 
@@ -128,6 +120,9 @@ const AcordionSubComp = (prop) => {
 
   // useEffect(() => {
   // console.dir(elementRef.current[0]);
+  // console.log(elementRef.getBoundingClientRect().width)
+
+
   // eslint-disable-next-line
   // }, [elementRef.current]);
   // useEffect(() => {
@@ -137,21 +132,75 @@ const AcordionSubComp = (prop) => {
 
 
   // useEffect(() => {
- 
+
 
   // }, [])
+  const elementRef = useRef([]);
+
+  // const fntest = (el) => {
+
+  //   if (!el) return
+  //   console.log(el.getBoundingClientRect());
+
+  // }
 
 
+  const scrollA = (el) => {
+    // window.addEventListener('scroll', fntest(el));
+  }
+
+  // setTriggerIcon
+  let newData = []
+  const acArrayEl = document.querySelectorAll('.acArray')
+  window.addEventListener('scroll', () => {
+
+    acArrayEl.forEach((element, index) => {
+      if (!element) return
+      const point = element.getBoundingClientRect().top
+      if (point < 200) {
+        // console.log('true ' + index + ' ' + point)
 
 
+        newData[index] = true
+        newData[index - 1] = false
+
+        // newData[index] = true
+
+        prop.setTriggerIcon(newData)
+      }
+      else if (point > 200) {
+        // console.log('false ' + index + ' ' + point)
+        newData[index] = (false)
 
 
+      }
+
+      // console.log(element)
+    })
+
+    prop.setTriggerIcon(newData)
+
+  })
+  // console.log(prop.triggerIcon)
+  // componentWillUnmount: function() {
+  //   window.removeEventListener('scroll', this.handleScroll);
+  // },
+
+  // const scrollFn = () => (event) {
+  //   let scrollTop = event.srcElement.body.scrollTop,
+  //     itemTranslate = Math.min(0, scrollTop / 3 - 60);
+
+  //   setState({
+  //     transform: itemTranslate
+  //   });
+  // },
 
 
   //- //- //- //- //- //- //- //- //- //- //- //-
 
   return (
-    <div id='2' className="mx-auto max-w-7xl">
+    <div id='2' className={`acArray mx-auto max-w-7xl`}
+      ref={elementRef}>
 
       <div className="h-40" style={{
         backgroundImage: `url(${catalog1})`,
@@ -162,8 +211,8 @@ const AcordionSubComp = (prop) => {
       <ul className="px-2 sm:px-6 lg:px-8">
 
         {newSubListMenu.map((el, index) => (
-          <div ref={(element) => { elementRef.current[index] = element; }} onClick={drag} className='' key={index}>
-
+          // <div ref={(element) => { elementRef.current[index] = element; }} onClick={drag} className='' key={index}>
+          <div onClick={drag} className='' key={index}>
             <div className="absolute right-0 z-20 ">
               <button onClick={event => removeFavorite(index, event, el.food_name, el.price)} className={`${!el.favor && 'hiddenMe'} flex justify-center gap-x-6`}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="red" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">

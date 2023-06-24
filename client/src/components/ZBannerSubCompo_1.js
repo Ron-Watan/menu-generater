@@ -70,7 +70,7 @@ function BannerSubCompo() {
         </Slider >
         <div className="dotBarC">
           {Array.from({ length: 6 }).map((item, index) => (
-            <div className={indexDot === index ? "dotC dotActiveC" : "dotC"} key={index}></div>
+            <div className={indexDot === index ? "dotC dotActiveFormC" : "dotFormC"} key={index}></div>
           ))}
 
         </div>

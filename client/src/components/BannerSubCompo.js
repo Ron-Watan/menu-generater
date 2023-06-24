@@ -16,7 +16,7 @@ import iconPhoto from '../icon/downloadIcon.svg'
 import Resizer from 'react-image-file-resizer';
 import { useParams } from 'react-router-dom'
 
-
+//=
 const BannerSubCompo = (prop) => {
 
   const elementRef = useRef([]);
@@ -27,6 +27,8 @@ const BannerSubCompo = (prop) => {
 
   //
   // console.log(elementRef.current.offsetHeight);
+
+
   const drag = () => {
     // console.log(elementRef.current[0]);
   }
@@ -34,7 +36,6 @@ const BannerSubCompo = (prop) => {
 
   function setFinishedIndex(i) {
     // console.log("finished dragging on slide", i);
-    // setIndexDot(i);
     setIndexDot(i)
   };
 
@@ -88,7 +89,7 @@ const BannerSubCompo = (prop) => {
 
         const getArrayBanner = result.data.images;
 
-        console.log(getArrayBanner)
+
         const mapArrayBanner = getArrayBanner.map(el => {
           const base64Flag = 'data:image/png;base64,';
           const imageStr = arrayBufferToBase64Banner(el.img.data.data);
@@ -105,7 +106,6 @@ const BannerSubCompo = (prop) => {
       });
 
   };
-
 
   useEffect(() => {
     getAllImageBanner()
@@ -147,14 +147,15 @@ const BannerSubCompo = (prop) => {
           </Slider >
 
           {/* DOT BUTTON*/}
-          <div className="dotBarForm">
+          <div className="dotBarFlex">
             {Array.from({ length: bannerImgArr.length }).map((item, index) => (
               <button onClick={() => {
                 setIndexDot(index)
                 setFinishedIndex(index)
 
               }}
-                className={indexDot === index ? "dotFormC dotActiveFormC" : "dotFormC"}
+                className={indexDot === index ?  "dotActiveC" : "dotC"}
+                // className={'dotC'}
                 key={index}>{index + 1}</button>
             ))}
 

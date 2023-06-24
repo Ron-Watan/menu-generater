@@ -103,15 +103,17 @@ const FooterComponent = (prop) => {
     setStateComment({ ...stateComment, [name]: even.target.value })
   }
 
+  const [squareFootBar, setSquareFootBar] = useState(false)
+  const [circleFootBar, setCircleFootBareBar] = useState(true)
 
-
+  const foobarIcon = { global: 'g1-w/Group 1.svg', lists: 'g1-w/Group 1.svg', comment: 'g1-w/Group 1.svg' }
 
   return (
     <div>
 
       <nav className=" fixed top-full -translate-y-full bg-C_navmain footerBar zIndex px-2">
         <div className="grid grid-cols-3 content-center">
-          {/* Button 1 */}
+  
           <div className={`flex items-center justify-center pt-1`}>
 
             <div className={`boxLangBtn ${activeLang && 'ringButton'}`}>
@@ -140,9 +142,7 @@ const FooterComponent = (prop) => {
             </div>
           </div>
 
-          {/* <button className='text-white' onClick={() => switcher1('languageTab')}>sssssssssssssss</button> */}
 
-          {/* Button 2 */}
           <button onClick={() => switcher('listTab')} className={`relative flex items-center justify-center  pt-1 `}>
             <div className={` px-20 ${activeList && 'ringButton'}`}>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -156,7 +156,7 @@ const FooterComponent = (prop) => {
 
 
 
-          {/* Button 3 */}
+
           <button onClick={() => switcher('commentTab')} className={`flex items-center justify-center pt-1 `}>
             <div className={` px-4 ${activeComment && 'ringButton'}`}>
 
@@ -189,6 +189,28 @@ const FooterComponent = (prop) => {
         </div>
 
       </nav>
+
+      {/* <div className=" floatLeftFootBar">
+
+        <div className="foobarFlexC">
+          <span className={`circleBarBox`}>
+            <i className={`circleBarIcon circleBarSize circleBarColor`} >
+              <img className={``} src={require(`../bar-icon/${foobarIcon.global}`)} alt="" />
+            </i>
+          </span >
+          <span className={`circleBarBox`}>
+            <i className={`circleBarIcon circleBarSize circleBarColor`} >
+              <img className={``} src={require(`../bar-icon/${foobarIcon.global}`)} alt="" />
+            </i>
+          </span >
+
+        </div>
+
+      </div> */}
+
+
+
+
 
       {/* <span  className={`${activeList ? 'popupLangUp' : 'popupLang'} popupLangText`}> */}
 
@@ -239,36 +261,6 @@ const FooterComponent = (prop) => {
 
                 </div>
               )
-
-
-              // <div className="cat">sssssdsds</div>
-              // catelog.list.map(el => {
-              //   return (
-              //     <ul className="line" key={index} >
-              //       <li className="gridFavList">
-              //         <div className="flex gap-x-4">
-              //           <div className="min-w-0 flex-auto">
-              //             <p className="text-sm font-semibold leading-6 text-gray-900">{el.name}</p>
-              //           </div>
-              //         </div>
-
-              //         <div className="flex gap-x-4">
-              //           <div className="min-w-0 flex-auto">
-              //             <p className="text-sm font-semibold leading-6 text-gray-900">{el.price}</p>
-              //           </div>
-              //         </div>
-
-              //       </li>
-              //     </ul>
-
-              //   )
-              // })
-
-
-
-
-
-
 
             })}
 

@@ -94,10 +94,7 @@ const MainForm = () => {
   const [menuTime, setMenuTime] = useState(1); // timeSwitcher()
 
   const [state, setState] = useState({
-    catagory: '',
-    imgId: '',
-
-    catagory_2: ''
+    catagory: '', catagory_2: '', imgId: '',
   });
 
   // input
@@ -150,7 +147,7 @@ const MainForm = () => {
 
   // const [description, setDescription] = useState("")
   const [originalName, setOriginalName] = useState('')
-  const [onConnected, setOnConnected] = useState(false)
+
 
   //- 001_getAllMenu
   const getAllMenu = () => {
@@ -598,7 +595,7 @@ const MainForm = () => {
     setStart(true);
     setMenuId('');
     setListMenu([listMenuModel]);
-    setState({ catagory: '', imgId: '' });
+    setState({ catagory: '', catagory_2: state.catagory_2, imgId: '' });
     setFile('');
 
     // window.location.reload(false)
@@ -702,7 +699,7 @@ const MainForm = () => {
   const [navTime2TimePicker, setNavTime2TimePicker] = useState(0);
   const [navLang2LangSetUp, setNavLang2LangSetUp] = useState(0);
 
-
+  const [onConnected, setOnConnected] = useState(false)
 
   useEffect(() => {
     getAllMenu();
@@ -757,7 +754,7 @@ const MainForm = () => {
 
         />
 
-        
+
 
         <div className='monitor1'>
 
@@ -772,7 +769,7 @@ const MainForm = () => {
           <div className={`${onOffQrCode ? 'showMe' : 'hiddenMe'}`}>
             <GenerateMenu />
           </div>
-          {onConnected &&
+        
             <div className={`bannerSection ${onOffBanner ? 'showAnimate' : 'hiddenAnimate'}`}>
               <BannerMainForm
                 bannerImgArr={bannerImgArr} setBannerImgArr={setBannerImgArr}
@@ -782,7 +779,7 @@ const MainForm = () => {
                 resizeFileBannerTG={resizeFileBannerTG}
                 getAllImageBannerTG={getAllImageBannerTG}
               />
-            </div>}
+            </div>
 
           {/* aaa */}
           {onConnected &&
@@ -829,11 +826,11 @@ const MainForm = () => {
                         setMenuId('');
                       }}
                       className='closeBtn'>
-                      <button className='boxCancel closeIconHover'>
+                      <span className='boxCancel closeIconHover' >
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1" stroke="#000" className="w-6 h-6">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                         </svg>
-                      </button>
+                      </span>
                     </div>
                     <div className='flexIcoCat'>
                       <div className='icon'>
@@ -853,7 +850,7 @@ const MainForm = () => {
                       </div>
 
                       <div className='boxInputText'>
-                        <input onChange={inputValue('catagory')} value={state.catagory} placeholder='Catagory' type='text' name='catagory' id='catagory' autoComplete='off' className='inputText fontCat' required />
+                        <input onChange={inputValue('catagory')} value={state.catagory} placeholder='Catagory' type='text' name='catagory' id='' autoComplete='off' className='inputText fontCat' required />
                       </div>
                     </div>
 

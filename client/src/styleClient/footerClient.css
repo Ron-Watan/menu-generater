@@ -1,0 +1,18 @@
+/* .footBarSectionC{
+keep nothing
+} */
+
+
+.floatLeftFootBar {
+  font-size: 62.5%;
+  position: fixed;
+  top: 78vh;
+  left: .2rem;
+  z-index: 500;
+}
+
+.foobarFlexC {
+  display: flex;
+  flex-direction: column;
+  gap: .3rem
+}

@@ -1,0 +1,30 @@
+{
+  "files": {
+    "main.css": "/static/css/main.49addc29.css",
+    "main.js": "/static/js/main.60c0190c.js",
+    "static/js/787.c4e7f8f9.chunk.js": "/static/js/787.c4e7f8f9.chunk.js",
+    "static/media/remixicon.svg?t=1684338274817": "/static/media/remixicon.ce0e40c97bfc62e3edab.svg",
+    "static/media/bg.jpg": "/static/media/bg.612bea7e942dc5a5ec4c.jpg",
+    "static/media/promotion1.png": "/static/media/promotion1.81752eb5812e1e582040.png",
+    "static/media/remixicon.eot?t=1684338274817": "/static/media/remixicon.4504b1fe216fbf391c33.eot",
+    "static/media/remixicon.ttf?t=1684338274817": "/static/media/remixicon.bc494a3a1aebeea65cee.ttf",
+    "static/media/remixicon.woff?t=1684338274817": "/static/media/remixicon.d7630016bbb194055f32.woff",
+    "static/media/remixicon.woff2?t=1684338274817": "/static/media/remixicon.082b68b860510f7036f0.woff2",
+    "static/media/65txzxvp5pk41.png": "/static/media/65txzxvp5pk41.c0bb424ced5e33c31535.png",
+    "static/media/4k-Wallpaper-Ahw309-1.jpg": "/static/media/4k-Wallpaper-Ahw309-1.e650668b385f753f2cd5.jpg",
+    "static/media/4k-beach-wallpapers-8.jpg": "/static/media/4k-beach-wallpapers-8.7e12d537ae33ec44662a.jpg",
+    "static/media/10-9-6k.jpg": "/static/media/10-9-6k.77c54cd845ac74ae82f0.jpg",
+    "static/media/288747.jpg": "/static/media/288747.cc3089b2e6072ca16963.jpg",
+    "static/media/511909.jpg": "/static/media/511909.aee4a80124a37e634dc1.jpg",
+    "static/media/bp-logo.png": "/static/media/bp-logo.2ebb6fa5662d297bd941.png",
+    "static/media/downloadIcon.svg": "/static/media/downloadIcon.efda5bd98f0e5d65418b0e39bf79709a.svg",
+    "index.html": "/index.html",
+    "main.49addc29.css.map": "/static/css/main.49addc29.css.map",
+    "main.60c0190c.js.map": "/static/js/main.60c0190c.js.map",
+    "787.c4e7f8f9.chunk.js.map": "/static/js/787.c4e7f8f9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.49addc29.css",
+    "static/js/main.60c0190c.js"
+  ]
+}

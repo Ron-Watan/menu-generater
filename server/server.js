@@ -110,6 +110,8 @@ mongoose.connect(process.env.MONGODB_URL, {
   console.log('MongoDB is connected')
 }).catch(err => {
   console.log('MongoDB is NOT connected')
+  console.log(err)
+
 })
 
 

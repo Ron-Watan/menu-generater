@@ -2,16 +2,25 @@
 
 @tailwind components;
 
+html {
+
+  overscroll-behavior: none;
+}
+
 body {
   /* font-size: 62.5%; */
   overflow-x: hidden;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
+  overscroll-behavior: none;
 
+  height: calc(var(--vh, 1vh) \* 100);
 }
+
 
 
 body::-webkit-scrollbar {
   width: 0.4rem;
+
 }
 
 body::-webkit-scrollbar-track {

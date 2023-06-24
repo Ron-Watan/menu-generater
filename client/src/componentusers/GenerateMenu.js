@@ -37,7 +37,7 @@ const GenerateMenu = () => {
   return (
     <div className="barcodeFix ">
 
-      <a href={`http://localhost:3000/customer/${user.link}`}>{`Click to: ${user.restaurentName} menu`}</a>
+      <a href={`http://192.168.1.13:3000/customer/${user.link}`}>{`Click to: ${user.restaurentName} menu`}</a>
 
       <div className="barcodeSection">
         <div className="" style={{ height: "auto", margin: "0 auto", maxWidth: 150, width: "100%" }}>
@@ -49,7 +49,7 @@ const GenerateMenu = () => {
               // size={1000}
               level={"L"}
               style={{ height: "auto", maxWidth: "100%", width: "100%", border: '1px solid #000' }}
-              value={`http://localhost:3000/customer/${user.link}`}
+              value={`http://192.168.1.13:3000/customer/${user.link}`}
               viewBox={`0 0 256 256`}
               bgColor='#fff'
               fgColor='#000'
