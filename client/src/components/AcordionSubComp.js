@@ -12,7 +12,6 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 // import { Hidden } from '@mui/material';
 // import { Checkbox, FormControlLabel, FormGroup } from '@mui/material';
 
-
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
 ))(({ theme }) => ({
@@ -145,42 +144,30 @@ const AcordionSubComp = (prop) => {
   // }
 
 
-  const scrollA = (el) => {
-    // window.addEventListener('scroll', fntest(el));
-  }
 
-  // setTriggerIcon
+  //= setTriggerIcon
+
+  const positionTrigger = 200
   let newData = []
   const acArrayEl = document.querySelectorAll('.acArray')
   window.addEventListener('scroll', () => {
-
+   
     acArrayEl.forEach((element, index) => {
       if (!element) return
       const point = element.getBoundingClientRect().top
-      if (point < 200) {
-        // console.log('true ' + index + ' ' + point)
-
-
+      if (point < positionTrigger) {
         newData[index] = true
         newData[index - 1] = false
-
-        // newData[index] = true
-
         prop.setTriggerIcon(newData)
       }
-      else if (point > 200) {
-        // console.log('false ' + index + ' ' + point)
+      else if (point > positionTrigger) {
         newData[index] = (false)
-
-
       }
-
-      // console.log(element)
     })
 
     prop.setTriggerIcon(newData)
 
-  })
+  },)
   // console.log(prop.triggerIcon)
   // componentWillUnmount: function() {
   //   window.removeEventListener('scroll', this.handleScroll);
@@ -194,12 +181,15 @@ const AcordionSubComp = (prop) => {
   //     transform: itemTranslate
   //   });
   // },
+  const heartIcon = {
+    favor1: 'favor1.svg', favor2: 'favor2.svg',
+  }
 
 
   //- //- //- //- //- //- //- //- //- //- //- //-
 
   return (
-    <div id='2' className={`acArray mx-auto max-w-7xl`}
+    <div id={prop.indexM} className={`acArray mx-auto max-w-7xl`}
       ref={elementRef}>
 
       <div className="h-40" style={{
@@ -212,16 +202,17 @@ const AcordionSubComp = (prop) => {
 
         {newSubListMenu.map((el, index) => (
           // <div ref={(element) => { elementRef.current[index] = element; }} onClick={drag} className='' key={index}>
-          <div onClick={drag} className='' key={index}>
-            <div className="absolute right-0 z-20 ">
-              <button onClick={event => removeFavorite(index, event, el.food_name, el.price)} className={`${!el.favor && 'hiddenMe'} flex justify-center gap-x-6`}>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="red" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                </svg>
-              </button>
-            </div>
+          <div onClick={drag} className='accTab' key={index}>
+            <button onClick={event => removeFavorite(index, event, el.food_name, el.price)} className="heartFavor2Box">
+              <div className={`${!el.favor && 'hiddenMe'} flex justify-center gap-x-6`}>
 
+                <img src={require(`../all-icon/footbar-icon/${heartIcon.favor2}`)} alt="" />
+              </div>
+            </button>
             <Accordion expanded={expanded === el.panelCode} onChange={handleChange(el.panelCode)}>
+
+
+
               <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
                 {/* <Typography ><span className='test44'>{el.food_name}</span><span>{el.price}</span></Typography> */}
                 <span className='test44'>{el.food_name}</span>
@@ -231,6 +222,8 @@ const AcordionSubComp = (prop) => {
 
                   {/* <p>{t(`food_name.${index}`)}</p> */}
                 </div>
+
+
 
               </AccordionSummary>
 
@@ -242,24 +235,14 @@ const AcordionSubComp = (prop) => {
                 <div className="">{el.remark}</div>
 
 
-                <div className={` grid grid-cols-3 gap-1 mb-2`}>
-                  <div className="col-start-3 col-end-4 text-center">
-
-                    <button onClick={event => addFavorite(index, event, el.panelCode)} className={`${el.favor && 'opacity-0 transition-all'} flex justify-center gap-x-6`}>
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                      </svg>
-                    </button>
-
-                    {/* <button onClick={event => removeFavorite(index, event, el.food_name, el.price)} className={` ${!el.vegan && 'hidden'} flex justify-center gap-x-6`}>
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="red" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                      </svg>
+                <div className={`heartFavor1Box`}>
 
 
-                    </button> */}
-                    {/* <p className='px-1 py-1 text-xs flex flex-row justify-center'>book mark</p> */}
-                  </div>
+                  <button onClick={event => addFavorite(index, event, el.panelCode)} className={`${el.favor && 'opacity-0 transition-all'} `}>
+                    <img src={require(`../all-icon/footbar-icon/${heartIcon.favor1}`)} alt="" />
+                  </button>
+
+
 
                 </div>
 

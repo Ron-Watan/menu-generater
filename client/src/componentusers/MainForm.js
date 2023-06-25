@@ -769,17 +769,17 @@ const MainForm = () => {
           <div className={`${onOffQrCode ? 'showMe' : 'hiddenMe'}`}>
             <GenerateMenu />
           </div>
-        
-            <div className={`bannerSection ${onOffBanner ? 'showAnimate' : 'hiddenAnimate'}`}>
-              <BannerMainForm
-                bannerImgArr={bannerImgArr} setBannerImgArr={setBannerImgArr}
-                indexToBanner={indexToBanner} setIndexToBanner={setIndexToBanner}
-                deleteImageBannerTG={deleteImageBannerTG}
-                saveImageBannerTG={saveImageBannerTG}
-                resizeFileBannerTG={resizeFileBannerTG}
-                getAllImageBannerTG={getAllImageBannerTG}
-              />
-            </div>
+
+          <div className={`bannerSection ${onOffBanner ? 'showAnimate' : 'hiddenAnimate'}`}>
+            <BannerMainForm
+              bannerImgArr={bannerImgArr} setBannerImgArr={setBannerImgArr}
+              indexToBanner={indexToBanner} setIndexToBanner={setIndexToBanner}
+              deleteImageBannerTG={deleteImageBannerTG}
+              saveImageBannerTG={saveImageBannerTG}
+              resizeFileBannerTG={resizeFileBannerTG}
+              getAllImageBannerTG={getAllImageBannerTG}
+            />
+          </div>
 
           {/* aaa */}
           {onConnected &&
@@ -1053,7 +1053,7 @@ const MainForm = () => {
                           </div>
 
                           <div className={`boxRemoveItem`}>
-                            <button onClick={removeItem} type='button' className='removeItembtn'>
+                            <button onClick={()=>removeItem(index)} type='button' className='removeItembtn'>
                               X
                             </button>
                           </div>

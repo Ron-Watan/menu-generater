@@ -75,7 +75,6 @@ const FooterComponent = (prop) => {
   const switcherlng = (name) => (even) => {
     setDisPlayLang(even.target.value)
     setActiveLang(false)
-    switcher('languageTab')
   }
 
 
@@ -100,11 +99,9 @@ const FooterComponent = (prop) => {
 
 
   let sumFaverPrice = 0
-  let itemFavor = 0
   reformModel.forEach(el => {
     el.list.forEach(el2 => {
       sumFaverPrice += Number(el2.price)
-      itemFavor++
     })
 
   })
@@ -121,17 +118,17 @@ const FooterComponent = (prop) => {
   const [squareFootBar, setSquareFootBar] = useState(false)
   const [circleFootBar, setCircleFootBareBar] = useState(true)
 
-  const foobarIcon = {
-    translate: 'translation.svg', list: 'list.svg', feedback: 'feedback.svg',
-    favor1: 'favor1.svg', favor2: 'favor2.svg',
-  }
+  const foobarIcon = { translate: 'translation.svg', list: 'list.svg', feedback: 'feedback.svg' }
 
   const [activefootbar, setActivefootbar] = useState(true)
+
+
+
 
   return (
     <div>
 
-      <nav className={`max-w-lg footBarSectionC ${activefootbar ? 'showMe' : 'hiddenMe'}`}>
+      <nav className={`max-w-lg footBarSectionC`}>
         <div className="footBarGrid3">
 
           <div className={`footBarGrid3_1`}>
@@ -141,41 +138,30 @@ const FooterComponent = (prop) => {
                 <span className={`langCode`}>
                   {disPlayLang}
                 </span>
-                <img src={require(`../all-icon/footbar-icon/${foobarIcon.translate}`)} alt="" srcSet="" />
+                <img src={require(`../footbar-icon/${foobarIcon.translate}`)} alt="" srcset="" />
 
               </button>
-
-              {disPlayLang == "EN"
-                ? <button value='EP' onClick={switcherlng('ep')} className={`popupLang ${languageTab && 'popupLangUp1'}  popupLangText`}>
-                  Spanish
-                </button>
-                :
-                <button value='EN' onClick={switcherlng('en')} className={`popupLang ${languageTab && 'popupLangUp1'}  popupLangText`}>
-                  EngLish
-                </button>}
-
             </div>
-
-            {/* <button value='EN' onClick={switcherlng('en')} className={`${languageTab ? 'popupLangUp1' : 'popupLang'}  popupLangText`}>
-              English
-            </button> */}
+            {/* <button value='EP' onClick={switcherlng('ep')} className={`${languageTab ? 'popupLangUp1' : 'popupLang'}  popupLangText`}>
+                Spanish
+              </button>
+              <button value='EN' onClick={switcherlng('en')} className={`${languageTab ? 'popupLangUp1' : 'popupLang'}  popupLangText`}>
+                English
+              </button> */}
             {/* </div> */}
           </div>
 
           <button onClick={() => switcher('listTab')} className="footBarGrid3_2">
             <div className={`footbatBtnList`}>
-              <img src={require(`../all-icon/footbar-icon/${foobarIcon.list}`)} alt="" srcSet="" />
-              <span className={`itemFavorListShow ${!itemFavor && 'displayNone'}`}>{itemFavor}</span>
-
+              <img src={require(`../footbar-icon/${foobarIcon.list}`)} alt="" srcset="" />
             </div>
-
           </button>
 
 
           <div className="footBarGrid3_3">
 
             <button onClick={() => switcher('commentTab')} className={`footbatBtnCommentt`}>
-              <img src={require(`../all-icon/footbar-icon/${foobarIcon.feedback}`)} alt="" srcSet="" />
+              <img src={require(`../footbar-icon/${foobarIcon.feedback}`)} alt="" srcset="" />
 
             </button>
 
@@ -184,9 +170,9 @@ const FooterComponent = (prop) => {
 
       </nav>
 
-      {/* <div className=" floatLeftFootBar">
+      <div className=" floatLeftFootBar">
 
-        <div className="foobarFlexC">
+        {/* <div className="foobarFlexC">
           <span className={`circleBarBox`}>
             <i className={`circleBarIcon circleBarSize circleBarColor`} >
               <img className={``} src={require(`../bar-icon/${foobarIcon.global}`)} alt="" />
@@ -198,9 +184,9 @@ const FooterComponent = (prop) => {
             </i>
           </span >
 
-        </div>
+        </div> */}
 
-      </div> */}
+      </div>
 
 
 
@@ -221,14 +207,15 @@ const FooterComponent = (prop) => {
         </span>
 
         {/*//- FAVORITE LIST */}
-        <span onClick={() => switcher('listTab')} className={`popupList ${listTab && 'popupListUp'} popupListText`}>
-          <div className="itemList">{`${itemFavor} Item(s)`}</div>
+        <span onClick={() => switcher('listTab')} className={`${listTab ? 'popupListUp' : 'popupList'} popupListText`}>
+          <div className="itemList">12 Items</div>
           <div className="overflow">
             {reformModel.map((catelog, index) => {
               return (
                 <div className="" key={index}><div className="favCatList">{catelog.category}</div>
                   {catelog.list.map(el => {
                     return (
+
                       <ul className="line" key={index} >
                         <li className="gridFavList">
                           <div className="flex gap-x-4">
@@ -245,30 +232,16 @@ const FooterComponent = (prop) => {
 
                         </li>
                       </ul>
+
                     )
+
                   })}
 
                 </div>
               )
 
             })}
-
-            <li className="gridFavList">
-              <div className="flex gap-x-4">
-                <div className="min-w-0 flex-auto">
-                  <p className="text-sm font-semibold leading-6 text-gray-900">Total</p>
-                </div>
-              </div>
-
-              <div className="flex gap-x-4">
-                <div className="min-w-0 flex-auto">
-                  <p className="text-sm font-semibold leading-6 text-gray-900">{sumFaverPrice}</p>
-                </div>
-              </div>
-
-            </li>
-
-
+            <div className="">{sumFaverPrice}</div>
           </div>
 
         </span>
@@ -278,7 +251,7 @@ const FooterComponent = (prop) => {
 
 
         {/* Slide Tab 3*/}
-        <span className={`popupList coment ${commentTab &&'popupListUp coment'} popupListText`}>
+        <span className={`${commentTab ? 'popupListUp coment' : 'popupList'} popupListText`}>
 
           <div className="col-span-full">
             <label htmlFor="comment" className="block text-sm font-medium leading-6 text-gray-900">About</label>

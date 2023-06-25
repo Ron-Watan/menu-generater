@@ -2,9 +2,9 @@
   width: 100vw;
 
   /* effect to address bar */
-  height: 100%;   
+  height: 100%;
 
-  
+
   position: relative;
   overflow-x: hidden;
   overscroll-behavior: none;
@@ -15,7 +15,7 @@
 
 .navBarC {
   background-color: #000;
-  top: 0  ;
+  top: 0;
   z-index: 100;
   position: -webkit-sticky !important;
   position: sticky !important;
@@ -23,17 +23,171 @@
   /* position: fixed !important; */
 }
 
+.navFlexLogoandName {
+  display: flex;
+  height: 3rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* relative flex items-center */
+.navSlit {
+  width: 50%;
+}
+
+.navNameAndFilter {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  background-color: #000;
+  /* gap: 1rem; */
+}
+
+.menuNameNavBox {
+  position: relative;
+  width: 100%;
+
+}
+
+.navMenuNameText {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+
+}
+
+.navMenuNameText-top {
+  z-index: 1000;
+  /* background-color: #000; */
+  height: 3rem;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  width: 100%;
+  cursor: pointer;
+}
+
+.navMenuNameText-Ab {
+  position: absolute;
+  top: 3.2rem;
+  right: 0;
+  transform: translateX(.5rem);
+  transition: all .3s;
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+  z-index: -10;
+  cursor: pointer;
+  align-items: end;
+}
+
+.navMenuNameText-tab {
+  background-color: #000;
+  border-radius: .3rem;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  padding: .3rem .5rem;
+  width: max-content;
+
+  z-index: -10;
+
+}
+
+.navMenuNameText-move {
+  transform: translate(.5rem, -120%);
+
+  transition: all .3s;
+}
+
+/* .navMenuNameText-Ab2 {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translateY(10rem);
+  background-color: #000;
+} */
 
 
 
+.flexNavMenuName {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: .2rem;
+  flex-grow: 1;
+
+}
+
+.overlayForNav {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 50;
+}
 
 
+.filterBtn {
+  width: 4rem;
+  height: 3rem;
+  position: relative;
+  padding-right: .5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  /* background-color: #e20e0e; */
+}
+
+.filterBtn-main {
+  z-index: 1000;
+}
+
+.filterBtn-Ab {
+  position: absolute;
+  top: 3.2rem;
+  right: 0;
+  transform: translateX(-1rem);
+  transition: all .3s;
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+  z-index: -100;
+  cursor: pointer;
+  align-items: end;
 
 
+}
 
+.filterBtn-move {
+  transform: translate(-1rem, -120%);
+  z-index: -100;
+  transition: all .3s;
+}
 
+.navFilterNameText {
+  font-size: .8rem;
 
+  color: #fff;
+}
 
+.filterBtn-tab {
+  background-color: #000;
+  border-radius: .3rem;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  padding: .5rem .5rem;
+  width: max-content;
+
+  z-index: -10;
+
+}
+
+.filterBtn-tab img {
+  margin-right: 3px;
+
+}
 
 .test {
   height: 50vh;

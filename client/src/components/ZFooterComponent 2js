@@ -75,7 +75,6 @@ const FooterComponent = (prop) => {
   const switcherlng = (name) => (even) => {
     setDisPlayLang(even.target.value)
     setActiveLang(false)
-    switcher('languageTab')
   }
 
 
@@ -141,15 +140,13 @@ const FooterComponent = (prop) => {
                 <span className={`langCode`}>
                   {disPlayLang}
                 </span>
-                <img src={require(`../all-icon/footbar-icon/${foobarIcon.translate}`)} alt="" srcSet="" />
+                <img src={require(`../footbar-icon/${foobarIcon.translate}`)} alt="" srcSet="" />
 
               </button>
 
-              {disPlayLang == "EN"
-                ? <button value='EP' onClick={switcherlng('ep')} className={`popupLang ${languageTab && 'popupLangUp1'}  popupLangText`}>
-                  Spanish
-                </button>
-                :
+              {disPlayLang == "EN" ? <button value='EP' onClick={switcherlng('ep')} className={`popupLang ${languageTab && 'popupLangUp1'}  popupLangText`}>
+                Spanish
+              </button> :
                 <button value='EN' onClick={switcherlng('en')} className={`popupLang ${languageTab && 'popupLangUp1'}  popupLangText`}>
                   EngLish
                 </button>}
@@ -164,7 +161,7 @@ const FooterComponent = (prop) => {
 
           <button onClick={() => switcher('listTab')} className="footBarGrid3_2">
             <div className={`footbatBtnList`}>
-              <img src={require(`../all-icon/footbar-icon/${foobarIcon.list}`)} alt="" srcSet="" />
+              <img src={require(`../footbar-icon/${foobarIcon.list}`)} alt="" srcSet="" />
               <span className={`itemFavorListShow ${!itemFavor && 'displayNone'}`}>{itemFavor}</span>
 
             </div>
@@ -175,7 +172,7 @@ const FooterComponent = (prop) => {
           <div className="footBarGrid3_3">
 
             <button onClick={() => switcher('commentTab')} className={`footbatBtnCommentt`}>
-              <img src={require(`../all-icon/footbar-icon/${foobarIcon.feedback}`)} alt="" srcSet="" />
+              <img src={require(`../footbar-icon/${foobarIcon.feedback}`)} alt="" srcSet="" />
 
             </button>
 
@@ -184,9 +181,9 @@ const FooterComponent = (prop) => {
 
       </nav>
 
-      {/* <div className=" floatLeftFootBar">
+      <div className=" floatLeftFootBar">
 
-        <div className="foobarFlexC">
+        {/* <div className="foobarFlexC">
           <span className={`circleBarBox`}>
             <i className={`circleBarIcon circleBarSize circleBarColor`} >
               <img className={``} src={require(`../bar-icon/${foobarIcon.global}`)} alt="" />
@@ -198,9 +195,9 @@ const FooterComponent = (prop) => {
             </i>
           </span >
 
-        </div>
+        </div> */}
 
-      </div> */}
+      </div>
 
 
 
@@ -221,7 +218,7 @@ const FooterComponent = (prop) => {
         </span>
 
         {/*//- FAVORITE LIST */}
-        <span onClick={() => switcher('listTab')} className={`popupList ${listTab && 'popupListUp'} popupListText`}>
+        <span onClick={() => switcher('listTab')} className={`${listTab ? 'popupListUp' : 'popupList'} popupListText`}>
           <div className="itemList">{`${itemFavor} Item(s)`}</div>
           <div className="overflow">
             {reformModel.map((catelog, index) => {
@@ -229,6 +226,7 @@ const FooterComponent = (prop) => {
                 <div className="" key={index}><div className="favCatList">{catelog.category}</div>
                   {catelog.list.map(el => {
                     return (
+
                       <ul className="line" key={index} >
                         <li className="gridFavList">
                           <div className="flex gap-x-4">
@@ -245,7 +243,9 @@ const FooterComponent = (prop) => {
 
                         </li>
                       </ul>
+
                     )
+
                   })}
 
                 </div>
@@ -268,7 +268,7 @@ const FooterComponent = (prop) => {
 
             </li>
 
-
+       
           </div>
 
         </span>
@@ -278,7 +278,7 @@ const FooterComponent = (prop) => {
 
 
         {/* Slide Tab 3*/}
-        <span className={`popupList coment ${commentTab &&'popupListUp coment'} popupListText`}>
+        <span className={`${commentTab ? 'popupListUp coment' : 'popupList'} popupListText`}>
 
           <div className="col-span-full">
             <label htmlFor="comment" className="block text-sm font-medium leading-6 text-gray-900">About</label>

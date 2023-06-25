@@ -9,7 +9,7 @@ import SidebarSubComp from './SidebarSubComp';
 import FooterComponent from './FooterComponent';
 import BannerSubCompo from './BannerSubCompo';
 // import i18n from './multiLanguage/i18n';
-
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import axios from 'axios';
 import { ticketPass } from '../protectors/authorize';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import '../styleClient/mainClient.css'
 import '../styleClient/sidebarClient.css'
 import '../styleClient/footerClient.css'
+import '../styleClient/accordianClient.css'
 
 // import LocaleContext from './LocaleContext';
 // import images from './images'
@@ -40,11 +41,14 @@ const s = dateTime.getSeconds()
 const nowTime = h * 60 * 60 + m * 60 + s
 
 
-
 //=
 const _MenuComponent = () => {
+  const [originalClientMenu, setOriginalClientMenu] = useState([])
 
   const [clientMenu, setClientMenu] = useState([])
+  const [allMenuName, setAllMenuName] = useState('')
+  const [chooseMenu, setChooseMenu] = useState('')
+
   const [menuTime, setMenuTime] = useState(1)
 
   const [favorList, setFavorList] = useState([])
@@ -56,12 +60,12 @@ const _MenuComponent = () => {
     setStarted(!started)
   }
 
+  const timeSwitcher = () => {
+    if (nowTime >= 0 && nowTime <= 64000) setMenuTime()
+  }
+
+
   ///////////////////////////////////////////////////////
-
-
-
-
-
 
   // useEffect(() => {
 
@@ -69,21 +73,23 @@ const _MenuComponent = () => {
 
   // }, [])
 
-
   ////////////////////////////////////////////////
-
-  const timeSwitcher = () => {
-    if (nowTime >= 0 && nowTime <= 64000) setMenuTime(1)
-  }
 
 
   //=
+  let dataName = `menu_${menuTime}`
   const getClientMenu = () => {
     // dispath(showLoading())
     axios.get(`${process.env.REACT_APP_API}/clients/${link}`)
       .then(result => {
         if (result.data.success) {
-          setClientMenu(result.data.clientMenu.menu)
+          const getResault = result.data.clientMenu
+          setOriginalClientMenu(getResault.menu)
+          setClientMenu(getResault.menu)
+          setAllMenuName(getResault.menuName)
+          setChooseMenu(getResault.menuName[dataName])
+
+
           // setClentMenu(result.data.userMenu.menu)
           // dispath(hideLoading())
         } else {
@@ -129,54 +135,178 @@ const _MenuComponent = () => {
   }
   const [menuTimer, setMenuTimer] = useState('')
 
-  //=
 
 
 
+  const [switchManuBtn, setSwitchManuBtn] = useState(false)
   const [triggerIcon, setTriggerIcon] = useState([])
 
+  const [switchFilterBtn, setSwitchFilterBtn] = useState(false)
 
-  console.log(triggerIcon)
 
+  // console.log(triggerIcon)
+
+  // console.log(clientMenu)
+
+
+  //=
+  const filterSerach = (filterName) => {
+    const memoTime = menuTime
+    let cutomerFilter = []
+    originalClientMenu.forEach(el => {
+      // console.log(el)
+
+      let catagory = el.catagory
+      let menuTime = el.menuTime
+      let imgId = el.imgId
+      let newlistMenu = []
+      el.listMenu.forEach(el1 => {
+
+        if (el1[filterName]) {
+          newlistMenu.push(el1)
+        }
+      })
+      if (newlistMenu.length === 0) return
+      cutomerFilter.push({ catagory: catagory, menuTime: menuTime, imgId: imgId, listMenu: newlistMenu })
+
+    })
+
+    setClientMenu(cutomerFilter)
+    setMenuTime(0)
+    setTimeout(() => {
+      setMenuTime(memoTime)
+    }, 2);
+  }
+  const [iconFilter, setIconFilter] = useState('food_name')
+
+
+
+  console.log(clientMenu)
 
   useEffect(() => {
     getClientMenu()
-    timeSwitcher()
+    // timeSwitcher()
   }, [])
+
   // categoryList.filter((el) => el.menuTime == menuTime)
 
+
+  const navIcon = {
+    filter: 'filter.svg', dropDown: 'down-chevron.svg', dropUp: 'up-chevron.svg',
+    cancel: 'cancel.svg'
+  }
+
+
+
   return (
+
+
     <div className='mobileViewport'>
 
       <div className='testpos relative max-w-lg'>
 
         <nav className="navBarC">
           <div className=" mx-auto">
-            <div className="relative flex h-12 items-center justify-between">
-              <div className="relative flex items-center">
+            <div className="navFlexLogoandName">
+              <div className="navSlit">
                 <img className="block h-6 w-auto" src={logo} alt="Your Company" />
               </div>
 
-              <div className=" relative flex items-center ml-2">
-                <div className=" flex justify-self-end text-sm text-white">
+              <div className=" navSlit navNameAndFilter">
 
-                  {menuTimer}
+                <div onClick={() => { setSwitchManuBtn(!switchManuBtn) }} className="flexNavMenuName">
+                  <div className=" menuNameNavBox navMenuNameText">
+                    <div className='navMenuNameText-top'>{chooseMenu}</div>
+
+                    <div className={`navMenuNameText-Ab ${!switchManuBtn && 'navMenuNameText-move'}`}>
+                      <div onClick={() => {
+                        setChooseMenu(allMenuName.menu_1)
+                        setMenuTime(1)
+                      }} className={` ${chooseMenu === allMenuName.menu_1 && 'displayNone'} navMenuNameText-tab`}>{allMenuName.menu_1}</div>
+                      <div onClick={() => {
+                        setChooseMenu(allMenuName.menu_2)
+                        setMenuTime(2)
+                      }} className={` ${chooseMenu === allMenuName.menu_2 && 'displayNone'} navMenuNameText-tab`}>{allMenuName.menu_2}</div>
+                      <div onClick={() => {
+                        setChooseMenu(allMenuName.menu_3)
+                        setMenuTime(3)
+                      }} className={` ${chooseMenu === allMenuName.menu_3 && 'displayNone'} navMenuNameText-tab`}>{allMenuName.menu_3}</div>
+                    </div>
+                  </div>
+                  {switchManuBtn ? <img src={require(`../all-icon/footbar-icon/${navIcon.dropUp}`)} alt="" srcSet="" />
+                    : <img src={require(`../all-icon/footbar-icon/${navIcon.dropDown}`)} alt="" srcSet="" />}
                 </div>
 
-                <button type="button" className=" inline-flex items-center justify-center ml-2 mr-2
-                  rounded-md p-1 text-C_icon hover:bg-gray-700 hover:text-white focus:outline-none
-                  focus:ring-1 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
 
-                  <svg fill="#fff" width="20px" height="20px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <div onClick={() => { setSwitchFilterBtn(!switchFilterBtn) }} className="filterBtn">
 
-                    <path d="M29.555 2.843c-0.072-0.276-0.291-0.486-0.565-0.546l-0.005-0.001c-0.046-0.010-0.099-0.016-0.153-0.016-0.238 0-0.451 0.109-0.59 0.281l-0.001 0.001c-1.698 2.005-3.923 3.515-6.462 4.32l-0.099 0.027c-1.693 0.552-3.662 0.946-5.697 1.103l-0.088 0.005c-2.231 0.083-4.325 0.58-6.236 1.417l0.11-0.043c-3.3 1.788-5.502 5.225-5.502 9.176 0 0.062 0.001 0.124 0.002 0.186l-0-0.009c0.009 0.303 0.030 0.602 0.064 0.9 0.154 1.198 0.484 2.285 0.966 3.285l-0.028-0.064c-1.539 1.982-2.868 4.245-3.886 6.67l-0.073 0.197c-0.038 0.087-0.060 0.188-0.060 0.295 0 0.414 0.336 0.75 0.75 0.75 0.308 0 0.572-0.185 0.688-0.45l0.002-0.005c0.964-2.307 2.092-4.294 3.425-6.123l-0.059 0.085c1.137 1.755 2.709 3.14 4.567 4.021l0.067 0.029c1.421 0.649 3.083 1.028 4.833 1.028 0.027 0 0.053-0 0.079-0l-0.004 0c1.889-0.009 3.686-0.392 5.324-1.081l-0.092 0.034c5.262-2.385 9.002-7.306 9.678-13.16l0.007-0.077c0.147-1.13 0.231-2.436 0.231-3.762 0-3.018-0.436-5.935-1.247-8.69l0.055 0.217zM29.031 14.855c-0.604 5.397-3.991 9.883-8.674 12.030l-0.094 0.038c-1.334 0.593-2.891 0.939-4.528 0.939-1.599 0-3.121-0.329-4.501-0.924l0.074 0.028c-1.81-0.853-3.27-2.198-4.242-3.864l-0.024-0.045c3.317-3.812 7.63-5.711 13.801-6.312 0.38-0.040 0.674-0.358 0.674-0.746 0-0.414-0.336-0.75-0.75-0.75-0.024 0-0.048 0.001-0.072 0.003l0.003-0c-5.639 0.209-10.681 2.598-14.343 6.343l-0.004 0.004c-0.244-0.617-0.431-1.336-0.526-2.083l-0.005-0.045c-0.030-0.256-0.048-0.512-0.055-0.768-0.001-0.049-0.002-0.108-0.002-0.166 0-3.358 1.869-6.279 4.623-7.78l0.046-0.023c1.65-0.708 3.565-1.152 5.575-1.225l0.028-0.001c2.247-0.173 4.33-0.592 6.313-1.232l-0.192 0.054c2.448-0.8 4.547-2.082 6.279-3.744l-0.006 0.005c0.523 2.020 0.823 4.338 0.823 6.727 0 1.247-0.082 2.475-0.24 3.678l0.015-0.142z"></path>
-                  </svg>
-                </button>
+                  <div className="navFilterNameText ">
+                    <div className='filterBtn-main'>
+
+                      {iconFilter === "food_name" && <img src={require(`../all-icon/footbar-icon/${navIcon.filter}`)} alt="" srcSet="" />}
+                      {iconFilter === "vetgeterian" && <img src={require(`../all-icon/footbar-icon/${navIcon.cancel}`)} alt="" srcSet="" />}
+                      {iconFilter === "vegan" && <img src={require(`../all-icon/footbar-icon/${navIcon.dropUp}`)} alt="" srcSet="" />}
+                      {iconFilter === "gluten_free" && <img src={require(`../all-icon/footbar-icon/${navIcon.dropDown}`)} alt="" srcSet="" />}
+                      {iconFilter === "halal" && <img src={require(`../all-icon/footbar-icon/${navIcon.filter}`)} alt="" srcSet="" />}
+
+
+
+                    </div>
+
+                    {/* <button onClick={() => filterSerach('food_name')} type="button" className="filterBtn" aria-controls="" aria-expanded="false">
+                  <img src={require(`../all-icon/footbar-icon/${navIcon.dropDown}`)} alt="" srcSet="" />
+                  www
+                </button> */}
+                    <div className={`filterBtn-Ab ${!switchFilterBtn && 'filterBtn-move'}`}>
+                      <div onClick={() => {
+                        filterSerach('vetgeterian')
+                        setIconFilter('vetgeterian')
+                      }} className={` filterBtn-tab`}>Vegetarian</div>
+
+                      <div onClick={() => {
+                        filterSerach('vegan')
+                        setIconFilter('vegan')
+                      }} className={` filterBtn-tab`}>Vegan</div>
+
+                      <div onClick={() => {
+                        filterSerach('gluten_free')
+                        setIconFilter('gluten_free')
+                      }} className={` filterBtn-tab`}>Gluten-Free</div>
+
+                      <div onClick={() => {
+                        filterSerach('halal')
+                        setIconFilter('halal')
+
+                      }} className={` filterBtn-tab`}>Halal</div>
+
+                      <div onClick={() => {
+                        filterSerach('food_name')
+                        setIconFilter('food_name')
+
+                      }} className={` filterBtn-tab`}><img src={require(`../all-icon/footbar-icon/${navIcon.cancel}`)} alt="" srcSet="" />Clear filter</div>
+
+
+                    </div>
+                  </div>
+                </div>
+
+                {/* <button onClick={() => filterSerach('vegan')} type="button" className="filterBtn" aria-controls="" aria-expanded="false">
+                  <img src={require(`../all-icon/footbar-icon/${navIcon.filter}`)} alt="" srcSet="" />
+                </button> */}
+
+                {/* <button onClick={() => filterSerach('vetgeterian')} type="button" className="filterBtn" aria-controls="" aria-expanded="false">
+                  <img src={require(`../all-icon/footbar-icon/${navIcon.dropUp}`)} alt="" srcSet="" />
+                </button> */}
+
               </div>
             </div>
           </div>
         </nav>
-
+        <div onClick={() => {
+          setSwitchManuBtn(false)
+        }} onTouchStart={() => {
+          setSwitchManuBtn(false)
+        }} className={`${switchManuBtn ? 'overlayForNav' : 'displayNone'}`}></div>
         {/* == SIDE BAR == */}
         <div className="sideBarSectionC">
           < SidebarSubComp triggerIcon={triggerIcon} />
@@ -188,9 +318,9 @@ const _MenuComponent = () => {
         {/* == MENU == */}
         <CssBaseline />
 
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={theme} >
 
-          {clientMenu.filter((el) => el.menuTime == 1).map((el, index) => (
+          {/* {clientMenu.filter((el) => el.menuTime === menuTime).map((el, index) => (
 
             <AcordionSubComp
               listMunu={el}
@@ -199,11 +329,53 @@ const _MenuComponent = () => {
               removeFavorite={removeFavorite}
               triggerIcon={triggerIcon}
               setTriggerIcon={setTriggerIcon}
+              key={index}
 
-              key={index} />
+            />
+
+          ))} */}
+          {menuTime === 1 && clientMenu.filter((el) => el.menuTime === 1).map((el, index) => (
+
+            <AcordionSubComp
+              listMunu={el}
+              indexM={index}
+              addFavorite={addFavorite}
+              removeFavorite={removeFavorite}
+              triggerIcon={triggerIcon}
+              setTriggerIcon={setTriggerIcon}
+              key={index}
+
+            />
 
           ))}
+          {menuTime === 2 && clientMenu.filter((el) => el.menuTime === 2).map((el, index) => (
 
+            <AcordionSubComp
+              listMunu={el}
+              indexM={index}
+              addFavorite={addFavorite}
+              removeFavorite={removeFavorite}
+              triggerIcon={triggerIcon}
+              setTriggerIcon={setTriggerIcon}
+              key={index}
+
+            />
+
+          ))}
+          {menuTime === 3 && clientMenu.filter((el) => el.menuTime === 3).map((el, index) => (
+
+            <AcordionSubComp
+              listMunu={el}
+              indexM={index}
+              addFavorite={addFavorite}
+              removeFavorite={removeFavorite}
+              triggerIcon={triggerIcon}
+              setTriggerIcon={setTriggerIcon}
+              key={index}
+
+            />
+
+          ))}
           {/* <AcordionSubComp />
           <AcordionSubComp />
           <AcordionSubComp />
@@ -215,7 +387,7 @@ const _MenuComponent = () => {
         </ThemeProvider>
 
         {/* <div className="footerSpace"></div> */}
-        <div className="footBarSectionC">
+        <div className="">
           <FooterComponent favorList={favorList} />
         </div>
 
@@ -303,6 +475,7 @@ const _MenuComponent = () => {
         dfddgs
       </div>
     </div >
+
   )
 }
 

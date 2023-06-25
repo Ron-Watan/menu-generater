@@ -118,7 +118,7 @@ const BannerSubCompo = (prop) => {
 
   return (
     <div className="bannerWrapperC">
-      <div className="bannerSectionFormC" id='1'>
+      <div className="bannerSectionFormC" >
 
         <div className="boxImageFormC">
 

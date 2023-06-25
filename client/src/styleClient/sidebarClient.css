@@ -33,10 +33,7 @@
   border-radius: 3rem;
   /* border-radius: .5rem; */
   transition: background-color .3s;
-
-  background-color: #ffffff;
-  background-color: #cb2722;
-  border: 2px  solid #cb2722;
+  background-color: #cb2822;
 
   border: #aaa .5px solid;
   box-shadow: .1rem .1rem .5rem rgba(0, 0, 0, 0.20);
@@ -45,7 +42,8 @@
 
 .activeBaricon {
   /* background-color: #cb2722; */
-  border: inset  solid #ffffff;
+  border: #aaa .5px solid;
+
   transform: scale(1.2) translate(3px,-.5px);
   transition: all .3s;
   box-shadow: -.1rem .2rem .6rem rgba(0, 0, 0, 0.4);
