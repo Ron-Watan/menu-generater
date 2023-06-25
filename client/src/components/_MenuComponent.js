@@ -193,7 +193,7 @@ const _MenuComponent = () => {
 
   const navIcon = {
     filter: 'filter.svg', dropDown: 'down-chevron.svg', dropUp: 'up-chevron.svg',
-    cancel: 'cancel.svg'
+    cancel: 'cancel.svg',vegetarian: 'vegetarian.svg',vegan: 'vegan.svg',glutenfree: 'glutenfree.svg',halal: 'halal.svg',
   }
 
 
@@ -244,10 +244,10 @@ const _MenuComponent = () => {
                     <div className='filterBtn-main'>
 
                       {iconFilter === "food_name" && <img src={require(`../all-icon/footbar-icon/${navIcon.filter}`)} alt="" srcSet="" />}
-                      {iconFilter === "vetgeterian" && <img src={require(`../all-icon/footbar-icon/${navIcon.cancel}`)} alt="" srcSet="" />}
-                      {iconFilter === "vegan" && <img src={require(`../all-icon/footbar-icon/${navIcon.dropUp}`)} alt="" srcSet="" />}
-                      {iconFilter === "gluten_free" && <img src={require(`../all-icon/footbar-icon/${navIcon.dropDown}`)} alt="" srcSet="" />}
-                      {iconFilter === "halal" && <img src={require(`../all-icon/footbar-icon/${navIcon.filter}`)} alt="" srcSet="" />}
+                      {iconFilter === "vetgeterian" && <img src={require(`../all-icon/footbar-icon/${navIcon.vegetarian}`)} alt="" srcSet="" />}
+                      {iconFilter === "vegan" && <img src={require(`../all-icon/footbar-icon/${navIcon.vegan}`)} alt="" srcSet="" />}
+                      {iconFilter === "gluten_free" && <img src={require(`../all-icon/footbar-icon/${navIcon.glutenfree}`)} alt="" srcSet="" />}
+                      {iconFilter === "halal" && <img src={require(`../all-icon/footbar-icon/${navIcon.halal}`)} alt="" srcSet="" />}
 
 
 
