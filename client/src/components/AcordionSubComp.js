@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import catalog1 from '../img/promotion1.png'
 import useEnhancedEffect from '@mui/material/utils/useEnhancedEffect';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import axios from 'axios';
 // import { Hidden } from '@mui/material';
 // import { Checkbox, FormControlLabel, FormGroup } from '@mui/material';
 
@@ -97,7 +98,7 @@ const AcordionSubComp = (prop) => {
   })
 
   const [newSubListMenu, setNewSubListMenu] = useState(subListMenu)
-
+  console.log(prop.listMunu)
 
   //- Add data for functional
 
@@ -147,6 +148,8 @@ const AcordionSubComp = (prop) => {
 
   //= setTriggerIcon
 
+
+
   const positionTrigger = 200
   let newData = []
   const acArrayEl = document.querySelectorAll('.acArray')
@@ -159,15 +162,19 @@ const AcordionSubComp = (prop) => {
         newData[index] = true
         newData[index - 1] = false
         prop.setTriggerIcon(newData)
+
       }
       else if (point > positionTrigger) {
         newData[index] = (false)
+
       }
     })
 
     prop.setTriggerIcon(newData)
 
   },)
+
+  console.log(prop.triggerIcon)
   // console.log(prop.triggerIcon)
   // componentWillUnmount: function() {
   //   window.removeEventListener('scroll', this.handleScroll);
@@ -181,10 +188,52 @@ const AcordionSubComp = (prop) => {
   //     transform: itemTranslate
   //   });
   // },
+  const [file, setFile] = useState();
+  function arrayBufferToBase64(buffer) {
+    var binary = '';
+    var bytes = [].slice.call(new Uint8Array(buffer));
+    bytes.forEach((b) => (binary += String.fromCharCode(b)));
+    return window.btoa(binary);
+  }
+  const getImage = () => {
+    // dispath(showLoading())
+    axios
+      .post(`${process.env.REACT_APP_API}/user/images/preview`, { imgId: prop.listMunu.imgId })
+      .then((result) => {
+        if (!result.data.images) {
+          setFile('')
+          // return dispath(hideLoading());
+        }
+
+        const getResult = result.data.images;
+        const base64Flag = 'data:image/png;base64,';
+        const imageStr = arrayBufferToBase64(getResult.img.data.data);
+        const tagImage = base64Flag + imageStr;
+
+        // console.log(tagImage)
+
+        setFile(tagImage);
+        // dispath(hideLoading());
+        // setTimeout(() => {
+        //   dispath(hideLoading());
+        // }, 500);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+
+  useEffect(() => {
+    getImage();
+  }, []);
+
+
+  console.log(prop.listMunu)
+
   const heartIcon = {
     favor1: 'favor1.svg', favor2: 'favor2.svg',
   }
-
 
   //- //- //- //- //- //- //- //- //- //- //- //-
 
@@ -192,11 +241,17 @@ const AcordionSubComp = (prop) => {
     <div id={prop.indexM} className={`acArray mx-auto max-w-7xl `}
       ref={elementRef}>
 
-      <div className="h-40" style={{
-        backgroundImage: `url(${catalog1})`,
-        backgroundPosition: 'top',
+      <div className="categoryImg" style={{
+        backgroundImage: `url(${file})`,
+        backgroundPosition: 'center',
         backgroundSize: 'cover'
       }}>
+        <div className={`categoryImg-Box`}><span className={`categoryImg-text`}>{prop.listMunu.catagory}</span>
+          <span className={`categoryLine ${!prop.triggerIcon[prop.indexM] && 'categoryMotion'}`}></span>
+          {/* <span className={`categoryLine categoryMotion`}></span> */}
+
+        </div>
+
       </div>
       <ul className="px-2 sm:px-6 lg:px-8">
 
@@ -219,11 +274,23 @@ const AcordionSubComp = (prop) => {
                 {prop.language === 2 && <span className='test44'>{el.food_name_2}</span>}
 
                 <div className='flex'>
-                  {prop.language === 1 && <span>{el.price}</span>}
-                  {prop.language === 2 && <span>{el.price}</span>}
+                  {/* {prop.language === 1 && <span>{el.price}</span>}
+                  {prop.language === 2 && <span>{el.price}</span>} */}
+                  {prop.language === 1 && <span>{prop.languageSetup.style_1 ?
+                    <div ><span>{prop.languageSetup.followed_1 && prop.languageSetup.symbol_1}</span> <span>{el.price}</span> <span>&nbsp;{!prop.languageSetup.followed_1 && prop.languageSetup.symbol_1}</span> </div>
+                    : <div ><span></span><span>{el.price}</span><span></span></div>}</span>}
+                  {prop.language === 2 && <span>{prop.languageSetup.style_2 ?
+                    <div ><span>{prop.languageSetup.followed_2 && prop.languageSetup.symbol_2}</span> <span>{el.price}</span> <span>&nbsp;{!prop.languageSetup.followed_2 && prop.languageSetup.symbol_2}</span> </div>
+                    : <div ><span></span><span>{el.price}</span><span></span></div>}</span>}
+                  {/* 
+                  {prop.languageSetup.style_1 ?
+                    <div className="ex25"><span>{prop.languageSetup.followed_1 && prop.languageSetup.symbol_1}</span> <span>el.price</span> <span>&nbsp;{!prop.languageSetup.followed_1 && prop.languageSetup.symbol_1}</span> </div>
+                    : <div className="ex25"><span></span><span>el.price</span><span></span></div>} */}
 
 
-                  {/* <p>{t(`food_name.${index}`)}</p> */}
+
+
+
                 </div>
 
 

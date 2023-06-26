@@ -41,8 +41,12 @@
 }
 
 /* relative flex items-center */
-.navSlit {
-  width: 50%;
+.navSlit1 {
+  width: 40%;
+}
+
+.navSlit2 {
+  width: 60%;
 }
 
 .navNameAndFilter {
@@ -75,6 +79,7 @@
   align-items: center;
   width: 100%;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .navMenuNameText-Ab {

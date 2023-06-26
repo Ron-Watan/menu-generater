@@ -218,11 +218,11 @@ const _MenuComponent = () => {
         <nav className="navBarC">
           <div className=" mx-auto">
             <div className="navFlexLogoandName">
-              <div className="navSlit">
+              <div className="navSlit1">
                 <img className="block h-6 w-auto" src={logo} alt="Your Company" />
               </div>
 
-              <div className=" navSlit navNameAndFilter">
+              <div className=" navSlit2 navNameAndFilter">
                 {/* //- MenuTime */}
                 {!clientData.timeSetup?.timeType && <div onClick={() => { setSwitchManuBtn(!switchManuBtn); setSwitchFilterBtn(false) }} className="flexNavMenuName">
                   <div className=" menuNameNavBox navMenuNameText">
@@ -379,7 +379,12 @@ const _MenuComponent = () => {
               triggerIcon={triggerIcon}
               setTriggerIcon={setTriggerIcon}
               key={index}
+
+              languageSetup={languageSetup}
+              
+              setLanguage={setLanguage}
               language={language}
+
 
             />
 
@@ -395,6 +400,10 @@ const _MenuComponent = () => {
               setTriggerIcon={setTriggerIcon}
               key={index}
 
+              languageSetup={languageSetup}
+              setLanguage={setLanguage}
+              language={language}
+
             />
 
           ))}
@@ -408,6 +417,9 @@ const _MenuComponent = () => {
               triggerIcon={triggerIcon}
               setTriggerIcon={setTriggerIcon}
               key={index}
+              languageSetup={languageSetup}
+              setLanguage={setLanguage}
+              language={language}
 
             />
 

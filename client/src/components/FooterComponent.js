@@ -72,17 +72,19 @@ const FooterComponent = (prop) => {
 
   // prop.setLanguage
 
-  console.log(prop.languageSetup.code_1)
+  console.log(prop.languageSetup)
   let sample = {
-    "onLanguage_2": true,
+    "onLanguage_2": false,
     "language_1": "English",
     "code_1": "EN",
+
     "symbol_1": "$",
     "style_1": false,
     "followed_1": true,
-    "language_2": "",
-    "code_2": "",
-    "symbol_2": "",
+    
+    "language_2": "uuuuuuuu",
+    "code_2": "TTT",
+    "symbol_2": "Bathw",
     "style_2": true,
     "followed_2": true
   }
@@ -156,7 +158,7 @@ const FooterComponent = (prop) => {
 
             <div className={`footBarGrid3_1-1`}>
 
-              <button  className='footbatBtnLang'>
+              <button className='footbatBtnLang'>
                 <span className={`langCode`}>
                   {prop.language === 1 ? prop.languageSetup.code_1 : prop.languageSetup.code_2}
                 </span>
@@ -191,7 +193,7 @@ const FooterComponent = (prop) => {
 
           <button onClick={() => switcher('listTab')} className="footBarGrid3_2 ">
             <div className={`footbatBtnList `}>
-              <img src={require(`../all-icon/footbar-icon/${foobarIcon.list}`)} className=""alt="" srcSet="" />
+              <img src={require(`../all-icon/footbar-icon/${foobarIcon.list}`)} className="" alt="" srcSet="" />
               <span className={` itemFavorListShow ${!itemFavor && 'displayNone'}`}>{itemFavor}</span>
 
             </div>
@@ -199,7 +201,7 @@ const FooterComponent = (prop) => {
           </button>
 
 
-          <div  onClick={() => switcher('commentTab')} className="footBarGrid3_3 ">
+          <div onClick={() => switcher('commentTab')} className="footBarGrid3_3 ">
 
             <button className={`footbatBtnCommentt`}>
               <img src={require(`../all-icon/footbar-icon/${foobarIcon.feedback}`)} alt="" srcSet="" />
@@ -328,7 +330,7 @@ const FooterComponent = (prop) => {
         </span>
 
         <span onClick={() => switcher('overlay')} onTouchStart={() => switcher('overlay')} className={(languageTab) ? 'overlay transparent' : ''}></span>
-        <span onClick={() => switcher('overlay')} onTouchStart={() => switcher('overlay')}  className={(listTab || commentTab) ? 'overlay blackOpacity' : ''}></span>
+        <span onClick={() => switcher('overlay')} onTouchStart={() => switcher('overlay')} className={(listTab || commentTab) ? 'overlay blackOpacity' : ''}></span>
       </div >
 
 

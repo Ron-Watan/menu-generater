@@ -21,3 +21,48 @@
   justify-content: end;
   padding-right: 1.5rem;
 }
+
+.categoryImg {
+  position: relative;
+  height: 15rem;
+}
+
+.categoryImg-Box {
+  position: absolute;
+  right: 0;
+  bottom: 1rem;
+  background-color: rgba(0, 0, 0, 0.728);
+  box-shadow: .2rem .2rem 4rem rgba(0, 0, 0, 0.5);
+  height: 3rem;
+  padding: .2rem 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: all .3s;
+}
+
+.categoryImg-text {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #fff;
+
+  transition: all .3s;
+
+}
+
+.categoryMotion {
+  transform: translateX(100%);
+  transition: all .5s;
+
+}
+
+.categoryLine {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  background-color: #cb2822;
+  width: 100%;
+  height: .15rem;
+  transition: all 1s;
+}
