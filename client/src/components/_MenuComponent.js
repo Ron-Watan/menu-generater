@@ -1,7 +1,7 @@
 
 import logo from '../img/bp-logo.png'
 import 'remixicon/fonts/remixicon.css'
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 import AcordionSubComp from './AcordionSubComp';
 import { CssBaseline } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material'
@@ -31,66 +31,85 @@ const theme = createTheme({
 });
 
 const dateTime = new Date();
-// console.log(dateTime)
-
 const h = dateTime.getHours()
 const m = dateTime.getMinutes()
 const s = dateTime.getSeconds()
-
-
 const nowTime = h * 60 * 60 + m * 60 + s
 
 
-//=
+//= //=
 const _MenuComponent = () => {
+  //= Set Data
+  const [clientData, setClientData] = useState({})
   const [originalClientMenu, setOriginalClientMenu] = useState([])
-
   const [clientMenu, setClientMenu] = useState([])
+
   const [allMenuName, setAllMenuName] = useState('')
+
   const [chooseMenu, setChooseMenu] = useState('')
+  const [menuTime, setMenuTime] = useState(0)
+  const [counttype, setCounttype] = useState(1)
 
-  const [menuTime, setMenuTime] = useState(1)
 
+  const [language, setLanguage] = useState(1)
+  const [languageSetup, setLanguageSetup] = useState({})
+
+  console.log(language)
   const [favorList, setFavorList] = useState([])
   const { link } = useParams()
 
   const [started, setStarted] = useState(false)
 
-  const switcher = (even) => {
-    setStarted(!started)
-  }
-
-  const timeSwitcher = () => {
-    if (nowTime >= 0 && nowTime <= 64000) setMenuTime()
-  }
-
-
-  ///////////////////////////////////////////////////////
-
-  // useEffect(() => {
-
-  //   getLanguages(language)
-
-  // }, [])
-
-  ////////////////////////////////////////////////
-
 
   //=
-  let dataName = `menu_${menuTime}`
   const getClientMenu = () => {
+    setLoadingManual(true)
+    // console.log(co++)
     // dispath(showLoading())
     axios.get(`${process.env.REACT_APP_API}/clients/${link}`)
+
       .then(result => {
         if (result.data.success) {
           const getResault = result.data.clientMenu
+          setClientData(getResault)
           setOriginalClientMenu(getResault.menu)
           setClientMenu(getResault.menu)
           setAllMenuName(getResault.menuName)
-          setChooseMenu(getResault.menuName[dataName])
+          setLanguageSetup(getResault.languageSetup)
 
 
-          // setClentMenu(result.data.userMenu.menu)
+          const allDayType = getResault.timeSetup.allDayType
+
+          let counttype = 0
+          for (let x in allDayType) {
+            if (allDayType[x]) counttype++
+          }
+          setCounttype(counttype)
+
+          if (getResault.timeSetup.timeType) {
+            setMenuTime(1)
+            setChooseMenu(getResault.menuName.menu_1)
+            setLoadingManual(false)
+          } else if (getResault.timeSetup.codeSelectType.menu_1 === '1' && nowTime >= Number(getResault.timeSetup.selectType?.menu_1.start) && nowTime <= Number(getResault.timeSetup.selectType?.menu_1.end)) {
+            setMenuTime(1)
+            setChooseMenu(clientData.menuName.menu_1)
+            // setLoadingManual(false)
+
+          } else if (getResault.timeSetup.codeSelectType.menu_2 === '2' && nowTime >= Number(getResault.timeSetup.selectType?.menu_2.start) && nowTime <= Number(getResault.timeSetup.selectType?.menu_2.end)) {
+            setMenuTime(2)
+            setChooseMenu(getResault.menuName.menu_2)
+            // setLoadingManual(false)
+
+
+          } else if (getResault.timeSetup?.codeSelectType.menu_3 === '3' && nowTime >= Number(getResault.timeSetup.selectType?.menu_3.start) && nowTime <= Number(getResault.timeSetup.selectType?.menu_3.end)) {
+            setMenuTime(3)
+            setChooseMenu(getResault.menuName.menu_3)
+            // setLoadingManual(false)
+          }
+
+          setLoadingManual(false)
+          // console.log(nowTimeState)
+
           // dispath(hideLoading())
         } else {
           // Swal.fire(result.data.message)
@@ -102,12 +121,6 @@ const _MenuComponent = () => {
         // Swal.fire("Can't not connect the server")
       })
   }
-
-
-  // const listMenu = clentMenu.listMenu
-  // console.log('Main clientMenu=> ' + Boolean(clientMenu))
-
-  // const [favorList, setFavorList] = useState([])
 
 
   const addFavorite = (index, objFromAccord, catagory, indexM) => {
@@ -133,28 +146,20 @@ const _MenuComponent = () => {
     setFavorList(favor)
 
   }
-  const [menuTimer, setMenuTimer] = useState('')
+
 
 
 
 
   const [switchManuBtn, setSwitchManuBtn] = useState(false)
   const [triggerIcon, setTriggerIcon] = useState([])
-
   const [switchFilterBtn, setSwitchFilterBtn] = useState(false)
-
-
-  // console.log(triggerIcon)
-
-  // console.log(clientMenu)
-
 
   //=
   const filterSerach = (filterName) => {
     const memoTime = menuTime
     let cutomerFilter = []
     originalClientMenu.forEach(el => {
-      // console.log(el)
 
       let catagory = el.catagory
       let menuTime = el.menuTime
@@ -181,27 +186,32 @@ const _MenuComponent = () => {
 
 
 
-  console.log(clientMenu)
-
   useEffect(() => {
     getClientMenu()
-    // timeSwitcher()
+
   }, [])
 
-  // categoryList.filter((el) => el.menuTime == menuTime)
 
 
   const navIcon = {
     filter: 'filter.svg', dropDown: 'down-chevron.svg', dropUp: 'up-chevron.svg',
-    cancel: 'cancel.svg',vegetarian: 'vegetarian.svg',vegan: 'vegan.svg',glutenfree: 'glutenfree.svg',halal: 'halal.svg',
+    cancel: 'cancel.svg', vegetarian: 'vegetarian.svg', vegan: 'vegan.svg', glutenfree: 'glutenfree.svg', halal: 'halal.svg',
   }
 
-
+  const [loadingManual, setLoadingManual] = useState(true)
 
   return (
 
 
-    <div className='mobileViewport'>
+    <div className='mobileViewport unselectable'>
+
+      <div className={`${loadingManual ? 'showMe' : 'hiddenMe'} bannerLoadingMaain`}>
+        <div className="iconLoadingBanner">
+          <span className='barOne'></span > <span className='barTwo'></span> <span className='barThree'></span>
+        </div>
+      </div>
+
+
 
       <div className='testpos relative max-w-lg'>
 
@@ -213,32 +223,53 @@ const _MenuComponent = () => {
               </div>
 
               <div className=" navSlit navNameAndFilter">
+                {/* //- MenuTime */}
+                {!clientData.timeSetup?.timeType && <div onClick={() => { setSwitchManuBtn(!switchManuBtn); setSwitchFilterBtn(false) }} className="flexNavMenuName">
+                  <div className=" menuNameNavBox navMenuNameText">
+                    <div className='navMenuNameText-top'>{chooseMenu}</div>
+                  </div>
+                </div>}
 
-                <div onClick={() => { setSwitchManuBtn(!switchManuBtn) }} className="flexNavMenuName">
+                {clientData.timeSetup?.timeType && <div onClick={() => { setSwitchManuBtn(!switchManuBtn); setSwitchFilterBtn(false) }} className="flexNavMenuName">
                   <div className=" menuNameNavBox navMenuNameText">
                     <div className='navMenuNameText-top'>{chooseMenu}</div>
 
                     <div className={`navMenuNameText-Ab ${!switchManuBtn && 'navMenuNameText-move'}`}>
-                      <div onClick={() => {
+
+                      {clientData.timeSetup.allDayType.menu_1 && <div onClick={() => {
                         setChooseMenu(allMenuName.menu_1)
                         setMenuTime(1)
-                      }} className={` ${chooseMenu === allMenuName.menu_1 && 'displayNone'} navMenuNameText-tab`}>{allMenuName.menu_1}</div>
-                      <div onClick={() => {
+                      }} className={` ${chooseMenu === allMenuName.menu_1 && 'displayNone'} 
+                      navMenuNameText-tab`}>{allMenuName.menu_1}</div>}
+
+                      {clientData.timeSetup.allDayType.menu_2 && <div onClick={() => {
                         setChooseMenu(allMenuName.menu_2)
                         setMenuTime(2)
-                      }} className={` ${chooseMenu === allMenuName.menu_2 && 'displayNone'} navMenuNameText-tab`}>{allMenuName.menu_2}</div>
-                      <div onClick={() => {
+                      }} className={` ${chooseMenu === allMenuName.menu_2 && 'displayNone'} 
+                      navMenuNameText-tab`}>{allMenuName.menu_2}</div>}
+
+                      {clientData.timeSetup.allDayType.menu_3 && <div onClick={() => {
                         setChooseMenu(allMenuName.menu_3)
                         setMenuTime(3)
-                      }} className={` ${chooseMenu === allMenuName.menu_3 && 'displayNone'} navMenuNameText-tab`}>{allMenuName.menu_3}</div>
+                      }} className={` ${chooseMenu === allMenuName.menu_3 && 'displayNone'} 
+                      navMenuNameText-tab`}>{allMenuName.menu_3}</div>}
+
                     </div>
                   </div>
-                  {switchManuBtn ? <img src={require(`../all-icon/footbar-icon/${navIcon.dropUp}`)} alt="" srcSet="" />
-                    : <img src={require(`../all-icon/footbar-icon/${navIcon.dropDown}`)} alt="" srcSet="" />}
-                </div>
+                  {counttype > 1 && <div>
+                    {switchManuBtn ? <img src={require(`../all-icon/footbar-icon/${navIcon.dropUp}`)} alt="" srcSet="" />
+                      : <img src={require(`../all-icon/footbar-icon/${navIcon.dropDown}`)} alt="" srcSet="" />}
+                  </div>}
+                </div>}
+                {/* var length = Object.keys(obj).length */}
 
 
-                <div onClick={() => { setSwitchFilterBtn(!switchFilterBtn) }} className="filterBtn">
+                {/* //- Filter */}
+
+                <div onClick={() => {
+                  setSwitchFilterBtn(!switchFilterBtn)
+                  setSwitchManuBtn(false)
+                }} className="filterBtn">
 
                   <div className="navFilterNameText ">
                     <div className='filterBtn-main'>
@@ -302,11 +333,15 @@ const _MenuComponent = () => {
             </div>
           </div>
         </nav>
+
+
         <div onClick={() => {
-          setSwitchManuBtn(false)
+          setSwitchManuBtn(false); setSwitchFilterBtn(false)
         }} onTouchStart={() => {
-          setSwitchManuBtn(false)
-        }} className={`${switchManuBtn ? 'overlayForNav' : 'displayNone'}`}></div>
+          setSwitchManuBtn(false); setSwitchFilterBtn(false)
+        }}
+          className={`${switchManuBtn || switchFilterBtn ? 'overlayForNav' : 'displayNone'}`}></div>
+
         {/* == SIDE BAR == */}
         <div className="sideBarSectionC">
           < SidebarSubComp triggerIcon={triggerIcon} />
@@ -344,6 +379,7 @@ const _MenuComponent = () => {
               triggerIcon={triggerIcon}
               setTriggerIcon={setTriggerIcon}
               key={index}
+              language={language}
 
             />
 
@@ -388,7 +424,12 @@ const _MenuComponent = () => {
 
         {/* <div className="footerSpace"></div> */}
         <div className="">
-          <FooterComponent favorList={favorList} />
+          <FooterComponent favorList={favorList}
+            languageSetup={languageSetup}
+            setLanguage={setLanguage}
+            language={language}
+
+          />
         </div>
 
         <div>

@@ -35,6 +35,7 @@ const FooterComponent = (prop) => {
     setFooterState(newfooterState)
 
   }
+
   if (languageTab || listTab || commentTab) {
     document.body.classList.add('overflow-hidden')
   }
@@ -69,11 +70,25 @@ const FooterComponent = (prop) => {
     console.log(score)
   }
 
+  // prop.setLanguage
 
-  const [disPlayLang, setDisPlayLang] = useState('EN')
+  console.log(prop.languageSetup.code_1)
+  let sample = {
+    "onLanguage_2": true,
+    "language_1": "English",
+    "code_1": "EN",
+    "symbol_1": "$",
+    "style_1": false,
+    "followed_1": true,
+    "language_2": "",
+    "code_2": "",
+    "symbol_2": "",
+    "style_2": true,
+    "followed_2": true
+  }
 
   const switcherlng = (name) => (even) => {
-    setDisPlayLang(even.target.value)
+    prop.setLanguage(Number(even.target.value))
     setActiveLang(false)
     switcher('languageTab')
   }
@@ -109,7 +124,6 @@ const FooterComponent = (prop) => {
 
   })
 
-
   ///////////////////////////////
   const [stateComment, setStateComment] = useState({
     comment: ''
@@ -128,31 +142,44 @@ const FooterComponent = (prop) => {
 
   const [activefootbar, setActivefootbar] = useState(true)
 
+
+
+
+
   return (
-    <div>
+    <div className="unselectable">
 
       <nav className={`max-w-lg footBarSectionC ${activefootbar ? 'showMe' : 'hiddenMe'}`}>
         <div className="footBarGrid3">
 
-          <div className={`footBarGrid3_1`}>
+          <div onClick={() => switcher('languageTab')} className={`footBarGrid3_1 `}>
+
             <div className={`footBarGrid3_1-1`}>
 
-              <button onClick={() => switcher('languageTab')} className='footbatBtnLang'>
+              <button  className='footbatBtnLang'>
                 <span className={`langCode`}>
-                  {disPlayLang}
+                  {prop.language === 1 ? prop.languageSetup.code_1 : prop.languageSetup.code_2}
                 </span>
                 <img src={require(`../all-icon/footbar-icon/${foobarIcon.translate}`)} alt="" srcSet="" />
 
               </button>
 
-              {disPlayLang == "EN"
-                ? <button value='EP' onClick={switcherlng('ep')} className={`popupLang ${languageTab && 'popupLangUp1'}  popupLangText`}>
-                  Spanish
+              {prop.language === 1
+                ? <button value='2' onClick={switcherlng('ep')} className={`popupLang ${languageTab && 'popupLangUp1'}  popupLangText`}>
+                  {prop.languageSetup.language_2}
                 </button>
                 :
-                <button value='EN' onClick={switcherlng('en')} className={`popupLang ${languageTab && 'popupLangUp1'}  popupLangText`}>
-                  EngLish
+                <button value='1' onClick={switcherlng('en')} className={`popupLang ${languageTab && 'popupLangUp1'}  popupLangText`}>
+                  {prop.languageSetup.language_1}
                 </button>}
+
+              {/* <button value='2' onClick={switcherlng('ep')} className={`popupLang ${languageTab && 'popupLangUp1'}  popupLangText`}>
+                {prop.languageSetup.language_2}
+              </button>
+
+              <button value='1' onClick={switcherlng('en')} className={`popupLang ${languageTab && 'popupLangUp1'}  popupLangText`}>
+                {prop.languageSetup.language_1}
+              </button> */}
 
             </div>
 
@@ -162,19 +189,19 @@ const FooterComponent = (prop) => {
             {/* </div> */}
           </div>
 
-          <button onClick={() => switcher('listTab')} className="footBarGrid3_2">
-            <div className={`footbatBtnList`}>
-              <img src={require(`../all-icon/footbar-icon/${foobarIcon.list}`)} alt="" srcSet="" />
-              <span className={`itemFavorListShow ${!itemFavor && 'displayNone'}`}>{itemFavor}</span>
+          <button onClick={() => switcher('listTab')} className="footBarGrid3_2 ">
+            <div className={`footbatBtnList `}>
+              <img src={require(`../all-icon/footbar-icon/${foobarIcon.list}`)} className=""alt="" srcSet="" />
+              <span className={` itemFavorListShow ${!itemFavor && 'displayNone'}`}>{itemFavor}</span>
 
             </div>
 
           </button>
 
 
-          <div className="footBarGrid3_3">
+          <div  onClick={() => switcher('commentTab')} className="footBarGrid3_3 ">
 
-            <button onClick={() => switcher('commentTab')} className={`footbatBtnCommentt`}>
+            <button className={`footbatBtnCommentt`}>
               <img src={require(`../all-icon/footbar-icon/${foobarIcon.feedback}`)} alt="" srcSet="" />
 
             </button>
@@ -278,7 +305,7 @@ const FooterComponent = (prop) => {
 
 
         {/* Slide Tab 3*/}
-        <span className={`popupList coment ${commentTab &&'popupListUp coment'} popupListText`}>
+        <span className={`popupList coment ${commentTab && 'popupListUp coment'} popupListText`}>
 
           <div className="col-span-full">
             <label htmlFor="comment" className="block text-sm font-medium leading-6 text-gray-900">About</label>
@@ -300,8 +327,8 @@ const FooterComponent = (prop) => {
 
         </span>
 
-
-        <span onClick={() => switcher('overlay')} className={(languageTab || listTab || commentTab) ? 'overlay' : ''}></span>
+        <span onClick={() => switcher('overlay')} onTouchStart={() => switcher('overlay')} className={(languageTab) ? 'overlay transparent' : ''}></span>
+        <span onClick={() => switcher('overlay')} onTouchStart={() => switcher('overlay')}  className={(listTab || commentTab) ? 'overlay blackOpacity' : ''}></span>
       </div >
 
 

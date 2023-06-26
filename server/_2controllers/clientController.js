@@ -10,7 +10,7 @@ import Clients from "../_3models/clientModel.js";
 export const getClentMenu = (req, res) => {
   const { link } = req.params
   Clients.findOne({ link }).then((result) => {
-
+    console.log(result)
     res.send({
       message: 'Success',
       clientMenu: result,
@@ -26,7 +26,7 @@ export const getAllImageBanner = (req, res) => {
   const { link } = req.params
 
   console.log('dddddddddddddd')
-  Banners.find({ link:link }).then(result => {
+  Banners.find({ link: link }).then(result => {
     res.send({
       message: 'Success',
       images: result,

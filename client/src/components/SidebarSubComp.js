@@ -17,14 +17,14 @@ const SidebarSubComp = (prop) => {
     { catagory: "c08", icon: 'ri-keyboard-line', link: '/#8' },
   ]
   const pngIcon = [
-    { catagory: "c01", icon: 'g1-w/Group 1.svg', iconAct: 'g1-w2/Group 1.svg', link: '#0'},
-    { catagory: "c02", icon: 'g1-w/Group 2.svg', iconAct: 'g1-w2/Group 2.svg', link: '#1'},
-    { catagory: "c03", icon: 'g1-w/Group 3.svg', iconAct: 'g1-w2/Group 3.svg', link: '#2'},
-    { catagory: "c04", icon: 'g1-w/Group 4.svg', iconAct: 'g1-w2/Group 4.svg', link: '#3'},
-    { catagory: "c05", icon: 'g1-w/Group 5.svg', iconAct: 'g1-w2/Group 5.svg', link: '#4'},
-    { catagory: "c06", icon: 'g1-w/Group 6.svg', iconAct: 'g1-w2/Group 6.svg', link: '#5'},
-    { catagory: "c07", icon: 'g1-w/Group 7.svg', iconAct: 'g1-w2/Group 7.svg', link: '#6'},
-    { catagory: "c08", icon: 'g1-w/Group 8.svg', iconAct: 'g1-w2/Group 8.svg', link: '#7'},
+    { catagory: "c01", icon: 'g1-w/Group 1.svg', iconAct: 'g1-w2/Group 1.svg', link: '#0' },
+    { catagory: "c02", icon: 'g1-w/Group 2.svg', iconAct: 'g1-w2/Group 2.svg', link: '#1' },
+    { catagory: "c03", icon: 'g1-w/Group 3.svg', iconAct: 'g1-w2/Group 3.svg', link: '#2' },
+    { catagory: "c04", icon: 'g1-w/Group 4.svg', iconAct: 'g1-w2/Group 4.svg', link: '#3' },
+    { catagory: "c05", icon: 'g1-w/Group 5.svg', iconAct: 'g1-w2/Group 5.svg', link: '#4' },
+    { catagory: "c06", icon: 'g1-w/Group 6.svg', iconAct: 'g1-w2/Group 6.svg', link: '#5' },
+    { catagory: "c07", icon: 'g1-w/Group 7.svg', iconAct: 'g1-w2/Group 7.svg', link: '#6' },
+    { catagory: "c08", icon: 'g1-w/Group 8.svg', iconAct: 'g1-w2/Group 8.svg', link: '#7' },
   ]
 
   const [isSideBarActive, setSideBarActive] = useState(userSidebarLists[0].catagory);
@@ -55,7 +55,7 @@ const SidebarSubComp = (prop) => {
 
   return (
     // fixed top-40 z-20
-    <div className=" ">
+    <div>
       <div className="squareBarC">
         {squareBar && userSidebarLists.map((el, index) => {
           return (
@@ -67,7 +67,7 @@ const SidebarSubComp = (prop) => {
       </div>
 
 
-      <div className="circleBarC">
+      <div className="circleBarC ">
         {circleBar && pngIcon.map((el, index) => {
           return (
             <a href={pngIcon[index].link} value={el.catagory} onClick={() => { setSideBarActive(el.catagory) }} className={`${isSideBarActive === el.catagory ? '' : ''} circleBarBox`} key={index}>

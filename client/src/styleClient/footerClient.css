@@ -7,7 +7,7 @@
   top: 100%;
   transform: translateY(-100%);
   padding-top: .2rem;
-  padding-bottom: .5rem;
+  padding-bottom: .7rem;
   box-shadow: -.2rem 0 .4rem rgba(0, 0, 0, 0.4);
   z-index: 1000;
 
@@ -39,6 +39,17 @@
   justify-content: center;
 }
 
+.footBarGrid3_1::before,
+.footBarGrid3_2::before,
+.footBarGrid3_3::before {
+  /* background-color: #c7c715; */
+  position: absolute;
+  content: '';
+  width: 5rem;
+  height: 5rem;
+}
+
+
 .footBarGrid3_1-1 {
   position: relative;
   display: flex;
@@ -54,14 +65,6 @@
 
 }
 
-.footBarGrid3_2::before {
-  /* background-color: #c7c715; */
-  position: absolute;
-  content: '';
-  width: 5rem;
-  height: 5rem;
-
-}
 
 .footBarGrid3_3 {
   /* background-color: #7c103d; */
@@ -69,6 +72,7 @@
   align-items: center;
   justify-content: center;
 }
+
 
 
 
@@ -199,8 +203,8 @@
   height: 100%;
   transition: all .3s;
   z-index: -5;
-  padding-top:1.2rem ;
-  padding-bottom:1.2rem ;
+  padding-top: 1.2rem;
+  padding-bottom: 1.2rem;
 }
 
 .popupLangUp1 {
@@ -283,6 +287,7 @@
   /* height: 10vh; */
 
 }
+
 /* .popupList {
   content: '';
   position: absolute;
@@ -320,7 +325,7 @@
   content: '';
   position: absolute;
   left: 50%;
-  transform: translate(-50%,100%);
+  transform: translate(-50%, 100%);
   bottom: -25px;
 
   background-color: #fcfcfc;
@@ -335,7 +340,7 @@
 .popupListUp {
   bottom: 0;
   height: max-content;
-    transform: translate(-50%,0);
+  transform: translate(-50%, 0);
 
   max-height: 75vh;
   transition: all .3s;
@@ -361,8 +366,9 @@
   z-index: 5
 }
 
-.sumPopupList{
-  margin-top: 2rem;;
+.sumPopupList {
+  margin-top: 2rem;
+  ;
 }
 
 .overlay {
@@ -370,7 +376,6 @@
   position: absolute;
   left: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.60);
   opacity: 40%;
   width: 100%;
   height: 100vh;
@@ -378,4 +383,13 @@
   transition: all .3s;
   z-index: 0;
   transition: all .2s;
+}
+
+.blackOpacity {
+  background-color: rgba(0, 0, 0, 0.60);
+
+}
+
+.transparent {
+  background-color: none
 }

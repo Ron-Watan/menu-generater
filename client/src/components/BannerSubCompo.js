@@ -134,7 +134,7 @@ const BannerSubCompo = (prop) => {
           >
             {
               bannerImgArr.map((el, index) => (
-                <div className="" key={index}>
+                <div className="unselectable" key={index}>
 
                   <img ref={(element) => {
                     elementRef.current[index] = element;

@@ -4,19 +4,20 @@
 
 .heartFavor2Box {
   position: absolute;
-  top: .6rem;
-  right: 0;
+  top: .8rem;
+  right: .4rem;
   z-index: 100;
-  height: 100%;
-/* background-color: #13cac7; */
+  height: 99%;
+  /* background-color: #13cac7; */
   display: flex;
   justify-content: end;
-  width: 2rem;
+  width: 3rem;
 }
 
 /* .heartFavorBtn {} */
 
-.heartFavor1Box{
+.heartFavor1Box {
   display: flex;
   justify-content: end;
-  padding-right: 1.5rem;}
+  padding-right: 1.5rem;
+}

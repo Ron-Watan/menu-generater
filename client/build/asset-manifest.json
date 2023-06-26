@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.49addc29.css",
-    "main.js": "/static/js/main.60c0190c.js",
+    "main.css": "/static/css/main.61932b09.css",
+    "main.js": "/static/js/main.306a0a7b.js",
     "static/js/787.c4e7f8f9.chunk.js": "/static/js/787.c4e7f8f9.chunk.js",
     "static/media/remixicon.svg?t=1684338274817": "/static/media/remixicon.ce0e40c97bfc62e3edab.svg",
     "static/media/bg.jpg": "/static/media/bg.612bea7e942dc5a5ec4c.jpg",
@@ -17,14 +17,37 @@
     "static/media/288747.jpg": "/static/media/288747.cc3089b2e6072ca16963.jpg",
     "static/media/511909.jpg": "/static/media/511909.aee4a80124a37e634dc1.jpg",
     "static/media/bp-logo.png": "/static/media/bp-logo.2ebb6fa5662d297bd941.png",
+    "static/media/Group 3.svg": "/static/media/Group 3.ebb00a87e7f2bb3b4117.svg",
+    "static/media/Group 7.svg": "/static/media/Group 7.fe0d89bcdb5feddf7350.svg",
+    "static/media/Group 8.svg": "/static/media/Group 8.d381249799ca43e6cb1e.svg",
+    "static/media/Group 10.svg": "/static/media/Group 10.555a2ba8c81a7cae9a0b.svg",
+    "static/media/Group 5.svg": "/static/media/Group 5.8245aa087bb9e2e67b3c.svg",
+    "static/media/Group 4.svg": "/static/media/Group 4.ecb1cb14776ada91a0a9.svg",
     "static/media/downloadIcon.svg": "/static/media/downloadIcon.efda5bd98f0e5d65418b0e39bf79709a.svg",
+    "static/media/Group 2.svg": "/static/media/Group 2.125322fc9f96d4c60eff.svg",
+    "static/media/Group 1.svg": "/static/media/Group 1.3e586b213536dcea2ff1.svg",
+    "static/media/Group 6.svg": "/static/media/Group 6.d584edf6f6cbbadbc61c.svg",
+    "static/media/Group 9.svg": "/static/media/Group 9.1f61fab7e5fe102e8db3.svg",
+    "static/media/translation.svg": "/static/media/translation.57d7bf6491dc934201fa.svg",
+    "static/media/glutenfree.svg": "/static/media/glutenfree.623b51e8ba3b4ca359a9.svg",
+    "static/media/vegan.svg": "/static/media/vegan.b6489b851d8fcdeb6a91.svg",
+    "static/media/filter.svg": "/static/media/filter.f50d50ce6a905234c44e.svg",
+    "static/media/feedback.svg": "/static/media/feedback.fe656a4c9a4c4e624dcf.svg",
+    "static/media/vegetarian.svg": "/static/media/vegetarian.11c30f25ae23f7163b5a.svg",
+    "static/media/halal.svg": "/static/media/halal.feba09879863d5d50439.svg",
+    "static/media/favor2.svg": "/static/media/favor2.50d389eb486b63d5136e.svg",
     "index.html": "/index.html",
-    "main.49addc29.css.map": "/static/css/main.49addc29.css.map",
-    "main.60c0190c.js.map": "/static/js/main.60c0190c.js.map",
+    "static/media/list.svg": "/static/media/list.9c4a992f5dbf8f744341.svg",
+    "static/media/favor1.svg": "/static/media/favor1.e0aa8b41b832362aff95.svg",
+    "static/media/down-chevron.svg": "/static/media/down-chevron.9a758eadf831eed4ea5d.svg",
+    "static/media/cancel.svg": "/static/media/cancel.9118b59c6882feaa7ac6.svg",
+    "static/media/up-chevron.svg": "/static/media/up-chevron.9da2fbbd28599100e9db.svg",
+    "main.61932b09.css.map": "/static/css/main.61932b09.css.map",
+    "main.306a0a7b.js.map": "/static/js/main.306a0a7b.js.map",
     "787.c4e7f8f9.chunk.js.map": "/static/js/787.c4e7f8f9.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.49addc29.css",
-    "static/js/main.60c0190c.js"
+    "static/css/main.61932b09.css",
+    "static/js/main.306a0a7b.js"
   ]
 }

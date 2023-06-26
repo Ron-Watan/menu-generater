@@ -70,7 +70,7 @@ const AcordionSubComp = (prop) => {
     setExpanded(newExpanded ? panel : false);
   };
 
-
+  // console.log(subListMenu)
 
   // console.log(elementRef.current.offsetHeight);
   const drag = () => {
@@ -151,7 +151,7 @@ const AcordionSubComp = (prop) => {
   let newData = []
   const acArrayEl = document.querySelectorAll('.acArray')
   window.addEventListener('scroll', () => {
-   
+
     acArrayEl.forEach((element, index) => {
       if (!element) return
       const point = element.getBoundingClientRect().top
@@ -189,7 +189,7 @@ const AcordionSubComp = (prop) => {
   //- //- //- //- //- //- //- //- //- //- //- //-
 
   return (
-    <div id={prop.indexM} className={`acArray mx-auto max-w-7xl`}
+    <div id={prop.indexM} className={`acArray mx-auto max-w-7xl `}
       ref={elementRef}>
 
       <div className="h-40" style={{
@@ -203,8 +203,8 @@ const AcordionSubComp = (prop) => {
         {newSubListMenu.map((el, index) => (
           // <div ref={(element) => { elementRef.current[index] = element; }} onClick={drag} className='' key={index}>
           <div onClick={drag} className='accTab' key={index}>
-            <button onClick={event => removeFavorite(index, event, el.food_name, el.price)} className="heartFavor2Box">
-              <div className={`${!el.favor && 'hiddenMe'} flex justify-center gap-x-6`}>
+            <button onClick={event => removeFavorite(index, event, el.food_name, el.price)} className={`${!el.favor && 'displayNone'} heartFavor2Box`}>
+              <div className={` heartFavor2Box-1 flex justify-center gap-x-6`}>
 
                 <img src={require(`../all-icon/footbar-icon/${heartIcon.favor2}`)} alt="" />
               </div>
@@ -215,9 +215,12 @@ const AcordionSubComp = (prop) => {
 
               <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
                 {/* <Typography ><span className='test44'>{el.food_name}</span><span>{el.price}</span></Typography> */}
-                <span className='test44'>{el.food_name}</span>
+                {prop.language === 1 && <span className='test44'>{el.food_name}</span>}
+                {prop.language === 2 && <span className='test44'>{el.food_name_2}</span>}
 
-                <div className='flex'><span>{el.price}</span>
+                <div className='flex'>
+                  {prop.language === 1 && <span>{el.price}</span>}
+                  {prop.language === 2 && <span>{el.price}</span>}
 
 
                   {/* <p>{t(`food_name.${index}`)}</p> */}
@@ -229,12 +232,10 @@ const AcordionSubComp = (prop) => {
 
 
               <AccordionDetails>
-                <Typography>
-                  {el.description}
-                </Typography>
-                <div className="">{el.remark}</div>
-
-
+                {prop.language === 1 && <Typography>{el.description}</Typography>}
+                {prop.language === 2 && <Typography >{el.description}</Typography>}
+                {prop.language === 1 && <div >{el.remark}</div>}
+                {prop.language === 2 && <div >{el.remark}</div>}
                 <div className={`heartFavor1Box`}>
 
 
