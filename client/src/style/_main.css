@@ -1,3 +1,15 @@
+/* font-family: 'Lato', sans-serif;
+var --font-primary: "Lato",Helvetica,Arial,sans-serif
+html {
+ */
+
+.mainAppMonitor {
+  font-family: 'Lato', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  min-width: 900px;
+}
+
+
 .topbarWin {
   background-color: #3C3D3F;
   width: 100%;

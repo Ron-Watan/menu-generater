@@ -15,7 +15,7 @@
 }
 
 .section1 {
-
+  /* height: 3.12rem; */
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -24,8 +24,12 @@
 }
 
 .iconBarcode {
-  padding-bottom: 1rem;
-  padding-top: 1rem;
+  height: 3.12rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* padding-bottom: 1rem;
+  padding-top: 1rem; */
 }
 
 .iconBarcode rect {
@@ -37,11 +41,12 @@
 }
 
 .section2 {
+
   display: flex;
   flex-direction: column;
   /* border-top: 1px solid #777; */
   border-bottom: 1px solid #777;
-  gap: 1.5rem;
+  gap: .5rem;
   padding: 1rem 0;
   width: 100%;
   align-items: center;
@@ -50,6 +55,45 @@
 }
 
 
+
+.myIconTab {
+  /* background-color: #fff; */
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: .5rem;
+
+}
+.myIconTab:hover{
+  background-color: #4b4b4c;
+
+}
+
+.myIconBanner {
+  width: 35px;
+  height: 35px;
+
+  stroke: #777;
+}
+
+.myIconSideBar {
+  width: 35px;
+  height: 35px;
+
+  stroke: #777;
+}
+
+.myIconMd {
+  width: 32px;
+  height: 32px;
+
+  stroke: #777;
+}
+
+.myIconSideBar path {
+  fill: #777
+}
 
 .endSection {
   display: flex;
@@ -61,24 +105,6 @@
   height: 100%;
 }
 
-
-.myIconBanner {
-  width: 40px;
-  height: 40px;
-  ;
-  stroke: #777;
-}
-
-.myIconSideBar {
-  width: 40px;
-  height: 40px;
-  
-  stroke: #777;
-}
-
-.myIconSideBar path {
-  fill: #777
-}
 
 .active {
   stroke: #eee;
@@ -121,12 +147,6 @@
   stroke: #eee;
 }
 
-.myIconMd {
-  width: 35px;
-  height: 35px;
-
-  stroke: #777;
-}
 
 
 .activeLang circle,
@@ -139,4 +159,3 @@
   fill: #eee;
 
 }
-

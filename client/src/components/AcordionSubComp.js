@@ -98,7 +98,7 @@ const AcordionSubComp = (prop) => {
   })
 
   const [newSubListMenu, setNewSubListMenu] = useState(subListMenu)
-  console.log(prop.listMunu)
+
 
   //- Add data for functional
 
@@ -174,7 +174,7 @@ const AcordionSubComp = (prop) => {
 
   },)
 
-  console.log(prop.triggerIcon)
+
   // console.log(prop.triggerIcon)
   // componentWillUnmount: function() {
   //   window.removeEventListener('scroll', this.handleScroll);
@@ -229,7 +229,7 @@ const AcordionSubComp = (prop) => {
   }, []);
 
 
-  console.log(prop.listMunu)
+
 
   const heartIcon = {
     favor1: 'favor1.svg', favor2: 'favor2.svg',

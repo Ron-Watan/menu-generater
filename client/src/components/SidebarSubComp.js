@@ -1,45 +1,16 @@
 import React, { useEffect, useState } from 'react';
-// import { v4 as uuidv4 } from 'uuid';
-import 'remixicon/fonts/remixicon.css'
-
 
 const SidebarSubComp = (prop) => {
+  const [squareBar, setSquareBar] = useState(false);
+  const [circleBar, setCircleBareBar] = useState(true);
 
+  // const [trigA, setTrickA] = useState()
+  // const trigger = (index, any) => {
+  //   let newdata = [...trigA]
+  //   newdata[index] = any
+  //   setTrickA(newdata)
 
-  const userSidebarLists = [
-    { catagory: "c01", icon: 'ri-keyboard-line', link: '/#1' },
-    { catagory: "c02", icon: 'ri-link-unlink-m', link: '/#2' },
-    { catagory: "c03", icon: 'ri-shopping-basket-line', link: '/#3' },
-    { catagory: "c04", icon: 'ri-keyboard-line', link: '/#4' },
-    { catagory: "c05", icon: 'ri-coins-line', link: '/#5' },
-    { catagory: "c06", icon: 'ri-keyboard-line', link: '/#6' },
-    { catagory: "c07", icon: 'ri-link-unlink-m', link: '/#7' },
-    { catagory: "c08", icon: 'ri-keyboard-line', link: '/#8' },
-  ]
-  const pngIcon = [
-    { catagory: "c01", icon: 'g1-w/Group 1.svg', iconAct: 'g1-w2/Group 1.svg', link: '#0' },
-    { catagory: "c02", icon: 'g1-w/Group 2.svg', iconAct: 'g1-w2/Group 2.svg', link: '#1' },
-    { catagory: "c03", icon: 'g1-w/Group 3.svg', iconAct: 'g1-w2/Group 3.svg', link: '#2' },
-    { catagory: "c04", icon: 'g1-w/Group 4.svg', iconAct: 'g1-w2/Group 4.svg', link: '#3' },
-    { catagory: "c05", icon: 'g1-w/Group 5.svg', iconAct: 'g1-w2/Group 5.svg', link: '#4' },
-    { catagory: "c06", icon: 'g1-w/Group 6.svg', iconAct: 'g1-w2/Group 6.svg', link: '#5' },
-    { catagory: "c07", icon: 'g1-w/Group 7.svg', iconAct: 'g1-w2/Group 7.svg', link: '#6' },
-    { catagory: "c08", icon: 'g1-w/Group 8.svg', iconAct: 'g1-w2/Group 8.svg', link: '#7' },
-  ]
-
-  const [isSideBarActive, setSideBarActive] = useState(userSidebarLists[0].catagory);
-  const [squareBar, setSquareBar] = useState(false)
-  const [circleBar, setCircleBareBar] = useState(true)
-
-
-  const [trigA, setTrickA] = useState()
-  const trigger = (index, any) => {
-    let newdata = [...trigA]
-    newdata[index] = any
-    setTrickA(newdata)
-
-  }
-
+  // }
 
   // useEffect(() => {
 
@@ -47,48 +18,63 @@ const SidebarSubComp = (prop) => {
   //     trigger(prop.triggerIcon.index, true);
   //   } else trigger(prop.triggerIcon.index, false);
 
-
+  console.log(prop.colorTheme);
 
   // }, [prop.triggerIcon]);
-
-
 
   return (
     // fixed top-40 z-20
     <div>
-      <div className="squareBarC">
-        {squareBar && userSidebarLists.map((el, index) => {
+      <div className='squareBarC'>
+        {/* {squareBar && userSidebarLists.map((el, index) => {
           return (
             <a href={pngIcon[index].link} value={el.catagory} onClick={() => { setSideBarActive(el.catagory) }} className={`${isSideBarActive === el.catagory ? 'sidebarTrans1' : 'sidebarTrans2'} hover:translate-x-0  origin-left bg-C_bgsidebar flex justify-center items-center w-12 h-12 p-1 rounded-r sidebar`} key={index}>
               <i className={`block text-3xl text-C_fsidebar ${el.icon}`} ></i>
             </a >
           )
-        })}
+        })} */}
       </div>
 
-
-      <div className="circleBarC ">
-        {circleBar && pngIcon.map((el, index) => {
-          return (
-            <a href={pngIcon[index].link} value={el.catagory} onClick={() => { setSideBarActive(el.catagory) }} className={`${isSideBarActive === el.catagory ? '' : ''} circleBarBox`} key={index}>
-              <i className={`circleBarIcon circleBarSize circleBarColor ${prop.triggerIcon[index] && "activeBaricon"}`} >
-                <img className={``} src={require(`../all-icon/bar-icon/${prop.triggerIcon[index] ? pngIcon[index].iconAct : pngIcon[index].icon}`)} alt="" />
-
-              </i>
-            </a >
-          )
-        })}
+      <div className='circleBarC '>
+        {circleBar &&
+          prop.menuTime == 1 &&
+          prop.iconMenu_1.map((el, index) => {
+            return (
+              <a href={prop.iconMenu_1[index]?.link} value={el.catagory} className={`circleBarBox`} key={index}>
+                <i className={`${prop.colorTheme} circleBarIcon circleBarSize circleBarColor ${prop.triggerIcon[index] && 'activeBaricon'}`}>
+                  <img className={``} src={prop.triggerIcon[index] ? prop.iconMenu_1[index]?.iconAct : prop.iconMenu_1[index]?.icon} alt='' />
+                </i>
+              </a>
+            );
+          })}
+        {circleBar &&
+          prop.menuTime == 2 &&
+          prop.iconMenu_2.map((el, index) => {
+            return (
+              <a href={prop.iconMenu_2[index]?.link} value={el.catagory} className={`circleBarBox`} key={index}>
+                <i style={{ 'background-color': prop.colorTheme }} className={`circleBarIcon circleBarSize circleBarColor ${prop.triggerIcon[index] && 'activeBaricon'}`}>
+                  <img className={``} src={prop.triggerIcon[index] ? prop.iconMenu_2[index]?.iconAct : prop.iconMenu_2[index]?.icon} alt='' />
+                </i>
+              </a>
+            );
+          })}
+        {circleBar &&
+          prop.menuTime == 3 &&
+          prop.iconMenu_3.map((el, index) => {
+            return (
+              <a href={prop.iconMenu_3[index]?.link} value={el.catagory} className={`circleBarBox`} key={index}>
+                <i className={`circleBarIcon circleBarSize circleBarColor ${prop.triggerIcon[index] && 'activeBaricon'}`}>
+                  <img className={``} src={prop.triggerIcon[index] ? prop.iconMenu_3[index]?.iconAct : prop.iconMenu_3[index]?.icon} alt='' />
+                </i>
+              </a>
+            );
+          })}
       </div>
-
     </div>
-  )
+  );
 };
 
 export default SidebarSubComp;
-
-
-
-
 
 // style = {
 //   {

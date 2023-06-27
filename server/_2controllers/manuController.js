@@ -17,7 +17,7 @@ import path from 'path';
 export const getAllMenu = (req, res) => {
   // res.send({ message: "Success", success: true, }) //send to client side
   const { userId } = req.body;
-  Users.findOne({ userId: userId }).select('userId restaurentName menu menuName  bannerImage languageSetup timeSetup clientId link').then((user) => {
+  Users.findOne({ userId: userId }).select('userId restaurentName menu menuName themeSetup bannerImage languageSetup timeSetup clientId link').then((user) => {
 
     res.send({
       message: 'Success',
@@ -31,14 +31,18 @@ export const getAllMenu = (req, res) => {
 //-
 export const createManu = (req, res) => {
   // console.log(req.body)
-  const { userId, clientId, catagory, imgId, listMenu, menuTime } = req.body;
+  const { userId, clientId, catagory, icon_catagory, imgId, listMenu, menuTime } = req.body;
+  
   const menuId = uuidv4()
 
-  Users.findOne({ userId: userId }).select('userId restaurentName menu menuName  bannerImage languageSetup timeSetup clientId link').then((user) => {
+
+  Users.findOne({ userId: userId }).select('userId restaurentName menu menuName bannerImage languageSetup timeSetup clientId link').then((user) => {
+
     user.menu.push({
       menuTime: menuTime,
       menuId: menuId,
       catagory: catagory,
+      icon_catagory: icon_catagory,
       imgId: imgId,
       listMenu: listMenu,
     });
@@ -53,8 +57,10 @@ export const createManu = (req, res) => {
         menuTime: menuTime,
         menuId: menuId,
         catagory: catagory,
+        icon_catagory: icon_catagory,
         imgId: imgId,
         listMenu: listMenu,
+
       });
       client.save();
     })
@@ -81,7 +87,7 @@ export const createManu = (req, res) => {
 //- // componentusers/MainForm.js
 export const saveEditMenu = (req, res) => {
 
-  const { menuId, catagory, imgId, listMenu, menuTime, menuTimeName } = req.body;
+  const { menuId, catagory, icon_catagory, imgId, listMenu, menuTime, menuTimeName } = req.body;
   Users.findOneAndUpdate({ 'menu.menuId': menuId }, {
     $set: {
       "menu.$": {
@@ -89,6 +95,7 @@ export const saveEditMenu = (req, res) => {
         menuTimeName: menuTimeName,
         menuId: menuId,
         catagory: catagory,
+        icon_catagory, icon_catagory,
         imgId: imgId,
         listMenu: listMenu,
       }
@@ -107,6 +114,7 @@ export const saveEditMenu = (req, res) => {
         menuTimeName: menuTimeName,
         menuId: menuId,
         catagory: catagory,
+        icon_catagory, icon_catagory,
         imgId: imgId,
         listMenu: listMenu,
       }
@@ -319,7 +327,7 @@ export const uploadImageBanner = (req, res) => {
       })
       var image = {
         userId: userId,
-        link:link,
+        link: link,
         imgId: 'banner',
         destination: el.destination,
         size: el.size / 1000,

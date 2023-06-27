@@ -1,0 +1,66 @@
+.colorPickerSection {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -40%);
+  /* width: 55vw; */
+  min-width: 40rem;
+  background-color: #fff;
+  border-radius: .3rem;
+  box-shadow: 0rem .5rem 2rem 0rem rgba(0, 0, 0, 0.3);
+  padding: 2rem;
+  padding-right: 1rem;
+
+  z-index: 50;
+
+}
+
+.colorPickerTable {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  gap: 1rem;
+  overflow-y: scroll;
+  max-height: 70vh;
+  padding-right: 1rem;
+}
+
+
+.colorPickerTable::-webkit-scrollbar {
+  width: 0.4rem;
+
+}
+
+.colorPickerTable::-webkit-scrollbar-track {
+  /* background-color: #3C3D3F; */
+  background: #fff;
+}
+
+.colorPickerTable::-webkit-scrollbar-thumb {
+  background: #656566;
+  border-radius: 1rem;
+}
+
+.colorPickerTable::-webkit-scrollbar-thumb:hover {
+  background: #656566;
+  border-radius: 1rem;
+
+}
+
+.colorPickerGridRow {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: nowrap;
+}
+
+.colorPickerItem {
+  width: 3rem;
+  height: 3rem;
+  /* padding: .1rem; */
+  /* background-color: aquamarine; */
+  /* border: 1px solid red; */
+  border-radius: .2rem;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}

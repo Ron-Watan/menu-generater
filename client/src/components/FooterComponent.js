@@ -72,7 +72,7 @@ const FooterComponent = (prop) => {
 
   // prop.setLanguage
 
-  console.log(prop.languageSetup)
+
   let sample = {
     "onLanguage_2": false,
     "language_1": "English",

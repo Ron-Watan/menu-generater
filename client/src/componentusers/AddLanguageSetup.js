@@ -88,7 +88,6 @@ const AddLanguageSetup = (prop) => {
   }, [prop.navLang2LangSetUp]);
 
 
-  console.log(languageSetup)
 
 
 
