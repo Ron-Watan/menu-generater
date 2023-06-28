@@ -10,16 +10,16 @@
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.50);
-  z-index: 2000;
+  z-index: 1000;
 }
 
 .windowFloatLang {
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 51.5%;
   transform: translate(-60%, -60%);
 
-  width: 55vw;
+  /* width: 55vw; */
   min-width: 40rem;
   background-color: #fff;
   border-radius: .3rem;

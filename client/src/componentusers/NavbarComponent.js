@@ -11,33 +11,51 @@ const NavbarComponent = (prop) => {
 
   const checkOnOff = (name) => {
     if (name == 'qrCode') {
-      // prop.setOnoffBanner(false)
+      prop.setOnoffBanner(false);
+      prop.setOnoffMenu1({ switch: false });
+      prop.setOnoffMenu2({ switch: false });
+      prop.setOnoffMenu3({ switch: false });
+      prop.setonOffMenuTime(false);
+      prop.setOnOffLangSetup(false);
     } else if (name === 'banner') {
+      prop.setOnoffQrCode(false);
       prop.setOnoffMenu1({ switch: false });
       prop.setOnoffMenu2({ switch: false });
       prop.setOnoffMenu3({ switch: false });
       prop.setonOffMenuTime(false);
+      prop.setOnOffLangSetup(false);
     } else if (name === 'menu1') {
+      prop.setOnoffQrCode(false);
+
       prop.setOnoffBanner(false);
       prop.setOnoffMenu2({ switch: false });
       prop.setOnoffMenu3({ switch: false });
       prop.setonOffMenuTime(false);
+      prop.setOnOffLangSetup(false);
     } else if (name === 'menu2') {
+      prop.setOnoffQrCode(false);
+
       prop.setOnoffBanner(false);
       prop.setOnoffMenu1({ switch: false });
       prop.setOnoffMenu3({ switch: false });
       prop.setonOffMenuTime(false);
+      prop.setOnOffLangSetup(false);
     } else if (name === 'menu3') {
+      prop.setOnoffQrCode(false);
+
       prop.setOnoffBanner(false);
       prop.setOnoffMenu1({ switch: false });
       prop.setOnoffMenu2({ switch: false });
       prop.setonOffMenuTime(false);
+      prop.setOnOffLangSetup(false);
     } else if (name === 'menuTime') {
+      prop.setOnOffLangSetup(false);
       // prop.setOnoffBanner(false)
       // prop.setOnoffMenu1({ switch: false })
       // prop.setOnoffMenu2({ switch: false })
       // prop.setOnoffMenu3({ switch: false })
     } else if (name === 'menuLang') {
+      prop.setonOffMenuTime(false);
       // prop.setOnoffBanner(false)
       // prop.setOnoffMenu1({ switch: false })
       // prop.setOnoffMenu2({ switch: false })
@@ -149,7 +167,9 @@ const NavbarComponent = (prop) => {
             // buttunSwitcher('menu3')
             prop.setOnoffMenu3({ switch: true });
             checkOnOff('menu3');
-          }} name='menu3'className="myIconTab" >
+          }}
+          name='menu3'
+          className='myIconTab'>
           <svg className={`myIconSideBar ${prop.onOffMenu3.switch && 'active'}`} width='69' height='64' viewBox='0 0 69 64' fill='none' xmlns='http://www.w3.org/2000/svg'>
             <rect x='6' y='1' width='62' height='62' stroke='' strokeWidth='2' />
             <line y1='33' x2='15' y2='33' stroke='' strokeWidth='2' />
@@ -173,7 +193,8 @@ const NavbarComponent = (prop) => {
             prop.setNavTime2TimePicker((testTG) => prop.navTime2TimePicker + 1);
             checkOnOff('menuTime');
           }}
-          name='menuTime' className="myIconTab">
+          name='menuTime'
+          className='myIconTab'>
           <svg className={`myIconMd ${prop.onOffMenuTime && 'activeTime'}`} width='35' height='35' viewBox='0 0 65 65' fill='none' xmlns='http://www.w3.org/2000/svg'>
             <circle cx='32.5' cy='32.5' r='31.5' stroke='#777777' strokeWidth='2' />
             <line x1='33' y1='1' x2='33' y2='10' stroke='#777777' strokeWidth='2' />
@@ -192,7 +213,8 @@ const NavbarComponent = (prop) => {
             prop.setNavLang2LangSetUp((any) => prop.navLang2LangSetUp + 1);
             checkOnOff('menuLang');
           }}
-          name='menuLang' className="myIconTab">
+          name='menuLang'
+          className='myIconTab'>
           <svg className={`myIconMd ${prop.onOffLangSetup && 'activeLang'}`} width='35' height='35' viewBox='0 0 65 65' fill='none' xmlns='http://www.w3.org/2000/svg'>
             <path className='pf' d='M54.1094 32.1719V39H37V36.2656L39.4219 35.7969V19.4688L37 19V16.25H46.7344V19L43.9844 19.4688V35.5H50.4062L50.625 32.1719H54.1094Z' fill='#777777' />
             <circle cx='32.5' cy='32.5' r='31.5' stroke='#777777' strokeWidth='2' />
@@ -226,7 +248,8 @@ const NavbarComponent = (prop) => {
           onClick={() => {
             // buttunSwitcher('feedback')
           }}
-          name='feedback' className="myIconTab">
+          name='feedback'
+          className='myIconTab'>
           <svg width='35' height='35' viewBox='0 0 65 65' fill='none' xmlns='http://www.w3.org/2000/svg'>
             <circle cx='32.5' cy='32.5' r='31.5' stroke='#777777' strokeWidth='2' />
             <path
@@ -239,7 +262,7 @@ const NavbarComponent = (prop) => {
           </svg>
         </button>
 
-        <button className="myIconTab">
+        <button className='myIconTab'>
           <svg width='35' height='35' viewBox='0 0 65 65' fill='none' xmlns='http://www.w3.org/2000/svg'>
             <path
               d='M56.413 11.5472C56.9652 11.5472 57.413 11.0995 57.413 10.5472V1.54721C57.413 0.994924 56.9652 0.547208 56.413 0.547208C55.8607 0.547208 55.413 0.994924 55.413 1.54721V9.54721H47.413C46.8607 9.54721 46.413 9.99493 46.413 10.5472C46.413 11.0995 46.8607 11.5472 47.413 11.5472H56.413ZM54.2221 9.77058L55.7059 11.2543L57.1201 9.8401L55.6363 8.35637L54.2221 9.77058Z'

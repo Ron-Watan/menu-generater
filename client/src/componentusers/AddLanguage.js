@@ -25,7 +25,7 @@ const AddLanguage = (prop) => {
         <div className='gridCat'>
           <div
             onClick={() => {
-
+              prop.setStart(false);
               prop.setOnOffLangForm(false)
 
             }}

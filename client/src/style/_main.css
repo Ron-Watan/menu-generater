@@ -6,7 +6,8 @@ html {
 .mainAppMonitor {
   font-family: 'Lato', sans-serif;
   -webkit-font-smoothing: antialiased;
-  min-width: 900px;
+  min-width: 800px;
+  background-color: #ddd;
 }
 
 

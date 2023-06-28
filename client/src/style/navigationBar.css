@@ -1,3 +1,7 @@
+/* .sideBarTop{
+  z-index: 3000;
+} */
+
 .sectionNavigation {
   position: fixed;
   display: flex;
@@ -10,6 +14,8 @@
   height: 100vh;
   background: #3C3D3F;
   z-index: 1000;
+  box-shadow: .1rem .1rem 1rem  #0000003b;
+  z-index: 3000;
   /* gap: 1rem; */
   ;
 }

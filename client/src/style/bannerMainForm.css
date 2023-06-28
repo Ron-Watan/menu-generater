@@ -1,9 +1,9 @@
 .bannerSection {
   position: fixed;
   display: flex;
-  width: 80vw;
+  width: 75vw;
   height: 100vh;
-  z-index: 2000;
+  z-index: 0;
 
 }
 
@@ -60,14 +60,12 @@
   /* width: 100%; */
 
   /* height: 18rem; */
-
-  /* height: 18rem; */
-
+  transform: scale(1.5);
 }
 
 .imageBannerForm {
-  display: block;
-  border-radius: 5px;
+  display: flex;
+  /* border-radius: 5px; */
   box-shadow: .3rem .3rem .4rem .1rem rgba(0, 0, 0, 0.30);
 }
 
@@ -83,34 +81,55 @@
   display: flex;
   margin: 1rem auto;
 
-  width: 60%;
+  width: 40%;
   justify-content: center;
   align-items: center;
-  gap: .5rem;
+  gap: .4rem;
   transform: translateY(-20%);
 }
 
 .dotForm {
+  position: relative;
   width: 10%;
   height: .2rem;
   background-color: #cdcdcd;
   border-radius: 2px;
-  font-size: 0rem;
+  font-size: .8rem;
   color: #aaa;
   display: flex;
   justify-content: center;
   font-weight: 500;
   /* transform: scale(.7) */
 }
+.dotForm::before {
+  position: absolute;
+  content: '';
+  left: 0;
+  top: -.5rem;
+  height: 3rem;
+  width: 100%;
 
+}
 .dotActiveForm {
+  position: relative;
+
   font-size: 1.3rem;
   background-color: #5a5959;
   color: #777;
 
-
 }
 
+.dotActiveForm::before {
+  position: absolute;
+  content: '';
+  left: 0;
+  top: .3rem;
+  border: #5a5959 solid 1px;
+  border-radius: .2rem;
+  height: 1.5rem;
+  width: 100%;
+
+}
 
 .inputPhotoBanner {
   width: 20rem;
@@ -263,8 +282,8 @@
   top: 2px;
   border-radius: .2rem;
   padding: .3rem;
- display: flex;
- justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .trashPhoto:hover {

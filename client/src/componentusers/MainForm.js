@@ -15,7 +15,6 @@ import '../style/colorPicker.css';
 
 import { BsSquare, BsCheckSquare } from 'react-icons/bs';
 import { v4 as uuidv4 } from 'uuid';
-import iconPhoto from '../icon/downloadIcon.svg';
 import Resizer from 'react-image-file-resizer';
 import GenerateMenu from './GenerateMenu';
 import BannerMainForm from './BannerMainForm';
@@ -27,8 +26,11 @@ import IconPickker from './IconPickker';
 
 import ColorPickker from './ColorPickker';
 
+import iconPhoto from '../icon/meal.svg';
+import iconAddicIcon from '../icon/addIcon.svg';
+
 /*
-qqq
+
 
 001_getAllMenu
 
@@ -38,13 +40,10 @@ qqq
 
 
 901_chooseMenu
-
+*/
 //-///-///-///-///-///-///-///-///-///-
 
-<i className='sr-only'>//-!Photo//-</i>
-
-*/
-
+// qqq
 const MainForm = () => {
   function getCurrentDimension() {
     return {
@@ -256,7 +255,7 @@ const MainForm = () => {
 
   //-
 
-  const [originFile, setOriginFile] = useState('');
+  // const [originFile, setOriginFile] = useState('');
 
   const saveEditMenu = (e) => {
     if (!menuId) return;
@@ -637,9 +636,9 @@ const MainForm = () => {
 
   // console.log(indexToBanner)
 
-  const [onOffQrCode, setOnoffQrCode] = useState(true);
+  const [onOffQrCode, setOnoffQrCode] = useState(false);
   const [onOffBanner, setOnoffBanner] = useState(false);
-  const [onOffMenu1, setOnoffMenu1] = useState({ switch: true, value: 1 });
+  const [onOffMenu1, setOnoffMenu1] = useState({ switch: false, value: 1 });
   const [onOffMenu2, setOnoffMenu2] = useState({ switch: false, value: 2 });
   const [onOffMenu3, setOnoffMenu3] = useState({ switch: false, value: 3 });
 
@@ -663,6 +662,9 @@ const MainForm = () => {
   const [navTime2TimePicker, setNavTime2TimePicker] = useState(0);
   const [navLang2LangSetUp, setNavLang2LangSetUp] = useState(0);
 
+  //=
+
+
   const [onConnected, setOnConnected] = useState(false);
 
   useEffect(() => {
@@ -685,7 +687,7 @@ const MainForm = () => {
       <div className='decorBg'></div>
 
       <div className='monitor ' id='monitor'>
-        <NavbarComponent
+        <NavbarComponent className='sideBarTop'
           // timeSwitcher={timeSwitcher}
           setMenuTime={setMenuTime}
           onOffQrCode={onOffQrCode}
@@ -735,13 +737,13 @@ const MainForm = () => {
 
           {/* aaa */}
           {onConnected && (
-            <div className={`timePikerSection ${onOffMenuTime ? 'showMe' : 'hiddenMe'}`}>
+            <div className={`timePikerSection ${onOffMenuTime ? 'showMe' : 'displayNone'}`}>
               <TimePicker menuName={menuName} onOffMenuTime={onOffMenuTime} setonOffMenuTime={setonOffMenuTime} timeSetup={timeSetup} setTimeSetup={setTimeSetup} navTime2TimePicker={navTime2TimePicker} />
             </div>
           )}
 
           {onConnected && (
-            <div className={`setupLangSection ${onOffLangSetup ? 'showMe' : 'hiddenMe'}`}>
+            <div className={`setupLangSection ${onOffLangSetup ? 'showMe' : 'displayNone'}`}>
               <AddLanguageSetup setOnOffLangSetup={setOnOffLangSetup} navLang2LangSetUp={navLang2LangSetUp} languageSetup={languageSetup} />
             </div>
           )}
@@ -755,7 +757,7 @@ const MainForm = () => {
             <ColorPickker themeSetup={themeSetup} setThemeSetup={setThemeSetup} />
           </div> */}
 
-          <div className={`formContainer ${start ? 'showMe' : 'hiddenMe'}`}>
+          <div className={`formContainer ${start ? 'showMe' : 'displayNone'}`}>
             <form id='foodForm' encType='multipart/form-data' className={` formMenu`}>
               <div className='stickyBox1'></div>
 
@@ -784,11 +786,12 @@ const MainForm = () => {
                         </svg>
                       </span>
                     </div>
-
+                    {/* 111 */}
                     <div className='flexIcoCat'>
-                      <button className='icon'>
-                        <img src={state.icon_catagory} alt='' />
-                      </button>
+                      <span className='iconCatForm'>
+                        {/* <img src={state.icon_catagory} alt='' /> */}
+                        <img src={iconAddicIcon} alt='' />
+                      </span>
 
                       <div className='boxInputText'>
                         <input onChange={inputValue('catagory')} value={state.catagory} placeholder='Catagory' type='text' name='catagory' id='' autoComplete='off' className='inputText fontCat' required />
@@ -1010,63 +1013,29 @@ const MainForm = () => {
                 </div>
               </div>
 
-              {/* //-//- */}
+              <i className='x'>LANGUAGE COMPONENT</i>
 
               <div className={`${!onOffLangForm && 'displayNone'}`}>
-                <AddLanguage state={state} listMenu={listMenu} inputValue={inputValue} inputListValue={inputListValue} setOnOffLangForm={setOnOffLangForm} />
+                <AddLanguage state={state} listMenu={listMenu} inputValue={inputValue} inputListValue={inputListValue} setOnOffLangForm={setOnOffLangForm} setStart={setStart} />
               </div>
-
-              {/* //-//- */}
             </form>
 
             {/* ${!start ? 'show' : 'hiddenMe'} ${menuId ? 'hiddenMe' : 'show'} */}
             {/* ${!menuId ? 'hiddenMe' : 'show'} */}
 
-            <div onClick={() => setDeleteBtn(false)} className='buttonFormContainer '>
-              <i className='sr-only'>!SAVE</i>
-              <div className='saveBtnBox'>
-                <div className={`${menuId ? 'displayNone' : 'displayFlex'} ${start ? 'displayFlex' : 'displayNone'}`}>
-                  <button onClick={submitCatagory} type='submit' form='foodForm' className='saveBtn btnhover btnactive'>
-                    <svg width='35' height='35' viewBox='0 0 65 65' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                      <rect x='1' y='1' width='63' height='63' rx='2' stroke='white' strokeWidth='2' />
-                      <path d='M32 12L32 53' stroke='white' strokeWidth='2' strokeLinecap='round' />
-                      <path d='M32 53L12 33' stroke='white' strokeWidth='2' strokeLinecap='round' />
-                      <path d='M32 53L52 33' stroke='white' strokeWidth='2' strokeLinecap='round' />
-                    </svg>
-                    <span>
-                      {' '}
-                      SAVE NEW
-                      <br />
-                      CATEGORY
-                    </span>
-                  </button>
-                </div>
-
-                <div className={` ${!menuId ? 'displayNone' : 'displayFlex'}`}>
-                  <button onClick={saveEditMenu} type='' className='saveBtn btnhover btnactive'>
-                    <svg width='35' height='35' viewBox='0 0 65 65' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                      <rect x='1' y='1' width='63' height='63' rx='2' stroke='white' strokeWidth='2' />
-                      <path d='M32 12L32 53' stroke='white' strokeWidth='2' strokeLinecap='round' />
-                      <path d='M32 53L12 33' stroke='white' strokeWidth='2' strokeLinecap='round' />
-                      <path d='M32 53L52 33' stroke='white' strokeWidth='2' strokeLinecap='round' />
-                    </svg>
-                    <span> SAVE</span>
-                  </button>
-                </div>
-              </div>
-            </div>
+            <div onClick={() => setDeleteBtn(false)} className='buttonFormContainer '></div>
           </div>
         </div>
 
-        {/* RIGHTBAR SECTION */}
+        <i className='x'>RIGHTBAR SECTION Position Fixedl</i>
 
         <div
           className={`sectionSideCat 
-        ${!(onOffMenu1.switch || onOffMenu2.switch || onOffMenu3.switch) && ''}`}>
+        ${!(onOffMenu1.switch || onOffMenu2.switch || onOffMenu3.switch || onOffBanner) && 'displayNone'}`}>
           <div className={`headCat`}>
             <div className={`headCat1 ${!(onOffMenu1.switch || onOffMenu2.switch || onOffMenu3.switch) && 'displayNone'}`}>
               <button onClick={openForm} type='button' form='foodForm' className={`newCatBtn`}>
-                <svg width='35' height='35' viewBox='0 0 65 65' fill='none' xmlns='http://www.w3.org/2000/svg'>
+                <svg width='25' height='25' viewBox='0 0 65 65' fill='none' xmlns='http://www.w3.org/2000/svg'>
                   <rect x='1' y='1' width='63' height='63' rx='2' stroke='white' strokeWidth='2' />
                   <path d='M32 12L32 53' stroke='white' strokeWidth='2' strokeLinecap='round' />
                   <path d='M12 32L53 32' stroke='white' strokeWidth='2' strokeLinecap='round' />
@@ -1086,17 +1055,17 @@ const MainForm = () => {
               </button>
             </div>
 
-            {/* ADD PROMOTION PHOTO BUTTON */}
-            <div className={`headCat1 ${(onOffMenu1.switch || onOffMenu2.switch || onOffMenu3.switch) && 'displayNone'}`}>
-              <label htmlFor='file-uploadBanner' className='mainBtn saveBtnColor borderBtnRed'>
-                <svg width='30' height='30' viewBox='0 0 65 65' fill='none' xmlns='http://www.w3.org/2000/svg'>
+            <i className='x'>ADD PROMOTION PHOTO BUTTON Position Fixedl</i>
+
+            <div className={`headCat1 ${(onOffMenu1.switch || onOffMenu2.switch || onOffMenu3.switch || !onOffBanner) && 'displayNone'}`}>
+              <label htmlFor='file-uploadBanner' className='newCatBtn'>
+                <svg width='25' height='25' viewBox='0 0 65 65' fill='none' xmlns='http://www.w3.org/2000/svg'>
                   <rect x='1' y='1' width='63' height='63' rx='2' stroke='white' strokeWidth='2' />
                   <path d='M32 12L32 53' stroke='white' strokeWidth='2' strokeLinecap='round' />
                   <path d='M12 32L53 32' stroke='white' strokeWidth='2' strokeLinecap='round' />
                 </svg>
                 <input
                   onChange={(e) => {
-                    // setvaluePhoto('');
                     if (e.target.files.length === 0) return;
                     setResizeFileBannerTG(e.target.files[0]);
                   }}
@@ -1110,10 +1079,11 @@ const MainForm = () => {
             </div>
           </div>
 
-          {/* CATEGORY LIST */}
+          <i className='x'>=== TAB START HERE ====</i>
 
-          {/* TAB START HERE */}
-          <div className={`${!(onOffMenu1.switch || onOffMenu2.switch || onOffMenu3.switch) && 'displayNone'}`}>
+          <i className='x'>CATEGORY LIST : Show List</i>
+
+          <div className={`categoryStart ${!(onOffMenu1.switch || onOffMenu2.switch || onOffMenu3.switch) && 'displayNone'}`}>
             {categoryList
               .filter((el) => el.menuTime == menuTime)
               .map((el, index) => (
@@ -1147,9 +1117,75 @@ const MainForm = () => {
                   </div>
                 </div>
               ))}
+
+            <i className='x'>CATEGORY LIST New Save Cancel</i>
+
+            <div className={`catSaveCancel ${menuId ? 'displayNone' : 'displayFlex'} ${start ? 'displayFlex' : 'displayNone'}`}>
+              <i className='x'>SAVE BUTTON</i>
+              <button onClick={submitCatagory} type='submit' form='foodForm' className='mainBtn saveBtnColor smallMainBtn xCatSave'>
+                <svg width='25' height='25' viewBox='0 0 65 65' fill='none' xmlns='http://www.w3.org/2000/svg'>
+                  <rect x='1' y='1' width='63' height='63' rx='2' stroke='white' strokeWidth='2' />
+                  <path d='M32 12L32 53' stroke='white' strokeWidth='2' strokeLinecap='round' />
+                  <path d='M32 53L12 33' stroke='white' strokeWidth='2' strokeLinecap='round' />
+                  <path d='M32 53L52 33' stroke='white' strokeWidth='2' strokeLinecap='round' />
+                </svg>
+                <span>
+                  {' '}
+                  SAVE NEW
+                  <br />
+                  CATEGORY
+                </span>
+              </button>
+
+              <i className='x'>CANCEL BUTTON</i>
+              <button
+                onClick={() => {
+                  setStart(false);
+                  setMenuId('');
+                }}
+                className='mainBtn cancelBtnColor smallMainBtn smallMainBtnX'>
+                <svg width='25' height='25' viewBox='0 0 65 65' fill='none'>
+                  <path d='M12 12L53 54' stroke='white' strokeWidth='2' strokeLinecap='round' />
+                  <path d='M12 54L53 12' stroke='white' strokeWidth='2' strokeLinecap='round' />
+                  <path d='M62 1H3C1.89543 1 1 1.89543 1 3V62C1 63.1046 1.89543 64 3 64H62C63.1046 64 64 63.1046 64 62V3C64 1.89543 63.1046 1 62 1Z' stroke='white' strokeWidth='2' />
+                </svg>
+                <span>CANCEL</span>
+              </button>
+            </div>
+
+            <i className='x'>CATEGORY LIST Edit Save Cancel</i>
+
+            <div className={` catSaveCancel ${!menuId ? 'displayNone' : 'displayFlex'}`}>
+              {/* SAVE BUTTON */}
+              <button onClick={saveEditMenu} type='' className='mainBtn saveBtnColor smallMainBtn'>
+                <svg width='25' height='25' viewBox='0 0 65 65' fill='none' xmlns='http://www.w3.org/2000/svg'>
+                  <rect x='1' y='1' width='63' height='63' rx='2' stroke='white' strokeWidth='2' />
+                  <path d='M32 12L32 53' stroke='white' strokeWidth='2' strokeLinecap='round' />
+                  <path d='M32 53L12 33' stroke='white' strokeWidth='2' strokeLinecap='round' />
+                  <path d='M32 53L52 33' stroke='white' strokeWidth='2' strokeLinecap='round' />
+                </svg>
+                <span>SAVE</span>
+              </button>
+
+              {/* CANCEL BUTTON */}
+              <button
+                onClick={() => {
+                  setStart(false);
+                  setMenuId('');
+                }}
+                className='mainBtn cancelBtnColor smallMainBtn'>
+                <svg width='25' height='25' viewBox='0 0 65 65' fill='none'>
+                  <path d='M12 12L53 54' stroke='white' strokeWidth='2' strokeLinecap='round' />
+                  <path d='M12 54L53 12' stroke='white' strokeWidth='2' strokeLinecap='round' />
+                  <path d='M62 1H3C1.89543 1 1 1.89543 1 3V62C1 63.1046 1.89543 64 3 64H62C63.1046 64 64 63.1046 64 62V3C64 1.89543 63.1046 1 62 1Z' stroke='white' strokeWidth='2' />
+                </svg>
+                <span>CANCEL</span>
+              </button>
+            </div>
           </div>
-          {/* zzz */}
-          {/* BANNER LIST */}
+
+          <i className='x'>BANNER LIST : Show List</i>
+
           <div className={`bannerListContaner ${(onOffMenu1.switch || onOffMenu2.switch || onOffMenu3.switch) && 'displayNone'}`}>
             <div className='bannerWrapperList'>
               {bannerImgArr.map((el, index) => (
@@ -1158,7 +1194,8 @@ const MainForm = () => {
                     <img src={el} className='imageBannerForm photoList' />
                   </button>
 
-                  {/* DELETE BUTTON*/}
+                  <i className='x'>DELETE BUTTON : Trash icon</i>
+
                   <div className={`iconSideBox  ${indexToBanner === index ? '' : 'displayNone'}`}>
                     <button
                       onClick={() => {
@@ -1180,6 +1217,8 @@ const MainForm = () => {
                 </div>
               ))}
             </div>
+
+            <i className='x'>BANNER LIST : Save Canecl Button</i>
 
             <div className='boxBtnPhotoList'>
               {/* SAVE BUTTON */}
@@ -1213,6 +1252,7 @@ const MainForm = () => {
             </div>
           </div>
         </div>
+        <i className='x'>RIGHTBAR SECTION Finish</i>
       </div>
       <div id='end' className=''></div>
     </div>

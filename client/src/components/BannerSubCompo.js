@@ -6,7 +6,9 @@ import "../styleClient/bannerClient.css"
 import axios from 'axios'
 import { hideLoading, showLoading } from '../redux/alertSlice'
 import { useDispatch, useSelector } from 'react-redux'
-import iconPhoto from '../icon/downloadIcon.svg'
+// import iconPhoto from '../icon/downloadIcon.svg'
+import iconPhoto from '../icon/meal.svg';
+
 // here we are importing some images
 // but the Slider children can be an array of any element nodes,
 // or your own components
