@@ -28,6 +28,7 @@ import ColorPickker from './ColorPickker';
 
 import iconPhoto from '../icon/meal.svg';
 import iconAddicIcon from '../icon/addIcon.svg';
+import PreviewMyIcon from './PreviewMyIcon';
 
 /*
 
@@ -190,11 +191,22 @@ const MainForm = () => {
       });
   };
 
+  const checkMaximumLists = () => {
+    let countLists = 0;
+    categoryList.forEach((el) => {
+      if (el.menuTime === menuTime) countLists++;
+    });
+    console.log(countLists);
+    return countLists;
+  };
+  // console.log(checkMaximumLists());
   let imgId = uuidv4();
-  console.log(themeSetup);
+
   const submitCatagory = (e) => {
     e.preventDefault();
-    if (categoryList.length > 14) return alert('DDDD');
+
+    if (checkMaximumLists() > 14) return alert('DDDD');
+
     componentDidMount();
     if (!state.catagory.trim()) return;
 
@@ -664,7 +676,6 @@ const MainForm = () => {
 
   //=
 
-
   const [onConnected, setOnConnected] = useState(false);
 
   useEffect(() => {
@@ -687,7 +698,8 @@ const MainForm = () => {
       <div className='decorBg'></div>
 
       <div className='monitor ' id='monitor'>
-        <NavbarComponent className='sideBarTop'
+        <NavbarComponent
+          className='sideBarTop'
           // timeSwitcher={timeSwitcher}
           setMenuTime={setMenuTime}
           onOffQrCode={onOffQrCode}
@@ -747,6 +759,7 @@ const MainForm = () => {
               <AddLanguageSetup setOnOffLangSetup={setOnOffLangSetup} navLang2LangSetUp={navLang2LangSetUp} languageSetup={languageSetup} />
             </div>
           )}
+          <PreviewMyIcon />
 
           {/* <div className={`iconPickerSection`}>
             <IconPickker state={state} setState={setState} />
