@@ -18,6 +18,11 @@ import '../styleClient/sidebarClient.css';
 import '../styleClient/footerClient.css';
 import '../styleClient/accordianClient.css';
 
+
+
+// import icon1 from '../all-icon-client/Appetizer-Black-SVG-sprite.svg'
+// import icon2 from '../all-icon-client/food-color-SVG-sprite.svg'
+
 // import LocaleContext from './LocaleContext';
 // import images from './images'
 const theme = createTheme({
@@ -111,23 +116,29 @@ const _MenuComponent = () => {
 
           getResault.menu.map((el, index) => {
             if (!el.icon_catagory) return;
+
+
             if (el.menuTime === 1) {
-              let newAddress = 'http://192.168.1.13' + el.icon_catagory.slice(16);
-              // console.log(el.icon_catagory,)
-              iconMenu_1.push({ icon: newAddress, iconAct: newAddress, link: `#${newIndex1}` });
+              // let newAddress = 'http://192.168.1.13' + el.icon_catagory.slice(16);
+              // iconMenu_1.push({ icon: newAddress, iconAct: newAddress, link: `#${newIndex1}` });
+              iconMenu_1.push({ icon: el.icon_catagory, iconAct: el.icon_catagory, link: `#${newIndex1}` })
+
               newIndex1++;
             }
             if (el.menuTime === 2) {
-              let newAddress = 'http://192.168.1.13' + el.icon_catagory.slice(16);
-              // console.log(el.icon_catagory,)
-              iconMenu_2.push({ icon: newAddress, iconAct: newAddress, link: `#${newIndex2}` });
+              // let newAddress = 'http://192.168.1.13' + el.icon_catagory.slice(16);
+              // iconMenu_2.push({ icon: newAddress, iconAct: newAddress, link: `#${newIndex2}` });
+              iconMenu_2.push({ icon: el.icon_catagory, iconAct: el.icon_catagory, link: `#${newIndex2}` })
+
               newIndex2++;
             }
             if (el.menuTime === 3) {
-              let newAddress = 'http://192.168.1.13' + el.icon_catagory.slice(16);
-              // console.log(el.icon_catagory,)
-              iconMenu_3.push({ icon: newAddress, iconAct: newAddress, link: `#${newIndex3}` });
+              // let newAddress = 'http://192.168.1.13' + el.icon_catagory.slice(16);
+              // iconMenu_3.push({ icon: newAddress, iconAct: newAddress, link: `#${newIndex3}` });
+              iconMenu_3.push({ icon: el.icon_catagory, iconAct: el.icon_catagory, link: `#${newIndex3}` })
+
               newIndex3++;
+
             }
             setIconMenu_1(iconMenu_1);
             setIconMenu_2(iconMenu_2);
@@ -397,8 +408,8 @@ const _MenuComponent = () => {
           }}
           className={`${switchManuBtn || switchFilterBtn ? 'overlayForNav' : 'displayNone'}`}></div>
 
-        {/* == SIDE BAR == */}
-        <div className='sideBarSectionC'>
+        {/* == SIDE BAR == sideBarSectionC */}
+        <div className=' sideBarSectiontest'> 
           <SidebarSubComp triggerIcon={triggerIcon} menuTime={menuTime} iconMenu_1={iconMenu_1} iconMenu_2={iconMenu_2} iconMenu_3={iconMenu_3} colorTheme={colorTheme} />
         </div>
         {/* == <BannerExample /> == */}

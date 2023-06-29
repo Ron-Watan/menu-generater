@@ -1,15 +1,15 @@
+let nameIcon_appitiser ='appetizer#appetizer-1#nachos#appetizer-2#canapes#appetizer-3#canapes-1#cockles#guacamole#vareniki#chilli#olives#appetizer-4#appetizer-5#mussel#nachos-1#jellyfish#appetizer-6#snack#dish#appetizer-7#shrimps#appetizer-8#appetizer-9#sadhya#appetizer-10#appetizer-11#appetizer-12#guacamole-1#prawn#appetizer-13#cracker#grissini#chilli-1#hamburger#cheeses#tapa#oyster#snack-1#cracker-1#salsa#appetizer-14#snacks#appetizer-15#onion-ring#bean#biscuits#chilli-2#chilli-3#chilli-4#biscuit#biscuits-1#nachos-2#bean-1#garlic-bread'
+
+let nameIcon_food='fast-food#bibimbap#salad#diet#hamburger#burger#diet-1#burger-1#balanced-diet#hot-pot#burger-2#salad-1#hamburger-1#pizza#ramen#vegetable#donut#dish#dish-1#vegetable-1#burger-3#fast-food-1#food#roasted-chicken#hot#salad-2#healthy-eating#tteok#bibimbap-1#drink#masala-dosa#biryani#vegetables#pasta#ramen-1#thai-food#spaghetti#pizza-1#fried-chicken#lobster#broccoli#vegetable-2#fish#food-safety#salad-3#salad-4#paneer#fried-potatoes#french-fries#sushi#noodles#pasta-1#bibimbap-2#shrimp#mushroom#taco#biryani-1#ramen-2#paella#bibimbap-3#meal#fish-1#food-1#baby#healthy-food#chinese-food#fried-rice#baby-1#food-2#pizza-2#rice#chili-pepper#tteok-1#fish-2#lunch-box#salad-5#healthy-eating-1#mango#taco-1#pizza-3#cocktail#ramen-3#bibimbap-4#ramen-4#hot-1#fruits-and-vegetables#chicken-leg#samosa#soda#breakfast#burger-sandwich#shawarma#chinese-food-1#iftar#nachos#fried-fish#budae-jjigae#cooking#hot-soup#baby-food#spaguetti#ice-cream#meat#baby-2#noodles-1#chicken-leg-1#thai-food-1#dinner#masala-papad#salad-6#spicy-food#mexican-food#christmas-dinner#fried-chicken-1#lobster-1#fish-and-chips#fresh#rice-1#korean#tom-yum#noodles-2#kimbap#fried-chicken-2#kebab#bowl#fast-food-2#pizza-4#korean-bbq#pad-thai#oden#tom-yum-goong#kebab-1#sweet-sour-pork#spicy-food-1#ramen-5#banh-mi#sandwich#goulash#english-breakfast#chinese-food-2#sushi-1#pad-thai-1#chili#ramen-6#bibimbap-5#paella-1#salad-7#noodle#chicken-rice#food-3#meal-1#meat-1#pizza-5#cake-slice#burger-sandwich-1#good-review#diet-2#meat-2#pizza-6#fried-chicken-3#bubble-tea#food-4#fried-chicken-4#burrito#stir-fry#fish-3#bibimbap-6#ramen-7#pizza-7#fast-food-3#vegetables-1#orange-chicken#tendon#healthy-food-1#onigiri#pizza-8#takoyaki#fried-shrimp#cupcake#salad-8#fried-chicken-5#chinese-food-3#food-tray#dinner-1#thali#pretzel#bibimbap-7#nachos-1#onigiri-1#croissant#fried-chicken-6#ramen-8#pizza-9#spaghetti-1#spring-rolls#ramen-9#chicken-rice-1#iftar-1#takoyaki-1#cherries#bibimbap-8#salad-9#tom-kha-gai#broccoli-1#potatoes#curry#sweets#cake#kung-pao-chicken#catering#dried-fruits#kebab-2#japanese-food#corn#lemon#cheese#sushi-2#taco-2#food-5#yakisoba#rice-bowl#pad-thai-2#chinese-food-4#ramen-10#noodles-3#noodles-4#noodles-5#noodles-6#ramen-11#lunch-box-1#penguin#noodle-1#lunch-box-2' 
 
 
 
-export const style1 =
-  ['Group 1.svg', 'Group 2.svg', 'Group 3.svg', 'Group 4.svg', 'Group 5.svg',
-    'Group 6.svg', 'Group 7.svg', 'Group 8.svg', 'Group 9.svg', 'Group 10.svg',
-    'Group 1.svg', 'Group 2.svg', 'Group 3.svg', 'Group 4.svg', 'Group 5.svg',
-    'Group 6.svg', 'Group 7.svg', 'Group 8.svg', 'Group 9.svg', 'Group 10.svg']
+
+let nameIcon_appitiser_Array = nameIcon_appitiser.split('#');
+let nameIcon_food_Array = nameIcon_food.split('#');
 
 
-export const style2 =
-  ['Group 1.svg', 'Group 2.svg', 'Group 3.svg', 'Group 4.svg', 'Group 5.svg',
-    'Group 6.svg', 'Group 7.svg', 'Group 8.svg', 'Group 9.svg', 'Group 10.svg',
-    'Group 1.svg', 'Group 2.svg', 'Group 3.svg', 'Group 4.svg', 'Group 5.svg',
-    'Group 6.svg', 'Group 7.svg', 'Group 8.svg', 'Group 9.svg', 'Group 10.svg']
+
+
+export const listsAppitiser = nameIcon_appitiser_Array
+export const listsFood = nameIcon_food_Array

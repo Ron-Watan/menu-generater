@@ -28,7 +28,10 @@ import ColorPickker from './ColorPickker';
 
 import iconPhoto from '../icon/meal.svg';
 import iconAddicIcon from '../icon/addIcon.svg';
-import PreviewMyIcon from './PreviewMyIcon';
+import icon1 from '../all-icon-client/Appetizer-Black-SVG-sprite.svg'
+import icon2 from '../all-icon-client/food-color-SVG-sprite.svg'
+
+// import PreviewMyIcon from './PreviewMyIcon';
 
 /*
 
@@ -168,7 +171,7 @@ const MainForm = () => {
           setTimeSetup(getReult.timeSetup);
           setLanguageSetup(getReult.languageSetup);
           setThemeSetup(getReult.setThemeSetup);
-          console.log(getReult);
+  
           //   const checkTime = getReult.filter((el) => el.menuTime == menuTime;
           //   return el.menuTime == menuTime;
           // });
@@ -574,7 +577,7 @@ const MainForm = () => {
 
     axios
       .post(`${process.env.REACT_APP_API}/user/images/delete`, { imgId: state.imgId })
-      .then((result) => {})
+      .then((result) => { })
       .catch((err) => {
         console.error(err);
       });
@@ -759,11 +762,11 @@ const MainForm = () => {
               <AddLanguageSetup setOnOffLangSetup={setOnOffLangSetup} navLang2LangSetUp={navLang2LangSetUp} languageSetup={languageSetup} />
             </div>
           )}
-          <PreviewMyIcon />
+          {/* <PreviewMyIcon /> */}
 
-          {/* <div className={`iconPickerSection`}>
+          <div className={`iconPickerSection`}>
             <IconPickker state={state} setState={setState} />
-          </div> */}
+          </div>
 
           {/* 111 */}
           {/* <div className={`colorPickerSection`}>
@@ -802,8 +805,12 @@ const MainForm = () => {
                     {/* 111 */}
                     <div className='flexIcoCat'>
                       <span className='iconCatForm'>
+                        {/* qqq */}
                         {/* <img src={state.icon_catagory} alt='' /> */}
-                        <img src={iconAddicIcon} alt='' />
+                        {/* <img src={iconAddicIcon} alt='' /> */}
+                        <svg className='itemSvg'>
+                          <use xlinkHref={`${state.icon_catagory}`} />
+                        </svg>
                       </span>
 
                       <div className='boxInputText'>
@@ -819,7 +826,7 @@ const MainForm = () => {
                             onChange={(e) => {
                               if (e.target.files.length === 0) return;
                               setOriginalName(e.target.files[0]?.name);
-                              resizeFile(e.target.files[0]).then((res) => {});
+                              resizeFile(e.target.files[0]).then((res) => { });
                             }}
                             id='file-upload'
                             name='file-upload'

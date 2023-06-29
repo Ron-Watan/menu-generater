@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-
+// import icon1 from '../all-icon-client/Appetizer-Black-SVG-sprite.svg'
+// import icon2 from '../all-icon-client/food-color-SVG-sprite.svg'
+import styled, { createGlobalStyle } from 'styled-components';
 const SidebarSubComp = (prop) => {
-  const [squareBar, setSquareBar] = useState(false);
-  const [circleBar, setCircleBareBar] = useState(true);
+  const [barActive, setBarActive] = useState(true);
 
   // const [trigA, setTrickA] = useState()
   // const trigger = (index, any) => {
@@ -18,55 +19,62 @@ const SidebarSubComp = (prop) => {
   //     trigger(prop.triggerIcon.index, true);
   //   } else trigger(prop.triggerIcon.index, false);
 
-  console.log(prop.colorTheme);
+  const [themeIconLine, setThemeIconLine] = useState('black');
+  const [themeIconRadius, serThemeIconRadius] = useState('3rem');
+  const [themeIconBG, serThemeIconBG] = useState('#eee');
+  const [themeIconBorder, serThemeIconBorder] = useState('2px');
+  const [themeIconBorderColor, serThemeIconBorderColor] = useState('#777');
 
-  // }, [prop.triggerIcon]);
+  const GlobalStyle = createGlobalStyle`
+  .theme-icon-lineColor {
+    fill: ${themeIconLine};
+  }
+
+  .theme-icon-styleRadius{
+    border-radius: ${themeIconRadius};
+  }
+  .theme-icon-BG-Border{
+    background-color: ${themeIconBG};
+    border: solid ${themeIconBorder} ${themeIconBorderColor};
+  }
+
+`;
 
   return (
-    // fixed top-40 z-20
-    <div>
-      <div className='squareBarC'>
-        {/* {squareBar && userSidebarLists.map((el, index) => {
-          return (
-            <a href={pngIcon[index].link} value={el.catagory} onClick={() => { setSideBarActive(el.catagory) }} className={`${isSideBarActive === el.catagory ? 'sidebarTrans1' : 'sidebarTrans2'} hover:translate-x-0  origin-left bg-C_bgsidebar flex justify-center items-center w-12 h-12 p-1 rounded-r sidebar`} key={index}>
-              <i className={`block text-3xl text-C_fsidebar ${el.icon}`} ></i>
-            </a >
-          )
-        })} */}
-      </div>
-
-      <div className='circleBarC '>
-        {circleBar &&
+    <div className='sideBarPosition'>
+      <GlobalStyle />
+      <div className='circleBarClient '>
+        {barActive &&
           prop.menuTime == 1 &&
           prop.iconMenu_1.map((el, index) => {
             return (
-              <a href={prop.iconMenu_1[index]?.link} value={el.catagory} className={`circleBarBox`} key={index}>
-                <i className={`${prop.colorTheme} circleBarIcon circleBarSize circleBarColor ${prop.triggerIcon[index] && 'activeBaricon'}`}>
-                  <img className={``} src={prop.triggerIcon[index] ? prop.iconMenu_1[index]?.iconAct : prop.iconMenu_1[index]?.icon} alt='' />
-                </i>
+              <a href={prop.iconMenu_1[index]?.link} value={el.catagory} className={` circle-iconButton theme-icon-styleRadius theme-icon-BG-Border ${prop.triggerIcon[index] && 'circle-iconButton-Active'}`} key={index}>
+                <svg className={` circle-iconSize theme-icon-lineColor`}>
+                  <use xlinkHref={`${prop.iconMenu_1[index]?.icon}`} />
+                </svg>
               </a>
             );
           })}
-        {circleBar &&
+        {barActive &&
           prop.menuTime == 2 &&
           prop.iconMenu_2.map((el, index) => {
             return (
-              <a href={prop.iconMenu_2[index]?.link} value={el.catagory} className={`circleBarBox`} key={index}>
-                <i style={{ 'background-color': prop.colorTheme }} className={`circleBarIcon circleBarSize circleBarColor ${prop.triggerIcon[index] && 'activeBaricon'}`}>
-                  <img className={``} src={prop.triggerIcon[index] ? prop.iconMenu_2[index]?.iconAct : prop.iconMenu_2[index]?.icon} alt='' />
-                </i>
-              </a>
+              <a href={prop.iconMenu_2[index]?.link} value={el.catagory} className={` circle-iconButton theme-icon-styleRadius theme-icon-BG-Border ${prop.triggerIcon[index] && 'circle-iconButton-Active'}`} key={index}>
+              <svg className={` circle-iconSize theme-icon-lineColor`}>
+                <use xlinkHref={`${prop.iconMenu_2[index]?.icon}`} />
+              </svg>
+            </a>
             );
           })}
-        {circleBar &&
+        {barActive &&
           prop.menuTime == 3 &&
           prop.iconMenu_3.map((el, index) => {
             return (
-              <a href={prop.iconMenu_3[index]?.link} value={el.catagory} className={`circleBarBox`} key={index}>
-                <i className={`circleBarIcon circleBarSize circleBarColor ${prop.triggerIcon[index] && 'activeBaricon'}`}>
-                  <img className={``} src={prop.triggerIcon[index] ? prop.iconMenu_3[index]?.iconAct : prop.iconMenu_3[index]?.icon} alt='' />
-                </i>
-              </a>
+              <a href={prop.iconMenu_3[index]?.link} value={el.catagory} className={` circle-iconButton theme-icon-styleRadius theme-icon-BG-Border ${prop.triggerIcon[index] && 'circle-iconButton-Active'}`} key={index}>
+              <svg className={` circle-iconSize theme-icon-lineColor`}>
+                <use xlinkHref={`${prop.iconMenu_3[index]?.icon}`} />
+              </svg>
+            </a>
             );
           })}
       </div>

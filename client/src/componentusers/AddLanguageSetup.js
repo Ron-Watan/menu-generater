@@ -4,8 +4,7 @@ import Swal from 'sweetalert2';
 import { useDispatch, useSelector } from 'react-redux';
 import { ticketPass } from '../protectors/authorize';
 import { setUser } from '../redux/userSlice';
-import * as icon from '../iconPicker/iconFiles';
-import styled, { createGlobalStyle } from 'styled-components';
+
 const AddLanguageSetup = (prop) => {
   // SETUP STYLE CURRENTCY
   const dispath = useDispatch();
@@ -85,13 +84,7 @@ const AddLanguageSetup = (prop) => {
     }
   }, [prop.navLang2LangSetUp]);
 
-  const GlobalStyle = createGlobalStyle`
-  .eeee .edit svg path {
-    stroke: #1ccb3c
-  }
-`;
 
-  const [eee, setEee] = useState(1);
   //-//=//-//=//-//=//-//=//-
 
   return (
@@ -104,9 +97,7 @@ const AddLanguageSetup = (prop) => {
             </svg>
           </button>
         </div>
-        <GlobalStyle />
-        {/* <div className='eeee'>{icon.food_01(eee)}</div>
-        <div className='eeee'>{icon.food_01(2)}</div> */}
+  
         <div className='windowFloatLangBorder'>
           <div className=''>
             <div className='titletopLang'>Default Language</div>
