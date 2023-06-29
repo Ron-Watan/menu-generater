@@ -26,7 +26,7 @@ const userSchema = mongoose.Schema(
 
     restaurentName: {
       type: String,
-      default: 'My Thai Restaurant',
+      default: '',
     },
     menu: {
       type: Array,
@@ -81,7 +81,11 @@ const userSchema = mongoose.Schema(
       },
     },
     themeSetup: {
-      type: 'String',
+      type: 'Object',
+      default: {
+        
+        
+      }
 
     },
     clientId: {

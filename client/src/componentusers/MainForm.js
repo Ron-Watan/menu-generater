@@ -12,6 +12,8 @@ import '../style/sideForm.css';
 import '../style/addLanguage.css';
 import '../style/iconPicker.css';
 import '../style/colorPicker.css';
+import '../style/themeSetup.css';
+
 
 import { BsSquare, BsCheckSquare } from 'react-icons/bs';
 import { v4 as uuidv4 } from 'uuid';
@@ -28,9 +30,10 @@ import ColorPickker from './ColorPickker';
 
 import iconPhoto from '../icon/meal.svg';
 import iconAddicIcon from '../icon/addIcon.svg';
-import icon1 from '../all-icon-client/Appetizer-Black-SVG-sprite.svg'
-import icon2 from '../all-icon-client/food-color-SVG-sprite.svg'
-
+import icon1 from '../all-icon-client/Appetizer-Black-SVG-sprite.svg';
+import icon2 from '../all-icon-client/food-color-SVG-sprite.svg';
+import ThemeSetup from './ThemeSetup';
+const icon = '/static/media/food-color-SVG-sprite.c7acaa791b17c993c83fb8c054053b75.svg#food-tray`';
 // import PreviewMyIcon from './PreviewMyIcon';
 
 /*
@@ -73,7 +76,7 @@ const MainForm = () => {
 
   //1//
   const { user } = useSelector((state) => state.user);
-
+  const [restaurantName, setRestaurantName] = useState('Red Snaq')
   //1// After Reload SET:
   const [categoryList, setCategoryList] = useState([]);
   const [menuName, setMenuName] = useState({
@@ -171,7 +174,7 @@ const MainForm = () => {
           setTimeSetup(getReult.timeSetup);
           setLanguageSetup(getReult.languageSetup);
           setThemeSetup(getReult.setThemeSetup);
-  
+
           //   const checkTime = getReult.filter((el) => el.menuTime == menuTime;
           //   return el.menuTime == menuTime;
           // });
@@ -224,6 +227,7 @@ const MainForm = () => {
           clientId: user.clientId,
           menuTime: menuTime,
           catagory: state.catagory,
+          catagory_2: '',
           icon_catagory: state.icon_catagory,
           imgId: imgId,
 
@@ -288,6 +292,7 @@ const MainForm = () => {
           menuTime: menuTime,
 
           catagory: state.catagory,
+          catagory_2: state.catagory_2,
           icon_catagory: state.icon_catagory,
           imgId: state.imgId,
           link: user.link,
@@ -608,11 +613,17 @@ const MainForm = () => {
   };
 
   const chooseMenu = (oneMennu) => {
-    setState({ catagory: oneMennu.catagory, icon_catagory: oneMennu.icon_catagory, imgId: oneMennu.imgId });
+    setState({
+      catagory: oneMennu.catagory,
+      catagory_2: oneMennu.catagory_2,
+      icon_catagory: oneMennu.icon_catagory,
+      imgId: oneMennu.imgId,
+    });
     setMenuId(oneMennu.menuId);
     getImage(oneMennu.imgId);
     actionDelay();
     setListMenu(oneMennu.listMenu);
+    setMemoIcon(oneMennu.icon_catagory);
   };
 
   const componentDidMount = () => {
@@ -657,6 +668,15 @@ const MainForm = () => {
   const [onOffMenu2, setOnoffMenu2] = useState({ switch: false, value: 2 });
   const [onOffMenu3, setOnoffMenu3] = useState({ switch: false, value: 3 });
 
+//-
+  const [onOffTheme, setOnOffTheme] = useState(true); 
+
+
+
+
+
+  //-
+
   const [onOffMenuTime, setonOffMenuTime] = useState(false); //Time Picker
   const [onOffLangForm, setOnOffLangForm] = useState(false); // Lang Form
   const [onOffLangSetup, setOnOffLangSetup] = useState(false); // Lang Setup
@@ -668,6 +688,10 @@ const MainForm = () => {
   const [saveImageBannerTG, setSaveImageBannerTG] = useState(0);
   const [resizeFileBannerTG, setResizeFileBannerTG] = useState(0);
   const [getAllImageBannerTG, setGetAllImageBannerTG] = useState(0);
+
+  //=qqq
+  const [activeWindowIconPicker, setActiveWindowIconPicker] = useState(false);
+  const [memoicon, setMemoIcon] = useState('');
 
   // <button onClick={() => {
   //   setGetAllImageBannerTG((getAllImageBannerTG) => getAllImageBannerTG + 1)
@@ -719,6 +743,10 @@ const MainForm = () => {
           setonOffMenuTime={setonOffMenuTime}
           onOffLangSetup={onOffLangSetup}
           setOnOffLangSetup={setOnOffLangSetup}
+          onOffTheme={onOffTheme}
+          setOnOffTheme={setOnOffTheme}
+
+
           navTime2TimePicker={navTime2TimePicker}
           setNavTime2TimePicker={setNavTime2TimePicker}
           navLang2LangSetUp={navLang2LangSetUp}
@@ -750,7 +778,7 @@ const MainForm = () => {
             />
           </div>
 
-          {/* aaa */}
+
           {onConnected && (
             <div className={`timePikerSection ${onOffMenuTime ? 'showMe' : 'displayNone'}`}>
               <TimePicker menuName={menuName} onOffMenuTime={onOffMenuTime} setonOffMenuTime={setonOffMenuTime} timeSetup={timeSetup} setTimeSetup={setTimeSetup} navTime2TimePicker={navTime2TimePicker} />
@@ -764,11 +792,31 @@ const MainForm = () => {
           )}
           {/* <PreviewMyIcon /> */}
 
-          <div className={`iconPickerSection`}>
-            <IconPickker state={state} setState={setState} />
-          </div>
+          {activeWindowIconPicker && (
+            <div className={`iconPickerSection`}>
+              <IconPickker state={state} setState={setState} memoicon={memoicon} activeWindowIconPicker={activeWindowIconPicker} setActiveWindowIconPicker={setActiveWindowIconPicker} />
+            </div>
+          )}
 
-          {/* 111 */}
+          {/* qqq */}
+          {onOffTheme && (
+            <div className={`themeSetupSection`}>
+              <ThemeSetup setOnOffTheme={setOnOffTheme}
+
+                restaurantName={restaurantName}
+                setRestaurantName={setRestaurantName}
+
+
+
+
+
+
+
+
+              />
+            </div>
+          )}
+
           {/* <div className={`colorPickerSection`}>
             <ColorPickker themeSetup={themeSetup} setThemeSetup={setThemeSetup} />
           </div> */}
@@ -804,15 +852,16 @@ const MainForm = () => {
                     </div>
                     {/* 111 */}
                     <div className='flexIcoCat'>
+                      <i className='sr-only'>//-!Icon//-</i>
                       <span className='iconCatForm'>
-                        {/* qqq */}
-                        {/* <img src={state.icon_catagory} alt='' /> */}
-                        {/* <img src={iconAddicIcon} alt='' /> */}
-                        <svg className='itemSvg'>
-                          <use xlinkHref={`${state.icon_catagory}`} />
+                        <svg
+                          onClick={() => {
+                            setActiveWindowIconPicker(!activeWindowIconPicker);
+                          }}
+                          className='itemSvg'>
+                          {state.icon_catagory ? <use xlinkHref={`${state.icon_catagory}`} /> : <use xlinkHref={`/static/media/food-color-SVG-sprite.c7acaa791b17c993c83fb8c054053b75.svg#food-tray`} />}
                         </svg>
                       </span>
-
                       <div className='boxInputText'>
                         <input onChange={inputValue('catagory')} value={state.catagory} placeholder='Catagory' type='text' name='catagory' id='' autoComplete='off' className='inputText fontCat' required />
                       </div>
@@ -1013,11 +1062,11 @@ const MainForm = () => {
                             </div>
                           </div>
 
-                          <div className={`boxRemoveItem`}>
-                            <button onClick={() => removeItem(index)} type='button' className='removeItembtn'>
-                              X
-                            </button>
-                          </div>
+                          <button onClick={() => removeItem(index)} className='boxRemoveItem boxCancel'>
+                            <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' strokeWidth='1' stroke='#000' className='w-6 h-6'>
+                              <path strokeLinecap='round' strokeLinejoin='round' d='M6 18L18 6M6 6l12 12' />
+                            </svg>
+                          </button>
                         </fieldset>
                       </div>
                     </div>

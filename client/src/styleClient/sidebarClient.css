@@ -9,7 +9,7 @@
 .sideBarSectiontest{
   position: fixed;
   top: 0;
-  left: 0;
+  left: 0.2rem;
   z-index: 500;
   height:100vh ;
   display: flex;
@@ -22,7 +22,7 @@
   flex-direction: column;
   gap: 0.3rem;
   /* width: 5rem; */
-  align-items: start;
+  /* align-items: start; */
   overflow: visible;
 }
 

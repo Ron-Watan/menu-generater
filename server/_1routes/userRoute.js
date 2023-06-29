@@ -3,7 +3,7 @@ import { register, login, getInfoUserToStore, requireLogin, generateMenu } from 
 import {
   findOneMenu, createManu, getAllMenu, saveEditMenu, deleteMenu,
   uploadImageBanner, getAllImageBanner,
-  uploadImage, saveImage, getAllImage, getImage, delelteImage, saveNameMenu,saveTimeSetup,saveLangSetup
+  uploadImage, saveImage, getAllImage, getImage, delelteImage, saveNameMenu,saveTimeSetup,saveLangSetup,setupTheme
 } from '../_2controllers/manuController.js'
 import multer from "multer";
 import formidable from "formidable";
@@ -56,30 +56,9 @@ router.post('/images/allBanner', getAllImageBanner)
 
 
 
+router.post('/setupTheme', requireLogin, setupTheme)
 
 
-
-// app.listen(3000, () => {
-//   console.log("Server Running!")
-// })
-
-
-// router.post(
-//   "/multiple-upload",
-//   uploadImages,
-//   resizeImages,
-//   getResult
-// );
-
-
-
-
-// router.post('/apply-doctor', requireLogin, applyToDoctor)
-// router.get('/customer/:link', showMenu)
-
-
-// router.post('/markAllUnSeen', requireLogin,markAllUnSeen)
-// router.post('/deleteAllSeen', requireLogin,deleteAllSeen)
 
 
 export default router

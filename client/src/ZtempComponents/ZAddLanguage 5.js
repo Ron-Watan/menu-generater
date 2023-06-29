@@ -44,7 +44,7 @@ const AddLanguage = (prop) => {
           </div>
           <div className='flexIcoCatLang'>
 
-            <input onChange={prop.inputValue('catagory_2')} value={prop.state.catagory_2?prop.state.catagory_2:''} placeholder='Catagory' type='text' name='catagory_2' id='catagory_2' autoComplete='off' className='inputText fontCat' />
+            <input onChange={prop.inputValue('catagory_2')} value={prop.state.catagory_2} placeholder='Catagory' type='text' name='catagory_2' id='catagory_2' autoComplete='off' className='inputText fontCat' />
 
           </div>
         </div>

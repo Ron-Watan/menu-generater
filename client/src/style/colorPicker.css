@@ -1,9 +1,9 @@
-.colorPickerSection {
+/* .colorPickerSection {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -40%);
-  /* width: 55vw; */
+
   min-width: 40rem;
   background-color: #fff;
   border-radius: .3rem;
@@ -13,8 +13,11 @@
 
   z-index: 50;
 
-}
+} */
+.colorPickerSection {
+transform: scale(.8);
 
+}
 .colorPickerTable {
   display: flex;
   flex-direction: column;
@@ -23,6 +26,7 @@
   overflow-y: scroll;
   max-height: 70vh;
   padding-right: 1rem;
+  background-color: #fff;
 }
 
 

@@ -1,0 +1,51 @@
+.themeSetupSection {
+  /* position: fixed; */
+  top: 5rem;
+  z-index: 100;
+}
+.themeContainer {
+  position: relative;
+  transform: translate(2%,2%);
+  height: 80vh;
+  background-color: #fff;
+  border-radius: 0.3rem;
+  box-shadow: 0rem 0.5rem 2rem 0rem rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  z-index: 100;
+  width: 100%;
+}
+.themeTable {
+  width: 100vw;
+  height: 100%;
+  background-color: #fff;
+  /* overflow-y: scroll; */
+  padding: 2rem;
+  padding-top: 1rem;
+}
+.themeLayout {
+  display: flex;
+}
+
+.themeMenuList {
+  width: 15%;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  
+}
+.themeSetupMain {
+  width:85%;
+}
+
+.themeNavBar{
+widows: 100%;
+  background-color: rgb(127, 157, 183);
+}
+
+
+
+.nameFontStyle1111 {
+  font-family: 'Merriweather', serif;
+  font-weight: 700;
+}

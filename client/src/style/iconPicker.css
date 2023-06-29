@@ -12,50 +12,96 @@
 } */
 .iconPickerSection {
   position: fixed;
-  top: 50%;
-  left: -10%;
-  /* transform: translate(-60%, 0); */
-  width: 70vw;
-  min-width: 40rem;
-  height: 75vh;
-  overflow-y: scroll;
-  background-color: #3f3e3e;
-  background-color: #ffffff;
-  border-radius: .3rem;
-  box-shadow: 0rem .5rem 2rem 0rem rgba(0, 0, 0, 0.3);
-  padding: 2rem;
-  z-index: 50;
+  top: 10rem;
+  z-index: 100;
+
 }
-.itemSvg{
+.iconPickerContainer {
+  position: relative;
+  transform: translateX(12%);
+  height: 70vh;
+  background-color: #fff;
+  border-radius: 0.3rem;
+  box-shadow: 0rem 0.5rem 2rem 0rem rgba(0, 0, 0, 0.3);
+  padding: 0.2rem;
+  /* display: flex;
+  justify-content: center; */
+  overflow: hidden;
+  z-index: 100;
+}
+.iconPickerheader {
+  padding: 1rem 4rem 1rem 2rem;
+  border-bottom: 1px solid #999;
+  display: flex;
+  justify-content: space-between;
+}
+.iconPickerheader-Nav {
+  display: flex;
+  font-size: 1.2rem;
+  font-weight: 700;
+  gap: 0.5rem;
+}
+.iconPickerTable {
+  width: 65vw;
+  height: 100%;
+  background-color: #fff;
+  overflow-y: scroll;
+  padding: 2rem;
+  padding-top: 1rem;
+
+}
+
+.iconPickerTable::-webkit-scrollbar {
+  width: 0.4rem;
+
+}
+
+.iconPickerTable::-webkit-scrollbar-track {
+  /* background-color: #3C3D3F; */
+  background: #fff;
+
+}
+
+.iconPickerTable::-webkit-scrollbar-thumb {
+  background: #656566;
+  border-radius: 1rem;
+
+}
+
+.iconPickerTable::-webkit-scrollbar-thumb:hover {
+  background: #656566;
+  border-radius: 1rem;
+
+}
+.itemSvg {
   width: 3rem;
   height: 3rem;
-
 }
-/* .iconPickerTable {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-60%, -60%);
 
-  width: 55vw;
-  min-width: 40rem;
-  background-color: #3f3e3e;
-  border-radius: .3rem;
-  box-shadow: 0rem .5rem 2rem 0rem rgba(0, 0, 0, 0.3);
-  padding: 2rem;
-
-} */
+.iconPickeBtnLine {
+  color: #222;
+  font-size: 1.2rem;
+  padding: 0.2rem;
+  border: #222 solid 1.5px;
+}
+.iconPickeBtnColor {
+  color: #fafafa;
+  font-size: 1.2rem;
+  padding: 0.2rem;
+  background-image: linear-gradient(to top right, #fe5e5e 0%, #c779d0 51%, #5ee1fe 100%);
+}
 
 .iconPickerGridRow {
   display: flex;
   gap: 2rem;
   flex-wrap: wrap;
+  padding-bottom: 3rem;
 }
 
 .iconPickerItem {
   /* width: 100%; */
   height: 3.5rem;
-  padding: .2rem;
+  padding: 0.2rem;
   /* background-color: aquamarine; */
   /* border: 1px solid red; */
   display: flex;
@@ -66,4 +112,13 @@
 .iconPickerItem img {
   max-width: 3rem;
   max-height: 3rem;
+}
+
+.iconPickerSet-tilte {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #444;
+  padding-bottom: 0.2rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px #bbb solid;
 }

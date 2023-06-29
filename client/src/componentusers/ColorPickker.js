@@ -1,8 +1,19 @@
 import React from 'react'
 import { colorPalette } from '../componentusers/ColorPickerData.js'
 const ColorPickker = (prop) => {
+  // prop.noSetTheme
+  //prop.nameTheme
+  // prop.navAndFootBar
+  // prop.setNavAndFootBar
+
   const getColorPicker = (e) => {
-    prop.setThemeSetup(e.target.value)
+    let color = e.target.value
+    console.log(prop.noSetTheme, prop.nameTheme, color)
+
+    if (prop.noSetTheme === 1) {
+      prop.setNavAndFootBar({ ...prop.navAndFootBar, [prop.nameTheme]: color })
+    }
+
   }
 
   return (

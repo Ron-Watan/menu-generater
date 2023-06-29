@@ -63,6 +63,7 @@ const NavbarComponent = (prop) => {
     }
   };
 
+  const myIcon={theme:'myTheme.svg'}
   return (
     <div className='sectionNavigation'>
       <div className='section1'>
@@ -239,6 +240,18 @@ const NavbarComponent = (prop) => {
               fill='#777777'
             />
           </svg>
+        </button>
+
+        {/* MENU Theme */}
+        <button
+          onClick={() => {
+            prop.setOnOffTheme(true);
+            // prop.setNavLang2LangSetUp((any) => prop.navLang2LangSetUp + 1);
+            checkOnOff('menuLang');
+          }}
+          name='menuLang'
+          className='myIconTab'>
+          <img src={require(`../all-icon/navbar-icon/${myIcon.theme}`)} alt="" />
         </button>
       </div>
 
