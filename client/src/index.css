@@ -2,10 +2,7 @@
 
 @tailwind components;
 
-
-
 html {
-
   overscroll-behavior: none;
 }
 
@@ -18,35 +15,33 @@ body {
   height: calc(var(--vh, 1vh) \* 100);
 }
 
-
-
-body::-webkit-scrollbar {
+/* body::-webkit-scrollbar {
   width: 0.4rem;
 
-}
+} */
 
 body::-webkit-scrollbar-track {
   /* background-color: #3C3D3F; */
-  background: linear-gradient(to bottom, #cb2722 0, #cb2722 3.12rem, #3C3D3F 3.12rem)
+  background: linear-gradient(to bottom, #cb2722 0, #cb2722 3.12rem, #3c3d3f 3.12rem);
 }
 
 body::-webkit-scrollbar-thumb {
-  background: linear-gradient(to top, #3c3d3f00, #cb2822a5, #3c3d3f00)
+  background: linear-gradient(to top, #3c3d3f00, #cb2822a5, #3c3d3f00);
 }
 
 body::-webkit-scrollbar-thumb:hover {
   background: #656566;
 }
 
-
-
+label {
+  cursor: pointer;
+}
 
 .monitor {
   display: grid;
 
   /* grid-template-columns: .8fr 2fr .35fr .65fr; */
   grid-template-columns: 5vw 80vw 15vw;
-
 
   /* min-height: 100vh; */
   /* min-width: 100rem; */
@@ -56,9 +51,6 @@ body::-webkit-scrollbar-thumb:hover {
   grid-column: 1/2;
   position: relative;
   z-index: 0;
-
-
-
 }
 
 .monitor2 {
@@ -70,27 +62,19 @@ body::-webkit-scrollbar-thumb:hover {
 
 .monitor3 {
   grid-column: 3/4;
-
 }
-
-
-
 
 .showMe {
   opacity: 1;
   visibility: visible;
-  transition: all .2s;
-
-
+  transition: all 0.2s;
 }
 
 .hiddenMe {
   opacity: 0;
   visibility: hidden;
-  transition: all .2s;
+  transition: all 0.2s;
   /* z-index: -3000; */
-
-
 }
 
 .displayFlex {
@@ -101,9 +85,6 @@ body::-webkit-scrollbar-thumb:hover {
   display: none !important;
 }
 
-
-
-
 .opacity1 {
   opacity: 1;
 }
@@ -113,18 +94,9 @@ body::-webkit-scrollbar-thumb:hover {
   transition: all 1s;
 }
 
-
-
-
 /* grid-column: 7/12; */
 
-
-
-
-
 /* grid-column: 7/12; */
-
-
 
 /* } */
 /* .moitor3 {
@@ -146,22 +118,19 @@ body::-webkit-scrollbar-thumb:hover {
   padding: 2rem 0;
   display: flex;
   flex-direction: column;
-
 }
 
 .light-grey {
   background-color: #e1e1e156;
 
-
   background-color: #e1e1e18d;
-
 }
 
 .tabCatalog {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   font-size: 1.5rem;
   border-bottom: #5a5959 1px solid;
   cursor: pointer;
@@ -175,10 +144,6 @@ body::-webkit-scrollbar-thumb:hover {
   background-color: #82b5da;
 }
 
-
-
-
-
 .sidebar {
   margin-bottom: 1px;
 }
@@ -191,21 +156,7 @@ body::-webkit-scrollbar-thumb:hover {
 .sidebarTrans2 {
   transform: translateX(-20%);
   transition: translateX 5s;
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .zIndex {
   z-index: 2000;
@@ -215,20 +166,12 @@ body::-webkit-scrollbar-thumb:hover {
   max-width: 512px;
   width: 100vw;
   height: 7vh;
-
 }
-
-
-
-
 
 .ringButton {
-  border: .5px #fff solid;
+  border: 0.5px #fff solid;
   border-radius: 5px;
 }
-
-
-
 
 /* ////////////////////////////////////// */
 
@@ -236,7 +179,6 @@ body::-webkit-scrollbar-thumb:hover {
 
   border-bottom: #adadad 1px solid;
 } */
-
 
 /* .dotBar {
   display: flex;
@@ -262,18 +204,9 @@ body::-webkit-scrollbar-thumb:hover {
 
 } */
 
-
-
-
 .footerSpace {
-  margin-top: 10rem
+  margin-top: 10rem;
 }
-
-
-
-
-
-
 
 .footerBarLeft {
   max-width: 512px;
@@ -287,11 +220,11 @@ body::-webkit-scrollbar-thumb:hover {
   width: 30vw;
   height: 6vh;
   border-radius: 20px 0 0 0;
-  right: 0
+  right: 0;
 }
 
 .cssTransition {
-  transition: all .3s !important;
+  transition: all 0.3s !important;
 }
 
 .alert-enter {
@@ -315,7 +248,6 @@ body::-webkit-scrollbar-thumb:hover {
   transition: opacity 300ms, transform 300ms;
 }
 
-
 /*  FORM ///////////////////////////////////////////////////////////////// */
 
 /* <div className="mlbox">
@@ -324,10 +256,6 @@ body::-webkit-scrollbar-thumb:hover {
   <input value='' type="text" name="firstName" id="firstName" autoComplete="given-name" />
 </div>
 </div> */
-
-
-
-
 
 .layoutManu1 {
   display: flex;
@@ -343,27 +271,17 @@ body::-webkit-scrollbar-thumb:hover {
   gap: 1rem;
 }
 
-
-
-
 .smallFlex2 {
   width: 20%;
 }
 
 .smallFlex3 {
   width: 20%;
-
 }
 
 .smallFlexEnd {
   justify-content: end;
 }
-
-
-
-
-
-
 
 .mlbox {
   width: 100%;
@@ -373,29 +291,26 @@ body::-webkit-scrollbar-thumb:hover {
   width: 100%;
   border: 1px #595a59 solid;
   border-radius: 3px;
-  padding: .5rem 2rem;
+  padding: 0.5rem 2rem;
 }
 
 /* ///////////////////////////////////////////////////////////////// */
 
 .overflow-hidden {
-  overflow: hidden
+  overflow: hidden;
 }
 
 .overflow-visible {
-  overflow: visible
+  overflow: visible;
 }
 
-
-
-
-.x{
-  display: none !important
+.x {
+  display: none !important;
 }
 @tailwind utilities;
 
 @layer base {
   body {
-    font-family: 'Roboto Slab', serif !important;
+    font-family: 'Roboto Slab', serif;
   }
 }

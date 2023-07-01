@@ -43,7 +43,7 @@ buttonFormContainer
   /* transform: translateY(-4.5rem); */
   display: flex;
   gap: 2.5%;
-  /* justify-content: end; */
+  /* justify-content: flex-end; */
 
   padding-right: 2.5%;
   min-height: 92vh;
@@ -161,7 +161,7 @@ buttonFormContainer
   width: 100%;
   display: flex;
   flex-grow: 1;
-  align-items: end;
+  align-items: flex-end;
   gap: .5rem
 }
 
@@ -436,7 +436,7 @@ buttonFormContainer
   /* position: absolute; */
   /* bottom: 0; */
   /* right: 0; */
-  align-self: end;
+  align-self: flex-end;
   font-size: .7rem;
   font-style: italic;
   /* transform: translateY(100%); */
@@ -511,7 +511,7 @@ buttonFormContainer
 /* /////////////////////////////////////////// */
 .boxAddItem {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   margin-top: 1rem;
   
 }

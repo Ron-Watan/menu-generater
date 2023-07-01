@@ -20,7 +20,7 @@ import { useParams } from 'react-router-dom'
 
 //=
 const BannerSubCompo = (prop) => {
-
+  // prop.themeSetup
   const elementRef = useRef([]);
 
   useEffect(() => {
@@ -119,7 +119,8 @@ const BannerSubCompo = (prop) => {
   //-///-///-///-///-///-///-///-///-   END FUNCTION   ///-///-///-///-///-///-///-///-///-
 
   return (
-    <div className="bannerWrapperC">
+    <div className="bannerWrapperC"
+    style={{ 'backgroundColor': `${prop.themeSetup.body.bodyBgColor}` }}>
       <div className="bannerSectionFormC" >
 
         <div className="boxImageFormC">
@@ -156,7 +157,7 @@ const BannerSubCompo = (prop) => {
                 setFinishedIndex(index)
 
               }}
-                className={indexDot === index ?  "dotActiveC" : "dotC"}
+                className={indexDot === index ? "dotActiveC" : "dotC"}
                 // className={'dotC'}
                 key={index}>{index + 1}</button>
             ))}

@@ -24,7 +24,7 @@ const userSchema = mongoose.Schema(
       // required: true
     },
 
-    restaurentName: {
+    restaurantName: {
       type: String,
       default: '',
     },

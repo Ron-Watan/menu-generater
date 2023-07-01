@@ -3,7 +3,8 @@ import { register, login, getInfoUserToStore, requireLogin, generateMenu } from 
 import {
   findOneMenu, createManu, getAllMenu, saveEditMenu, deleteMenu,
   uploadImageBanner, getAllImageBanner,
-  uploadImage, saveImage, getAllImage, getImage, delelteImage, saveNameMenu,saveTimeSetup,saveLangSetup,setupTheme
+  uploadImage, saveImage, getAllImage, getImage, delelteImage,
+  saveNameMenu, saveTimeSetup, saveLangSetup, setupTheme, getTheme
 } from '../_2controllers/manuController.js'
 import multer from "multer";
 import formidable from "formidable";
@@ -55,8 +56,8 @@ router.post('/images/all', getAllImage)
 router.post('/images/allBanner', getAllImageBanner)
 
 
-
 router.post('/setupTheme', requireLogin, setupTheme)
+router.post('/getTheme', requireLogin, getTheme)
 
 
 

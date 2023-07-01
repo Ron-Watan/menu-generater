@@ -246,7 +246,7 @@ const NavbarComponent = (prop) => {
         <button
           onClick={() => {
             prop.setOnOffTheme(true);
-            // prop.setNavLang2LangSetUp((any) => prop.navLang2LangSetUp + 1);
+            prop.setNavTheme2ThemeSetUp((any) => prop.navTheme2ThemeSetUp + 1);
             checkOnOff('menuLang');
           }}
           name='menuLang'

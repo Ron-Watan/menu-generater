@@ -1,17 +1,15 @@
 .footBarSectionC {
   position: relative;
   width: 100vw;
-  background-color: #000000;
+
   position: absolute;
   position: fixed;
   top: 100%;
   transform: translateY(-100%);
-  padding-top: .2rem;
-  padding-bottom: .7rem;
-  box-shadow: -.2rem 0 .4rem rgba(0, 0, 0, 0.4);
+  padding-top: 0.2rem;
+  /* padding-bottom: .7rem; */
+  box-shadow: -0.2rem 0 0.4rem rgba(0, 0, 0, 0.4);
   z-index: 1000;
-
-
 }
 
 .footBarSectionC::after {
@@ -19,21 +17,21 @@
   position: absolute;
   width: 100%;
   height: 300%;
-  background-color: #000000;
-
+  background-color: inherit;
 }
-
 
 .footBarGrid3 {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
   align-content: center;
   align-items: center;
-  gap: .5rem;
+  gap: 0.5rem;
+  height: 100%;
+  padding-bottom: 0.7rem;
+  background-color: inherit;
 }
 
 .footBarGrid3_1 {
-  /* background-color: #1ba42b; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -49,7 +47,6 @@
   height: 5rem;
 }
 
-
 .footBarGrid3_1-1 {
   position: relative;
   display: flex;
@@ -62,9 +59,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
 }
-
 
 .footBarGrid3_3 {
   /* background-color: #7c103d; */
@@ -73,23 +68,17 @@
   justify-content: center;
 }
 
-
-
-
-
-
 .footbatBtnLang {
   display: flex;
-  background-color: #000;
-  padding-top: .2rem;
+  /* background-color: #000; */
+  padding-top: 0.2rem;
   padding-left: 1rem;
   padding-right: 1rem;
-
 }
 
 .footbatBtnList {
   /* border: red 1px solid; */
-  padding-top: .2rem;
+  padding-top: 0.2rem;
   padding-left: 2rem;
   padding-right: 2rem;
   position: relative;
@@ -97,12 +86,10 @@
 
 .footbatBtnCommentt {
   /* border: red 1px solid; */
-  padding-top: .2rem;
+  padding-top: 0.2rem;
   padding-left: 1rem;
   padding-right: 1rem;
 }
-
-
 
 .langCode {
   /* content: '';
@@ -110,17 +97,14 @@
   left: 2px;
   top: 50%; */
   transform: translateX(10px);
-  color: #afafaf;
-  font-size: .9rem;
-
-
+  font-size: 0.9rem;
 }
 
 .itemFavorListShow {
   position: absolute;
   top: 0;
   right: 30%;
-  background-color: #E10044;
+  background-color: #e10044;
   color: #fff;
   line-height: 1;
   width: 1.5rem;
@@ -129,43 +113,35 @@
   justify-content: center;
   align-items: center;
   border-radius: 1rem;
-  font-size: .8rem;
+  font-size: 0.8rem;
 }
-
-
-
 
 .floatLeftFootBar {
   font-size: 62.5%;
   position: fixed;
   top: 78vh;
-  left: .2rem;
+  left: 0.2rem;
   z-index: 500;
 }
-
-
 
 .foobarFlexC {
   display: flex;
   flex-direction: column;
-  gap: .3rem
+  gap: 0.3rem;
 }
-
 
 .itemList {
   text-align: center;
   padding-bottom: 1rem;
-
 }
 
 .favCatList {
   border-bottom: #bbb 1px solid;
-  padding-top: .5rem;
+  padding-top: 0.5rem;
   font-weight: 600;
   color: #999;
-  padding-left: .5rem;
+  padding-left: 0.5rem;
   margin-right: 1rem;
-
 }
 
 .gridFavList {
@@ -173,7 +149,7 @@
   width: 100%;
   justify-content: space-between;
   align-items: center;
-  padding: .2rem;
+  padding: 0.2rem;
   padding-left: 1rem;
   padding-right: 2rem;
 }
@@ -186,8 +162,6 @@
   gap: 2rem;
 }
 
-
-
 .boxLangBtn {
   position: relative;
   background-color: #000000;
@@ -197,11 +171,10 @@
   content: '';
   position: absolute;
   bottom: -100%;
-  background-color: #000000;
   border-radius: 5px;
   width: 80%;
   height: 100%;
-  transition: all .3s;
+  transition: all 0.3s;
   z-index: -5;
   padding-top: 1.2rem;
   padding-bottom: 1.2rem;
@@ -215,7 +188,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: .8rem;
+  font-size: 0.8rem;
   color: #fcfcfc;
 }
 
@@ -230,7 +203,7 @@
   border-radius: 5px;
   width: 100%;
   height: 120%;
-  transition: all .3s;
+  transition: all 0.3s;
   z-index: -5;
 }
 
@@ -245,10 +218,9 @@
   border-radius: 5px;
   width: 100%;
   height: 120%;
-  transition: all .3s;
+  transition: all 0.3s;
   z-index: -5;
 }
-
 
 /* .popupLangUp1 {
   content: '';
@@ -268,24 +240,19 @@
   margin: 2px;
 }
 
-
 .boxLangChoice {
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: flex-start;
   color: #afafaf;
 }
 
-
-
 /* ///////////////////////////////////////////////// */
 .popupListBar {
-
   max-width: 512px;
   width: 100vw;
   z-index: 700;
   /* height: 10vh; */
-
 }
 
 /* .popupList {
@@ -320,21 +287,22 @@
   z-index: 5;
 
 } */
-
+.t666 {
+  outline: none;
+  filter: brightness(1.05);
+}
 .popupList {
   content: '';
   position: absolute;
   left: 50%;
   transform: translate(-50%, 100%);
   bottom: -25px;
-
-  background-color: #fcfcfc;
   width: 100%;
   height: max-content;
 
   border-radius: 10px 10px;
-  transition: all .3s;
-  z-index: 100
+  transition: all 0.3s;
+  z-index: 100;
 }
 
 .popupListUp {
@@ -343,14 +311,13 @@
   transform: translate(-50%, 0);
 
   max-height: 75vh;
-  transition: all .3s;
+  transition: all 0.3s;
   z-index: 5;
-
 }
 
 .coment {
   max-height: none;
-  height: 55vh
+  height: 55vh;
 }
 
 .overflow {
@@ -358,17 +325,15 @@
   padding-bottom: 5rem;
 }
 
-
 .popupListText {
   padding: 1rem 1rem;
   display: flex;
   flex-direction: column;
-  z-index: 5
+  z-index: 5;
 }
 
 .sumPopupList {
   margin-top: 2rem;
-  ;
 }
 
 .overlay {
@@ -380,16 +345,15 @@
   width: 100%;
   height: 100vh;
   border-radius: 10px 10px;
-  transition: all .3s;
+  transition: all 0.3s;
   z-index: 0;
-  transition: all .2s;
+  transition: all 0.2s;
 }
 
 .blackOpacity {
-  background-color: rgba(0, 0, 0, 0.60);
-
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .transparent {
-  background-color: none
+  background-color: none;
 }

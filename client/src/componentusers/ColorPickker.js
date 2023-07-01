@@ -5,6 +5,11 @@ const ColorPickker = (prop) => {
   //prop.nameTheme
   // prop.navAndFootBar
   // prop.setNavAndFootBar
+  // prop.themeIconNoBD
+  // prop.setThemeIconNoBD
+  //prop.setThemeIconColorBorder
+  //prop.categoryMotion
+  //prop.setCategoryMotion
 
   const getColorPicker = (e) => {
     let color = e.target.value
@@ -13,7 +18,17 @@ const ColorPickker = (prop) => {
     if (prop.noSetTheme === 1) {
       prop.setNavAndFootBar({ ...prop.navAndFootBar, [prop.nameTheme]: color })
     }
-
+    else if (prop.noSetTheme === 2) {
+      prop.setBodyStyle({ ...prop.bodyStyle, [prop.nameTheme]: color })
+    }
+    else if (prop.noSetTheme === 3) {
+      prop.setThemeIconNoBD({ ...prop.themeIconNoBD, [prop.nameTheme]: color })
+    } else if (prop.noSetTheme === 31) {
+      prop.setThemeIconColorBorder(color)
+    }
+    else if (prop.noSetTheme === 4) {
+      prop.setCategoryMotion({ ...prop.categoryMotion, [prop.nameTheme]: color })
+    }
   }
 
   return (

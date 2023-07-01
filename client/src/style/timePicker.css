@@ -66,7 +66,7 @@
 .mainOnOff {
   grid-area: 1/1/2/5;
   padding: var(--paddingTime);
-  justify-self: end;
+  justify-self: flex-end;
   font-size: 1.2rem;
 }
 
@@ -362,7 +362,7 @@
 .textTo {
   display: flex;
   justify-content: center;
-  align-items: end;
+  align-items: flex-end;
 }
 
 .setTimeMargin {
@@ -444,8 +444,8 @@ select::-webkit-scrollbar-thumb:hover {
   bottom: 1rem;
   display: flex;
   gap: 1rem;
-  justify-content: end;
-  align-items: end;
+  justify-content: flex-end;
+  align-items: flex-end;
 }
 
 /* .timePikerConfirm {} */

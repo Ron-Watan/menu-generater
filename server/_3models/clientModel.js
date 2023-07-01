@@ -8,6 +8,10 @@ const clientSchema = mongoose.Schema(
     link: {
       type: String,
     },
+    restaurantName: {
+      type: String,
+      default: '',
+    },
     menu: {
       type: Array,
       default: [],
@@ -29,8 +33,8 @@ const clientSchema = mongoose.Schema(
       default: {},
     },
     themeSetup: {
-      type: 'String',
-      default: '',
+      type: 'Object',
+      default: {},
     },
   },
   { timestamps: true }

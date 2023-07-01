@@ -76,7 +76,7 @@ const MainForm = () => {
 
   //1//
   const { user } = useSelector((state) => state.user);
-  const [restaurantName, setRestaurantName] = useState('Red Snaq')
+  const [restaurantName, setRestaurantName] = useState('')
   //1// After Reload SET:
   const [categoryList, setCategoryList] = useState([]);
   const [menuName, setMenuName] = useState({
@@ -668,8 +668,8 @@ const MainForm = () => {
   const [onOffMenu2, setOnoffMenu2] = useState({ switch: false, value: 2 });
   const [onOffMenu3, setOnoffMenu3] = useState({ switch: false, value: 3 });
 
-//-
-  const [onOffTheme, setOnOffTheme] = useState(true); 
+  //-
+  const [onOffTheme, setOnOffTheme] = useState(false);
 
 
 
@@ -700,6 +700,7 @@ const MainForm = () => {
   //=
   const [navTime2TimePicker, setNavTime2TimePicker] = useState(0);
   const [navLang2LangSetUp, setNavLang2LangSetUp] = useState(0);
+  const [navTheme2ThemeSetUp, setNavTheme2ThemeSetUp] = useState(0);
 
   //=
 
@@ -751,6 +752,8 @@ const MainForm = () => {
           setNavTime2TimePicker={setNavTime2TimePicker}
           navLang2LangSetUp={navLang2LangSetUp}
           setNavLang2LangSetUp={setNavLang2LangSetUp}
+          navTheme2ThemeSetUp={navTheme2ThemeSetUp}
+          setNavTheme2ThemeSetUp={setNavTheme2ThemeSetUp}
         />
 
         <div className='monitor1'></div>
@@ -801,17 +804,12 @@ const MainForm = () => {
           {/* qqq */}
           {onOffTheme && (
             <div className={`themeSetupSection`}>
-              <ThemeSetup setOnOffTheme={setOnOffTheme}
+              <ThemeSetup
+                setOnOffTheme={setOnOffTheme}
+                navTheme2ThemeSetUp={navTheme2ThemeSetUp}
 
                 restaurantName={restaurantName}
                 setRestaurantName={setRestaurantName}
-
-
-
-
-
-
-
 
               />
             </div>

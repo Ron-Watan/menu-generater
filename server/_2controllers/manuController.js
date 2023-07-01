@@ -138,11 +138,18 @@ export const saveNameMenu = (req, res) => {
         userMenu: user,
         success: true,
       }); //send to client side
+
+
+      Clients.findOne({ clientId: clientId }).then((client) => {
+        client.menuName = menuName;
+        client.save();
+      });
+
+
+
+
     });
-  Clients.findOne({ clientId: clientId }).then((client) => {
-    client.menuName = menuName;
-    client.save();
-  });
+
 };
 
 //-
@@ -370,47 +377,43 @@ export const saveLangSetup = (req, res) => {
 
 
 export const setupTheme = (req, res) => {
-  console.log('Hello')
-  // const { userId, clientId, catagory, icon_catagory, imgId, listMenu, menuTime } = req.body;
 
-  // const menuId = uuidv4();
+  const { userId, restaurantName, themeSetup } = req.body;
+  Users.findOne({ userId: userId })
+    .select('userId restaurentName themeSetup clientId')
+    .then((user) => {
+      user.restaurantName = restaurantName;
+      user.themeSetup = themeSetup;
+      user.save();
+      res.send({
+        message: 'Success',
+        userTheme: user,// Slected
+        success: true,
+      });
+      Clients.findOne({ clientId: user.clientId }).then((client) => {
+        client.restaurantName = restaurantName;
+        client.themeSetup = themeSetup;
+        client.save();
+      });
+    });
 
-  // Users.findOne({ userId: userId })
-  //   .select('userId restaurentName menu menuName bannerImage languageSetup timeSetup clientId link')
-  //   .then((user) => {
-  //     user.menu.push({
-  //       menuTime: menuTime,
-  //       menuId: menuId,
-  //       catagory: catagory,
-  //       icon_catagory: icon_catagory,
-  //       imgId: imgId,
-  //       listMenu: listMenu,
-  //     });
-  //     user.save();
-  //     res.send({
-  //       message: 'Success',
-  //       userMenu: user,
-  //       success: true,
-  //     });
-  //     Clients.findOne({ clientId: clientId }).then((client) => {
-  //       client.menu.push({
-  //         menuTime: menuTime,
-  //         menuId: menuId,
-  //         catagory: catagory,
-  //         icon_catagory: icon_catagory,
-  //         imgId: imgId,
-  //         listMenu: listMenu,
-  //       });
-  //       client.save();
-  //     });
-
-  //   });
 };
 
 
 
+export const getTheme = (req, res) => {
 
-
+  const { userId } = req.body;
+  Users.findOne({ userId: userId })
+    .select('restaurantName themeSetup')
+    .then((user) => {
+      res.send({
+        message: 'Success',
+        userTheme: user,
+        success: true,
+      }); //send to client side
+    });
+};
 
 
 

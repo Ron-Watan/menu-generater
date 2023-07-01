@@ -201,7 +201,7 @@
   font-size: 1.1rem;
   color: #eee;
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   padding-left: 1rem;
 }

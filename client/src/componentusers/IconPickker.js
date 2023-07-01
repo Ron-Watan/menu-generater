@@ -5,6 +5,11 @@ import icon1 from '../all-icon-client/Appetizer-Black-SVG-sprite.svg';
 import icon2 from '../all-icon-client/food-color-SVG-sprite.svg';
 
 const IconPickker = (prop) => {
+
+
+
+
+
   const getValueIcon = (even) => {
     prop.setState({ ...prop.state, icon_catagory: even });
   };
