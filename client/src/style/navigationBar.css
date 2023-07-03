@@ -12,12 +12,11 @@
   min-width: 3rem;
   width: 5vw;
   height: 100vh;
-  background: #3C3D3F;
+  background: #3c3d3f;
   z-index: 1000;
-  box-shadow: .1rem .1rem 1rem  #0000003b;
+  box-shadow: 0.1rem 0.1rem 1rem #0000003b;
   z-index: 3000;
   /* gap: 1rem; */
-  ;
 }
 
 .section1 {
@@ -29,6 +28,23 @@
   background-color: #cb2722;
 }
 
+
+.extra {
+  fill: #eee;
+}
+
+.section2 {
+  display: flex;
+  flex-direction: column;
+  /* border-top: 1px solid #777; */
+  border-bottom: 1px solid #777;
+  gap: 0.5rem;
+  padding: 1rem 0;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .iconBarcode {
   height: 3.12rem;
   display: flex;
@@ -36,44 +52,76 @@
   align-items: center;
   /* padding-bottom: 1rem;
   padding-top: 1rem; */
+  transition: all .2s;
+}
+.iconBarcode:hover {
+  transform: scale(1.1);
 }
 
-.iconBarcode rect {
-  stroke: #eee;
+.qrCodeTabActive {
+  transform: scale(1.1);
 }
-
-.extra {
-  fill: #eee;
+.qrCodeActive path{
+  stroke: #fff;
 }
-
-.section2 {
-
-  display: flex;
-  flex-direction: column;
-  /* border-top: 1px solid #777; */
-  border-bottom: 1px solid #777;
-  gap: .5rem;
-  padding: 1rem 0;
-  width: 100%;
-  align-items: center;
-  justify-content: space-between;
-
+.qrCodeActive rect {
+  fill: #fff;
 }
-
 
 
 .myIconTab {
-  /* background-color: #fff; */
+  /* background-color: #fff;*/
+  /* border: 1px #fff solid; */
   display: flex;
-  width: 100%;
+  width: 3rem;
   align-items: center;
   justify-content: center;
-  padding: .5rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  transition: all .2s;
 
 }
-.myIconTab:hover{
-  background-color: #4b4b4c;
+.myIconTab:hover {
+  /* background-color: #4b4b4c; */
+  transform: scale(1.1);
+  box-shadow: 0.2rem 0.2rem 0.5rem rgba(0, 0, 0, 0.35);
+}
+.myIconTabActive {
+  background: linear-gradient(to right top, #b71f1f, #f002025e);
+  box-shadow: 0.2rem 0.2rem 0.5rem rgba(0, 0, 0, 0.35);
+  transform: scale(1.1);
+}
 
+
+/* .qrCodeTabActive:hover {
+  transform: scale(1.1);
+} */
+
+.menuActive rect {
+  stroke: #fff;
+}
+.menuActive path {
+  stroke: #fff;
+  fill: #fff;
+}
+
+.activeTime circle {
+  stroke: #fff;
+}
+
+.activeTime path {
+  fill: #fff;
+}
+
+.activeLang g path {
+  stroke: #fff;
+}
+.activeLang .activeLangPath {
+  fill: #fff;
+}
+
+.bannerActive path {
+  stroke: #fff;
 }
 
 .myIconBanner {
@@ -97,10 +145,6 @@
   stroke: #777;
 }
 
-.myIconSideBar path {
-  fill: #777
-}
-
 .endSection {
   display: flex;
   flex-direction: column;
@@ -109,59 +153,4 @@
   align-items: center;
   justify-content: space-between;
   height: 100%;
-}
-
-
-.active {
-  stroke: #eee;
-
-}
-
-.active path {
-  fill: #eee
-}
-
-
-
-
-
-.activeBanner>.rs {
-  stroke: #eee;
-
-}
-
-.activeBanner>.rf {
-  fill: #eee
-}
-
-.activeBanner>.ps {
-  stroke: #eee;
-}
-
-.activeBanner>.pf {
-  fill: #eee
-}
-
-.activeBanner line {
-  stroke: #eee;
-
-}
-
-
-.activeTime circle,
-.activeTime line {
-  stroke: #eee;
-}
-
-
-
-.activeLang circle,
-.activeLang path {
-  stroke: #eee;
-
-}
-
-.activeLang .pf {
-  fill: #eee;
-
 }

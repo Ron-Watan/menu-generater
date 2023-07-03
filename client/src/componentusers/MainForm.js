@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { ticketPass } from '../protectors/authorize';
@@ -79,6 +79,7 @@ const MainForm = () => {
   const [restaurantName, setRestaurantName] = useState('')
   //1// After Reload SET:
   const [categoryList, setCategoryList] = useState([]);
+
   const [menuName, setMenuName] = useState({
     menu_1: '',
     menu_2: '',
@@ -170,11 +171,13 @@ const MainForm = () => {
           const getReult = result.data.userMenu;
 
           setCategoryList(getReult.menu);
+
           setMenuName(getReult.menuName);
           setTimeSetup(getReult.timeSetup);
           setLanguageSetup(getReult.languageSetup);
           setThemeSetup(getReult.setThemeSetup);
 
+          getAllImage()
           //   const checkTime = getReult.filter((el) => el.menuTime == menuTime;
           //   return el.menuTime == menuTime;
           // });
@@ -202,7 +205,6 @@ const MainForm = () => {
     categoryList.forEach((el) => {
       if (el.menuTime === menuTime) countLists++;
     });
-    console.log(countLists);
     return countLists;
   };
   // console.log(checkMaximumLists());
@@ -213,7 +215,7 @@ const MainForm = () => {
 
     if (checkMaximumLists() > 14) return alert('DDDD');
 
-    componentDidMount();
+    scrollToTop();
     if (!state.catagory.trim()) return;
 
     file && uploadImage();
@@ -241,7 +243,7 @@ const MainForm = () => {
           const getReult = result.data.userMenu;
 
           dispath(setUser(getReult));
-          getAllMenu();
+          // getAllMenu();
           actionDelay();
           Unchecked();
           setNothing();
@@ -275,7 +277,6 @@ const MainForm = () => {
   //-
 
   // const [originFile, setOriginFile] = useState('');
-
   const saveEditMenu = (e) => {
     if (!menuId) return;
     e.preventDefault();
@@ -305,6 +306,7 @@ const MainForm = () => {
         if (result.data.success) {
           // Swal.fire(result.data.message)
           dispath(setUser(result.data.userMenu));
+          // console.log(result.data.userMenu)
           actionDelay();
           dispath(hideLoading());
           Swal.fire({
@@ -334,33 +336,182 @@ const MainForm = () => {
 
   //- 005_findOneMenu
 
+  // const findOneMenu = (e) => {
+  //   e.preventDefault();
+  //   setStart(true);
+  //   setOnOffLangForm(false);
+  //   const menuId = e.target.name;
+  //   setMenuId(menuId);
+  //   scrollToTop();
+  //   dispath(showLoading());
+  //   axios
+  //     .post(`${process.env.REACT_APP_API}/user/findOneMenu`, { menuId: menuId, userId: user.userId }, ticketPass)
+  //     .then((result) => {
+  //       if (result.data.success) {
+  //         dispath(hideLoading());
+  //         chooseMenu(result.data.userMenu);
+  //         actionDelay();
+  //       } else {
+  //         Swal.fire(result.data.message);
+  //         dispath(hideLoading());
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       // dispath(hideLoading())
+  //       console.log("Can't not connect the server", err);
+  //       Swal.fire("Can't not connect the server");
+  //     });
+  // };        
+
+
+  // <button onClick={() => {
+  //   setGetAllImageBannerTG((getAllImageBannerTG) => getAllImageBannerTG + 1)
+  //   prop.setTestTG((prop.testTG) => prop.testTG + 1)
+  // }
+  // const [triggerMemo, setTriggerMemo] = useState('')
+
+
+  // useEffect(() => {
+  //   if (triggerMemo) {
+  //     setMemoListMenu([...categoryList]);
+  //     console.log('meeeeeeeeeee')
+  //   }
+  // }, [triggerMemo]);
+
+
+  const [memoListMenu, setMemoListMenu] = useState([])
+  const [memoMenuId, setMemoMenuId] = useState('')
+
+
+  const [someValue, setSomeValue] = useState(0)
+  const heloooo = (() => {
+    console.log('heloo2')
+  })
+  const getNumberWithMemo = useCallback(() => {
+    console.log('hello')
+    heloooo()
+  }, [someValue])
+
+  // setSomeValue((prev) => ++prev)
+  // 111
+  const funrrr = () => {
+    const resr = document.querySelector('#food-name')
+    return resr.value
+    console.log(resr)
+  }
+
   const findOneMenu = (e) => {
+
     e.preventDefault();
     setStart(true);
     setOnOffLangForm(false);
+    scrollToTop();
     const menuId = e.target.name;
     setMenuId(menuId);
-    componentDidMount();
-    dispath(showLoading());
-    axios
-      .post(`${process.env.REACT_APP_API}/user/findOneMenu`, { menuId: menuId, userId: user.userId }, ticketPass)
-      .then((result) => {
-        if (result.data.success) {
-          dispath(hideLoading());
-          console.log(result.data.userMenu);
-          chooseMenu(result.data.userMenu);
-          actionDelay();
-        } else {
-          Swal.fire(result.data.message);
-          dispath(hideLoading());
-        }
-      })
-      .catch((err) => {
-        // dispath(hideLoading())
-        console.log("Can't not connect the server", err);
-        Swal.fire("Can't not connect the server");
-      });
+    setFile('')
+    dispath(showLoading())
+
+    categoryList.map(oneMennu => {
+      if (oneMennu.menuId === menuId) {
+        allImage.map(el => {
+          if (el.imgId === oneMennu.imgId) {
+            setFile(el.tagImage)
+          }
+        })
+
+        setState({
+          catagory: oneMennu.catagory,
+          catagory_2: oneMennu.catagory_2,
+          icon_catagory: oneMennu.icon_catagory,
+          imgId: oneMennu.imgId,
+        });
+        setListMenu(oneMennu.listMenu);
+        setMemoIcon(oneMennu.icon_catagory)
+        dispath(hideLoading())
+        console.log(funrrr())
+
+      }
+
+    })
+
+    // const newData = [...categoryList]
+    // console.log(newData === categoryList);
+
+
+    user.menu.map(oneMennu => {
+      if (oneMennu.menuId === menuId) {
+
+        // allImage.map(el => {
+        //   if (el.imgId === oneMennu.imgId) {
+        //     setFile(el.tagImage)
+        //   }
+        // })
+
+
+        setMemoListMenu([...oneMennu.listMenu])
+      }
+    })
+
+
   };
+
+
+
+
+  const setNothing = () => {
+    setStart(false);
+    // setMenuId('');
+    setFile('');
+    // setState({ catagory: '', imgId: '' });
+    // const newData = [...user.menu]
+    // console.log(newData === user.menu);
+    // console.log(newData)
+
+    // console.log(memoListMenu)
+    // setCategoryList(memoListMenu)
+    // setListMenu([...memoListMenu]);
+    // console.log([listMenuModel])
+    // const newUser = user.menu
+    // setTriggerMemo((any) => triggerMemo + 1)
+
+    // user.menu.map(oneMennu => {
+    //   if (oneMennu.menuId === menuId) {
+
+    // allImage.map(el => {
+    //   if (el.imgId === oneMennu.imgId) {
+    //     setFile(el.tagImage)
+    //   }
+    // })
+    // const rrrr=user.menu[]
+    // console.log(listMenu)
+    // const test = {
+    //   food_name: '',
+    //   description: '',
+    //   remark: '',
+    //   price: '',
+    //   vetgeterian: false,
+    //   vegan: false,
+    //   gluten_free: false,
+    //   halal: false,
+    //   favor: false,
+
+    //   food_name_2: '',
+    //   description_2: '',
+    //   remark_2: '',
+    //   price_2: '',
+
+    //   food_name_3: '',
+    //   description_3: '',
+    //   remark_3: '',
+    //   price_3: '',
+    // }
+
+    //     setListMenu(oneMennu.listMenu);
+    //   }
+    // })
+  };
+
+
 
   const additem = () => {
     let newListMenu = listMenuModel;
@@ -377,7 +528,7 @@ const MainForm = () => {
     e.preventDefault();
     const menuId = e.target.value;
     dispath(showLoading());
-    componentDidMount();
+    scrollToTop();
 
     axios
       .post(`${process.env.REACT_APP_API}/user/deleteMenu`, { menuId: menuId, listMenu: [...listMenu], userId: user.userId, link: user.link }, ticketPass)
@@ -415,9 +566,7 @@ const MainForm = () => {
   // };
 
   const [start, setStart] = useState(false);
-  const startCreate = () => {
-    setMenuId('');
-  };
+
 
   const ref = useRef([]);
 
@@ -514,7 +663,6 @@ const MainForm = () => {
   }
 
   const [allImage, setAllImage] = useState([]);
-
   const getAllImage = () => {
     axios
       .post(`${process.env.REACT_APP_API}/user/images/all`, { userId: user.userId })
@@ -538,44 +686,42 @@ const MainForm = () => {
   };
 
   // console.log(allImage)
-  const getImage = (imgId) => {
-    dispath(showLoading());
-    axios
-      .post(`${process.env.REACT_APP_API}/user/images/preview`, { imgId: imgId })
-      .then((result) => {
-        if (!result.data.images) {
-          setFile('');
-          return dispath(hideLoading());
-        }
+  // const getImage = (imgId) => {
+  //   dispath(showLoading());
+  //   axios
+  //     .post(`${process.env.REACT_APP_API}/user/images/preview`, { imgId: imgId })
+  //     .then((result) => {
+  //       if (!result.data.images) {
+  //         setFile('');
+  //         return dispath(hideLoading());
+  //       }
 
-        const getResult = result.data.images;
-        const base64Flag = 'data:image/png;base64,';
-        const imageStr = arrayBufferToBase64(getResult.img.data.data);
-        const tagImage = base64Flag + imageStr;
+  //       const getResult = result.data.images;
+  //       const base64Flag = 'data:image/png;base64,';
+  //       const imageStr = arrayBufferToBase64(getResult.img.data.data);
+  //       const tagImage = base64Flag + imageStr;
 
-        // console.log(tagImage)
+  //       // console.log(tagImage)
 
-        setFile(tagImage);
-        dispath(hideLoading());
-        // setTimeout(() => {
-        //   dispath(hideLoading());
-        // }, 500);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
+  //       setFile(tagImage);
+  //       dispath(hideLoading());
+  //       // setTimeout(() => {
+  //       //   dispath(hideLoading());
+  //       // }, 500);
+  //     })
+  //     .catch((err) => {
+  //       console.error(err);
+  //     });
+  // };
 
-  const getImage1 = (imgId) => {
-    allImage.map((el) => {
-      if (el.imgId === imgId) {
-        setFile(el.tagImage);
-      }
-    });
-    //////////////////////
+  // const getImage1 = (imgId) => {
+  //   allImage.map((el) => {
+  //     if (el.imgId === imgId) {
+  //       setFile(el.tagImage);
+  //     }
+  //   });
 
-    //////////////////////
-  };
+  // };
 
   const delelteImage = () => {
     if (!file) return;
@@ -600,33 +746,25 @@ const MainForm = () => {
     setListMenu([listMenuModel]);
     setState({ catagory: '', catagory_2: state.catagory_2, imgId: '' });
     setFile('');
-
     // window.location.reload(false)
   };
 
-  const setNothing = () => {
-    setStart(false);
-    setMenuId('');
-    setListMenu([listMenuModel]);
-    setState({ catagory: '', imgId: '' });
-    setFile('');
-  };
 
-  const chooseMenu = (oneMennu) => {
-    setState({
-      catagory: oneMennu.catagory,
-      catagory_2: oneMennu.catagory_2,
-      icon_catagory: oneMennu.icon_catagory,
-      imgId: oneMennu.imgId,
-    });
-    setMenuId(oneMennu.menuId);
-    getImage(oneMennu.imgId);
-    actionDelay();
-    setListMenu(oneMennu.listMenu);
-    setMemoIcon(oneMennu.icon_catagory);
-  };
+  // const chooseMenu = (oneMennu) => {
+  //   setState({
+  //     catagory: oneMennu.catagory,
+  //     catagory_2: oneMennu.catagory_2,
+  //     icon_catagory: oneMennu.icon_catagory,
+  //     imgId: oneMennu.imgId,
+  //   });
+  //   setMenuId(oneMennu.menuId);
+  //   getImage(oneMennu.imgId);
+  //   actionDelay();
+  //   setListMenu(oneMennu.listMenu);
+  //   setMemoIcon(oneMennu.icon_catagory);
+  // };
 
-  const componentDidMount = () => {
+  const scrollToTop = () => {
     window.scrollTo(0, 0);
   };
 
@@ -710,6 +848,17 @@ const MainForm = () => {
     getAllMenu();
   }, [user]);
 
+
+  // function usePrevious(value) {
+  //   const ref = useRef();
+  //   // useEffect(() => {
+  //   ref.current = value; //assign the value of ref to the argument
+  //   // }, [value]); //this code will run when the value of 'value' changes
+  //   console.log(ref.current)
+  //   return ref.current; //in the end, return the current ref value.
+  // }
+
+
   // qqq
   //-///=///-///=///-///=///-///=///-   END FUNCTION   ///-///=///-///=///-///=///-///=///-
 
@@ -727,8 +876,8 @@ const MainForm = () => {
 
       <div className='monitor ' id='monitor'>
         <NavbarComponent
+          setStart={setStart}
           className='sideBarTop'
-          // timeSwitcher={timeSwitcher}
           setMenuTime={setMenuTime}
           onOffQrCode={onOffQrCode}
           setOnoffQrCode={setOnoffQrCode}
@@ -756,7 +905,10 @@ const MainForm = () => {
           setNavTheme2ThemeSetUp={setNavTheme2ThemeSetUp}
         />
 
-        <div className='monitor1'></div>
+        <div className='monitor1'>
+
+
+        </div>
 
         <div
           onClick={() => {
@@ -801,23 +953,18 @@ const MainForm = () => {
             </div>
           )}
 
-          {/* qqq */}
+          {/* qqq  onOffTheme */}
           {onOffTheme && (
             <div className={`themeSetupSection`}>
               <ThemeSetup
                 setOnOffTheme={setOnOffTheme}
                 navTheme2ThemeSetUp={navTheme2ThemeSetUp}
-
                 restaurantName={restaurantName}
                 setRestaurantName={setRestaurantName}
-
               />
             </div>
           )}
 
-          {/* <div className={`colorPickerSection`}>
-            <ColorPickker themeSetup={themeSetup} setThemeSetup={setThemeSetup} />
-          </div> */}
 
           <div className={`formContainer ${start ? 'showMe' : 'displayNone'}`}>
             <form id='foodForm' encType='multipart/form-data' className={` formMenu`}>
@@ -838,10 +985,13 @@ const MainForm = () => {
                   <div className='gridCat'>
                     <div
                       onClick={() => {
-                        setStart(false);
-                        setMenuId('');
+                        // setStart(false);
+                        setNothing()
+                        getAllMenu()
                       }}
                       className='closeBtn'>
+                      <i className='sr-only'>//-CLOSE//-</i>
+
                       <span className='boxCancel closeIconHover'>
                         <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' strokeWidth='1' stroke='#000' className='w-6 h-6'>
                           <path strokeLinecap='round' strokeLinejoin='round' d='M6 18L18 6M6 6l12 12' />
@@ -855,7 +1005,9 @@ const MainForm = () => {
                         <svg
                           onClick={() => {
                             setActiveWindowIconPicker(!activeWindowIconPicker);
+
                           }}
+
                           className='itemSvg'>
                           {state.icon_catagory ? <use xlinkHref={`${state.icon_catagory}`} /> : <use xlinkHref={`/static/media/food-color-SVG-sprite.c7acaa791b17c993c83fb8c054053b75.svg#food-tray`} />}
                         </svg>
@@ -1097,15 +1249,15 @@ const MainForm = () => {
         <i className='x'>RIGHTBAR SECTION Position Fixedl</i>
 
         <div
-          className={`sectionSideCat 
+          className={`sectionSideCat
         ${!(onOffMenu1.switch || onOffMenu2.switch || onOffMenu3.switch || onOffBanner) && 'displayNone'}`}>
           <div className={`headCat`}>
             <div className={`headCat1 ${!(onOffMenu1.switch || onOffMenu2.switch || onOffMenu3.switch) && 'displayNone'}`}>
-              <button onClick={openForm} type='button' form='foodForm' className={`newCatBtn`}>
-                <svg width='25' height='25' viewBox='0 0 65 65' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                  <rect x='1' y='1' width='63' height='63' rx='2' stroke='white' strokeWidth='2' />
-                  <path d='M32 12L32 53' stroke='white' strokeWidth='2' strokeLinecap='round' />
-                  <path d='M12 32L53 32' stroke='white' strokeWidth='2' strokeLinecap='round' />
+              <button onClick={openForm} type='button' form='foodForm' className={`mainBtn newBtnRed newCatBtn`}>
+                <svg width="25" height="25" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M28 13V43" stroke="white" strokeWidth="3" strokeLinecap="round" />
+                  <path d="M13 28H43" stroke="white" strokeWidth="3" strokeLinecap="round" />
+                  <rect x="1.5" y="1.5" width="53" height="53" rx="8.5" stroke="white" strokeWidth="3" />
                 </svg>
                 <span>NEW CATEGORY</span>
               </button>
@@ -1125,7 +1277,7 @@ const MainForm = () => {
             <i className='x'>ADD PROMOTION PHOTO BUTTON Position Fixedl</i>
 
             <div className={`headCat1 ${(onOffMenu1.switch || onOffMenu2.switch || onOffMenu3.switch || !onOffBanner) && 'displayNone'}`}>
-              <label htmlFor='file-uploadBanner' className='newCatBtn'>
+              <label htmlFor='file-uploadBanner' className='mainBtn newBtnRed newCatBtn'>
                 <svg width='25' height='25' viewBox='0 0 65 65' fill='none' xmlns='http://www.w3.org/2000/svg'>
                   <rect x='1' y='1' width='63' height='63' rx='2' stroke='white' strokeWidth='2' />
                   <path d='M32 12L32 53' stroke='white' strokeWidth='2' strokeLinecap='round' />

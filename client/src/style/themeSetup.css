@@ -1,48 +1,138 @@
 .themeSetupSection {
-  /* position: fixed; */
-  top: 5rem;
+  position: fixed;
+  /* top: 5rem; */
   z-index: 100;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.1);
 }
 .themeContainer {
-  position: relative;
-  transform: translate(2%, 2%);
-  height: 80vh;
+  /* position: absolute; */
+  width: 95%;
+
+  /* top: 50%;
+  left: 50%;
+  transform: translate(5%, 5%); */
+  /* margin: 0 auto; */
+  height: 90vh;
   background-color: #fff;
-  border-radius: 0.3rem;
-  box-shadow: 0rem 0.5rem 2rem 0rem rgba(0, 0, 0, 0.3);
+  /* border-radius: 0.3rem; */
+  /* box-shadow: 0rem 0.5rem 2rem 0rem rgba(0, 0, 0, 0.3); */
   overflow: hidden;
   z-index: 100;
-  width: 100%;
+  display: flex;
+  padding: 1rem;
+  gap: 2rem;
+}
+/* body::-webkit-scrollbar {
+  display: none;
+} */
+
+.splitThemeGrid {
+  display: grid;
+  grid-template-columns: 40rem 1fr;
 }
 .themeTable {
-  width: 100vw;
-  height: 100%;
-  background-color: #fff;
-  overflow-y: scroll;
-  padding: 2rem;
-  padding-top: 1rem;
+  /* width: 100%; */
+  height: 95%;
+  background-color: #b44343;
+  /* overflow-y: scroll; */
+  /* padding: 2rem; */
+  /* padding-top: 1rem; */
 }
+
 .themeLayout {
-  display: flex;
+  display: grid;
+  grid-template-rows: 3rem 1fr 5rem;
+  gap: 0.5rem;
+  width: 100%;
+  height: 100%;
+  background-color: #4396b4;
+  /* padding: 2%;
+  padding-right: 1px; */
 }
 
 .themeMenuList {
-  width: 15%;
+  /* width: 15%; */
+
   flex-grow: 1;
   display: flex;
-  flex-direction: column;
-  justify-content: space-around;
+  /* flex-direction: column; */
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
 }
+
+.menuListBtn {
+  background-color: #a9b443;
+
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+
 .themeSetupMain {
-  width: 85%;
-  display: flex;
+  background-color: #435db4;
+  border: #444 1px solid;
+  padding: 1rem;
 }
 
 .themeNavBar {
-  widows: 100%;
+  width: 100%;
   background-color: #ae79ba;
 }
 
+/* //- */
+.themeNavFootBar {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  /* flex-direction: column; */
+}
+.TC-name {
+  color: #333;
+  border-bottom: 0.5px #333 solid;
+}
+.setThemeFlex {
+  display: flex;
+  gap: 2rem;
+}
+.mg-t-1 {
+  margin-top: 1rem;
+}
+.presentInput {
+  width: 50%;
+  height: 2rem;
+  outline: none;
+  border: #aaa 1px solid;
+  color: #777;
+  border-radius: 0.3rem;
+  padding: 0.2rem 0.5rem;
+}
+
+.labelColor {
+  /* width: 50%; */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
+}
+.labelFontR {
+  height: 2rem;
+  /* outline: #c00f0f; */
+  border: #aaa 1px solid;
+  color: #444;
+  border-radius: 0.2rem;
+  padding: 0.2rem 0.5rem;
+}
+.color_PBig {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.color_PBig-ActiveAAAA {
+  box-shadow: 0rem 0.2rem 2rem 0rem rgba(0, 0, 0, 0.4);
+}
 .nameFontStyle1111 {
   font-family: 'Merriweather', serif;
   font-weight: 700;
@@ -110,4 +200,65 @@
   transform: scale(1.2) translate(3px, -0.5px);
   transition: all 0.3s;
   box-shadow: -0.1rem 0.1rem 0.5rem rgba(0, 0, 0, 0.3);
+}
+
+.colorPickerPosition {
+  width: 100%;
+}
+
+.labelFlexCol {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+
+.labelFlexCol-Acc {
+  display: grid;
+  grid-template-rows: 80% 20%;
+  /* align-items: stretch; */
+  gap: .5rem;
+  align-items: center;
+}
+
+.grid-self-ct {
+  justify-self: center;
+}
+.PS_CircleAcc {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background-color: #4396b4;
+}
+.setThemeGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.5rem;
+}
+.labelFlexCol {
+  height: 5rem;
+}
+.PSextraS {
+  width: 3.2rem;
+  height: 3.2rem;
+}
+.category-PS-BarLine {
+  position: relative;
+  height: 2.5rem;
+  padding: 0.2rem 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+}
+
+.category-PS-CircleSimple {
+  position: relative;
+  right: 0;
+  bottom: 1rem;
+  padding: 0.2rem 1.2rem;
+  transition: all 0.3s;
+  z-index: 1;
+  background-color: transparent !important;
 }

@@ -7,8 +7,6 @@ import { createTheme, ThemeProvider } from '@mui/material';
 import SidebarSubComp from './SidebarSubComp';
 import FooterComponent from './FooterComponent';
 import BannerSubCompo from './BannerSubCompo';
-// import i18n from './multiLanguage/i18n';
-import { FullScreen, useFullScreenHandle } from 'react-full-screen';
 import axios from 'axios';
 import { ticketPass } from '../protectors/authorize';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -127,16 +125,16 @@ const _MenuComponent = () => {
             setLoadingManual(false);
           } else if (getResault.timeSetup.codeSelectType.menu_1 === '1' && nowTime >= Number(getResault.timeSetup.selectType?.menu_1.start) && nowTime <= Number(getResault.timeSetup.selectType?.menu_1.end)) {
             setMenuTime(1);
-            setChooseMenu(clientData.menuName.menu_1);
-            // setLoadingManual(false)
+            setChooseMenu(getResault.menuName.menu_1);
+            setLoadingManual(false)
           } else if (getResault.timeSetup.codeSelectType.menu_2 === '2' && nowTime >= Number(getResault.timeSetup.selectType?.menu_2.start) && nowTime <= Number(getResault.timeSetup.selectType?.menu_2.end)) {
             setMenuTime(2);
             setChooseMenu(getResault.menuName.menu_2);
-            // setLoadingManual(false)
+            setLoadingManual(false)
           } else if (getResault.timeSetup?.codeSelectType.menu_3 === '3' && nowTime >= Number(getResault.timeSetup.selectType?.menu_3.start) && nowTime <= Number(getResault.timeSetup.selectType?.menu_3.end)) {
             setMenuTime(3);
             setChooseMenu(getResault.menuName.menu_3);
-            // setLoadingManual(false)
+            setLoadingManual(false)
           }
 
           let iconMenu_1 = [];

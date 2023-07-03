@@ -13,8 +13,6 @@ const ColorPickker = (prop) => {
 
   const getColorPicker = (e) => {
     let color = e.target.value
-    console.log(prop.noSetTheme, prop.nameTheme, color)
-
     if (prop.noSetTheme === 1) {
       prop.setNavAndFootBar({ ...prop.navAndFootBar, [prop.nameTheme]: color })
     }
@@ -34,118 +32,118 @@ const ColorPickker = (prop) => {
   return (
     <div className='colorPickerTable'>
 
-      <div className="colorPickerTitle">New</div>
+      {/* <div className="colorPickerTitle">New</div> */}
       <div className="colorPickerGridRow">
-        <div className="colorPickerName">Slate</div>
+        {/* <div className="colorPickerName">Slate</div> */}
         {colorPalette.slate.map((el, index) => (
           <button onClick={getColorPicker} value={el} className="colorPickerItem" style={{ 'backgroundColor': `${el}` }} key={index}></button>
         ))}
       </div>
 
       <div className="colorPickerGridRow">
-        <div className="colorPickerName">Gray</div>
+        {/* <div className="colorPickerName">Gray</div> */}
         {colorPalette.gray.map((el, index) => (
           <button onClick={getColorPicker} value={el} className="colorPickerItem" style={{ 'backgroundColor': `${el}` }} key={index}></button>
         ))}
       </div>
 
       <div className="colorPickerGridRow">
-        <div className="colorPickerName">Zinc</div>
+        {/* <div className="colorPickerName">Zinc</div> */}
         {colorPalette.zinc.map((el, index) => (
           <button onClick={getColorPicker} value={el} className="colorPickerItem" style={{ 'backgroundColor': `${el}` }} key={index}></button>
         ))}
       </div>
 
       <div className="colorPickerGridRow">
-        <div className="colorPickerName">Neutral</div>
+        {/* <div className="colorPickerName">Neutral</div> */}
         {colorPalette.neutral.map((el, index) => (
           <button onClick={getColorPicker} value={el} className="colorPickerItem" style={{ 'backgroundColor': `${el}` }} key={index}></button>
         ))}
       </div>
 
       <div className="colorPickerGridRow">
-        <div className="colorPickerName">Stone</div>
+        {/* <div className="colorPickerName">Stone</div> */}
         {colorPalette.stone.map((el, index) => (
           <button onClick={getColorPicker} value={el} className="colorPickerItem" style={{ 'backgroundColor': `${el}` }} key={index}></button>
         ))}
       </div>
 
       <div className="colorPickerGridRow">
-        <div className="colorPickerName">Red</div>
+        {/* <div className="colorPickerName">Red</div> */}
         {colorPalette.red.map((el, index) => (
           <button onClick={getColorPicker} value={el} className="colorPickerItem" style={{ 'backgroundColor': `${el}` }} key={index}></button>
         ))}
       </div>
 
       <div className="colorPickerGridRow">
-        <div className="colorPickerName">Orange</div>
+        {/* <div className="colorPickerName">Orange</div> */}
         {colorPalette.orange.map((el, index) => (
           <button onClick={getColorPicker} value={el} className="colorPickerItem" style={{ 'backgroundColor': `${el}` }} key={index}></button>
         ))}
       </div>
 
       <div className="colorPickerGridRow">
-        <div className="colorPickerName">Amber</div>
+        {/* <div className="colorPickerName">Amber</div> */}
         {colorPalette.amber.map((el, index) => (
           <button onClick={getColorPicker} value={el} className="colorPickerItem" style={{ 'backgroundColor': `${el}` }} key={index}></button>
         ))}
       </div>
       <div className="colorPickerGridRow">
-        <div className="colorPickerName">Yellow</div>
+        {/* <div className="colorPickerName">Yellow</div> */}
         {colorPalette.yellow.map((el, index) => (
           <button onClick={getColorPicker} value={el} className="colorPickerItem" style={{ 'backgroundColor': `${el}` }} key={index}></button>
         ))}
       </div>
 
       <div className="colorPickerGridRow">
-        <div className="colorPickerName">Lime</div>
+        {/* <div className="colorPickerName">Lime</div> */}
         {colorPalette.lime.map((el, index) => (
           <button onClick={getColorPicker} value={el} className="colorPickerItem" style={{ 'backgroundColor': `${el}` }} key={index}></button>
         ))}
       </div>
 
       <div className="colorPickerGridRow">
-        <div className="colorPickerName">Green</div>
+        {/* <div className="colorPickerName">Green</div> */}
         {colorPalette.green.map((el, index) => (
           <button onClick={getColorPicker} value={el} className="colorPickerItem" style={{ 'backgroundColor': `${el}` }} key={index}></button>
         ))}
       </div>
 
       <div className="colorPickerGridRow">
-        <div className="colorPickerName">Emerald</div>
+        {/* <div className="colorPickerName">Emerald</div> */}
         {colorPalette.emerald.map((el, index) => (
           <button onClick={getColorPicker} value={el} className="colorPickerItem" style={{ 'backgroundColor': `${el}` }} key={index}></button>
         ))}
       </div>
 
       <div className="colorPickerGridRow">
-        <div className="colorPickerName">Teal</div>
+        {/* <div className="colorPickerName">Teal</div> */}
         {colorPalette.teal.map((el, index) => (
           <button onClick={getColorPicker} value={el} className="colorPickerItem" style={{ 'backgroundColor': `${el}` }} key={index}></button>
         ))}
       </div>
 
       <div className="colorPickerGridRow">
-        <div className="colorPickerName">Cyan</div>
+        {/* <div className="colorPickerName">Cyan</div> */}
         {colorPalette.cyan.map((el, index) => (
           <button onClick={getColorPicker} value={el} className="colorPickerItem" style={{ 'backgroundColor': `${el}` }} key={index}></button>
         ))}
       </div>
 
       <div className="colorPickerGridRow">
-        <div className="colorPickerName">Sky</div>
+        {/* <div className="colorPickerName">Sky</div> */}
         {colorPalette.sky.map((el, index) => (
           <button onClick={getColorPicker} value={el} className="colorPickerItem" style={{ 'backgroundColor': `${el}` }} key={index}></button>
         ))}
       </div>
       <div className="colorPickerGridRow">
-        <div className="colorPickerName">Blue</div>
+        {/* <div className="colorPickerName">Blue</div> */}
         {colorPalette.blue.map((el, index) => (
           <button onClick={getColorPicker} value={el} className="colorPickerItem" style={{ 'backgroundColor': `${el}` }} key={index}></button>
         ))}
       </div>
       <div className="colorPickerGridRow">
-        <div className="colorPickerName">Indigo</div>
+        {/* <div className="colorPickerName">Indigo</div> */}
         {colorPalette.indigo.map((el, index) => (
           <button onClick={getColorPicker} value={el} className="colorPickerItem" style={{ 'backgroundColor': `${el}` }} key={index}></button>
         ))}
@@ -153,33 +151,33 @@ const ColorPickker = (prop) => {
 
 
       <div className="colorPickerGridRow">
-        <div className="colorPickerName">Violet</div>
+        {/* <div className="colorPickerName">Violet</div> */}
         {colorPalette.violet.map((el, index) => (
           <button onClick={getColorPicker} value={el} className="colorPickerItem" style={{ 'backgroundColor': `${el}` }} key={index}></button>
         ))}
       </div>
 
       <div className="colorPickerGridRow">
-        <div className="colorPickerName">Purple</div>
+        {/* <div className="colorPickerName">Purple</div> */}
         {colorPalette.purple.map((el, index) => (
           <button onClick={getColorPicker} value={el} className="colorPickerItem" style={{ 'backgroundColor': `${el}` }} key={index}></button>
         ))}
       </div>
 
       <div className="colorPickerGridRow">
-        <div className="colorPickerName">Fuchsia</div>
+        {/* <div className="colorPickerName">Fuchsia</div> */}
         {colorPalette.fuchsia.map((el, index) => (
           <button onClick={getColorPicker} value={el} className="colorPickerItem" style={{ 'backgroundColor': `${el}` }} key={index}></button>
         ))}
       </div>
       <div className="colorPickerGridRow">
-        <div className="colorPickerName">Pink</div>
+        {/* <div className="colorPickerName">Pink</div> */}
         {colorPalette.pink.map((el, index) => (
           <button onClick={getColorPicker} value={el} className="colorPickerItem" style={{ 'backgroundColor': `${el}` }} key={index}></button>
         ))}
       </div>
       <div className="colorPickerGridRow">
-        <div className="colorPickerName">Rose</div>
+        {/* <div className="colorPickerName">Rose</div> */}
         {colorPalette.rose.map((el, index) => (
           <button onClick={getColorPicker} value={el} className="colorPickerItem" style={{ 'backgroundColor': `${el}` }} key={index}></button>
         ))}

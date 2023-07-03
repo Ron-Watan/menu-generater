@@ -1,0 +1,158 @@
+.presentNavFoot {
+  position: relative;
+  width: 23rem;
+
+  /* background-color: rgb(163, 163, 163); */
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  box-shadow: 0.2rem 0.2rem 1rem 0.2rem rgba(0, 0, 0, 0.5);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.presentNavFoot-w {
+  width: 23rem;
+  /* min-width: 23rem;
+  min-width: 23rem; */
+
+  /* flex-grow: 1; */
+  max-height: 2.6rem;
+  border-radius: 1rem 1rem 0 0;
+}
+
+.PS_navFlexLogoandName {
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+  padding: 0.1rem 0.4rem;
+  transform: translateY(-0.3rem);
+}
+.PS_navSlit1 {
+  width: 40%;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  line-height: 1;
+}
+.PS_scaleFont {
+  transform: scale(0.85);
+  transform-origin: left;
+}
+.PS_scaleFont2 {
+  transform: scale(0.9);
+  transform-origin: right;
+}
+.PS_navSlit2 {
+  width: 60%;
+  white-space: nowrap;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  gap: 0.2rem;
+}
+
+.PS_gap {
+  gap: 0rem;
+}
+.PS_w1 {
+  width: 2.5rem !important;
+}
+
+.PS-Acc {
+  height: 2rem !important;
+}
+
+.unselectable {
+  border-radius: 0 0 1rem 1rem;
+}
+.PS-Foot {
+  position: absolute;
+  top: 100%;
+  transform: translateY(-100%);
+
+  border-radius: 0 0 1rem 1rem;
+}
+
+.PS-nonBG {
+  background-color: transparent !important;
+}
+
+.PS_SideBarBar {
+  position: absolute;
+  top: 50%;
+  left: 0.2rem;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  justify-content: center;
+  z-index: 100;
+}
+
+/* .PS_BGNone{
+  background-color: transparent !important;
+} */
+
+
+.PS-AccPad {
+  padding: 0.5rem 1rem;
+}
+.PS-AccImg {
+  width: 100%;
+  height: 100%;
+  border-radius: 0.3rem;
+}
+.PS-AccListName {
+  width: 23rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.2rem 2.5rem 0.2rem 4rem;
+  border-bottom: #888 .5px solid;
+  border-top: #888 .5px solid;
+
+}
+.PS-AccListDetail {
+  width: 23rem;
+
+  padding: 0.2rem 1.5rem 0.2rem 4rem;
+}
+.PS-AccListDetailSpn {
+  width: 23rem;
+  display: flex;
+  white-space: wrap;
+}
+.sss {
+  overflow-y: hidden;
+  /* overflow-y: scroll; */
+}
+.srollPS {
+  height: 100%;
+  /* overflow-x: hidden; */
+  overflow-y: scroll;
+  /* background-color: aqua; */
+}
+
+
+.srollPS::-webkit-scrollbar {
+  width: 0.2rem;
+  background: #444;
+}
+
+.srollPS::-webkit-scrollbar-track {
+  /* background-color: #3C3D3F; */
+  background: #bbb;
+}
+
+.srollPS::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 1rem;
+}
+
+.srollPS::-webkit-scrollbar-thumb:hover {
+  background: #888;
+  border-radius: 1rem;
+}

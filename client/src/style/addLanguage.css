@@ -16,8 +16,8 @@
 .windowFloatLang {
   position: absolute;
   top: 50%;
-  left: 51.5%;
-  transform: translate(-60%, -60%);
+  left: 50%;
+  transform: translate(-50%, -60%);
 
   /* width: 55vw; */
   min-width: 40rem;

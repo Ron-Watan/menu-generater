@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import '../style/navigationBar.css';
-
+import icon from '../all-icon/icon-app-user-SVG-sprite.svg'
 const NavbarComponent = (prop) => {
   const [avtiveIconWhite, setActiveIconWhite] = useState('menu1');
   // const buttunSwitcher = (name) => {
@@ -17,6 +17,8 @@ const NavbarComponent = (prop) => {
       prop.setOnoffMenu3({ switch: false });
       prop.setonOffMenuTime(false);
       prop.setOnOffLangSetup(false);
+      prop.setOnOffTheme(false)
+      prop.setStart(false)
     } else if (name === 'banner') {
       prop.setOnoffQrCode(false);
       prop.setOnoffMenu1({ switch: false });
@@ -24,46 +26,74 @@ const NavbarComponent = (prop) => {
       prop.setOnoffMenu3({ switch: false });
       prop.setonOffMenuTime(false);
       prop.setOnOffLangSetup(false);
+      prop.setOnOffTheme(false)
+      prop.setStart(false)
+
     } else if (name === 'menu1') {
       prop.setOnoffQrCode(false);
-
       prop.setOnoffBanner(false);
       prop.setOnoffMenu2({ switch: false });
       prop.setOnoffMenu3({ switch: false });
       prop.setonOffMenuTime(false);
       prop.setOnOffLangSetup(false);
+      prop.setOnOffTheme(false)
+      prop.setStart(false)
+
     } else if (name === 'menu2') {
       prop.setOnoffQrCode(false);
-
       prop.setOnoffBanner(false);
       prop.setOnoffMenu1({ switch: false });
       prop.setOnoffMenu3({ switch: false });
       prop.setonOffMenuTime(false);
       prop.setOnOffLangSetup(false);
+      prop.setOnOffTheme(false)
+      prop.setStart(false)
+
     } else if (name === 'menu3') {
       prop.setOnoffQrCode(false);
-
       prop.setOnoffBanner(false);
       prop.setOnoffMenu1({ switch: false });
       prop.setOnoffMenu2({ switch: false });
       prop.setonOffMenuTime(false);
       prop.setOnOffLangSetup(false);
+      prop.setOnOffTheme(false)
+      prop.setStart(false)
+
     } else if (name === 'menuTime') {
+      prop.setOnoffQrCode(false);
+      prop.setOnoffBanner(false);
+      prop.setOnoffMenu1({ switch: false });
+      prop.setOnoffMenu2({ switch: false });
+      prop.setOnoffMenu3({ switch: false });
       prop.setOnOffLangSetup(false);
-      // prop.setOnoffBanner(false)
-      // prop.setOnoffMenu1({ switch: false })
-      // prop.setOnoffMenu2({ switch: false })
-      // prop.setOnoffMenu3({ switch: false })
+      prop.setOnOffTheme(false)
+      prop.setStart(false)
+
     } else if (name === 'menuLang') {
+      prop.setOnoffQrCode(false);
+      prop.setOnoffBanner(false);
+      prop.setOnoffMenu1({ switch: false });
+      prop.setOnoffMenu2({ switch: false });
+      prop.setOnoffMenu3({ switch: false });
       prop.setonOffMenuTime(false);
-      // prop.setOnoffBanner(false)
-      // prop.setOnoffMenu1({ switch: false })
-      // prop.setOnoffMenu2({ switch: false })
-      // prop.setOnoffMenu3({ switch: false })
+      prop.setOnOffTheme(false)
+      prop.setStart(false)
+
+    }
+    else if (name === 'menuTheme') {
+      prop.setOnoffQrCode(false);
+      prop.setOnoffBanner(false);
+      prop.setOnoffMenu1({ switch: false });
+      prop.setOnoffMenu2({ switch: false });
+      prop.setOnoffMenu3({ switch: false });
+      prop.setonOffMenuTime(false);
+      prop.setOnOffLangSetup(false);
+      prop.setStart(false)
+
     }
   };
 
-  const myIcon={theme:'myTheme.svg'}
+  const myIcon = { theme: 'myTheme.svg' }
   return (
     <div className='sectionNavigation'>
       <div className='section1'>
@@ -72,21 +102,22 @@ const NavbarComponent = (prop) => {
             prop.setOnoffQrCode(!prop.onOffQrCode);
             checkOnOff('qrCode');
           }}
-          className='iconBarcode'
-          name='qrCode'>
-          <svg width='30' height='30' viewBox='0 0 65 65' fill='none' xmlns='http://www.w3.org/2000/svg'>
-            <rect x='1' y='1' width='25' height='25' stroke='' strokeWidth='2' />
-            <rect className='extra' x='8' y='8' width='11' height='11' fill='' />
-            <rect className='extra' x='46' y='8' width='11' height='11' fill='' />
-            <rect className='extra' x='8' y='46' width='11' height='11' fill='' />
-            <rect className='extra' x='59' y='38' width='6' height='6' fill='' />
-            <rect className='extra' x='59' y='59' width='6' height='6' fill='' />
-            <rect className='extra' x='59' y='48' width='6' height='6' fill='' />
-            <rect className='extra' x='38' y='38' width='6' height='6' fill='' />
-            <rect className='extra' x='38' y='59' width='6' height='6' fill='' />
-            <rect className='extra' x='48' y='48' width='6' height='6' fill='' />
-            <rect x='39' y='1' width='25' height='25' stroke='' strokeWidth='2' />
-            <rect x='1' y='39' width='25' height='25' stroke='' strokeWidth='2' />
+          name='qrCode'
+          className={`iconBarcode ${prop.onOffQrCode && 'qrCodeTabActive'}`} >
+
+          <svg className={`${prop.onOffQrCode && 'qrCodeActive'}`} width="32" height="32" viewBox="0 0 65 65" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7 1H26V26H1V7C1 3.68629 3.68629 1 7 1Z" stroke="#BBBBBB" strokeWidth="2" />
+            <rect x="8" y="8" width="11" height="11" rx="2" fill="#BBBBBB" />
+            <rect x="46" y="8" width="11" height="11" rx="2" fill="#BBBBBB" />
+            <rect x="8" y="46" width="11" height="11" rx="2" fill="#BBBBBB" />
+            <rect x="57" y="38" width="8" height="8" rx="1" fill="#BBBBBB" />
+            <rect x="48" y="57" width="8" height="8" rx="1" fill="#BBBBBB" />
+            <rect x="57" y="47" width="8" height="8" rx="1" fill="#BBBBBB" />
+            <rect x="38" y="38" width="8" height="8" rx="1" fill="#BBBBBB" />
+            <rect x="38" y="57" width="8" height="8" rx="1" fill="#BBBBBB" />
+            <rect x="48" y="47" width="8" height="8" rx="1" fill="#BBBBBB" />
+            <path d="M39 1H58C61.3137 1 64 3.68629 64 7V26H39V1Z" stroke="#BBBBBB" strokeWidth="2" />
+            <path d="M1 39H26V64H7C3.68629 64 1 61.3137 1 58V39Z" stroke="#BBBBBB" strokeWidth="2" />
           </svg>
         </button>
       </div>
@@ -100,17 +131,30 @@ const NavbarComponent = (prop) => {
             checkOnOff('banner');
           }}
           name='banner'
-          className='myIconTab'>
-          <svg className={`myIconBanner pathNone ${prop.onOffBanner && 'activeBanner'}`} width='40' height='40' viewBox='0 0 65 65' fill='none' xmlns='http://www.w3.org/2000/svg'>
-            <rect className='rs' x='6' y='1' width='53' height='50' stroke='#777777' strokeWidth='2' />
-            <path className='pf ps' fillRule='evenodd' clipRule='evenodd' d='M7 7H2H0V9V63V65H2H63H65V63V9V7H63H58V9H63V63H2V9H7V7Z' fill='#777777' />
-            <rect className='rs' x='30.0454' y='16.3584' width='11.9931' height='6.72727' transform='rotate(90 30.0454 16.3584)' stroke='#777777' strokeWidth='2' />
-            <rect className='rs' x='23' y='20' width='5' height='4' transform='rotate(90 23 20)' stroke='#777777' strokeWidth='2' />
-            <rect className='rs' x='28.5' y='28' width='6' height='4' transform='rotate(90 28.5 28)' fill='none' />
-            <path className='ps ' d='M30.5 27.5914V16.8685L42.5 8.86852V36.1628L30.5 27.5914Z' stroke='#777777' strokeWidth='2' />
-            <line x1='17' y1='41' x2='47' y2='41' stroke='#777777' strokeWidth='2' />
-            <line x1='23' y1='45' x2='42' y2='45' stroke='#777777' strokeWidth='2' />
+          className={`myIconTab ${prop.onOffBanner && 'myIconTabActive'}`} >
+          <svg className={`${prop.onOffBanner && 'bannerActive'}`} width="30" height="30" viewBox="0 0 65 65" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g clipPath="url(#clip0_193_199)">
+              <g mask="url(#mask0_193_199)">
+                <path d="M55.5483 38.185C57.2694 37.1914 57.8591 34.9906 56.8654 33.2695L39.4393 3.08682C38.4457 1.36571 36.2449 0.776018 34.5238 1.76968C32.8028 2.76334 32.2131 4.96408 33.2068 6.68518L50.6328 36.8679C51.6264 38.589 53.8272 39.1787 55.5483 38.185Z" stroke="#BBBBBB" strokeWidth="3" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M17.3648 50.2572C18.8963 49.373 19.4211 47.4147 18.5368 45.8833L9.35141 29.9737C8.46718 28.4421 6.50893 27.9174 4.97737 28.8016C3.44593 29.6859 2.92123 31.6441 3.80546 33.1756L12.9909 49.0852C13.875 50.6168 15.8334 51.1415 17.3648 50.2572Z" stroke="#BBBBBB" strokeWidth="3" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M11.4714 47.2088L11.7985 47.02L4.99771 35.2407L4.67068 35.4295C1.41789 37.3075 0.303366 41.4667 2.18138 44.7195C4.0594 47.9723 8.21864 49.0868 11.4714 47.2088Z" stroke="#BBBBBB" strokeWidth="3" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M25.3382 14.3616L33.3634 6.95645L50.4763 36.5967L18.8609 46.4446L9.02734 29.4122L16.9422 22.1088" stroke="#BBBBBB" strokeWidth="3" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M50.9054 22.947C53.539 21.4265 54.4414 18.0588 52.9209 15.4252C51.4002 12.7915 48.0327 11.8893 45.399 13.4098" stroke="#BBBBBB" strokeWidth="3" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M18.8609 46.4446L28.4738 63.0947C28.8152 63.6858 29.5712 63.8884 30.1624 63.5471L36.0077 60.1723C36.7485 59.7446 36.8414 58.7119 36.1889 58.1589L31.7734 54.4165L26.0057 44.4267" stroke="#BBBBBB" strokeWidth="3" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M57.3383 12.9202L61.6262 10.4446" stroke="#BBBBBB" strokeWidth="3" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M51.1299 7.24512L52.4428 2.34574" stroke="#BBBBBB" strokeWidth="3" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M59.0526 21.1471L63.7309 22.4006" stroke="#BBBBBB" strokeWidth="3" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+              </g>
+            </g>
+            <defs>
+              <clipPath id="clip0_193_199">
+                <rect width="65" height="65" fill="white" />
+              </clipPath>
+            </defs>
           </svg>
+
+
+
         </button>
 
         {/* MENU 1 */}
@@ -122,17 +166,14 @@ const NavbarComponent = (prop) => {
             checkOnOff('menu1');
           }}
           name='menu1'
-          className='myIconTab'>
-          <svg className={`myIconSideBar ${prop.onOffMenu1.switch && 'active'}`} width='69' height='64' viewBox='0 0 69 64' fill='none' xmlns='http://www.w3.org/2000/svg'>
-            <rect x='6' y='1' width='62' height='62' stroke='' strokeWidth='2' />
-            <line y1='33' x2='15' y2='33' stroke='' strokeWidth='2' />
-            <line y1='17' x2='15' y2='17' stroke='' strokeWidth='2' />
-            <line y1='50' x2='15' y2='50' stroke='' strokeWidth='2' />
-            <path
-              d='M21.0568 46.2727H22.3182L25.2841 53.517H25.3864L28.3523 46.2727H29.6136V55H28.625V48.3693H28.5398L25.8125 55H24.858L22.1307 48.3693H22.0455V55H21.0568V46.2727ZM31.7326 55V46.2727H36.9996V47.2102H32.7894V50.1591H36.7269V51.0966H32.7894V54.0625H37.0678V55H31.7326ZM45.8249 46.2727V55H44.8022L40.0465 48.1477H39.9613V55H38.9045V46.2727H39.9272L44.6999 53.142H44.7852V46.2727H45.8249ZM53.6669 46.2727H54.7237V52.0511C54.7237 52.6477 54.5831 53.1804 54.3018 53.6491C54.0234 54.1151 53.63 54.483 53.1214 54.7528C52.6129 55.0199 52.0163 55.1534 51.3317 55.1534C50.647 55.1534 50.0504 55.0199 49.5419 54.7528C49.0334 54.483 48.6385 54.1151 48.3572 53.6491C48.0788 53.1804 47.9396 52.6477 47.9396 52.0511V46.2727H48.9964V51.9659C48.9964 52.392 49.0902 52.7713 49.2777 53.1037C49.4652 53.4332 49.7322 53.6932 50.0788 53.8835C50.4283 54.071 50.8459 54.1648 51.3317 54.1648C51.8175 54.1648 52.2351 54.071 52.5845 53.8835C52.9339 53.6932 53.201 53.4332 53.3857 53.1037C53.5732 52.7713 53.6669 52.392 53.6669 51.9659V46.2727Z'
-              fill=''
-            />
-            <path d='M39.3906 15.25V35.5938L42.8906 36.0312V38H32.7969V36.0312L36.3125 35.5938V18.5469L32.7344 18.6094V16.6875L39.3906 15.25Z' fill='' />
+          className={`myIconTab ${prop.onOffMenu1.switch && 'myIconTabActive'}`} >
+          <svg className={`${prop.onOffMenu1.switch && 'menuActive'}`} width="32" height="30" viewBox="0 0 71 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="8.5" y="1.5" width="61" height="61" rx="5.5" stroke="#BBBBBB" strokeWidth="3" />
+            <path d="M2 32.5H17" stroke="#BBBBBB" strokeWidth="3" strokeLinecap="round" />
+            <path d="M2 16.5H17" stroke="#BBBBBB" strokeWidth="3" strokeLinecap="round" />
+            <path d="M2 49.5H17" stroke="#BBBBBB" strokeWidth="3" strokeLinecap="round" />
+            <path d="M21.8217 46.5455H24.2869L26.8906 52.8977H27.0014L29.6051 46.5455H32.0703V56H30.1314V49.8462H30.0529L27.6062 55.9538H26.2859L23.8391 49.8232H23.7607V56H21.8217V46.5455ZM33.7172 56V46.5455H40.088V48.1935H35.7162V50.4464H39.7602V52.0945H35.7162V54.3519H40.1064V56H33.7172ZM49.5852 46.5455V56H47.8587L43.7454 50.0494H43.6761V56H41.6772V46.5455H43.4315L47.5124 52.4915H47.5955V46.5455H49.5852ZM57.0766 46.5455H59.0756V52.6854C59.0756 53.3748 58.9109 53.978 58.5816 54.495C58.2554 55.0121 57.7983 55.4152 57.2105 55.7045C56.6227 55.9908 55.9379 56.1339 55.1562 56.1339C54.3714 56.1339 53.685 55.9908 53.0972 55.7045C52.5094 55.4152 52.0523 55.0121 51.7261 54.495C51.3999 53.978 51.2368 53.3748 51.2368 52.6854V46.5455H53.2357V52.5146C53.2357 52.8746 53.3142 53.1947 53.4711 53.4748C53.6312 53.7549 53.8559 53.9749 54.1452 54.1349C54.4345 54.295 54.7715 54.375 55.1562 54.375C55.5439 54.375 55.8809 54.295 56.1672 54.1349C56.4565 53.9749 56.6796 53.7549 56.8366 53.4748C56.9966 53.1947 57.0766 52.8746 57.0766 52.5146V46.5455Z" fill="#BBBBBB" />
+            <path d="M40.1875 35H36.5625C36.4583 35 36.4062 34.9479 36.4062 34.8438L36.4375 12.8594C36.4375 12.776 36.4792 12.7344 36.5625 12.7344H40.1562C40.2396 12.7344 40.2812 12.776 40.2812 12.8594L40.3125 34.8438C40.3125 34.9479 40.2708 35 40.1875 35Z" fill="#BBBBBB" />
           </svg>
         </button>
 
@@ -145,21 +186,17 @@ const NavbarComponent = (prop) => {
             checkOnOff('menu2');
           }}
           name='menu2'
-          className='myIconTab'>
-          <svg className={`myIconSideBar ${prop.onOffMenu2.switch && 'active'}`} width='69' height='64' viewBox='0 0 69 64' fill='none' xmlns='http://www.w3.org/2000/svg'>
-            <rect x='6' y='1' width='62' height='62' stroke='' strokeWidth='2' />
-            <line y1='33' x2='15' y2='33' stroke='' strokeWidth='2' />
-            <line y1='17' x2='15' y2='17' stroke='' strokeWidth='2' />
-            <line y1='50' x2='15' y2='50' stroke='' strokeWidth='2' />
-            <path
-              d='M21.0568 46.2727H22.3182L25.2841 53.517H25.3864L28.3523 46.2727H29.6136V55H28.625V48.3693H28.5398L25.8125 55H24.858L22.1307 48.3693H22.0455V55H21.0568V46.2727ZM31.7326 55V46.2727H36.9996V47.2102H32.7894V50.1591H36.7269V51.0966H32.7894V54.0625H37.0678V55H31.7326ZM45.8249 46.2727V55H44.8022L40.0465 48.1477H39.9613V55H38.9045V46.2727H39.9272L44.6999 53.142H44.7852V46.2727H45.8249ZM53.6669 46.2727H54.7237V52.0511C54.7237 52.6477 54.5831 53.1804 54.3018 53.6491C54.0234 54.1151 53.63 54.483 53.1214 54.7528C52.6129 55.0199 52.0163 55.1534 51.3317 55.1534C50.647 55.1534 50.0504 55.0199 49.5419 54.7528C49.0334 54.483 48.6385 54.1151 48.3572 53.6491C48.0788 53.1804 47.9396 52.6477 47.9396 52.0511V46.2727H48.9964V51.9659C48.9964 52.392 49.0902 52.7713 49.2777 53.1037C49.4652 53.4332 49.7322 53.6932 50.0788 53.8835C50.4283 54.071 50.8459 54.1648 51.3317 54.1648C51.8175 54.1648 52.2351 54.071 52.5845 53.8835C52.9339 53.6932 53.201 53.4332 53.3857 53.1037C53.5732 52.7713 53.6669 52.392 53.6669 51.9659V46.2727Z'
-              fill=''
-            />
-            <path
-              d='M36.8359 13.3867C38.3464 13.3867 39.668 13.6602 40.8008 14.207C41.9466 14.7409 42.832 15.5221 43.457 16.5508C44.082 17.5794 44.3945 18.8034 44.3945 20.2227C44.3945 21.5508 44.0625 22.7747 43.3984 23.8945C42.7474 25.0013 41.7253 26.2643 40.332 27.6836L33.7695 34.3438H42.2461V31.8828C42.2461 31.4271 42.3568 31.1016 42.5781 30.9062C42.7995 30.7109 43.1771 30.6133 43.7109 30.6133C44.2448 30.6133 44.6224 30.7109 44.8438 30.9062C45.0651 31.1016 45.1758 31.4271 45.1758 31.8828V35.6719C45.1758 36.1536 45.0781 36.4987 44.8828 36.707C44.7005 36.9023 44.388 37 43.9453 37H30.3906C29.9479 37 29.6289 36.9023 29.4336 36.707C29.2513 36.4987 29.1602 36.1536 29.1602 35.6719C29.1602 35.1771 29.2578 34.8255 29.4531 34.6172L38.0469 25.9062C39.2448 24.6823 40.0846 23.6667 40.5664 22.8594C41.0612 22.0391 41.3086 21.1602 41.3086 20.2227C41.3086 19.0117 40.918 18.0547 40.1367 17.3516C39.3685 16.6354 38.2747 16.2773 36.8555 16.2773C35.4232 16.2773 34.0755 16.6419 32.8125 17.3711V19.5195C32.8125 19.9753 32.7018 20.3008 32.4805 20.4961C32.2591 20.6914 31.8815 20.7891 31.3477 20.7891C30.8138 20.7891 30.4362 20.6914 30.2148 20.4961C29.9935 20.3008 29.8828 19.9753 29.8828 19.5195V16.6484C29.8828 16.1406 30.0326 15.7826 30.332 15.5742C31.2826 14.8841 32.3112 14.3503 33.418 13.9727C34.5247 13.582 35.6641 13.3867 36.8359 13.3867Z'
-              fill=''
-            />
+          className={`myIconTab ${prop.onOffMenu2.switch && 'myIconTabActive'}`} >
+          <svg className={`${prop.onOffMenu2.switch && 'menuActive'}`} width="32" height="30" viewBox="0 0 71 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="8.5" y="1.5" width="61" height="61" rx="5.5" stroke="#BBBBBB" strokeWidth="3" />
+            <path d="M2 32.5H17" stroke="#BBBBBB" strokeWidth="3" strokeLinecap="round" />
+            <path d="M2 16.5H17" stroke="#BBBBBB" strokeWidth="3" strokeLinecap="round" />
+            <path d="M2 49.5H17" stroke="#BBBBBB" strokeWidth="3" strokeLinecap="round" />
+            <path d="M21.8217 46.5455H24.2869L26.8906 52.8977H27.0014L29.6051 46.5455H32.0703V56H30.1314V49.8462H30.0529L27.6062 55.9538H26.2859L23.8391 49.8232H23.7607V56H21.8217V46.5455ZM33.7172 56V46.5455H40.088V48.1935H35.7162V50.4464H39.7602V52.0945H35.7162V54.3519H40.1064V56H33.7172ZM49.5852 46.5455V56H47.8587L43.7454 50.0494H43.6761V56H41.6772V46.5455H43.4315L47.5124 52.4915H47.5955V46.5455H49.5852ZM57.0766 46.5455H59.0756V52.6854C59.0756 53.3748 58.9109 53.978 58.5816 54.495C58.2554 55.0121 57.7983 55.4152 57.2105 55.7045C56.6227 55.9908 55.9379 56.1339 55.1562 56.1339C54.3714 56.1339 53.685 55.9908 53.0972 55.7045C52.5094 55.4152 52.0523 55.0121 51.7261 54.495C51.3999 53.978 51.2368 53.3748 51.2368 52.6854V46.5455H53.2357V52.5146C53.2357 52.8746 53.3142 53.1947 53.4711 53.4748C53.6312 53.7549 53.8559 53.9749 54.1452 54.1349C54.4345 54.295 54.7715 54.375 55.1562 54.375C55.5439 54.375 55.8809 54.295 56.1672 54.1349C56.4565 53.9749 56.6796 53.7549 56.8366 53.4748C56.9966 53.1947 57.0766 52.8746 57.0766 52.5146V46.5455Z" fill="#BBBBBB" />
+            <path d="M44.2188 35H32.2812C32.1771 35 32.125 34.9479 32.125 34.8438V31.2188C32.125 31.1771 32.1458 31.1354 32.1875 31.0938L40.0938 20.25C40.2396 20.0521 40.3594 19.8021 40.4531 19.5C40.5573 19.1875 40.6094 18.9167 40.6094 18.6875C40.6094 18.0625 40.3854 17.4896 39.9375 16.9688C39.4896 16.4479 38.9219 16.1875 38.2344 16.1875C37.5781 16.1875 37.0208 16.4375 36.5625 16.9375C36.1042 17.4375 35.875 18.0729 35.875 18.8438V20.4062C35.875 20.5104 35.8229 20.5625 35.7188 20.5625H32.125C32.0417 20.5625 32 20.5104 32 20.4062V18.8438C32 17.6458 32.2969 16.5573 32.8906 15.5781C33.474 14.599 34.2396 13.8229 35.1875 13.25C36.1354 12.6667 37.151 12.375 38.2344 12.375C39.3802 12.375 40.4271 12.6667 41.375 13.25C42.3125 13.8438 43.0625 14.6198 43.625 15.5781C44.1979 16.5365 44.4844 17.5729 44.4844 18.6875C44.4844 19.3854 44.3594 20.099 44.1094 20.8281C43.8698 21.5469 43.5365 22.1875 43.1094 22.75L37.0312 31.0938H44.2188C44.3125 31.0938 44.3594 31.1354 44.3594 31.2188V34.8438C44.3594 34.9479 44.3125 35 44.2188 35Z" fill="#BBBBBB" />
           </svg>
+
+
         </button>
         {/* MENU 3 */}
         <button
@@ -168,23 +205,21 @@ const NavbarComponent = (prop) => {
             // buttunSwitcher('menu3')
             prop.setOnoffMenu3({ switch: true });
             checkOnOff('menu3');
+
           }}
           name='menu3'
-          className='myIconTab'>
-          <svg className={`myIconSideBar ${prop.onOffMenu3.switch && 'active'}`} width='69' height='64' viewBox='0 0 69 64' fill='none' xmlns='http://www.w3.org/2000/svg'>
-            <rect x='6' y='1' width='62' height='62' stroke='' strokeWidth='2' />
-            <line y1='33' x2='15' y2='33' stroke='' strokeWidth='2' />
-            <line y1='17' x2='15' y2='17' stroke='' strokeWidth='2' />
-            <line y1='50' x2='15' y2='50' stroke='' strokeWidth='2' />
-            <path
-              d='M20.9588 46.2727H22.5568L25.3352 53.0568H25.4375L28.2159 46.2727H29.8139V55H28.5611V48.6847H28.4801L25.9062 54.9872H24.8665L22.2926 48.6804H22.2116V55H20.9588V46.2727ZM31.7283 55V46.2727H37.1999V47.4062H33.0451V50.0653H36.9144V51.1946H33.0451V53.8665H37.2511V55H31.7283ZM46.0028 46.2727V55H44.7926L40.3565 48.5994H40.2756V55H38.9588V46.2727H40.1776L44.6179 52.6818H44.6989V46.2727H46.0028ZM53.5359 46.2727H54.8569V52.0128C54.8569 52.6236 54.7134 53.1648 54.4265 53.6364C54.1396 54.1051 53.7362 54.4744 53.2163 54.7443C52.6964 55.0114 52.087 55.1449 51.3881 55.1449C50.6921 55.1449 50.0842 55.0114 49.5643 54.7443C49.0444 54.4744 48.641 54.1051 48.354 53.6364C48.0671 53.1648 47.9237 52.6236 47.9237 52.0128V46.2727H49.2404V51.9062C49.2404 52.3011 49.3271 52.652 49.5004 52.9588C49.6765 53.2656 49.9251 53.5071 50.2461 53.6832C50.5671 53.8565 50.9478 53.9432 51.3881 53.9432C51.8313 53.9432 52.2134 53.8565 52.5344 53.6832C52.8583 53.5071 53.1055 53.2656 53.2759 52.9588C53.4492 52.652 53.5359 52.3011 53.5359 51.9062V46.2727Z'
-              fill=''
-            />
-            <path
-              d='M37.0312 12.3867C38.5286 12.3867 39.8372 12.6536 40.957 13.1875C42.0768 13.7083 42.9427 14.457 43.5547 15.4336C44.1667 16.3971 44.4727 17.5299 44.4727 18.832C44.4727 19.9518 44.2122 20.9219 43.6914 21.7422C43.1706 22.5495 42.4349 23.194 41.4844 23.6758C42.6693 24.1706 43.5872 24.8932 44.2383 25.8438C44.9023 26.7943 45.2344 27.9336 45.2344 29.2617C45.2344 30.681 44.9154 31.931 44.2773 33.0117C43.6523 34.0924 42.7344 34.9323 41.5234 35.5312C40.3125 36.1302 38.8672 36.4297 37.1875 36.4297C35.9115 36.4297 34.6224 36.2083 33.3203 35.7656C32.0182 35.3229 30.8529 34.724 29.8242 33.9688C29.4336 33.6823 29.2383 33.3568 29.2383 32.9922C29.2383 32.7318 29.349 32.4128 29.5703 32.0352C29.9089 31.4883 30.2865 31.2148 30.7031 31.2148C30.9115 31.2148 31.1328 31.2995 31.3672 31.4688C32.2266 32.1068 33.1576 32.6146 34.1602 32.9922C35.1628 33.3568 36.1719 33.5391 37.1875 33.5391C38.8021 33.5391 40.0326 33.1615 40.8789 32.4062C41.7253 31.638 42.1484 30.5898 42.1484 29.2617C42.1484 27.9206 41.7188 26.9049 40.8594 26.2148C40.013 25.5117 38.8216 25.1602 37.2852 25.1602H35.8594C35.4167 25.1602 35.0977 25.0625 34.9023 24.8672C34.7201 24.6589 34.6289 24.3138 34.6289 23.832C34.6289 23.3503 34.7201 23.0117 34.9023 22.8164C35.0977 22.6081 35.4167 22.5039 35.8594 22.5039H36.9336C38.418 22.5039 39.5443 22.1914 40.3125 21.5664C41.0807 20.9414 41.4648 20.0299 41.4648 18.832C41.4648 17.7253 41.0807 16.8594 40.3125 16.2344C39.5443 15.5964 38.457 15.2773 37.0508 15.2773C35.5404 15.2773 34.2578 15.5312 33.2031 16.0391V17.3477C33.2031 17.8034 33.0924 18.1289 32.8711 18.3242C32.6497 18.5195 32.2721 18.6172 31.7383 18.6172C31.2044 18.6172 30.8268 18.5195 30.6055 18.3242C30.3841 18.1289 30.2734 17.8034 30.2734 17.3477V15.2188C30.2734 14.9323 30.3125 14.7044 30.3906 14.5352C30.4818 14.3659 30.6185 14.2227 30.8008 14.1055C32.6628 12.9596 34.7396 12.3867 37.0312 12.3867Z'
-              fill=''
-            />
+          className={`myIconTab ${prop.onOffMenu3.switch && 'myIconTabActive'}`}>
+
+          <svg className={`${prop.onOffMenu3.switch && 'menuActive'}`} width="32" height="30" viewBox="0 0 71 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="8.5" y="1.5" width="61" height="61" rx="5.5" stroke="#BBBBBB" strokeWidth="3" />
+            <path d="M2 32.5H17" stroke="#BBBBBB" strokeWidth="3" strokeLinecap="round" />
+            <path d="M2 16.5H17" stroke="#BBBBBB" strokeWidth="3" strokeLinecap="round" />
+            <path d="M2 49.5H17" stroke="#BBBBBB" strokeWidth="3" strokeLinecap="round" />
+            <path d="M21.8217 46.5455H24.2869L26.8906 52.8977H27.0014L29.6051 46.5455H32.0703V56H30.1314V49.8462H30.0529L27.6062 55.9538H26.2859L23.8391 49.8232H23.7607V56H21.8217V46.5455ZM33.7172 56V46.5455H40.088V48.1935H35.7162V50.4464H39.7602V52.0945H35.7162V54.3519H40.1064V56H33.7172ZM49.5852 46.5455V56H47.8587L43.7454 50.0494H43.6761V56H41.6772V46.5455H43.4315L47.5124 52.4915H47.5955V46.5455H49.5852ZM57.0766 46.5455H59.0756V52.6854C59.0756 53.3748 58.9109 53.978 58.5816 54.495C58.2554 55.0121 57.7983 55.4152 57.2105 55.7045C56.6227 55.9908 55.9379 56.1339 55.1562 56.1339C54.3714 56.1339 53.685 55.9908 53.0972 55.7045C52.5094 55.4152 52.0523 55.0121 51.7261 54.495C51.3999 53.978 51.2368 53.3748 51.2368 52.6854V46.5455H53.2357V52.5146C53.2357 52.8746 53.3142 53.1947 53.4711 53.4748C53.6312 53.7549 53.8559 53.9749 54.1452 54.1349C54.4345 54.295 54.7715 54.375 55.1562 54.375C55.5439 54.375 55.8809 54.295 56.1672 54.1349C56.4565 53.9749 56.6796 53.7549 56.8366 53.4748C56.9966 53.1947 57.0766 52.8746 57.0766 52.5146V46.5455Z" fill="#BBBBBB" />
+            <path d="M38.2188 35.3594C37.1042 35.3594 36.0677 35.0625 35.1094 34.4688C34.1615 33.8854 33.401 33.1042 32.8281 32.125C32.2656 31.1354 31.9844 30.0573 31.9844 28.8906V27.4531C31.9844 27.3385 32.026 27.2812 32.1094 27.2812H35.7031C35.8073 27.2812 35.8594 27.3385 35.8594 27.4531V28.8906C35.8594 29.5885 36.0833 30.1927 36.5312 30.7031C36.9792 31.2031 37.5417 31.4531 38.2188 31.4531C38.9688 31.4531 39.5573 31.1927 39.9844 30.6719C40.4115 30.1406 40.625 29.5469 40.625 28.8906V28.0312C40.625 27.3646 40.4167 26.7656 40 26.2344C39.5833 25.7031 39.0573 25.4375 38.4219 25.4375H37.1719C37.0677 25.4375 37.0156 25.3802 37.0156 25.2656L37.0469 21.6875C37.0469 21.6042 37.0885 21.5625 37.1719 21.5625H38.4219C38.9948 21.5625 39.5052 21.3385 39.9531 20.8906C40.401 20.4427 40.625 19.8542 40.625 19.125V18.6875C40.625 18 40.3958 17.4167 39.9375 16.9375C39.4792 16.4583 38.9062 16.2188 38.2188 16.2188C37.5625 16.2188 37.0052 16.4583 36.5469 16.9375C36.0885 17.4167 35.8594 18 35.8594 18.6875V20.2188C35.8594 20.3229 35.8177 20.375 35.7344 20.375H32.1406C32.0573 20.375 32.0156 20.3229 32.0156 20.2188V18.5156C32.0156 17.349 32.3125 16.3073 32.9062 15.3906C33.4896 14.474 34.2552 13.7448 35.2031 13.2031C36.151 12.651 37.1562 12.375 38.2188 12.375C39.375 12.375 40.4271 12.6562 41.375 13.2188C42.3229 13.7917 43.0729 14.5469 43.625 15.4844C44.1875 16.4219 44.4688 17.4531 44.4688 18.5781V19.0938C44.4688 20.0312 44.3125 20.8438 44 21.5312C43.6875 22.2083 43.2552 22.8594 42.7031 23.4844C43.2552 24.1198 43.6927 24.8177 44.0156 25.5781C44.3385 26.3385 44.5 27.1198 44.5 27.9219V28.8906C44.5 30.0781 44.2188 31.1667 43.6562 32.1562C43.0833 33.1354 42.3229 33.9167 41.375 34.5C40.4271 35.0729 39.375 35.3594 38.2188 35.3594Z" fill="#BBBBBB" />
           </svg>
+
+
         </button>
 
         {/* MENU TIME */}
@@ -195,63 +230,67 @@ const NavbarComponent = (prop) => {
             checkOnOff('menuTime');
           }}
           name='menuTime'
-          className='myIconTab'>
-          <svg className={`myIconMd ${prop.onOffMenuTime && 'activeTime'}`} width='35' height='35' viewBox='0 0 65 65' fill='none' xmlns='http://www.w3.org/2000/svg'>
-            <circle cx='32.5' cy='32.5' r='31.5' stroke='#777777' strokeWidth='2' />
-            <line x1='33' y1='1' x2='33' y2='10' stroke='#777777' strokeWidth='2' />
-            <line x1='33' y1='15' x2='33' y2='33' stroke='#777777' strokeWidth='2' />
-            <line x1='47.3916' y1='43.7936' x2='32.3916' y2='32.2936' stroke='#777777' strokeWidth='2' />
-            <line x1='33' y1='56' x2='33' y2='65' stroke='#777777' strokeWidth='2' />
-            <line y1='32' x2='9' y2='32' stroke='#777777' strokeWidth='2' />
-            <line x1='56' y1='32' x2='65' y2='32' stroke='#777777' strokeWidth='2' />
+          className={`myIconTab ${prop.onOffMenuTime && 'myIconTabActive'}`}>
+
+          {/* <svg className={`myIconMd ${prop.onOffMenuTime && 'activeTime'}`} width="65" height="35" viewBox="0 0 65 65" fill="none" xmlns="http://www.w3.org/2000/svg"> */}
+          <svg className={` ${prop.onOffMenuTime && 'activeTime'}`} width="30" height="30" viewBox="0 0 71 71" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="35.5" cy="35.5" r="34" stroke="#BBBBBB" strokeWidth="3" />
+            <path d="M35.0923 10.9231C35.0923 11.7515 35.7639 12.4231 36.5923 12.4231C37.4207 12.4231 38.0923 11.7515 38.0923 10.9231L35.0923 10.9231ZM35.0923 1.09229L35.0923 10.9231L38.0923 10.9231L38.0923 1.09229L35.0923 1.09229Z" fill="#BBBBBB" />
+            <path d="M38.0923 16.3848C38.0923 15.5563 37.4207 14.8848 36.5923 14.8848C35.7639 14.8848 35.0923 15.5563 35.0923 16.3848L38.0923 16.3848ZM35.0923 16.3848L35.0923 36.0463L38.0923 36.0463L38.0923 16.3848L35.0923 16.3848Z" fill="#BBBBBB" />
+            <path d="M51.6135 49.4599C52.271 49.964 53.2126 49.8396 53.7166 49.1822C54.2206 48.5247 54.0963 47.5832 53.4388 47.0791L51.6135 49.4599ZM53.4388 47.0791L37.0542 34.5176L35.2289 36.8984L51.6135 49.4599L53.4388 47.0791Z" fill="#BBBBBB" />
+            <path d="M38.0923 61.1692C38.0923 60.3408 37.4207 59.6692 36.5923 59.6692C35.7639 59.6692 35.0923 60.3408 35.0923 61.1692L38.0923 61.1692ZM35.0923 61.1692L35.0923 71L38.0923 71L38.0923 61.1692L35.0923 61.1692Z" fill="#BBBBBB" />
+            <path d="M9.83077 35.9077C10.6592 35.9077 11.3308 35.2361 11.3308 34.4077C11.3308 33.5793 10.6592 32.9077 9.83077 32.9077V35.9077ZM0 35.9077H9.83077V32.9077H0V35.9077Z" fill="#BBBBBB" />
+            <path d="M61.1692 34.5461C60.3408 34.5461 59.6692 35.2177 59.6692 36.0461C59.6692 36.8746 60.3408 37.5461 61.1692 37.5461V34.5461ZM61.1692 37.5461H71V34.5461H61.1692V37.5461Z" fill="#BBBBBB" />
           </svg>
+
         </button>
 
         {/* MENU LANGUAGE */}
         <button
           onClick={() => {
-            prop.setOnOffLangSetup(true);
+            prop.setOnOffLangSetup(!prop.onOffLangSetup);
             prop.setNavLang2LangSetUp((any) => prop.navLang2LangSetUp + 1);
             checkOnOff('menuLang');
           }}
           name='menuLang'
-          className='myIconTab'>
-          <svg className={`myIconMd ${prop.onOffLangSetup && 'activeLang'}`} width='35' height='35' viewBox='0 0 65 65' fill='none' xmlns='http://www.w3.org/2000/svg'>
-            <path className='pf' d='M54.1094 32.1719V39H37V36.2656L39.4219 35.7969V19.4688L37 19V16.25H46.7344V19L43.9844 19.4688V35.5H50.4062L50.625 32.1719H54.1094Z' fill='#777777' />
-            <circle cx='32.5' cy='32.5' r='31.5' stroke='#777777' strokeWidth='2' />
-            <path d='M27.2499 1.74951C22.9642 11.7697 21.2499 11.6184 21.2499 33.0626C21.2499 54.5069 23.8214 56.8606 27.2499 63.7495' stroke='#777777' strokeWidth='2' />
-            <path fillRule='evenodd' clipRule='evenodd' d='M24.7035 31H2V33H25.4118C25.138 32.3518 24.901 31.6843 24.7035 31ZM58.5882 33H65V31H59.2965C59.099 31.6843 58.862 32.3518 58.5882 33Z' fill='#777777' />
-            <path
-              fillRule='evenodd'
-              clipRule='evenodd'
-              d='M52.6877 15.5149C53.2332 15.9181 53.7551 16.3513 54.251 16.8122C55.6033 15.6483 56.8742 14.2667 58.2593 12.6507L56.7408 11.3491C55.2866 13.0456 54.0155 14.4117 52.6877 15.5149ZM25.911 21.92C26.2538 21.2388 26.6385 20.5824 27.0619 19.9541C22.0067 19.8238 18.4875 19.4 15.7537 18.4887C12.4345 17.3823 10.2115 15.5347 7.79265 12.3902L6.2074 13.6096C8.78859 16.9652 11.3155 19.1175 15.1213 20.3861C17.905 21.314 21.337 21.7556 25.911 21.92Z'
-              fill='#777777'
-            />
-            <path
-              fillRule='evenodd'
-              clipRule='evenodd'
-              d='M29.5725 44.0215C22.4536 44.1527 18.1654 44.8792 15.0377 46.0649C12.3006 47.1025 10.4701 48.498 8.51284 49.9901C7.99445 50.3853 7.46717 50.7873 6.9118 51.1912L8.08814 52.8087C8.71597 52.3521 9.28695 51.9176 9.82919 51.5051L9.82924 51.505C11.7465 50.0463 13.3046 48.8608 15.7466 47.935C18.8732 46.7498 23.4783 46 32 46C32.0155 46 32.0311 46 32.0466 46C31.1641 45.4132 30.3363 44.7506 29.5725 44.0215ZM48.326 47.8569C49.4615 48.3351 50.4715 48.9196 51.5844 49.6373C52.0834 49.959 52.6236 50.3219 53.211 50.7163L53.2112 50.7165L53.2113 50.7165C54.1649 51.357 55.2428 52.0809 56.47 52.8479L57.53 51.1519C56.3061 50.387 55.3125 49.7188 54.3956 49.1022L54.3955 49.1021C53.8014 48.7026 53.2396 48.3248 52.6683 47.9564C52.004 47.5281 51.3554 47.1325 50.6825 46.7712C49.9284 47.1873 49.1412 47.5509 48.326 47.8569Z'
-              fill='#777777'
-            />
-            <path
-              fillRule='evenodd'
-              clipRule='evenodd'
-              d='M37.2069 61.1537L37.2069 61.1536C38.4624 58.7433 39.5073 56.7372 40.3177 53.6132C40.7183 52.0692 41.06 50.2515 41.3287 47.9876C41.5515 47.9958 41.7753 47.9999 42 47.9999C42.4529 47.9999 42.902 47.9832 43.3465 47.9503C43.0641 50.4179 42.6959 52.4108 42.2537 54.1154C41.3814 57.4778 40.2147 59.715 38.9393 62.1605L38.9392 62.1607C38.5978 62.8153 38.2487 63.4849 37.8952 64.195L36.1047 63.3039C36.4882 62.5333 36.8558 61.8277 37.2069 61.1537ZM42.3451 12.0032C41.6718 9.61996 40.7707 7.6599 39.6618 5.24807L39.6617 5.24797C39.1283 4.08773 38.5468 2.82294 37.9194 1.3562L36.0806 2.14269C36.7671 3.74787 37.3777 5.07505 37.9215 6.25688L37.9215 6.25697C38.9137 8.41356 39.6832 10.0861 40.2851 12.0806C40.8495 12.0272 41.4216 11.9999 42 11.9999C42.1153 11.9999 42.2304 12.001 42.3451 12.0032Z'
-              fill='#777777'
-            />
+          className={`myIconTab ${prop.onOffLangSetup && 'myIconTabActive'}`}>
+
+          <svg className={`${prop.onOffLangSetup && 'activeLang'}`} width="30" height="30" viewBox="0 0 71 71" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g mask="url(#mask0_191_198)">
+              <path d="M68.9199 35.5C68.9199 53.9574 53.9574 68.9199 35.5 68.9199C17.0426 68.9199 2.08008 53.9574 2.08008 35.5C2.08008 17.0426 17.0426 2.08008 35.5 2.08008C53.9574 2.08008 68.9199 17.0426 68.9199 35.5Z" stroke="#BBBBBB" strokeWidth="3" strokeMiterlimit="10" />
+              <path d="M9.79156 56.8547C15.9218 53.1687 25.1629 50.8222 35.5001 50.8222C45.8372 50.8222 55.0782 53.1687 61.2085 56.8547" stroke="#BBBBBB" strokeWidth="3" strokeMiterlimit="10" />
+            </g>
+            <path className='activeLangPath' fillRule="evenodd" clipRule="evenodd" d="M35.5 70.4199C30.0115 70.4199 25.4463 66.0096 22.3426 59.8023C19.1941 53.5053 17.29 44.9111 17.29 35.5C17.29 26.0889 19.1941 17.4947 22.3426 11.1977C25.4463 4.99044 30.0115 0.580078 35.5 0.580078C39.2954 0.580078 42.6493 2.68905 45.3836 6.04281C44.9261 6.01441 44.4647 6 44 6C43.1141 6 42.2405 6.05236 41.382 6.15416C39.4973 4.45086 37.4916 3.58008 35.5 3.58008C31.7599 3.58008 27.9701 6.651 25.0259 12.5393C22.1266 18.338 20.29 26.4537 20.29 35.5C20.29 44.5463 22.1266 52.662 25.0259 58.4607C27.9701 64.349 31.7599 67.4199 35.5 67.4199C39.2401 67.4199 43.03 64.349 45.9741 58.4607C47.2738 55.8614 48.3599 52.7965 49.1627 49.3909C50.3021 49.1169 51.4069 48.7542 52.4694 48.3106C51.598 52.6244 50.2963 56.5246 48.6574 59.8023C45.5538 66.0096 40.9886 70.4199 35.5 70.4199Z" fill="#BBBBBB" />
+            <path className='activeLangPath' fillRule="evenodd" clipRule="evenodd" d="M37 48.863V68.9199H34V47.6012C34.9612 48.0925 35.9634 48.5153 37 48.863ZM37 7.13704V2.08008H34V8.39884C34.9612 7.90746 35.9634 7.4847 37 7.13704Z" fill="#BBBBBB" />
+            <path className='activeLangPath' fillRule="evenodd" clipRule="evenodd" d="M22.8281 34H2.08008V37H23.9192C23.486 36.0349 23.1203 35.0329 22.8281 34ZM64.0808 37H68.9199V34H65.1719C64.8797 35.0329 64.514 36.0349 64.0808 37Z" fill="#BBBBBB" />
+            <path className='activeLangPath' fillRule="evenodd" clipRule="evenodd" d="M23.2915 20.5554C23.6416 19.5816 24.0585 18.6395 24.5366 17.7348C18.9895 16.7458 14.1795 15.0332 10.5645 12.8596L9.01862 15.4306C12.8294 17.722 17.7333 19.4936 23.2915 20.5554ZM61.6044 14.8036L60.4355 12.8596C60.3349 12.9201 60.2334 12.9802 60.1309 13.04C60.6518 13.6014 61.1438 14.1901 61.6044 14.8036Z" fill="#BBBBBB" />
+            <path className='activeLangPath' d="M55.524 30.3184V38H36.276V34.9238L39.0006 34.3965V16.0273L36.276 15.5V12.4062H47.2271V15.5L44.1334 16.0273V34.0625H51.358L51.6041 30.3184H55.524Z" fill="#BBBBBB" />
           </svg>
+
         </button>
 
         {/* MENU Theme */}
         <button
           onClick={() => {
-            prop.setOnOffTheme(true);
+            prop.setOnOffTheme(!prop.onOffTheme);
             prop.setNavTheme2ThemeSetUp((any) => prop.navTheme2ThemeSetUp + 1);
-            checkOnOff('menuLang');
+            checkOnOff('menuTheme');
           }}
-          name='menuLang'
-          className='myIconTab'>
-          <img src={require(`../all-icon/navbar-icon/${myIcon.theme}`)} alt="" />
+          name='menuTheme'
+          className={`myIconTab ${prop.onOffTheme && 'myIconTabActive'}`}>
+          <svg className={`${prop.onOffTheme && 'bannerActive'}`} width="30" height="30" viewBox="0 0 65 65" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g mask="url(#mask0_194_225)">
+              <path d="M31.403 6.35694C30.1748 6.18085 28.9281 6.09033 27.6707 6.08843C13.09 6.06583 1.24671 17.8955 1.26956 32.459C1.29216 47.0224 13.1723 58.8889 27.753 58.9116C35.5189 58.9236 42.8603 55.539 47.8951 49.6261C48.0977 49.3881 48.2396 49.0643 48.3345 48.691C48.9622 46.2219 47.0266 43.8374 44.479 43.8374H40.5593C37.4686 43.8374 34.9633 41.3321 34.9633 38.2415C34.9633 35.151 37.4686 32.6456 40.5593 32.6456C48.3431 31.437 52.2882 22.5864 47.9681 15.9995C47.255 14.9123 46.4956 13.9523 45.6987 13.2101C44.8514 12.421 43.96 11.6928 43.0307 11.0278" stroke="#BBBBBB" strokeWidth="3" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M37.3391 13.2872C39.0715 14.8255 39.2321 17.4717 37.697 19.1979C36.1622 20.9239 33.5132 21.0764 31.7808 19.5383C30.0478 18 29.8874 15.354 31.4224 13.6273C32.957 11.9011 35.6062 11.7489 37.3391 13.2872Z" stroke="#BBBBBB" strokeWidth="3" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M20.8884 12.053C23.199 11.9201 25.1853 13.6831 25.3255 15.9916C25.4653 18.3001 23.7058 20.2788 21.395 20.4119C19.0844 20.5449 17.0983 18.7816 16.9581 16.473C16.818 14.1649 18.5778 12.186 20.8884 12.053Z" stroke="#BBBBBB" strokeWidth="3" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M8.41716 22.796C9.95164 21.07 12.6005 20.9174 14.3337 22.4557C16.0662 23.9941 16.2266 26.6404 14.6918 28.3665C13.1568 30.0928 10.5082 30.2449 8.77517 28.707C7.04226 27.1686 6.88179 24.5224 8.41716 22.796Z" stroke="#BBBBBB" strokeWidth="3" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M7.22969 39.2239C7.09005 36.9155 8.84924 34.9365 11.1599 34.8034C13.4707 34.6706 15.4573 36.4341 15.597 38.7423C15.7368 41.0507 13.9775 43.0294 11.6671 43.1623C9.35616 43.2956 7.3696 41.5324 7.22969 39.2239Z" stroke="#BBBBBB" strokeWidth="3" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M18.0227 51.713C16.2902 50.1747 16.1295 47.5289 17.6643 45.8023C19.1992 44.0765 21.8481 43.9241 23.581 45.4621C25.3133 47.0004 25.4739 49.6467 23.9391 51.3727C22.4043 53.0988 19.7554 53.2512 18.0227 51.713Z" stroke="#BBBBBB" strokeWidth="3" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M61.3221 42.0969C61.6713 40.2156 61.9303 37.9815 62.0694 35.5299C62.1447 34.2008 62.1848 30.0874 62.1848 28.6521C62.1848 19.4289 60.53 9.23156 58.4886 9.23156C56.4472 9.23156 54.7922 19.4289 54.7922 28.6521C54.7922 30.0874 54.8325 34.2008 54.9079 35.5299C55.0468 37.9814 55.3059 40.2155 55.655 42.0968" stroke="#BBBBBB" strokeWidth="3" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M53.2466 46.9053C53.2466 46.2789 53.3566 45.6782 53.5582 45.1214C54.2913 43.0965 56.2661 41.7879 58.4197 41.7879H58.5573C60.711 41.7879 62.6857 43.0965 63.4189 45.1214C63.6205 45.6781 63.7304 46.2788 63.7304 46.9053C63.7304 52.205 58.4882 55.6414 58.4882 55.6414C58.4882 55.6414 58.4174 55.5935 58.2925 55.5008C57.4144 54.8489 53.8625 51.9835 53.3175 47.9461C53.271 47.6075 53.2466 47.2603 53.2466 46.9053Z" stroke="#BBBBBB" strokeWidth="3" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+            </g>
+          </svg>
+
         </button>
       </div>
 
@@ -263,7 +302,7 @@ const NavbarComponent = (prop) => {
           }}
           name='feedback'
           className='myIconTab'>
-          <svg width='35' height='35' viewBox='0 0 65 65' fill='none' xmlns='http://www.w3.org/2000/svg'>
+          <svg width='30' height='30' viewBox='0 0 65 65' fill='none' xmlns='http://www.w3.org/2000/svg'>
             <circle cx='32.5' cy='32.5' r='31.5' stroke='#777777' strokeWidth='2' />
             <path
               d='M49.0088 14H15.9911C14.4026 14.0019 12.8797 14.6334 11.7565 15.7557C10.6334 16.878 10.0017 18.3997 10 19.9868V37.5113C10.0019 39.0982 10.6337 40.6196 11.7568 41.7417C12.88 42.8639 14.4027 43.4951 15.9911 43.497H27.1123L32.5 53L37.8877 43.4968H49.0089C50.5973 43.4949 52.12 42.8637 53.2431 41.7416C54.3663 40.6194 54.9981 39.0981 55 37.5111V19.9871C54.9984 18.4 54.3668 16.8782 53.2436 15.7558C52.1204 14.6334 50.5974 14.0019 49.0088 14ZM53.3351 37.5113C53.334 38.6573 52.8778 39.756 52.0667 40.5664C51.2556 41.3768 50.1559 41.8326 49.0089 41.8338H36.9182L32.5 49.6266L28.0817 41.8338H15.9911C14.8441 41.8326 13.7443 41.3768 12.9333 40.5664C12.1222 39.756 11.666 38.6573 11.6649 37.5113V19.9871C11.666 18.841 12.1221 17.7421 12.9332 16.9316C13.7442 16.121 14.8439 15.6649 15.9911 15.6634H49.0088C50.156 15.6649 51.2557 16.121 52.0667 16.9316C52.8778 17.7421 53.3339 18.841 53.335 19.9871L53.3351 37.5113Z'

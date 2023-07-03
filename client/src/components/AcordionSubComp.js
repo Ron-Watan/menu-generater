@@ -243,27 +243,6 @@ const AcordionSubComp = (prop) => {
   }, []);
 
 
-  // prop.themeSetup.categorySpanColor
-  const temp = {
-    categoryActiveClass
-      :
-      "category-Custom-Circle-Active",
-    categoryBoxClass
-      :
-      "category-Custom-CircleSimple ",
-    categoryBoxColor
-      :
-      "#f1f5f9",
-    categoryFontColor
-      :
-      "#fecaca",
-    categorySpanClass
-      :
-      "category-Custom-Circle",
-    categorySpanColor
-      :
-      "#e4e4e7",
-  }
 
 
   const heartIcon = {
@@ -303,7 +282,7 @@ const AcordionSubComp = (prop) => {
 
             <div className="">
               <Accordion expanded={expanded === el.panelCode} onChange={handleChange(el.panelCode)}
-                themeSetup={prop.themeSetup} >
+              >
 
 
 

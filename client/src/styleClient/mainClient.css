@@ -9,7 +9,7 @@
   overflow-y: scroll;
 }
 
-::-webkit-scrollbar {
+.mobileViewport::-webkit-scrollbar {
   display: none;
 }
 
@@ -43,11 +43,12 @@
 /* relative flex items-center */
 .navSlit1 {
   width: 40%;
+  white-space: nowrap;
 }
 
 .navSlit2 {
   width: 60%;
-
+  white-space: nowrap;
 }
 
 .navNameAndFilter {

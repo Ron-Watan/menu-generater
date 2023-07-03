@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { listsAppitiser, listsFood } from './IconPicker-Data';
 
 import icon1 from '../all-icon-client/Appetizer-Black-SVG-sprite.svg';
@@ -12,16 +12,23 @@ const IconPickker = (prop) => {
 
   const getValueIcon = (even) => {
     prop.setState({ ...prop.state, icon_catagory: even });
+
   };
   const [switchTabIcon, setSwitcTabIcon] = useState(1);
+
+
 
   return (
     <div className='iconPickerContainer'>
       <div className='closeBtn'>
         <button
           onClick={() => {
+            getValueIcon(prop.memoicon)
             prop.setActiveWindowIconPicker(false);
-            prop.setState({ ...prop.state, icon_catagory: prop.memoicon });
+ 
+            prop.setState({ ...prop.state, icon_catagory:prop.memoicon });
+          
+
           }}
           className='boxCancel'>
           <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' strokeWidth='1' stroke='#000' className='w-6 h-6'>
@@ -68,7 +75,7 @@ const IconPickker = (prop) => {
                 </button>
               ))}
             </div>
-           
+
             <div className='iconPickerSet-tilte'>Main course</div>
             <div className='iconPickerGridRow'>
               {listsAppitiser.map((list, index) => (
@@ -84,9 +91,9 @@ const IconPickker = (prop) => {
           </div>
 
 
-          
-          
-          
+
+
+
         )}
         {/* //= */}
         {switchTabIcon === 2 && (
