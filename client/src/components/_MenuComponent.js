@@ -15,8 +15,8 @@ import '../styleClient/mainClient.css';
 import '../styleClient/sidebarClient.css';
 import '../styleClient/footerClient.css';
 import '../styleClient/accordianClient.css';
-
-
+import { clientDataModel } from './modelData/clientData'
+// qqq
 const theme = createTheme({
   typography: {
     fontFamily: ['Roboto Slab', 'roboto slab'].join(','),
@@ -31,10 +31,13 @@ const nowTime = h * 60 * 60 + m * 60 + s;
 
 //= //=
 const _MenuComponent = () => {
-  //= Set Data
+
+
+  //= Set Data\
   const [clientData, setClientData] = useState({});
   const [originalClientMenu, setOriginalClientMenu] = useState([]);
   const [clientMenu, setClientMenu] = useState([]);
+
 
   const [allMenuName, setAllMenuName] = useState('');
 
@@ -74,22 +77,8 @@ const _MenuComponent = () => {
 
   })
 
-
-  console.log(themeSetup)
   // themeSetup.body.bodyBgColor themeSetup.body.bodyFonttColor
 
-  const temp = {
-    body
-      :
-      { bodyBgColor: '#475569', bodyFontFamily: 'Urbanist', bodyFonttColor: '#fca5a5' },
-
-    navAndFootBar
-      :
-    {
-      nameFontFamily: 'Urbanist', nameFontColor: '#a5f3fc', nameFontSize: '1',
-      navBarColor: '#e9d5ff', navBarFontColor: '#ffedd5',
-    }
-  }
 
 
   //=-----------------------------------------------
@@ -97,6 +86,7 @@ const _MenuComponent = () => {
     setLoadingManual(true);
     // console.log(co++)
     // dispath(showLoading())
+
     axios
       .get(`${process.env.REACT_APP_API}/clients/${link}`)
 
@@ -111,6 +101,7 @@ const _MenuComponent = () => {
           setLanguageSetup(getResault.languageSetup);
           setThemeSetup(getResault.themeSetup)
           setRestaurantName(getResault.restaurantName)
+
           const allDayType = getResault.timeSetup.allDayType;
 
           let counttype = 0;
@@ -688,8 +679,10 @@ const _MenuComponent = () => {
           </ul>
         </div> */}
         </div>
+
+
       </div>
-      <div className='test'>dfddgs</div>
+      {/* <div className='test'>dfddgs</div> */}
     </div>
   );
 };

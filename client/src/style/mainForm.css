@@ -4,10 +4,13 @@ qqq
 buttonFormContainer
 
 */
+
 .decorBar {
   /* width: 100vw; */
   position: -webkit-sticky;
-  background-color: #000;
+  /* background-color: var(--decor-background-color); */
+  background: linear-gradient(to right top, var(--button-background-color), var(--button-background-color-linear));
+
   /* height: 4.5rem; */
   height: 3.12rem;
   position: sticky;
@@ -15,7 +18,7 @@ buttonFormContainer
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: .1rem .1rem 1rem .2rem #0000003b;
+  box-shadow: 0.1rem 0.1rem 1rem 0.2rem #0000003b;
   z-index: 1;
 }
 
@@ -23,8 +26,6 @@ buttonFormContainer
   /* background-color: #ccb2b2; */
   width: 20rem;
   /* align-self:stretch; */
-
-
 }
 
 /* .decorBg {
@@ -49,6 +50,10 @@ buttonFormContainer
   min-height: 92vh;
   margin-bottom: 10%;
 }
+.light-Pgrey {
+  /* background-color: #e1e1e156; */
+  background: linear-gradient(to right top, rgba(77, 123, 231, 0.2), rgba(141, 108, 226, 0.2));
+}
 
 /* .stickyBox1 {
   position: sticky;
@@ -63,38 +68,34 @@ buttonFormContainer
 .stickyBox1 {
   position: sticky;
   top: 3.12rem;
-  height: .38rem;
+  height: 0.38rem;
   background-color: #ddd;
   /* background-color: #f40000; */
 
   z-index: 2;
-  outline: #ddd solid .1rem;
+  outline: #ddd solid 0.1rem;
   /* box-shadow: .1rem .0 2rem rgb(221, 221, 221); */
-
 }
 
 .stickyBox {
   position: sticky;
   /* top: 4rem; */
   top: 3.5rem;
-  padding: .5rem 2rem .2rem;
+  padding: 0.5rem 2rem 0.2rem;
   display: flex;
   flex-direction: column;
-  gap: .5rem;
+  gap: 0.5rem;
   z-index: 100;
-  border-radius: .2rem;
+  border-radius: 0.2rem;
   background-color: #fff;
   /* border: #000 1px solid; */
-
-
 }
-
 
 .formMenu {
   background-color: #fff;
   width: 65%;
-  border-radius: .2rem;
-  box-shadow: .2rem .2rem 1rem rgba(0, 0, 0, 0.20);
+  border-radius: 0.2rem;
+  box-shadow: 0.2rem 0.2rem 1rem rgba(0, 0, 0, 0.2);
   position: relative;
   left: 50%;
   transform: translateX(-45%);
@@ -108,28 +109,24 @@ buttonFormContainer
   padding: 1rem 2rem;
   display: flex;
   flex-direction: column;
-  gap: .5rem;
-
+  gap: 0.5rem;
 }
-
 
 .closeBtn {
   position: absolute;
   top: 0;
   right: 0;
-  padding: .2rem .5rem;
-  font-size: .8rem;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.8rem;
   cursor: pointer;
 }
 
 .closeBtn:hover,
 .closeBtn:active {
-  color: #cb2722;
+  color: var(--main-background-color);
   transform: scale(1.05);
-  transition: all .2s;
+  transition: all 0.2s;
   font-weight: 500;
-
-
 }
 
 .gridCat {
@@ -140,21 +137,19 @@ buttonFormContainer
   gap: 1.5rem;
   padding-bottom: 1rem;
   border-bottom: #999 1px solid;
-
 }
 
 .noBoderder {
   border: none;
-
 }
 
 .flexIcoCat {
   width: 55%;
   display: flex;
   align-items: center;
-  gap: .5rem
+  gap: 0.5rem;
 }
-.boxInputText{
+.boxInputText {
   flex-grow: 1;
 }
 .flexIcoCatLang {
@@ -162,7 +157,7 @@ buttonFormContainer
   display: flex;
   flex-grow: 1;
   align-items: flex-end;
-  gap: .5rem
+  gap: 0.5rem;
 }
 
 .alignJustCenterMe {
@@ -177,15 +172,14 @@ buttonFormContainer
   width: 3.5rem;
   /* background-color: #aaa; */
   /* border: #999 1px solid; */
-  border-radius: .2rem;
-  padding: .2rem;
+  border-radius: 0.2rem;
+  padding: 0.2rem;
   cursor: pointer;
 }
 
 /* ////////////////////////////////////////////////////////// */
 .flex {
   display: flex;
-
 }
 
 .item {
@@ -196,29 +190,27 @@ buttonFormContainer
   background-color: #aaa;
   border: #999 1px solid;
   border-right: none;
-  border-radius: .2rem 0 0 .2rem;
+  border-radius: 0.2rem 0 0 0.2rem;
 }
 
 .inputTextFood {
   width: 100%;
   border: #999 1px solid;
-  border-radius: 0 .2rem .2rem 0;
-  padding: .5rem 1rem;
+  border-radius: 0 0.2rem 0.2rem 0;
+  padding: 0.5rem 1rem;
   outline: none;
-
 }
 
 .inputTextFood:focus {
-  box-shadow: .1rem .1rem .5rem #00000047;
+  box-shadow: 0.1rem 0.1rem 0.5rem #00000047;
   border: #aaa 1px solid;
-
 }
 
 .inputText {
   width: 100%;
   border: #999 1px solid;
-  border-radius: .2rem;
-  padding: .5rem 1rem;
+  border-radius: 0.2rem;
+  padding: 0.5rem 1rem;
   outline: none;
 }
 
@@ -239,9 +231,8 @@ buttonFormContainer
 }
 
 .fontXSmall {
-  font-size: .9rem;
+  font-size: 0.9rem;
   line-height: 1rem;
-
 }
 
 .italic {
@@ -249,9 +240,8 @@ buttonFormContainer
 }
 
 .inputText:focus {
-  box-shadow: .1rem .1rem .5rem #00000047;
+  box-shadow: 0.1rem 0.1rem 0.5rem #00000047;
   border: #aaa 1px solid;
-
 }
 
 .testAreaD {
@@ -262,14 +252,12 @@ buttonFormContainer
   padding-bottom: 2rem;
 }
 
-
 /* ///////////////////////////////// */
 
 .iconPhoto {
   width: 3.2rem;
   padding: 0;
 }
-
 
 .flexPhoto {
   display: flex;
@@ -283,8 +271,6 @@ buttonFormContainer
   height: 100%;
 
   display: flex;
-
-
 }
 
 .photoLoading {
@@ -294,15 +280,14 @@ buttonFormContainer
   left: 0;
   width: 100%;
   height: 100vh;
-  background-color: rgba(255, 255, 255, 0.40);
+  background-color: rgba(255, 255, 255, 0.4);
   /* background-color: rgba(235, 7, 7, 0.817); */
-
 }
 
 .iconLoading {
   position: absolute;
   display: flex;
-  gap: .3rem;
+  gap: 0.3rem;
   /* width: 100%; */
   /* height: 100%; */
 
@@ -312,24 +297,23 @@ buttonFormContainer
 }
 
 .iconLoading span {
-  width: .4rem;
+  width: 0.4rem;
   height: 1rem;
   border-radius: 1px;
-  box-shadow: .1rem .1rem .5rem .1rem rgba(0, 0, 0, 0.15);
-
+  box-shadow: 0.1rem 0.1rem 0.5rem 0.1rem rgba(0, 0, 0, 0.15);
 }
 
 @keyframes barloading {
   0% {
-    transform: scaleY(.3);
+    transform: scaleY(0.3);
   }
 
   30% {
-    transform: scaleY(1.2)
+    transform: scaleY(1.2);
   }
 
   100% {
-    transform: scaleY(.3)
+    transform: scaleY(0.3);
   }
 }
 
@@ -344,32 +328,27 @@ buttonFormContainer
 .barTwo {
   background-color: #50201e;
   animation: barloading 2s infinite;
-  animation-delay: .125s;
+  animation-delay: 0.125s;
   /* border: 2px solid #662a2a; */
 }
 
 .barThree {
-  background-color: #cb2722;
+  background-color: var(--main-background-color);
   animation: barloading 2s infinite;
-  animation-delay: .25s;
+  animation-delay: 0.25s;
   /* border: 2px solid #8d1111; */
 }
 
-
 .labelPhoto {
-
   cursor: pointer;
   /* height: 100%; */
   /* width: 100%; */
-
 }
 
-
-.labelPhoto:hover~.delPhoto {
+.labelPhoto:hover ~ .delPhoto {
   opacity: 1;
   visibility: visible;
 }
-
 
 .delPhoto {
   position: absolute;
@@ -381,10 +360,10 @@ buttonFormContainer
   height: 1.5rem;
 
   cursor: pointer;
-  color: #cb2722;
+  color: var(--main-background-color);
   opacity: 0;
   visibility: hidden;
-  transition: all .3s;
+  transition: all 0.3s;
 }
 
 .delPhoto:hover {
@@ -392,18 +371,15 @@ buttonFormContainer
   visibility: visible;
 }
 
-
 .photoFlex {
   position: relative;
   display: flex;
   width: 100%;
   /* border: #999 1px solid; */
   /* border-radius: .2rem; */
-  gap: .2rem;
+  gap: 0.2rem;
   /* padding: .5rem 1rem; */
   outline: none;
-
-
 }
 
 .boxPhoto {
@@ -411,12 +387,10 @@ buttonFormContainer
   height: 5.6rem;
   /* width: 100%;
   height: 100%; */
-  border-radius: .3rem;
+  border-radius: 0.3rem;
   border: #eee 1px solid;
-  box-shadow: .1rem .1rem 2rem .1rem rgba(0, 0, 0, 0.10);
-
+  box-shadow: 0.1rem 0.1rem 2rem 0.1rem rgba(0, 0, 0, 0.1);
 }
-
 
 .photoText {
   width: 100%;
@@ -437,15 +411,14 @@ buttonFormContainer
   /* bottom: 0; */
   /* right: 0; */
   align-self: flex-end;
-  font-size: .7rem;
+  font-size: 0.7rem;
   font-style: italic;
   /* transform: translateY(100%); */
   color: #999;
-  padding-left: .3rem;
-  padding-bottom: .3rem;
+  padding-left: 0.3rem;
+  padding-bottom: 0.3rem;
   /* line-height: .6; */
 }
-
 
 /* ///////////////////////////////// */
 
@@ -454,8 +427,8 @@ buttonFormContainer
   display: flex;
   padding: 1rem;
   gap: 1.5rem;
-  border-radius: .3rem;
-  box-shadow: .1rem .1rem .5rem rgba(0, 0, 0, 0.30);
+  border-radius: 0.3rem;
+  box-shadow: 0.1rem 0.1rem 0.5rem rgba(0, 0, 0, 0.3);
 
   /* border: #5a5959 1px solid; */
 }
@@ -468,20 +441,19 @@ buttonFormContainer
   background-color: #aaa;
   border: #999 1px solid;
   border-right: none;
-  border-radius: .2rem 0 0 .2rem;
+  border-radius: 0.2rem 0 0 0.2rem;
 }
-
 
 /* ////////////////// */
 .boxRemoveItem {
   position: absolute;
-  top: .2rem;
-  right: .2rem;
+  top: 0.2rem;
+  right: 0.2rem;
 }
 
 .removeItembtn {
-  font-size: .7rem;
-  padding: .3rem .5rem;
+  font-size: 0.7rem;
+  padding: 0.3rem 0.5rem;
   /* height: 4rem; */
   /* background-color: #ffffff; */
   color: #aaa;
@@ -494,18 +466,16 @@ buttonFormContainer
 
 .removeItembtn:hover {
   transform: scale(1.01);
-  transition: all .2s;
-  color: #cb2722;
-  border: #cb2722 1px solid;
-  box-shadow: .1rem .1rem .3rem rgba(0, 0, 0, 0.30);
-
+  transition: all 0.2s;
+  color: var(--main-background-color);
+  border: var(--main-background-color) 1px solid;
+  box-shadow: 0.1rem 0.1rem 0.3rem rgba(0, 0, 0, 0.3);
 }
 
 .removeItembtn:active {
-
-  box-shadow: .1rem .1rem .2rem rgba(0, 0, 0, 0.30);
+  box-shadow: 0.1rem 0.1rem 0.2rem rgba(0, 0, 0, 0.3);
   transform: scale(1);
-  transition: all .2s;
+  transition: all 0.2s;
 }
 
 /* /////////////////////////////////////////// */
@@ -513,17 +483,16 @@ buttonFormContainer
   display: flex;
   justify-content: flex-end;
   margin-top: 1rem;
-  
 }
 
 .addItembtn {
-  font-size: .9rem;
-  padding: .5rem .5rem;
+  font-size: 0.9rem;
+  padding: 0.5rem 0.5rem;
   /* height: 4rem; */
   background-color: #ffffff;
   color: #cb2822cf;
   border: #cb2822cf 2px solid;
-  box-shadow: .1rem .1rem .4rem rgba(0, 0, 0, 0.30);
+  box-shadow: 0.1rem 0.1rem 0.4rem rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -531,26 +500,19 @@ buttonFormContainer
 
 .addItembtn:hover {
   transform: scale(1.02);
-  transition: all .2s;
-  color: #cb2722;
-  border: #cb2722 2px solid;
-  box-shadow: .1rem .1rem .4rem rgba(0, 0, 0, 0.30);
-
+  transition: all 0.2s;
+  color: var(--main-background-color);
+  border: var(--main-background-color) 2px solid;
+  box-shadow: 0.1rem 0.1rem 0.4rem rgba(0, 0, 0, 0.3);
 }
 
 .addItembtn:active {
-
-  box-shadow: .1rem .1rem .4rem rgba(0, 0, 0, 0.30);
+  box-shadow: 0.1rem 0.1rem 0.4rem rgba(0, 0, 0, 0.3);
   transform: scale(1);
-  transition: all .2s;
+  transition: all 0.2s;
 }
 
-
-
-
-
 /* ////////////////// */
-
 
 .dietHeader {
   margin-top: 5%;
@@ -560,7 +522,7 @@ buttonFormContainer
 }
 
 .dietOption {
-  font-size: .8rem;
+  font-size: 0.8rem;
   font-style: italic;
   color: #444;
   line-height: 1;
@@ -570,9 +532,8 @@ buttonFormContainer
   margin-top: 1rem;
   display: flex;
   flex-direction: column;
-  gap: .3rem;
+  gap: 0.3rem;
   color: #444;
-
 }
 
 .hideCheckBox {
@@ -581,8 +542,7 @@ buttonFormContainer
   background-color: #fff;
 }
 
-.hideCheckBox:checked+svg {
-
+.hideCheckBox:checked + svg {
   fill: #cb2822cf;
 }
 
@@ -591,7 +551,7 @@ buttonFormContainer
   background-color: red;
 } */
 
-.main input:checked~.geekmark {
+.main input:checked ~ .geekmark {
   background-color: green;
 }
 
@@ -607,10 +567,6 @@ buttonFormContainer
   transform: rotate(45deg);
 }
 
-
-
-
-
 /* /////////////////////////////////// */
 
 /* /////////////////////////////////// */
@@ -624,8 +580,6 @@ display: flex;
 /* top: 4.7rem; */
 /* z-index: 2500; */
 /* } */
-
-
 
 .saveBtnBox {
   display: flex;
@@ -641,29 +595,26 @@ display: flex;
   justify-content: center;
   justify-self: stretch;
   gap: 1rem;
-  font-size: .9rem;
-  padding: .6rem 1rem;
+  font-size: 0.9rem;
+  padding: 0.6rem 1rem;
 
   /* height: 4rem; */
-  background-color: #cb2722;
+  background-color: var(--main-background-color);
   color: #fff;
-  box-shadow: .1rem .1rem .4rem rgba(0, 0, 0, 0.30);
+  box-shadow: 0.1rem 0.1rem 0.4rem rgba(0, 0, 0, 0.3);
   /* position: absolute; */
   /* top: 0; */
   border-radius: 3px;
-
 }
 
 .btnhover:hover {
-
-  box-shadow: .2rem .2rem .5rem rgba(0, 0, 0, 0.30);
+  box-shadow: 0.2rem 0.2rem 0.5rem rgba(0, 0, 0, 0.3);
   transform: scale(1.02);
-  transition: all .2s;
+  transition: all 0.2s;
 }
 
 .btnactive:active {
-
-  box-shadow: .1rem .1rem .4rem rgba(0, 0, 0, 0.30);
+  box-shadow: 0.1rem 0.1rem 0.4rem rgba(0, 0, 0, 0.3);
   transform: scale(1);
-  transition: all .2s;
+  transition: all 0.2s;
 }

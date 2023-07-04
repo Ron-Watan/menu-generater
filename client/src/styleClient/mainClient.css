@@ -9,9 +9,6 @@
   overflow-y: scroll;
 }
 
-.mobileViewport::-webkit-scrollbar {
-  display: none;
-}
 
 .bannerLoadingMaain {
   position: absolute;
@@ -26,8 +23,8 @@
 .navBarC {
   top: 0;
   z-index: 100;
-  position: -webkit-sticky !important;
-  position: sticky !important;
+  /* position: -webkit-sticky !important;
+  position: sticky !important; */
   /* position: -webkit-fixed; */
   /* position: fixed !important; */
 }

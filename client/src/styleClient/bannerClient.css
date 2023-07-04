@@ -102,15 +102,16 @@ dotFormC */
 
 
 .rtds-single-slide-styles {
-  height: 32vh !important;
+  height: 15rem !important;
+
 
 }
 
 .rtds-single-slide-styles div {
-  padding: 0 .5rem !important
+  padding: .2rem .5rem !important
 }
 
 .rtds-single-slide-styles img {
-  width: 27rem !important;
+  width: 100% !important;
   height: 15rem !important;
 }

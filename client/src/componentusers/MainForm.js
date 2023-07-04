@@ -5,6 +5,10 @@ import { ticketPass } from '../protectors/authorize';
 import { useDispatch, useSelector } from 'react-redux';
 import { hideLoading, showLoading } from '../redux/alertSlice';
 import { setUser } from '../redux/userSlice';
+
+import _MenuComponent from '../components/_MenuComponent';
+// qqq
+
 import NavbarComponent from './NavbarComponent';
 import '../style/_main.css';
 import '../style/mainForm.css';
@@ -13,7 +17,7 @@ import '../style/addLanguage.css';
 import '../style/iconPicker.css';
 import '../style/colorPicker.css';
 import '../style/themeSetup.css';
-
+import '../style/_mediaPhone.css';
 
 import { BsSquare, BsCheckSquare } from 'react-icons/bs';
 import { v4 as uuidv4 } from 'uuid';
@@ -50,7 +54,7 @@ const icon = '/static/media/food-color-SVG-sprite.c7acaa791b17c993c83fb8c054053b
 */
 //-///-///-///-///-///-///-///-///-///-
 
-// qqq
+
 const MainForm = () => {
   function getCurrentDimension() {
     return {
@@ -246,7 +250,7 @@ const MainForm = () => {
           // getAllMenu();
           actionDelay();
           Unchecked();
-          setNothing();
+          clearAllPage();
           dispath(hideLoading());
 
           Swal.fire({
@@ -458,7 +462,7 @@ const MainForm = () => {
 
 
 
-  const setNothing = () => {
+  const clearAllPage = () => {
     setStart(false);
     // setMenuId('');
     setFile('');
@@ -513,6 +517,7 @@ const MainForm = () => {
 
 
 
+
   const additem = () => {
     let newListMenu = listMenuModel;
     setListMenu([...listMenu, newListMenu]);
@@ -526,7 +531,8 @@ const MainForm = () => {
 
   const deleteMenu = (e) => {
     e.preventDefault();
-    const menuId = e.target.value;
+    // const menuId = e.target.value;
+    console.log(menuId)
     dispath(showLoading());
     scrollToTop();
 
@@ -535,7 +541,7 @@ const MainForm = () => {
       .then((result) => {
         if (result.data.success) {
           dispath(setUser(result.data.userMenu));
-          setNothing();
+          clearAllPage();
           actionDelay();
           // Swal.fire(result.data.message)
           dispath(hideLoading());
@@ -749,7 +755,13 @@ const MainForm = () => {
     // window.location.reload(false)
   };
 
+  const reloadDelay = () => {
+    setTimeout(() => {
+      window.location.reload(false)
+    }, 500);
 
+
+  }
   // const chooseMenu = (oneMennu) => {
   //   setState({
   //     catagory: oneMennu.catagory,
@@ -775,7 +787,7 @@ const MainForm = () => {
   // setMenuTime(menuNo);
   // callmenuName(menuNo)
   // menuTimeNameFn(menuNo)
-  // setNothing()
+  // clearAllPage()
 
   // actionDelay();
   // };
@@ -809,7 +821,13 @@ const MainForm = () => {
   //-
   const [onOffTheme, setOnOffTheme] = useState(false);
 
+  const [onOffQrCode_MB, setOnoffQrCode_MB] = useState(false);
+  const [onOffBanner_MB, setOnoffBanner_MB] = useState(false);
+  const [onOffMenu1_MB, setOnoffMenu1_MB] = useState({ switch: false, value: 1 });
+  const [onOffMenu2_MB, setOnoffMenu2_MB] = useState({ switch: false, value: 2 });
+  const [onOffMenu3_MB, setOnoffMenu3_MB] = useState({ switch: false, value: 3 });
 
+  //-
 
 
 
@@ -827,7 +845,7 @@ const MainForm = () => {
   const [resizeFileBannerTG, setResizeFileBannerTG] = useState(0);
   const [getAllImageBannerTG, setGetAllImageBannerTG] = useState(0);
 
-  //=qqq
+
   const [activeWindowIconPicker, setActiveWindowIconPicker] = useState(false);
   const [memoicon, setMemoIcon] = useState('');
 
@@ -859,7 +877,7 @@ const MainForm = () => {
   // }
 
 
-  // qqq
+
   //-///=///-///=///-///=///-///=///-   END FUNCTION   ///-///=///-///=///-///=///-///=///-
 
   const { loading } = useSelector((state) => state.alerts);
@@ -875,9 +893,8 @@ const MainForm = () => {
       <div className='decorBg'></div>
 
       <div className='monitor ' id='monitor'>
-        <NavbarComponent
+        <NavbarComponent className='sideBarTop'
           setStart={setStart}
-          className='sideBarTop'
           setMenuTime={setMenuTime}
           onOffQrCode={onOffQrCode}
           setOnoffQrCode={setOnoffQrCode}
@@ -903,6 +920,22 @@ const MainForm = () => {
           setNavLang2LangSetUp={setNavLang2LangSetUp}
           navTheme2ThemeSetUp={navTheme2ThemeSetUp}
           setNavTheme2ThemeSetUp={setNavTheme2ThemeSetUp}
+
+
+
+
+
+
+          onOffQrCode_MB={onOffQrCode_MB}
+          setOnoffQrCode_MB={setOnoffQrCode_MB}
+          onOffBanner_MB={onOffBanner_MB}
+          setOnoffBanner_MB={setOnoffBanner_MB}
+          onOffMenu1_MB={onOffMenu1_MB}
+          setOnoffMenu1_MB={setOnoffMenu1_MB}
+          onOffMenu2_MB={onOffMenu2_MB}
+          setOnoffMenu2_MB={setOnoffMenu2_MB}
+          onOffMenu3_MB={onOffMenu3_MB}
+          setOnoffMenu3_MB={setOnoffMenu3_MB}
         />
 
         <div className='monitor1'>
@@ -953,7 +986,7 @@ const MainForm = () => {
             </div>
           )}
 
-          {/* qqq  onOffTheme */}
+
           {onOffTheme && (
             <div className={`themeSetupSection`}>
               <ThemeSetup
@@ -985,9 +1018,9 @@ const MainForm = () => {
                   <div className='gridCat'>
                     <div
                       onClick={() => {
-                        // setStart(false);
-                        setNothing()
                         getAllMenu()
+                        setStart(false);
+                        setMenuId('');
                       }}
                       className='closeBtn'>
                       <i className='sr-only'>//-CLOSE//-</i>
@@ -1058,7 +1091,7 @@ const MainForm = () => {
 
                 <div className='layoutManu '>
                   {listMenu.map((el, index) => (
-                    <div className={`layoutManu0 ${index % 2 !== 0 ? '' : 'light-grey'}`} key={index}>
+                    <div className={`layoutManu0 ${index % 2 !== 0 ? '' : 'light-Pgrey'}`} key={index}>
                       <div className='layoutManu1'>
                         <i className='sr-only'>!FOOD NAME</i>
                         <div className='flex'>
@@ -1225,9 +1258,15 @@ const MainForm = () => {
                   <i className='sr-only'> !ADD FOOD ITEM</i>
                   {/* <ButtonAddFood /> */}
                   <div className='boxAddItem'>
-                    <a href='#end' onClick={additem} className='addItembtn' type='button'>
-                      ADD ITEM
+                    <a onClick={additem} type='' className='mainBtn saveBtnColor smallMainBtn'>
+                      <svg width="25" height="25" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M28 13V43" stroke="white" stroke-width="3" stroke-linecap="round" />
+                        <path d="M13 28H43" stroke="white" stroke-width="3" stroke-linecap="round" />
+                        <rect x="1.5" y="1.5" width="53" height="53" rx="8.5" stroke="white" stroke-width="3" />
+                      </svg>
+                      <span>ADD ITEM</span>
                     </a>
+
                   </div>
                 </div>
               </div>
@@ -1262,7 +1301,7 @@ const MainForm = () => {
                 <span>NEW CATEGORY</span>
               </button>
 
-              <button onClick={() => setDeleteBtn(!deleteBtn)} className='btnAbs'>
+              {/* <button onClick={() => setDeleteBtn(!deleteBtn)} className='btnAbs'>
                 <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' strokeWidth='1.5' stroke='currentColor' className='w-6 h-6'>
                   <path
                     strokeLinecap='round'
@@ -1271,7 +1310,7 @@ const MainForm = () => {
                   />
                   <path strokeLinecap='round' strokeLinejoin='round' d='M15 12a3 3 0 11-6 0 3 3 0 016 0z' />
                 </svg>
-              </button>
+              </button> */}
             </div>
 
             <i className='x'>ADD PROMOTION PHOTO BUTTON Position Fixedl</i>
@@ -1329,79 +1368,109 @@ const MainForm = () => {
                   </div>
 
                   {/* DELETE BUTTON */}
-                  <div className={`${deleteBtn ? 'dispBox' : 'dispNone'} iconSideBox`}>
+                  {/* <div className={`${deleteBtn ? 'dispBox' : 'dispNone'} iconSideBox`}>
                     <button onClick={deleteMenu} value={el.menuId} type='submit' className='deleteBtn'>
                       X
                     </button>
-                  </div>
+                  </div> */}
                 </div>
               ))}
 
-            <i className='x'>CATEGORY LIST New Save Cancel</i>
 
-            <div className={`catSaveCancel ${menuId ? 'displayNone' : 'displayFlex'} ${start ? 'displayFlex' : 'displayNone'}`}>
-              <i className='x'>SAVE BUTTON</i>
-              <button onClick={submitCatagory} type='submit' form='foodForm' className='mainBtn saveBtnColor smallMainBtn xCatSave'>
-                <svg width='25' height='25' viewBox='0 0 65 65' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                  <rect x='1' y='1' width='63' height='63' rx='2' stroke='white' strokeWidth='2' />
-                  <path d='M32 12L32 53' stroke='white' strokeWidth='2' strokeLinecap='round' />
-                  <path d='M32 53L12 33' stroke='white' strokeWidth='2' strokeLinecap='round' />
-                  <path d='M32 53L52 33' stroke='white' strokeWidth='2' strokeLinecap='round' />
-                </svg>
-                <span>
-                  {' '}
-                  SAVE NEW
-                  <br />
-                  CATEGORY
-                </span>
-              </button>
 
-              <i className='x'>CANCEL BUTTON</i>
-              <button
-                onClick={() => {
-                  setStart(false);
-                  setMenuId('');
-                }}
-                className='mainBtn cancelBtnColor smallMainBtn smallMainBtnX'>
-                <svg width='25' height='25' viewBox='0 0 65 65' fill='none'>
-                  <path d='M12 12L53 54' stroke='white' strokeWidth='2' strokeLinecap='round' />
-                  <path d='M12 54L53 12' stroke='white' strokeWidth='2' strokeLinecap='round' />
-                  <path d='M62 1H3C1.89543 1 1 1.89543 1 3V62C1 63.1046 1.89543 64 3 64H62C63.1046 64 64 63.1046 64 62V3C64 1.89543 63.1046 1 62 1Z' stroke='white' strokeWidth='2' />
-                </svg>
-                <span>CANCEL</span>
-              </button>
-            </div>
 
-            <i className='x'>CATEGORY LIST Edit Save Cancel</i>
+          </div>
 
-            <div className={` catSaveCancel ${!menuId ? 'displayNone' : 'displayFlex'}`}>
-              {/* SAVE BUTTON */}
+
+
+
+          <i className='x'>CATEGORY LIST New Save Cancel</i>
+
+          <div className={`catSaveCancel ${menuId ? 'displayNone' : 'displayFlex'} ${start ? 'displayFlex' : 'displayNone'}`}>
+            <i className='x'>SAVE BUTTON</i>
+            <button onClick={submitCatagory} type='submit' form='foodForm' className='mainBtn saveBtnColor smallMainBtn xCatSave'>
+              <svg width="25" height="25" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M28 13V43" stroke="white" stroke-width="3" stroke-linecap="round" />
+                <path d="M14 29L28 43" stroke="white" stroke-width="3" stroke-linecap="round" />
+                <path d="M28 43L42 29" stroke="white" stroke-width="3" stroke-linecap="round" />
+                <rect x="1.5" y="1.5" width="53" height="53" rx="8.5" stroke="white" stroke-width="3" />
+              </svg>
+              <span>
+                {' '}
+                SAVE NEW
+                <br />
+                CATEGORY
+              </span>
+            </button>
+
+            <i className='x'>CANCEL BUTTON</i>
+            <button
+              onClick={() => {
+                setStart(false);
+                setMenuId('');
+              }}
+              className='mainBtn cancelBtnColor smallMainBtn smallMainBtnX '>
+              <svg width="25" height="25" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M13 14L42 43" stroke="#8D6CE2" stroke-width="3" stroke-linecap="round" />
+                <path d="M13 43L42 14" stroke="#8D6CE2" stroke-width="3" stroke-linecap="round" />
+                <rect x="1.5" y="1.5" width="53" height="53" rx="8.5" stroke="#8D6CE2" stroke-width="3" />
+              </svg>
+              <span>CANCEL</span>
+            </button>
+          </div>
+
+
+          <i className='x'>CATEGORY LIST Edit Save Cancel</i>
+
+          <div className={`catSaveCancelRemove ${!menuId ? 'displayNone' : 'displayFlex'}`}>
+            <div className="catSaveCancel">
+              <i className='x'>SAVE BUTTONT Edit Save Cancel</i>
               <button onClick={saveEditMenu} type='' className='mainBtn saveBtnColor smallMainBtn'>
-                <svg width='25' height='25' viewBox='0 0 65 65' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                  <rect x='1' y='1' width='63' height='63' rx='2' stroke='white' strokeWidth='2' />
-                  <path d='M32 12L32 53' stroke='white' strokeWidth='2' strokeLinecap='round' />
-                  <path d='M32 53L12 33' stroke='white' strokeWidth='2' strokeLinecap='round' />
-                  <path d='M32 53L52 33' stroke='white' strokeWidth='2' strokeLinecap='round' />
+                <svg width="25" height="25" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M28 13V43" stroke="white" stroke-width="3" stroke-linecap="round" />
+                  <path d="M14 29L28 43" stroke="white" stroke-width="3" stroke-linecap="round" />
+                  <path d="M28 43L42 29" stroke="white" stroke-width="3" stroke-linecap="round" />
+                  <rect x="1.5" y="1.5" width="53" height="53" rx="8.5" stroke="white" stroke-width="3" />
                 </svg>
                 <span>SAVE</span>
               </button>
 
-              {/* CANCEL BUTTON */}
+              <i className='x'>CANCEL BUTTON Edit Save Cancel</i>
               <button
                 onClick={() => {
                   setStart(false);
                   setMenuId('');
                 }}
                 className='mainBtn cancelBtnColor smallMainBtn'>
-                <svg width='25' height='25' viewBox='0 0 65 65' fill='none'>
-                  <path d='M12 12L53 54' stroke='white' strokeWidth='2' strokeLinecap='round' />
-                  <path d='M12 54L53 12' stroke='white' strokeWidth='2' strokeLinecap='round' />
-                  <path d='M62 1H3C1.89543 1 1 1.89543 1 3V62C1 63.1046 1.89543 64 3 64H62C63.1046 64 64 63.1046 64 62V3C64 1.89543 63.1046 1 62 1Z' stroke='white' strokeWidth='2' />
+                <svg width="25" height="25" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M13 14L42 43" stroke="#8D6CE2" stroke-width="3" stroke-linecap="round" />
+                  <path d="M13 43L42 14" stroke="#8D6CE2" stroke-width="3" stroke-linecap="round" />
+                  <rect x="1.5" y="1.5" width="53" height="53" rx="8.5" stroke="#8D6CE2" stroke-width="3" />
                 </svg>
                 <span>CANCEL</span>
               </button>
             </div>
+
+            <div className="catSaveCancel">
+              <i className='x'>DELETE BUTTON REMOVE</i>
+              <button
+                onClick={deleteMenu} value={menuId}
+                className='mainBtn cancelBtnColor smallMainBtn'>
+
+                <svg width='18' height='20' viewBox='0 0 27 29' fill='none' xmlns='http://www.w3.org/2000/svg'>
+                  <path d='M1 3.5L26.5 3.5' stroke='#8D6CE2' strokeLinecap='round' stroke-width="2" />
+                  <path d='M5.95338 28L3.55142 3.5H24.4592L22.5377 28H5.95338Z' stroke='#8D6CE2' stroke-width="2" />
+                  <rect x='9.5' y='0.5' width='9' height='3' rx='0.5' stroke='#8D6CE2' />
+                  <path d='M8 8L10 24' stroke='#8D6CE2' strokeLinecap='round' stroke-width="2" />
+                  <path d='M18 24L20 8' stroke='#8D6CE2' strokeLinecap='round' stroke-width="2" />
+                  <path d='M14 8L14 24' stroke='#8D6CE2' strokeLinecap='round' stroke-width="2" />
+                </svg>
+                <span>REMOVE</span>
+              </button>
+            </div>
           </div>
+
+
 
           <i className='x'>BANNER LIST : Show List</i>
 
@@ -1446,11 +1515,11 @@ const MainForm = () => {
                   setSaveImageBannerTG((saveImageBannerTG) => saveImageBannerTG + 1);
                 }}
                 className='mainBtn saveBtnColor smallMainBtn'>
-                <svg width='30' height='30' viewBox='0 0 65 65' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                  <rect x='1' y='1' width='63' height='63' rx='2' stroke='white' strokeWidth='2' />
-                  <path d='M32 12L32 53' stroke='white' strokeWidth='2' strokeLinecap='round' />
-                  <path d='M32 53L12 33' stroke='white' strokeWidth='2' strokeLinecap='round' />
-                  <path d='M32 53L52 33' stroke='white' strokeWidth='2' strokeLinecap='round' />
+                <svg width="25" height="25" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M28 13V43" stroke="white" stroke-width="3" stroke-linecap="round" />
+                  <path d="M14 29L28 43" stroke="white" stroke-width="3" stroke-linecap="round" />
+                  <path d="M28 43L42 29" stroke="white" stroke-width="3" stroke-linecap="round" />
+                  <rect x="1.5" y="1.5" width="53" height="53" rx="8.5" stroke="white" stroke-width="3" />
                 </svg>
                 <span>SAVE</span>
               </button>
@@ -1461,10 +1530,10 @@ const MainForm = () => {
                   setGetAllImageBannerTG((getAllImageBannerTG) => getAllImageBannerTG + 1);
                 }}
                 className='mainBtn cancelBtnColor smallMainBtn'>
-                <svg width='30' height='30' viewBox='0 0 65 65' fill='none'>
-                  <path d='M12 12L53 54' stroke='white' strokeWidth='2' strokeLinecap='round' />
-                  <path d='M12 54L53 12' stroke='white' strokeWidth='2' strokeLinecap='round' />
-                  <path d='M62 1H3C1.89543 1 1 1.89543 1 3V62C1 63.1046 1.89543 64 3 64H62C63.1046 64 64 63.1046 64 62V3C64 1.89543 63.1046 1 62 1Z' stroke='white' strokeWidth='2' />
+                <svg width="25" height="25" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M13 14L42 43" stroke="#8D6CE2" stroke-width="3" stroke-linecap="round" />
+                  <path d="M13 43L42 14" stroke="#8D6CE2" stroke-width="3" stroke-linecap="round" />
+                  <rect x="1.5" y="1.5" width="53" height="53" rx="8.5" stroke="#8D6CE2" stroke-width="3" />
                 </svg>
                 <span>CANCEL</span>
               </button>
@@ -1474,6 +1543,423 @@ const MainForm = () => {
         <i className='x'>RIGHTBAR SECTION Finish</i>
       </div>
       <div id='end' className=''></div>
+
+
+
+      {/* //-//-
+//-//-
+//-//-
+//-//-
+//-//- */}
+      {/* qqq */}
+      <div className="mobile-creator">
+
+        {onOffBanner_MB &&
+          <div className="mobile-function">
+            <div className="MB_bannerShow">
+              {bannerImgArr.map((el, index) => (
+                <div key={index} className={`MB_bannerShow_list ${indexToBanner === index ? 'MB_bannerShow_chooseCat' : 'MB_bannerShow_mini'}`}>
+                  <button name={el.menuId} onClick={() => setIndexToBanner(index)} className='btnCat photoListBox'>
+                    <img src={el} className='imageBannerForm photoList' />
+                  </button>
+
+                </div>
+              ))}
+
+
+            </div>
+            <div className="MB_bannerBtn">
+              <label htmlFor='file-uploadBanner' className='mainBtn newBtnRed newCatBtn'>
+                <svg width='25' height='25' viewBox='0 0 65 65' fill='none' xmlns='http://www.w3.org/2000/svg'>
+                  <rect x='1' y='1' width='63' height='63' rx='2' stroke='white' strokeWidth='2' />
+                  <path d='M32 12L32 53' stroke='white' strokeWidth='2' strokeLinecap='round' />
+                  <path d='M12 32L53 32' stroke='white' strokeWidth='2' strokeLinecap='round' />
+                </svg>
+                <input
+                  onChange={(e) => {
+                    if (e.target.files.length === 0) return;
+                    setResizeFileBannerTG(e.target.files[0]);
+                  }}
+                  id='file-uploadBanner'
+                  name='file-uploadBanner'
+                  type='file'
+                  className='inputPhoto'
+                />
+                <span className='disable-text-selection'>PROMOTION PHOTO</span>
+              </label>
+              <button
+                onClick={() => {
+                  setSaveImageBannerTG((saveImageBannerTG) => saveImageBannerTG + 1);
+                  reloadDelay()
+                }}
+                className='mainBtn saveBtnColor smallMainBtn'>
+                <svg width="25" height="25" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M28 13V43" stroke="white" stroke-width="3" stroke-linecap="round" />
+                  <path d="M14 29L28 43" stroke="white" stroke-width="3" stroke-linecap="round" />
+                  <path d="M28 43L42 29" stroke="white" stroke-width="3" stroke-linecap="round" />
+                  <rect x="1.5" y="1.5" width="53" height="53" rx="8.5" stroke="white" stroke-width="3" />
+                </svg>
+                <span>SAVE</span>
+              </button>
+            </div>
+
+          </div>
+
+        }
+
+        {onOffMenu1_MB && <div className="mobile-function">
+          <EditMenuName menuName={menuName} setMenuName={setMenuName} onOffMenu1={onOffMenu1} onOffMenu2={onOffMenu2} onOffMenu3={onOffMenu3} menuTime={menuTime} activeInputEn={activeInputEn} setActiveInputEditName={setActiveInputEditName} />
+          <div className="">XXXX</div>
+          <div className="">XXXX</div>
+
+
+          <div className={`categoryStart ${(onOffMenu1.switch || onOffMenu2.switch || onOffMenu3.switch) && 'displayNone'}`}>
+            {categoryList
+              .filter((el) => el.menuTime == 1)
+              .map((el, index) => (
+                <div key={index} className={`tabCat ${menuId === el.menuId ? 'chooseCat' : 'mini'}`}>
+                  <button name={el.menuId} onClick={findOneMenu} className={`itemCat  ${menuId === el.menuId ? 'itemCatChoose' : ''}`}>
+                    {index + 1}
+                  </button>
+
+                  <button name={el.menuId} onClick={findOneMenu} className='btnCat'>
+                    {el.catagory}
+                  </button>
+
+                  {/* EARTH BUTTON */}
+                  <div className={`iconSideBox  ${menuId === el.menuId ? '' : 'displayNone'}`}>
+                    <button onClick={() => setOnOffLangForm(true)} value={el.menuId} type='submit' className={`langBtnL`}>
+                      <svg fill='none' viewBox='0 0 24 24' strokeWidth='1' stroke='currentColor' className='w-6 h-6'>
+                        <path
+                          strokeLinecap='round'
+                          strokeLinejoin='round'
+                          d='M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418'
+                        />
+                      </svg>
+                    </button>
+                  </div>
+
+                </div>
+              ))}
+
+
+
+
+          </div>
+
+
+
+
+          <button onClick={openForm} type='button' form='foodForm' className={`mainBtn newBtnRed newCatBtn`}>
+            <svg width="25" height="25" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M28 13V43" stroke="white" strokeWidth="3" strokeLinecap="round" />
+              <path d="M13 28H43" stroke="white" strokeWidth="3" strokeLinecap="round" />
+              <rect x="1.5" y="1.5" width="53" height="53" rx="8.5" stroke="white" strokeWidth="3" />
+            </svg>
+            <span>NEW CATEGORY</span>
+          </button>
+
+
+
+          <div className={`formContainer ${start ? 'showMe' : 'displayNone'}`}>
+            <form id='foodForm' encType='multipart/form-data' className={` formMenu`}>
+              <div className='stickyBox1'></div>
+
+              {/* SWITCH LANGUAGE */}
+
+              <div className={`switchToLang ${onOffLangForm && 'displayNone'}`}>
+                <div className='stickyBox'>
+                  {loading && (
+                    <div className=' photoLoading'>
+                      <div className='iconLoading'>
+                        <span className='barOne'></span> <span className='barTwo'></span> <span className='barThree'></span>
+                      </div>
+                    </div>
+                  )}
+
+                  <div className='gridCat'>
+                    <div
+                      onClick={() => {
+                        getAllMenu()
+                        setStart(false);
+                        setMenuId('');
+                      }}
+                      className='closeBtn'>
+                      <i className='sr-only'>//-CLOSE//-</i>
+
+                      <span className='boxCancel closeIconHover'>
+                        <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' strokeWidth='1' stroke='#000' className='w-6 h-6'>
+                          <path strokeLinecap='round' strokeLinejoin='round' d='M6 18L18 6M6 6l12 12' />
+                        </svg>
+                      </span>
+                    </div>
+                    {/* 111 */}
+                    <div className='flexIcoCat'>
+                      <i className='sr-only'>//-!Icon//-</i>
+                      <span className='iconCatForm'>
+                        <svg
+                          onClick={() => {
+                            setActiveWindowIconPicker(!activeWindowIconPicker);
+
+                          }}
+
+                          className='itemSvg'>
+                          {state.icon_catagory ? <use xlinkHref={`${state.icon_catagory}`} /> : <use xlinkHref={`/static/media/food-color-SVG-sprite.c7acaa791b17c993c83fb8c054053b75.svg#food-tray`} />}
+                        </svg>
+                      </span>
+                      <div className='boxInputText'>
+                        <input onChange={inputValue('catagory')} value={state.catagory} placeholder='Catagory' type='text' name='catagory' id='' autoComplete='off' className='inputText fontCat' required />
+                      </div>
+                    </div>
+
+                    <i className='sr-only'>//-!Photo//-</i>
+                    <div className='flexPhoto'>
+                      <div className='xxx'>
+                        <label htmlFor='file-upload' className='labelPhoto'>
+                          <input
+                            onChange={(e) => {
+                              if (e.target.files.length === 0) return;
+                              setOriginalName(e.target.files[0]?.name);
+                              resizeFile(e.target.files[0]).then((res) => { });
+                            }}
+                            id='file-upload'
+                            name='file-upload'
+                            type='file'
+                            className='inputPhoto'
+                          />
+
+                          <div name='photo' className='photoFlex'>
+                            <img className='boxPhoto' src={file ? file : iconPhoto} alt='' />
+                          </div>
+                        </label>
+
+                        <div
+                          onClick={() => {
+                            delelteImage();
+                            setFile('');
+                          }}
+                          className={`${file ? 'delPhoto' : 'hidden'} `}>
+                          X
+                        </div>
+                      </div>
+
+                      <p className='remarkPhoto'>
+                        Upload a file PNG, JPG <br />
+                        up to 5MB
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className='layoutManu '>
+                  {listMenu.map((el, index) => (
+                    <div className={`layoutManu0 ${index % 2 !== 0 ? '' : 'light-Pgrey'}`} key={index}>
+                      <div className='layoutManu1'>
+                        <i className='sr-only'>!FOOD NAME</i>
+                        <div className='flex'>
+                          <span className='item'>{index + 1}</span>
+
+                          <input onChange={(event) => inputListValue(index, event)} value={el.food_name} type='text' name='food_name' id='food-name' autoComplete='off' className='inputTextFood fontNormal' placeholder='Food name' />
+                        </div>
+
+                        <i className='sr-only'>!DESCRIPTION</i>
+                        <div className=''>
+                          <div className=''>
+                            <textarea onChange={(event) => inputListValue(index, event)} value={el.description} id='description' name='description' rows='2' className='inputText fontSmall testAreaD' placeholder='Description'></textarea>
+                          </div>
+                        </div>
+
+                        <i className='sr-only'>!REMARK</i>
+                        <div className=''>
+                          <div className=''>
+                            <textarea onChange={(event) => inputListValue(index, event)} value={el.remark} name='remark' rows='1' id='remark' className='inputText fontXSmall italic testAreaR' placeholder='Remark (optional)' />
+                          </div>
+                        </div>
+
+                        <i className='sr-only'>!PRICE</i>
+
+                        <div className='flex'>
+                          <label htmlFor='price' className='labelPrice'>
+                            Price
+                          </label>
+                          <div className=' '>
+                            <input onChange={(event) => inputListValue(index, event)} value={el.price} type='text' name='price' id='price' autoComplete='off' className='inputTextFood fontCat' pattern='[0-9]*.\d{0,2}' placeholder='0' />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className='layoutManu2'>
+                        <fieldset>
+                          <i className='sr-only'>!DIETARY</i>
+                          <legend className='dietHeader'>
+                            Filter <span className='dietOption'>(optional)</span>{' '}
+                          </legend>
+                          <span className='dietOption'>* Check marked if this menu recomened for:</span>
+                          <div className=''>
+                            <div className='flexDiet'>
+                              <i className='sr-only'>!VEGETARIANT</i>
+                              <label htmlFor={`vetgeterian_${index}`} className='relative flex gap-x-2'>
+                                <div className='flex h-6 items-center'>
+                                  <input
+                                    onChange={(event) => {
+                                      inputListValue(index, event);
+                                    }}
+                                    ref={(element) => {
+                                      ref.current[0] = element;
+                                    }}
+                                    value={'vetgeterian'}
+                                    id={`vetgeterian_${index}`}
+                                    checked={el.vetgeterian}
+                                    name='vetgeterian'
+                                    type='checkbox'
+                                    className='hideCheckBox cursor-pointer  h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600'
+                                  />
+                                  {!el.vetgeterian && <BsSquare fill={'#444'} size={18} />}
+                                  {el.vetgeterian && <BsCheckSquare fill={'#444'} size={18} />}
+                                </div>
+                                <div className='text-sm leading-6'>
+                                  <label htmlFor={`vetgeterian_${index}`} className='cursor-pointer  font-medium text-gray-900'>
+                                    Vetgeterian
+                                  </label>
+                                </div>
+                              </label>
+
+                              <i className='sr-only'>!VEGAN</i>
+                              <label htmlFor={`vegan${index}`} className='relative flex gap-x-2'>
+                                <div className='flex h-6 items-center'>
+                                  <input
+                                    onChange={(event) => {
+                                      inputListValue(index, event);
+                                    }}
+                                    ref={(element) => {
+                                      ref.current[1] = element;
+                                    }}
+                                    value={'vegan'}
+                                    id={`vegan${index}`}
+                                    checked={el.vegan}
+                                    name='vegan'
+                                    type='checkbox'
+                                    className='hideCheckBox cursor-pointer h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600'
+                                  />
+                                  {!el.vegan && <BsSquare fill={'#444'} size={18} />}
+                                  {el.vegan && <BsCheckSquare fill={'#444'} size={18} />}
+                                </div>
+                                <div className='text-sm leading-6'>
+                                  <label htmlFor={`vegan${index}`} className='cursor-pointer font-medium text-gray-900'>
+                                    Vegan
+                                  </label>
+                                </div>
+                              </label>
+
+                              <i className='sr-only'>!GLUTEN FREE</i>
+                              <label htmlFor={`gluten_free${index}`} className='relative flex gap-x-2'>
+                                <div className='flex h-6 items-center'>
+                                  <input
+                                    onChange={(event) => {
+                                      inputListValue(index, event);
+                                    }}
+                                    ref={(element) => {
+                                      ref.current[2] = element;
+                                    }}
+                                    value={'gluten_free'}
+                                    id={`gluten_free${index}`}
+                                    checked={el.gluten_free}
+                                    name='gluten_free'
+                                    type='checkbox'
+                                    className='hideCheckBox cursor-pointer h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600'
+                                  />
+                                  {!el.gluten_free && <BsSquare fill={'#444'} size={18} />}
+                                  {el.gluten_free && <BsCheckSquare fill={'#444'} size={18} />}
+                                </div>
+                                <div className='text-sm leading-6'>
+                                  <label htmlFor={`gluten_free${index}`} className='cursor-pointer  font-medium text-gray-900'>
+                                    Gluten-Free
+                                  </label>
+                                </div>
+                              </label>
+
+                              <i className='sr-only'>!HALAL</i>
+                              <label htmlFor={`halal${index}`} className='relative flex gap-x-2'>
+                                <div className='flex h-6 items-center'>
+                                  <input
+                                    onChange={(event) => {
+                                      inputListValue(index, event);
+                                    }}
+                                    ref={(element) => {
+                                      ref.current[3] = element;
+                                    }}
+                                    value={'halal'}
+                                    id={`halal${index}`}
+                                    checked={el.halal}
+                                    name='halal'
+                                    type='checkbox'
+                                    className='hideCheckBox cursor-pointer h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600'
+                                  />
+                                  {!el.halal && <BsSquare fill={'#444'} size={18} />}
+                                  {el.halal && <BsCheckSquare fill={'#444'} size={18} />}
+                                </div>
+                                <div className='text-sm leading-6'>
+                                  <label htmlFor={`halal${index}`} className='cursor-pointer font-medium text-gray-900'>
+                                    Halal
+                                  </label>
+                                </div>
+                              </label>
+                            </div>
+                          </div>
+
+                          <button onClick={() => removeItem(index)} className='boxRemoveItem boxCancel'>
+                            <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' strokeWidth='1' stroke='#000' className='w-6 h-6'>
+                              <path strokeLinecap='round' strokeLinejoin='round' d='M6 18L18 6M6 6l12 12' />
+                            </svg>
+                          </button>
+                        </fieldset>
+                      </div>
+                    </div>
+                  ))}
+
+                  <i className='sr-only'> !ADD FOOD ITEM</i>
+                  {/* <ButtonAddFood /> */}
+                  <div className='boxAddItem'>
+                    <a onClick={additem} type='' className='mainBtn saveBtnColor smallMainBtn'>
+                      <svg width="25" height="25" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M28 13V43" stroke="white" stroke-width="3" stroke-linecap="round" />
+                        <path d="M13 28H43" stroke="white" stroke-width="3" stroke-linecap="round" />
+                        <rect x="1.5" y="1.5" width="53" height="53" rx="8.5" stroke="white" stroke-width="3" />
+                      </svg>
+                      <span>ADD ITEM</span>
+                    </a>
+
+                  </div>
+                </div>
+              </div>
+
+              <i className='x'>LANGUAGE COMPONENT</i>
+
+              <div className={`${!onOffLangForm && 'displayNone'}`}>
+                <AddLanguage state={state} listMenu={listMenu} inputValue={inputValue} inputListValue={inputListValue} setOnOffLangForm={setOnOffLangForm} setStart={setStart} />
+              </div>
+            </form>
+
+            {/* ${!start ? 'show' : 'hiddenMe'} ${menuId ? 'hiddenMe' : 'show'} */}
+            {/* ${!menuId ? 'hiddenMe' : 'show'} */}
+
+            <div onClick={() => setDeleteBtn(false)} className='buttonFormContainer '></div>
+          </div>
+
+
+
+
+
+        </div>}
+
+
+
+
+        <iframe className="mobile-iframe" src="http://192.168.1.13:3000/customer/5f43e2be-undefined" />
+
+      </div>
+
+
     </div>
   );
 };
