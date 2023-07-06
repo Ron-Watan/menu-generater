@@ -26,24 +26,29 @@ const SidebarSubComp = (prop) => {
   const [themeIconBorderColor, serThemeIconBorderColor] = useState('#777');
 
 
-  const GlobalStyle = createGlobalStyle`
-  .theme-icon-lineColor {
-    fill: ${prop.themeSetup.sideBar.themeIconColorLine};
-  }
+//   const GlobalStyle = 
+//     createGlobalStyle`
+//   .theme-icon-lineColor {
+//     fill: ${prop.themeSetup.sideBar.themeIconColorLine};
+//   }
 
-  .theme-icon-styleRadius{
-    border-radius: ${prop.themeSetup.sideBar.themeIconRadius};
-  }
-  .theme-icon-BG-Border{
-    background-color: ${prop.themeSetup.sideBar.themeIconBG};
-    border:  ${prop.themeSetup.sideBar.themeIconSolid} 2px ${prop.themeSetup.sideBar.themeIconColorBorder};
-  }
+//   .theme-icon-styleRadius{
+//     border-radius: ${prop.themeSetup.sideBar.themeIconRadius};
+//   }
+//   .theme-icon-BG-Border{
+//     background-color: ${prop.themeSetup.sideBar.themeIconBG};
+//     border:  ${prop.themeSetup.sideBar.themeIconSolid} 2px ${prop.themeSetup.sideBar.themeIconColorBorder};
+//   }
 
-`;
+// `;
+  
+  // useEffect(() => {
+  //   GlobalStyle();
+  // }, []);
 
   return (
     <div className='sideBarPosition'>
-      <GlobalStyle />
+      {/* <GlobalStyle /> */}
       <div className='circleBarClient '>
         {barActive &&
           prop.menuTime == 1 &&

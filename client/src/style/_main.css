@@ -156,7 +156,7 @@ html {
 .switch {
   position: relative;
   display: inline-block;
-  width: 2.9rem;
+  width: 2.8rem;
   height: 1.42rem;
   display: flex;
   justify-content: center;
@@ -169,6 +169,8 @@ html {
   height: 0;
 }
 
+
+/* /////////////////////////////////////// */
 .slider {
   position: absolute;
   cursor: pointer;
@@ -177,47 +179,53 @@ html {
   right: 0;
   bottom: 0;
   /* border: #aaa 1px solid; */
-  border: 2px solid #777;
+  border: 1px solid #ecd2d2;
 
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
   border-radius: 1rem;
   box-shadow: 0.1rem 0.1rem 2rem rgba(0, 0, 0, 0.1);
-  background-color: #eee;
+  background-color: #f5cac64c;
 }
+
+
 
 .slider:before {
   position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   content: 'OFF';
-  font-size: 0.7rem;
-  color: #eee;
+  font-size: 0.6rem;
+  color: #fff;
   text-align: center;
 
-  height: 1.1rem;
+  height: 1.18rem;
   width: 1.8rem;
-  left: 0.9px;
-  bottom: 1px;
-  background-color: #777;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
+  left: 1.5px;
+  bottom: .75px;
+  background-color: #999;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
   border-radius: 0.8rem;
 }
 
 input:checked + .slider {
-  /* background-color: var(--main-background-color); */
-  /* background-color: #cdcccc; */
-  border: 2px solid #777;
+
+  border: 1px solid #f79696;
   background-color: #fff;
 }
 
 input:checked + .slider:before {
-  font-size: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
   color: #eee;
   text-align: center;
   content: 'ON';
-  background-color: var(--main-background-color);
-  /* background-color: #cdcccc; */
-  /* border: var(--main-background-color) 1px solid; */
+  background-color: #cc1600;
+
 }
 
 /* input:focus+.slider { */
@@ -229,7 +237,7 @@ input:checked + .slider:before {
   -ms-transform: translateX(0.7rem);
   transform: translateX(0.7rem);
 }
-
+/* ///////////////////////////////////////////////////// */
 .opcaityTime {
   opacity: 0.4;
   cursor: default !important;
@@ -325,12 +333,12 @@ input:checked + .sliderLang:before {
 /* /////////////////////////////////////// */
 
 input[type='radio'] {
-  /* Add if not using autoprefixer */
+
   -webkit-appearance: none;
   appearance: none;
-  /* For iOS < 15 to remove gradient background */
+
   background-color: #fff;
-  /* Not removed via appearance */
+
   margin: 0;
   font: inherit;
   color: currentColor;
@@ -343,10 +351,9 @@ input[type='radio'] {
 }
 
 input[type='radio'] {
-  /* ...existing styles */
+
   display: grid;
-  /* justify-content: center; */
-  /* align-items: center; */
+
   place-content: center;
 }
 
@@ -357,14 +364,19 @@ input[type='radio']::before {
   border-radius: 50%;
   transform: scale(0);
   transition: 120ms transform ease-in-out;
-  /* box-shadow: inset 1em 1em var(--form-control-color); */
-  background-color: red;
+
+  background-color: #cc1600;
 }
 
 input[type='radio']:checked::before {
   transform: scale(1);
+
+
 }
 
+/* /////////////////////////////////
+ */
+ 
 /* //////////////////////////////////////// */
 
 .mainHeaderFont {

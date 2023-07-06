@@ -340,22 +340,22 @@ const NavbarComponent = (prop) => {
         </button>
       </div>
       <div className="mobile-creator unselectable">
-        <div className="MC_nav">
+        {/* <div className="MC_nav">
 
           <div className="MC_Tab MC_Tab_1">X</div>
 
-          <button onClick={() => {
+          <a onClick={() => {
             prop.setOnoffBanner_MB(!prop.onOffBanner_MB);
           }}
-            name='banner'
-            className={`MC_Tab MC_Tab_2`} > Banner
-          </button>
+            name='bannerMB'
+            className={`MC_Tab MC_Tab_2`} >Banner
+          </a>
 
           <button onClick={() => {
             prop.setOnoffMenu1_MB(!prop.onOffMenu1_MB);
           }}
-            name='banner'
-            className={`MC_Tab MC_Tab_3`} > Manu1
+            name='Manu1MB'
+            className={`MC_Tab MC_Tab_3`} >Manu1
           </button>
 
 
@@ -364,7 +364,7 @@ const NavbarComponent = (prop) => {
           <div className="MC_Tab MC_Tab_5">X</div>
           <div className="MC_Tab MC_Tab_6">X</div>
 
-        </div>
+        </div> */}
 
       </div>
 

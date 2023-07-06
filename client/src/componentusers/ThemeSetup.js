@@ -306,6 +306,8 @@ const ThemeSetup = (prop) => {
                         <option value='Urbanist'>Urbanist</option>
                         <option value='Oleo Script Swash Caps'>Oleo Script</option>
                         <option value='Merriweather'>Merriweather</option>
+                        <option value='Poppins'>Poppins</option>
+
                       </select>
                       <label htmlFor="fontStyle1">Style</label>
 
@@ -399,6 +401,8 @@ const ThemeSetup = (prop) => {
                       <option value='Urbanist'>Urbanist</option>
                       <option value='Oleo Script Swash Caps'>Oleo Script</option>
                       <option value='Merriweather'>Merriweather</option>
+                      <option value='Poppins'>Poppins</option>
+
                     </select>
                     <label htmlFor="BodyfontStyle">Style</label>
 

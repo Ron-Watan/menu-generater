@@ -112,6 +112,6 @@ dotFormC */
 }
 
 .rtds-single-slide-styles img {
-  width: 100% !important;
+  /* width: 100% !important; */
   height: 15rem !important;
 }
