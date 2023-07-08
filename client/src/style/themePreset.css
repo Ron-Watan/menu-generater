@@ -64,9 +64,6 @@
   height: 2rem !important;
 }
 
-.unselectable {
-  border-radius: 0 0 1rem 1rem;
-}
 .PS-Foot {
   position: absolute;
   top: 100%;

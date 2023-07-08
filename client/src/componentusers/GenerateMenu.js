@@ -36,7 +36,7 @@ const GenerateMenu = () => {
 
   return (
     <div className="barcodeFix ">
-
+   
       <a href={`http://192.168.1.13:3000/customer/${user.link}`}>{`Click to: ${user.restaurentName} menu`}</a>
 
       <div className="barcodeSection">

@@ -1,5 +1,14 @@
+
+.Max_width_32{
+  max-width: 32rem;
+}
+
 .mobileViewport {
+  /* width: 100vw;  original*/
+  max-width: 32rem;
   width: 100vw;
+
+
   /* effect to address bar */
   height: 100%;
 
@@ -7,8 +16,24 @@
   overflow-x: hidden;
   overscroll-behavior: none;
   overflow-y: scroll;
+
+}
+.mobileViewport_Wrapper {
+  padding-top: 3.5rem;
+  position: relative;
+  width: 100%;
 }
 
+.navBar_Client {
+  position: -webkit-fixed;
+  position: fixed !important;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  max-width: 32rem;
+  /* position: -webkit-sticky !important;
+  position: sticky !important; */
+}
 
 .bannerLoadingMaain {
   position: absolute;
@@ -20,21 +45,12 @@
   z-index: 9999;
 }
 
-.navBarC {
-  top: 0;
-  z-index: 100;
-  /* position: -webkit-sticky !important;
-  position: sticky !important; */
-  /* position: -webkit-fixed; */
-  /* position: fixed !important; */
-}
-
 .navFlexLogoandName {
   display: flex;
   height: 3rem;
   justify-content: space-between;
   align-items: center;
-  padding:.1rem .5rem
+  padding: 0.1rem 0.5rem;
 }
 
 /* relative flex items-center */
@@ -52,8 +68,8 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  background-color: #000;
-  gap: .2rem;
+
+  gap: 0.2rem;
 }
 
 .menuNameNavBox {
@@ -93,7 +109,6 @@
 }
 
 .navMenuNameText-tab {
-
   border-radius: 0.3rem;
   display: flex;
   justify-content: flex-end;
@@ -141,7 +156,6 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-
 }
 
 .filterBtn-main {

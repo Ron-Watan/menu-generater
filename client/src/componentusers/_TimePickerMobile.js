@@ -377,13 +377,17 @@ const _TimePickerMobile = (prop) => {
       minsM3: reverseEndMins(selectType3.end),
     });
   };
-  // console.log
+
+  // useEffect(() => {
+  //   if (prop.navTime2TimePicker) {
+  //     getTimeFromProp();
+  //   }
+  // }, [prop.navTime2TimePicker]);
   useEffect(() => {
     if (prop.navTime2TimePicker) {
       getTimeFromProp();
     }
   }, [prop.navTime2TimePicker]);
-
   // const [countForInfo, setCountForInfo] = useState(0);
   // let count = 0;
   // const countData=
@@ -395,25 +399,26 @@ const _TimePickerMobile = (prop) => {
   // }
   // console.log(countForInfo);
   // qqq
-  const [timeM, setTimeM] = useState(0)
-  const [timeM1, setTimeM1] = useState(0)
-  const [timeM2, setTimeM2] = useState(0)
-  let rrr = 0
-  const testTime = (e) => {
-    // setTimeM(timeM + (e.target.value - timeM))
-    setTimeM(testTime + (e.target.value - timeM))
-  }
-  const testTime1 = (e) => {
-    setTimeM1(e.target.value)
+  // const [timeM, setTimeM] = useState(0)
+  // const [timeM1, setTimeM1] = useState(0)
+  // const [timeM2, setTimeM2] = useState(0)
 
-    // setTimeM1(timeM1 + (e.target.value - timeM1))
-  }
-  const testTime2 = (e) => {
 
-    setTimeM2(e.target.value)
-  }
+  // let rrr = 0
+  // const testTime = (e) => {
 
-  console.log(timeM)
+  //   setTimeM(testTime + (e.target.value - timeM))
+  // }
+  // const testTime1 = (e) => {
+  //   setTimeM1(e.target.value)
+
+  //   setTimeM1(timeM1 + (e.target.value - timeM1))
+  // }
+  // const testTime2 = (e) => {
+
+  //   setTimeM2(e.target.value)
+  // }
+
 
   //-///-///-///-///-///-///-///-///-   END FUNCTION   ///-///-///-///-///-///-///-///-///-
 
@@ -429,12 +434,6 @@ const _TimePickerMobile = (prop) => {
           </button>
           <span className='MB_textBtn'>Close</span>
         </div>
-
-      </div>
-      <div className="bodd">
-
-        <input className='tes444a' onChange={(e) => testTime(e)} onTouchStart={(e) => testTime1(e)} onTouchEnd={(e) => testTime2(e)} type="range" id="vol" name="vol" min="-5" max="5" />
-
 
       </div>
 
@@ -467,38 +466,60 @@ const _TimePickerMobile = (prop) => {
 
             <div className="MB_timePikerGrid1">
 
-              {/* <div className='header1 flexHeaderTime'>Menu</div> */}
-              <div className='titleTime1'>{prop.menuName.menu_1}</div>
-              <div className='titleTime2'>{prop.menuName.menu_2}</div>
-              <div className='titleTime3'>{prop.menuName.menu_3}</div>
 
+              <div className="MB_timePikerRow flex_start" >
+                <div className="MB_Time_flexBox">
 
-
-
-              <label className={`allday1`}>
-
-                <div className={`switch  ${!timeType && 'opcaityTime'}`}>
-
-                  <input onChange={() => menuAllDayTypeValue('menu_1')} type='checkbox' name='menu_1' checked={timeType && menuAllDayType.menu_1} disabled={!timeType} />
-                  <span className='slider'></span>
+                  <div className='MB_titleTime'>{prop.menuName.menu_1}</div>
                 </div>
-              </label>
-              <label className={`allday2`}>
 
-                <div className={`switch  ${!timeType && 'opcaityTime'}`}>
+                <label className={`MB_select`}>
 
-                  <input onChange={() => menuAllDayTypeValue('menu_2')} type='checkbox' name='menu_2' checked={timeType && menuAllDayType.menu_2} id='' disabled={!timeType} />
-                  <span className='slider'></span>
+                  <div className={`switch  ${!timeType && 'opcaityTime'}`}>
+
+                    <input onChange={() => menuAllDayTypeValue('menu_1')} type='checkbox' name='menu_1' checked={timeType && menuAllDayType.menu_1} disabled={!timeType} />
+                    <span className='slider'></span>
+                  </div>
+                </label>
+
+              </div>
+              <div className="MB_timePikerRow flex_start">
+                <div className="MB_Time_flexBox">
+                  <div className='MB_titleTime'>{prop.menuName.menu_2}</div>
                 </div>
-              </label>
-              <label className={`allday3`}>
 
-                <div className={`switch  ${!timeType && 'opcaityTime'}`}>
+                <label className={`MB_select`}>
 
-                  <input onChange={() => menuAllDayTypeValue('menu_3')} type='checkbox' name='menu_3' checked={timeType && menuAllDayType.menu_3} id='' disabled={!timeType} />
-                  <span className='slider'></span>
+                  <div className={`switch  ${!timeType && 'opcaityTime'}`}>
+
+                    <input onChange={() => menuAllDayTypeValue('menu_2')} type='checkbox' name='menu_2' checked={timeType && menuAllDayType.menu_2} id='' disabled={!timeType} />
+                    <span className='slider'></span>
+                  </div>
+                </label>
+
+              </div>
+              <div className="MB_timePikerRow flex_start">
+                <div className="MB_Time_flexBox">
+                  <div className='MB_titleTime'>{prop.menuName.menu_3}</div>
                 </div>
-              </label>
+                <label className={`MB_select`}>
+
+                  <div className={`switch  ${!timeType && 'opcaityTime'}`}>
+
+                    <input onChange={() => menuAllDayTypeValue('menu_3')} type='checkbox' name='menu_3' checked={timeType && menuAllDayType.menu_3} id='' disabled={!timeType} />
+                    <span className='slider'></span>
+                  </div>
+                </label>
+              </div>
+
+
+
+
+
+
+
+
+
 
 
 
@@ -879,136 +900,134 @@ const _TimePickerMobile = (prop) => {
 
 
 
-        <div className='timePikerWrapper-AAA'>
 
-          <div className='timePikerGrid-AAA'>
 
-            {windowConfirm && (
-              <div className='timePikerGrid-confirm'>
-                {timeType && (
-                  <div className='timePikerResultBox'>
-                    <div className='timePikerResult'>
-                      <span className='timePikerResult-title'>Menu(s):</span>
-                      <span>{menuAllDayType.menu_1 && prop.menuName.menu_1} </span>
-                      <span>{menuAllDayType.menu_2 && prop.menuName.menu_2} </span>
-                      <span>{menuAllDayType.menu_3 && prop.menuName.menu_3} </span>
-                    </div>
-                    <span className='timePikerResultBox-span'>
-                      will be turn on 24 Hr. <br /> Customomer can switch menu(s) in web application <br />
-                      if there are menus more than 1 menu
-                    </span>
-                  </div>
-                )}
 
-                {!timeType && (
+
+        {windowConfirm && (
+          <div className='MB_timePikerGrid-confirm'>
+            {timeType && (
+              <div className='timePikerResultBox'>
+                <div className='timePikerResult'>
+                  <span className='timePikerResult-title'>Menu(s):</span>
+                  <span>{menuAllDayType.menu_1 && prop.menuName.menu_1} </span>
+                  <span>{menuAllDayType.menu_2 && prop.menuName.menu_2} </span>
+                  <span>{menuAllDayType.menu_3 && prop.menuName.menu_3} </span>
+                </div>
+                <span className='timePikerResultBox-span'>
+                  will be turn on 24 Hr. <br /> Customomer can switch menu(s) in web application <br />
+                  if there are menus more than 1 menu
+                </span>
+              </div>
+            )}
+
+            {!timeType && (
+              <div className=''>
+                <span>Menu(s) will be automatic change following</span>
+
+                <div className='timePikerResult'>
                   <div className=''>
-                    <span>Menu(s) will be automatic change following</span>
-
-                    <div className='timePikerResult'>
+                    {menuSelectType.menu_1 && (
                       <div className=''>
-                        {menuSelectType.menu_1 && (
-                          <div className=''>
-                            <span>Menu:</span>
-                            <span>{prop.menuName.menu_1}&nbsp;</span>
-                            <span>{timeStart.hrsM1}:</span>
-                            <span>{timeStart.minsM1}</span>
-                            <span>&nbsp;to&nbsp;</span>
-                            <span>{timeEnd.hrsM1}:</span>
-                            <span>{timeEnd.minsM1}</span>
-                          </div>
-                        )}
-
-                        {menuSelectType.menu_2 && (
-                          <div className=''>
-                            <span>Menu:</span>
-                            <span>{prop.menuName.menu_2}&nbsp;</span>
-                            <span>{timeStart.hrsM2}:</span>
-                            <span>{timeStart.minsM2}</span>
-                            <span>&nbsp;to&nbsp;</span>
-                            <span>{timeEnd.hrsM2}:</span>
-                            <span>{timeEnd.minsM2}</span>
-                          </div>
-                        )}
-
-                        {menuSelectType.menu_3 && (
-                          <div className=''>
-                            <span>Menu:</span>
-                            <span>{prop.menuName.menu_3}&nbsp;</span>
-                            <span>{timeStart.hrsM3}:</span>
-                            <span>{timeStart.minsM3}</span>
-                            <span>&nbsp;to&nbsp;</span>
-                            <span>{timeEnd.hrsM3}:</span>
-                            <span>{timeEnd.minsM3}</span>
-                          </div>
-                        )}
+                        <span>Menu:</span>
+                        <span>{prop.menuName.menu_1}&nbsp;</span>
+                        <span>{timeStart.hrsM1}:</span>
+                        <span>{timeStart.minsM1}</span>
+                        <span>&nbsp;to&nbsp;</span>
+                        <span>{timeEnd.hrsM1}:</span>
+                        <span>{timeEnd.minsM1}</span>
                       </div>
-                    </div>
+                    )}
+
+                    {menuSelectType.menu_2 && (
+                      <div className=''>
+                        <span>Menu:</span>
+                        <span>{prop.menuName.menu_2}&nbsp;</span>
+                        <span>{timeStart.hrsM2}:</span>
+                        <span>{timeStart.minsM2}</span>
+                        <span>&nbsp;to&nbsp;</span>
+                        <span>{timeEnd.hrsM2}:</span>
+                        <span>{timeEnd.minsM2}</span>
+                      </div>
+                    )}
+
+                    {menuSelectType.menu_3 && (
+                      <div className=''>
+                        <span>Menu:</span>
+                        <span>{prop.menuName.menu_3}&nbsp;</span>
+                        <span>{timeStart.hrsM3}:</span>
+                        <span>{timeStart.minsM3}</span>
+                        <span>&nbsp;to&nbsp;</span>
+                        <span>{timeEnd.hrsM3}:</span>
+                        <span>{timeEnd.minsM3}</span>
+                      </div>
+                    )}
                   </div>
-                )}
-
-                <div className='btnInBox'>
-                  <button
-                    onClick={() => {
-                      saveTimeSetup();
-                      setWindowConfirm(false);
-                      prop.setonOffMenuTime(false);
-                    }}
-                    className='mainBtn saveBtnColor'>
-                    <svg width='30' height='30' viewBox='0 0 65 65' fill='none'>
-                      <rect x='1' y='1' width='63' height='63' rx='2' stroke='white' strokeWidth='2' />
-                      <path d='M32 12L32 53' stroke='white' strokeWidth='2' strokeLinecap='round' />
-                      <path d='M32 53L12 33' stroke='white' strokeWidth='2' strokeLinecap='round' />
-                      <path d='M32 53L52 33' stroke='white' strokeWidth='2' strokeLinecap='round' />
-                    </svg>
-                    <span>CONFIRM</span>
-                  </button>
-
-                  <button onClick={() => setWindowConfirm(false)} className='mainBtn cancelBtnColor'>
-                    <svg width='30' height='30' viewBox='0 0 65 65' fill='none'>
-                      <path d='M12 12L53 54' stroke='white' strokeWidth='2' strokeLinecap='round' />
-                      <path d='M12 54L53 12' stroke='white' strokeWidth='2' strokeLinecap='round' />
-                      <path d='M62 1H3C1.89543 1 1 1.89543 1 3V62C1 63.1046 1.89543 64 3 64H62C63.1046 64 64 63.1046 64 62V3C64 1.89543 63.1046 1 62 1Z' stroke='white' strokeWidth='2' />
-                    </svg>
-
-                    <span>CANCEL</span>
-                  </button>
                 </div>
               </div>
             )}
 
-
-          </div>
-
-          {!windowConfirm && (
-            <div className='boxBtnLang'>
+            <div className='MB_Frid_3Btn'>
               <button
                 onClick={() => {
-                  setTimeValue(code);
-                  setTimePicker([...timePickerData]);
+                  saveTimeSetup();
+                  setWindowConfirm(false);
+                  prop.setonOffMenuTime(false);
                 }}
-                className='mainBtn saveBtnColor'>
-                <svg width='30' height='30' viewBox='0 0 65 65' fill='none'>
-                  <rect x='1' y='1' width='63' height='63' rx='2' stroke='white' strokeWidth='2' />
-                  <path d='M32 12L32 53' stroke='white' strokeWidth='2' strokeLinecap='round' />
-                  <path d='M32 53L12 33' stroke='white' strokeWidth='2' strokeLinecap='round' />
-                  <path d='M32 53L52 33' stroke='white' strokeWidth='2' strokeLinecap='round' />
-                </svg>
-                <span>OK</span>
+                className='MB_Sq_Btn MB_Btn_Color MB_G2'>
+      
+                <span>CONFIRM</span>
               </button>
 
-              <button onClick={() => prop.setonOffMenuTime(false)} className='mainBtn cancelBtnColor'>
-                <svg width='30' height='30' viewBox='0 0 65 65' fill='none'>
-                  <path d='M12 12L53 54' stroke='white' strokeWidth='2' strokeLinecap='round' />
-                  <path d='M12 54L53 12' stroke='white' strokeWidth='2' strokeLinecap='round' />
-                  <path d='M62 1H3C1.89543 1 1 1.89543 1 3V62C1 63.1046 1.89543 64 3 64H62C63.1046 64 64 63.1046 64 62V3C64 1.89543 63.1046 1 62 1Z' stroke='white' strokeWidth='2' />
-                </svg>
+              <button onClick={() => setWindowConfirm(false)} className='MB_Sq_Btn MB_Btn_Border MB_G3'>
+      
 
                 <span>CANCEL</span>
               </button>
             </div>
-          )}
-        </div>
+          </div>
+        )}
+
+
       </div>
+
+
+
+
+
+      <div className="MB_Frid_3Btn">
+
+        {/* SAVE BUTTON */}
+
+        <button
+          onClick={() => {
+            setTimeValue(code);
+            setTimePicker([...timePickerData]);
+          }}
+          className='MB_Sq_Btn MB_Btn_Color MB_G2'>
+
+          <span>OK</span>
+        </button>
+
+        {/* CANCEL BUTTON */}
+        <button onClick={() => getTimeFromProp()} className='MB_Sq_Btn MB_Btn_Border MB_G3'>
+
+
+          <span>CANCEL</span>
+        </button>
+
+
+      </div>
+
+
+
+
+
+
+
+
+
+
     </div>
   );
 };

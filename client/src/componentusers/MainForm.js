@@ -33,6 +33,12 @@ import IconPickker from './IconPickker';
 
 import IconPickkerMobile from './IconPickkerMobile';
 import _TimePickerMobile from './_TimePickerMobile';
+import _LanguageSetupMobile from './_LanguageSetupMobile';
+import _ThemeSetupMobile from './_ThemeSetupMobile';
+import _LanguageAddMobile from './_LanguageAddMobile';
+import _OnOffSettingMobile from './_OnOffSettingMobile';
+
+
 
 import ColorPickker from './ColorPickker';
 
@@ -322,7 +328,6 @@ const MainForm = () => {
       )
       .then((result) => {
         if (result.data.success) {
-          // Swal.fire(result.data.message)
           dispath(setUser(result.data.userMenu));
           // console.log(result.data.userMenu)
           actionDelay();
@@ -418,13 +423,13 @@ const MainForm = () => {
     console.log(resr)
   }
 
-  const findOneMenu = (e) => {
+  const findOneMenu = (menuId) => {
 
-    e.preventDefault();
+    // e.preventDefault();
     setStart(true);
     setOnOffLangForm(false);
     scrollToTop();
-    const menuId = e.target.name;
+    // const menuId = e.target.name;
     setMenuId(menuId);
     setFile('')
     dispath(showLoading())
@@ -899,12 +904,16 @@ const MainForm = () => {
   //-
   const [onOffTheme, setOnOffTheme] = useState(false);
 
+  //- MOBILE
   const [onOffQrCode_MB, setOnoffQrCode_MB] = useState(false);
   const [onOffBanner_MB, setOnoffBanner_MB] = useState(false);
   const [onOffMenu1_MB, setOnoffMenu1_MB] = useState(false);
   const [onOffMenu2_MB, setOnoffMenu2_MB] = useState(false);
   const [onOffMenu3_MB, setOnoffMenu3_MB] = useState(false);
   const [onOffTimePicker_MB, setOnOffTimePicker_MB] = useState(false);
+  const [onOffLangSetup_MB, setOnOffLangSetup_MB] = useState(false);
+  const [onOffThemeSetup_MB, setOnOffThemeSetup_MB] = useState(false);
+  const [onOffSetting_MB, setOnOffSetting_MB] = useState(false);
 
 
   //-
@@ -959,14 +968,22 @@ const MainForm = () => {
   const mbIconColor = '#fff'
   const mbIconColorA = '#fff'
   const iconStrokeWidth = "3"
-  // 111
+  // contentDocument.location.reload(true)
+  // contentWindow.location.reload()
+  function reloadIFrame(e) {
+    // e.preventDefault()
+    console.log('reloading..');
+    document.getElementById('iframe').contentDocument.location.reload(true);
+    document.getElementById('iframe').contentDocument.location.reload(true);
 
+  }
   //-///=///-///=///-///=///-///=///-   END FUNCTION   ///-///=///-///=///-///=///-///=///-
 
   const { loading } = useSelector((state) => state.alerts);
 
   return (
     <div className='mainAppMonitor'>
+
       {/* <div className='decorBar'>
         <div className={`containerEditMenuName ${!(onOffMenu1.switch || onOffMenu2.switch || onOffMenu3.switch) && 'hiddenMe'}`}>
           <EditMenuName menuName={menuName} setMenuName={setMenuName} onOffMenu1={onOffMenu1} onOffMenu2={onOffMenu2} onOffMenu3={onOffMenu3} menuTime={menuTime} activeInputEn={activeInputEn} setActiveInputEditName={setActiveInputEditName} />
@@ -1609,10 +1626,10 @@ const MainForm = () => {
         </div>
         <i className='x'>RIGHTBAR SECTION Finish</i>
       </div>
-      <div id='end' className=''></div>
+      {/* <div id='end' className=''></div> */}
 
 
-      <i className='x'>//- //- //-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-Finish</i>
+      <i className='x'>//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-Finish</i>
 
 
       {/* 111 */}
@@ -1661,8 +1678,6 @@ const MainForm = () => {
         <i className="x"> Manu 1 -----------------------------------------------</i>
         <div className={`mobile_function ${(!onOffMenu1_MB && !onOffMenu2_MB && !onOffMenu3_MB) && 'MB_slide_Down'}`}>
           <div className="topBar_function padding-right-5rem">
-
-
             <div className="GruopBtn">
               <button onClick={() => {
                 setOnoffMenu1_MB(false)
@@ -1796,8 +1811,12 @@ const MainForm = () => {
           />
         </div>
 
+        <div className={` mobile_formFood ${!onOffLangForm && 'MB_slide_Left'}`}>
 
-        {/* ///=//////////////////////////////////////////////// */}
+          <_LanguageAddMobile state={state} listMenu={listMenu} inputValue={inputValue} inputListValue={inputListValue} setOnOffLangForm={setOnOffLangForm} setStart={setStart} />
+
+
+        </div>
 
 
         <div className={`mobile_function topColorPicker ${!activeWindowIconPicker && 'MB_slide_Down'}`}>
@@ -1807,17 +1826,43 @@ const MainForm = () => {
 
         <div className={`mobile_function ${!onOffTimePicker_MB && 'MB_slide_Down'}`}>
 
-          <_TimePickerMobile setOnOffTimePicker_MB={setOnOffTimePicker_MB} menuName={menuName} onOffMenuTime={onOffMenuTime} setonOffMenuTime={setonOffMenuTime} timeSetup={timeSetup} setTimeSetup={setTimeSetup} navTime2TimePicker={navTime2TimePicker} />
+          <_TimePickerMobile navTime2TimePicker={navTime2TimePicker} setOnOffTimePicker_MB={setOnOffTimePicker_MB} menuName={menuName} onOffMenuTime={onOffMenuTime} setonOffMenuTime={setonOffMenuTime} timeSetup={timeSetup} setTimeSetup={setTimeSetup} />
 
         </div>
 
-        {/* 111 */}
-        {/*  ///=///=/ ///=/ ///=/ ///= ///= ///= ///= ///= ///= ///= ///=///////////////////////////////////////////// */}
+        <i className='x'> SYSTEM LANG SETUP  //-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-Finish</i>
 
-        <div className="MC_nav">
+        <div className={`mobile_function ${!onOffLangSetup_MB && 'MB_slide_Down'}`}>
 
+          <_LanguageSetupMobile setOnOffLangSetup_MB={setOnOffLangSetup_MB} navLang2LangSetUp={navLang2LangSetUp} setOnOffLangSetup={setOnOffLangSetup}
+            languageSetup={languageSetup} />
+
+        </div>
+        <i className='x'> SYSTEM THEME SETUP 111 //-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-Finish</i>
+
+        <div className={`mobile_ThemeFunction ${!onOffThemeSetup_MB && 'MB_slide_Left'}`}>
+
+          <_ThemeSetupMobile setOnOffThemeSetup_MB={setOnOffThemeSetup_MB} navTheme2ThemeSetUp={navTheme2ThemeSetUp} restaurantName={restaurantName} setRestaurantName={setRestaurantName}
+            reloadIFrame={reloadIFrame} />
+        </div>
+
+
+        <div className={`mobile_function ${!onOffSetting_MB && 'MB_slide_Down'}`}>
+
+          <_OnOffSettingMobile />
+
+        </div>
+
+
+
+
+
+
+        <i className='x'> ICON //-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-Finish</i>
+
+        <div className="MC_IconFixed">
           <i className="x"> Home -----------------------------------------------</i>
-          <button onClick={() => setMBnavIcon(!mBnavIcon)} className={`MC_Tab MB_None_Adm ${mBnavIcon && 'adminActive'}`}>
+          <button onClick={() => setMBnavIcon(!mBnavIcon)} className={`MC_Tab MB_None_Adm ${mBnavIcon && 'adminActive'}  ${onOffThemeSetup_MB && 'displayNone'}  `}>
             <svg width="32" height="32" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g clipPath="url(#clip0_231_53)">
 
@@ -1834,14 +1879,16 @@ const MainForm = () => {
               </defs>
             </svg>
 
-
-
-
-
-
           </button>
+
+        </div>
+        <div className="MC_nav">
+
+
+
+          <div className={`MB_emptySm`}>&nbsp;</div>
           <i className="x"> QRCode -----------------------------------------------</i>
-          <button className={`MC_Tab MB_None ${!mBnavIcon && 'displayNone'}`}>
+          {/* <button className={`MC_Tab MB_None ${!mBnavIcon && 'displayNone'}`}>
             <svg width="30" height="30" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M2 14.7119V6.23729C2 3.89714 3.89714 2 6.23729 2H14.7119" stroke={mbIconColor} strokeWidth={iconStrokeWidth} strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
               <path d="M39.2881 2H47.7627C50.1028 2 52 3.89714 52 6.23729V14.7119" stroke={mbIconColor} strokeWidth={iconStrokeWidth} strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
@@ -1857,7 +1904,7 @@ const MainForm = () => {
 
 
 
-          </button>
+          </button> */}
 
           <i className="x"> Banner-----------------------------------------------</i>
           <button onClick={() => {
@@ -1960,24 +2007,56 @@ const MainForm = () => {
 
           <button onClick={() => {
             setOnOffTimePicker_MB(!onOffTimePicker_MB);
+            setNavTime2TimePicker((testTG) => navTime2TimePicker + 1);
 
           }}
             name='Manu1MB'
             className={`MC_Tab MB_None ${!mBnavIcon && 'displayNone'}`} >Time</button>
 
+          <i className='x'> ICON LANG SETUP  //-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-Finish</i>
+
+          <button onClick={() => {
+            setOnOffLangSetup_MB(!onOffLangSetup_MB);
+            setNavLang2LangSetUp((testTG) => navLang2LangSetUp + 1);
+          }}
+            name='Manu1MB'
+            className={`MC_Tab MB_None ${!mBnavIcon && 'displayNone'}`} >Lang</button>
+
+          <i className='x'> ICON THEME SETUP 111 //-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-Finish</i>
+
+          <button onClick={() => {
+            setOnOffThemeSetup_MB(!onOffThemeSetup_MB);
+            setMBnavIcon(false)
+          }}
+            name='Manu1MB'
+            className={`MC_Tab MB_None ${!mBnavIcon && 'displayNone'}`} >Theme</button>
 
 
 
-          <div className={`MC_Tab MB_None ${!mBnavIcon && 'displayNone'}`}>Lang</div>
-          <div className={`MC_Tab MB_None ${!mBnavIcon && 'displayNone'}`}>Theme</div>
-          <div className={`MC_Tab MB_None ${!mBnavIcon && 'displayNone'}`}>OnOff</div>
+
+          <i className='x'> onOffSetting_MB //-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-Finish</i>
+
+          <button onClick={() => {
+            setOnOffSetting_MB(!onOffSetting_MB);
+
+          }}
+            name='Manu1MB'
+            className={`MC_Tab MB_None ${!mBnavIcon && 'displayNone'}`} >OnOff</button>
+
+          <i className='x'>  //-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-Finish</i>
+
+
+          <div className={`MB_empty`}>&nbsp;</div>
+          {/* <div className={`MC_Tab MB_None ${!mBnavIcon && 'displayNone'}`}></div> */}
+
         </div>
 
 
-        <iframe
-          className={`mobile_iframe  ${(onOffBanner_MB || onOffMenu1_MB || onOffMenu2_MB || onOffMenu3_MB || onOffTimePicker_MB) && 'iframe_scale_Down'}`}
-          src="http://192.168.1.13:3000/customer/5f43e2be-undefined" />
-
+        <iframe id='iframe'
+          className={`mobile_iframe  ${(onOffBanner_MB || onOffMenu1_MB || onOffMenu2_MB ||
+            onOffMenu3_MB || onOffTimePicker_MB || onOffLangSetup_MB)
+            && 'iframe_scale_Down'}`}
+          src="http://192.168.1.13:3000/customer/397ab613-undefined" />
 
 
 

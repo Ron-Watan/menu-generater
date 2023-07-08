@@ -1,23 +1,27 @@
 .footBarSectionC {
   position: relative;
   width: 100vw;
-
+  min-height: 1.5rem;
   position: absolute;
   position: fixed;
   top: 100%;
   transform: translateY(-100%);
-  padding-top: 0.2rem;
+  padding-top: 0.4rem;
   /* padding-bottom: .7rem; */
-  box-shadow: -0.2rem 0 0.4rem rgba(0, 0, 0, 0.4);
+  box-shadow: 3px 3px 10px 2px rgba(0, 0, 0, 0.2);
   z-index: 1000;
+
+  border-radius: 2rem 2rem 0 0;
 }
 
 .footBarSectionC::after {
   content: '';
   position: absolute;
+  top: 100%;
   width: 100%;
-  height: 300%;
+  height: 200%;
   background-color: inherit;
+
 }
 
 .footBarGrid3 {
@@ -29,9 +33,12 @@
   height: 100%;
   padding-bottom: 0.7rem;
   background-color: inherit;
+  border-radius: 5rem 5rem 0 0;
+  background-color: inherit;
 }
 
 .footBarGrid3_1 {
+  grid-column: 1/2;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -56,6 +63,7 @@
 
 .footBarGrid3_2 {
   /* background-color: #c7c715; */
+  grid-column: 2/3;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -63,6 +71,7 @@
 
 .footBarGrid3_3 {
   /* background-color: #7c103d; */
+  grid-column: 3/4;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -72,8 +81,9 @@
   display: flex;
   /* background-color: #000; */
   padding-top: 0.2rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding-left: .5rem;
+  padding-right: .5rem;
+  border-radius: 1rem 1rem 0 0;
 }
 
 .footbatBtnList {

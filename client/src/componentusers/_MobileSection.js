@@ -1,9 +1,10 @@
 import React, { useRef, forwardRef } from 'react'
-import { BsSquare, BsCheckSquare } from 'react-icons/bs';
+import { BsSquare, BsCheckSquare, BsCheckCircle, BsCircle, BsFill0CircleFill } from 'react-icons/bs';
 import MBiconBin from '../all-icon/button-icon/MBbin.svg'
 import MBiconPlus from '../all-icon/button-icon/MBplusicon.svg'
 
 export const MBBanner = (prop) => {
+
   return (
     // <div className="Ab_in_MB_Funtion">
     <div className="MB_banner_Section">
@@ -88,11 +89,11 @@ export const MBMenu = (prop) => {
 
 
 
-                  <button name={el.menuId} onClick={prop.findOneMenu} className={`itemCat  ${prop.menuId === el.menuId ? 'itemCatChoose' : ''}`}>
+                  <button name={el.menuId} onClick={() => prop.findOneMenu(el.menuId)} className={`itemCat  ${prop.menuId === el.menuId ? 'itemCatChoose' : ''}`}>
                     {index + 1}
                   </button>
 
-                  <button name={el.menuId} onClick={prop.findOneMenu} className='btnCat'>
+                  <button name={el.menuId} onClick={() => prop.findOneMenu(el.menuId)} className='btnCat'>
                     {el.catagory}
                   </button>
 
@@ -102,20 +103,23 @@ export const MBMenu = (prop) => {
 
                   <i className="x">EARTH BUTTON</i>
 
-                  <div className={`MB_iconSideBox  ${prop.menuId === el.menuId ? '' : ''}`}>
-                    <button onClick={() => prop.setOnOffLangForm(true)} value={el.menuId} type='submit' className={``}>
-                      <svg fill='none' viewBox='0 0 24 24' strokeWidth='1' stroke='currentColor' className='w-6 h-6'>
-                        <path
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                          d='M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418'
-                        />
-                      </svg>
-                    </button>
-                  </div>
+                  {/* <div className={`MB_iconSideBox  MB_tabCat_L${prop.menuId === el.menuId ? '' : ''}`}> */}
+                  <button onClick={() => {
+                    prop.findOneMenu(el.menuId)
+                    prop.setOnOffLangForm(true)
+                  }} name={el.menuId} type='submit' className={`MB_iconSideBox  MB_tabCat_L${prop.menuId === el.menuId ? '' : ''}`}>
+                    <svg fill='none' viewBox='0 0 24 24' strokeWidth='1' stroke='currentColor' className='w-6 h-6'>
+                      <path
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        d='M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418'
+                      />
+                    </svg>
+                  </button>
+                  {/* </div> */}
 
 
-                  <div >
+                  {/* <div >
 
                     <i className="x">DELETE BUTTON</i>
                     <div className={`${prop.deleteBtn ? 'MB_iconSideBox' : 'displayNone'}`}>
@@ -131,7 +135,7 @@ export const MBMenu = (prop) => {
                       </button>
                     </div>
 
-                  </div>
+                  </div> */}
                 </div>
 
 
@@ -155,7 +159,7 @@ export const MBMenu = (prop) => {
 
 
 
-export const MobileFormFood = forwardRef((prop,ref) => {
+export const MobileFormFood = forwardRef((prop, ref) => {
 
   return (
     <div className="MB_banner_Section">
@@ -196,7 +200,7 @@ export const MobileFormFood = forwardRef((prop,ref) => {
               <div className={`MB_layoutManu0 ${index % 2 !== 0 ? 'MB_Dark_Color' : 'MB_light_Color'}`} key={index}>
                 <div className='MB_layoutManu1'>
                   <i className='sr-only'>!FOOD NAME</i>
-                  <div className='MB_flex_NoInp'>
+                  <div className='MB_flex_NoInp gap1'>
                     <span className='MB_item'>{index + 1}</span>
 
                     <input onChange={(event) => prop.inputListValue(index, event)} value={el.food_name} type='text'
@@ -258,8 +262,8 @@ export const MobileFormFood = forwardRef((prop,ref) => {
                               type='checkbox'
                               className='hideCheckBox cursor-pointer  h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600'
                             />
-                            {!el.vetgeterian && <BsSquare fill={'#444'} size={18} />}
-                            {el.vetgeterian && <BsCheckSquare fill={'#444'} size={18} />}
+                            {!el.vetgeterian && <BsCircle fill={'#444'} size={25} />}
+                            {el.vetgeterian && <BsCheckCircle fill={'#444'} size={25} />}
                           </div>
                           <div className='text-sm leading-6'>
                             <label htmlFor={`vetgeterian_${index}`} className='cursor-pointer  font-medium text-gray-900'>
@@ -285,8 +289,8 @@ export const MobileFormFood = forwardRef((prop,ref) => {
                               type='checkbox'
                               className='hideCheckBox cursor-pointer h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600'
                             />
-                            {!el.vegan && <BsSquare fill={'#444'} size={18} />}
-                            {el.vegan && <BsCheckSquare fill={'#444'} size={18} />}
+                            {!el.vegan && <BsCircle className='eeee' fill={'#444'} size={25} />}
+                            {el.vegan && <BsCheckCircle className='eeee' fill={'#444'} size={25} />}
                           </div>
                           <div className='text-sm leading-6'>
                             <label htmlFor={`vegan${index}`} className='cursor-pointer font-medium text-gray-900'>
@@ -312,8 +316,8 @@ export const MobileFormFood = forwardRef((prop,ref) => {
                               type='checkbox'
                               className='hideCheckBox cursor-pointer h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600'
                             />
-                            {!el.gluten_free && <BsSquare fill={'#444'} size={18} />}
-                            {el.gluten_free && <BsCheckSquare fill={'#444'} size={18} />}
+                            {!el.gluten_free && <BsCircle fill={'#444'} size={25} />}
+                            {el.gluten_free && <BsCheckCircle fill={'#444'} size={25} />}
                           </div>
                           <div className='text-sm leading-6'>
                             <label htmlFor={`gluten_free${index}`} className='cursor-pointer  font-medium text-gray-900'>
@@ -339,8 +343,8 @@ export const MobileFormFood = forwardRef((prop,ref) => {
                               type='checkbox'
                               className='hideCheckBox cursor-pointer h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600'
                             />
-                            {!el.halal && <BsSquare fill={'#444'} size={18} />}
-                            {el.halal && <BsCheckSquare fill={'#444'} size={18} />}
+                            {!el.halal && <BsCircle fill={'#444'} size={25} />}
+                            {el.halal && <BsCheckCircle fill={'#444'} size={25} />}
                           </div>
                           <div className='text-sm leading-6'>
                             <label htmlFor={`halal${index}`} className='cursor-pointer font-medium text-gray-900'>

@@ -26,7 +26,7 @@ const userSchema = mongoose.Schema(
 
     restaurantName: {
       type: String,
-      default: '',
+      default: 'Restaurant',
     },
     menu: {
       type: Array,
@@ -83,8 +83,27 @@ const userSchema = mongoose.Schema(
     themeSetup: {
       type: 'Object',
       default: {
-        
-        
+        navAndFootBar: {
+          nameFontFamily: 'Roboto', nameFontColor: '#fff', nameFontSize: '1rem', navBarColor: '#000', navBarFontColor: '#fff', navBarLogoColor: '#fff'
+        },
+        body: {
+          bodyBgColor: '#fff', bodyFontFamily: 'Roboto', bodyFonttColor: '#000'
+        },
+        sideBar: {
+          extraIcon: false, themeIconRadius: '', themeIconColorLine: '', themeIconBG: '', themeIconSolid: '', themeIconColorBorder: '',
+        },
+        categoryMotion: {
+          categoryFontColor: '', categoryBoxClass: '', categoryBoxColor: '', categorySpanClass: '', categorySpanColor: '', categoryActiveClass: ''
+        }
+
+      }
+
+    },
+    onOffSetting: {
+      type: 'Object',
+      default: {
+        banner: true, sideBar: true, filter: true, vetgeterian: true, vegan: true, gluten_free: true, halal: true,
+        footbar: true, favoritHeart: true, feedBack: true
       }
 
     },

@@ -150,18 +150,18 @@ const FooterComponent = (prop) => {
       navBarColor: '#e9d5ff', navBarFontColor: '#ffedd5',
     }
   }
-  // onLanguage_2
+
   // style={{ 'backgroundColor': `${themeSetup.navAndFootBar.navBarColor}` }}
   return (
     <div className="unselectable">
 
       <i className="x">!Theme Nav BG Color 1/3</i>
       <nav className={`Max_width_32 footBarSectionC ${activefootbar ? 'showMe' : 'hiddenMe'}`}
-        style={{ 'backgroundColor': `${prop.themeSetup.navAndFootBar.navBarColor}` }}
+        // style={{ 'backgroundColor': `${prop.themeSetup.navAndFootBar.navBarColor}` }}
       >
         <div className="footBarGrid3">
 
-          <div onClick={() => switcher('languageTab')} className={`footBarGrid3_1 ${!prop.languageSetup.onLanguage_2 && 'displayNone'} `}>
+          <div onClick={() => switcher('languageTab')} className={`footBarGrid3_1 `}>
 
             <div className={`footBarGrid3_1-1`}>
               <i className="x">!Theme Nav BG Color 2/3</i>
@@ -198,7 +198,6 @@ const FooterComponent = (prop) => {
                 </svg>
               </button>
               <i className="x">!Theme Nav BG Color 3/3</i>
-
               {prop.language === 1
                 ? <button value='2' onClick={switcherlng('ep')} className={`popupLang ${languageTab && 'popupLangUp1'}  popupLangText`}
                   style={{ 'backgroundColor': `${prop.themeSetup.navAndFootBar.navBarColor}`, 'color': `${prop.themeSetup.navAndFootBar.navBarFontColor}` }}>
@@ -209,8 +208,6 @@ const FooterComponent = (prop) => {
                   style={{ 'backgroundColor': `${prop.themeSetup.navAndFootBar.navBarColor}`, 'color': `${prop.themeSetup.navAndFootBar.navBarFontColor}` }}>
                   {prop.languageSetup.language_1}
                 </button>}
-
-
 
               {/* <button value='2' onClick={switcherlng('ep')} className={`popupLang ${languageTab && 'popupLangUp1'}  popupLangText`}>
                 {prop.languageSetup.language_2}
@@ -228,7 +225,7 @@ const FooterComponent = (prop) => {
             {/* </div> */}
           </div>
 
-          {prop.favoritHeart && <button onClick={() => switcher('listTab')} className="footBarGrid3_2 ">
+          <button onClick={() => switcher('listTab')} className="footBarGrid3_2 ">
             <div className={`footbatBtnList `}>
               {/* <img src={require(`../all-icon/footbar-icon/${foobarIcon.list}`)} className="" alt="" srcSet="" /> */}
               <svg width="72" height="23" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -240,10 +237,10 @@ const FooterComponent = (prop) => {
 
             </div>
 
-          </button>}
+          </button>
 
 
-          {prop.feedBack && <div onClick={() => switcher('commentTab')} className="footBarGrid3_3 ">
+          <div onClick={() => switcher('commentTab')} className="footBarGrid3_3 ">
 
             <button className={`footbatBtnCommentt`}>
               {/* <img src={require(`../all-icon/footbar-icon/${foobarIcon.feedback}`)} alt="" srcSet="" /> */}
@@ -259,8 +256,7 @@ const FooterComponent = (prop) => {
               </svg>
             </button>
 
-          </div>}
-
+          </div>
         </div>
 
       </nav>
@@ -371,7 +367,7 @@ const FooterComponent = (prop) => {
             <label htmlFor="comment" className="block text-sm font-medium leading-6 text-gray-900">About</label>
             <div className="mt-2">
               <textarea onChange={inputValue('comment')} value={stateComment.comment} id="comment" name="comment" rows="6" className=" t666 block w-full rounded-md border-0 py-1.5 shadow-sm  sm:text-sm sm:leading-6"
-                style={{ 'backgroundColor': `${prop.themeSetup.body.bodyBgColor}` }}
+                style={{ 'backgroundColor': `${prop.themeSetup.body.bodyBgColor}`}}
 
               ></textarea>
             </div>

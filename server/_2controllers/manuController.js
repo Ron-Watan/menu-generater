@@ -417,7 +417,27 @@ export const getTheme = (req, res) => {
 
 
 
+export const saveOnOffSetting = (req, res) => {
+  console.log('HelloMaaddsd')
+  const { userId, onOffSetting } = req.body;
+  Users.findOne({ userId: userId })
+    .select('userId onOffSetting clientId')
+    .then((user) => {
 
+      user.onOffSetting = onOffSetting;
+      user.save();
+      res.send({
+        message: 'Success',
+        userTheme: user,// Slected
+        success: true,
+      });
+      Clients.findOne({ clientId: user.clientId }).then((client) => {
+        client.onOffSetting = onOffSetting;
+        client.save();
+      });
+    });
+
+};
 
 
 // export const uploadImageBanner = (req, res) => {

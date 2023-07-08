@@ -47,7 +47,7 @@ export const login = (req, res) => {
 
       } else res.send({ message: "Wrong Password", success: false })
     })
-    const { clientId, link, menuName, bannerImage, languageSetup, timeSetup } = userResult;
+    const { clientId, link, menuName, bannerImage, languageSetup, timeSetup ,themeSetup} = userResult;
 
     Clients.create({
       clientId: clientId,
@@ -55,7 +55,8 @@ export const login = (req, res) => {
       menuName: menuName,
       bannerImage: bannerImage,
       languageSetup: languageSetup,
-      timeSetup: timeSetup
+      timeSetup: timeSetup,
+      themeSetup:themeSetup,
     })
 
   }).catch(err => {

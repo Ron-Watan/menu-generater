@@ -4,7 +4,7 @@ import {
   findOneMenu, createManu, getAllMenu, saveEditMenu, deleteMenu,
   uploadImageBanner, getAllImageBanner,
   uploadImage, saveImage, getAllImage, getImage, delelteImage,
-  saveNameMenu, saveTimeSetup, saveLangSetup, setupTheme, getTheme
+  saveNameMenu, saveTimeSetup, saveLangSetup, setupTheme, getTheme,saveOnOffSetting
 } from '../_2controllers/manuController.js'
 import multer from "multer";
 import formidable from "formidable";
@@ -36,6 +36,8 @@ router.post('/deleteMenu', requireLogin, deleteMenu)
 router.post('/saveNameMenu', requireLogin, saveNameMenu)
 router.post('/saveTimeSetup', requireLogin, saveTimeSetup)
 router.post('/saveLangSetup', requireLogin, saveLangSetup)
+router.post('/saveOnOffSetting', requireLogin, saveOnOffSetting)
+
 
 
 router.post('/generateMenu', requireLogin, generateMenu)

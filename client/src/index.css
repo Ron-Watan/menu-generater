@@ -297,5 +297,6 @@ label {
   body {
     font-family: 'Roboto Slab', serif;
     background: linear-gradient(to right top, var(--button-background-color-a), var(--button-background-color-linear-a));
+
   }
 }

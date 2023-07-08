@@ -67,7 +67,7 @@ const _MenuComponent = () => {
       nameFontFamily: '', nameFontColor: '', nameFontSize: '', navBarColor: '', navBarFontColor: '', navBarLogoColor: ''
     },
     body: {
-      bodyBgColor: '', bodyFontFamily: '', bodyFonttColor: ''
+      bodyBgColor: '#fff', bodyFontFamily: 'Roboto', bodyFonttColor: '#fff'
     },
     sideBar: {
       extraIcon: false, themeIconRadius: '', themeIconColorLine: '', themeIconBG: '', themeIconSolid: '', themeIconColorBorder: '',
@@ -78,10 +78,23 @@ const _MenuComponent = () => {
 
   })
 
-  // themeSetup.body.bodyBgColor themeSetup.body.bodyFonttColor
+  const [timeSetup, setTimeSetup] = useState({
+    timeType: true,
+    allDayType: { menu_1: true, menu_2: false, menu_3: false },
+    codeSelectType: {},
+    selectType: {
+      menu_1: '',
+      menu_2: '',
+      menu_3: ''
+    }
+  })
 
+  const [onOffSetting, setOnOffSetting] = useState({
 
-
+    banner: true, sideBar: true, filter: true, vetgeterian: true, vegan: true, gluten_free: true, halal: false,
+    footbar: false, favoritHeart: true, feedBack: true
+  })
+  const { banner, sideBar, filter, vetgeterian, vegan, gluten_free, halal, footbar, favoritHeart, feedBack } = onOffSetting
   //=-----------------------------------------------
   const getClientMenu = () => {
     setLoadingManual(true);
@@ -101,7 +114,7 @@ const _MenuComponent = () => {
           setLanguageSetup(getResault.languageSetup);
           setThemeSetup(getResault.themeSetup)
           setRestaurantName(getResault.restaurantName)
-
+          setTimeSetup(getResault.timeSetup)
           const allDayType = getResault.timeSetup.allDayType;
 
           let counttype = 0;
@@ -262,18 +275,20 @@ const _MenuComponent = () => {
   return (
 
     <div className='mobileViewport unselectable'
-      style={{ 'fontFamily': `${themeSetup.body.bodyFontFamily} , serif` }}
-    >  <i className="x">!Theme</i>
+      style={{ 'fontFamily': `${themeSetup.body.bodyFontFamily} , serif`, 'backgroundColor': `${themeSetup.body.bodyBgColor}`}}>
 
+
+      <i className="x">!Theme</i>
       <div className={`${loadingManual ? 'showMe' : 'hiddenMe'} bannerLoadingMaain`}>
         <div className='iconLoadingBanner'>
           <span className='barOne'></span> <span className='barTwo'></span> <span className='barThree'></span>
         </div>
       </div>
 
-      <div className='testpos relative max-w-lg'>
+
+      <div className=' mobileViewport_Wrapper'>
         <i className="x">!Theme Nav BG Color 1/10</i>
-        <nav className='navBarC'
+        <nav className='navBar_Client'
           style={{ 'backgroundColor': `${themeSetup.navAndFootBar.navBarColor}` }}>
           <div className=' mx-auto'>
             <div className='navFlexLogoandName'>
@@ -296,7 +311,7 @@ const _MenuComponent = () => {
                 }}
               >
                 {/* //- MenuTime */}
-                {!clientData.timeSetup?.timeType && (
+                {!timeSetup?.timeType && (
                   <div
                     onClick={() => {
                       setSwitchManuBtn(!switchManuBtn);
@@ -309,7 +324,7 @@ const _MenuComponent = () => {
                   </div>
                 )}
                 <i className="x">!Theme Nav BG Color 3-5/10</i>
-                {clientData.timeSetup?.timeType && (
+                {timeSetup?.timeType && (
                   <div
                     onClick={() => {
                       setSwitchManuBtn(!switchManuBtn);
@@ -321,7 +336,7 @@ const _MenuComponent = () => {
                       <div className='navMenuNameText-top'>{chooseMenu}</div>
 
                       <div className={`navMenuNameText-Ab ${!switchManuBtn && 'navMenuNameText-move'}`}>
-                        {clientData.timeSetup.allDayType.menu_1 && (
+                        {timeSetup.allDayType.menu_1 && (
                           <div
                             onClick={() => {
                               setChooseMenu(allMenuName.menu_1);
@@ -334,7 +349,7 @@ const _MenuComponent = () => {
                           </div>
                         )}
 
-                        {clientData.timeSetup.allDayType.menu_2 && (
+                        {timeSetup.allDayType.menu_2 && (
                           <div
                             onClick={() => {
                               setChooseMenu(allMenuName.menu_2);
@@ -347,7 +362,7 @@ const _MenuComponent = () => {
                           </div>
                         )}
 
-                        {clientData.timeSetup.allDayType.menu_3 && (
+                        {timeSetup.allDayType.menu_3 && (
                           <div
                             onClick={() => {
                               setChooseMenu(allMenuName.menu_3);
@@ -378,7 +393,7 @@ const _MenuComponent = () => {
 
                 {/* //- Filter */}
 
-                <div
+                {filter && <div
                   onClick={() => {
                     setSwitchFilterBtn(!switchFilterBtn);
                     setSwitchManuBtn(false);
@@ -453,7 +468,7 @@ const _MenuComponent = () => {
 
                     <i className="x">!Theme Nav BG Color 5-10/10</i>
                     <div className={`filterBtn-Ab ${!switchFilterBtn && 'filterBtn-move'}`}>
-                      <div
+                      {vetgeterian && <div
                         onClick={() => {
                           filterSerach('vetgeterian');
                           setIconFilter('vetgeterian');
@@ -461,9 +476,9 @@ const _MenuComponent = () => {
                         className={` filterBtn-tab`}
                         style={{ 'backgroundColor': `${themeSetup.navAndFootBar.navBarColor}` }}>
                         Vegetarian
-                      </div>
+                      </div>}
 
-                      <div
+                      {vegan && <div
                         onClick={() => {
                           filterSerach('vegan');
                           setIconFilter('vegan');
@@ -471,9 +486,9 @@ const _MenuComponent = () => {
                         className={` filterBtn-tab`}
                         style={{ 'backgroundColor': `${themeSetup.navAndFootBar.navBarColor}` }}>
                         Vegan
-                      </div>
+                      </div>}
 
-                      <div
+                      {gluten_free && <div
                         onClick={() => {
                           filterSerach('gluten_free');
                           setIconFilter('gluten_free');
@@ -481,9 +496,9 @@ const _MenuComponent = () => {
                         className={` filterBtn-tab`}
                         style={{ 'backgroundColor': `${themeSetup.navAndFootBar.navBarColor}` }}>
                         Gluten-Free
-                      </div>
+                      </div>}
 
-                      <div
+                      {halal && <div
                         onClick={() => {
                           filterSerach('halal');
                           setIconFilter('halal');
@@ -491,9 +506,9 @@ const _MenuComponent = () => {
                         className={` filterBtn-tab`}
                         style={{ 'backgroundColor': `${themeSetup.navAndFootBar.navBarColor}` }}>
                         Halal
-                      </div>
+                      </div>}
 
-                      <div
+                      {(vetgeterian || vegan || gluten_free || halal) && <div
                         onClick={() => {
                           filterSerach('food_name');
                           setIconFilter('food_name');
@@ -506,10 +521,10 @@ const _MenuComponent = () => {
                           <line x1="1.5" y1="-1.5" x2="31.0269" y2="-1.5" transform="matrix(-0.707107 0.707107 0.707107 0.707107 25 2)" stroke={themeSetup.navAndFootBar.navBarFontColor} strokeWidth="3" strokeLinecap="round" />
                         </svg>
                         &nbsp;Clear filter
-                      </div>
+                      </div>}
                     </div>
                   </div>
-                </div>
+                </div>}
 
 
                 {/* <button onClick={() => filterSerach('vegan')} type="button" className="filterBtn" aria-controls="" aria-expanded="false">
@@ -536,85 +551,91 @@ const _MenuComponent = () => {
           className={`${switchManuBtn || switchFilterBtn ? 'overlayForNav' : 'displayNone'}`}></div>
 
         {/* == SIDE BAR == sideBarSectionC */}
-        <div className=' sideBarSectiontest'>
+        {sideBar && <div className=' sideBarSectiontest'>
           <SidebarSubComp triggerIcon={triggerIcon} menuTime={menuTime} iconMenu_1={iconMenu_1} iconMenu_2={iconMenu_2} iconMenu_3={iconMenu_3} colorTheme={colorTheme} themeSetup={themeSetup} />
-        </div>
+        </div>}
         {/* == <BannerExample /> == */}
-        <div className='bannerSectionC'>
+        {banner && <div className='bannerSectionC'>
           <BannerSubCompo themeSetup={themeSetup} />
-        </div>
+        </div>}
         {/* == MENU == */}
         <CssBaseline />
+   
+          <ThemeProvider theme={theme} >
 
-        <ThemeProvider theme={theme}>
-
-          {menuTime === 1 &&
-            clientMenu
-              .filter((el) => el.menuTime === 1)
-              .map((el, index) => (
-                <AcordionSubComp
-                  listMunu={el}
-                  indexM={index}
-                  addFavorite={addFavorite}
-                  removeFavorite={removeFavorite}
-                  triggerIcon={triggerIcon}
-                  setTriggerIcon={setTriggerIcon}
-                  key={index}
-                  languageSetup={languageSetup}
-                  setLanguage={setLanguage}
-                  language={language}
-                  themeSetup={themeSetup}
-                />
-              ))}
-          {menuTime === 2 &&
-            clientMenu
-              .filter((el) => el.menuTime === 2)
-              .map((el, index) => (
-                <AcordionSubComp
-                  listMunu={el}
-                  indexM={index}
-                  addFavorite={addFavorite}
-                  removeFavorite={removeFavorite}
-                  triggerIcon={triggerIcon}
-                  setTriggerIcon={setTriggerIcon}
-                  key={index}
-                  languageSetup={languageSetup}
-                  setLanguage={setLanguage}
-                  language={language}
-                  themeSetup={themeSetup}
-                />
-              ))}
-          {menuTime === 3 &&
-            clientMenu
-              .filter((el) => el.menuTime === 3)
-              .map((el, index) => (
-                <AcordionSubComp
-                  listMunu={el}
-                  indexM={index}
-                  addFavorite={addFavorite}
-                  removeFavorite={removeFavorite}
-                  triggerIcon={triggerIcon}
-                  setTriggerIcon={setTriggerIcon}
-                  key={index}
-                  languageSetup={languageSetup}
-                  setLanguage={setLanguage}
-                  language={language}
-                  themeSetup={themeSetup}
-                />
-              ))}
-        </ThemeProvider>
-
+            {menuTime === 1 &&
+              clientMenu
+                .filter((el) => el.menuTime === 1)
+                .map((el, index) => (
+                  <AcordionSubComp
+                    listMunu={el}
+                    indexM={index}
+                    addFavorite={addFavorite}
+                    removeFavorite={removeFavorite}
+                    triggerIcon={triggerIcon}
+                    setTriggerIcon={setTriggerIcon}
+                    key={index}
+                    languageSetup={languageSetup}
+                    setLanguage={setLanguage}
+                    language={language}
+                    themeSetup={themeSetup}
+                    favoritHeart={favoritHeart}
+                    sideBar={sideBar}
+                  />
+                ))}
+            {menuTime === 2 &&
+              clientMenu
+                .filter((el) => el.menuTime === 2)
+                .map((el, index) => (
+                  <AcordionSubComp
+                    listMunu={el}
+                    indexM={index}
+                    addFavorite={addFavorite}
+                    removeFavorite={removeFavorite}
+                    triggerIcon={triggerIcon}
+                    setTriggerIcon={setTriggerIcon}
+                    key={index}
+                    languageSetup={languageSetup}
+                    setLanguage={setLanguage}
+                    language={language}
+                    themeSetup={themeSetup}
+                  />
+                ))}
+            {menuTime === 3 &&
+              clientMenu
+                .filter((el) => el.menuTime === 3)
+                .map((el, index) => (
+                  <AcordionSubComp
+                    listMunu={el}
+                    indexM={index}
+                    addFavorite={addFavorite}
+                    removeFavorite={removeFavorite}
+                    triggerIcon={triggerIcon}
+                    setTriggerIcon={setTriggerIcon}
+                    key={index}
+                    languageSetup={languageSetup}
+                    setLanguage={setLanguage}
+                    language={language}
+                    themeSetup={themeSetup}
+                  />
+                ))}
+          </ThemeProvider>
+      
         {/* <div className="footerSpace"></div> */}
-        <div className=''>
+
+        {footbar && <div className=''>
           <FooterComponent favorList={favorList}
             languageSetup={languageSetup}
             setLanguage={setLanguage}
             language={language}
             themeSetup={themeSetup}
-            setThemeSetup={setThemeSetup} />
+            setThemeSetup={setThemeSetup}
+            favoritHeart={favoritHeart}
+            feedBack={feedBack}
+          />
 
 
-        </div>
+        </div>}
 
         <div>
           {/* <div className="mx-auto max-w-7xl" id='1'>
@@ -682,7 +703,20 @@ const _MenuComponent = () => {
 
 
       </div>
+
+
+
       {/* <div className='test'>dfddgs</div> */}
+
+
+
+
+
+
+
+
+
+
     </div>
   );
 };
