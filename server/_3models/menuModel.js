@@ -107,6 +107,14 @@ const userSchema = mongoose.Schema(
       }
 
     },
+    unseenFeedBack: {
+      type: Array,
+      default: [],
+    },
+    seenFeedBack: {
+      type: Array,
+      default: [],
+    },
     clientId: {
       type: String,
     },

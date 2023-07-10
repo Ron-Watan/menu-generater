@@ -10,7 +10,6 @@ import Clients from "../_3models/clientModel.js";
 export const getClentMenu = (req, res) => {
   const { link } = req.params
   Clients.findOne({ link }).then((result) => {
-    console.log(result)
     res.send({
       message: 'Success',
       clientMenu: result,
@@ -21,11 +20,7 @@ export const getClentMenu = (req, res) => {
 
 
 export const getAllImageBanner = (req, res) => {
-  console.log('dddddddddddddd')
-
   const { link } = req.params
-
-  console.log('dddddddddddddd')
   Banners.find({ link: link }).then(result => {
     res.send({
       message: 'Success',
@@ -35,3 +30,20 @@ export const getAllImageBanner = (req, res) => {
   })
 
 }
+
+export const sentfeedBack = (req, res) => {
+  console.log('Helloget  sent feedBack')
+  const { link } = req.params
+  const { feedBack } = req.body;
+  Clients.findOne({ link: link })
+    .then(client => {
+      const currentUnseenFeedBack = client.unseenFeedBack;
+      currentUnseenFeedBack.push(feedBack);
+      client.save();
+      res.send({
+        message: 'Success',
+        success: true,
+      });
+    });
+
+};

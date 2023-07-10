@@ -440,6 +440,39 @@ export const saveOnOffSetting = (req, res) => {
 };
 
 
+export const getFeedBack = (req, res) => {
+  const { clientId } = req.body;
+  // console.log(clientId)
+
+  Clients.findOne({ clientId: clientId }).select('unseenFeedBack seenFeedBack')
+    .then(bothFeedBack => {
+
+      res.send({
+        message: 'Success',
+        bothFeedBack: bothFeedBack,
+        success: true,
+      });
+    });
+};
+
+export const saveFeedBack = (req, res) => {
+  const { clientId, unseenFeedBack, seenFeedBack } = req.body;
+
+  Clients.findOne({ clientId: clientId }).select('unseenFeedBack seenFeedBack')
+    .then(client => {
+      client.unseenFeedBack = unseenFeedBack
+      client.seenFeedBack = seenFeedBack
+      client.save();
+
+      res.send({
+        message: 'Success',
+        bothFeedBack: client,
+        success: true,
+      });
+
+
+    });
+};
 // export const uploadImageBanner = (req, res) => {
 //   const { userId } = req.body
 //   const { originalname } = req.file

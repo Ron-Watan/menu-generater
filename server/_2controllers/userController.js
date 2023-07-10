@@ -20,6 +20,21 @@ export const register = (req, res) => {
       req.body.password = hash
 
       Users.create(req.body).then(result => {
+
+        const { clientId, link, menuName, bannerImage, languageSetup, timeSetup, themeSetup } = result;
+
+        Clients.create({
+          clientId: clientId,
+          link: link,
+          menuName: menuName,
+          bannerImage: bannerImage,
+          languageSetup: languageSetup,
+          timeSetup: timeSetup,
+          themeSetup: themeSetup,
+        })
+
+
+
         res.status(200).send({ message: `Your account has been successfully created`, success: true })
       }).catch(err => {
         if (err.keyValue.email) res.status(200).send({ message: "Email already exists", success: false })
@@ -47,17 +62,17 @@ export const login = (req, res) => {
 
       } else res.send({ message: "Wrong Password", success: false })
     })
-    const { clientId, link, menuName, bannerImage, languageSetup, timeSetup ,themeSetup} = userResult;
+    // const { clientId, link, menuName, bannerImage, languageSetup, timeSetup ,themeSetup} = userResult;
 
-    Clients.create({
-      clientId: clientId,
-      link: link,
-      menuName: menuName,
-      bannerImage: bannerImage,
-      languageSetup: languageSetup,
-      timeSetup: timeSetup,
-      themeSetup:themeSetup,
-    })
+    // Clients.create({
+    //   clientId: clientId,
+    //   link: link,
+    //   menuName: menuName,
+    //   bannerImage: bannerImage,
+    //   languageSetup: languageSetup,
+    //   timeSetup: timeSetup,
+    //   themeSetup:themeSetup,
+    // })
 
   }).catch(err => {
     console.log("Error Logging")

@@ -3,7 +3,7 @@ import { useSelector } from "react-redux"
 import MenuComponent from "./components/MenuComponent"
 import RegisterComponent from "./accounts/RegisterComponent"
 import LoginComponent from "./accounts/LoginComponent"
-import MainForm from "./componentusers/MainForm"
+import _00AppMain from "./componentusers/_00AppMain"
 import ProtectRoute from "./protectors/ProtectRoute"
 import GenerateMenu from "./componentusers/GenerateMenu"
 import _MenuComponent from "./components/_MenuComponent"
@@ -41,7 +41,7 @@ const AllRoute = () => {
 
           {/* <Route Component={ProtectRoute}> */}
           {/* </Route> */}
-          <Route path="/" exact Component={MainForm} />
+          <Route path="/" exact Component={_00AppMain} />
           {/* <Route path="/mainform" exact Component={MainForm} /> */}
           {/* mainform */}
 

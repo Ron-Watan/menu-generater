@@ -2,38 +2,89 @@ import React, { useRef, forwardRef } from 'react'
 import { BsSquare, BsCheckSquare, BsCheckCircle, BsCircle, BsFill0CircleFill } from 'react-icons/bs';
 import MBiconBin from '../all-icon/button-icon/MBbin.svg'
 import MBiconPlus from '../all-icon/button-icon/MBplusicon.svg'
+import SwipeToDelete from 'react-swipe-to-delete-ios'
+
+
 
 export const MBBanner = (prop) => {
 
   return (
     // <div className="Ab_in_MB_Funtion">
+
     <div className="MB_banner_Section">
+
+
+
+
+
+
+
       <div className="MB_bannerWrapper MB_Wrap_NoFullVh">
         <div className="MB_bannerShow">
           {prop.bannerImgArr.map((el, index) => (
 
-            <div key={index} className={`bannerShow_list ${prop.indexToBanner === index && 'MB_bannerShow_chooseCat'}`}>
-              <button name={el.menuId} onClick={() => prop.setIndexToBanner(index)} className={`btnCat MB_photoSize ${prop.indexToBanner === index && 'MB_sizeBigger'}`}>
-                <img src={el} className='MB_imageBannerForm photoList' />
-              </button>
-              <div className={` MB_smIconAB ${prop.indexToBanner === index ? '' : 'displayNone'}`}>
+
+            <SwipeToDelete
+              onDelete={() => {
+                prop.setDeleteImageBannerTG((deleteImageBannerTG) => deleteImageBannerTG + 1);
+              }} // required
+              // optional
+              height={200} // default
+              transitionDuration={250} // default
+              deleteWidth={75} // default
+              deleteThreshold={75} // default
+              showDeleteAction={true} //default
+              deleteColor="#fff" // default
+              deleteText="Delete" // default
+              // deleteComponent={<DeleteComponent />} // not default
+              disabled={false} // default
+              id="swiper-1" // not default
+              className="my-swiper" // not default
+              rtl={false} // default
+              onDeleteConfirm={(onSuccess, onCancel) => {
+                // not default - default is null
+                if (window.confirm("Do you really want to delete this item ?")) {
+                  onSuccess();
+                } else {
+                  onCancel();
+                }
+              }}
+            >
 
 
-                <button
-                  onClick={() => {
-                    prop.setDeleteImageBannerTG((deleteImageBannerTG) => deleteImageBannerTG + 1);
-                  }}
-                  value={el.menuId}
-                  type='submit'
-                  className={`MB_Btn `}>
 
-                  <img src={MBiconBin} alt="" />
+
+
+
+
+
+
+
+
+
+
+              <div key={index} className={`bannerShow_list ${prop.indexToBanner === index && 'MB_bannerShow_chooseCat'}`}>
+                <button name={el.menuId} onClick={() => prop.setIndexToBanner(index)} className={`btnCat MB_photoSize ${prop.indexToBanner === index && 'MB_sizeBigger'}`}>
+                  <img src={el} className='MB_imageBannerForm photoList' />
                 </button>
+                <div className={` MB_smIconAB ${prop.indexToBanner === index ? '' : 'displayNone'}`}>
+
+
+                  <button
+                    onClick={() => {
+                      prop.setDeleteImageBannerTG((deleteImageBannerTG) => deleteImageBannerTG + 1);
+                    }}
+                    value={el.menuId}
+                    type='submit'
+                    className={`MB_Btn `}>
+
+                    <img src={MBiconBin} alt="" />
+                  </button>
+                </div>
+
               </div>
 
-            </div>
-
-
+            </SwipeToDelete>
 
           ))}
         </div>
@@ -78,48 +129,54 @@ export const MBMenu = (prop) => {
 
       <div className="MB_bannerWrapper MB_Wrap_NoFullVh">
         <div className={`MB_categoryStart ${false && 'displayNone'}`}>
+
+
           {prop.categoryList
             .filter((el) => el.menuTime == prop.menuTime)
             .map((el, index) => (
-              <div className="MB_Flex_LisrBtn" key={index} >
+
+              
 
 
-                {/* <div key={index} className={`MB_tabCat  ${prop.menuId === el.menuId && 'MB_chooseCat'}`}> */}
-                <div className={`MB_tabCat `}>
+                <div className="MB_Flex_LisrBtn" key={index} >
+
+
+                  {/* <div key={index} className={`MB_tabCat  ${prop.menuId === el.menuId && 'MB_chooseCat'}`}> */}
+                  <div className={`MB_tabCat `}>
 
 
 
-                  <button name={el.menuId} onClick={() => prop.findOneMenu(el.menuId)} className={`itemCat  ${prop.menuId === el.menuId ? 'itemCatChoose' : ''}`}>
-                    {index + 1}
-                  </button>
+                    <button name={el.menuId} onClick={() => prop.findOneMenu(el.menuId)} className={`itemCat  ${prop.menuId === el.menuId ? 'itemCatChoose' : ''}`}>
+                      {index + 1}
+                    </button>
 
-                  <button name={el.menuId} onClick={() => prop.findOneMenu(el.menuId)} className='btnCat'>
-                    {el.catagory}
-                  </button>
+                    <button name={el.menuId} onClick={() => prop.findOneMenu(el.menuId)} className='btnCat'>
+                      {el.catagory}
+                    </button>
 
-                </div>
+                  </div>
 
-                <div className='MB_FlexEarth_Remove'>
+                  <div className='MB_FlexEarth_Remove'>
 
-                  <i className="x">EARTH BUTTON</i>
+                    <i className="x">EARTH BUTTON</i>
 
-                  {/* <div className={`MB_iconSideBox  MB_tabCat_L${prop.menuId === el.menuId ? '' : ''}`}> */}
-                  <button onClick={() => {
-                    prop.findOneMenu(el.menuId)
-                    prop.setOnOffLangForm(true)
-                  }} name={el.menuId} type='submit' className={`MB_iconSideBox  MB_tabCat_L${prop.menuId === el.menuId ? '' : ''}`}>
-                    <svg fill='none' viewBox='0 0 24 24' strokeWidth='1' stroke='currentColor' className='w-6 h-6'>
-                      <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        d='M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418'
-                      />
-                    </svg>
-                  </button>
-                  {/* </div> */}
+                    {/* <div className={`MB_iconSideBox  MB_tabCat_L${prop.menuId === el.menuId ? '' : ''}`}> */}
+                    <button onClick={() => {
+                      prop.findOneMenu(el.menuId)
+                      prop.setOnOffLangForm(true)
+                    }} name={el.menuId} type='submit' className={`MB_iconSideBox  MB_tabCat_L${prop.menuId === el.menuId ? '' : ''}`}>
+                      <svg fill='none' viewBox='0 0 24 24' strokeWidth='1' stroke='currentColor' className='w-6 h-6'>
+                        <path
+                          strokeLinecap='round'
+                          strokeLinejoin='round'
+                          d='M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418'
+                        />
+                      </svg>
+                    </button>
+                    {/* </div> */}
 
 
-                  {/* <div >
+                    {/* <div >
 
                     <i className="x">DELETE BUTTON</i>
                     <div className={`${prop.deleteBtn ? 'MB_iconSideBox' : 'displayNone'}`}>
@@ -136,11 +193,12 @@ export const MBMenu = (prop) => {
                     </div>
 
                   </div> */}
+                  </div>
+
+
+
                 </div>
-
-
-
-              </div>
+         
             ))}
 
 

@@ -36,6 +36,15 @@ const clientSchema = mongoose.Schema(
       type: 'Object',
       default: {},
     },
+    unseenFeedBack: {
+      type: Array,
+      default: [],
+    },
+    seenFeedBack: {
+      type: Array,
+      default: []
+    },
+
   },
   { timestamps: true }
 );

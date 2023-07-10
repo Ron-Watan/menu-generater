@@ -32,12 +32,13 @@ import AddLanguageSetup from './AddLanguageSetup';
 import IconPickker from './IconPickker';
 
 import IconPickkerMobile from './IconPickkerMobile';
+import _FeedBackMobile from './_FeedBackMobile';
+
 import _TimePickerMobile from './_TimePickerMobile';
 import _LanguageSetupMobile from './_LanguageSetupMobile';
 import _ThemeSetupMobile from './_ThemeSetupMobile';
 import _LanguageAddMobile from './_LanguageAddMobile';
 import _OnOffSettingMobile from './_OnOffSettingMobile';
-
 
 
 import ColorPickker from './ColorPickker';
@@ -47,6 +48,10 @@ import iconAddicIcon from '../icon/addIcon.svg';
 import icon1 from '../all-icon-client/Appetizer-Black-SVG-sprite.svg';
 import icon2 from '../all-icon-client/food-color-SVG-sprite.svg';
 import ThemeSetup from './ThemeSetup';
+
+
+import MBicon_User from '../all-icon/mobile-bar/user.svg'
+
 
 
 import MBiconPlus from '../all-icon/button-icon/MBplusicon.svg'
@@ -893,6 +898,11 @@ const MainForm = () => {
   }
 
 
+
+
+
+
+
   ///////////////////////////////////
 
   const [onOffQrCode, setOnoffQrCode] = useState(false);
@@ -904,7 +914,10 @@ const MainForm = () => {
   //-
   const [onOffTheme, setOnOffTheme] = useState(false);
 
-  //- MOBILE
+  //- MOBILE  //-///=///-///=///-///=///-///=///-   END FUNCTION   ///-///=///-///=///-///=///-///=///-
+
+
+  const [onOffFeedBAck_MB, setOnOffFeedBAck_MB] = useState(false);
   const [onOffQrCode_MB, setOnoffQrCode_MB] = useState(false);
   const [onOffBanner_MB, setOnoffBanner_MB] = useState(false);
   const [onOffMenu1_MB, setOnoffMenu1_MB] = useState(false);
@@ -1846,6 +1859,7 @@ const MainForm = () => {
             reloadIFrame={reloadIFrame} />
         </div>
 
+        <i className='x'> _OnOffSettingMobile SETUP 111 //-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-Finish</i>
 
         <div className={`mobile_function ${!onOffSetting_MB && 'MB_slide_Down'}`}>
 
@@ -1853,7 +1867,13 @@ const MainForm = () => {
 
         </div>
 
+        <i className='x'> _OnOffSettingMobile SETUP 111 //-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-Finish</i>
 
+        <div className={`mobile_function ${!onOffFeedBAck_MB && 'MB_slide_Down'}`}>
+
+          <_FeedBackMobile setOnOffFeedBAck_MB={setOnOffFeedBAck_MB} />
+
+        </div>
 
 
 
@@ -1863,7 +1883,7 @@ const MainForm = () => {
         <div className="MC_IconFixed">
           <i className="x"> Home -----------------------------------------------</i>
           <button onClick={() => setMBnavIcon(!mBnavIcon)} className={`MC_Tab MB_None_Adm ${mBnavIcon && 'adminActive'}  ${onOffThemeSetup_MB && 'displayNone'}  `}>
-            <svg width="32" height="32" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+            {/* <svg width="32" height="32" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g clipPath="url(#clip0_231_53)">
 
                 <g mask="url(#mask0_231_53)">
@@ -1877,8 +1897,8 @@ const MainForm = () => {
                   <rect width="50" height="50" fill={mbIconColor} />
                 </clipPath>
               </defs>
-            </svg>
-
+            </svg> */}
+            <img src={MBicon_User} alt="" />
           </button>
 
         </div>
@@ -1887,6 +1907,27 @@ const MainForm = () => {
 
 
           <div className={`MB_emptySm`}>&nbsp;</div>
+
+
+
+
+          <button onClick={() => {
+            setOnOffFeedBAck_MB(!onOffFeedBAck_MB);
+
+          }}
+            name='Manu1MB'
+            className={`MC_Tab MB_None ${!mBnavIcon && 'displayNone'}`} >FeedBack</button>
+
+
+
+
+
+
+
+
+
+
+
           <i className="x"> QRCode -----------------------------------------------</i>
           {/* <button className={`MC_Tab MB_None ${!mBnavIcon && 'displayNone'}`}>
             <svg width="30" height="30" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -2054,9 +2095,9 @@ const MainForm = () => {
 
         <iframe id='iframe'
           className={`mobile_iframe  ${(onOffBanner_MB || onOffMenu1_MB || onOffMenu2_MB ||
-            onOffMenu3_MB || onOffTimePicker_MB || onOffLangSetup_MB)
+            onOffMenu3_MB || onOffTimePicker_MB || onOffLangSetup_MB || onOffFeedBAck_MB)
             && 'iframe_scale_Down'}`}
-          src="http://192.168.1.13:3000/customer/397ab613-undefined" />
+          src="http://192.168.1.13:3000/customer/645be8fb-undefined" />
 
 
 

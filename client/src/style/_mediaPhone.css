@@ -1,6 +1,7 @@
 .mobile-creator {
   position: relative;
 
+
 }
 .mobile-creator::-webkit-scrollbar {
   display: none;
@@ -15,16 +16,16 @@
   overflow: hidden;
   z-index: 0;
 }
-.mobile_iframe::-webkit-scrollbar {
+/* .mobile_iframe::-webkit-scrollbar {
   display: none;
-}
+} */
+/* 
 @media only screen and (max-width: 550px) {
   body {
     background-color: #000 !important;
   }
   .mainAppMonitor {
     min-width: 450px;
-
   }
   .monitor,
   .decorBar,
@@ -47,7 +48,7 @@
   .mobile-creator {
     display: none;
   }
-}
+} */
 
 /* //---------------------------------------------------------- */
 
@@ -58,7 +59,7 @@
 
 /* background-color: #cc1600; */
 /* background-color: #f5cac64c; */
-
+/* #cc1600 */
 /* #f5d0cc */
 /* #fae8e6 */
 /* #f3f3f3 */
@@ -67,7 +68,23 @@
 .tempTest {
   width: 10rem;
   height: 10rem;
-  background-color: brown;
+  background-color: rgba(179, 12, 12, 0.404);
+}
+.Flex_AllCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gridRow_1fr {
+  grid-template-rows: 1fr !important;
+}
+
+.paddingTop_3 {
+  padding-top: 3rem !important;
+}
+.paddingBottom_8 {
+  padding-bottom: 8rem !important;
 }
 /* ///////////////////////////// */
 .MC_IconFixed {
@@ -94,7 +111,7 @@
   align-items: center;
   top: 3rem;
   left: 4.5rem;
-  grid-template-columns: repeat(11, 1fr);
+  grid-template-columns: repeat(13, 1fr);
   z-index: 1;
   gap: 0.2rem;
   overflow-x: auto;
@@ -110,7 +127,7 @@
   display: none;
 }
 
-.MC_Tab {
+/* .MC_Tab {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -121,6 +138,18 @@
   box-shadow: 0.1rem 0.1rem 0.3rem rgba(0, 0, 0, 0.15);
   z-index: 1;
   transform: rotate(180deg);
+} */
+.MC_Tab {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* color: #fff; */
+  min-width: 3.5rem;
+  height: 3.5rem;
+  /* border-radius: 30%; */
+  /* box-shadow: 0.1rem 0.1rem 0.3rem rgba(0, 0, 0, 0.15); */
+  z-index: 1;
+  transform: rotate(180deg);
 }
 .MB_empty {
   min-width: 5rem;
@@ -129,31 +158,27 @@
   min-width: 0.2rem;
 }
 .MB_None {
-  background-color: #cc1600;
+  /* background-color: #cc1600; */
 
-  box-shadow: 0.1rem 0.1rem 0.3rem rgba(120, 14, 3, 0.3);
+  /* box-shadow: 0.1rem 0.1rem 0.3rem rgba(120, 14, 3, 0.3); */
   position: relative;
 }
 .MB_None:hover {
   transform: scale(1.05) rotate(180deg);
   transition: all 0.4s;
   margin: 0 0.3rem 0.5rem;
-  background-color: #9a1102;
+  /* background-color: #9a1102; */
 }
 
 .MB_None_Adm {
-  background-color: #cc1600;
-  box-shadow: 0.1rem 0.1rem 0.3rem rgba(120, 14, 3, 0.3);
+  /* background-color: #cc1600; */
+  /* box-shadow: 0.1rem 0.1rem 0.3rem rgba(120, 14, 3, 0.3); */
   position: relative;
 }
 
 .adminActive {
-  border: 2px solid #fff;
+  /* border: 2px solid #fff; */
   transition: all 0.2s;
-}
-
-.MB_None:hover > svg path {
-  stroke: #fff;
 }
 
 /* ///////////////////////////// */
@@ -225,6 +250,10 @@
   z-index: 1;
   font-size: 1rem;
   font-weight: 500;
+}
+.for_btn_theme{
+  padding: 0.4rem 0.3rem;
+  width: 4rem;
 }
 
 .MB_Sq_Btn-NewCAt {
@@ -470,6 +499,7 @@
 
 .MB_slide_Left {
   transform: translateX(100%);
+  transition: all 0.3s;
   /* top:  100rem !important; */
 }
 .MB_flex_NoInp {
@@ -586,6 +616,7 @@
   padding-right: 0.5rem;
   padding-left: 0.5rem;
   height: 80vh;
+  height: 100%;
   width: 100%;
   overflow-y: auto;
 }
@@ -778,5 +809,251 @@
 .testH1 {
   width: 100%;
   height: 1rem;
-  border: #cc1600 1px solid;
+  border: #cc4b00 1px solid;
+}
+/* FeedBack///////////////////////////////////////// */
+/* #cc1600 */
+/* #f5d0cc */
+/* #fae8e6 */
+
+.MB_InScroll_fullNew {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-top: 5.5rem;
+
+  background: linear-gradient(0deg,#fff 0, #fff 30%, #22c5a1, #85f4aa);
+  height: 100vh;
+  overflow-y: scroll;
+}
+/* .MB_PaddingWrapper {
+  padding-top: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+} */
+.MB_SumFeedBack {
+  /* background: linear-gradient(45deg, #22c5a1, #85f4aa); */
+  display: flex;
+  align-items: center;
+  padding-bottom: 1rem;
+  /* padding-top: 5.5rem; */
+  /* height: 7rem; */
+  /* border-radius: 1rem; */
+  /* box-shadow: 0px 0.5px 3px rgba(0, 0, 0, 0.3); */
+}
+.MB_FBScoreBox1 {
+  flex-direction: column;
+  width: 30%;
+  gap: 0.3rem;
+}
+
+.MB_FBCircle {
+  position: relative;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background-color: #fff;
+}
+
+.MB_FBScoreBig {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  color: #000;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+.MB_FBCircleFont {
+  font-size: 0.9rem;
+  font-weight: 500;
+  gap: 0.1rem;
+}
+.MB_FBScoreBox2 {
+  width: 33%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.2rem;
+}
+.MB_FBTar_Sm {
+  position: relative;
+
+  width: 1.5rem;
+  height: 1.5rem;
+}
+.MB_FBTar_Sm img {
+  width: 100%;
+  height: 100%;
+}
+.MB_FBTar_point {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-55%, -40%);
+  line-height: 1;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+.MB_FBDetailRow {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: #000;
+}
+
+.MB_FBClientContainer_FC {
+  width: 100%;
+  /* height: 100%; */
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background-color: #fff;
+  border-radius: 1.5rem;
+  padding: 0.5rem;
+  padding-top: 1rem;
+  padding-bottom: 3rem;
+}
+.MB_seenFlexBtnBox {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  /* padding-bottom: .3rem;
+  padding-top: .3rem;
+  padding-bottom: .3rem; */
+}
+
+.unseenBtn {
+  /* width: 100%; */
+  padding: 0.2rem 1rem;
+  border-radius: 1rem;
+  font-weight: 500;
+  color: #555;
+}
+.bgWhite {
+  background-color: #fff;
+}
+.MB_FBClientRow {
+  position: relative;
+  display: flex;
+  background-color: #fff;
+  width: 100%;
+  padding: 0.5rem;
+  gap: 2rem;
+  /* box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2); */
+  border-radius: 1.5rem;
+  justify-content: space-between;
+  align-items: center;
+}
+.MB_FBClientRow:hover {
+  background-color: #eee;
+  transition: all 0.2s;
+}
+.MB_FBClientRow_SlideMove {
+  border-radius: 1.5rem;
+  /* box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2); */
+}
+.MB_Bigstar {
+  position: relative;
+  min-width: 3rem;
+  height: 3rem;
+  background-color: #f8d389;
+  border-radius: 50%;
+  z-index: 0;
+}
+.MB_Bigstar img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  transform: scale(0.7);
+}
+.biggerStar {
+  min-width: 4rem;
+  height: 4rem;
+  margin-bottom: 0.5rem;
+}
+.MB_Bigstar_Point {
+  width: 100%;
+  height: 100%;
+  font-size: 1.6rem;
+  font-weight: 700;
+  z-index: 10;
+}
+
+.MB_FBDay {
+  min-width: 5rem;
+  height: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
+.MB_FBDate {
+  font-size: 0.9rem;
+  color: #777;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.MB_FBTime {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: #aaa;
+  white-space: nowrap;
+}
+.MB_FBMeassage {
+  flex-grow: 1;
+  display: flex;
+  justify-self: stretch;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.MB_ShowSMS {
+  background-color: #fff;
+  z-index: 50;
+  transition: all 0.3s;
+}
+.MB_SmsDetail {
+  padding-left: 2rem;
+  padding-right: 2rem;
+  line-height: 1.8;
+  display: flex;
+  word-break: break-all;
+}
+.starNotification {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -60%);
+  color: #fff;
+
+  width: 2rem;
+  height: 2rem;
+}
+.starNotification_text {
+  transform: translate(-50%, -40%);
+  font-size: 1rem;
+  font-weight: 700;
+}
+.SwiperBtnBehide{
+  position: absolute;
+  width:4rem;
+  height: 4rem;
+  right: -20%;
+  top: 0;
+  background-color: #d20707;
+  z-index: 100;
 }

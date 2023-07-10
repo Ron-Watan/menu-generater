@@ -186,8 +186,11 @@ const _ThemeSetupMobile = (prop) => {
       });
   };
 
+  const [colorOnClick, setColorOnClick] = useState('')
 
-
+  const clickColor = (e) => {
+    setColorOnClick(e.target.style.backgroundColor)
+  }
 
 
   // useEffect(() => {
@@ -210,18 +213,18 @@ const _ThemeSetupMobile = (prop) => {
   // ----------------------------------------------------------------------------------------------
   // ----------------------------------------------------------------------------------------------
   return (
-    <div   className={`MB_themeWrapper ${themeTab === 'accord' && 'MB_themeWrapper_Ac'}`}>
-      <div  className={`MB_themeContainer ${themeTab === 'accord' && 'MB_themeContainer_Acc'}`}>
+    <div className={`MB_themeWrapper ${themeTab === 'accord' && 'MB_themeWrapper_Ac'}`}>
+      <div className={`MB_themeContainer ${themeTab === 'accord' && 'MB_themeContainer_Acc'}`}>
 
         <div className={`MB_themeMenuList `}>
           <div onClick={() => setThemeTab('quick')} className='MB_menuListBtn'>QT</div>
-          <div onClick={() => setThemeTab('themePage')} className='MB_menuListBtn'>TP</div>
+          {/* <div onClick={() => setThemeTab('themePage')} className='MB_menuListBtn'>TP</div> */}
           <div onClick={() => setThemeTab('navFoot')} className='MB_menuListBtn'>NF</div>
           <div onClick={() => setThemeTab('sidbar')} className='MB_menuListBtn'>SB</div>
           <div onClick={() => setThemeTab('accord')} className='MB_menuListBtn'>AC</div>
         </div>
 
-        <div  className="MB_AB_FullAgain">
+        <div className="MB_AB_FullAgain">
 
           <div className='MB_themeLayout_Grid'>
 
@@ -243,35 +246,39 @@ const _ThemeSetupMobile = (prop) => {
 
                 <i className="x">restaurantName Section</i>
                 <div className="MB_themeRow">
-                  <div className="TC-name">Restaurant Name</div>
+                  <div className="MB_TC_name">Restaurant Name</div>
                 </div>
 
                 <div className='MB_themeRow'>
                   <input onChange={inputRestaurantName} value={prop.restaurantName} type='text' maxLength="20"
-                    name='' id='menuName' autoComplete='off' className='presentInput' placeholder={currentRestaurantName}
+                    name='' id='menuName' autoComplete='off' className='MB_presentInput' placeholder={currentRestaurantName}
                     style={{
-                      'fontFamily': `${'Lato'}, serif`,
+                      'fontFamily': `${''}, serif`,
                       'color': `${'black'}`,
-                      'fontSize': `${'1.2rem'}`,
-                      'fontWeight': '700'
+                      'fontSize': `${'1rem'}`,
+                      'fontWeight': '400'
                     }}
                   />
                 </div>
                 <div className='MB_themeRow'>
                   <i className="x">nameFontColor Section</i>
-                  <div className='fontColor labelColor'>
-                    <button onClick={() => {
+                  <div className='fontColor MB_themeGrid'>
+                    <label htmlFor="FontColor1" className='MB_TC_small'>Font Color</label>
+
+                    <button onClick={(e) => {
                       setOnoffColorPicker(true)
+                      clickColor(e)
                       setNoSetTheme(1)
                       setNameTheme('nameFontColor')
                     }} className="colorPickerItem borderPickC color_PBig color_PBig-Active" style={{ 'backgroundColor': `${nameFontColor}` }} id='FontColor1'></button>
-                    <label htmlFor="FontColor1">Font</label>
                   </div>
                 </div>
                 <div className='MB_themeRow'>
                   <i className="x">nameFontFamily Section</i>
-                  <div className='fontStyle labelColor'>
-                    <select onChange={nameAllFontStyleFn('nameFontFamily')} id='fontStyle1' className='labelFontR'>
+                  <div className='fontStyle MB_themeGrid'>
+                    <label htmlFor="fontStyle1" className='MB_TC_small'>Font Style</label>
+
+                    <select onChange={nameAllFontStyleFn('nameFontFamily')} id='fontStyle1' className='MB_labelFontR'>
                       < option value='Merriweather' > Merriweather</option>
                       <option value='Urbanist'>Urbanist</option>
                       <option value='Oleo Script Swash Caps'>Oleo Script</option>
@@ -279,7 +286,6 @@ const _ThemeSetupMobile = (prop) => {
                       <option value='Poppins'>Poppins</option>
 
                     </select>
-                    <label htmlFor="fontStyle1">Style</label>
 
 
 
@@ -287,15 +293,16 @@ const _ThemeSetupMobile = (prop) => {
                 </div>
                 <div className='MB_themeRow'>
                   <i className="x">nameFontSize Section</i>
-                  <div className='fontStyle labelColor'>
-                    <select onChange={nameAllFontStyleFn('nameFontSize')} id='FontSize1' className='labelFontR'>
+                  <div className='fontStyle MB_themeGrid'>
+                    <label htmlFor="FontSize1" className='MB_TC_small'>Font-Size</label>
+
+                    <select onChange={nameAllFontStyleFn('nameFontSize')} id='FontSize1' className='MB_labelFontR'>
                       < option value='1rem' > Extra-Small</option>
                       <option value='1.2rem'>Small</option>
                       <option value='1.6rem'>Medium</option>
                       <option value='1.8rem'>Large</option>
                       <option value='2.0rem'>Extra-Large</option>
                     </select>
-                    <label htmlFor="FontSize1">Font-Size</label>
 
 
                   </div>
@@ -303,7 +310,7 @@ const _ThemeSetupMobile = (prop) => {
                 </div>
                 <i className="x">navBarColor Section</i>
                 <div className='MB_themeRow'>
-                  <div className="TC-name mg-t-1">Navigation Bar</div>
+                  <div className="MB_TC_name mg-t-1">Top/Bottom Bar</div>
 
 
 
@@ -312,24 +319,31 @@ const _ThemeSetupMobile = (prop) => {
 
                 <div className='MB_themeRow'>
 
-                  <div className='navbarColor labelColor'>
+                  <div className='navbarColor MB_themeGrid'>
+                    <label htmlFor="NavbarColor" className='MB_TC_small'>BG Color</label>
 
-                    <button onClick={() => {
+                    <button onClick={(e) => {
                       setOnoffColorPicker(true)
                       setNoSetTheme(1)
                       setNameTheme('navBarColor')
+                      clickColor(e)
                     }} className="colorPickerItem borderPickC color_PBig color_PBig-Active" style={{ 'backgroundColor': `${navBarColor}` }} id='NavbarColor' ></button>
-                    <label htmlFor="NavbarColor">Background</label>
 
                   </div>
+
+                </div>
+
+                <div className='MB_themeRow'>
                   <i className="x">navBarFontColor Section</i>
-                  <div className='navbarfontColor labelColor'>
-                    <button onClick={() => {
+                  <div className='navbarfontColor MB_themeGrid'>
+                    <label htmlFor="navBarFontColor" className='MB_TC_small'>Font Color</label>
+
+                    <button onClick={(e) => {
                       setOnoffColorPicker(true)
                       setNoSetTheme(1)
                       setNameTheme('navBarFontColor')
+                      clickColor(e)
                     }} className="colorPickerItem borderPickC color_PBig color_PBig-Active" style={{ 'backgroundColor': `${navBarFontColor}` }} id='navBarFontColor'></button>
-                    <label htmlFor="navBarFontColor">Font</label>
 
                   </div>
 
@@ -340,35 +354,43 @@ const _ThemeSetupMobile = (prop) => {
 
                 <div className='MB_themeRow'>
 
-                  <div className="TC-name">Body</div>
+                  <div className="MB_TC_name mg-t-1">Body</div>
 
 
                 </div>
 
 
                 <div className='MB_themeRow'>
-                  <div className="bodyBGColor labelColor">
+                  <div className="bodyBGColor MB_themeGrid">
+                    <label htmlFor="bodyBgColor" className='MB_TC_small'>BG Color</label>
 
-                    <button onClick={() => {
+                    <button onClick={(e) => {
                       setOnoffColorPicker(true)
                       setNoSetTheme(2)
                       setNameTheme('bodyBgColor')
+                      clickColor(e)
                     }} className="colorPickerItem borderPickC color_PBig color_PBig-Active" style={{ 'backgroundColor': `${bodyBgColor}` }} id='bodyBgColor'>
                     </button>
-                    <label htmlFor="bodyBgColor">Background</label>
 
                   </div>
-                  <div className="bodyFontColr labelColor">
-                    <button onClick={() => {
+
+                </div>
+
+                <div className='MB_themeRow'>
+
+                  <div className="bodyFontColr MB_themeGrid">
+                    <label htmlFor="bodyFonttColor" className='MB_TC_small'>Font Color</label>
+
+                    <button onClick={(e) => {
                       setOnoffColorPicker(true)
                       setNoSetTheme(2)
                       setNameTheme('bodyFonttColor')
+                      clickColor(e)
                     }} className="colorPickerItem borderPickC color_PBig color_PBig-Active" style={{ 'backgroundColor': `${bodyFonttColor}` }} id='bodyFonttColor'>
                     </button>
-                    <label htmlFor="bodyFonttColor">Font</label>
-
                   </div>
-
+                </div>
+                <div className='MB_themeRow'>
 
 
                 </div>
@@ -376,9 +398,10 @@ const _ThemeSetupMobile = (prop) => {
                 <div className='MB_themeRow'>
 
 
-                  <div className="bodyFontStyle labelColor" >
+                  <div className="bodyFontStyle MB_themeGrid" >
+                    <label htmlFor="BodyfontStyle" className='MB_TC_small'>Font Style</label>
 
-                    <select onChange={bodyAllFontStyleFn('bodyFontFamily')} id='BodyfontStyle' className='labelFontR'>
+                    <select onChange={bodyAllFontStyleFn('bodyFontFamily')} id='BodyfontStyle' className='MB_labelFontR'>
                       < option value='Merriweather' > Merriweather</option>
                       <option value='Urbanist'>Urbanist</option>
                       <option value='Oleo Script Swash Caps'>Oleo Script</option>
@@ -386,7 +409,6 @@ const _ThemeSetupMobile = (prop) => {
                       <option value='Poppins'>Poppins</option>
 
                     </select>
-                    <label htmlFor="BodyfontStyle">Style</label>
 
                   </div>
 
@@ -551,20 +573,22 @@ const _ThemeSetupMobile = (prop) => {
                 <div className='MB_themeRow'>
                   <div className="bodyFontColr labelColor">
 
-                    <button onClick={() => {
+                    <button onClick={(e) => {
                       setOnoffColorPicker(true)
                       setNoSetTheme(3)
                       setNameTheme('themeIconColorLine')
+                      clickColor(e)
                     }} className="colorPickerItem borderPickC color_PBig color_PBig-Active" style={{ 'backgroundColor': `${themeIconColorLine}` }} id='themeIconColorLine' >
                     </button>
                     <label htmlFor="themeIconColorLine">Line color</label>
 
                   </div>
                   <div className="bodyFontColr labelColor">
-                    <button onClick={() => {
+                    <button onClick={(e) => {
                       setOnoffColorPicker(true)
                       setNoSetTheme(3)
                       setNameTheme('themeIconBG')
+                      clickColor(e)
                     }} className="colorPickerItem borderPickC color_PBig color_PBig-Active" style={{ 'backgroundColor': `${themeIconBG}` }} id='themeIconBG' >
                     </button>
                     <label htmlFor="themeIconBG">Background color</label>
@@ -576,10 +600,11 @@ const _ThemeSetupMobile = (prop) => {
                 <div className='MB_themeRow'>
 
                   <div className="bodyFontColr labelColor">
-                    <button onClick={() => {
+                    <button onClick={(e) => {
                       setOnoffColorPicker(true)
                       setNoSetTheme(31)
                       setNameTheme('themeIconColorBorder')
+                      clickColor(e)
                     }} className="colorPickerItem borderPickC color_PBig color_PBig-Active" style={{ 'backgroundColor': `${themeIconColorBorder}` }} id='themeIconColorBorder'>
                     </button>
                     <label htmlFor="themeIconColorBorder">Border color</label>
@@ -700,15 +725,15 @@ const _ThemeSetupMobile = (prop) => {
               <button onClick={() => {
                 setupTheme()
                 prop.reloadIFrame()
-              }} className='MB_Sq_Btn MB_Btn_Color'>
+              }} className='MB_Sq_Btn MB_Btn_Border for_btn_theme'>
                 OK
               </button>
 
               <button onClick={() => {
                 prop.setOnOffThemeSetup_MB(false)
+                prop.setMBnavIcon(true)
 
-
-              }} className='MB_Sq_Btn MB_Btn_Border'>
+              }} className='MB_Sq_Btn MB_Btn_Border for_btn_theme'>
                 cancel
               </button>
             </div>
@@ -721,8 +746,8 @@ const _ThemeSetupMobile = (prop) => {
         </div>
 
         {onOffColorPicker && <div className="MB_AB_FullAgain z_ColorPallete">
-          <div className="MB_colorPickerCont MB_themeLayout_Grid">
-            <div className="MB_colorPickerScoll ">
+     
+     
               <_ColorPickkerMobile
                 noSetTheme={noSetTheme}
                 nameTheme={nameTheme}
@@ -740,16 +765,12 @@ const _ThemeSetupMobile = (prop) => {
                 categoryMotion={categoryMotion}
                 setCategoryMotion={setCategoryMotion}
 
+                colorOnClick={colorOnClick}
+                setOnoffColorPicker={setOnoffColorPicker}
               />
-            </div>
-            <button onClick={() => {
-              setOnoffColorPicker(false)
-
-
-            }} className='mainBtn saveBtnColor'>
-              OK
-            </button>
-          </div>
+       
+ 
+         
 
         </div>}
       </div>
