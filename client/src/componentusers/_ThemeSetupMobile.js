@@ -360,11 +360,11 @@ const _ThemeSetupMobile = (prop) => {
                     <label htmlFor="FontSize1" className='MB_TC_small'>Font-Size</label>
 
                     <select onChange={nameAllFontStyleFn('nameFontSize')} value={nameFontSize} id='FontSize1' className='MB_labelFontR text_selectCenter'>
-                      < option value='1rem' > Extra-Small</option>
+                      < option value='1rem' > X-Small</option>
                       <option value='1.2rem'>Small</option>
                       <option value='1.6rem'>Medium</option>
                       <option value='1.8rem'>Large</option>
-                      <option value='2.0rem'>Extra-Large</option>
+                      <option value='2.0rem'>X-Large</option>
                     </select>
 
 

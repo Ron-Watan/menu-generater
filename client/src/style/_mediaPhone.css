@@ -1,7 +1,5 @@
 .mobile-creator {
   position: relative;
-
-
 }
 .mobile-creator::-webkit-scrollbar {
   display: none;
@@ -73,7 +71,7 @@ body {
   background-color: rgba(179, 12, 12, 0.404);
 }
 
-.overScroll_none{
+.overScroll_none {
   overscroll-behavior: none;
 }
 .Flex_AllCenter {
@@ -92,7 +90,117 @@ body {
 .paddingBottom_8 {
   padding-bottom: 8rem !important;
 }
-/* ///////////////////////////// */
+/* //=//=//=//=//=//=//=//=//=//=//=//=///////////////////////////// */
+
+/* Btn Bar #f3f3f3 */
+/* #cfdeff */
+
+/* //= same MB_FullPage_Container */
+.MC_Standard_0_FullPage {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-color: #fff;
+  border-radius: 1rem 0 0 1rem;
+  overflow: hidden;
+  z-index: 100;
+}
+/* //= same MB_AB_FullAgain */
+.MB_Standard_0_FullAgain {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+
+}
+/* //=same MB_2LangLayout_Grid */
+.MB_SetGrid_Full {
+  display: grid;
+  grid-template-rows: 1fr;
+}
+.MB_SetGrid_ForBtn {
+  display: grid;
+  grid-template-rows: 1fr 20vh;
+}
+
+/* //= same MB_bannerWrapper */
+.MB_Standard_Section_canScroll {
+  position: relative;
+  overflow-y: scroll;
+  border-bottom: 0.5px solid #999;
+}
+.MB_Make_PadingBanner {
+  padding-top: 5rem;
+  padding-bottom: 2rem;
+}
+.MB_Wrap_ForBtn {
+  height: 80vh;
+}
+
+.MB_Positon_Bottom_btn {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: flex-start;
+  background-color: #f3f3f3;
+}
+.paddingTop1{
+  padding-top: 1rem;
+}
+.MB_Frid_3Btn {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  align-items: center;
+  padding-top: 0.5rem;
+}
+/* /////////////// */
+
+.MB_bannerWrapper {
+  position: relative;
+  padding-top: 5rem;
+  padding-bottom: 2rem;
+  overflow-y: scroll;
+  border-bottom: 0.5px solid #999;
+}
+.MB_Wrap_NoFullVhLower {
+  height: 73vh;
+}
+.MB_Wrap_NoFullVh {
+  height: 78vh;
+}
+.zindexUnderTop {
+  z-index: -1;
+}
+
+.MB_FullPage_Container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-color: #fff;
+  border-radius: 1rem 0 0 1rem;
+  overflow: hidden;
+  z-index: 100;
+}
+
+.MB_AB_FullAgain {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.MB_2LangLayout_Grid {
+  display: grid;
+  grid-template-rows: 1fr 18vh;
+  /* gap: 0.5rem; */
+  width: 100%;
+  height: 100%;
+}
+
 .MC_IconFixed {
   position: fixed;
   width: 100%;
@@ -195,14 +303,7 @@ body {
   align-items: center;
   gap: 0.1rem;
 }
-.MB_Frid_3Btn {
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  justify-items: center;
-  align-items: center;
-  padding-top: 0.5rem;
-}
+
 .MB_G1 {
   grid-column: 1/2;
 }
@@ -240,26 +341,33 @@ body {
   padding-right: 0rem !important;
 }
 .MB_Btn_Color {
-  background-color: #cc1600;
+  background-color: #f56e4f;
   color: #fff;
-  border: 1px solid #cc1600;
 }
 
 .MB_Sq_Btn {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0.6rem 0.3rem;
-  width: 5rem;
-  border-radius: 0.5rem;
+
+  border-radius: 2rem;
   box-shadow: 0.1rem 0.1rem 0.3rem rgba(0, 0, 0, 0.15);
   z-index: 1;
   font-size: 1rem;
   font-weight: 500;
 }
-.for_btn_theme{
-  padding: 0.4rem 0.3rem;
+.SaveBtnSize{
+  width: 7rem;
+  padding: 0.6rem 1rem;
+}
+.CancelPadding{
+  width: 5rem;
+  padding: 0.5rem 1rem;
+}
+.for_btn_theme {
+  padding: 0.6rem 0.3rem;
   width: 4rem;
+  color: #444;
 }
 
 .MB_Sq_Btn-NewCAt {
@@ -278,7 +386,7 @@ body {
 .MB_smIconAB {
   position: absolute;
   top: 0.3rem;
-  right: 0.3rem;
+  left: 0.3rem;
 }
 .mobile_function {
   /* font-family: 'Poppins'; */
@@ -343,12 +451,11 @@ body {
 .MB_title {
   font-size: 1.1rem;
   font-weight: 500;
-text-align: center;
+  text-align: center;
 }
-.MB_bannerShow {
+.MB_bannerShow_Flex_Column {
   display: flex;
   flex-direction: column;
-  /* grid-template-columns: repeat(3, 1fr); */
 }
 .mobile_iframe {
   z-index: 0;
@@ -372,21 +479,7 @@ text-align: center;
   padding-right: 0;
   /* background-color: aqua; */
 }
-.MB_bannerWrapper {
-  position: relative;
-  /* background-color: aqua; */
-  padding-top: 5rem;
-  padding-bottom: 2rem;
 
-  overflow-y: scroll;
-  border-bottom: 0.5px solid #999;
-}
-.MB_Wrap_NoFullVhLower {
-  height: 73vh;
-}
-.MB_Wrap_NoFullVh {
-  height: 78vh;
-}
 .MB_Wrap_FullVh {
   height: 70vh;
 }
@@ -433,7 +526,7 @@ text-align: center;
   border-bottom: none;
 }
 .MB_bannerShow_chooseCat {
-  background-color: #f5cac64c;
+  background-color: #cfdeff;
   transition: all 0.2s;
 }
 .MB_imageBannerForm {
@@ -714,9 +807,7 @@ text-align: center;
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
 }
 
-
-
-.Acc_remark{
+.Acc_remark {
   margin-top: 1rem;
   font-style: italic;
 }
@@ -746,23 +837,6 @@ text-align: center;
   padding-bottom: 3rem;
 }
 /* /////////////////////////// */
-
-.MB_FullPage_Container {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  background-color: #fff;
-  border-radius: 1rem 0 0 1rem;
-  overflow: hidden;
-  z-index: 100;
-}
-.MB_2LangLayout_Grid {
-  display: grid;
-  grid-template-rows: 1fr 18vh;
-  /* gap: 0.5rem; */
-  width: 100%;
-  height: 100%;
-}
 
 .MB_2ndLanfCatBox {
   /* position: sticky; */
@@ -839,9 +913,8 @@ text-align: center;
   height: 100vh;
   overflow-y: scroll;
 }
-.greenLinear{
-  background: linear-gradient(0deg,#fff 0, #fff 30%, #22c5a1, #85f4aa);
-
+.greenLinear {
+  background: linear-gradient(0deg, #fff 0, #fff 30%, #22c5a1, #85f4aa);
 }
 /* .MB_PaddingWrapper {
   padding-top: 0.5rem;
@@ -853,10 +926,6 @@ text-align: center;
   display: flex;
   align-items: center;
   padding-bottom: 1rem;
-  /* padding-top: 5.5rem; */
-  /* height: 7rem; */
-  /* border-radius: 1rem; */
-  /* box-shadow: 0px 0.5px 3px rgba(0, 0, 0, 0.3); */
 }
 .MB_FBScoreBox1 {
   flex-direction: column;
@@ -1065,9 +1134,9 @@ text-align: center;
   font-size: 1rem;
   font-weight: 700;
 }
-.SwiperBtnBehide{
+.SwiperBtnBehide {
   position: absolute;
-  width:4rem;
+  width: 4rem;
   height: 4rem;
   right: -20%;
   top: 0;

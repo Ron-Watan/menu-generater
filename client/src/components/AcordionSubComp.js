@@ -238,16 +238,23 @@ const AcordionSubComp = (prop) => {
             </button>}
 
 
+            <i className="x">ON DESCRIPTION</i>
 
             {prop.accordian && <Accordion expanded={expanded === el.panelCode} onChange={handleChange(el.panelCode)}>
               <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
                 <div className={prop.sideBar ? 'paddingL_40' : ''}
-                  style={{ 'color': `${prop.themeSetup.body.bodyFonttColor}`, 'fontSize': `${prop.themeSetup.body.bodyFontSize * 1.2}rem`, 'fontWeight': '500' }}>
+                  style={{
+                    'color': `${prop.themeSetup.body.bodyFonttColor}`,
+                    'fontSize': `${prop.themeSetup.body.bodyFontSize * 1.1}rem`, 'fontWeight': '500'
+                  }}>
                   {prop.language === 1 && <span>{el.food_name}</span>}
                   {prop.language === 2 && <span>{el.food_name_2}</span>}
                 </div>
                 <div className={`flex`}
-                  style={{ 'color': `${prop.themeSetup.body.bodyFonttColor}`, 'fontSize': `${prop.themeSetup.body.bodyFontSize * 1.2}rem`, 'fontWeight': '500' }}>
+                  style={{
+                    'color': `${prop.themeSetup.body.bodyFonttColor}`,
+                    'fontSize': `${prop.themeSetup.body.bodyFontSize * 1.1}rem`, 'fontWeight': '500'
+                  }}>
                   {prop.language === 1 && <span>{prop.languageSetup.style_1 ?
                     <div ><span>{prop.languageSetup.followed_1 && prop.languageSetup.symbol_1}</span><span>{el.price}</span> <span>&nbsp;{!prop.languageSetup.followed_1 && prop.languageSetup.symbol_1}</span> </div>
                     : <div ><span></span><span>{el.price}</span><span></span></div>}</span>}
@@ -292,17 +299,22 @@ const AcordionSubComp = (prop) => {
               </AccordionDetails>}
             </Accordion>}
 
-
-
+            <i className="x">OFF DESCRIPTION</i>
             {!prop.accordian && <div expanded={expanded === el.panelCode} onChange={handleChange(el.panelCode)}>
               <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
                 <div className={prop.sideBar ? 'paddingL_40' : ''}
-                  style={{ 'color': `${prop.themeSetup.body.bodyFonttColor}` }}>
+                  style={{
+                    'color': `${prop.themeSetup.body.bodyFonttColor}`,
+                    'fontSize': `${prop.themeSetup.body.bodyFontSize * 1.1}rem`, 'fontWeight': '500'
+                  }}>
                   {prop.language === 1 && <span>{el.food_name}</span>}
                   {prop.language === 2 && <span>{el.food_name_2}</span>}
                 </div>
                 <div className={`flex`}
-                  style={{ 'color': `${prop.themeSetup.body.bodyFonttColor}` }}>
+                  style={{
+                    'color': `${prop.themeSetup.body.bodyFonttColor}`,
+                    'fontSize': `${prop.themeSetup.body.bodyFontSize * 1.1}rem`, 'fontWeight': '500'
+                  }}>
                   {prop.language === 1 && <span>{prop.languageSetup.style_1 ?
                     <div ><span>{prop.languageSetup.followed_1 && prop.languageSetup.symbol_1}</span><span>{el.price}</span> <span>&nbsp;{!prop.languageSetup.followed_1 && prop.languageSetup.symbol_1}</span> </div>
                     : <div ><span></span><span>{el.price}</span><span></span></div>}</span>}
@@ -316,20 +328,27 @@ const AcordionSubComp = (prop) => {
                 {prop.language === 1 && <Typography className={prop.sideBar ? 'paddingL_40' : ''}
                   style={{
                     'fontFamily': `${prop.themeSetup.body.bodyFontFamily}`,
-                    'color': `${prop.themeSetup.body.bodyFonttColor}`
+                    'color': `${prop.themeSetup.body.bodyFonttColor}`,
+                    'fontSize': `${prop.themeSetup.body.bodyFontSize * 1}rem`, 'fontWeight': '400'
                   }}
                 >{el.description}</Typography>}
                 {prop.language === 2 && <Typography className={prop.sideBar ? 'paddingL_40' : ''} style={{
                   'fontFamily': `${prop.themeSetup.body.bodyFontFamily}`,
-                  'color': `${prop.themeSetup.body.bodyFonttColor}`
+                  'color': `${prop.themeSetup.body.bodyFonttColor}`,
+                  'fontSize': `${prop.themeSetup.body.bodyFontSize * 1}rem`, 'fontWeight': '400'
                 }}>{el.description}</Typography>}
-                {prop.language === 1 && <div className={prop.sideBar ? 'paddingL_40' : ''} style={{
+                {prop.language === 1 && <div className={`Acc_remark ${prop.sideBar ? 'paddingL_40' : ''}`} style={{
                   'fontFamily': `${prop.themeSetup.body.bodyFontFamily}`,
-                  'color': `${prop.themeSetup.body.bodyFonttColor}`
+                  'color': `${prop.themeSetup.body.bodyFonttColor}`,
+                  'fontSize': `${prop.themeSetup.body.bodyFontSize * .9}rem`,
+                  'fontWeight': '300',
+
                 }}>{el.remark}</div>}
                 {prop.language === 2 && <div className={prop.sideBar ? 'paddingL_40' : ''} style={{
                   'fontFamily': `${prop.themeSetup.body.bodyFontFamily}`,
-                  'color': `${prop.themeSetup.body.bodyFonttColor}`
+                  'color': `${prop.themeSetup.body.bodyFonttColor}`,
+                  'fontSize': `${prop.themeSetup.body.bodyFontSize * .9}rem`,
+                  'fontWeight': '300',
                 }}>{el.remark}</div>}
                 <div className={`heartFavor1Box`}>
 

@@ -36,6 +36,8 @@ import IconPickkerMobile from './IconPickkerMobile';
 
 import _01FeedBackMobile from './_01FeedBackMobile';
 import _02QRCode from './_02QRCode';
+import _03BannerMobile from './_03BannerMobile';
+
 import _TimePickerMobile from './_TimePickerMobile';
 import _LanguageSetupMobile from './_LanguageSetupMobile';
 import _ThemeSetupMobile from './_ThemeSetupMobile';
@@ -842,9 +844,7 @@ const _AppMain = () => {
   // };
   const [bannerImgArr, setBannerImgArr] = useState([]);
 
-  // const [cloneBanner, setCloneBanner] = useState([])
-
-  const [indexToBanner, setIndexToBanner] = useState(0);
+  const [indexToBanner, setIndexToBanner] = useState('');
 
   // UPLOAD IMAGE
 
@@ -1017,6 +1017,7 @@ const _AppMain = () => {
   //   console.log(ref.current)
   //   return ref.current; //in the end, return the current ref value.
   // }
+
 
   useEffect(() => {
     getAllMenu();
@@ -1682,7 +1683,7 @@ const _AppMain = () => {
       <div className="mobile-creator unselectable">
         <i className="x"> Banner-----------------------------------------------</i>
         <div className={`mobile_function  ${!onOffBanner_MB && 'MB_slide_Down'}`}>
-          <div className="topBar_function">
+          {/* <div className="topBar_function">
             <div className="GruopBtn">
               <button onClick={() => setOnoffBanner_MB(!onOffBanner_MB)} className="MB_Btn MB_Btn_Border">
                 <img src={MBiconClose} alt="" />
@@ -1707,18 +1708,33 @@ const _AppMain = () => {
               </label>
               <span className='MB_textBtn'>Add Photo</span>
             </div>
-          </div>
+          </div> */}
 
-          <div className="Ab_in_MB_Funtion">
+          {/* <div className="Ab_in_MB_Funtion">
             <div className="topBar_blur">  </div>
             <MBBanner bannerImgArr={bannerImgArr} setIndexToBanner={setIndexToBanner} indexToBanner={indexToBanner} setResizeFileBannerTG={setResizeFileBannerTG} setDeleteImageBannerTG={setDeleteImageBannerTG} deleteImageBannerTG={deleteImageBannerTG}
               setSaveImageBannerTG={setSaveImageBannerTG} saveImageBannerTG={saveImageBannerTG} setGetAllImageBannerTG={setGetAllImageBannerTG} getAllImageBannerTG={getAllImageBannerTG} />
-          </div>
+          </div> */}
 
+
+
+          <_03BannerMobile
+            bannerImgArr={bannerImgArr}
+            setBannerImgArr={setBannerImgArr}
+            indexToBanner={indexToBanner}
+            setIndexToBanner={setIndexToBanner}
+            deleteImageBannerTG={deleteImageBannerTG}
+            saveImageBannerTG={saveImageBannerTG}
+            resizeFileBannerTG={resizeFileBannerTG}
+            setResizeFileBannerTG={setResizeFileBannerTG}
+            getAllImageBannerTG={getAllImageBannerTG}
+            setOnoffBanner_MB={setOnoffBanner_MB}
+            setDeleteImageBannerTG={setDeleteImageBannerTG}
+            setSaveImageBannerTG={setSaveImageBannerTG}
+            getAllImage={getAllImage}
+
+          />
         </div>
-
-
-
         {/* 111 */}
 
         <i className="x"> Manu 1 -----------------------------------------------</i>
@@ -1884,7 +1900,7 @@ const _AppMain = () => {
         </div>
 
         <div className={`mobile_function ${!onOffSetting_MB && 'MB_slide_Down'}`}>
-          <_10OnOffSettingMobile setOnOffSetting_MB={setOnOffSetting_MB} navOnOff2OnOffSetting={navOnOff2OnOffSetting} onOffSetting={onOffSetting } />
+          <_10OnOffSettingMobile setOnOffSetting_MB={setOnOffSetting_MB} navOnOff2OnOffSetting={navOnOff2OnOffSetting} onOffSetting={onOffSetting} />
         </div>
 
 
@@ -1905,41 +1921,22 @@ const _AppMain = () => {
 
 
 
-          <i className='x'> 10 On Off-----------------------------------------------</i>
-          <button onClick={() => {
-            setOnOffSetting_MB(!onOffSetting_MB);
-            setVavOnOff2OnOffSetting((testTG) => navOnOff2OnOffSetting + 1);
-          }}
-            name='Manu1MB'
-            className={`MC_Tab MB_None ${!mBnavIcon && 'displayNone'}`} >
-            <img src={MBicon_Onoff} alt="" />
-          </button>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          <i className='x'> 9 Theme-----------------------------------------------</i>
-          <button onClick={() => {
-            setOnOffThemeSetup_MB(!onOffThemeSetup_MB);
-            setMBnavIcon(false)
-          }}
-            name='Manu1MB'
-            className={`MC_Tab MB_None ${!mBnavIcon && 'displayNone'}`} >
-            <img src={MBicon_Theme} alt="" />
-          </button>
 
 
           <div className={`MB_emptySm`}>&nbsp;</div>
+
+          <i className='x'> 3 Banner-----------------------------------------------</i>
+          <button onClick={() => {
+            setOnoffBanner_MB(!onOffBanner_MB);
+            setGetAllImageBannerTG((getAllImageBannerTG) => getAllImageBannerTG + 1)
+          }}
+            name='bannerMB'
+            className={`MC_Tab MB_None ${!mBnavIcon && 'displayNone'}`} >
+            <img src={MBicon_Banner} alt="" />
+          </button>
+
+
+
 
           <i className='x'> 1 Feed Back -----------------------------------------------</i>
           <button onClick={() => {
@@ -1980,14 +1977,6 @@ const _AppMain = () => {
 
 
 
-          <i className='x'> 3 Banner-----------------------------------------------</i>
-          <button onClick={() => {
-            setOnoffBanner_MB(!onOffBanner_MB);
-          }}
-            name='bannerMB'
-            className={`MC_Tab MB_None ${!mBnavIcon && 'displayNone'}`} >
-            <img src={MBicon_Banner} alt="" />
-          </button>
 
           <i className='x'> 4 Menu1-----------------------------------------------</i>
 
@@ -2044,6 +2033,26 @@ const _AppMain = () => {
 
 
 
+          <i className='x'> 9 Theme-----------------------------------------------</i>
+          <button onClick={() => {
+            setOnOffThemeSetup_MB(!onOffThemeSetup_MB);
+            setMBnavIcon(false)
+          }}
+            name='Manu1MB'
+            className={`MC_Tab MB_None ${!mBnavIcon && 'displayNone'}`} >
+            <img src={MBicon_Theme} alt="" />
+          </button>
+
+
+          <i className='x'> 10 On Off-----------------------------------------------</i>
+          <button onClick={() => {
+            setOnOffSetting_MB(!onOffSetting_MB);
+            setVavOnOff2OnOffSetting((testTG) => navOnOff2OnOffSetting + 1);
+          }}
+            name='Manu1MB'
+            className={`MC_Tab MB_None ${!mBnavIcon && 'displayNone'}`} >
+            <img src={MBicon_Onoff} alt="" />
+          </button>
 
           {/* <i className='x'> 9 Theme-----------------------------------------------</i>
           <button onClick={() => {
@@ -2075,7 +2084,7 @@ const _AppMain = () => {
 
         <iframe id='iframe'
           className={`mobile_iframe  ${(onOffBanner_MB || onOffMenu1_MB || onOffMenu2_MB ||
-            onOffMenu3_MB || onOffTimePicker_MB || onOffLangSetup_MB || onOffFeedBAck_MB||onOffSetting_MB||onOffQRCCode_MB)
+            onOffMenu3_MB || onOffTimePicker_MB || onOffLangSetup_MB || onOffFeedBAck_MB || onOffSetting_MB || onOffQRCCode_MB)
             && 'iframe_scale_Down'}`}
           src="http://192.168.1.13:3000/customer/37f91f16-undefined" />
 

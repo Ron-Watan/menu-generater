@@ -776,13 +776,7 @@ input:checked + .forOFLang2:before {
   border-bottom: #96a1bf 2px solid;
 }
 
-.MB_AB_FullAgain {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-}
+
 
 .MB_themeLayout_Grid {
   display: grid;
@@ -801,7 +795,7 @@ input:checked + .forOFLang2:before {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: rgb(243, 243, 243);
+  background-color: #f3f3f3;
   border-top: 0.5px #aaa solid;
 }
 

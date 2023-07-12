@@ -14,13 +14,8 @@ export const MBBanner = (prop) => {
     <div className="MB_banner_Section">
 
 
-
-
-
-
-
-      <div className="MB_bannerWrapper MB_Wrap_NoFullVh">
-        <div className="MB_bannerShow">
+      <div className="MB_Standard_Section_canScroll MB_Make_PaadingBanner MB_Wrap_NoFullVh">
+        <div className="MB_bannerShow_Flex_Column">
           {prop.bannerImgArr.map((el, index) => (
 
 

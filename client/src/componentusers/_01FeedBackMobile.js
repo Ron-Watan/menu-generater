@@ -213,6 +213,7 @@ const _FeedBackMobile = (prop) => {
           </button>
           <span className='MB_textBtn'>Close</span>
         </div>
+
         <div className="MB_title">Feedback/Comments</div>
 
         <div className="GruopBtn">
@@ -220,6 +221,8 @@ const _FeedBackMobile = (prop) => {
 
           </button>
         </div>
+
+        
       </div>
 
       <div className="MB_AB_FullAgain zindexUnder1 ">

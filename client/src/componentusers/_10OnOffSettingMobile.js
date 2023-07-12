@@ -163,7 +163,7 @@ const _10OnOffSettingMobile = (prop) => {
                 </div>
                 <div className="MB_OF_Flex_Col colorof_title">
                   <div className="MB_OF_Flex ">
-                    <span className="MB_OF_text ">SideBar</span>
+                    <span className="MB_OF_text ">Side-Bar</span>
                     <label htmlFor='onOffSideBar' className={`containerSwitch switchLang`}>
                       <input onChange={() => onOffCheckBox('sideBar')}
                         type='checkbox' name='onOffSideBar' id='onOffSideBar' checked={onOffSetting.sideBar || ''} />
@@ -210,7 +210,7 @@ const _10OnOffSettingMobile = (prop) => {
                 <div className="MB_OF_Flex_Col ">
 
                   <div className="MB_OF_Flex colorof_title">
-                    <span className="MB_OF_text">Bottom-bar</span>
+                    <span className="MB_OF_text">Bottom-Bar</span>
                     <label htmlFor='onOffBottom' className={`containerSwitch switchLang`}>
                       <input onChange={() => onOffCheckBox('footbar')}
                         type='checkbox' name='onOffBottom' id='onOffBottom' checked={onOffSetting.footbar || ''} />

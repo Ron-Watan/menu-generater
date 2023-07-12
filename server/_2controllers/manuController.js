@@ -313,6 +313,12 @@ export const uploadImageBanner = (req, res) => {
       };
       Banners.create(image);
     });
+    res.send({
+      message: 'Success',
+      images: result,
+      success: true,
+    });
+
   });
 
   // Users.findOne({ userId: userId }).select('bannerImage').then(user => {
@@ -328,7 +334,7 @@ export const uploadImageBanner = (req, res) => {
 };
 
 export const saveTimeSetup = (req, res) => {
-  console.log('eeeeeeeeeeeeeee');
+
   const { userId, timeSetup } = req.body;
   console.log(timeSetup);
 
@@ -420,7 +426,7 @@ export const getTheme = (req, res) => {
 export const saveOnOffSetting = (req, res) => {
   console.log('HelloMaaddsd')
   const { userId, onOffSetting } = req.body;
-  
+
   Users.findOne({ userId: userId })
     .select('onOffSetting clientId')
     .then((user) => {
