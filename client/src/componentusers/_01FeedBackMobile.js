@@ -90,7 +90,7 @@ const _FeedBackMobile = (prop) => {
       .catch((err) => {
 
         // console.log("Can't not connect the server", err);
-        console.log('Server: Connecting...');
+        // console.log('Server: Connecting...');
         // Swal.fire("Can't not connect the server")
       });
   };
@@ -176,12 +176,14 @@ const _FeedBackMobile = (prop) => {
   }
   useEffect(() => {
     getFeedBack();
+ 
   }, [user]);
 
 
 
 
   const checkBeforeSave = () => {
+    setSwitchUnseen('unseen')
     if (!somthingChange) return prop.setOnOffFeedBAck_MB(false)
     setUnseeenFeedBack(tempSwiperArray)
     saveFeedBack()
@@ -220,11 +222,11 @@ const _FeedBackMobile = (prop) => {
         </div>
       </div>
 
-      <div className="MB_AB_FullAgain zindexUnder1">
+      <div className="MB_AB_FullAgain zindexUnder1 ">
         <div className="MB_2LangLayout_Grid gridRow_1fr">
           <div className="">
 
-            <div className="MB_InScroll_fullNew paddingBottom_8">
+            <div className="MB_InScroll_fullNew paddingBottom_8 overScroll_none">
               {/* <div className="MB_PaddingWrapper"> */}
               <div className="MB_SumFeedBack">
                 <div className="MB_FBScoreBox1 Flex_AllCenter">

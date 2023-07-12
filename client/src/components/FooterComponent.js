@@ -154,11 +154,11 @@ const FooterComponent = (prop) => {
       >
         <div className="footBarGrid3">
 
-          <div onClick={() => switcher('languageTab')} className={`footBarGrid3_1 ${!prop.languageSetup.onLanguage_2 && 'displayNone'} `}>
+          <div onClick={() => switcher('languageTab')} className={`footBarGrid3_1`}>
 
             <div className={`footBarGrid3_1-1`}>
               <i className="x">!Theme Nav BG Color 2/3</i>
-              <button className='footbatBtnLang'
+              {prop.langIcon&&<button className='footbatBtnLang'
 
                 style={{ 'backgroundColor': `${prop.themeSetup.navAndFootBar.navBarColor}` }}>
                 <span className={`langCode`}
@@ -189,29 +189,19 @@ const FooterComponent = (prop) => {
                     </clipPath>
                   </defs>
                 </svg>
-              </button>
+              </button>}
               <i className="x">!Theme Nav BG Color 3/3</i>
 
               {prop.language === 1
-                ? <button value='2' onClick={switcherlng('ep')} className={`popupLang ${languageTab && 'popupLangUp1'}  popupLangText`}
+                ? <button value='2' onClick={switcherlng('secondNoUse')} className={`popupLang ${languageTab && 'popupLangUp1'}  popupLangText ${!prop.languageSetup.onLanguage_2 && 'displayNone'} `}
                   style={{ 'backgroundColor': `${prop.themeSetup.navAndFootBar.navBarColor}`, 'color': `${prop.themeSetup.navAndFootBar.navBarFontColor}` }}>
                   {prop.languageSetup.language_2}
                 </button>
                 :
-                <button value='1' onClick={switcherlng('en')} className={`popupLang ${languageTab && 'popupLangUp1'}  popupLangText`}
+                <button value='1' onClick={switcherlng('firstNoUse')} className={`popupLang ${languageTab && 'popupLangUp1'}  popupLangText`}
                   style={{ 'backgroundColor': `${prop.themeSetup.navAndFootBar.navBarColor}`, 'color': `${prop.themeSetup.navAndFootBar.navBarFontColor}` }}>
                   {prop.languageSetup.language_1}
                 </button>}
-
-
-
-              {/* <button value='2' onClick={switcherlng('ep')} className={`popupLang ${languageTab && 'popupLangUp1'}  popupLangText`}>
-                {prop.languageSetup.language_2}
-              </button>
-
-              <button value='1' onClick={switcherlng('en')} className={`popupLang ${languageTab && 'popupLangUp1'}  popupLangText`}>
-                {prop.languageSetup.language_1}
-              </button> */}
 
             </div>
 

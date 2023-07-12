@@ -138,8 +138,7 @@ const _LanguageAddMobile = (prop) => {
           </div>
 
 
-          <div className="MB_InGrid_Bottom_Box {
-">
+          <div className="MB_InGrid_Bottom_Box">
             {/* <div className='boxBtnPhotoList'> */}
 
             <div className={`MB_Frid_3Btn ${true ? 'displayFlex' : 'displayNone'}`}>

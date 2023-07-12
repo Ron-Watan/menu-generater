@@ -26,7 +26,7 @@ const SidebarSubComp = (prop) => {
   const [themeIconBorderColor, serThemeIconBorderColor] = useState('#777');
 
 
-//   const GlobalStyle = 
+//   const GlobalStyle =
 //     createGlobalStyle`
 //   .theme-icon-lineColor {
 //     fill: ${prop.themeSetup.sideBar.themeIconColorLine};
@@ -41,7 +41,8 @@ const SidebarSubComp = (prop) => {
 //   }
 
 // `;
-  
+
+
   // useEffect(() => {
   //   GlobalStyle();
   // }, []);
@@ -54,8 +55,19 @@ const SidebarSubComp = (prop) => {
           prop.menuTime == 1 &&
           prop.iconMenu_1.map((el, index) => {
             return (
-              <a href={prop.iconMenu_1[index]?.link} value={el.catagory} className={` circle-iconButton theme-icon-styleRadius theme-icon-BG-Border ${prop.triggerIcon[index] && 'circle-iconButton-Active'}   ${prop.themeSetup.sideBar.extraIcon && 'extraIcon-client'}`} key={index}>
-                <svg className={` circle-iconSize theme-icon-lineColor ${prop.themeSetup.sideBar.extraIcon && 'extraIcon-client'}`}>
+              <a href={prop.iconMenu_1[index]?.link} value={el.catagory}
+                style={{
+                  'backgroundColor': `${prop.themeSetup.sideBar.themeIconBG}`,
+                  'border': `${prop.themeSetup.sideBar.themeIconSolid} 2px ${prop.themeSetup.sideBar.themeIconColorBorder}`,
+                  'borderRadius': `${prop.themeSetup.sideBar.themeIconRadius}`
+                
+                }}
+
+                className={` circle-iconButton theme-icon-styleRadius theme-icon-BG-Border ${prop.triggerIcon[index] && 'circle-iconButton-Active'}   ${prop.themeSetup.sideBar.extraIcon && 'extraIcon-client'}`} key={index}>
+                <svg
+                  style={{ 'fill': `${prop.themeSetup.sideBar.themeIconColorLine}` }}
+
+                  className={` circle-iconSize theme-icon-lineColor ${prop.themeSetup.sideBar.extraIcon && 'extraIcon-client'}`}>
                   <use xlinkHref={`${prop.iconMenu_1[index]?.icon}`} />
                 </svg>
               </a>
@@ -65,8 +77,17 @@ const SidebarSubComp = (prop) => {
           prop.menuTime == 2 &&
           prop.iconMenu_2.map((el, index) => {
             return (
-              <a href={prop.iconMenu_2[index]?.link} value={el.catagory} className={` circle-iconButton theme-icon-styleRadius theme-icon-BG-Border ${prop.triggerIcon[index] && 'circle-iconButton-Active'} ${prop.themeSetup.sideBar.extraIcon && 'extraIcon-client'}`} key={index}>
-                <svg className={` circle-iconSize theme-icon-lineColor ${prop.themeSetup.sideBar.extraIcon && 'extraIcon-client'}`}>
+              <a href={prop.iconMenu_2[index]?.link} value={el.catagory}
+              style={{
+                'background-color': `${prop.themeSetup.sideBar.themeIconBG}`,
+                'border': `${prop.themeSetup.sideBar.themeIconSolid} 2px ${prop.themeSetup.sideBar.themeIconColorBorder}`,
+                'border-radius': `${prop.themeSetup.sideBar.themeIconRadius}`
+
+              }}
+                className={` circle-iconButton theme-icon-styleRadius theme-icon-BG-Border ${prop.triggerIcon[index] && 'circle-iconButton-Active'} ${prop.themeSetup.sideBar.extraIcon && 'extraIcon-client'}`} key={index}>
+                <svg
+                  style={{ 'fill': `${prop.themeSetup.sideBar.themeIconColorLine}` }}
+                  className={` circle-iconSize theme-icon-lineColor ${prop.themeSetup.sideBar.extraIcon && 'extraIcon-client'}`}>
                   <use xlinkHref={`${prop.iconMenu_2[index]?.icon}`} />
                 </svg>
               </a>
@@ -76,8 +97,18 @@ const SidebarSubComp = (prop) => {
           prop.menuTime == 3 &&
           prop.iconMenu_3.map((el, index) => {
             return (
-              <a href={prop.iconMenu_3[index]?.link} value={el.catagory} className={` circle-iconButton theme-icon-styleRadius theme-icon-BG-Border ${prop.triggerIcon[index] && 'circle-iconButton-Active'} ${prop.themeSetup.sideBar.extraIcon && 'extraIcon-client'}`} key={index}>
-                <svg className={` circle-iconSize theme-icon-lineColor ${prop.themeSetup.sideBar.extraIcon && 'extraIcon-client'}`}>
+              <a href={prop.iconMenu_3[index]?.link} value={el.catagory}
+              style={{
+                'background-color': `${prop.themeSetup.sideBar.themeIconBG}`,
+                'border': `${prop.themeSetup.sideBar.themeIconSolid} 2px ${prop.themeSetup.sideBar.themeIconColorBorder}`,
+                'border-radius': `${prop.themeSetup.sideBar.themeIconRadius}`
+
+              }}
+                
+                className={` circle-iconButton theme-icon-styleRadius theme-icon-BG-Border ${prop.triggerIcon[index] && 'circle-iconButton-Active'} ${prop.themeSetup.sideBar.extraIcon && 'extraIcon-client'}`} key={index}>
+                <svg
+                  style={{ 'fill': `${prop.themeSetup.sideBar.themeIconColorLine}` }}
+                  className={` circle-iconSize theme-icon-lineColor ${prop.themeSetup.sideBar.extraIcon && 'extraIcon-client'}`}>
                   <use xlinkHref={`${prop.iconMenu_3[index]?.icon}`} />
                 </svg>
               </a>

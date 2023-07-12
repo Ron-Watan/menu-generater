@@ -102,7 +102,7 @@ const userSchema = mongoose.Schema(
     onOffSetting: {
       type: 'Object',
       default: {
-        banner: true, sideBar: true, filter: true, vetgeterian: true, vegan: true, gluten_free: true, halal: true,
+        menuName: true, banner: true, sideBar: true, filter: true, vetgeterian: true, vegan: true, gluten_free: true, halal: true,
         footbar: true, favoritHeart: true, feedBack: true
       }
 

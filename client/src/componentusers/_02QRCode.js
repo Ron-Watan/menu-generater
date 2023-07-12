@@ -43,18 +43,17 @@ const _02QRCode = (prop) => {
             className='MB_Btn MB_Btn_Border'>
 
             <img src={MBiconClose} alt="" />
-
-
           </button>
           <span className='MB_textBtn'>Close</span>
         </div>
-        <div className="MB_title">Feedback/Comments</div>
+
+        <div className="MB_title">QR Code</div>
 
         <div className="GruopBtn">
           <button className="MB_BtnEmpty ">
-
           </button>
         </div>
+
       </div>
 
       <div className="MB_AB_FullAgain zindexUnder1">

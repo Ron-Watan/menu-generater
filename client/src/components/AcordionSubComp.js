@@ -41,9 +41,11 @@ const AccordionSummary = styled((props) => (
   paddingRight: '30px',
   backgroundColor:
     theme.palette.mode === 'dark'
-      ? 'rgba(255, 255, 255, .05)'
-      : '#e1e1e156',
+      ? '#e1e1e156'
+      : 'rgba(255, 255, 255, .05)',
   // : 'rgba(0, 0, 0, .03)',
+  // ? 'rgba(255, 255, 255, .05)'
+  // : '#e1e1e156',
   flexDirection: 'row-reverse',
   '& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': {
     transform: 'rotate(90deg)',
@@ -83,28 +85,8 @@ const AcordionSubComp = (prop) => {
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
+
   };
-
-  // console.log(subListMenu)
-
-  // console.log(elementRef.current.offsetHeight);
-  const drag = () => {
-    // console.log("fOCUS === " + elementRef.current[0].clientHeight);
-
-  }
-  // console.log('Data from Accord :' + Boolean(subListMenu))
-
-
-  // const checkOption = (el) => {
-  //   const checkType = Boolean((el.option_name_1 +
-  //     el.option_name_2 +
-  //     el.option_name_3 +
-  //     el.option_name_4 +
-  //     el.option_name_5 +
-  //     el.option_name_6).trim())
-  //   return checkType
-  // }
-
 
 
   subListMenu.map((element, index) => {
@@ -112,9 +94,6 @@ const AcordionSubComp = (prop) => {
   })
 
   const [newSubListMenu, setNewSubListMenu] = useState(subListMenu)
-
-
-  //- Add data for functional
 
 
   const addFavorite = (index) => {
@@ -132,37 +111,10 @@ const AcordionSubComp = (prop) => {
     data.favor = false
   }
 
-  // useEffect(() => {
-  // console.dir(elementRef.current[0]);
-  // console.log(elementRef.getBoundingClientRect().width)
-
-
-  // eslint-disable-next-line
-  // }, [elementRef.current]);
-  // useEffect(() => {
-  // prop.favorite(favorList)
-  // eslint-disable-next-line
-  // }, []);
-
-
-  // useEffect(() => {
-
-
-  // }, [])
-  const elementRef = useRef([]);
-
-  // const fntest = (el) => {
-
-  //   if (!el) return
-  //   console.log(el.getBoundingClientRect());
-
-  // }
 
 
 
   //= setTriggerIcon
-
-
 
   const positionTrigger = 200
   let newData = []
@@ -187,7 +139,6 @@ const AcordionSubComp = (prop) => {
     prop.setTriggerIcon(newData)
 
   },)
-
 
   // console.log(prop.triggerIcon)
   // componentWillUnmount: function() {
@@ -242,8 +193,7 @@ const AcordionSubComp = (prop) => {
     getImage();
   }, []);
 
-
-
+  console.log(prop.accordian)
 
   const heartIcon = {
     favor1: 'favor1.svg', favor2: 'favor2.svg',
@@ -254,15 +204,22 @@ const AcordionSubComp = (prop) => {
   return (
     <div id={prop.indexM} className={`acArray mx-auto max-w-7xl `}
       style={{ 'backgroundColor': `${prop.themeSetup.body.bodyBgColor}` }}
-      ref={elementRef}><i className="x">!Theme</i>
+    ><i className="x">!Theme</i>
 
       <div className="categoryImg" style={{
         backgroundImage: `url(${file})`,
         backgroundPosition: 'center',
-        backgroundSize: 'cover'
+        backgroundSize: 'cover',
+        height: `${prop.themeSetup.categoryMotion.categoryPhotoSize}`
+
       }}>
         <div className={prop.themeSetup.categoryMotion.categoryBoxClass} style={{ 'backgroundColor': `${prop.themeSetup.categoryMotion.categoryBoxColor}` }}>
-          <span className={`category-Custom-Title`} style={{ 'color': `${prop.themeSetup.categoryMotion.categoryFontColor}` }}> {prop.listMunu.catagory}</span>
+          <span className={`category-Custom-Title`} style={{
+            'color': `${prop.themeSetup.categoryMotion.categoryFontColor}`,
+            'fontSize': `${prop.themeSetup.body.bodyFontSize * 1.5}rem`, 'fontWeight': '500'
+
+
+          }}> {prop.listMunu.catagory}</span>
           <span className={`${prop.themeSetup.categoryMotion.categorySpanClass} ${prop.triggerIcon[prop.indexM] && `${prop.themeSetup.categoryMotion.categoryActiveClass}`}`} style={{ 'backgroundColor': `${prop.themeSetup.categoryMotion.categorySpanColor}` }}></span>
         </div>
 
@@ -273,72 +230,130 @@ const AcordionSubComp = (prop) => {
         {newSubListMenu.map((el, index) => (
           // <div ref={(element) => { elementRef.current[index] = element; }} onClick={drag} className='' key={index}>
           <div className='accTab' key={index}>
-            <button onClick={event => removeFavorite(index, event, el.food_name, el.price)} className={`${!el.favor && 'displayNone'} heartFavor2Box`}>
+            {prop.footbar && <button onClick={event => removeFavorite(index, event, el.food_name, el.price)} className={`${!el.favor && 'displayNone'} heartFavor2Box`}>
               {prop.favoritHeart && <div className={` heartFavor2Box-1 flex justify-center gap-x-6`}>
 
                 <img src={require(`../all-icon/footbar-icon/${heartIcon.favor2}`)} alt="" />
               </div>}
-            </button>
-
-            <div className="">
-              <Accordion expanded={expanded === el.panelCode} onChange={handleChange(el.panelCode)}>
+            </button>}
 
 
 
+            {prop.accordian && <Accordion expanded={expanded === el.panelCode} onChange={handleChange(el.panelCode)}>
+              <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
+                <div className={prop.sideBar ? 'paddingL_40' : ''}
+                  style={{ 'color': `${prop.themeSetup.body.bodyFonttColor}`, 'fontSize': `${prop.themeSetup.body.bodyFontSize * 1.2}rem`, 'fontWeight': '500' }}>
+                  {prop.language === 1 && <span>{el.food_name}</span>}
+                  {prop.language === 2 && <span>{el.food_name_2}</span>}
+                </div>
+                <div className={`flex`}
+                  style={{ 'color': `${prop.themeSetup.body.bodyFonttColor}`, 'fontSize': `${prop.themeSetup.body.bodyFontSize * 1.2}rem`, 'fontWeight': '500' }}>
+                  {prop.language === 1 && <span>{prop.languageSetup.style_1 ?
+                    <div ><span>{prop.languageSetup.followed_1 && prop.languageSetup.symbol_1}</span><span>{el.price}</span> <span>&nbsp;{!prop.languageSetup.followed_1 && prop.languageSetup.symbol_1}</span> </div>
+                    : <div ><span></span><span>{el.price}</span><span></span></div>}</span>}
+                  {prop.language === 2 && <span>{prop.languageSetup.style_2 ?
+                    <div ><span>{prop.languageSetup.followed_2 && prop.languageSetup.symbol_2}</span><span>{el.price}</span> <span>&nbsp;{!prop.languageSetup.followed_2 && prop.languageSetup.symbol_2}</span> </div>
+                    : <div ><span></span><span>{el.price}</span><span></span></div>}</span>}
+                </div>
 
-                <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
-                  {/* <Typography ><span className='test44'>{el.food_name}</span><span>{el.price}</span></Typography> */}
-                  <div className={prop.sideBar && 'paddingL_40'} style={{ 'color': `${prop.themeSetup.body.bodyFonttColor}` }}>
-                    {prop.language === 1 && <span>{el.food_name}</span>}
-                    {prop.language === 2 && <span>{el.food_name_2}</span>}
-                  </div>
-                  <div className={` flex `} style={{ 'color': `${prop.themeSetup.body.bodyFonttColor}` }}>
-                    {/* {prop.language === 1 && <span>{el.price}</span>}
-                  {prop.language === 2 && <span>{el.price}</span>} */}
-                    {prop.language === 1 && <span>{prop.languageSetup.style_1 ?
-                      <div ><span>{prop.languageSetup.followed_1 && prop.languageSetup.symbol_1}</span><span>{el.price}</span> <span>&nbsp;{!prop.languageSetup.followed_1 && prop.languageSetup.symbol_1}</span> </div>
-                      : <div ><span></span><span>{el.price}</span><span></span></div>}</span>}
-                    {prop.language === 2 && <span>{prop.languageSetup.style_2 ?
-                      <div ><span>{prop.languageSetup.followed_2 && prop.languageSetup.symbol_2}</span><span>{el.price}</span> <span>&nbsp;{!prop.languageSetup.followed_2 && prop.languageSetup.symbol_2}</span> </div>
-                      : <div ><span></span><span>{el.price}</span><span></span></div>}</span>}
-                    {/* 
-                  {prop.languageSetup.style_1 ?
-                    <div className="ex25"><span>{prop.languageSetup.followed_1 && prop.languageSetup.symbol_1}</span> <span>el.price</span> <span>&nbsp;{!prop.languageSetup.followed_1 && prop.languageSetup.symbol_1}</span> </div>
-                    : <div className="ex25"><span></span><span>el.price</span><span></span></div>} */}
+              </AccordionSummary>
+              {prop.description && <AccordionDetails>
+                {prop.language === 1 && <Typography className={prop.sideBar ? 'paddingL_40' : ''}
+                  style={{
+                    'fontFamily': `${prop.themeSetup.body.bodyFontFamily}`,
+                    'color': `${prop.themeSetup.body.bodyFonttColor}`,
+                    'fontSize': `${prop.themeSetup.body.bodyFontSize * 1}rem`, 'fontWeight': '400'
+                  }}
+                >{el.description}</Typography>}
+                {prop.language === 2 && <Typography className={prop.sideBar ? 'paddingL_40' : ''} style={{
+                  'fontFamily': `${prop.themeSetup.body.bodyFontFamily}`,
+                  'color': `${prop.themeSetup.body.bodyFonttColor}`,
+                  'fontSize': `${prop.themeSetup.body.bodyFontSize * 1}rem`, 'fontWeight': '400'
+                }}>{el.description}</Typography>}
+                {prop.language === 1 && <div className={`Acc_remark ${prop.sideBar ? 'paddingL_40' : ''}`} style={{
+                  'fontFamily': `${prop.themeSetup.body.bodyFontFamily}`,
+                  'color': `${prop.themeSetup.body.bodyFonttColor}`,
+                  'fontSize': `${prop.themeSetup.body.bodyFontSize * .9}rem`,
+                  'fontWeight': '300',
+
+                }}>{el.remark}</div>}
+                {prop.language === 2 && <div className={prop.sideBar ? 'paddingL_40' : ''} style={{
+                  'fontFamily': `${prop.themeSetup.body.bodyFontFamily}`,
+                  'color': `${prop.themeSetup.body.bodyFonttColor}`,
+                  'fontSize': `${prop.themeSetup.body.bodyFontSize * .9}rem`,
+                  'fontWeight': '300',
+                }}>{el.remark}</div>}
+                <div className={`heartFavor1Box`}>
+
+                  {(prop.favoritHeart && prop.footbar) && <button onClick={event => addFavorite(index, event, el.panelCode)} className={`${el.favor && 'opacity-0 transition-all'} `}>
+                    <img src={require(`../all-icon/footbar-icon/${heartIcon.favor1}`)} alt="" />
+                  </button>}
+                </div>
+              </AccordionDetails>}
+            </Accordion>}
+
+
+
+            {!prop.accordian && <div expanded={expanded === el.panelCode} onChange={handleChange(el.panelCode)}>
+              <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
+                <div className={prop.sideBar ? 'paddingL_40' : ''}
+                  style={{ 'color': `${prop.themeSetup.body.bodyFonttColor}` }}>
+                  {prop.language === 1 && <span>{el.food_name}</span>}
+                  {prop.language === 2 && <span>{el.food_name_2}</span>}
+                </div>
+                <div className={`flex`}
+                  style={{ 'color': `${prop.themeSetup.body.bodyFonttColor}` }}>
+                  {prop.language === 1 && <span>{prop.languageSetup.style_1 ?
+                    <div ><span>{prop.languageSetup.followed_1 && prop.languageSetup.symbol_1}</span><span>{el.price}</span> <span>&nbsp;{!prop.languageSetup.followed_1 && prop.languageSetup.symbol_1}</span> </div>
+                    : <div ><span></span><span>{el.price}</span><span></span></div>}</span>}
+                  {prop.language === 2 && <span>{prop.languageSetup.style_2 ?
+                    <div ><span>{prop.languageSetup.followed_2 && prop.languageSetup.symbol_2}</span><span>{el.price}</span> <span>&nbsp;{!prop.languageSetup.followed_2 && prop.languageSetup.symbol_2}</span> </div>
+                    : <div ><span></span><span>{el.price}</span><span></span></div>}</span>}
+                </div>
+
+              </AccordionSummary>
+              {prop.description && <AccordionDetails>
+                {prop.language === 1 && <Typography className={prop.sideBar ? 'paddingL_40' : ''}
+                  style={{
+                    'fontFamily': `${prop.themeSetup.body.bodyFontFamily}`,
+                    'color': `${prop.themeSetup.body.bodyFonttColor}`
+                  }}
+                >{el.description}</Typography>}
+                {prop.language === 2 && <Typography className={prop.sideBar ? 'paddingL_40' : ''} style={{
+                  'fontFamily': `${prop.themeSetup.body.bodyFontFamily}`,
+                  'color': `${prop.themeSetup.body.bodyFonttColor}`
+                }}>{el.description}</Typography>}
+                {prop.language === 1 && <div className={prop.sideBar ? 'paddingL_40' : ''} style={{
+                  'fontFamily': `${prop.themeSetup.body.bodyFontFamily}`,
+                  'color': `${prop.themeSetup.body.bodyFonttColor}`
+                }}>{el.remark}</div>}
+                {prop.language === 2 && <div className={prop.sideBar ? 'paddingL_40' : ''} style={{
+                  'fontFamily': `${prop.themeSetup.body.bodyFontFamily}`,
+                  'color': `${prop.themeSetup.body.bodyFonttColor}`
+                }}>{el.remark}</div>}
+                <div className={`heartFavor1Box`}>
+
+                  {(prop.favoritHeart && prop.footbar) && <button onClick={event => addFavorite(index, event, el.panelCode)} className={`${el.favor && 'opacity-0 transition-all'} `}>
+                    <img src={require(`../all-icon/footbar-icon/${heartIcon.favor1}`)} alt="" />
+                  </button>}
+                </div>
+              </AccordionDetails>}
+            </div>}
 
 
 
 
 
-                  </div>
-                  
-
-
-                </AccordionSummary>
-              
-
-                <AccordionDetails style={{ 'color': `${prop.themeSetup.body.bodyFonttColor}` }}>
-                  {prop.language === 1 && <Typography className={prop.sideBar && 'paddingL_40'} >{el.description}</Typography>}
-                  {prop.language === 2 && <Typography className={prop.sideBar && 'paddingL_40'} >{el.description}</Typography>}
-                  {prop.language === 1 && <div className={prop.sideBar && 'paddingL_40'} >{el.remark}</div>}
-                  {prop.language === 2 && <div className={prop.sideBar && 'paddingL_40'} >{el.remark}</div>}
-                  <div className={`heartFavor1Box`}>
 
 
 
-                    {prop.favoritHeart && <button onClick={event => addFavorite(index, event, el.panelCode)} className={`${el.favor && 'opacity-0 transition-all'} `}>
-                      <img src={require(`../all-icon/footbar-icon/${heartIcon.favor1}`)} alt="" />
-                    </button>}
 
 
 
-                  </div>
 
 
-                </AccordionDetails>
 
-              </Accordion>
-            </div>
+
           </div>
         ))
         }

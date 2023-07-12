@@ -17,7 +17,7 @@ export const getAllMenu = (req, res) => {
   // res.send({ message: "Success", success: true, }) //send to client side
   const { userId } = req.body;
   Users.findOne({ userId: userId })
-    .select('userId restaurentName menu menuName themeSetup bannerImage languageSetup timeSetup clientId link')
+    .select('userId restaurentName menu menuName themeSetup bannerImage languageSetup timeSetup onOffSetting clientId link')
     .then((user) => {
       res.send({
         message: 'Success',
@@ -36,7 +36,7 @@ export const createManu = (req, res) => {
   const menuId = uuidv4();
 
   Users.findOne({ userId: userId })
-    .select('userId restaurentName menu menuName bannerImage languageSetup timeSetup clientId link')
+    .select('userId restaurentName menu menuName bannerImage languageSetup timeSetup onOffSetting clientId link')
     .then((user) => {
       user.menu.push({
         menuTime: menuTime,
@@ -129,7 +129,7 @@ export const saveNameMenu = (req, res) => {
   const { userId, clientId, menuName } = req.body;
   // console.log(menuName)
   Users.findOne({ userId: userId })
-    .select('userId restaurentName menu menuName  bannerImage languageSetup timeSetup clientId link')
+    .select('userId restaurentName menu menuName  bannerImage languageSetup timeSetup onOffSetting clientId link')
     .then((user) => {
       user.menuName = menuName;
       user.save();
@@ -333,7 +333,7 @@ export const saveTimeSetup = (req, res) => {
   console.log(timeSetup);
 
   Users.findOne({ userId: userId })
-    .select('userId restaurentName menu menuName  bannerImage languageSetup timeSetup clientId link')
+    .select('userId restaurentName menu menuName  bannerImage languageSetup timeSetup onOffSetting clientId link')
     .then((user) => {
       user.timeSetup = timeSetup;
       user.save();
@@ -356,7 +356,7 @@ export const saveLangSetup = (req, res) => {
   console.log(languageSetup);
 
   Users.findOne({ userId: userId })
-    .select('userId restaurentName menu menuName  bannerImage languageSetup timeSetup clientId link')
+    .select('userId restaurentName menu menuName  bannerImage languageSetup timeSetup onOffSetting clientId link')
     .then((user) => {
       user.languageSetup = languageSetup;
       user.save();
@@ -420,15 +420,16 @@ export const getTheme = (req, res) => {
 export const saveOnOffSetting = (req, res) => {
   console.log('HelloMaaddsd')
   const { userId, onOffSetting } = req.body;
+  
   Users.findOne({ userId: userId })
-    .select('userId onOffSetting clientId')
+    .select('onOffSetting clientId')
     .then((user) => {
 
       user.onOffSetting = onOffSetting;
       user.save();
       res.send({
         message: 'Success',
-        userTheme: user,// Slected
+        userOnOffSetting: user,// Slected
         success: true,
       });
       Clients.findOne({ clientId: user.clientId }).then((client) => {

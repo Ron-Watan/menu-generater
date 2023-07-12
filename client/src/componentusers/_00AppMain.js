@@ -40,7 +40,7 @@ import _TimePickerMobile from './_TimePickerMobile';
 import _LanguageSetupMobile from './_LanguageSetupMobile';
 import _ThemeSetupMobile from './_ThemeSetupMobile';
 import _LanguageAddMobile from './_LanguageAddMobile';
-import _OnOffSettingMobile from './_OnOffSettingMobile';
+import _10OnOffSettingMobile from './_10OnOffSettingMobile';
 
 
 
@@ -132,6 +132,14 @@ const _AppMain = () => {
 
   const [timeSetup, setTimeSetup] = useState({});
   const [languageSetup, setLanguageSetup] = useState({});
+  const [onOffSetting, setOnOffSetting] = useState({});
+  // const [onOffSetting, setOnOffSetting] = useState({
+
+  //   menuName: '', banner: '', sideBar: '', filter: '', vetgeterian: '', vegan: '', gluten_free: '', halal: '',
+  //   footbar: '', langIcon: '', favoritHeart: '', feedBack: ''
+  // })
+
+
 
   // const timeSetup = {
   //   timeType: timeType,
@@ -219,7 +227,8 @@ const _AppMain = () => {
           setMenuName(getReult.menuName);
           setTimeSetup(getReult.timeSetup);
           setLanguageSetup(getReult.languageSetup);
-          setThemeSetup(getReult.setThemeSetup);
+          setThemeSetup(getReult.themeSetup);
+          setOnOffSetting(getReult.onOffSetting)
 
           getAllImage()
           //   const checkTime = getReult.filter((el) => el.menuTime == menuTime;
@@ -975,6 +984,7 @@ const _AppMain = () => {
   const [navTime2TimePicker, setNavTime2TimePicker] = useState(0);
   const [navLang2LangSetUp, setNavLang2LangSetUp] = useState(0);
   const [navTheme2ThemeSetUp, setNavTheme2ThemeSetUp] = useState(0);
+  const [navOnOff2OnOffSetting, setVavOnOff2OnOffSetting] = useState(0);
 
   //=
 
@@ -1860,12 +1870,10 @@ const _AppMain = () => {
         <div className={`mobile_ThemeFunction ${!onOffThemeSetup_MB && 'MB_slide_Left'}`}>
           <_ThemeSetupMobile setOnOffThemeSetup_MB={setOnOffThemeSetup_MB} navTheme2ThemeSetUp={navTheme2ThemeSetUp}
             restaurantName={restaurantName} setRestaurantName={setRestaurantName}
-            reloadIFrame={reloadIFrame} setMBnavIcon={setMBnavIcon } />
+            reloadIFrame={reloadIFrame} setMBnavIcon={setMBnavIcon} />
         </div>
 
-        <div className={`mobile_function ${!onOffSetting_MB && 'MB_slide_Down'}`}>
-          <_OnOffSettingMobile />
-        </div>
+
 
         <div className={`mobile_function ${!onOffFeedBAck_MB && 'MB_slide_Down'}`}>
           <_01FeedBackMobile setOnOffFeedBAck_MB={setOnOffFeedBAck_MB} setGetStarNotification={setGetStarNotification} />
@@ -1875,7 +1883,9 @@ const _AppMain = () => {
           <_02QRCode setOnOffQRCCode_MB={setOnOffQRCCode_MB} />
         </div>
 
-
+        <div className={`mobile_function ${!onOffSetting_MB && 'MB_slide_Down'}`}>
+          <_10OnOffSettingMobile setOnOffSetting_MB={setOnOffSetting_MB} navOnOff2OnOffSetting={navOnOff2OnOffSetting} onOffSetting={onOffSetting } />
+        </div>
 
 
         <i className='x'>//- START MOBILE BAR //------------------------------------------------</i>
@@ -1887,12 +1897,38 @@ const _AppMain = () => {
           </button>
         </div>
 
-        
+
         <i className='x'> Scroll Navigation -----------------------------------------------</i>
         <i className='x'> 0-----------------------------------------------</i>
 
         <div className="MC_nav">
-        <i className='x'> 9 Theme-----------------------------------------------</i>
+
+
+
+          <i className='x'> 10 On Off-----------------------------------------------</i>
+          <button onClick={() => {
+            setOnOffSetting_MB(!onOffSetting_MB);
+            setVavOnOff2OnOffSetting((testTG) => navOnOff2OnOffSetting + 1);
+          }}
+            name='Manu1MB'
+            className={`MC_Tab MB_None ${!mBnavIcon && 'displayNone'}`} >
+            <img src={MBicon_Onoff} alt="" />
+          </button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          <i className='x'> 9 Theme-----------------------------------------------</i>
           <button onClick={() => {
             setOnOffThemeSetup_MB(!onOffThemeSetup_MB);
             setMBnavIcon(false)
@@ -2006,6 +2042,9 @@ const _AppMain = () => {
             <img src={MBicon_Lang} alt="" />
           </button>
 
+
+
+
           {/* <i className='x'> 9 Theme-----------------------------------------------</i>
           <button onClick={() => {
             setOnOffThemeSetup_MB(!onOffThemeSetup_MB);
@@ -2016,14 +2055,7 @@ const _AppMain = () => {
             <img src={MBicon_Theme} alt="" />
           </button> */}
 
-          <i className='x'> 10 On Off-----------------------------------------------</i>
-          <button onClick={() => {
-            setOnOffSetting_MB(!onOffSetting_MB);
-          }}
-            name='Manu1MB'
-            className={`MC_Tab MB_None ${!mBnavIcon && 'displayNone'}`} >
-            <img src={MBicon_Onoff} alt="" />
-          </button>
+
 
           <i className='x'> 11 Log Out-----------------------------------------------</i>
           <button onClick={() => {
@@ -2043,7 +2075,7 @@ const _AppMain = () => {
 
         <iframe id='iframe'
           className={`mobile_iframe  ${(onOffBanner_MB || onOffMenu1_MB || onOffMenu2_MB ||
-            onOffMenu3_MB || onOffTimePicker_MB || onOffLangSetup_MB || onOffFeedBAck_MB)
+            onOffMenu3_MB || onOffTimePicker_MB || onOffLangSetup_MB || onOffFeedBAck_MB||onOffSetting_MB||onOffQRCCode_MB)
             && 'iframe_scale_Down'}`}
           src="http://192.168.1.13:3000/customer/37f91f16-undefined" />
 

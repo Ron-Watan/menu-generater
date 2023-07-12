@@ -12,7 +12,7 @@ const _LanguageSetupMobile = (prop) => {
   const { user } = useSelector((state) => state.user);
 
   const [languageSetup, setLanguageSetup] = useState({
-    onLanguage_2: false,
+    onLanguage_2: '',
     language_1: 'English',
     code_1: 'EN',
     symbol_1: '$',
@@ -44,6 +44,7 @@ const _LanguageSetupMobile = (prop) => {
   const [onOffLang2nd, setOnOffLang2nd] = useState(false);
 
   const [onOffChoose, setnOffChoose] = useState(true);
+
 
   const saveLangSetup = () => {
     // dispath(showLoading());
@@ -109,7 +110,7 @@ const _LanguageSetupMobile = (prop) => {
           </button>
           <span className='MB_textBtn'>Close</span>
         </div>
-        <div className="MB_title">LANGUAGE SETTING</div>
+        <div className="MB_title">Language Setting</div>
         <div className="GruopBtn">
           <button className="MB_BtnEmpty ">
 
@@ -195,7 +196,8 @@ const _LanguageSetupMobile = (prop) => {
             <label htmlFor='onOffLang2' className={`containerSwitch switchLang `}>
               <input onChange={
                 ()=>styleSymboleFn3('onLanguage_2')
-              } type='checkbox' name='onOffLang2' id='onOffLang2' /> <span className='sliderLang forOFLang2'></span>
+              } type='checkbox' name='onOffLang2' id='onOffLang2' checked={languageSetup.onLanguage_2}/>
+              <span className='sliderLang forOFLang2' ></span>
             </label>
           </div>
 

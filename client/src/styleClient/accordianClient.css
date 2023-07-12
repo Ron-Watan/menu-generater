@@ -33,7 +33,6 @@
 
 .categoryImg {
   position: relative;
-  height: 15rem;
 }
 
 /* //- BAR-LINE ///////////////////////////////// */
@@ -53,7 +52,7 @@
 
 .category-Custom-Title {
   font-size: 1.5rem;
-  font-weight: 800;
+  /* font-weight: 800; */
   transition: all 0.3s;
 }
 

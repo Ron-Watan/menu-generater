@@ -49,7 +49,9 @@
     display: none;
   }
 } */
-
+body {
+  background-color: #000 !important;
+}
 /* //---------------------------------------------------------- */
 
 /* background: linear-gradient(to right top, #FE560F, #f0a000); */
@@ -69,6 +71,10 @@
   width: 10rem;
   height: 10rem;
   background-color: rgba(179, 12, 12, 0.404);
+}
+
+.overScroll_none{
+  overscroll-behavior: none;
 }
 .Flex_AllCenter {
   display: flex;
@@ -337,6 +343,7 @@
 .MB_title {
   font-size: 1.1rem;
   font-weight: 500;
+text-align: center;
 }
 .MB_bannerShow {
   display: flex;
@@ -706,6 +713,13 @@
   border: #eee 1px solid;
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
 }
+
+
+
+.Acc_remark{
+  margin-top: 1rem;
+  font-style: italic;
+}
 /* ============================================================== */
 
 .MB_iconPickerheader-Nav {
@@ -822,9 +836,12 @@
   gap: 0.5rem;
   padding-top: 5.5rem;
 
-  background: linear-gradient(0deg,#fff 0, #fff 30%, #22c5a1, #85f4aa);
   height: 100vh;
   overflow-y: scroll;
+}
+.greenLinear{
+  background: linear-gradient(0deg,#fff 0, #fff 30%, #22c5a1, #85f4aa);
+
 }
 /* .MB_PaddingWrapper {
   padding-top: 0.5rem;

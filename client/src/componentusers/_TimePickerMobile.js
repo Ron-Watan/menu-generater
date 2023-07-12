@@ -435,6 +435,12 @@ const _TimePickerMobile = (prop) => {
           <span className='MB_textBtn'>Close</span>
         </div>
 
+        <div className="MB_title">Menu Schedule Settings</div>
+
+        <div className="GruopBtn">
+          <button className="MB_BtnEmpty ">
+          </button>
+        </div>
       </div>
 
 
@@ -975,12 +981,12 @@ const _TimePickerMobile = (prop) => {
                   prop.setonOffMenuTime(false);
                 }}
                 className='MB_Sq_Btn MB_Btn_Color MB_G2'>
-      
+
                 <span>CONFIRM</span>
               </button>
 
               <button onClick={() => setWindowConfirm(false)} className='MB_Sq_Btn MB_Btn_Border MB_G3'>
-      
+
 
                 <span>CANCEL</span>
               </button>

@@ -65,16 +65,16 @@ const _MenuComponent = () => {
 
   const [themeSetup, setThemeSetup] = useState({
     navAndFootBar: {
-      nameFontFamily: 'Restaurant', nameFontColor: '#fff', nameFontSize: '1.2rem', navBarColor: '#000', navBarFontColor: '#fff', navBarLogoColor: '#fff'
+      nameFontFamily: 'Restaurant', nameFontColor: '#fff', nameFontSize: '1.2rem', navBarColor: '#000', navBarFontColor: '#fff', navBarLogoColor: '#fff', footBarStyle: 'box'
     },
     body: {
-      bodyBgColor: '#fff', bodyFontFamily: 'Roboto', bodyFonttColor: '#000'
+      bodyBgColor: '#fff', bodyFontFamily: 'Roboto', bodyFonttColor: '#000',bodyFontSize:'1'
     },
     sideBar: {
       extraIcon: '', themeIconRadius: '3rem', themeIconColorLine: '', themeIconBG: '', themeIconSolid: '', themeIconColorBorder: '',
     },
     categoryMotion: {
-      categoryFontColor: '', categoryBoxClass: '', categoryBoxColor: '', categorySpanClass: '', categorySpanColor: '', categoryActiveClass: ''
+      categoryPhotoSize: '10rem', categoryFontColor: '#fff', categoryBoxClass: 'category-Custom-BarLine', categoryBoxColor: '', categorySpanClass: 'category-Custom-Line', categorySpanColor: '', categoryActiveClass: 'category-Custom-Line-Active'
     }
 
   })
@@ -93,10 +93,14 @@ const _MenuComponent = () => {
   const [onOffSetting, setOnOffSetting] = useState({
 
     menuName: true, banner: true, sideBar: true, filter: true, vetgeterian: true, vegan: true, gluten_free: true, halal: true,
-    footbar: true, favoritHeart: true, feedBack: true
+    description: true, accordian: true, footbar: true, langIcon: true, favoritHeart: true, feedBack: true
   })
-  const { menuName, banner, sideBar, filter, vetgeterian, vegan, gluten_free, halal, footbar, favoritHeart, feedBack } = onOffSetting
+  const { menuName, banner, sideBar, filter, vetgeterian, vegan, gluten_free, halal, description, accordian, footbar, langIcon, favoritHeart, feedBack } = onOffSetting
   //=-----------------------------------------------
+
+  const onOffSideBarFn = (bol) => {
+    setOnOffSetting({ ...onOffSetting, ['sideBar']: bol })
+  }
   const getClientMenu = () => {
     setLoadingManual(true);
     // console.log(co++)
@@ -116,6 +120,8 @@ const _MenuComponent = () => {
           setThemeSetup(getResault.themeSetup)
           setRestaurantName(getResault.restaurantName)
           setTimeSetup(getResault.timeSetup)
+          setOnOffSetting(getResault.onOffSetting)
+          // console.log(getResault.onOffSetting)
           const allDayType = getResault.timeSetup.allDayType;
 
           let counttype = 0;
@@ -328,7 +334,7 @@ const _MenuComponent = () => {
   // font-family: 'Roboto Slab', serif;
   const [loadingManual, setLoadingManual] = useState(true);
 
-
+  console.log('1')
 
   //=-----------------------------------------------
   return (
@@ -534,6 +540,7 @@ const _MenuComponent = () => {
                         onClick={() => {
                           filterSerach('vetgeterian');
                           setIconFilter('vetgeterian');
+                          onOffSideBarFn(false)
                         }}
                         className={` filterBtn-tab`}
                         style={{ 'backgroundColor': `${themeSetup.navAndFootBar.navBarColor}` }}>
@@ -544,6 +551,7 @@ const _MenuComponent = () => {
                         onClick={() => {
                           filterSerach('vegan');
                           setIconFilter('vegan');
+                          onOffSideBarFn(false)
                         }}
                         className={` filterBtn-tab`}
                         style={{ 'backgroundColor': `${themeSetup.navAndFootBar.navBarColor}` }}>
@@ -554,6 +562,7 @@ const _MenuComponent = () => {
                         onClick={() => {
                           filterSerach('gluten_free');
                           setIconFilter('gluten_free');
+                          onOffSideBarFn(false)
                         }}
                         className={` filterBtn-tab`}
                         style={{ 'backgroundColor': `${themeSetup.navAndFootBar.navBarColor}` }}>
@@ -564,6 +573,7 @@ const _MenuComponent = () => {
                         onClick={() => {
                           filterSerach('halal');
                           setIconFilter('halal');
+                          onOffSideBarFn(false)
                         }}
                         className={` filterBtn-tab`}
                         style={{ 'backgroundColor': `${themeSetup.navAndFootBar.navBarColor}` }}>
@@ -574,6 +584,7 @@ const _MenuComponent = () => {
                         onClick={() => {
                           filterSerach('food_name');
                           setIconFilter('food_name');
+                          onOffSideBarFn(true)
                         }}
                         className={` filterBtn-tab`}
                         style={{ 'backgroundColor': `${themeSetup.navAndFootBar.navBarColor}` }}>
@@ -643,6 +654,9 @@ const _MenuComponent = () => {
                   themeSetup={themeSetup}
                   favoritHeart={favoritHeart}
                   sideBar={sideBar}
+                  description={description}
+                  accordian={accordian}
+
                 />
               ))}
           {menuTime === 2 &&
@@ -661,6 +675,8 @@ const _MenuComponent = () => {
                   setLanguage={setLanguage}
                   language={language}
                   themeSetup={themeSetup}
+                  description={description}
+                  accordian={accordian}
                 />
               ))}
           {menuTime === 3 &&
@@ -678,7 +694,11 @@ const _MenuComponent = () => {
                   languageSetup={languageSetup}
                   setLanguage={setLanguage}
                   language={language}
+
                   themeSetup={themeSetup}
+                  description={description}
+                  accordian={accordian}
+                  footbar={footbar}
                 />
               ))}
         </ThemeProvider>
@@ -692,6 +712,7 @@ const _MenuComponent = () => {
             language={language}
             themeSetup={themeSetup}
             setThemeSetup={setThemeSetup}
+            langIcon={langIcon}
             favoritHeart={favoritHeart}
             feedBack={feedBack}
 

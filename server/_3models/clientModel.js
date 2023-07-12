@@ -44,6 +44,10 @@ const clientSchema = mongoose.Schema(
       type: Array,
       default: []
     },
+    onOffSetting: {
+      type: 'Object',
+      default: {},
+    }
 
   },
   { timestamps: true }
