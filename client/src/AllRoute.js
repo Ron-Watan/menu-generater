@@ -24,11 +24,11 @@ const AllRoute = () => {
         </div>
       </div>)} */}
 
-      {/* {loading && (<div className=" photoLoading">
+      {loading && (<div className=" photoLoading">
         <div className="iconLoading">
           <span className='barOne'></span > <span className='barTwo'></span> <span className='barThree'></span>
         </div>
-      </div>)} */}
+      </div>)}
 
 
       <Routes>

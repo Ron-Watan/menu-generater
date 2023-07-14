@@ -68,7 +68,7 @@ const _MenuComponent = () => {
       nameFontFamily: 'Restaurant', nameFontColor: '#fff', nameFontSize: '1.2rem', navBarColor: '#000', navBarFontColor: '#fff', navBarLogoColor: '#fff', footBarStyle: 'box'
     },
     body: {
-      bodyBgColor: '#fff', bodyFontFamily: 'Roboto', bodyFonttColor: '#000',bodyFontSize:'1'
+      bodyBgColor: '#fff', bodyFontFamily: 'Roboto', bodyFonttColor: '#000', bodyFontSize: '1'
     },
     sideBar: {
       extraIcon: '', themeIconRadius: '3rem', themeIconColorLine: '', themeIconBG: '', themeIconSolid: '', themeIconColorBorder: '',
@@ -124,15 +124,24 @@ const _MenuComponent = () => {
           // console.log(getResault.onOffSetting)
           const allDayType = getResault.timeSetup.allDayType;
 
-          let counttype = 0;
+          let allDayFirstMenu = 3
+          let counttype = [];
           for (let x in allDayType) {
-            if (allDayType[x]) counttype++;
+            if (allDayType[x]) {
+              counttype.push(getResault.menuName[x])
+              if (Number(x.slice(-1)) < allDayFirstMenu) {
+                allDayFirstMenu = Number(x.slice(-1))
+             
+              }
+
+            };
           }
-          setCounttype(counttype);
+          setCounttype(counttype.length);
+
 
           if (getResault.timeSetup.timeType) {
-            setMenuTime(1);
-            setChooseMenu(getResault.menuName.menu_1);
+            setMenuTime(allDayFirstMenu);
+            setChooseMenu(counttype[0]);
             setLoadingManual(false);
           } else if (getResault.timeSetup.codeSelectType.menu_1 === '1' && nowTime >= Number(getResault.timeSetup.selectType?.menu_1.start) && nowTime <= Number(getResault.timeSetup.selectType?.menu_1.end)) {
             setMenuTime(1);
@@ -334,7 +343,7 @@ const _MenuComponent = () => {
   // font-family: 'Roboto Slab', serif;
   const [loadingManual, setLoadingManual] = useState(true);
 
-  console.log('1')
+
 
   //=-----------------------------------------------
   return (
@@ -409,8 +418,7 @@ const _MenuComponent = () => {
                                 setChooseMenu(allMenuName.menu_1);
                                 setMenuTime(1);
                               }}
-                              className={` ${chooseMenu === allMenuName.menu_1 && 'displayNone'} 
-                      navMenuNameText-tab`}
+                              className={` ${chooseMenu === allMenuName.menu_1 && 'displayNone'} navMenuNameText-tab`}
                               style={{ 'backgroundColor': `${themeSetup.navAndFootBar.navBarColor}` }}>
                               {allMenuName.menu_1}
                             </div>
@@ -457,7 +465,7 @@ const _MenuComponent = () => {
                     </div>
                   )}
                 </div>}
-                {/* var length = Object.keys(obj).length */}
+
 
                 {/* //- Filter */}
 

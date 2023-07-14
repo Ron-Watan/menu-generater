@@ -193,7 +193,6 @@ const AcordionSubComp = (prop) => {
     getImage();
   }, []);
 
-  console.log(prop.accordian)
 
   const heartIcon = {
     favor1: 'favor1.svg', favor2: 'favor2.svg',

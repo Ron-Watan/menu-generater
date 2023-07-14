@@ -480,6 +480,47 @@ export const saveFeedBack = (req, res) => {
 
     });
 };
+
+
+
+
+
+
+
+//- // componentusers/MainForm.js
+export const saveReArangeList = (req, res) => {
+  const { userId, menu } = req.body;
+  console.log(userId);
+
+  Users.findOne({ userId: userId })
+    .then((user) => {
+
+      user.menu = menu;
+      user.save();
+      res.send({
+        message: 'Success',
+        userOnOffSetting: user,// Slected
+        success: true,
+      });
+      Clients.findOne({ clientId: user.clientId }).then((client) => {
+        client.menu = menu;
+        client.save();
+      });
+    });
+
+};
+
+
+
+
+
+
+
+
+
+
+
+
 // export const uploadImageBanner = (req, res) => {
 //   const { userId } = req.body
 //   const { originalname } = req.file

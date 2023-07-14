@@ -79,9 +79,9 @@ const SidebarSubComp = (prop) => {
             return (
               <a href={prop.iconMenu_2[index]?.link} value={el.catagory}
               style={{
-                'background-color': `${prop.themeSetup.sideBar.themeIconBG}`,
+                'backgroundColor': `${prop.themeSetup.sideBar.themeIconBG}`,
                 'border': `${prop.themeSetup.sideBar.themeIconSolid} 2px ${prop.themeSetup.sideBar.themeIconColorBorder}`,
-                'border-radius': `${prop.themeSetup.sideBar.themeIconRadius}`
+                'borderRadius': `${prop.themeSetup.sideBar.themeIconRadius}`
 
               }}
                 className={` circle-iconButton theme-icon-styleRadius theme-icon-BG-Border ${prop.triggerIcon[index] && 'circle-iconButton-Active'} ${prop.themeSetup.sideBar.extraIcon && 'extraIcon-client'}`} key={index}>
@@ -99,9 +99,9 @@ const SidebarSubComp = (prop) => {
             return (
               <a href={prop.iconMenu_3[index]?.link} value={el.catagory}
               style={{
-                'background-color': `${prop.themeSetup.sideBar.themeIconBG}`,
+                'backgroundColor': `${prop.themeSetup.sideBar.themeIconBG}`,
                 'border': `${prop.themeSetup.sideBar.themeIconSolid} 2px ${prop.themeSetup.sideBar.themeIconColorBorder}`,
-                'border-radius': `${prop.themeSetup.sideBar.themeIconRadius}`
+                'borderRadius': `${prop.themeSetup.sideBar.themeIconRadius}`
 
               }}
                 

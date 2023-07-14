@@ -176,7 +176,7 @@ const _FeedBackMobile = (prop) => {
   }
   useEffect(() => {
     getFeedBack();
- 
+
   }, [user]);
 
 
@@ -222,7 +222,7 @@ const _FeedBackMobile = (prop) => {
           </button>
         </div>
 
-        
+
       </div>
 
       <div className="MB_AB_FullAgain zindexUnder1 ">

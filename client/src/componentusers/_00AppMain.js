@@ -37,6 +37,8 @@ import IconPickkerMobile from './IconPickkerMobile';
 import _01FeedBackMobile from './_01FeedBackMobile';
 import _02QRCode from './_02QRCode';
 import _03BannerMobile from './_03BannerMobile';
+import _04MenuForm from './_04MenuForm';
+import _04MobileFormFood from './_04MobileFormFood';
 
 import _TimePickerMobile from './_TimePickerMobile';
 import _LanguageSetupMobile from './_LanguageSetupMobile';
@@ -78,7 +80,6 @@ import MBiconBack from '../all-icon/button-icon/MBback.svg'
 
 
 
-import { MBBanner, MBMenu, MobileFormFood } from './_MobileSection';
 const icon = '/static/media/food-color-SVG-sprite.c7acaa791b17c993c83fb8c054053b75.svg#food-tray`';
 // import PreviewMyIcon from './PreviewMyIcon';
 
@@ -125,7 +126,12 @@ const _AppMain = () => {
   const [restaurantName, setRestaurantName] = useState('')
   //1// After Reload SET:
   const [categoryList, setCategoryList] = useState([]);
-
+  const [categoryList_1, setCategoryList_1] = useState([])
+  const [categoryList_2, setCategoryList_2] = useState([])
+  const [categoryList_3, setCategoryList_3] = useState([])
+  // console.log(categoryList_1)
+  // console.log(categoryList_2)
+  // console.log(categoryList_3)
   const [menuName, setMenuName] = useState({
     menu_1: '',
     menu_2: '',
@@ -155,6 +161,7 @@ const _AppMain = () => {
 
   const [menuTime, setMenuTime] = useState(1); // timeSwitcher()
 
+
   const [state, setState] = useState({
     catagory: '',
     catagory_2: '',
@@ -176,6 +183,7 @@ const _AppMain = () => {
     vegan: false,
     gluten_free: false,
     halal: false,
+    redTag: '',
     favor: false,
 
     food_name_2: '',
@@ -221,6 +229,7 @@ const _AppMain = () => {
       .post(`${process.env.REACT_APP_API}/user/getAllMenu`, { userId: user.userId }, ticketPass)
       .then((result) => {
         if (result.data.success) {
+
           // Swal.fire(result.data.message)
           const getReult = result.data.userMenu;
 
@@ -232,7 +241,14 @@ const _AppMain = () => {
           setThemeSetup(getReult.themeSetup);
           setOnOffSetting(getReult.onOffSetting)
 
-          getAllImage()
+          const catList_menu_1 = getReult.menu.filter(el => el.menuTime === 1)
+          const catList_menu_2 = getReult.menu.filter(el => el.menuTime === 2)
+          const catList_menu_3 = getReult.menu.filter(el => el.menuTime === 3)
+
+
+          setCategoryList_1(catList_menu_1)
+          setCategoryList_2(catList_menu_2)
+          setCategoryList_3(catList_menu_3)
           //   const checkTime = getReult.filter((el) => el.menuTime == menuTime;
           //   return el.menuTime == menuTime;
           // });
@@ -388,6 +404,49 @@ const _AppMain = () => {
       });
   };
 
+
+
+
+  const saveReArangeList = () => {
+    const newCategoryMoved = []
+    newCategoryMoved.push(...categoryList_1, ...categoryList_2, ...categoryList_3)
+    axios
+      .post(
+        `${process.env.REACT_APP_API}/user/saveReArangeList`,
+        {
+          userId: user.userId,
+          menu: [...newCategoryMoved],
+        },
+        ticketPass
+      )
+      .then((result) => {
+        if (result.data.success) {
+          // console.log(result.data.userMenu)
+
+          Swal.fire({
+            title: 'SAVED',
+            text: 'Your menu has been saved',
+            toast: true,
+            icon: 'success',
+            // confirmButtonText: 'SAVED',
+            showConfirmButton: false,
+            // width: '16rem',
+            // height: '5rem',
+            iconColor: '#cb2722',
+            // confirmButtonColor: '#cb2722',
+            timer: 2000,
+          });
+        } else {
+          Swal.fire(result.data.message);
+
+        }
+      })
+      .catch((err) => {
+        dispath(hideLoading());
+        console.log("Can't not connect the server");
+        Swal.fire("Can't not connect the server");
+      });
+  };
   //- 005_findOneMenu
 
   // const findOneMenu = (e) => {
@@ -455,6 +514,7 @@ const _AppMain = () => {
   }
 
   const findOneMenu = (menuId) => {
+    // setLoadingManual(true)
 
     // e.preventDefault();
     setStart(true);
@@ -463,14 +523,16 @@ const _AppMain = () => {
     // const menuId = e.target.name;
     setMenuId(menuId);
     setFile('')
-    dispath(showLoading())
+    // dispath(showLoading())
 
     categoryList.map(oneMennu => {
       if (oneMennu.menuId === menuId) {
         allImage.map(el => {
           if (el.imgId === oneMennu.imgId) {
             setFile(el.tagImage)
+            // setLoadingManual(false)
           }
+
         })
 
         setState({
@@ -721,6 +783,9 @@ const _AppMain = () => {
 
   const [allImage, setAllImage] = useState([]);
   const getAllImage = () => {
+    // setLoadingManual(true)
+    dispath(showLoading())
+
     axios
       .post(`${process.env.REACT_APP_API}/user/images/all`, { userId: user.userId })
       .then((result) => {
@@ -735,6 +800,7 @@ const _AppMain = () => {
           };
         });
         setAllImage(mapAllImage);
+        // setLoadingManual(false)
         dispath(hideLoading());
       })
       .catch((err) => {
@@ -915,11 +981,7 @@ const _AppMain = () => {
   /////////////////////////////////////////////////////
 
 
-  const cancelEdit = () => {
-    const menuNameEl = document.querySelector('#menuName')
-    menuNameEl.value = user[currentMenuName]
 
-  }
 
 
 
@@ -1018,9 +1080,16 @@ const _AppMain = () => {
   //   return ref.current; //in the end, return the current ref value.
   // }
 
+  const [loadingManual, setLoadingManual] = useState(false)
+
 
   useEffect(() => {
     getAllMenu();
+  }, [user]);
+
+  useEffect(() => {
+    getAllImage()
+
   }, [user]);
 
 
@@ -1030,6 +1099,11 @@ const _AppMain = () => {
 
   return (
     <div className='mainAppMonitor'>
+      <div className={`${loadingManual ? 'showMe' : 'hiddenMe'} photoLoading`}>
+        <div className="iconLoadingBanner">
+          <span className='barOne'></span > <span className='barTwo'></span> <span className='barThree'></span>
+        </div>
+      </div>
 
       {/* <div className='decorBar'>
         <div className={`containerEditMenuName ${!(onOffMenu1.switch || onOffMenu2.switch || onOffMenu3.switch) && 'hiddenMe'}`}>
@@ -1683,40 +1757,6 @@ const _AppMain = () => {
       <div className="mobile-creator unselectable">
         <i className="x"> Banner-----------------------------------------------</i>
         <div className={`mobile_function  ${!onOffBanner_MB && 'MB_slide_Down'}`}>
-          {/* <div className="topBar_function">
-            <div className="GruopBtn">
-              <button onClick={() => setOnoffBanner_MB(!onOffBanner_MB)} className="MB_Btn MB_Btn_Border">
-                <img src={MBiconClose} alt="" />
-              </button>
-              <span className='MB_textBtn'>Close</span>
-
-            </div>
-            <div className="MB_title">Promotion/Banner Photo</div>
-            <div className="GruopBtn">
-              <label htmlFor='file-uploadBanner' className='MB_Btn MB_Btn_Color'>
-                <img src={MBiconPlus} alt="" />
-                <input
-                  onChange={(e) => {
-                    if (e.target.files.length === 0) return;
-                    setResizeFileBannerTG(e.target.files[0]);
-                  }}
-                  id='file-uploadBanner'
-                  name='file-uploadBanner'
-                  type='file'
-                  className='inputPhoto w_h_3'
-                />
-              </label>
-              <span className='MB_textBtn'>Add Photo</span>
-            </div>
-          </div> */}
-
-          {/* <div className="Ab_in_MB_Funtion">
-            <div className="topBar_blur">  </div>
-            <MBBanner bannerImgArr={bannerImgArr} setIndexToBanner={setIndexToBanner} indexToBanner={indexToBanner} setResizeFileBannerTG={setResizeFileBannerTG} setDeleteImageBannerTG={setDeleteImageBannerTG} deleteImageBannerTG={deleteImageBannerTG}
-              setSaveImageBannerTG={setSaveImageBannerTG} saveImageBannerTG={saveImageBannerTG} setGetAllImageBannerTG={setGetAllImageBannerTG} getAllImageBannerTG={getAllImageBannerTG} />
-          </div> */}
-
-
 
           <_03BannerMobile
             bannerImgArr={bannerImgArr}
@@ -1735,90 +1775,48 @@ const _AppMain = () => {
 
           />
         </div>
-        {/* 111 */}
 
-        <i className="x"> Manu 1 -----------------------------------------------</i>
+
+        <i className="x"> Manu 1 111 -----------------------------------------------</i>
         <div className={`mobile_function ${(!onOffMenu1_MB && !onOffMenu2_MB && !onOffMenu3_MB) && 'MB_slide_Down'}`}>
-          <div className="topBar_function padding-right-5rem">
-            <div className="GruopBtn">
-              <button onClick={() => {
-                setOnoffMenu1_MB(false)
-                setOnoffMenu2_MB(false)
-                setOnoffMenu3_MB(false)
-              }} className="MB_Btn MB_Btn_Border">
-                <img src={MBiconClose} alt="" />
-              </button>
-              <span className='MB_textBtn'>Close</span>
-            </div>
-            {/* <input value={'XXXXX'} type='text' maxLength="20"
-              name='' id='menuName' autoComplete='off' className='MB_EditName_Input' placeholder='' /> */}
+          <_04MenuForm
+            inputMenuTimeName={inputMenuTimeName}
+            menuName={menuName}
+            currentMenuName={currentMenuName}
+            menuNameChange={menuNameChange}
+            saveNameMenu={saveNameMenu}
+            setMenuNameChange={setMenuNameChange}
+            openForm={openForm}
 
+            categoryList={categoryList}
+            setCategoryList={setCategoryList}
+            menuTime={menuTime} menuId={menuId}
+            listMenu={listMenu}
+            setListMenu={setListMenu}
+            findOneMenu={findOneMenu} setOnOffLangForm={setOnOffLangForm}
+            deleteBtn={deleteBtn} deleteMenu={deleteMenu} saveEditMenu={saveEditMenu}
+            start={start} setStart={setStart}
+            // file={file}
+            setOnoffMenu1_MB={setOnoffMenu1_MB}
+            setOnoffMenu2_MB={setOnoffMenu2_MB}
+            setOnoffMenu3_MB={setOnoffMenu3_MB}
+            categoryList_1={categoryList_1}
+            categoryList_2={categoryList_2}
+            categoryList_3={categoryList_3}
+            setCategoryList_1={setCategoryList_1}
+            setCategoryList_2={setCategoryList_2}
+            setCategoryList_3={setCategoryList_3}
+            saveReArangeList={saveReArangeList}
 
-            <div className={`MB_flexStartBtn`}>
-              <input onChange={inputMenuTimeName} value={menuName[currentMenuName]} type='text' maxLength="20"
-                name='' id='menuName' autoComplete='off' className={`MB_EditName_Input `} placeholder='' />
+          />
 
-              {menuNameChange && <div className={`MB_flex2Btn`}
-                name='menuNameBox'>
-                <button onClick={() => {
-                  saveNameMenu()
-                  setMenuNameChange(false)
-
-                }
-                } name='menuNameBox'>
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="#000" className="w-5 h-5 iconEDName_SC">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                  </svg>
-                </button>
-
-                <button onClick={() => {
-                  cancelEdit()
-                  setMenuNameChange(false)
-
-
-                }}>
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="#000" className="w-5 h-5 iconEDName_SC">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>}
-
-
-            </div>
-
-            <div className="GruopBtn">
-              <button onClick={openForm} type='button' form='foodForm' className={`MB_Btn MB_Btn_Color`}>
-                <img src={MBiconPlus} alt="" />
-              </button>
-              <span className='MB_textBtn'>Add Category</span>
-            </div>
-
-            <div className="MB_flex2Btn">
-
-
-
-            </div>
-
-          </div>
-
-
-          <div className="Ab_in_MB_Funtion">
-            <div className="topBar_blur">  </div>
-
-
-
-            <MBMenu categoryList={categoryList} menuTime={menuTime} menuId={menuId}
-              findOneMenu={findOneMenu} setOnOffLangForm={setOnOffLangForm}
-              deleteBtn={deleteBtn} deleteMenu={deleteMenu} saveEditMenu={saveEditMenu}
-              start={start} setStart={setStart} />
-          </div>
         </div>
 
 
 
 
 
-        <div className={` mobile_formFood ${!start && 'MB_slide_Left'}`}>
+        {/* <div className={` mobile_formFood ${!start && 'MB_slide_Left'}`}>
 
           <div className="topBar_function flexStart">
 
@@ -1831,7 +1829,7 @@ const _AppMain = () => {
 
             </div>
 
-            {/* 111 */}
+
 
             <input onChange={inputValue('catagory')} value={state.catagory} placeholder='Catagory name' type='text' name='catagory' id='' autoComplete='off'
               className='MB_EditName_Input widthInput' required />
@@ -1859,10 +1857,15 @@ const _AppMain = () => {
             setOriginalName={setOriginalName} resizeFile={resizeFile} delelteImage={delelteImage} setFile={setFile} additem={additem} removeItem={removeItem}
             start={start} setStart={setStart} setMenuId={setMenuId} submitCatagory={submitCatagory} saveEditMenu={saveEditMenu} deleteMenu={deleteMenu}
           />
+        </div> */}
+        <div className={` mobile_formFood ${!start && 'MB_slide_Left'}`}>
+          <_04MobileFormFood ref={ref} menuId={menuId} listMenu={listMenu} inputListValue={inputListValue} iconPhoto={iconPhoto} file={file}
+            setOriginalName={setOriginalName} resizeFile={resizeFile} delelteImage={delelteImage} setFile={setFile} additem={additem} removeItem={removeItem}
+            inputValue={inputValue} state={state} start={start} setStart={setStart} setMenuId={setMenuId} submitCatagory={submitCatagory} saveEditMenu={saveEditMenu} deleteMenu={deleteMenu}
+            setActiveWindowIconPicker={setActiveWindowIconPicker}
+            activeWindowIconPicker={activeWindowIconPicker} setListMenu={setListMenu} listMenuModel={listMenuModel} />
+
         </div>
-
-
-
         <div className={` mobile_formFood ${!onOffLangForm && 'MB_slide_Left'}`}>
           <_LanguageAddMobile state={state} listMenu={listMenu} inputValue={inputValue}
             inputListValue={inputListValue} setOnOffLangForm={setOnOffLangForm} setStart={setStart} />
@@ -1917,7 +1920,7 @@ const _AppMain = () => {
         <i className='x'> Scroll Navigation -----------------------------------------------</i>
         <i className='x'> 0-----------------------------------------------</i>
 
-        <div className="MC_nav">
+        <div className={`MC_nav ${!mBnavIcon && 'displayNone'}`}>
 
 
 
@@ -1931,7 +1934,7 @@ const _AppMain = () => {
             setGetAllImageBannerTG((getAllImageBannerTG) => getAllImageBannerTG + 1)
           }}
             name='bannerMB'
-            className={`MC_Tab MB_None ${!mBnavIcon && 'displayNone'}`} >
+            className={`MC_Tab MB_None `} >
             <img src={MBicon_Banner} alt="" />
           </button>
 
@@ -1943,7 +1946,7 @@ const _AppMain = () => {
             setOnOffFeedBAck_MB(!onOffFeedBAck_MB);
           }}
             name='Manu1MB'
-            className={`MC_Tab MB_None ${!mBnavIcon && 'displayNone'}`} >
+            className={`MC_Tab MB_None `} >
             <img src={MBicon_Feedback} alt="" />
             {getStarNotification > 0 && <span className={'starNotification'}>
               <img src={MBicon_StarNoti} alt="" />
@@ -1957,7 +1960,7 @@ const _AppMain = () => {
             setOnOffQRCCode_MB(!onOffQRCCode_MB);
           }}
             name='Manu1MB'
-            className={`MC_Tab MB_None ${!mBnavIcon && 'displayNone'}`} >
+            className={`MC_Tab MB_None `} >
             <img src={MBicon_Qrcode} alt="" />
 
 
@@ -1985,7 +1988,7 @@ const _AppMain = () => {
             setMenuTime(1)
           }}
             name='Manu1MB'
-            className={`MC_Tab MB_None ${!mBnavIcon && 'displayNone'}`} >
+            className={`MC_Tab MB_None `} >
 
             <img src={MBicon_Menu1} alt="" />
           </button>
@@ -1996,7 +1999,7 @@ const _AppMain = () => {
             setMenuTime(2)
           }}
             name='Manu1MB'
-            className={`MC_Tab MB_None ${!mBnavIcon && 'displayNone'}`} >
+            className={`MC_Tab MB_None `} >
             <img src={MBicon_Menu2} alt="" />
           </button>
 
@@ -2006,7 +2009,7 @@ const _AppMain = () => {
             setMenuTime(3)
           }}
             name='Manu1MB'
-            className={`MC_Tab MB_None ${!mBnavIcon && 'displayNone'}`} >
+            className={`MC_Tab MB_None `} >
             <img src={MBicon_Menu3} alt="" />
           </button>
 
@@ -2017,7 +2020,7 @@ const _AppMain = () => {
 
           }}
             name='Manu1MB'
-            className={`MC_Tab MB_None ${!mBnavIcon && 'displayNone'}`} >
+            className={`MC_Tab MB_None `} >
             <img src={MBicon_Time} alt="" />
           </button>
 
@@ -2027,7 +2030,7 @@ const _AppMain = () => {
             setNavLang2LangSetUp((testTG) => navLang2LangSetUp + 1);
           }}
             name='Manu1MB'
-            className={`MC_Tab MB_None ${!mBnavIcon && 'displayNone'}`} >
+            className={`MC_Tab MB_None `} >
             <img src={MBicon_Lang} alt="" />
           </button>
 
@@ -2039,7 +2042,7 @@ const _AppMain = () => {
             setMBnavIcon(false)
           }}
             name='Manu1MB'
-            className={`MC_Tab MB_None ${!mBnavIcon && 'displayNone'}`} >
+            className={`MC_Tab MB_None `} >
             <img src={MBicon_Theme} alt="" />
           </button>
 
@@ -2050,7 +2053,7 @@ const _AppMain = () => {
             setVavOnOff2OnOffSetting((testTG) => navOnOff2OnOffSetting + 1);
           }}
             name='Manu1MB'
-            className={`MC_Tab MB_None ${!mBnavIcon && 'displayNone'}`} >
+            className={`MC_Tab MB_None `} >
             <img src={MBicon_Onoff} alt="" />
           </button>
 
@@ -2060,7 +2063,7 @@ const _AppMain = () => {
             setMBnavIcon(false)
           }}
             name='Manu1MB'
-            className={`MC_Tab MB_None ${!mBnavIcon && 'displayNone'}`} >
+            className={`MC_Tab MB_None `} >
             <img src={MBicon_Theme} alt="" />
           </button> */}
 
@@ -2071,7 +2074,7 @@ const _AppMain = () => {
             setOnOffSetting_MB(!onOffSetting_MB);
           }}
             name='Manu1MB'
-            className={`MC_Tab MB_None ${!mBnavIcon && 'displayNone'}`} >
+            className={`MC_Tab MB_None `} >
             <img src={MBicon_Logout} alt="" />
           </button>
 

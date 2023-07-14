@@ -14,6 +14,15 @@
   overflow: hidden;
   z-index: 0;
 }
+
+/* 
+
+4444 MainForm 
+
+
+
+*/
+
 /* .mobile_iframe::-webkit-scrollbar {
   display: none;
 } */
@@ -50,7 +59,7 @@
 body {
   background-color: #000 !important;
 }
-/* //---------------------------------------------------------- */
+/* //- 0000 --------------------------------------------------------- */
 
 /* background: linear-gradient(to right top, #FE560F, #f0a000); */
 /* background: linear-gradient(to right top, #00B4F0, #008BBE); */
@@ -62,10 +71,11 @@ body {
 /* #cc1600 */
 /* #f5d0cc */
 /* #fae8e6 */
-/* #f3f3f3 */
-
-/*  */
-.tempTest {
+/* #f3f3f3 ****/
+/* Btn Bar #f3f3f3 */
+/* #cfdeff */
+/* #6E8ABE */
+#f56e4f .tempTest {
   width: 10rem;
   height: 10rem;
   background-color: rgba(179, 12, 12, 0.404);
@@ -90,6 +100,12 @@ body {
 .paddingBottom_8 {
   padding-bottom: 8rem !important;
 }
+.paddingBottom_9 {
+  padding-bottom: 9rem !important;
+}
+.padding-right-5rem {
+  padding-right: 0rem !important;
+}
 /* //=//=//=//=//=//=//=//=//=//=//=//=///////////////////////////// */
 
 /* Btn Bar #f3f3f3 */
@@ -112,7 +128,6 @@ body {
   top: 0;
   width: 100%;
   height: 100%;
-
 }
 /* //=same MB_2LangLayout_Grid */
 .MB_SetGrid_Full {
@@ -123,7 +138,13 @@ body {
   display: grid;
   grid-template-rows: 1fr 20vh;
 }
-
+.MB_SetGrid_ForIconPick {
+  display: grid;
+  grid-template-rows: 1fr 26vh;
+}
+.MB_Wrap_ForIconPick {
+  height: 74vh;
+}
 /* //= same MB_bannerWrapper */
 .MB_Standard_Section_canScroll {
   position: relative;
@@ -145,7 +166,7 @@ body {
   align-items: flex-start;
   background-color: #f3f3f3;
 }
-.paddingTop1{
+.paddingTop1 {
   padding-top: 1rem;
 }
 .MB_Frid_3Btn {
@@ -155,6 +176,25 @@ body {
   justify-items: center;
   align-items: center;
   padding-top: 0.5rem;
+}
+
+.MB_Frid_6Btn {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  justify-items: center;
+  align-items: center;
+  padding-top: 0.5rem;
+  padding-left: 1rem;
+}
+.MG6_1 {
+  grid-column: 1/2;
+}
+.MG6_2 {
+  grid-column: 2/3;
+}
+.MG6_5 {
+  grid-column: 5/6;
 }
 /* /////////////// */
 
@@ -203,7 +243,7 @@ body {
 
 .MC_IconFixed {
   position: fixed;
-  width: 100%;
+  /* width: 100%; */
   top: 3rem;
   left: 0.5rem;
   z-index: 1;
@@ -318,6 +358,11 @@ body {
   font-weight: 700;
   white-space: nowrap;
 }
+.MB_textTrash {
+  font-size: 0.7rem;
+  font-weight: 400;
+  white-space: nowrap;
+}
 .MB_Btn {
   display: flex;
   justify-content: center;
@@ -328,6 +373,7 @@ body {
   box-shadow: 0.1rem 0.1rem 0.3rem rgba(0, 0, 0, 0.15);
   z-index: 1;
 }
+
 .MB_BtnEmpty {
   min-width: 2.8rem;
   height: 2.8rem;
@@ -337,9 +383,7 @@ body {
   box-shadow: none;
   color: #000;
 }
-.padding-right-5rem {
-  padding-right: 0rem !important;
-}
+
 .MB_Btn_Color {
   background-color: #f56e4f;
   color: #fff;
@@ -356,11 +400,21 @@ body {
   font-size: 1rem;
   font-weight: 500;
 }
-.SaveBtnSize{
+.SaveBtnSize {
   width: 7rem;
   padding: 0.6rem 1rem;
 }
-.CancelPadding{
+.RemoveBtnSize {
+  width: 7rem;
+  padding: 0.6rem 1rem;
+  color: #444;
+  font-weight: 300;
+  box-shadow: none;
+  display: flex;
+  gap: 0.2rem;
+  border: 0.5px solid #333;
+}
+.CancelPadding {
   width: 5rem;
   padding: 0.5rem 1rem;
 }
@@ -369,7 +423,17 @@ body {
   width: 4rem;
   color: #444;
 }
-
+.MB_BtnIconPick{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 50%;
+  box-shadow: 0.1rem 0.1rem 0.3rem rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  transform: scale(1.1);
+}
 .MB_Sq_Btn-NewCAt {
   padding: 0.6rem 0.3rem;
   width: 12rem;
@@ -404,6 +468,10 @@ body {
   overflow: hidden;
 }
 .topColorPicker {
+  top: 0rem;
+  background-color: transparent;
+}
+.topiconinPicker {
   top: 4.5rem;
 }
 .topBar_function {
@@ -431,7 +499,7 @@ body {
 }
 .backdrop_blur {
   backdrop-filter: blur(1rem);
-  background-color: #ffffffc4;
+  background-color: #f3f3f3c3;
 }
 .Ab_in_MB_Funtion {
   position: absolute;
@@ -440,6 +508,46 @@ body {
   width: 100%;
   height: 100%;
   z-index: -5;
+}
+.floatBtnIconPicker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4.5rem;
+
+  display: flex;
+}
+.floatBtnrBtn {
+  flex-grow: 1;
+  background-color: #f3f3f3;
+}
+.floatBtnIcon {
+  width: 18%;
+}
+
+.MB_LinColBox {
+  width: 100%;
+  display: flex;
+  height: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 1rem;
+}
+.MB_LinColBox-1 {
+  /* width: 100%; */
+  display: flex;
+  height: 100%;
+  justify-self: flex-start;
+  /* justify-content: center; */
+  align-items: center;
+  gap: 1rem;
+}
+.btnLineCol {
+  width: 2.8rem;
+  height: 2.8rem;
+  font-size: 1rem;
+  border-radius: 50%;
 }
 
 /* ////////////////////// */
@@ -534,8 +642,11 @@ body {
   border-radius: 0.4rem;
 }
 
-/* /////////////////////////////////////// */
-
+/* 4444 /////////////////////////////////////// */
+.MB_Make_PadingForm {
+  padding-top: 5rem;
+  padding-bottom: 7rem;
+}
 .MB_flexStartBtn {
   width: 100%;
   justify-self: flex-start;
@@ -544,17 +655,32 @@ body {
 }
 .MB_flex2Btn {
   display: flex;
-  gap: 1rem;
+  gap: 0.5rem;
+  align-items: center;
 }
-
+.smallCircleBox {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: #444 1px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .MB_EditName_Input {
   width: 100%;
   padding: 0.5rem 1rem !important;
   font-size: 1.2rem;
-  background-color: #fae8e6;
+  background-color: #cfdeff;
   border-radius: 1.4rem;
   font-weight: 500;
   outline: none;
+}
+.text_center {
+  text-align: center;
+}
+.zIndexTop {
+  z-index: 100;
 }
 .MB_inputText {
   width: 100%;
@@ -565,10 +691,10 @@ body {
 }
 
 .MB_light_Color {
-  background-color: #f5d0cc;
+  background-color: #d2def6;
 }
 .MB_Dark_Color {
-  background-color: #e4aba4;
+  background-color: #bed1fc;
 }
 
 .MB_White {
@@ -576,6 +702,10 @@ body {
 }
 .MB_fontSmall {
   font-size: 1.1rem;
+  font-weight: 400;
+}
+.MB_fontXSmall {
+  font-size: 1rem;
   font-weight: 400;
 }
 .widthInput {
@@ -636,10 +766,17 @@ body {
   flex-grow: 1;
 }
 .MB_itemSvg {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2.1rem;
+  height: 2.1rem;
 }
-/* //---------------------------------------------------- */
+
+.absAddBtn {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  transform: translateY(100%);
+}
+/* //- 4444--------------------------------------------------- */
 
 .MB_formMenu {
   background-color: #fff;
@@ -661,6 +798,7 @@ body {
   display: flex;
   flex-direction: column;
   padding: 1rem;
+  /* padding-bottom: 2rem; */
   gap: 0.5rem;
   border-radius: 0.3rem;
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
@@ -674,14 +812,35 @@ body {
   flex-direction: column;
   gap: 0.5rem;
 }
-
+.MB_layoutManu1_1 {
+  margin-top: 2rem;
+  display: flex;
+  width: 100%;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+}
+.vhFormFood {
+  grid-template-rows: 1fr 18vh;
+}
+.vhFormFoodBtn {
+  height: 82vh;
+}
 .MB_flexDiet {
   margin-top: 1rem;
   display: grid;
   grid-template-columns: 1fr 1fr;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: 1.5rem;
   color: #444;
+  justify-items: center;
+}
+.dietHeader {
+  margin-top: 5%;
+  font-size: 1rem;
+  color: #444;
+  line-height: 1;
+  font-weight: 400;
 }
 .mb_sm {
   margin-bottom: 1rem;
@@ -693,6 +852,11 @@ body {
   margin-top: 1rem;
   margin-right: 1rem;
 }
+.boxAddItem {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
 .paddingSmall {
   padding-top: 1rem;
 }
@@ -700,12 +864,30 @@ body {
 .MB_TrashIcon {
   width: 2.5rem;
   height: 2.5rem;
-  margin-top: 1.2rem;
+  /* margin-top: 1.2rem; */
   border: 0.5px solid #444;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.redtagbox {
+  width: 60%;
+  position: relative;
+}
+.MB_fontXSmallRed {
+  color: #cc1600;
+  font-size: 1rem;
+  font-weight: 400;
+}
+.redtagexpain {
+  font-size: 0.7rem;
+  font-weight: 300;
+  font-style: italic;
+  padding-left: 1rem;
+  /* position: absolute;
+  left: 5%;
+  bottom: -50%; */
 }
 
 .MB_categoryStart {
@@ -715,12 +897,14 @@ body {
   padding-top: 0.5rem;
   padding-right: 0.5rem;
   padding-left: 0.5rem;
-  height: 80vh;
-  height: 100%;
-  width: 100%;
-  overflow-y: auto;
+  /* height: 80vh; */
+  /* height: 100%;
+  width: 100%; */
+  /* overflow-y: auto; */
 }
-
+.paddingBottom_9 {
+  padding-bottom: 9rem;
+}
 .MB_Flex_LisrBtn {
   display: flex;
   gap: 0.5rem;
@@ -729,7 +913,7 @@ body {
 
 .MB_tabCat {
   position: relative;
-  background-color: #f5d0cc;
+  background-color: #cfdeff;
   display: flex;
   flex-grow: 1;
   transition: all 0.2s;
@@ -742,14 +926,14 @@ body {
   font-weight: 500;
 }
 .MB_tabCat:hover {
-  background-color: #cc1600;
+  background-color: #95b2f2;
   transition: all 0.2;
-  color: #fff;
+  /* color: #fff; */
 }
 
 .MB_tabCat_L {
   position: relative;
-  background-color: #f5d0cc;
+  background-color: #cfdeff;
   display: flex;
   flex-grow: 1;
   transition: all 0.2s;
@@ -796,7 +980,8 @@ body {
 .MB_photoFlex {
   position: relative;
   display: flex;
-
+  justify-content: center;
+  align-items: center;
   outline: none;
   padding: 0.2rem;
 }
@@ -827,8 +1012,8 @@ body {
   /* height: 100%; */
   background-color: #fff;
   /* overflow-y: scroll; */
-  padding-left: 2rem;
-  padding-right: 2rem;
+  padding:2rem;
+
 }
 .MB_iconPickerGridRow {
   display: flex;

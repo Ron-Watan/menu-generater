@@ -116,12 +116,12 @@ const _03BannerMobile = (prop) => {
 
     setChange(false)
     // dispath(showLoading())
-    console.log('work')
+
     setLoadingManual(true)
     axios
       .post(`${process.env.REACT_APP_API}/user/images/allBanner`, { userId: user.userId })
       .then((result) => {
-        console.log(result)
+
         const getArrayBanner = result.data.images;
         const mapArrayBanner = getArrayBanner.map(el => {
           const base64Flag = 'data:image/png;base64,';
@@ -228,7 +228,7 @@ const _03BannerMobile = (prop) => {
 
   return (
     <div className="MC_Standard_0_FullPage">
-      <div div className={`${loadingManual ? 'showMe' : 'hiddenMe'} photoLoading`}>
+      <div className={`${loadingManual ? 'showMe' : 'hiddenMe'} photoLoading`}>
         <div className="iconLoadingBanner">
           <span className='barOne'></span > <span className='barTwo'></span> <span className='barThree'></span>
         </div>
@@ -283,8 +283,8 @@ const _03BannerMobile = (prop) => {
                 <button name={el.menuId} onClick={() => prop.setIndexToBanner(index)} className={`btnCat MB_photoSize ${prop.indexToBanner === index && 'MB_sizeBigger'}`}>
                   <img src={el} className='MB_imageBannerForm photoList' />
                 </button>
-                <div onClick={() => { arrayMmove(prop.bannerImgArr, index, index - 1) }} className={index == 0 && 'displayNone'}>UPPPP</div>
-                <div onClick={() => { arrayMmove(prop.bannerImgArr, index, index + 1) }} className={index == prop.bannerImgArr.length - 1 && 'displayNone'}>Doddw</div>
+                <div onClick={() => { arrayMmove(prop.bannerImgArr, index, index - 1) }} className={index == 0 ? 'displayNone':""}>UPPPP</div>
+                <div onClick={() => { arrayMmove(prop.bannerImgArr, index, index + 1) }} className={index == prop.bannerImgArr.length - 1 ? 'displayNone':''}>Doddw</div>
 
 
                 <div className={` MB_smIconAB ${prop.indexToBanner === index ? '' : 'displayNone'}`}>
