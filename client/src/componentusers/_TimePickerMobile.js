@@ -61,6 +61,8 @@ const _TimePickerMobile = (prop) => {
   let check_1 = false;
   let check_2 = false;
   let check_3 = false;
+
+
   function menu_1() {
     //-
     const arrayStartM1 = sumValueOftiem(timeStart.hrsM1, timeStart.minsM1);
@@ -142,6 +144,8 @@ const _TimePickerMobile = (prop) => {
       alert('!!!!');
       return (check_3 = false);
     }
+
+    
     setSumTimeM3({ start: arrayStartM3, end: arrayEndM3 + 59 });
 
     console.log('Complete Schedule 3');
@@ -424,7 +428,7 @@ const _TimePickerMobile = (prop) => {
 
   return (
     <div className="">
-      <div className="topBar_function">
+      <div className="topBar_function backdrop_blur">
 
         <div className="GruopBtn">
           <button onClick={() => {
@@ -444,15 +448,15 @@ const _TimePickerMobile = (prop) => {
       </div>
 
 
-      <div className='MB_timePickerWinControl'>
+      <div className="MB_Standard_0_FullAgain  MB_SetGrid_ForBtn zindexUnderTop">
 
 
 
 
-        <div className="MB_timePickerSection">
+        <div className="MB_Standard_Section_canScroll  MB_Make_PadingTime MB_Wrap_ForBtn " >
 
 
-          <div className="MB_timePickerCard1">
+          <div className="MB_timePickerCard2 gapG15">
 
 
 
@@ -470,54 +474,107 @@ const _TimePickerMobile = (prop) => {
               <span>All day</span>
             </label>
 
-            <div className="MB_timePikerGrid1">
+            <div className="MB_OF_Flex_Col">
 
 
-              <div className="MB_timePikerRow flex_start" >
+
+              <div className="MB_OF_Flex colorof_title">
+                <span className="MB_OF_text ">{prop.menuName.menu_1}</span>
+
+                <label className={`containerSwitch switchLang  ${!timeType && 'opcaityTime'}`}>
+
+
+                  <input onChange={() => menuAllDayTypeValue('menu_1')} type='checkbox' name='menu_1' checked={timeType && menuAllDayType.menu_1} disabled={!timeType} />
+                  <span className='sliderLang forOFLang2'></span>
+
+                </label>
+
+              </div>
+              <div className="MB_BorderBt"></div>
+              <div className="MB_OF_Flex colorof_title">
+                <span className="MB_OF_text ">{prop.menuName.menu_2}</span>
+
+
+                <label className={`containerSwitch switchLang  ${!timeType && 'opcaityTime'}`}>
+
+
+
+                  <input onChange={() => menuAllDayTypeValue('menu_2')} type='checkbox' name='menu_2' checked={timeType && menuAllDayType.menu_2} id='' disabled={!timeType} />
+                  <span className='sliderLang forOFLang2'></span>
+
+                </label>
+
+              </div>
+              <div className="MB_BorderBt"></div>
+
+              <div className="MB_OF_Flex colorof_title">
+                <span className="MB_OF_text ">{prop.menuName.menu_3}</span>
+
+
+                <label className={`containerSwitch switchLang  ${!timeType && 'opcaityTime'}`}>
+
+
+
+                  <input onChange={() => menuAllDayTypeValue('menu_3')} type='checkbox' name='menu_3' checked={timeType && menuAllDayType.menu_3} id='' disabled={!timeType} />
+                  <span className='sliderLang forOFLang2'></span>
+
+                </label>
+
+              </div>
+
+              {/* <div className="MB_timePikerRow flex_start" >
                 <div className="MB_Time_flexBox">
 
                   <div className='MB_titleTime'>{prop.menuName.menu_1}</div>
                 </div>
 
-                <label className={`MB_select`}>
+                <label className={`containerSwitch switchLang  ${!timeType && 'opcaityTime'}`}>
 
-                  <div className={`switch  ${!timeType && 'opcaityTime'}`}>
 
-                    <input onChange={() => menuAllDayTypeValue('menu_1')} type='checkbox' name='menu_1' checked={timeType && menuAllDayType.menu_1} disabled={!timeType} />
-                    <span className='slider'></span>
-                  </div>
+                  <input onChange={() => menuAllDayTypeValue('menu_1')} type='checkbox' name='menu_1' checked={timeType && menuAllDayType.menu_1} disabled={!timeType} />
+                  <span className='sliderLang forOFLang2'></span>
+
                 </label>
 
-              </div>
-              <div className="MB_timePikerRow flex_start">
+
+              </div> */}
+              {/* <div className="MB_timePikerRow flex_start">
                 <div className="MB_Time_flexBox">
                   <div className='MB_titleTime'>{prop.menuName.menu_2}</div>
                 </div>
 
-                <label className={`MB_select`}>
+                <label className={`containerSwitch switchLang  ${!timeType && 'opcaityTime'}`}>
 
-                  <div className={`switch  ${!timeType && 'opcaityTime'}`}>
 
-                    <input onChange={() => menuAllDayTypeValue('menu_2')} type='checkbox' name='menu_2' checked={timeType && menuAllDayType.menu_2} id='' disabled={!timeType} />
-                    <span className='slider'></span>
-                  </div>
+
+                  <input onChange={() => menuAllDayTypeValue('menu_2')} type='checkbox' name='menu_2' checked={timeType && menuAllDayType.menu_2} id='' disabled={!timeType} />
+                  <span className='sliderLang forOFLang2'></span>
+
                 </label>
 
-              </div>
-              <div className="MB_timePikerRow flex_start">
+
+
+
+
+
+
+              </div> */}
+              {/* <div className="MB_timePikerRow flex_start">
                 <div className="MB_Time_flexBox">
                   <div className='MB_titleTime'>{prop.menuName.menu_3}</div>
                 </div>
-                <label className={`MB_select`}>
 
-                  <div className={`switch  ${!timeType && 'opcaityTime'}`}>
 
-                    <input onChange={() => menuAllDayTypeValue('menu_3')} type='checkbox' name='menu_3' checked={timeType && menuAllDayType.menu_3} id='' disabled={!timeType} />
-                    <span className='slider'></span>
-                  </div>
+
+                <label className={`containerSwitch switchLang  ${!timeType && 'opcaityTime'}`}>
+
+
+
+                  <input onChange={() => menuAllDayTypeValue('menu_3')} type='checkbox' name='menu_3' checked={timeType && menuAllDayType.menu_3} id='' disabled={!timeType} />
+                  <span className='sliderLang forOFLang2'></span>
+
                 </label>
-              </div>
-
+              </div> */}
 
 
 
@@ -546,7 +603,349 @@ const _TimePickerMobile = (prop) => {
               <span>Schedule</span>
             </label>
 
-            <div className="MB_timePikerGrid2">
+
+            {/* //- */}
+
+            <div className="MB_OF_Flex_Col">
+
+              <div className="MB_OF_Flex colorof_title">
+                <span className="MB_OF_text ">{prop.menuName.menu_1}</span>
+
+                <label className={`containerSwitch switchLang  ${timeType && 'opcaityTime'}`}>
+
+                  <input onChange={(e) => menuSelectTypeValue('menu_1', e)} type='checkbox' checked={!timeType && menuSelectType.menu_1} name='menu_1' value='1' id='' disabled={timeType} />
+                  <span className='sliderLang forOFLang2'></span>
+
+                </label>
+
+              </div>
+              <div className="MB_BorderBt"></div>
+
+              <div className={`MB_OF_Flex `}>
+                <div className={`timePikerContainer MB_timeInput `}>
+                  <div className={`MB_flexTime  ${menuSelectType.menu_1 !== '1' && 'opcaityTime'}`}>
+                    <div className='timeBox'>
+                      <div className='MB_inputTime'>
+                        <select value={timeStart.hrsM1} onChange={timeStartFn('hrsM1')} name='hrsM1' id='' disabled={menuSelectType.menu_1 !== '1'} className=''>
+                          <option value='00'>00</option>
+                          <option value='01'>01</option>
+                          <option value='02'>02</option>
+                          <option value='03'>03</option>
+                          <option value='04'>04</option>
+                          <option value='05'>05</option>
+                          <option value='06'>06</option>
+                          <option value='07'>07</option>
+                          <option value='08'>08</option>
+                          <option value='09'>09</option>
+                          <option value='10'>10</option>
+                          <option value='11'>11</option>
+                          <option value='12'>12</option>
+                          <option value='13'>13</option>
+                          <option value='14'>14</option>
+                          <option value='15'>15</option>
+                          <option value='16'>16</option>
+                          <option value='17'>17</option>
+                          <option value='18'>18</option>
+                          <option value='19'>19</option>
+                          <option value='20'>20</option>
+                          <option value='21'>21</option>
+                          <option value='22'>22</option>
+                          <option value='23'>23</option>
+                        </select>
+
+                        <span className='MB_px'>:</span>
+                        <select onChange={timeStartFn('minsM1')} name='mins' id='' disabled={menuSelectType.menu_1 !== '1'} className=''>
+                          <option value='00'>00</option>
+                          <option value='15'>15</option>
+                          <option value='30'>30</option>
+                          <option value='45'>45</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div className='textTo'>to</div>
+
+                    <div className='timeBox'>
+                      <div className='MB_inputTime'>
+                        <select value={timeEnd.hrsM1} onChange={timeEndFn('hrsM1')} name='hrsM1' id='' disabled={menuSelectType.menu_1 !== '1'} className=''>
+                          <option value='00'>00</option>
+                          <option value='01'>01</option>
+                          <option value='02'>02</option>
+                          <option value='03'>03</option>
+                          <option value='04'>04</option>
+                          <option value='05'>05</option>
+                          <option value='06'>06</option>
+                          <option value='07'>07</option>
+                          <option value='08'>08</option>
+                          <option value='09'>09</option>
+                          <option value='10'>10</option>
+                          <option value='11'>11</option>
+                          <option value='12'>12</option>
+                          <option value='13'>13</option>
+                          <option value='14'>14</option>
+                          <option value='15'>15</option>
+                          <option value='16'>16</option>
+                          <option value='17'>17</option>
+                          <option value='18'>18</option>
+                          <option value='19'>19</option>
+                          <option value='20'>20</option>
+                          <option value='21'>21</option>
+                          <option value='22'>22</option>
+                          <option value='23'>23</option>
+                          <option value='24'>24</option>
+                        </select>
+                        <span className='MB_px'>:</span>
+                        <select value={timeEnd.minsM1} onChange={timeEndFn('minsM1')} name='minsM1' id='' disabled={menuSelectType.menu_1 !== '1'} className=''>
+                          <option value='00'>00</option>
+                          {timeEnd.hrsM1 === '24' ? (
+                            ''
+                          ) : (
+                            <>
+                              <option value='15'>15</option>
+                              <option value='30'>30</option>
+                              <option value='45'>45</option>
+                            </>
+                          )}
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+
+
+
+            {/* //- */}
+            <div className="MB_OF_Flex_Col">
+
+              <div className="MB_OF_Flex colorof_title">
+                <span className="MB_OF_text ">{prop.menuName.menu_2}</span>
+                <label className={`containerSwitch switchLang  ${timeType && 'opcaityTime'}`}>
+
+
+                  <input onChange={(e) => menuSelectTypeValue('menu_2', e)} type='checkbox' checked={!timeType && menuSelectType.menu_2} name='menu_2' value='2' id='' disabled={timeType} />
+                  <span className='sliderLang forOFLang2'></span>
+
+                </label>
+              </div>
+              <div className="MB_BorderBt"></div>
+
+              <div className={`MB_OF_Flex `}>
+                <div className={`timePikerContainer MB_timeInput `}>
+                  <div className={`MB_flexTime  ${menuSelectType.menu_2 !== '2' && 'opcaityTime'}`}>
+                    <div className={`timeBox`}>
+                      <div className='MB_inputTime'>
+                        <select value={timeStart.hrsM2} onChange={timeStartFn('hrsM2')} name='hrsM2' id='' disabled={menuSelectType.menu_2 !== '2'} className=''>
+                          <option value='00'>00</option>
+                          <option value='01'>01</option>
+                          <option value='02'>02</option>
+                          <option value='03'>03</option>
+                          <option value='04'>04</option>
+                          <option value='05'>05</option>
+                          <option value='06'>06</option>
+                          <option value='07'>07</option>
+                          <option value='08'>08</option>
+                          <option value='09'>09</option>
+                          <option value='10'>10</option>
+                          <option value='11'>11</option>
+                          <option value='12'>12</option>
+                          <option value='13'>13</option>
+                          <option value='14'>14</option>
+                          <option value='15'>15</option>
+                          <option value='16'>16</option>
+                          <option value='17'>17</option>
+                          <option value='18'>18</option>
+                          <option value='19'>19</option>
+                          <option value='20'>20</option>
+                          <option value='21'>21</option>
+                          <option value='22'>22</option>
+                          <option value='23'>23</option>
+                        </select>
+                        <span className='MB_px'>:</span>
+                        <select onChange={timeStartFn('minsM2')} name='minsM2' id='' disabled={menuSelectType.menu_2 !== '2'} className=''>
+                          <option value='00'>00</option>
+                          <option value='15'>15</option>
+                          <option value='30'>30</option>
+                          <option value='45'>45</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div className={`textTo`}>to</div>
+
+                    <div className='timeBox'>
+                      <div className='MB_inputTime'>
+                        <select value={timeEnd.hrsM2} onChange={timeEndFn('hrsM2')} name='hrsM2' id='' disabled={menuSelectType.menu_2 !== '2'} className=''>
+                          <option value='00'>00</option>
+                          <option value='01'>01</option>
+                          <option value='02'>02</option>
+                          <option value='03'>03</option>
+                          <option value='04'>04</option>
+                          <option value='05'>05</option>
+                          <option value='06'>06</option>
+                          <option value='07'>07</option>
+                          <option value='08'>08</option>
+                          <option value='09'>09</option>
+                          <option value='10'>10</option>
+                          <option value='11'>11</option>
+                          <option value='12'>12</option>
+                          <option value='13'>13</option>
+                          <option value='14'>14</option>
+                          <option value='15'>15</option>
+                          <option value='16'>16</option>
+                          <option value='17'>17</option>
+                          <option value='18'>18</option>
+                          <option value='19'>19</option>
+                          <option value='20'>20</option>
+                          <option value='21'>21</option>
+                          <option value='22'>22</option>
+                          <option value='23'>23</option>
+                          <option value='24'>24</option>
+                        </select>
+                        <span className='MB_px'>:</span>
+                        <select value={timeEnd.minsM2} onChange={timeEndFn('minsM2')} name='minsM2' id='' disabled={menuSelectType.menu_2 !== '2'} className=''>
+                          <option value='00'>00</option>
+                          {timeEnd.hrsM2 === '24' ? (
+                            ''
+                          ) : (
+                            <>
+                              <option value='15'>15</option>
+                              <option value='30'>30</option>
+                              <option value='45'>45</option>
+                            </>
+                          )}
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+
+
+            <div className="MB_OF_Flex_Col">
+
+              <div className="MB_OF_Flex colorof_title">
+                <span className="MB_OF_text ">{prop.menuName.menu_3}</span>
+                <label className={`containerSwitch switchLang  ${timeType && 'opcaityTime'}`}>
+
+                  <input onChange={(e) => menuSelectTypeValue('menu_3', e)} type='checkbox' checked={!timeType && menuSelectType.menu_3} name='menu_3' value='3' id='' disabled={timeType} />
+                  <span className='sliderLang forOFLang2'></span>
+
+                </label>
+              </div>
+              <div className="MB_BorderBt"></div>
+
+              <div className={`MB_OF_Flex `}>
+                <div className={`timePikerContainer MB_timeInput`}>
+                  <div className={`MB_flexTime  ${menuSelectType.menu_3 !== '3' && 'opcaityTime'}`}>
+                    <div className='timeBox'>
+                      <div className='MB_inputTime'>
+                        <select value={timeStart.hrsM3} onChange={timeStartFn('hrsM3')} name='hrsM3' id='' disabled={menuSelectType.menu_3 !== '3'} className=''>
+                          <option value='00'>00</option>
+                          <option value='01'>01</option>
+                          <option value='02'>02</option>
+                          <option value='03'>03</option>
+                          <option value='04'>04</option>
+                          <option value='05'>05</option>
+                          <option value='06'>06</option>
+                          <option value='07'>07</option>
+                          <option value='08'>08</option>
+                          <option value='09'>09</option>
+                          <option value='10'>10</option>
+                          <option value='11'>11</option>
+                          <option value='12'>12</option>
+                          <option value='13'>13</option>
+                          <option value='14'>14</option>
+                          <option value='15'>15</option>
+                          <option value='16'>16</option>
+                          <option value='17'>17</option>
+                          <option value='18'>18</option>
+                          <option value='19'>19</option>
+                          <option value='20'>20</option>
+                          <option value='21'>21</option>
+                          <option value='22'>22</option>
+                          <option value='23'>23</option>
+                        </select>
+                        <span className='MB_px'>:</span>
+                        <select onChange={timeStartFn('minsM3')} name='minsM3' id='' disabled={menuSelectType.menu_3 !== '3'} className=''>
+                          <option value='00'>00</option>
+                          <option value='15'>15</option>
+                          <option value='30'>30</option>
+                          <option value='45'>45</option>
+                        </select>
+
+
+                      </div>
+                    </div>
+
+                    <div className='textTo'>to</div>
+
+                    <div className='timeBox'>
+                      <div className='MB_inputTime'>
+                        <select value={timeEnd.hrsM3} onChange={timeEndFn('hrsM3')} name='hrsM3' id='' disabled={menuSelectType.menu_3 !== '3'} className=''>
+                          <option value='00'>00</option>
+                          <option value='01'>01</option>
+                          <option value='02'>02</option>
+                          <option value='03'>03</option>
+                          <option value='04'>04</option>
+                          <option value='05'>05</option>
+                          <option value='06'>06</option>
+                          <option value='07'>07</option>
+                          <option value='08'>08</option>
+                          <option value='09'>09</option>
+                          <option value='10'>10</option>
+                          <option value='11'>11</option>
+                          <option value='12'>12</option>
+                          <option value='13'>13</option>
+                          <option value='14'>14</option>
+                          <option value='15'>15</option>
+                          <option value='16'>16</option>
+                          <option value='17'>17</option>
+                          <option value='18'>18</option>
+                          <option value='19'>19</option>
+                          <option value='20'>20</option>
+                          <option value='21'>21</option>
+                          <option value='22'>22</option>
+                          <option value='23'>23</option>
+                          <option value='24'>24</option>
+                        </select>
+                        <span className='MB_px'>:</span>
+                        <select value={timeEnd.minsM3} onChange={timeEndFn('minsM3')} name='minsM3' id='' disabled={menuSelectType.menu_3 !== '3'} className=''>
+                          <option value='00'>00</option>
+                          {timeEnd.hrsM3 === '24' ? (
+                            ''
+                          ) : (
+                            <>
+                              <option value='15'>15</option>
+                              <option value='30'>30</option>
+                              <option value='45'>45</option>
+                            </>
+                          )}
+                        </select>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+
+
+
+
+
+
+
+
+            {/* <div className="MB_timePikerGrid2">
 
 
 
@@ -556,13 +955,13 @@ const _TimePickerMobile = (prop) => {
                 </div>
 
 
-                <label className={`MB_select `}>
-                  <div className={`switch ${timeType && 'opcaityTime'}`}>
+                <label className={`containerSwitch switchLang  ${timeType && 'opcaityTime'}`}>
 
-                    <input onChange={(e) => menuSelectTypeValue('menu_1', e)} type='checkbox' checked={!timeType && menuSelectType.menu_1} name='menu_1' value='1' id='' disabled={timeType} />
-                    <span className='slider'></span>
-                  </div>
+                  <input onChange={(e) => menuSelectTypeValue('menu_1', e)} type='checkbox' checked={!timeType && menuSelectType.menu_1} name='menu_1' value='1' id='' disabled={timeType} />
+                  <span className='sliderLang forOFLang2'></span>
+
                 </label>
+
 
                 <div className={`timePikerContainer MB_timeInput `}>
                   <div className={`MB_flexTime  ${menuSelectType.menu_1 !== '1' && 'opcaityTime'}`}>
@@ -661,13 +1060,14 @@ const _TimePickerMobile = (prop) => {
                 <div className="MB_Time_flexBox">
                   <div className='MB_titleTime'>{prop.menuName.menu_2}</div>
                 </div>
-                <label className={`MB_select `}>
+                <label className={`containerSwitch switchLang  ${timeType && 'opcaityTime'}`}>
 
-                  <div className={`switch ${timeType && 'opcaityTime'}`}>
-                    <input onChange={(e) => menuSelectTypeValue('menu_2', e)} type='checkbox' checked={!timeType && menuSelectType.menu_2} name='menu_2' value='2' id='' disabled={timeType} />
-                    <span className='slider'></span>
-                  </div>
+
+                  <input onChange={(e) => menuSelectTypeValue('menu_2', e)} type='checkbox' checked={!timeType && menuSelectType.menu_2} name='menu_2' value='2' id='' disabled={timeType} />
+                  <span className='sliderLang forOFLang2'></span>
+
                 </label>
+
 
                 <div className={`timePikerContainer MB_timeInput `}>
                   <div className={`MB_flexTime  ${menuSelectType.menu_2 !== '2' && 'opcaityTime'}`}>
@@ -765,11 +1165,11 @@ const _TimePickerMobile = (prop) => {
                   <div className='MB_titleTime'>{prop.menuName.menu_3}</div>
                 </div>
 
-                <label className={`MB_select `}>
-                  <div className={`switch ${timeType && 'opcaityTime'}`}>
-                    <input onChange={(e) => menuSelectTypeValue('menu_3', e)} type='checkbox' checked={!timeType && menuSelectType.menu_3} name='menu_3' value='3' id='' disabled={timeType} />
-                    <span className='slider'></span>
-                  </div>
+                <label className={`containerSwitch switchLang  ${timeType && 'opcaityTime'}`}>
+
+                  <input onChange={(e) => menuSelectTypeValue('menu_3', e)} type='checkbox' checked={!timeType && menuSelectType.menu_3} name='menu_3' value='3' id='' disabled={timeType} />
+                  <span className='sliderLang forOFLang2'></span>
+
                 </label>
 
 
@@ -877,7 +1277,7 @@ const _TimePickerMobile = (prop) => {
 
 
 
-              {/* <div className=' header4 flexHeaderTime'>Time Settings</div> */}
+         
 
 
 
@@ -892,7 +1292,7 @@ const _TimePickerMobile = (prop) => {
 
 
 
-            </div>
+            </div> */}
 
           </div>
 
@@ -903,7 +1303,31 @@ const _TimePickerMobile = (prop) => {
 
         </div>
 
+        <div className="MB_Positon_Bottom_btn">
+          <div className="MB_Frid_3Btn">
 
+            {/* SAVE BUTTON */}
+
+            <button
+              onClick={() => {
+                setTimeValue(code);
+                setTimePicker([...timePickerData]);
+              }}
+              className='MB_Sq_Btn SaveBtnSize MB_Btn_Color  MB_G2'>
+
+              <span>Confirm</span>
+            </button>
+
+            {/* CANCEL BUTTON */}
+            <button onClick={() => getTimeFromProp()}
+              className='MB_Sq_Btn CancelPadding MB_Btn_Border MB_G3'>
+
+
+              <span>Cancel</span>
+            </button>
+
+          </div>
+        </div>
 
 
 
@@ -982,13 +1406,13 @@ const _TimePickerMobile = (prop) => {
                 }}
                 className='MB_Sq_Btn MB_Btn_Color MB_G2'>
 
-                <span>CONFIRM</span>
+                <span>Confirm</span>
               </button>
 
               <button onClick={() => setWindowConfirm(false)} className='MB_Sq_Btn MB_Btn_Border MB_G3'>
 
 
-                <span>CANCEL</span>
+                <span>Cancle</span>
               </button>
             </div>
           </div>
@@ -1001,29 +1425,7 @@ const _TimePickerMobile = (prop) => {
 
 
 
-      <div className="MB_Frid_3Btn">
 
-        {/* SAVE BUTTON */}
-
-        <button
-          onClick={() => {
-            setTimeValue(code);
-            setTimePicker([...timePickerData]);
-          }}
-          className='MB_Sq_Btn MB_Btn_Color MB_G2'>
-
-          <span>OK</span>
-        </button>
-
-        {/* CANCEL BUTTON */}
-        <button onClick={() => getTimeFromProp()} className='MB_Sq_Btn MB_Btn_Border MB_G3'>
-
-
-          <span>CANCEL</span>
-        </button>
-
-
-      </div>
 
 
 

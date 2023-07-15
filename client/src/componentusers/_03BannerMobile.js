@@ -272,7 +272,7 @@ const _03BannerMobile = (prop) => {
 
 
         {/* <div className="MB_InScroll_fullNew paddingBottom_8 overScroll_none "> */}
-        <div className="MB_Standard_Section_canScroll MB_Make_PadingBanner MB_Wrap_ForBtn overScroll_none" >
+        <div className="MB_Standard_Section_canScroll MB_Make_PadingBanner MB_Wrap_ForBtn " >
 
           {/* <div className="MB_PaddingWrapper"> */}
           <div className="MB_bannerShow_Flex_Column">

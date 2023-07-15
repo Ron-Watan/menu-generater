@@ -215,7 +215,7 @@ const AcordionSubComp = (prop) => {
         <div className={prop.themeSetup.categoryMotion.categoryBoxClass} style={{ 'backgroundColor': `${prop.themeSetup.categoryMotion.categoryBoxColor}` }}>
           <span className={`category-Custom-Title`} style={{
             'color': `${prop.themeSetup.categoryMotion.categoryFontColor}`,
-            'fontSize': `${prop.themeSetup.body.bodyFontSize * 1.5}rem`, 'fontWeight': '500'
+            'fontSize': `${prop.themeSetup.body.bodyFontSize * 1.3}rem`, 'fontWeight': '500'
 
 
           }}> {prop.listMunu.catagory}</span>

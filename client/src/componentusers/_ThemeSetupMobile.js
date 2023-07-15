@@ -5,8 +5,6 @@ import Swal from 'sweetalert2';
 import { ticketPass } from '../protectors/authorize';
 import _ColorPickkerMobile from './_ColorPickkerMobile';
 import { createGlobalStyle } from 'styled-components';
-import icon1 from '../all-icon-client/Appetizer-Black-SVG-sprite.svg';
-import icon2 from '../all-icon-client/food-color-SVG-sprite.svg';
 import { NavbarBg } from './ThemePresent';
 import MBicon_Quickt from '../all-icon/mobile-bar/quickt.svg'
 import MBicon_Navbart from '../all-icon/mobile-bar/navbart.svg'

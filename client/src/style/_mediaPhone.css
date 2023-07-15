@@ -155,6 +155,16 @@ body {
   padding-top: 5rem;
   padding-bottom: 2rem;
 }
+
+.MB_Make_PadingLang {
+  padding-top: 6rem;
+  padding-bottom: 2rem;
+}
+
+.MB_PadingLang_side {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
 .MB_Wrap_ForBtn {
   height: 80vh;
 }
@@ -423,7 +433,7 @@ body {
   width: 4rem;
   color: #444;
 }
-.MB_BtnIconPick{
+.MB_BtnIconPick {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -946,7 +956,7 @@ body {
   font-weight: 500;
 }
 .MB_tabCat_L:hover {
-  background-color: #cc1600;
+  background-color: #95b2f2;
   transition: all 0.2;
   color: #fff;
 }
@@ -996,6 +1006,11 @@ body {
   margin-top: 1rem;
   font-style: italic;
 }
+
+.upDownHover {
+  background-color: #cfdeff;
+
+}
 /* ============================================================== */
 
 .MB_iconPickerheader-Nav {
@@ -1012,8 +1027,7 @@ body {
   /* height: 100%; */
   background-color: #fff;
   /* overflow-y: scroll; */
-  padding:2rem;
-
+  padding: 2rem;
 }
 .MB_iconPickerGridRow {
   display: flex;
@@ -1084,6 +1098,28 @@ body {
   height: 1rem;
   border: #cc4b00 1px solid;
 }
+
+.smallUpDown {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: #999 solid 1px;
+  border-radius: 50%;
+}
+
+.up {
+  transform: rotate(180deg);
+}
+.postionSettingIcon {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: end;
+  /* padding-right: 1rem; */
+}
+
 /* FeedBack///////////////////////////////////////// */
 /* #cc1600 */
 /* #f5d0cc */

@@ -150,15 +150,14 @@ const FooterComponent = (prop) => {
 
       <i className="x">!Theme Nav BG Color 1/3</i>
       <nav className={`Max_width_32 footBarSectionC ${activefootbar ? 'showMe' : 'hiddenMe'}`}
-        style={{ 'backgroundColor': `${prop.themeSetup.navAndFootBar.navBarColor}` }}
-      >
+        style={{ 'backgroundColor': `${prop.themeSetup.navAndFootBar.navBarColor}` }}>
         <div className="footBarGrid3">
 
           <div onClick={() => switcher('languageTab')} className={`footBarGrid3_1`}>
 
             <div className={`footBarGrid3_1-1`}>
               <i className="x">!Theme Nav BG Color 2/3</i>
-              {prop.langIcon&&<button className='footbatBtnLang'
+              {prop.langIcon && <button className='footbatBtnLang'
 
                 style={{ 'backgroundColor': `${prop.themeSetup.navAndFootBar.navBarColor}` }}>
                 <span className={`langCode`}
@@ -245,11 +244,13 @@ const FooterComponent = (prop) => {
           </div>}
 
         </div>
-
+        <div className="spanfootBarSectionC"
+        ></div>
+        {/* style={{ 'backgroundColor': `${prop.themeSetup.navAndFootBar.navBarColor}` } */}
       </nav>
-
+      <div className="eeeee"></div>
       {/* <div className=" floatLeftFootBar">
-
+.
         <div className="foobarFlexC">
           <span className={`circleBarBox`}>
             <i className={`circleBarIcon circleBarSize circleBarColor`} >

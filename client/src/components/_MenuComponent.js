@@ -364,6 +364,7 @@ const _MenuComponent = () => {
         <i className="x">!Theme Nav BG Color 1/10</i>
         <nav className='navBar_Client'
           style={{ 'backgroundColor': `${themeSetup.navAndFootBar.navBarColor}` }}>
+    
           <div className=' mx-auto'>
             <div className='navFlexLogoandName'>
 
@@ -803,7 +804,7 @@ const _MenuComponent = () => {
 
 
 
-      {/* <div className='test'>dfddgs</div> */}
+      <div className='extraSpace'></div>
 
 
 

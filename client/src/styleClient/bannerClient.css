@@ -9,10 +9,9 @@ dotFormC
 dotActiveFormC
 dotFormC */
 
-
 .bannerSectionC {
   font-size: 62.5%;
-margin-top: 1rem;
+  margin-top: 1rem;
 }
 
 /* 
@@ -23,11 +22,9 @@ margin-top: 1rem;
 .boxImageFormC {} */
 
 .imageBannerFormC {
-
   display: block;
   border-radius: 5px;
-  box-shadow: .2rem .2rem .4rem .1rem rgba(0, 0, 0, 0.10);
-
+  box-shadow: 0.2rem 0.2rem 0.4rem 0.1rem rgba(0, 0, 0, 0.1);
 }
 
 /* .imageBannerC1 {} */
@@ -43,34 +40,31 @@ margin-top: 1rem;
   justify-content: center;
   align-items: center;
   /* gap: -2rem; */
-  padding-top: 0rem;
-  padding-bottom:.7rem;
-
+  padding-top: .5rem;
+  padding-bottom: 1.5rem;
 }
 
 .dotC {
   position: relative;
   width: 1.5rem;
-  height: .5rem;
+  height: 0.5rem;
   /* background-color: #fffdfd; */
   border-radius: 2px;
   font-size: 0;
   /* border: #5a5959 1px solid; */
-  margin-left: -.5rem;
-
+  margin-left: -0.5rem;
 }
 
 .dotC::before {
   position: absolute;
   display: block;
   content: '';
-  width: .5rem;
-  height: .5rem;
+  width: 0.5rem;
+  height: 0.5rem;
   left: 0;
   top: 0;
-  background-color: #ddd;
+  background-color: rgba(222, 222, 222, 0.5);
   border-radius: 50%;
-
 }
 
 .dotC::after {
@@ -78,10 +72,10 @@ margin-top: 1rem;
   display: block;
 
   content: '';
-  width: .5rem;
-  height: .5rem;
+  width: 0.5rem;
+  height: 0.5rem;
   right: 0;
-  background-color: #ddd;
+  background-color: rgba(222, 222, 222, 0.5);
   top: 0;
   border-radius: 50%;
 }
@@ -89,26 +83,21 @@ margin-top: 1rem;
 .dotActiveC {
   position: relative;
   width: 1.2rem;
-  height: .5rem;
-  background-color: #aaa;
+  height: 0.5rem;
+  background-color: rgba(170, 170, 170, 0.4 0);
   border-radius: 2px;
   font-size: 0;
   border-radius: 1rem;
-  margin-left: -.6rem;
+  margin-left: -0.6rem;
   z-index: 10;
 }
 
-
-
-
 .rtds-single-slide-styles {
   height: 15rem !important;
-
-
 }
 
 .rtds-single-slide-styles div {
-  padding: .2rem .5rem !important
+  padding: 0.2rem 0.5rem !important;
 }
 
 .rtds-single-slide-styles img {

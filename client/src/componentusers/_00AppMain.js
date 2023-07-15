@@ -31,7 +31,7 @@ import AddLanguage from './AddLanguage';
 import AddLanguageSetup from './AddLanguageSetup';
 import IconPickker from './IconPickker';
 
-import IconPickkerMobile from './IconPickkerMobile';
+import _20IconPickerMobile from './_20IconPickerMobile';
 
 
 import _01FeedBackMobile from './_01FeedBackMobile';
@@ -39,21 +39,22 @@ import _02QRCode from './_02QRCode';
 import _03BannerMobile from './_03BannerMobile';
 import _04MenuForm from './_04MenuForm';
 import _04MobileFormFood from './_04MobileFormFood';
+import _08LanguageSetupMobile from './_08LanguageSetupMobile';
+import _10OnOffSettingMobile from './_10OnOffSettingMobile';
+
+
+
 
 import _TimePickerMobile from './_TimePickerMobile';
-import _LanguageSetupMobile from './_LanguageSetupMobile';
 import _ThemeSetupMobile from './_ThemeSetupMobile';
 import _LanguageAddMobile from './_LanguageAddMobile';
-import _10OnOffSettingMobile from './_10OnOffSettingMobile';
 
 
 
 import ColorPickker from './ColorPickker';
 
 import iconPhoto from '../icon/meal.svg';
-import iconAddicIcon from '../icon/addIcon.svg';
-import icon1 from '../all-icon-client/Appetizer-Black-SVG-sprite.svg';
-import icon2 from '../all-icon-client/food-color-SVG-sprite.svg';
+
 import ThemeSetup from './ThemeSetup';
 
 
@@ -897,88 +898,92 @@ const _AppMain = () => {
     window.scrollTo(0, 0);
   };
 
-  const [activeInput, setactiveInput] = useState(false);
+//   else if (!languageTab && !listTab && !commentTab) {
+//   document.body.classList.remove('overflow-hidden');
+// }
 
-  /////// CLOSE CONTROL /////////////////////////
-  // function timeSwitcher(menuNo) {
-  // setMenuTime(menuNo);
-  // callmenuName(menuNo)
-  // menuTimeNameFn(menuNo)
-  // clearAllPage()
+const [activeInput, setactiveInput] = useState(false);
 
-  // actionDelay();
-  // };
-  const [bannerImgArr, setBannerImgArr] = useState([]);
+/////// CLOSE CONTROL /////////////////////////
+// function timeSwitcher(menuNo) {
+// setMenuTime(menuNo);
+// callmenuName(menuNo)
+// menuTimeNameFn(menuNo)
+// clearAllPage()
 
-  const [indexToBanner, setIndexToBanner] = useState('');
+// actionDelay();
+// };
+const [bannerImgArr, setBannerImgArr] = useState([]);
 
-  // UPLOAD IMAGE
+const [indexToBanner, setIndexToBanner] = useState('');
 
-  const dataURIToBlobBanner = (dataURI) => {
-    const splitDataURI = dataURI.split(',');
-    const byteString = splitDataURI[0].indexOf('base64') >= 0 ? atob(splitDataURI[1]) : decodeURI(splitDataURI[1]);
-    const mimeString = splitDataURI[0].split(':')[1].split(';')[0];
+// UPLOAD IMAGE
 
-    const ia = new Uint8Array(byteString.length);
-    for (let i = 0; i < byteString.length; i++) ia[i] = byteString.charCodeAt(i);
+const dataURIToBlobBanner = (dataURI) => {
+  const splitDataURI = dataURI.split(',');
+  const byteString = splitDataURI[0].indexOf('base64') >= 0 ? atob(splitDataURI[1]) : decodeURI(splitDataURI[1]);
+  const mimeString = splitDataURI[0].split(':')[1].split(';')[0];
 
-    return new Blob([ia], { type: mimeString });
-  };
+  const ia = new Uint8Array(byteString.length);
+  for (let i = 0; i < byteString.length; i++) ia[i] = byteString.charCodeAt(i);
+
+  return new Blob([ia], { type: mimeString });
+};
 
 
-  const [menuNameChange, setMenuNameChange] = useState(false)
-  const currentMenuName = 'menu_' + menuTime
-  const inputMenuTimeName = (e) => {
-    setMenuName({ ...menuName, [currentMenuName]: e.target.value })
-    setMenuNameChange(true)
-  }
+const [checkChangeName, setCheckChangeName] = useState(false)
+const currentMenuName = 'menu_' + menuTime
+const inputMenuTimeName = (e) => {
+  setMenuName({ ...menuName, [currentMenuName]: e.target.value })
+  setCheckChangeName(true)
+}
 
-  const saveNameMenu = () => {
-    dispath(showLoading());
-    axios
-      .post(`${process.env.REACT_APP_API}/user/saveNameMenu`,
-        {
-          userId: user.userId,
-          clientId: user.clientId,
-          menuName: menuName
-        }, ticketPass)
-      .then((result) => {
-        if (result.data.success) {
-          const getReult = result.data.userMenu;
-          console.log(getReult)
-          dispath(setUser(getReult))
-          setMenuName(getReult.menuName)
-          // Swal.fire(result.data.message)
-          // setMenuName(result.data.nameMenu)
-          // actionDelay();
-          // setMenuTimeName('')
+const saveNameMenu = () => {
+  // dispath(showLoading());
+  axios
+    .post(`${process.env.REACT_APP_API}/user/saveNameMenu`,
+      {
+        userId: user.userId,
+        clientId: user.clientId,
+        menuName: menuName
+      }, ticketPass)
+    .then((result) => {
+      if (result.data.success) {
+        const getReult = result.data.userMenu;
 
-          Swal.fire({
-            title: 'SAVED',
-            text: 'Your menu has been saved',
-            toast: true,
-            icon: 'success',
-            // confirmButtonText: 'SAVED',
-            showConfirmButton: false,
-            // width: '16rem',
-            // height: '5rem',
-            iconColor: '#cb2722',
-            // confirmButtonColor: '#cb2722',
-            timer: 2000,
-          });
-          dispath(hideLoading());
-        } else {
-          Swal.fire(result.data.message);
-          dispath(hideLoading());
-        }
-      })
-      .catch((err) => {
+        // dispath(setUser(getReult))
+        setMenuName(getReult.menuName)
+        // Swal.fire(result.data.message)
+        // setMenuName(result.data.nameMenu)
+        // actionDelay();
+        // setMenuTimeName('')
+
+        // Swal.fire({
+        //   title: 'SAVED',
+        //   text: 'Your menu has been saved',
+        //   toast: true,
+        //   icon: 'success',
+        //   // confirmButtonText: 'SAVED',
+        //   showConfirmButton: false,
+        //   // width: '16rem',
+        //   // height: '5rem',
+        //   iconColor: '#cb2722',
+        //   // confirmButtonColor: '#cb2722',
+        //   timer: 2000,
+        // });
+        // dispath(hideLoading());
+      } else {
+        Swal.fire(result.data.message);
         dispath(hideLoading());
-        console.log("Can't not connect the server");
-        Swal.fire("Can't not connect the server");
-      });
-  };
-  /////////////////////////////////////////////////////
+      }
+    })
+    .catch((err) => {
+      dispath(hideLoading());
+      console.log("Can't not connect the server");
+      Swal.fire("Can't not connect the server");
+    });
+};
+/////////////////////////////////////////////////////
 
 
 
@@ -989,131 +994,134 @@ const _AppMain = () => {
 
 
 
-  ///////////////////////////////////
+///////////////////////////////////
 
-  const [onOffQrCode, setOnoffQrCode] = useState(false);
-  const [onOffBanner, setOnoffBanner] = useState(false);
-  const [onOffMenu1, setOnoffMenu1] = useState({ switch: false, value: 1 });
-  const [onOffMenu2, setOnoffMenu2] = useState({ switch: false, value: 2 });
-  const [onOffMenu3, setOnoffMenu3] = useState({ switch: false, value: 3 });
+const [onOffQrCode, setOnoffQrCode] = useState(false);
+const [onOffBanner, setOnoffBanner] = useState(false);
+const [onOffMenu1, setOnoffMenu1] = useState({ switch: false, value: 1 });
+const [onOffMenu2, setOnoffMenu2] = useState({ switch: false, value: 2 });
+const [onOffMenu3, setOnoffMenu3] = useState({ switch: false, value: 3 });
 
-  //-
-  const [onOffTheme, setOnOffTheme] = useState(false);
+//-
+const [onOffTheme, setOnOffTheme] = useState(false);
 
-  //- MOBILE  //-///=///-///=///-///=///-///=///-   END FUNCTION   ///-///=///-///=///-///=///-///=///-
-
-
-  const [onOffFeedBAck_MB, setOnOffFeedBAck_MB] = useState(false);
-  const [onOffQrCode_MB, setOnoffQrCode_MB] = useState(false);
-  const [onOffBanner_MB, setOnoffBanner_MB] = useState(false);
-  const [onOffMenu1_MB, setOnoffMenu1_MB] = useState(false);
-  const [onOffMenu2_MB, setOnoffMenu2_MB] = useState(false);
-  const [onOffMenu3_MB, setOnoffMenu3_MB] = useState(false);
-  const [onOffTimePicker_MB, setOnOffTimePicker_MB] = useState(false);
-  const [onOffLangSetup_MB, setOnOffLangSetup_MB] = useState(false);
-  const [onOffThemeSetup_MB, setOnOffThemeSetup_MB] = useState(false);
-  const [onOffSetting_MB, setOnOffSetting_MB] = useState(false);
-  const [onOffQRCCode_MB, setOnOffQRCCode_MB] = useState(false);
+//- MOBILE  //-///=///-///=///-///=///-///=///-   END FUNCTION   ///-///=///-///=///-///=///-///=///-
 
 
-  //-
+const [onOffFeedBAck_MB, setOnOffFeedBAck_MB] = useState(false);
+const [onOffQrCode_MB, setOnoffQrCode_MB] = useState(false);
+const [onOffBanner_MB, setOnoffBanner_MB] = useState(false);
+const [onOffMenu1_MB, setOnoffMenu1_MB] = useState(false);
+const [onOffMenu2_MB, setOnoffMenu2_MB] = useState(false);
+const [onOffMenu3_MB, setOnoffMenu3_MB] = useState(false);
+const [onOffTimePicker_MB, setOnOffTimePicker_MB] = useState(false);
+const [onOffLangSetup_MB, setOnOffLangSetup_MB] = useState(false);
+const [onOffThemeSetup_MB, setOnOffThemeSetup_MB] = useState(false);
+const [onOffSetting_MB, setOnOffSetting_MB] = useState(false);
+const [onOffQRCCode_MB, setOnOffQRCCode_MB] = useState(false);
 
 
-
-  //-
-
-  const [onOffMenuTime, setonOffMenuTime] = useState(false); //Time Picker
-  const [onOffLangForm, setOnOffLangForm] = useState(false); // Lang Form
-  const [onOffLangSetup, setOnOffLangSetup] = useState(false); // Lang Setup
-
-  const [activeInputEn, setActiveInputEditName] = useState(false); // Edit Name
-  // aaa
-  //=
-  const [deleteImageBannerTG, setDeleteImageBannerTG] = useState(0);
-  const [saveImageBannerTG, setSaveImageBannerTG] = useState(0);
-  const [resizeFileBannerTG, setResizeFileBannerTG] = useState(0);
-  const [getAllImageBannerTG, setGetAllImageBannerTG] = useState(0);
-
-
-  const [activeWindowIconPicker, setActiveWindowIconPicker] = useState(false);
-  const [memoicon, setMemoIcon] = useState('');
-
-  // <button onClick={() => {
-  //   setGetAllImageBannerTG((getAllImageBannerTG) => getAllImageBannerTG + 1)
-  //   prop.setTestTG((prop.testTG) => prop.testTG + 1)
-  // }
-  //=
-  const [navTime2TimePicker, setNavTime2TimePicker] = useState(0);
-  const [navLang2LangSetUp, setNavLang2LangSetUp] = useState(0);
-  const [navTheme2ThemeSetUp, setNavTheme2ThemeSetUp] = useState(0);
-  const [navOnOff2OnOffSetting, setVavOnOff2OnOffSetting] = useState(0);
-
-  //=
-
-  const [onConnected, setOnConnected] = useState(false);
+//-
 
 
 
+//-
 
-  const [mBnavIcon, setMBnavIcon] = useState(false)
-  const mbIconColor = '#fff'
-  const mbIconColorA = '#fff'
-  const iconStrokeWidth = "3"
+const [onOffMenuTime, setonOffMenuTime] = useState(false); //Time Picker
+const [onOffLangForm, setOnOffLangForm] = useState(false); // Lang Form
+const [onOffLangSetup, setOnOffLangSetup] = useState(false); // Lang Setup
 
-  const reloadIFrame = (e) => {
-    // e.preventDefault()
-    // contentDocument.location.reload(true)
-    // contentWindow.location.reload()
-    console.log('reloading..');
-    document.getElementById('iframe').contentDocument.location.reload(true);
-    document.getElementById('iframe').contentDocument.location.reload(true);
-  }
-
-  const [getStarNotification, setGetStarNotification] = useState('')
-
-  // function usePrevious(value) {
-  //   const ref = useRef();
-  //   // useEffect(() => {
-  //   ref.current = value; //assign the value of ref to the argument
-  //   // }, [value]); //this code will run when the value of 'value' changes
-  //   console.log(ref.current)
-  //   return ref.current; //in the end, return the current ref value.
-  // }
-
-  const [loadingManual, setLoadingManual] = useState(false)
+const [activeInputEn, setActiveInputEditName] = useState(false); // Edit Name
+// aaa
+//=
+const [deleteImageBannerTG, setDeleteImageBannerTG] = useState(0);
+const [saveImageBannerTG, setSaveImageBannerTG] = useState(0);
+const [resizeFileBannerTG, setResizeFileBannerTG] = useState(0);
+const [getAllImageBannerTG, setGetAllImageBannerTG] = useState(0);
 
 
-  useEffect(() => {
-    getAllMenu();
-  }, [user]);
+const [activeWindowIconPicker, setActiveWindowIconPicker] = useState(false);
+const [memoicon, setMemoIcon] = useState('');
 
-  useEffect(() => {
-    getAllImage()
+// <button onClick={() => {
+//   setGetAllImageBannerTG((getAllImageBannerTG) => getAllImageBannerTG + 1)
+//   prop.setTestTG((prop.testTG) => prop.testTG + 1)
+// }
+//=
+const [navTime2TimePicker, setNavTime2TimePicker] = useState(0);
+const [navLang2LangSetUp, setNavLang2LangSetUp] = useState(0);
+const [navTheme2ThemeSetUp, setNavTheme2ThemeSetUp] = useState(0);
+const [navOnOff2OnOffSetting, setVavOnOff2OnOffSetting] = useState(0);
 
-  }, [user]);
+//=
+
+const [onConnected, setOnConnected] = useState(false);
 
 
-  //-///=///-///=///-///=///-///=///-   END FUNCTION   ///-///=///-///=///-///=///-///=///-
 
-  const { loading } = useSelector((state) => state.alerts);
 
-  return (
-    <div className='mainAppMonitor'>
-      <div className={`${loadingManual ? 'showMe' : 'hiddenMe'} photoLoading`}>
-        <div className="iconLoadingBanner">
-          <span className='barOne'></span > <span className='barTwo'></span> <span className='barThree'></span>
-        </div>
+const [mBnavIcon, setMBnavIcon] = useState(false)
+const mbIconColor = '#fff'
+const mbIconColorA = '#fff'
+const iconStrokeWidth = "3"
+
+const reloadIFrame = (e) => {
+  // e.preventDefault()
+  // contentDocument.location.reload(true)
+  // contentWindow.location.reload()
+  console.log('reloading..');
+  document.getElementById('iframe').contentDocument.location.reload(true);
+  document.getElementById('iframe').contentDocument.location.reload(true);
+}
+
+const [getStarNotification, setGetStarNotification] = useState('')
+
+// function usePrevious(value) {
+//   const ref = useRef();
+//   // useEffect(() => {
+//   ref.current = value; //assign the value of ref to the argument
+//   // }, [value]); //this code will run when the value of 'value' changes
+//   console.log(ref.current)
+//   return ref.current; //in the end, return the current ref value.
+// }
+
+if (onOffBanner_MB || onOffMenu1_MB || onOffMenu2_MB ||
+  onOffMenu3_MB || onOffTimePicker_MB || onOffLangSetup_MB || onOffFeedBAck_MB || onOffSetting_MB || onOffQRCCode_MB) {
+document.body.classList.add('overflow-hidden')}
+const [loadingManual, setLoadingManual] = useState(false)
+
+
+useEffect(() => {
+  getAllMenu();
+}, [user]);
+
+useEffect(() => {
+  getAllImage()
+
+}, [user]);
+
+
+//-///=///-///=///-///=///-///=///-   END FUNCTION   ///-///=///-///=///-///=///-///=///-
+
+const { loading } = useSelector((state) => state.alerts);
+
+return (
+  <div className='mainAppMonitor'>
+    <div className={`${loadingManual ? 'showMe' : 'hiddenMe'} photoLoading`}>
+      <div className="iconLoadingBanner">
+        <span className='barOne'></span > <span className='barTwo'></span> <span className='barThree'></span>
       </div>
+    </div>
 
-      {/* <div className='decorBar'>
+    {/* <div className='decorBar'>
         <div className={`containerEditMenuName ${!(onOffMenu1.switch || onOffMenu2.switch || onOffMenu3.switch) && 'hiddenMe'}`}>
           <EditMenuName menuName={menuName} setMenuName={setMenuName} onOffMenu1={onOffMenu1} onOffMenu2={onOffMenu2} onOffMenu3={onOffMenu3} menuTime={menuTime} activeInputEn={activeInputEn} setActiveInputEditName={setActiveInputEditName} />
         </div>
       </div>
 
       <div className='decorBg'></div> */}
-      <div className="">
-        {/* <div className='monitor ' id='monitor'>
+    <div className="">
+      {/* <div className='monitor ' id='monitor'>
           <NavbarComponent className='sideBarTop'
             setStart={setStart}
             setMenuTime={setMenuTime}
@@ -1747,76 +1755,76 @@ const _AppMain = () => {
           </div>
           <i className='x'>RIGHTBAR SECTION Finish</i>
         </div> */}
+    </div>
+
+
+    <i className='x'>//- START MOBILE //------------------------------------------------</i>
+
+
+
+    <div className="mobile-creator unselectable">
+      <i className="x"> Banner-----------------------------------------------</i>
+      <div className={`mobile_function  ${!onOffBanner_MB && 'MB_slide_Down'}`}>
+
+        <_03BannerMobile
+          bannerImgArr={bannerImgArr}
+          setBannerImgArr={setBannerImgArr}
+          indexToBanner={indexToBanner}
+          setIndexToBanner={setIndexToBanner}
+          deleteImageBannerTG={deleteImageBannerTG}
+          saveImageBannerTG={saveImageBannerTG}
+          resizeFileBannerTG={resizeFileBannerTG}
+          setResizeFileBannerTG={setResizeFileBannerTG}
+          getAllImageBannerTG={getAllImageBannerTG}
+          setOnoffBanner_MB={setOnoffBanner_MB}
+          setDeleteImageBannerTG={setDeleteImageBannerTG}
+          setSaveImageBannerTG={setSaveImageBannerTG}
+          getAllImage={getAllImage}
+
+        />
       </div>
 
 
-      <i className='x'>//- START MOBILE //------------------------------------------------</i>
+      <i className="x"> Manu 1 111 -----------------------------------------------</i>
+      <div className={`mobile_function ${(!onOffMenu1_MB && !onOffMenu2_MB && !onOffMenu3_MB) && 'MB_slide_Down'}`}>
+        <_04MenuForm
+          inputMenuTimeName={inputMenuTimeName}
+          menuName={menuName}
+          currentMenuName={currentMenuName}
+          checkChangeName={checkChangeName}
+          saveNameMenu={saveNameMenu}
+          setCheckChangeName={setCheckChangeName}
+          openForm={openForm}
 
+          categoryList={categoryList}
+          setCategoryList={setCategoryList}
+          menuTime={menuTime} menuId={menuId}
+          listMenu={listMenu}
+          setListMenu={setListMenu}
+          findOneMenu={findOneMenu} setOnOffLangForm={setOnOffLangForm}
+          deleteBtn={deleteBtn} deleteMenu={deleteMenu} saveEditMenu={saveEditMenu}
+          start={start} setStart={setStart}
+          // file={file}
+          setOnoffMenu1_MB={setOnoffMenu1_MB}
+          setOnoffMenu2_MB={setOnoffMenu2_MB}
+          setOnoffMenu3_MB={setOnoffMenu3_MB}
+          categoryList_1={categoryList_1}
+          categoryList_2={categoryList_2}
+          categoryList_3={categoryList_3}
+          setCategoryList_1={setCategoryList_1}
+          setCategoryList_2={setCategoryList_2}
+          setCategoryList_3={setCategoryList_3}
+          saveReArangeList={saveReArangeList}
 
+        />
 
-      <div className="mobile-creator unselectable">
-        <i className="x"> Banner-----------------------------------------------</i>
-        <div className={`mobile_function  ${!onOffBanner_MB && 'MB_slide_Down'}`}>
-
-          <_03BannerMobile
-            bannerImgArr={bannerImgArr}
-            setBannerImgArr={setBannerImgArr}
-            indexToBanner={indexToBanner}
-            setIndexToBanner={setIndexToBanner}
-            deleteImageBannerTG={deleteImageBannerTG}
-            saveImageBannerTG={saveImageBannerTG}
-            resizeFileBannerTG={resizeFileBannerTG}
-            setResizeFileBannerTG={setResizeFileBannerTG}
-            getAllImageBannerTG={getAllImageBannerTG}
-            setOnoffBanner_MB={setOnoffBanner_MB}
-            setDeleteImageBannerTG={setDeleteImageBannerTG}
-            setSaveImageBannerTG={setSaveImageBannerTG}
-            getAllImage={getAllImage}
-
-          />
-        </div>
-
-
-        <i className="x"> Manu 1 111 -----------------------------------------------</i>
-        <div className={`mobile_function ${(!onOffMenu1_MB && !onOffMenu2_MB && !onOffMenu3_MB) && 'MB_slide_Down'}`}>
-          <_04MenuForm
-            inputMenuTimeName={inputMenuTimeName}
-            menuName={menuName}
-            currentMenuName={currentMenuName}
-            menuNameChange={menuNameChange}
-            saveNameMenu={saveNameMenu}
-            setMenuNameChange={setMenuNameChange}
-            openForm={openForm}
-
-            categoryList={categoryList}
-            setCategoryList={setCategoryList}
-            menuTime={menuTime} menuId={menuId}
-            listMenu={listMenu}
-            setListMenu={setListMenu}
-            findOneMenu={findOneMenu} setOnOffLangForm={setOnOffLangForm}
-            deleteBtn={deleteBtn} deleteMenu={deleteMenu} saveEditMenu={saveEditMenu}
-            start={start} setStart={setStart}
-            // file={file}
-            setOnoffMenu1_MB={setOnoffMenu1_MB}
-            setOnoffMenu2_MB={setOnoffMenu2_MB}
-            setOnoffMenu3_MB={setOnoffMenu3_MB}
-            categoryList_1={categoryList_1}
-            categoryList_2={categoryList_2}
-            categoryList_3={categoryList_3}
-            setCategoryList_1={setCategoryList_1}
-            setCategoryList_2={setCategoryList_2}
-            setCategoryList_3={setCategoryList_3}
-            saveReArangeList={saveReArangeList}
-
-          />
-
-        </div>
+      </div>
 
 
 
 
 
-        {/* <div className={` mobile_formFood ${!start && 'MB_slide_Left'}`}>
+      {/* <div className={` mobile_formFood ${!start && 'MB_slide_Left'}`}>
 
           <div className="topBar_function flexStart">
 
@@ -1858,119 +1866,117 @@ const _AppMain = () => {
             start={start} setStart={setStart} setMenuId={setMenuId} submitCatagory={submitCatagory} saveEditMenu={saveEditMenu} deleteMenu={deleteMenu}
           />
         </div> */}
-        <div className={` mobile_formFood ${!start && 'MB_slide_Left'}`}>
-          <_04MobileFormFood ref={ref} menuId={menuId} listMenu={listMenu} inputListValue={inputListValue} iconPhoto={iconPhoto} file={file}
-            setOriginalName={setOriginalName} resizeFile={resizeFile} delelteImage={delelteImage} setFile={setFile} additem={additem} removeItem={removeItem}
-            inputValue={inputValue} state={state} start={start} setStart={setStart} setMenuId={setMenuId} submitCatagory={submitCatagory} saveEditMenu={saveEditMenu} deleteMenu={deleteMenu}
-            setActiveWindowIconPicker={setActiveWindowIconPicker}
-            activeWindowIconPicker={activeWindowIconPicker} setListMenu={setListMenu} listMenuModel={listMenuModel} />
+      <div className={` mobile_formFood ${!start && 'MB_slide_Left'}`}>
+        <_04MobileFormFood ref={ref} menuId={menuId} listMenu={listMenu} inputListValue={inputListValue} iconPhoto={iconPhoto} file={file}
+          setOriginalName={setOriginalName} resizeFile={resizeFile} delelteImage={delelteImage} setFile={setFile} additem={additem} removeItem={removeItem}
+          inputValue={inputValue} state={state} start={start} setStart={setStart} setMenuId={setMenuId} submitCatagory={submitCatagory} saveEditMenu={saveEditMenu} deleteMenu={deleteMenu}
+          setActiveWindowIconPicker={setActiveWindowIconPicker}
+          activeWindowIconPicker={activeWindowIconPicker} setListMenu={setListMenu} listMenuModel={listMenuModel} />
 
-        </div>
-        <div className={` mobile_formFood ${!onOffLangForm && 'MB_slide_Left'}`}>
-          <_LanguageAddMobile state={state} listMenu={listMenu} inputValue={inputValue}
-            inputListValue={inputListValue} setOnOffLangForm={setOnOffLangForm} setStart={setStart} />
-        </div>
+      </div>
+      <div className={` mobile_formFood ${!onOffLangForm && 'MB_slide_Left'}`}>
+        <_LanguageAddMobile state={state} listMenu={listMenu} inputValue={inputValue}
+          inputListValue={inputListValue} setOnOffLangForm={setOnOffLangForm} setStart={setStart} />
+      </div>
 
-        <div className={`mobile_function topColorPicker ${!activeWindowIconPicker && 'MB_slide_Down'}`}>
-          <IconPickkerMobile state={state} setState={setState} memoicon={memoicon} activeWindowIconPicker={activeWindowIconPicker}
-            setActiveWindowIconPicker={setActiveWindowIconPicker} />
-        </div>
+      <div className={`mobile_function topColorPicker ${!activeWindowIconPicker && 'MB_slide_Down'}`}>
+        <_20IconPickerMobile state={state} setState={setState} memoicon={memoicon} activeWindowIconPicker={activeWindowIconPicker}
+          setActiveWindowIconPicker={setActiveWindowIconPicker} />
+      </div>
 
-        <div className={`mobile_function ${!onOffTimePicker_MB && 'MB_slide_Down'}`}>
-          <_TimePickerMobile navTime2TimePicker={navTime2TimePicker} setOnOffTimePicker_MB={setOnOffTimePicker_MB}
-            menuName={menuName} onOffMenuTime={onOffMenuTime} setonOffMenuTime={setonOffMenuTime} timeSetup={timeSetup} setTimeSetup={setTimeSetup} />
-        </div>
+      <div className={`mobile_function ${!onOffTimePicker_MB && 'MB_slide_Down'}`}>
+        <_TimePickerMobile navTime2TimePicker={navTime2TimePicker} setOnOffTimePicker_MB={setOnOffTimePicker_MB}
+          menuName={menuName} onOffMenuTime={onOffMenuTime} setonOffMenuTime={setonOffMenuTime} timeSetup={timeSetup} setTimeSetup={setTimeSetup} />
+      </div>
 
-        <div className={`mobile_function ${!onOffLangSetup_MB && 'MB_slide_Down'}`}>
-          <_LanguageSetupMobile setOnOffLangSetup_MB={setOnOffLangSetup_MB} navLang2LangSetUp={navLang2LangSetUp} setOnOffLangSetup={setOnOffLangSetup}
-            languageSetup={languageSetup} />
-        </div>
+      <div className={`mobile_function ${!onOffLangSetup_MB && 'MB_slide_Down'}`}>
+        <_08LanguageSetupMobile setOnOffLangSetup_MB={setOnOffLangSetup_MB} navLang2LangSetUp={navLang2LangSetUp} setOnOffLangSetup={setOnOffLangSetup}
+          languageSetup={languageSetup} />
+      </div>
 
-        <div className={`mobile_ThemeFunction ${!onOffThemeSetup_MB && 'MB_slide_Left'}`}>
-          <_ThemeSetupMobile setOnOffThemeSetup_MB={setOnOffThemeSetup_MB} navTheme2ThemeSetUp={navTheme2ThemeSetUp}
-            restaurantName={restaurantName} setRestaurantName={setRestaurantName}
-            reloadIFrame={reloadIFrame} setMBnavIcon={setMBnavIcon} />
-        </div>
-
-
-
-        <div className={`mobile_function ${!onOffFeedBAck_MB && 'MB_slide_Down'}`}>
-          <_01FeedBackMobile setOnOffFeedBAck_MB={setOnOffFeedBAck_MB} setGetStarNotification={setGetStarNotification} />
-        </div>
-
-        <div className={`mobile_function ${!onOffQRCCode_MB && 'MB_slide_Down'}`}>
-          <_02QRCode setOnOffQRCCode_MB={setOnOffQRCCode_MB} />
-        </div>
-
-        <div className={`mobile_function ${!onOffSetting_MB && 'MB_slide_Down'}`}>
-          <_10OnOffSettingMobile setOnOffSetting_MB={setOnOffSetting_MB} navOnOff2OnOffSetting={navOnOff2OnOffSetting} onOffSetting={onOffSetting} />
-        </div>
-
-
-        <i className='x'>//- START MOBILE BAR //------------------------------------------------</i>
-
-        <div className="MC_IconFixed">
-          <i className='x'> Home -----------------------------------------------</i>
-          <button onClick={() => setMBnavIcon(!mBnavIcon)} className={`MC_Tab MB_None_Adm ${mBnavIcon && 'adminActive'}  ${onOffThemeSetup_MB && 'displayNone'}  `}>
-            <img src={MBicon_User} alt="" />
-          </button>
-        </div>
-
-
-        <i className='x'> Scroll Navigation -----------------------------------------------</i>
-        <i className='x'> 0-----------------------------------------------</i>
-
-        <div className={`MC_nav ${!mBnavIcon && 'displayNone'}`}>
+      <div className={`mobile_ThemeFunction ${!onOffThemeSetup_MB && 'MB_slide_Left'}`}>
+        <_ThemeSetupMobile setOnOffThemeSetup_MB={setOnOffThemeSetup_MB} navTheme2ThemeSetUp={navTheme2ThemeSetUp}
+          restaurantName={restaurantName} setRestaurantName={setRestaurantName}
+          reloadIFrame={reloadIFrame} setMBnavIcon={setMBnavIcon} />
+      </div>
 
 
 
+      <div className={`mobile_function ${!onOffFeedBAck_MB && 'MB_slide_Down'}`}>
+        <_01FeedBackMobile setOnOffFeedBAck_MB={setOnOffFeedBAck_MB} setGetStarNotification={setGetStarNotification} />
+      </div>
+
+      <div className={`mobile_function ${!onOffQRCCode_MB && 'MB_slide_Down'}`}>
+        <_02QRCode setOnOffQRCCode_MB={setOnOffQRCCode_MB} />
+      </div>
+
+      <div className={`mobile_function ${!onOffSetting_MB && 'MB_slide_Down'}`}>
+        <_10OnOffSettingMobile setOnOffSetting_MB={setOnOffSetting_MB} navOnOff2OnOffSetting={navOnOff2OnOffSetting} onOffSetting={onOffSetting} />
+      </div>
 
 
-          <div className={`MB_emptySm`}>&nbsp;</div>
+      <i className='x'>//- START MOBILE BAR //------------------------------------------------</i>
 
-          <i className='x'> 3 Banner-----------------------------------------------</i>
-          <button onClick={() => {
-            setOnoffBanner_MB(!onOffBanner_MB);
-            setGetAllImageBannerTG((getAllImageBannerTG) => getAllImageBannerTG + 1)
-          }}
-            name='bannerMB'
-            className={`MC_Tab MB_None `} >
-            <img src={MBicon_Banner} alt="" />
-          </button>
+      <div className="MC_IconFixed">
+        <i className='x'> Home -----------------------------------------------</i>
+        <button onClick={() => setMBnavIcon(!mBnavIcon)} className={`MC_Tab MB_None_Adm ${mBnavIcon && 'adminActive'}  ${onOffThemeSetup_MB && 'displayNone'}  `}>
+          <img src={MBicon_User} alt="" />
+        </button>
+      </div>
 
 
+      <i className='x'> Scroll Navigation -----------------------------------------------</i>
+      <i className='x'> 0-----------------------------------------------</i>
 
-
-          <i className='x'> 1 Feed Back -----------------------------------------------</i>
-          <button onClick={() => {
-            setOnOffFeedBAck_MB(!onOffFeedBAck_MB);
-          }}
-            name='Manu1MB'
-            className={`MC_Tab MB_None `} >
-            <img src={MBicon_Feedback} alt="" />
-            {getStarNotification > 0 && <span className={'starNotification'}>
-              <img src={MBicon_StarNoti} alt="" />
-              <span className={'starNotification starNotification_text'}>{getStarNotification}</span>
-            </span>}
-          </button>
-          <i className='x'> 2 QR Code-----------------------------------------------</i>
-
-
-          <button onClick={() => {
-            setOnOffQRCCode_MB(!onOffQRCCode_MB);
-          }}
-            name='Manu1MB'
-            className={`MC_Tab MB_None `} >
-            <img src={MBicon_Qrcode} alt="" />
-
-
-
-          </button>
+      <div className={`MC_nav ${!mBnavIcon && 'displayNone'}`}>
 
 
 
 
 
+        <div className={`MB_emptySm`}>&nbsp;</div>
+
+
+
+        <i className='x'> 1 Feed Back -----------------------------------------------</i>
+        <button onClick={() => {
+          setOnOffFeedBAck_MB(!onOffFeedBAck_MB);
+        }}
+          name='Manu1MB'
+          className={`MC_Tab MB_None `} >
+          <img src={MBicon_Feedback} alt="" />
+          {getStarNotification > 0 && <span className={'starNotification'}>
+            <img src={MBicon_StarNoti} alt="" />
+            <span className={'starNotification starNotification_text'}>{getStarNotification}</span>
+          </span>}
+        </button>
+        <i className='x'> 2 QR Code-----------------------------------------------</i>
+
+
+        <button onClick={() => {
+          setOnOffQRCCode_MB(!onOffQRCCode_MB);
+        }}
+          name='Manu1MB'
+          className={`MC_Tab MB_None `} >
+          <img src={MBicon_Qrcode} alt="" />
+
+
+
+        </button>
+
+
+
+
+
+        <i className='x'> 3 Banner-----------------------------------------------</i>
+        <button onClick={() => {
+          setOnoffBanner_MB(!onOffBanner_MB);
+          setGetAllImageBannerTG((getAllImageBannerTG) => getAllImageBannerTG + 1)
+        }}
+          name='bannerMB'
+          className={`MC_Tab MB_None `} >
+          <img src={MBicon_Banner} alt="" />
+        </button>
 
 
 
@@ -1981,83 +1987,85 @@ const _AppMain = () => {
 
 
 
-          <i className='x'> 4 Menu1-----------------------------------------------</i>
-
-          <button onClick={() => {
-            setOnoffMenu1_MB(!onOffMenu1_MB);
-            setMenuTime(1)
-          }}
-            name='Manu1MB'
-            className={`MC_Tab MB_None `} >
-
-            <img src={MBicon_Menu1} alt="" />
-          </button>
-
-          <i className='x'> 5 Menu2-----------------------------------------------</i>
-          <button onClick={() => {
-            setOnoffMenu2_MB(!onOffMenu2_MB);
-            setMenuTime(2)
-          }}
-            name='Manu1MB'
-            className={`MC_Tab MB_None `} >
-            <img src={MBicon_Menu2} alt="" />
-          </button>
-
-          <i className='x'> 6 Menu3-----------------------------------------------</i>
-          <button onClick={() => {
-            setOnoffMenu3_MB(!onOffMenu3_MB);
-            setMenuTime(3)
-          }}
-            name='Manu1MB'
-            className={`MC_Tab MB_None `} >
-            <img src={MBicon_Menu3} alt="" />
-          </button>
-
-          <i className='x'> 7 Time-----------------------------------------------</i>
-          <button onClick={() => {
-            setOnOffTimePicker_MB(!onOffTimePicker_MB);
-            setNavTime2TimePicker((testTG) => navTime2TimePicker + 1);
-
-          }}
-            name='Manu1MB'
-            className={`MC_Tab MB_None `} >
-            <img src={MBicon_Time} alt="" />
-          </button>
-
-          <i className='x'> 8 Language-----------------------------------------------</i>
-          <button onClick={() => {
-            setOnOffLangSetup_MB(!onOffLangSetup_MB);
-            setNavLang2LangSetUp((testTG) => navLang2LangSetUp + 1);
-          }}
-            name='Manu1MB'
-            className={`MC_Tab MB_None `} >
-            <img src={MBicon_Lang} alt="" />
-          </button>
 
 
+        <i className='x'> 4 Menu1-----------------------------------------------</i>
 
-          <i className='x'> 9 Theme-----------------------------------------------</i>
-          <button onClick={() => {
-            setOnOffThemeSetup_MB(!onOffThemeSetup_MB);
-            setMBnavIcon(false)
-          }}
-            name='Manu1MB'
-            className={`MC_Tab MB_None `} >
-            <img src={MBicon_Theme} alt="" />
-          </button>
+        <button onClick={() => {
+          setOnoffMenu1_MB(!onOffMenu1_MB);
+          setMenuTime(1)
+        }}
+          name='Manu1MB'
+          className={`MC_Tab MB_None `} >
+
+          <img src={MBicon_Menu1} alt="" />
+        </button>
+
+        <i className='x'> 5 Menu2-----------------------------------------------</i>
+        <button onClick={() => {
+          setOnoffMenu2_MB(!onOffMenu2_MB);
+          setMenuTime(2)
+        }}
+          name='Manu1MB'
+          className={`MC_Tab MB_None `} >
+          <img src={MBicon_Menu2} alt="" />
+        </button>
+
+        <i className='x'> 6 Menu3-----------------------------------------------</i>
+        <button onClick={() => {
+          setOnoffMenu3_MB(!onOffMenu3_MB);
+          setMenuTime(3)
+        }}
+          name='Manu1MB'
+          className={`MC_Tab MB_None `} >
+          <img src={MBicon_Menu3} alt="" />
+        </button>
+
+        <i className='x'> 7 Time-----------------------------------------------</i>
+        <button onClick={() => {
+          setOnOffTimePicker_MB(!onOffTimePicker_MB);
+          setNavTime2TimePicker((testTG) => navTime2TimePicker + 1);
+
+        }}
+          name='Manu1MB'
+          className={`MC_Tab MB_None `} >
+          <img src={MBicon_Time} alt="" />
+        </button>
+
+        <i className='x'> 8 Language-----------------------------------------------</i>
+        <button onClick={() => {
+          setOnOffLangSetup_MB(!onOffLangSetup_MB);
+          setNavLang2LangSetUp((testTG) => navLang2LangSetUp + 1);
+        }}
+          name='Manu1MB'
+          className={`MC_Tab MB_None `} >
+          <img src={MBicon_Lang} alt="" />
+        </button>
 
 
-          <i className='x'> 10 On Off-----------------------------------------------</i>
-          <button onClick={() => {
-            setOnOffSetting_MB(!onOffSetting_MB);
-            setVavOnOff2OnOffSetting((testTG) => navOnOff2OnOffSetting + 1);
-          }}
-            name='Manu1MB'
-            className={`MC_Tab MB_None `} >
-            <img src={MBicon_Onoff} alt="" />
-          </button>
 
-          {/* <i className='x'> 9 Theme-----------------------------------------------</i>
+        <i className='x'> 9 Theme-----------------------------------------------</i>
+        <button onClick={() => {
+          setOnOffThemeSetup_MB(!onOffThemeSetup_MB);
+          setMBnavIcon(false)
+        }}
+          name='Manu1MB'
+          className={`MC_Tab MB_None `} >
+          <img src={MBicon_Theme} alt="" />
+        </button>
+
+
+        <i className='x'> 10 On Off-----------------------------------------------</i>
+        <button onClick={() => {
+          setOnOffSetting_MB(!onOffSetting_MB);
+          setVavOnOff2OnOffSetting((testTG) => navOnOff2OnOffSetting + 1);
+        }}
+          name='Manu1MB'
+          className={`MC_Tab MB_None `} >
+          <img src={MBicon_Onoff} alt="" />
+        </button>
+
+        {/* <i className='x'> 9 Theme-----------------------------------------------</i>
           <button onClick={() => {
             setOnOffThemeSetup_MB(!onOffThemeSetup_MB);
             setMBnavIcon(false)
@@ -2069,37 +2077,37 @@ const _AppMain = () => {
 
 
 
-          <i className='x'> 11 Log Out-----------------------------------------------</i>
-          <button onClick={() => {
-            setOnOffSetting_MB(!onOffSetting_MB);
-          }}
-            name='Manu1MB'
-            className={`MC_Tab MB_None `} >
-            <img src={MBicon_Logout} alt="" />
-          </button>
+        <i className='x'> 11 Log Out-----------------------------------------------</i>
+        <button onClick={() => {
+          setOnOffSetting_MB(!onOffSetting_MB);
+        }}
+          name='Manu1MB'
+          className={`MC_Tab MB_None `} >
+          <img src={MBicon_Logout} alt="" />
+        </button>
 
-          <i className='x'> 12 Empty-----------------------------------------------</i>
-          <div className={`MB_empty`}>&nbsp;</div>
-
-        </div>
-        <i className='x'> END Navigation</i>
-
-
-        <iframe id='iframe'
-          className={`mobile_iframe  ${(onOffBanner_MB || onOffMenu1_MB || onOffMenu2_MB ||
-            onOffMenu3_MB || onOffTimePicker_MB || onOffLangSetup_MB || onOffFeedBAck_MB || onOffSetting_MB || onOffQRCCode_MB)
-            && 'iframe_scale_Down'}`}
-          src="http://192.168.1.13:3000/customer/37f91f16-undefined" />
-
-
-
-
+        <i className='x'> 12 Empty-----------------------------------------------</i>
+        <div className={`MB_empty`}>&nbsp;</div>
 
       </div>
+      <i className='x'> END Navigation</i>
+
+
+      <iframe id='iframe'
+        className={`mobile_iframe  ${(onOffBanner_MB || onOffMenu1_MB || onOffMenu2_MB ||
+          onOffMenu3_MB || onOffTimePicker_MB || onOffLangSetup_MB || onOffFeedBAck_MB || onOffSetting_MB || onOffQRCCode_MB)
+          && 'iframe_scale_Down'}`}
+        src="http://192.168.1.13:3000/customer/37f91f16-undefined" />
+
+
+
 
 
     </div>
-  );
+
+
+  </div>
+);
 };
 
 export default _AppMain;

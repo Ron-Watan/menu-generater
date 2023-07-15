@@ -5,8 +5,8 @@ import Swal from 'sweetalert2';
 import { ticketPass } from '../protectors/authorize';
 import ColorPickker from './ColorPickker';
 import { createGlobalStyle } from 'styled-components';
-import icon1 from '../all-icon-client/Appetizer-Black-SVG-sprite.svg';
-import icon2 from '../all-icon-client/food-color-SVG-sprite.svg';
+// import icon1 from '../all-icon-client/Appetizer-Black-SVG-sprite.svg';
+// import icon2 from '../all-icon-client/food-color-SVG-sprite.svg';
 import { NavbarBg } from './ThemePresent';
 
 const ThemeSetup = (prop) => {
@@ -358,16 +358,7 @@ const ThemeSetup = (prop) => {
                   </div>
 
                 </div>
-                {/* <i className="x">navBarLogoColor Section</i>
-                  <div className='navbarfontColor'>
-                    NavBarLogoColor
-                    <button onClick={() => {
-                      setOnoffColorPicker(true)
-                      setNoSetTheme(1)
-                      setNameTheme('navBarLogoColor')
-                    }} className="colorPickerItem borderPickC" style={{ 'backgroundColor': `${navBarLogoColor}` }} ></button>
-                  </div>
-                   */}
+   
 
                 <div className="TC-name">Body</div>
 
@@ -431,10 +422,10 @@ const ThemeSetup = (prop) => {
                         'backgroundColor': `${'#fff'}`,
                         'border': `${'none'} 2px ${''}`,
                       }}>
-                      <svg className={` circle-iconSize-user`}
+                      {/* <svg className={` circle-iconSize-user`}
                         style={{ 'fill': `${'#000'}` }}>
                         <use xlinkHref={`${icon1}#appetizer`} />
-                      </svg>
+                      </svg> */}
                     </label>
 
                     <input onChange={() => themeIconClientFn('1.5rem', themeIconColorLine, themeIconBG, 'none')} type="radio" name="selectIconSideBar" id="circleNoborder" />
@@ -447,10 +438,10 @@ const ThemeSetup = (prop) => {
                         'backgroundColor': `${'#fff'}`,
                         'border': `${'none'} 2px ${''}`,
                       }}>
-                      <svg className={` circle-iconSize-user }`}
+                      {/* <svg className={` circle-iconSize-user }`}
                         style={{ 'fill': `${'#000'}` }}>
                         <use xlinkHref={`${icon1}#appetizer`} />
-                      </svg>
+                      </svg> */}
                     </label>
                     <input onChange={() => themeIconClientFn('1rem', themeIconColorLine, themeIconBG, 'none', '')} type="radio" name="selectIconSideBar" id="radiusNoborder" />
                   </div>
@@ -461,15 +452,15 @@ const ThemeSetup = (prop) => {
                         'backgroundColor': `${'#fff'}`,
                         'border': `${'none'} 2px ${''}`,
                       }}>
-                      <svg className={` circle-iconSize-user }`}
+                      {/* <svg className={` circle-iconSize-user }`}
                         style={{ 'fill': `${'#000'}` }}>
                         <use xlinkHref={`${icon1}#appetizer`} />
-                      </svg>
+                      </svg> */}
                     </label>
                     <input onChange={() => themeIconClientFn('.2rem', themeIconColorLine, themeIconBG, 'none', '')} type="radio" name="selectIconSideBar" id="regtangNoBorder" />
                   </div>
                 </div>
-                {/* <div className="mg-t-1"></div> */}
+      
 
                 <div className='setThemeGrid'>
 
@@ -480,10 +471,10 @@ const ThemeSetup = (prop) => {
                         'backgroundColor': `${'#fff'}`,
                         'border': `${'solid'} 2px ${'#000'}`,
                       }}>
-                      <svg className={` circle-iconSize-user }`}
+                      {/* <svg className={` circle-iconSize-user }`}
                         style={{ 'fill': `${'#000'}` }}>
                         <use xlinkHref={`${icon1}#appetizer`} />
-                      </svg>
+                      </svg> */}
                     </label>
                     <input onChange={() => {
                       themeIconClientFn('1.5rem', themeIconColorLine, themeIconBG, 'solid')
@@ -499,10 +490,10 @@ const ThemeSetup = (prop) => {
                         'backgroundColor': `${'#fff'}`,
                         'border': `${'solid'} 2px ${'#000'}`,
                       }}>
-                      <svg className={` circle-iconSize-user }`}
+                      {/* <svg className={` circle-iconSize-user }`}
                         style={{ 'fill': `${'#000'}` }}>
                         <use xlinkHref={`${icon1}#appetizer`} />
-                      </svg>
+                      </svg> */}
                     </label>
                     <input onChange={() => themeIconClientFn('1rem', themeIconColorLine, themeIconBG, 'solid', themeIconColorBorder)} type="radio" name="selectIconSideBar" id="radiusWithborder" />
                   </div>
@@ -514,10 +505,10 @@ const ThemeSetup = (prop) => {
                         'backgroundColor': `${'#fff'}`,
                         'border': `${themeIconSolid} 2px ${'#000'}`,
                       }}>
-                      <svg className={` circle-iconSize-user }`}
+                      {/* <svg className={` circle-iconSize-user }`}
                         style={{ 'fill': `${'#000'}` }}>
                         <use xlinkHref={`${icon1}#appetizer`} />
-                      </svg>
+                      </svg> */}
                     </label>
                     <input onChange={() => themeIconClientFn('.2rem', themeIconColorLine, themeIconBG, 'solid', themeIconColorBorder)} type="radio" name="selectIconSideBar" id="regtangWithBorder" />
                   </div>
@@ -531,10 +522,10 @@ const ThemeSetup = (prop) => {
                         'backgroundColor': `${'transparent'}`,
                         'border': `${'none'} 2px ${''}`,
                       }}>
-                      <svg className={` circle-iconSize-user extraIcon-user`}
+                      {/* <svg className={` circle-iconSize-user extraIcon-user`}
                         style={{ 'fill': `${'#000'}` }}>
                         <use xlinkHref={`${icon1}#appetizer`} />
-                      </svg>
+                      </svg> */}
                     </label>
                     <input onChange={() => {
                       setExtraIcon(true)
@@ -585,22 +576,6 @@ const ThemeSetup = (prop) => {
 
 
 
-
-                {/* <a className={`circle-iconButton-user ${extraIcon && 'extraIcon-user'}`}
-                  style={{
-                    'borderRadius': `${themeIconRadius}`,
-                    'backgroundColor': `${themeIconBG}`,
-                    'border': `${themeIconSolid} 2px ${themeIconColorBorder}`,
-                  }}>
-                  <svg className={` circle-iconSize-user ${extraIcon && 'extraIcon-user'}`}
-                    style={{ 'fill': `${themeIconColorLine}` }}>
-                    <use xlinkHref={`${icon1}#appetizer`} />
-                  </svg>
-                </a> */}
-
-
-
-
               </div>}
 
               <i className="x">4 -----------------------------------------------</i>
@@ -626,9 +601,6 @@ const ThemeSetup = (prop) => {
 
                   <div className=" labelFlexCol-Acc">
 
-                    {/* <label htmlFor='categoryClass-Circle' className={'category-PS-CircleSimple'} style={{ 'transition': 'all 0s' }}>
-                      <span className={`${'category-Custom-Circle'} ${'category-Custom-Circle-Active'}`} style={{ 'backgroundColor': `${'#444'}`, 'transition': 'all 0s' }}></span>
-                    </label> */}
                     <label htmlFor='categoryClass-Circle' className='PS_CircleAcc grid-self-ct'>
                     </label>
                     <input className=" grid-self-ct"
@@ -687,10 +659,7 @@ const ThemeSetup = (prop) => {
                 </div>
 
 
-                {/* <div className={categoryBoxClass}><span className={''}>Starter</span>
-                  <span className={`${categorySpanClass} ${true && categoryActiveClass}`}></span>
 
-                </div> */}
 
               </div>}
 

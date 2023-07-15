@@ -2,6 +2,10 @@ import React, { useState } from 'react'
 import MBiconBin from '../all-icon/button-icon/MBbin.svg'
 import MBiconPlus from '../all-icon/button-icon/MBplusicon.svg'
 import MBiconClose from '../all-icon/button-icon/MBclose.svg'
+import MBiconDown from '../all-icon/button-icon/down.svg'
+import MBupdown from '../all-icon/button-icon/updown.svg'
+import MBLang from '../all-icon/button-icon/lang.svg'
+
 import { useSelector } from 'react-redux'
 
 const _04MenuForm = (prop) => {
@@ -39,6 +43,13 @@ const _04MenuForm = (prop) => {
 
 
 
+  const checkChangeNameFn = () => {
+    if (!prop.checkChangeName) return
+    prop.saveNameMenu()
+    prop.setCheckChangeName(false)
+  }
+
+
   const [changeRA, setChangeRA] = useState(false)
 
   const checkReArange = () => {
@@ -47,7 +58,7 @@ const _04MenuForm = (prop) => {
     setChangeRA(false)
   }
 
-
+  const [visibleRA, setVisbleRA] = useState(false)
 
 
 
@@ -63,6 +74,7 @@ const _04MenuForm = (prop) => {
             prop.setOnoffMenu2_MB(false)
             prop.setOnoffMenu3_MB(false)
             checkReArange()
+            checkChangeNameFn()
           }} className="MB_Btn MB_Btn_Border">
             <img src={MBiconClose} alt="" />
           </button>
@@ -73,13 +85,13 @@ const _04MenuForm = (prop) => {
           <input onChange={prop.inputMenuTimeName} value={prop.menuName[prop.currentMenuName]} type='text' maxLength="20"
             name='' id='menuName' autoComplete='off' className={`MB_EditName_Input text_center`} placeholder='' />
 
-          {prop.menuNameChange && <div className={`MB_flex2Btn`}
+          {/* {prop.menuNameChange && <div className={`MB_flex2Btn`}
             name='menuNameBox'>
 
             <div className="smallCircleBox">
               <button onClick={() => {
-                prop.saveNameMenu()
-                prop.setMenuNameChange(false)
+
+                setCheckChangeName(true)
 
               }
               } name='menuNameBox'>
@@ -93,7 +105,7 @@ const _04MenuForm = (prop) => {
             <div className="smallCircleBox">
               <button onClick={() => {
                 cancelEdit()
-                prop.setMenuNameChange(false)
+                setCheckChangeName(false)
 
 
               }}>
@@ -104,7 +116,7 @@ const _04MenuForm = (prop) => {
 
             </div>
 
-          </div>}
+          </div>} */}
 
 
         </div>
@@ -129,7 +141,11 @@ const _04MenuForm = (prop) => {
 
 
           <div className="MB_categoryStart">
-
+            <div className="postionSettingIcon">
+              <button onClick={() => { setVisbleRA(!visibleRA) }} type='submit' className={`smallUpDown ${visibleRA && 'upDownHover'}`}>
+                <img src={MBupdown} alt="" />
+              </button>
+            </div>
             <i className="x">If Menu 1 //-</i>
             {prop.menuTime === 1 && prop.categoryList_1
               .map((el, index) => (
@@ -148,25 +164,34 @@ const _04MenuForm = (prop) => {
                       {el.catagory}
                     </button>
                   </div>
-                  <button onClick={() => { arrayMmove(prop.categoryList_1, index, index - 1, prop.setCategoryList_1) }} >UPPPP</button>
-                  <button onClick={() => { arrayMmove(prop.categoryList_1, index, index + 1, prop.setCategoryList_1) }} >Doddw</button>
-                  <div className='MB_FlexEarth_Remove'>
+
+
+                  {!visibleRA && <div className='MB_FlexEarth_Remove'>
                     <i className="x">EARTH BUTTON</i>
                     <button onClick={() => {
                       prop.findOneMenu(el.menuId)
                       prop.setOnOffLangForm(true)
                       checkReArange()
                     }} name={el.menuId} type='submit' className={`MB_iconSideBox  MB_tabCat_L${prop.menuId === el.menuId ? '' : ''}`}>
-                      <svg fill='none' viewBox='0 0 24 24' strokeWidth='1' stroke='currentColor' className='w-6 h-6'>
-                        <path
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                          d='M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418'
-                        />
-                      </svg>
+                      <img src={MBLang} alt="" />
                     </button>
-                  </div>
+                  </div>}
+
+                  {visibleRA && <button onClick={() => { arrayMmove(prop.categoryList_1, index, index - 1, prop.setCategoryList_1) }} type='submit' className={`smallUpDown up ${prop.menuId === el.menuId ? '' : ''} ${index === 0 && 'hiddenMe'}     `}>
+                    <img src={MBiconDown} alt="" />
+                  </button>}
+
+                  {visibleRA && <button onClick={() => { arrayMmove(prop.categoryList_1, index, index + 1, prop.setCategoryList_1) }} type='submit' className={`smallUpDown ${prop.menuId === el.menuId ? '' : ''} ${index === prop.categoryList_1.length - 1 && 'hiddenMe'}`}>
+                    <img src={MBiconDown} alt="" />
+                  </button>}
+
+
                 </div>
+
+
+
+
+
               ))}
 
 
@@ -188,24 +213,26 @@ const _04MenuForm = (prop) => {
                       {el.catagory}
                     </button>
                   </div>
-                  <button onClick={() => { arrayMmove(prop.categoryList_2, index, index - 1, prop.setCategoryList_2) }} >UPPPP</button>
-                  <button onClick={() => { arrayMmove(prop.categoryList_2, index, index + 1, prop.setCategoryList_2) }} >Doddw</button>
-                  <div className='MB_FlexEarth_Remove'>
+
+                  {!visibleRA && <div className='MB_FlexEarth_Remove'>
                     <i className="x">EARTH BUTTON</i>
                     <button onClick={() => {
                       prop.findOneMenu(el.menuId)
                       prop.setOnOffLangForm(true)
                       checkReArange()
                     }} name={el.menuId} type='submit' className={`MB_iconSideBox  MB_tabCat_L${prop.menuId === el.menuId ? '' : ''}`}>
-                      <svg fill='none' viewBox='0 0 24 24' strokeWidth='1' stroke='currentColor' className='w-6 h-6'>
-                        <path
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                          d='M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418'
-                        />
-                      </svg>
+                      <img src={MBLang} alt="" />
                     </button>
-                  </div>
+                  </div>}
+
+                  {visibleRA && <button onClick={() => { arrayMmove(prop.categoryList_2, index, index - 1, prop.setCategoryList_2) }} type='submit' className={`smallUpDown up ${prop.menuId === el.menuId ? '' : ''} ${index === 0 && 'hiddenMe'}     `}>
+                    <img src={MBiconDown} alt="" />
+                  </button>}
+
+                  {visibleRA && <button onClick={() => { arrayMmove(prop.categoryList_2, index, index + 1, prop.setCategoryList_2) }} type='submit' className={`smallUpDown ${prop.menuId === el.menuId ? '' : ''} ${index === prop.categoryList_2.length - 1 && 'hiddenMe'}`}>
+                    <img src={MBiconDown} alt="" />
+                  </button>}
+
                 </div>
               ))}
 
@@ -228,24 +255,24 @@ const _04MenuForm = (prop) => {
                       {el.catagory}
                     </button>
                   </div>
-                  <button onClick={() => { arrayMmove(prop.categoryList_3, index, index - 1, prop.setCategoryList_3) }} >UPPPP</button>
-                  <button onClick={() => { arrayMmove(prop.categoryList_3, index, index + 1, prop.setCategoryList_3) }} >Doddw</button>
-                  <div className='MB_FlexEarth_Remove'>
+                  {!visibleRA && <div className='MB_FlexEarth_Remove'>
                     <i className="x">EARTH BUTTON</i>
                     <button onClick={() => {
                       prop.findOneMenu(el.menuId)
                       prop.setOnOffLangForm(true)
                       checkReArange()
                     }} name={el.menuId} type='submit' className={`MB_iconSideBox  MB_tabCat_L${prop.menuId === el.menuId ? '' : ''}`}>
-                      <svg fill='none' viewBox='0 0 24 24' strokeWidth='1' stroke='currentColor' className='w-6 h-6'>
-                        <path
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                          d='M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418'
-                        />
-                      </svg>
+                      <img src={MBLang} alt="" />
                     </button>
-                  </div>
+                  </div>}
+
+                  {visibleRA && <button onClick={() => { arrayMmove(prop.categoryList_3, index, index - 1, prop.setCategoryList_3) }} type='submit' className={`smallUpDown up ${prop.menuId === el.menuId ? '' : ''} ${index === 0 && 'hiddenMe'}     `}>
+                    <img src={MBiconDown} alt="" />
+                  </button>}
+
+                  {visibleRA && <button onClick={() => { arrayMmove(prop.categoryList_3, index, index + 1, prop.setCategoryList_3) }} type='submit' className={`smallUpDown ${prop.menuId === el.menuId ? '' : ''} ${index === prop.categoryList_3.length - 1 && 'hiddenMe'}`}>
+                    <img src={MBiconDown} alt="" />
+                  </button>}
                 </div>
               ))}
 
@@ -305,7 +332,7 @@ const _04MenuForm = (prop) => {
 
 
 
-    </div>
+    </div >
   )
 }
 
