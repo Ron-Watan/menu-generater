@@ -1,17 +1,23 @@
 .footBarSectionC {
-  position: relative;
-  width: 100vw;
+  /* position: relative; */
+  /* width: 100vw; */
   min-height: 1.5rem;
-  position: absolute;
-  position: fixed;
-  top: 100%;
-  transform: translateY(-100%);
+  /* position: absolute; */
+  /* position: fixed; */
+  /* top: 100%; */
+  /* transform: translateY(-100%); */
   padding-top: 0.4rem;
-  /* padding-bottom: .7rem; */
+
   box-shadow: 3px 3px 10px 2px rgba(0, 0, 0, 0.2);
   z-index: 1000;
 
   border-radius: 2rem 2rem 0 0;
+
+  z-index: 1000;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
 }
 
 /* .footBarSectionC::after {
@@ -29,7 +35,6 @@
   height: 200%;
   /* background-color: inherit; */
   background: linear-gradient(to bottom, #680c0c, #000);
-
 }
 
 .footBarGrid3 {

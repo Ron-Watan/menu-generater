@@ -38,7 +38,7 @@ const AccordionSummary = styled((props) => (
   />
 ))(({ theme }) => ({
   paddingLeft: '30px',
-  paddingRight: '30px',
+  paddingRight: '0px',
   backgroundColor:
     theme.palette.mode === 'dark'
       ? '#e1e1e156'
@@ -202,27 +202,28 @@ const AcordionSubComp = (prop) => {
 
   return (
     <div id={prop.indexM} className={`acArray mx-auto max-w-7xl `}
-      style={{ 'backgroundColor': `${prop.themeSetup.body.bodyBgColor}` }}
-    ><i className="x">!Theme</i>
+      style={{ 'backgroundColor': `${prop.themeSetup.body.bodyBgColor}` }}>
 
-      <div className="categoryImg" style={{
-        backgroundImage: `url(${file})`,
-        backgroundPosition: 'center',
-        backgroundSize: 'cover',
-        height: `${prop.themeSetup.categoryMotion.categoryPhotoSize}`
-
-      }}>
-        <div className={prop.themeSetup.categoryMotion.categoryBoxClass} style={{ 'backgroundColor': `${prop.themeSetup.categoryMotion.categoryBoxColor}` }}>
-          <span className={`category-Custom-Title`} style={{
-            'color': `${prop.themeSetup.categoryMotion.categoryFontColor}`,
-            'fontSize': `${prop.themeSetup.body.bodyFontSize * 1.3}rem`, 'fontWeight': '500'
+        <div className="categoryImg" style={{
+          backgroundImage: `url(${file})`,
+          backgroundPosition: 'center',
+          backgroundSize: 'cover',
+          height: `${prop.themeSetup.categoryMotion.categoryPhotoSize}`
+        }}>
 
 
-          }}> {prop.listMunu.catagory}</span>
-          <span className={`${prop.themeSetup.categoryMotion.categorySpanClass} ${prop.triggerIcon[prop.indexM] && `${prop.themeSetup.categoryMotion.categoryActiveClass}`}`} style={{ 'backgroundColor': `${prop.themeSetup.categoryMotion.categorySpanColor}` }}></span>
+          <div className={prop.themeSetup.categoryMotion.categoryBoxClass} style={{ 'backgroundColor': `${prop.themeSetup.categoryMotion.categoryBoxColor}` }}>
+            <span className={`category-Custom-Title`} style={{
+              'color': `${prop.themeSetup.categoryMotion.categoryFontColor}`,
+              'fontSize': `${prop.themeSetup.body.bodyFontSize * 1.3}rem`, 'fontWeight': '500'
+
+
+            }}> {prop.listMunu.catagory}</span>
+            <span className={`${prop.themeSetup.categoryMotion.categorySpanClass} ${prop.triggerIcon[prop.indexM] && `${prop.themeSetup.categoryMotion.categoryActiveClass}`}`} style={{ 'backgroundColor': `${prop.themeSetup.categoryMotion.categorySpanColor}` }}></span>
+          </div>
+
         </div>
-
-      </div>
+ 
       {/* <ul className="px-2 sm:px-6 lg:px-8"> */}
       <ul className="">
         <i className="x">!Theme</i>
