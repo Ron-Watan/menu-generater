@@ -258,10 +258,10 @@ buttonFormContainer
   border: #aaa 1px solid;
 }
 
-.testAreaD {
+/* .testAreaD {
   padding-bottom: 3rem;
 
-}
+} */
 
 .testAreaR {
   padding-bottom: 2rem;
@@ -547,7 +547,7 @@ buttonFormContainer
 .hideCheckBox + svg {
   background-color: #fff;
   border-radius: 50%;
-  border: none;
+  border: #333 .5px solid;
   fill: none;
 }
 .hideCheckBox:checked + svg {

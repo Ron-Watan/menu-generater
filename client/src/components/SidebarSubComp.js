@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 // import icon1 from '../all-icon-client/Appetizer-Black-SVG-sprite.svg'
 // import icon2 from '../all-icon-client/food-color-SVG-sprite.svg'
 import styled, { createGlobalStyle } from 'styled-components';
+import AnchorLink from 'react-anchor-link-smooth-scroll'
+ 
 const SidebarSubComp = (prop) => {
   const [barActive, setBarActive] = useState(true);
 
@@ -55,10 +57,10 @@ const SidebarSubComp = (prop) => {
           prop.menuTime == 1 &&
           prop.iconMenu_1.map((el, index) => {
             return (
-              <a href={prop.iconMenu_1[index]?.link} value={el.catagory}
+              <AnchorLink href={prop.iconMenu_1[index]?.link} value={el.catagory} 
                 style={{
                   'backgroundColor': `${prop.themeSetup.sideBar.themeIconBG}`,
-                  'border': `${prop.themeSetup.sideBar.themeIconSolid} 2px ${prop.themeSetup.sideBar.themeIconColorBorder}`,
+                  'border': `${prop.themeSetup.sideBar.themeIconSolid} 0px ${prop.themeSetup.sideBar.themeIconColorBorder}`,
                   'borderRadius': `${prop.themeSetup.sideBar.themeIconRadius}`
                 
                 }}
@@ -70,7 +72,7 @@ const SidebarSubComp = (prop) => {
                   className={` circle-iconSize theme-icon-lineColor ${prop.themeSetup.sideBar.extraIcon && 'extraIcon-client'}`}>
                   <use xlinkHref={`${prop.iconMenu_1[index]?.icon}`} />
                 </svg>
-              </a>
+              </AnchorLink>
             );
           })}
         {barActive &&

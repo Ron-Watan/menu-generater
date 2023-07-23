@@ -5,244 +5,162 @@ import MBiconPlus from '../all-icon/button-icon/MBplusicon.svg'
 import SwipeToDelete from 'react-swipe-to-delete-ios'
 import MBiconBack from '../all-icon/button-icon/MBback.svg'
 import MBaddIcon from '../all-icon/button-icon/addIcon.svg'
-
-
-
-const MBBanner = (prop) => {
-
-  return (
-    // <div className="Ab_in_MB_Funtion">
-
-    <div className="MB_banner_Section">
-
-
-      <div className="MB_Standard_Section_canScroll MB_Make_PaadingBanner MB_Wrap_NoFullVh">
-        <div className="MB_bannerShow_Flex_Column">
-          {prop.bannerImgArr.map((el, index) => (
-
-
-            <SwipeToDelete
-              onDelete={() => {
-                prop.setDeleteImageBannerTG((deleteImageBannerTG) => deleteImageBannerTG + 1);
-              }} // required
-              // optional
-              height={200} // default
-              transitionDuration={250} // default
-              deleteWidth={75} // default
-              deleteThreshold={75} // default
-              showDeleteAction={true} //default
-              deleteColor="#fff" // default
-              deleteText="Delete" // default
-              // deleteComponent={<DeleteComponent />} // not default
-              disabled={false} // default
-              id="swiper-1" // not default
-              className="my-swiper" // not default
-              rtl={false} // default
-              onDeleteConfirm={(onSuccess, onCancel) => {
-                // not default - default is null
-                if (window.confirm("Do you really want to delete this item ?")) {
-                  onSuccess();
-                } else {
-                  onCancel();
-                }
-              }}
-            >
-
-
-
-
-
-
-
-
-
-
-
-
-
-              <div key={index} className={`bannerShow_list ${prop.indexToBanner === index && 'MB_bannerShow_chooseCat'}`}>
-                <button name={el.menuId} onClick={() => prop.setIndexToBanner(index)} className={`btnCat MB_photoSize ${prop.indexToBanner === index && 'MB_sizeBigger'}`}>
-                  <img src={el} className='MB_imageBannerForm photoList' />
-                </button>
-                <div className={` MB_smIconAB ${prop.indexToBanner === index ? '' : 'displayNone'}`}>
-
-
-                  <button
-                    onClick={() => {
-                      prop.setDeleteImageBannerTG((deleteImageBannerTG) => deleteImageBannerTG + 1);
-                    }}
-                    value={el.menuId}
-                    type='submit'
-                    className={`MB_Btn `}>
-
-                    <img src={MBiconBin} alt="" />
-                  </button>
-                </div>
-
-              </div>
-
-            </SwipeToDelete>
-
-          ))}
-        </div>
-
-      </div>
-      <div className="MB_Frid_3Btn">
-
-        {/* SAVE BUTTON */}
-        <button
-          onClick={() => {
-            prop.setSaveImageBannerTG((saveImageBannerTG) => prop.saveImageBannerTG + 1);
-          }}
-          className='MB_Sq_Btn MB_Btn_Color MB_G2'>
-          <span>SAVE</span>
-        </button>
-
-
-        {/* CANCEL BUTTON */}
-        <button
-          onClick={() => {
-            prop.setGetAllImageBannerTG((getAllImageBannerTG) => prop.getAllImageBannerTG + 1);
-          }}
-          className='MB_Sq_Btn MB_Btn_Border MB_G3'>
-
-          <span>CANCEL</span>
-        </button>
-
-
-      </div>
-    </div>
-    // </div>
-  )
-}
-
-
-
-
-const MBMenu = (prop) => {
-  return (
-
-    <div className="MB_banner_Section">
-
-      <div className="MB_bannerWrapper MB_Wrap_NoFullVh">
-        <div className={`MB_categoryStart ${false && 'displayNone'}`}>
-
-
-          {prop.categoryList
-            .filter((el) => el.menuTime == prop.menuTime)
-            .map((el, index) => (
-
-
-
-
-              <div className="MB_Flex_LisrBtn" key={index} >
-
-
-                {/* <div key={index} className={`MB_tabCat  ${prop.menuId === el.menuId && 'MB_chooseCat'}`}> */}
-                <div className={`MB_tabCat `}>
-
-
-
-                  <button name={el.menuId} onClick={() => prop.findOneMenu(el.menuId)} className={`itemCat  ${prop.menuId === el.menuId ? 'itemCatChoose' : ''}`}>
-                    {index + 1}
-                  </button>
-
-                  <button name={el.menuId} onClick={() => prop.findOneMenu(el.menuId)} className='btnCat'>
-                    {el.catagory}
-                  </button>
-
-                </div>
-
-                <div className='MB_FlexEarth_Remove'>
-
-                  <i className="x">EARTH BUTTON</i>
-
-                  {/* <div className={`MB_iconSideBox  MB_tabCat_L${prop.menuId === el.menuId ? '' : ''}`}> */}
-                  <button onClick={() => {
-                    prop.findOneMenu(el.menuId)
-                    prop.setOnOffLangForm(true)
-                  }} name={el.menuId} type='submit' className={`MB_iconSideBox  MB_tabCat_L${prop.menuId === el.menuId ? '' : ''}`}>
-                    <svg fill='none' viewBox='0 0 24 24' strokeWidth='1' stroke='currentColor' className='w-6 h-6'>
-                      <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        d='M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418'
-                      />
-                    </svg>
-                  </button>
-                  {/* </div> */}
-
-
-                  {/* <div >
-
-                    <i className="x">DELETE BUTTON</i>
-                    <div className={`${prop.deleteBtn ? 'MB_iconSideBox' : 'displayNone'}`}>
-                      <button onClick={prop.deleteMenu} value={el.menuId} type='submit' className=''>
-                        <svg width='18' height='20' viewBox='0 0 27 29' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                          <path d='M1 3.5L26.5 3.5' stroke='#000' strokeLinecap='round' />
-                          <path d='M5.95338 28L3.55142 3.5H24.4592L22.5377 28H5.95338Z' stroke='#000' />
-                          <rect x='9.5' y='0.5' width='9' height='3' rx='0.5' stroke='#000' />
-                          <path d='M8 8L10 24' stroke='#000' strokeLinecap='round' />
-                          <path d='M18 24L20 8' stroke='#000' strokeLinecap='round' />
-                          <path d='M14 8L14 24' stroke='#000' strokeLinecap='round' />
-                        </svg>
-                      </button>
-                    </div>
-
-                  </div> */}
-                </div>
-
-
-
-              </div>
-
-            ))}
-
-
-
-
-        </div>
-
-      </div>
-
-
-    </div>
-
-  )
-}
-
+import MBerroricon from '../all-icon/button-icon/error.svg'
+
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import Swal from 'sweetalert2';
 
 
 
 const _04MobileFormFood = forwardRef((prop, ref) => {
 
+  const modules = {
+    toolbar: [
+      ['bold', 'underline', { 'list': 'ordered' }, { 'list': 'bullet' }, 'clean']
+    ]
+  }
+  // Show Error
+  const ErrorFn = (index, name, bol) => {
+    let dataSet = [...prop.listMenu];
+    let data = dataSet[index];
+    data[name] = bol
+    prop.setListMenu(dataSet);
+  }
+
+  const ErrorCatFn = () => {
+    prop.setState({ ...prop.state, ['errCategory']: false });
+  };
+
+  // All Validation
+  const validation = (saveSubmitFn) => {
+    let category = true
+    if (!prop.state.catagory) {
+      category = false
+      prop.setState({ ...prop.state, ['errCategory']: true });
+
+    }
+
+    let foodname = true
+    let price = true
+    prop.listMenu.forEach((el, index) => {
+      if (!el.food_name) {
+        foodname = false
+        ErrorFn(index, 'errFoodname', true)
+      }
+      if (isNaN(el.price)) {
+        price = false
+        ErrorFn(index, 'errPrice', true)
+      }
+    });
+
+    if (foodname && category && price) {
+      saveSubmitFn()
+      prop.setCheckInputForm(false)
+      return true
+    } else {
+      Swal.fire({
+        title: 'Input invalid',
+        // text: 'Your menu has been saved',
+        toast: true,
+
+        icon: 'error',
+        showConfirmButton: false,
+
+        timer: 1500,
+      });
+      return false
+    }
+
+
+
+  }
+  console.log(prop.checkInputForm)
+
+  // Check When Close Input 
+  const checkInputFormFn = (saveSubmitFn) => {
+
+    if (prop.checkInputForm) {
+      Swal.fire({
+        title: 'Do you want to save the changes?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Save',
+        denyButtonText: `Don't save`,
+        confirmButtonColor: '#f56e4f',
+
+      }).then((result) => {
+        if (result.isConfirmed) {
+          validation(saveSubmitFn)
+          if (validation(saveSubmitFn) === true) {
+            setTimeout(() => {
+              prop.setCheckInputForm(false)
+              prop.setStart(false)
+              prop.setMenuId('')
+              // prop.setListMenu([prop.listMenuModel])
+            }, 1500);
+          }
+
+        } else if (result.isDenied) {
+          setTimeout(() => {
+            prop.setCheckInputForm(false)
+            prop.setStart(false)
+            prop.setMenuId('');
+            prop.getAllMenu()
+            // prop.setListMenu([prop.listMenuModel])
+          }, 200);
+        }
+      })
+
+    } else {
+
+      prop.setCheckInputForm(false)
+      prop.setStart(false)
+      prop.setMenuId('');
+      // if (prop.listMenu.length === 0) {
+      // prop.setListMenu([prop.listMenuModel])
+      // }
+    }
+  }
+
+
+
+
+
   return (
 
     <div className="">
 
-      <div className="topBar_function flexStart">
+      <div className="topBar_function">
 
-        <div className="GruopBtn">
+        {!prop.menuId && <div className="GruopBtn">
+          <button onClick={() => {
+            checkInputFormFn(prop.submitCatagory)
+          }} className="MB_Btn MB_Btn_Border">
+            <img src={MBiconBack} alt="" />
+          </button>
+          <span className='MB_textBtn'>Back</span>
+        </div>}
+
+        {prop.menuId && <div className="GruopBtn">
 
           <button onClick={() => {
-            prop.setStart(false)
-            prop.setMenuId('');
-            if (prop.listMenu.length === 0) {
-              prop.setListMenu([prop.listMenuModel])
-            }
+            checkInputFormFn(prop.saveEditMenu)
           }} className="MB_Btn MB_Btn_Border">
             <img src={MBiconBack} alt="" />
           </button>
           <span className='MB_textBtn'>Back</span>
 
+        </div>}
+
+
+        <div className="inputContainerCat widthInput">
+          <input onChange={prop.inputValue('catagory')}
+            onClick={ErrorCatFn}
+            value={prop.state.catagory} placeholder='Catagory name' type='text' name='catagory' id='' autoComplete='off'
+            className='MB_EditName_Input  text_center' required />
+          {prop.state.errCategory && <span className="errCategory"><img src={MBerroricon} alt="" /> <span>required</span></span>}
         </div>
-
-
-
-        <input onChange={prop.inputValue('catagory')} value={prop.state.catagory} placeholder='Catagory name' type='text' name='catagory' id='' autoComplete='off'
-          className='MB_EditName_Input widthInput text_center' required />
-
-
         <div className="GruopBtn">
           {/* <button type='button' form='foodForm' className={`MB_Btn`}>
             <svg
@@ -258,13 +176,12 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
             prop.setActiveWindowIconPicker(!prop.activeWindowIconPicker);
           }} type='button' form='foodForm' className={`MB_BtnIconPick`}>
 
-
-            {prop.state.icon_catagory ?<svg
+            {prop.state.icon_catagory ? <svg
               className='MB_itemSvg'>
               prop.state.icon_catagory ?
               <use xlinkHref={`${prop.state.icon_catagory}`} />
-            </svg>:
-            <img className='MB_itemSvg' src={MBaddIcon} alt="" />}
+            </svg> :
+              <img className='MB_itemSvg' src={MBaddIcon} alt="" />}
 
           </button>
           {/* MBaddIcon */}
@@ -273,10 +190,6 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
         </div>
 
       </div>
-
-
-
-
 
 
 
@@ -302,7 +215,11 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
                   <img className='MB_boxPhoto' src={prop.file ? prop.file : prop.iconPhoto} alt='' />
                 </div>
               </label>
-
+              <div className={`${prop.loadingManual ? 'showMe' : 'hiddenMe'} photoLoading`}>
+                <div className="iconLoadingBanner">
+                  <span className='barOne'></span > <span className='barTwo'></span> <span className='barThree'></span>
+                </div>
+              </div>
               {/* <div
               onClick={() => {
                 prop.delelteImage();
@@ -318,30 +235,58 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
 
               {prop.listMenu.map((el, index) => (
                 <div className={`MB_layoutManu0 ${index % 2 !== 0 ? 'MB_Dark_Color' : 'MB_light_Color'}`} key={index}>
+                  <div id={`MBend${index}`} className="MBend"></div>
 
                   <div className='MB_layoutManu1'>
                     <i className='sr-only'>!FOOD NAME</i>
                     <div className='MB_flex_NoInp gap1'>
                       <span className='MB_item'>{index + 1}</span>
+                      <div className="posReative">
+                        <input onChange={(event) => prop.inputListValue(index, event)} onClick={() => ErrorFn(index, 'errFoodname', false)} value={el.food_name} type='text'
+                          name='food_name' id='food-name' autoComplete='off' className='MB_EditName_Input  MB_White' placeholder='Food name' />
 
-                      <input onChange={(event) => prop.inputListValue(index, event)} value={el.food_name} type='text'
-                        name='food_name' id='food-name' autoComplete='off' className='MB_EditName_Input  MB_White' placeholder='Food name' />
+                        {el.errFoodname && <span className='errCategory'><img src={MBerroricon} alt="" /> <span>required</span></span>}
+                      </div>
                     </div>
 
                     <i className='sr-only'>!DESCRIPTION</i>
                     <div className=''>
                       <div className=''>
-                        <textarea onChange={(event) => prop.inputListValue(index, event)} value={el.description} id='description'
-                          name='description' rows='4' className='MB_EditName_Input MB_White MB_fontSmall testAreaD' placeholder='Description'></textarea>
+                        {/* <textarea onChange={(event) => prop.inputListValue(index, event)} value={el.description} id='description'
+                          name='description' rows='4' className='MB_EditName_Input MB_White MB_fontSmall testAreaD' placeholder='Description (optional)'></textarea> */}
+
+                        <ReactQuill onChange={(event) => prop.inputRQuill(index, 'description', event)} value={el.description} modules={modules}
+                          name='description' className='MB_EditName_Input forQPt MB_White MB_fontSmall testAreaD' placeholder='Description (optional)' />
+
+                        {/* <ReactQuill
+                          value={el.description}
+                          onChange={() => ''}
+                          modules={modules}
+                          className='MB_EditName_Input MB_White MB_fontXSmall italic testAreaR' placeholder='Remark (optional)'
+                        /> */}
+
                       </div>
+
                     </div>
 
                     <i className='sr-only'>!REMARK</i>
                     <div className=''>
                       <div className=''>
-                        <textarea onChange={(event) => prop.inputListValue(index, event)} value={el.remark} name='remark' rows='2' id='remark'
+
+                        <ReactQuill
+                          value={el.remark}
+                          onChange={(event) => prop.inputRQuill(index, 'remark', event)}
+                          modules={modules}
+                          className='MB_EditName_Input forQPt MB_White MB_fontXSmall italic testAreaR' placeholder='Remark (optional)'
+                        />
+                        {/* <textarea onChange={(event) => prop.inputListValue(index, event)} value={el.remark} name='remark' rows='2' id='remark'
                           className='MB_EditName_Input MB_White MB_fontXSmall italic testAreaR' placeholder='Remark (optional)' />
+                         */}
+
                       </div>
+
+
+
                     </div>
 
                     <i className='sr-only'>!PRICE</i>
@@ -350,10 +295,11 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
                       <label htmlFor='price' className='MB_labelPrice'>
                         Price
                       </label>
-
-                      <input onChange={(event) => prop.inputListValue(index, event)} value={el.price} type='text' name='price' id='price' autoComplete='off'
-                        className='MB_EditName_Input MB_White' pattern='[0-9]*.\d{0,2}' placeholder='0' />
-
+                      <div className="posReative">
+                        <input onChange={(event) => prop.inputListValue(index, event)} onClick={() => ErrorFn(index, 'errPrice', false)} value={el.price} type='text' name='price' id='price' autoComplete='off'
+                          className='MB_EditName_Input MB_White' pattern='[0-9]*.\d{0,2}' placeholder='0' />
+                        {el.errPrice && <span className="errCategory"><img src={MBerroricon} alt="" /> <span>number only</span></span>}
+                      </div>
                     </div>
                   </div>
 
@@ -478,13 +424,13 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
                       </div>
 
                       <div className="MB_layoutManu1_1">
-                        <div className="MB_TrashIconBox GruopBtn">
-                          <div id={index} className=""></div>
-                          <a onClick={() => prop.removeItem(index)} className='MB_TrashIcon'>
+                        <div className={`MB_TrashIconBox GruopBtn ${prop.listMenu.length === 1 && 'hiddenMe'}`}>
+                          <a href={`#MBend${prop.listMenu.length - 2}`} onClick={() => prop.removeItem(index)} className='MB_TrashIcon'>
                             <img src={MBiconBin} alt="" />
                           </a>
-                          <span className='MB_textTrash'>Remove</span>
+                          <span className='MB_textTrash'>Remove Item</span>
                         </div>
+
 
                         <div className="redtagbox">
 
@@ -501,7 +447,7 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
 
                   </div>
 
-                  {(index === prop.listMenu.length - 1) && <div className="MB_Frid_3Btn absAddBtn">
+                  {/* {(index === prop.listMenu.length - 1) && <div className="MB_Frid_3Btn absAddBtn">
 
                     <div className="GruopBtn boxAddItem MB_G3">
                       <a href={`#${index}`} onClick={() => {
@@ -514,33 +460,33 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
                       </a>
                       <span className='MB_textBtn'>ADD ITEM</span>
                     </div>
-                  </div>}
-
+                  </div>} */}
                 </div>
 
               ))}
 
 
-              {prop.listMenu.length === 0 && <div className="MB_Frid_3Btn">
-                <div className="GruopBtn boxAddItem MB_G3">
-                  <a href='#MBend' onClick={() => {
-                    prop.additem()
+              {/* {prop.listMenu.length === 0 &&
+                <div className="MB_Frid_3Btn">
+                  <div className="GruopBtn boxAddItem MB_G3">
+                    <a href='#MBend' onClick={() => {
+                      prop.additem()
 
 
-                  }
-                  } type='' className='MB_Btn MB_Btn_Color '>
-                    <img src={MBiconPlus} alt="" />
-                  </a>
-                  <span className='MB_textBtn'>ADD ITEM</span>
-                </div>
-              </div>}
+                    }
+                    } type='' className='MB_Btn MB_Btn_Color '>
+                      <img src={MBiconPlus} alt="" />
+                    </a>
+                    <span className='MB_textBtn'>ADD ITEM</span>
+                  </div>
+                </div>} */}
+
             </div>
-
 
           </form>
 
 
-          <div id='MBend' className=""></div>
+
 
         </div>
 
@@ -555,13 +501,20 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
 
             {/* SAVE BUTTON NEW CAT*/}
 
-            <button onClick={prop.submitCatagory} type='submit' form='foodForm'
+            <a onClick={() => validation(prop.submitCatagory)} type='submit' form='foodForm'
               className='MB_Sq_Btn MB_Sq_Btn-NewCAt MB_Btn_Color MB_G2'>
-
-
               <span>SAVE NEW CATEGORY</span>
-            </button>
+            </a>
 
+            <a href={`#MBend${prop.listMenu.length - 1}`} className="GruopBtn_row MB_G3" onClick={() => {
+              prop.additem()
+            }}>
+              <span
+                type='' className='MB_Btn MB_Btn_Color '>
+                <img src={MBiconPlus} alt="" />
+              </span>
+              <span className='MB_textBtn'>ADD<br />ITEM</span>
+            </a>
 
           </div>}
 
@@ -581,12 +534,24 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
               <span className='MB_textTrash'>Delete</span>
             </div> */}
             <i className='x'>SAVE BUTTONT Edit Save Cancel</i>
-            <button onClick={prop.saveEditMenu} type='' className='MB_Sq_Btn SaveBtnSize MB_Btn_Color MB_G2'>
 
+            <button onClick={() => validation(prop.saveEditMenu)} type='' className='MB_Sq_Btn SaveBtnSize MB_Btn_Color MB_G2'>
               <span>SAVE</span>
             </button>
 
 
+
+            <i className='x'>Add Item</i>
+
+            <a href={`#MBend${prop.listMenu.length - 1}`} className="GruopBtn_row MB_G3" onClick={() => {
+              prop.additem()
+            }}>
+              <span
+                type='' className='MB_Btn MB_Btn_Color '>
+                <img src={MBiconPlus} alt="" />
+              </span>
+              <span className='MB_textBtn'>ADD<br />ITEM</span>
+            </a>
 
 
           </div>

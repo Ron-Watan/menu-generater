@@ -39,6 +39,7 @@ import _02QRCode from './_02QRCode';
 import _03BannerMobile from './_03BannerMobile';
 import _04MenuForm from './_04MenuForm';
 import _04MobileFormFood from './_04MobileFormFood';
+import _04MobileLanguage from './_04MobileLanguage';
 import _08LanguageSetupMobile from './_08LanguageSetupMobile';
 import _10OnOffSettingMobile from './_10OnOffSettingMobile';
 
@@ -47,7 +48,7 @@ import _10OnOffSettingMobile from './_10OnOffSettingMobile';
 
 import _TimePickerMobile from './_TimePickerMobile';
 import _ThemeSetupMobile from './_ThemeSetupMobile';
-import _LanguageAddMobile from './_LanguageAddMobile';
+
 
 
 
@@ -162,16 +163,20 @@ const _AppMain = () => {
 
   const [menuTime, setMenuTime] = useState(1); // timeSwitcher()
 
+  const [checkInputForm, setCheckInputForm] = useState(false)
 
   const [state, setState] = useState({
     catagory: '',
     catagory_2: '',
     icon_catagory: '',
     imgId: '',
+
+    errCategory: false,
   });
 
   // input
   const inputValue = (name) => (even) => {
+    setCheckInputForm(true)
     setState({ ...state, [name]: even.target.value });
   };
 
@@ -196,11 +201,16 @@ const _AppMain = () => {
     description_3: '',
     remark_3: '',
     price_3: '',
+
+    errFoodname: false,
+    errPrice: false,
+
   };
 
   const [listMenu, setListMenu] = useState([listMenuModel]);
 
   const inputListValue = (index, event) => {
+    setCheckInputForm(true)
     const option = event.target.value;
     if (option === 'vetgeterian' || option === 'vegan' || option === 'gluten_free' || option === 'halal') {
       let dataSet = [...listMenu];
@@ -215,6 +225,28 @@ const _AppMain = () => {
     setListMenu(dataSet);
   };
 
+
+  const inputRQuill = (index, name, event) => {
+    setCheckInputForm(true)
+    let dataSet = [...listMenu];
+    let data = dataSet[index];
+    data[name] = event
+    setListMenu(dataSet);
+
+  };
+  const inputlistDescription = (index, name, event) => {
+    const remark = event
+    let dataSet = [...listMenu];
+    let data = dataSet[index];
+    data[name] = event
+    setListMenu(dataSet);
+    // let dataSet = [...listMenu];
+    // let data = dataSet[index];
+    // data[event.target.name] = event.target.value;
+    // setListMenu(dataSet);
+  };
+
+
   const [file, setFile] = useState();
 
   // const [description, setDescription] = useState("")
@@ -223,7 +255,7 @@ const _AppMain = () => {
 
   const [themeSetup, setThemeSetup] = useState('');
 
-  //- 001_getAllMenu
+  //- //= //-001_getAllMenu
   const getAllMenu = () => {
     // dispath(showLoading())
     axios
@@ -231,7 +263,7 @@ const _AppMain = () => {
       .then((result) => {
         if (result.data.success) {
 
-          // Swal.fire(result.data.message)
+
           const getReult = result.data.userMenu;
 
           setCategoryList(getReult.menu);
@@ -265,7 +297,7 @@ const _AppMain = () => {
         }
       })
       .catch((err) => {
-        dispath(hideLoading());
+        // dispath(hideLoading());
         // console.log("Can't not connect the server", err);
         console.log('Server: Connecting...');
         // Swal.fire("Can't not connect the server")
@@ -279,11 +311,13 @@ const _AppMain = () => {
     });
     return countLists;
   };
-  // console.log(checkMaximumLists());
-  let imgId = uuidv4();
 
+
+  //- //= //-
+
+  let imgId = uuidv4();
   const submitCatagory = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
 
     if (checkMaximumLists() > 14) return alert('DDDD');
 
@@ -346,12 +380,12 @@ const _AppMain = () => {
       });
   };
 
-  //-
 
-  // const [originFile, setOriginFile] = useState('');
+
+  //- //= //-
   const saveEditMenu = (e) => {
     if (!menuId) return;
-    e.preventDefault();
+
     dispath(showLoading());
 
     file && saveImage();
@@ -381,17 +415,14 @@ const _AppMain = () => {
           actionDelay();
           dispath(hideLoading());
           Swal.fire({
-            title: 'SAVED',
-            text: 'Your menu has been saved',
+            title: 'Saved',
+            // text: 'Your menu has been saved',
             toast: true,
             icon: 'success',
-            // confirmButtonText: 'SAVED',
+
             showConfirmButton: false,
-            // width: '16rem',
-            // height: '5rem',
-            iconColor: '#cb2722',
-            // confirmButtonColor: '#cb2722',
-            timer: 2000,
+
+            timer: 1500,
           });
         } else {
           Swal.fire(result.data.message);
@@ -433,7 +464,7 @@ const _AppMain = () => {
             showConfirmButton: false,
             // width: '16rem',
             // height: '5rem',
-            iconColor: '#cb2722',
+            // iconColor: '#cb2722',
             // confirmButtonColor: '#cb2722',
             timer: 2000,
           });
@@ -514,9 +545,11 @@ const _AppMain = () => {
     console.log(resr)
   }
 
-  const findOneMenu = (menuId) => {
-    // setLoadingManual(true)
 
+  const findOneMenu = (menuId) => {
+   setCheckInputForm(false)
+    // setLoadingManual(true)
+    // dispath(showLoading())
     // e.preventDefault();
     setStart(true);
     setOnOffLangForm(false);
@@ -544,8 +577,8 @@ const _AppMain = () => {
         });
         setListMenu(oneMennu.listMenu);
         setMemoIcon(oneMennu.icon_catagory)
-        dispath(hideLoading())
-        console.log(funrrr())
+ 
+
 
       }
 
@@ -566,6 +599,7 @@ const _AppMain = () => {
 
 
         setMemoListMenu([...oneMennu.listMenu])
+   
       }
     })
 
@@ -577,9 +611,10 @@ const _AppMain = () => {
 
   const clearAllPage = () => {
     setStart(false);
-    // setMenuId('');
+    setMenuId('');
     setFile('');
-    // setState({ catagory: '', imgId: '' });
+    setListMenu([listMenuModel]);
+    setState({ catagory: '', imgId: '' });
     // const newData = [...user.menu]
     // console.log(newData === user.menu);
     // console.log(newData)
@@ -638,6 +673,7 @@ const _AppMain = () => {
   };
 
   const removeItem = (index) => {
+    setCheckInputForm(true)
     let data = [...listMenu];
     data.splice(index, 1);
     setListMenu(data);
@@ -785,7 +821,7 @@ const _AppMain = () => {
   const [allImage, setAllImage] = useState([]);
   const getAllImage = () => {
     // setLoadingManual(true)
-    dispath(showLoading())
+    // dispath(showLoading())
 
     axios
       .post(`${process.env.REACT_APP_API}/user/images/all`, { userId: user.userId })
@@ -802,7 +838,7 @@ const _AppMain = () => {
         });
         setAllImage(mapAllImage);
         // setLoadingManual(false)
-        dispath(hideLoading());
+        // dispath(hideLoading());
       })
       .catch((err) => {
         console.error(err);
@@ -1108,14 +1144,12 @@ const _AppMain = () => {
 
   return (
     <div className='mainAppMonitor'>
-      <div className={`${loadingManual ? 'showMe' : 'hiddenMe'} photoLoading`}>
+      {/* <div className={`${loadingManual ? 'showMe' : 'hiddenMe'} photoLoading`}>
         <div className="iconLoadingBanner">
           <span className='barOne'></span > <span className='barTwo'></span> <span className='barThree'></span>
         </div>
-      </div>
+      </div> */}
       <i className='x'>//- START MOBILE //------------------------------------------------</i>
-
-
 
       <div className="mobile-creator unselectable">
         <i className="x"> Banner-----------------------------------------------</i>
@@ -1175,63 +1209,20 @@ const _AppMain = () => {
 
         </div>
 
-
-
-
-
-        {/* <div className={` mobile_formFood ${!start && 'MB_slide_Left'}`}>
-
-          <div className="topBar_function flexStart">
-
-            <div className="GruopBtn">
-
-              <button onClick={() => setStart(false)} className="MB_Btn MB_Btn_Border">
-                <img src={MBiconBack} alt="" />
-              </button>
-              <span className='MB_textBtn'>Back</span>
-
-            </div>
-
-
-
-            <input onChange={inputValue('catagory')} value={state.catagory} placeholder='Catagory name' type='text' name='catagory' id='' autoComplete='off'
-              className='MB_EditName_Input widthInput' required />
-
-
-            <div className="GruopBtn">
-              <button type='button' form='foodForm' className={`MB_Btn`}>
-                <svg
-                  onClick={() => {
-                    setActiveWindowIconPicker(!activeWindowIconPicker);
-                  }}
-                  className='MB_itemSvg'>
-                  {state.icon_catagory ? <use xlinkHref={`${state.icon_catagory}`} /> : <use xlinkHref={`/static/media/food-color-SVG-sprite.c7acaa791b17c993c83fb8c054053b75.svg#food-tray`} />}
-                </svg>
-              </button>
-
-              <span className='MB_textBtn'>Add Icon</span>
-
-            </div>
-
-          </div>
-
-
-          <MobileFormFood ref={ref} menuId={menuId} listMenu={listMenu} inputListValue={inputListValue} iconPhoto={iconPhoto} file={file}
-            setOriginalName={setOriginalName} resizeFile={resizeFile} delelteImage={delelteImage} setFile={setFile} additem={additem} removeItem={removeItem}
-            start={start} setStart={setStart} setMenuId={setMenuId} submitCatagory={submitCatagory} saveEditMenu={saveEditMenu} deleteMenu={deleteMenu}
-          />
-        </div> */}
-        <div className={` mobile_formFood ${!start && 'MB_slide_Left'}`}>
+        <div className={` mobile_formFood ${!start && 'MB_slide_Down'}`}>
           <_04MobileFormFood ref={ref} menuId={menuId} listMenu={listMenu} inputListValue={inputListValue} iconPhoto={iconPhoto} file={file}
             setOriginalName={setOriginalName} resizeFile={resizeFile} delelteImage={delelteImage} setFile={setFile} additem={additem} removeItem={removeItem}
-            inputValue={inputValue} state={state} start={start} setStart={setStart} setMenuId={setMenuId} submitCatagory={submitCatagory} saveEditMenu={saveEditMenu} deleteMenu={deleteMenu}
-            setActiveWindowIconPicker={setActiveWindowIconPicker}
-            activeWindowIconPicker={activeWindowIconPicker} setListMenu={setListMenu} listMenuModel={listMenuModel} />
+            inputValue={inputValue} setState={setState} state={state} start={start} setStart={setStart} setMenuId={setMenuId} submitCatagory={submitCatagory} saveEditMenu={saveEditMenu} deleteMenu={deleteMenu}
+            setActiveWindowIconPicker={setActiveWindowIconPicker} inputRQuill={inputRQuill} inputlistDescription={inputlistDescription}
+            activeWindowIconPicker={activeWindowIconPicker} setListMenu={setListMenu} listMenuModel={listMenuModel}
+            setCheckInputForm={setCheckInputForm} checkInputForm={checkInputForm}
+            getAllMenu={getAllMenu}  loadingManual={loadingManual}
+          />
 
         </div>
-        <div className={` mobile_formFood ${!onOffLangForm && 'MB_slide_Left'}`}>
-          <_LanguageAddMobile state={state} listMenu={listMenu} inputValue={inputValue}
-            inputListValue={inputListValue} setOnOffLangForm={setOnOffLangForm} setStart={setStart} />
+        <div className={` mobile_formFood ${!onOffLangForm && 'MB_slide_Down'}`}>
+          <_04MobileLanguage state={state} listMenu={listMenu} inputValue={inputValue} inputRQuill={inputRQuill}
+            inputListValue={inputListValue} setOnOffLangForm={setOnOffLangForm} setStart={setStart} saveEditMenu={saveEditMenu} />
         </div>
 
         <div className={`mobile_function topColorPicker ${!activeWindowIconPicker && 'MB_slide_Down'}`}>
@@ -1289,7 +1280,7 @@ const _AppMain = () => {
 
 
 
-          <div className={`MB_emptySm`}>&nbsp;</div>
+          {/* <div className={`MB_emptySm`}>&nbsp;</div> */}
 
 
 
@@ -1420,18 +1411,6 @@ const _AppMain = () => {
             <img src={MBicon_Onoff} alt="" />
           </button>
 
-          {/* <i className='x'> 9 Theme-----------------------------------------------</i>
-          <button onClick={() => {
-            setOnOffThemeSetup_MB(!onOffThemeSetup_MB);
-            setMBnavIcon(false)
-          }}
-            name='Manu1MB'
-            className={`MC_Tab MB_None `} >
-            <img src={MBicon_Theme} alt="" />
-          </button> */}
-
-
-
           <i className='x'> 11 Log Out-----------------------------------------------</i>
           <button onClick={() => {
             setOnOffSetting_MB(!onOffSetting_MB);
@@ -1454,10 +1433,10 @@ const _AppMain = () => {
 
       </div>
       <iframe id='iframe'
-          className={`mobile_iframe  ${(onOffBanner_MB || onOffMenu1_MB || onOffMenu2_MB ||
-            onOffMenu3_MB || onOffTimePicker_MB || onOffLangSetup_MB || onOffFeedBAck_MB || onOffSetting_MB || onOffQRCCode_MB)
-            && 'iframe_scale_Down'}`}
-          src="http://192.168.1.13:3000/customer/37f91f16-undefined" />
+        className={`mobile_iframe  ${(onOffBanner_MB || onOffMenu1_MB || onOffMenu2_MB ||
+          onOffMenu3_MB || onOffTimePicker_MB || onOffLangSetup_MB || onOffFeedBAck_MB || onOffSetting_MB || onOffQRCCode_MB)
+          && 'iframe_scale_Down'}`}
+        src="http://192.168.1.13:3000/customer/37f91f16-undefined" />
 
 
     </div>

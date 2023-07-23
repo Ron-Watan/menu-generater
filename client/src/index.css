@@ -2,6 +2,9 @@
 
 @tailwind components;
 
+#root{
+  background-color: #000;
+}
 html {
   overscroll-behavior: none;
 }
@@ -290,6 +293,20 @@ label {
 
 .x {
   display: none !important;
+}
+
+
+
+.swal2-toast-shown .swal2-container{
+
+  width: max-content !important;
+  white-space: nowrap;
+}
+
+.swal2-title{
+  font-size: 1.1rem !important;
+  text-align: center !important;
+  font-weight: 500
 }
 @tailwind utilities;
 

@@ -98,6 +98,14 @@ const _MenuComponent = () => {
   const { menuName, banner, sideBar, filter, vetgeterian, vegan, gluten_free, halal, description, accordian, footbar, langIcon, favoritHeart, feedBack } = onOffSetting
   //=-----------------------------------------------
 
+
+
+
+
+  //=-----------------------------------------------
+
+
+
   const onOffSideBarFn = (bol) => {
     setOnOffSetting({ ...onOffSetting, ['sideBar']: bol })
   }
@@ -131,7 +139,7 @@ const _MenuComponent = () => {
               counttype.push(getResault.menuName[x])
               if (Number(x.slice(-1)) < allDayFirstMenu) {
                 allDayFirstMenu = Number(x.slice(-1))
-             
+
               }
 
             };
@@ -282,7 +290,7 @@ const _MenuComponent = () => {
     setFeedBackSMS({ ...feedBackSMS, 'pointStar': index })
   }
   const sentfeedBack = (e) => {
-    e.preventDefault()
+    // e.preventDefault()
 
     axios.post(`${process.env.REACT_APP_API}/clients/feedBack/${link}`, {
       feedBack: {
@@ -290,11 +298,31 @@ const _MenuComponent = () => {
         message: feedBackSMS.message,
         date: new Date().toLocaleDateString(),
         time: new Date().toLocaleTimeString(),
+        readMessage: true
       }
     })
       .then(result => {
         if (result.data.success) {
-          // Swal.fire(result.data.message)
+
+          Swal.fire({
+            title: 'Thank You!',
+            text: 'for leaving feedback for us',
+            toast: true,
+            // icon: 'success',
+            // confirmButtonText: 'SAVED',
+            showConfirmButton: false,
+            // width: '16rem',
+            // height: '5rem',
+            iconColor: '#61b265',
+            // confirmButtonColor: '#cb2722',
+            timer: 2500,
+          })
+          setFeedBackSMS({
+            pointStar: 0,
+            message: ''
+          })
+
+
         } else {
           // Swal.fire(result.data.message)
         }
@@ -344,7 +372,6 @@ const _MenuComponent = () => {
   const [loadingManual, setLoadingManual] = useState(true);
 
 
-
   //=-----------------------------------------------
   return (
 
@@ -364,7 +391,7 @@ const _MenuComponent = () => {
         <i className="x">!Theme Nav BG Color 1/10</i>
         <nav className='navBar_Client'
           style={{ 'backgroundColor': `${themeSetup.navAndFootBar.navBarColor}` }}>
-    
+
           <div className=' mx-auto'>
             <div className='navFlexLogoandName'>
 
@@ -641,7 +668,7 @@ const _MenuComponent = () => {
           <BannerSubCompo themeSetup={themeSetup} />
         </div>}
         {/* == MENU == */}
-        <CssBaseline />
+        {/* <CssBaseline /> */}
 
         <ThemeProvider theme={theme} >
 

@@ -1,10 +1,10 @@
 import MBiconBack from '../all-icon/button-icon/MBback.svg'
-
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const _LanguageAddMobile = (prop) => {
 
 
-  //-//=//-//=//-//=//-//=//-
 
   return (
 
@@ -81,9 +81,9 @@ const _LanguageAddMobile = (prop) => {
 
                       <i className='sr-only'>//-!DESCRIPTION</i>
                       <div className=''>
-                        <textarea onChange={(event) => prop.inputListValue(index, event)} value={el.description}
+                        <ReactQuill onChange={(event) => prop.inputListValue(index, event)} value={el.description}
                           id='description'
-                          disabled={true} name='description' className='MB_EditName_Input MB_GrayInput MB_fontSmall testAreaD' placeholder='Description'></textarea>
+                          disabled={true} name='description' className='MB_EditName_Input MB_GrayInput MB_fontSmall testAreaD' placeholder='Description'/>
                       </div>
 
 
@@ -120,7 +120,7 @@ const _LanguageAddMobile = (prop) => {
                           Price
                         </label>
 
-                        <input onChange={(event) => prop.inputListValue(index, event)} value={el.price_2} type='text' name='price_2' id='price_2' autoComplete='off' 
+                        <input onChange={(event) => prop.inputListValue(index, event)} value={el.price_2} type='text' name='price_2' id='price_2' autoComplete='off'
                           className='MB_EditName_Input MB_White' pattern='[0-9]*.\d{0,2}' placeholder='(2nd)' />
 
                       </div>
@@ -133,7 +133,7 @@ const _LanguageAddMobile = (prop) => {
 
               </div>
 
-    
+
             </div>
           </div>
 

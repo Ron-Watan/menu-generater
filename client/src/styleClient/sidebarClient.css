@@ -26,6 +26,7 @@
 }
 
 .circle-iconButton {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -34,13 +35,25 @@
   height: 3rem;
 
   box-shadow: 0.1rem 0.1rem 0.5rem rgba(0, 0, 0, 0.2);
-}
 
+}
+.circle-iconButton::before{
+  position: absolute;
+  content: '';
+  width: 90%;
+  height: 90%;
+  background-color: inherit;
+  border-radius: inherit;
+  border-width: 1px;
+  border-style:inherit;
+  border-color: inherit;
+}
 .circle-iconSize {
   display: block;
   width: 3rem;
   height: 3rem;
   overflow: visible;
+  z-index: 5;
 }
 
 .circle-iconButton-Active {

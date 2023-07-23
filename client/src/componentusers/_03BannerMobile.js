@@ -3,6 +3,7 @@ import Slider from 'react-touch-drag-slider'
 import MBiconBin from '../all-icon/button-icon/MBbin.svg'
 import MBiconPlus from '../all-icon/button-icon/MBplusicon.svg'
 import MBiconClose from '../all-icon/button-icon/MBclose.svg'
+import MBiconDown from '../all-icon/button-icon/down.svg'
 
 import axios from 'axios'
 import { hideLoading, showLoading } from '../redux/alertSlice'
@@ -283,17 +284,11 @@ const _03BannerMobile = (prop) => {
                 <button name={el.menuId} onClick={() => prop.setIndexToBanner(index)} className={`btnCat MB_photoSize ${prop.indexToBanner === index && 'MB_sizeBigger'}`}>
                   <img src={el} className='MB_imageBannerForm photoList' />
                 </button>
-                <div onClick={() => { arrayMmove(prop.bannerImgArr, index, index - 1) }} className={index == 0 ? 'displayNone':""}>UPPPP</div>
-                <div onClick={() => { arrayMmove(prop.bannerImgArr, index, index + 1) }} className={index == prop.bannerImgArr.length - 1 ? 'displayNone':''}>Doddw</div>
-
 
                 <div className={` MB_smIconAB ${prop.indexToBanner === index ? '' : 'displayNone'}`}>
-
                   <button
                     onClick={() => {
                       deleteImageBanner()
-
-
                       // prop.setDeleteImageBannerTG((deleteImageBannerTG) => deleteImageBannerTG + 1);
                     }}
                     value={el.menuId}
@@ -303,6 +298,20 @@ const _03BannerMobile = (prop) => {
                     <img src={MBiconBin} alt="" />
                   </button>
                 </div>
+
+                <div className="MB_postUpDown">
+                  <button onClick={() => { arrayMmove(prop.bannerImgArr, index, index - 1) }}
+                    className={`smallUpDown up ${index === 0 ? 'hiddenMe' : ''}
+                  ${prop.indexToBanner === index ? '' : 'hiddenMe'}`}>
+                    <img src={MBiconDown} alt="" /></button>
+                  
+                  <button onClick={() => { arrayMmove(prop.bannerImgArr, index, index + 1) }}
+                    className={`smallUpDown ${index == prop.bannerImgArr.length - 1 ? 'hiddenMe' : ''}
+                    ${prop.indexToBanner === index ? '' : 'hiddenMe'}`}>
+                    <img src={MBiconDown} alt="" /></button>
+
+                </div>
+
 
               </div>
 

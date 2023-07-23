@@ -90,6 +90,8 @@ dotFormC */
   border-radius: 1rem;
   margin-left: -0.6rem;
   z-index: 10;
+  background-color: rgb(207, 210, 207);
+
 }
 
 .rtds-single-slide-styles {
