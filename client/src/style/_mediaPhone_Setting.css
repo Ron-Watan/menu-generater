@@ -741,7 +741,7 @@ input:checked + .forOFLang2:before {
   height: 65vh;
 
   background-color: #fff;
-  border-radius: 1rem 0 0 1rem;
+  border-radius: 0.5rem 0 0 0.5rem;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
   overflow: hidden;
   z-index: 100;
@@ -749,8 +749,7 @@ input:checked + .forOFLang2:before {
   border: #ccc solid 1px;
 }
 .MB_themeContainer_Acc {
-  width: 55%;
-  border-radius: 0 1rem 1rem 0;
+  border-radius: 0 0.5rem 0.5rem 0;
 }
 
 .MB_themeRow_reverse {
@@ -993,12 +992,49 @@ input:checked + .forOFLang2:before {
 
 .MB_tray_position {
   display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
   justify-content: center;
   align-items: center;
   width: 100%;
   padding-top: 3rem;
 }
-
+.colorBoxInput {
+  display: flex;
+  width: 280px;
+  gap: 1rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  justify-content: center;
+  align-items: center;
+}
+.MB_tray_input {
+  border: 1px solid #444;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  width: 150px;
+  text-align: center;
+}
+.MB_tray_position .react-colorful {
+  height: 240px;
+  width: 250px;
+}
+.MB_tray_position .react-colorful__hue {
+  height: 40px;
+  border-radius: 0 0 4px 4px;
+}
+.MB_tray_position .react-colorful__hue-pointer {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+.colorBoxTray {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.3rem;
+  border: 0.5px solid #444;
+}
 .chrome-picker {
   width: 90% !important;
 }
@@ -1085,7 +1121,7 @@ input:checked + .forOFLang2:before {
   flex-direction: column;
 
   /* background-color: #7189BF; */
-  border: .5px solid #464545;
+  border: 0.5px solid #464545;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
   border-radius: 0.5rem;
 }
@@ -1097,7 +1133,6 @@ input:checked + .forOFLang2:before {
   width: 100%;
   padding: 0.8rem 1rem;
   border-radius: 0.5rem;
-  
 }
 
 .MB_BorderBt {

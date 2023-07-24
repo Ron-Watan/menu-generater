@@ -3,6 +3,7 @@ import * as FileIcon from './_20IconPickerMobileData';
 // import icon1 from '../all-icon-client/Appetizer-Black-SVG-sprite.svg';
 // import icon2 from '../all-icon-client/food-color-SVG-sprite.svg';
 
+import empty_001 from '../all-icon-client/_empty.svg';
 
 import drinlkL_001 from '../all-icon-client/_01line_drink1_sprite.svg';
 
@@ -23,6 +24,7 @@ const _20IconPickerMobile = (prop) => {
 
 
   const getValueIcon = (even) => {
+    prop.setCheckInputForm(true)
     prop.setState({ ...prop.state, icon_catagory: even });
 
   };
@@ -62,11 +64,13 @@ const _20IconPickerMobile = (prop) => {
             <div className='iconPickerSet'>
 
               <div className='iconPickerSet-tilte'>Drink</div>
-
+              <svg onClick={() => getValueIcon(`${empty_001}#empty000`)} className='itemSvg'>
+                <use xlinkHref={`${empty_001}#empty000`} />
+              </svg>
               <div className='MB_iconPickerGridRow'>
                 {FileIcon.drinlkL_001Name.map((list, index) => (
                   <button key={index}>
-                    <svg onClick={() => getValueIcon(`${drinlkL_001}#${list}`)} className='itemSvg'>
+                    <svg fill='#444'onClick={() => getValueIcon(`${drinlkL_001}#${list}`)} className='itemSvg'>
                       <use xlinkHref={`${drinlkL_001}#${list}`} />
                     </svg>
                   </button>
@@ -140,12 +144,12 @@ const _20IconPickerMobile = (prop) => {
         </div>
         <div className="MB_Positon_Bottom_btn">
           <div className="MB_Frid_3Btn">
-          
-          <button onClick={() => prop.setActiveWindowIconPicker(false)} className='MB_Sq_Btn SaveBtnSize MB_Btn_Color MB_G2'>
-            OK
-          </button>
+
+            <button onClick={() => prop.setActiveWindowIconPicker(false)} className='MB_Sq_Btn SaveBtnSize MB_Btn_Color MB_G2'>
+              OK
+            </button>
           </div>
-          </div>
+        </div>
       </div>
 
 

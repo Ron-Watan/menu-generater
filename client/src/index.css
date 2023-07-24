@@ -2,11 +2,13 @@
 
 @tailwind components;
 
-#root{
+/* #root{
   background-color: #000;
-}
+} */
 html {
   overscroll-behavior: none;
+  background-color: #000;
+
 }
 
 body {

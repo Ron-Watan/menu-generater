@@ -111,11 +111,11 @@ const ThemeSetup = (prop) => {
       )
       .then((result) => {
         if (result.data.success) {
-          // const getReult = result.data.userTheme;
+          const getReult = result.data.userTheme;
           // prop.setRestaurantName(getReult.restaurantName)
           // setNavAndFootBar(getReult.themeSetup.navAndFootBar)
           // setBodyStyle(getReult.themeSetup.body)
-
+     
 
           // setThemeIconNoBD({
           //   themeIconRadius: themeIconRadius, themeIconColorLine: themeIconColorLine,
@@ -358,7 +358,7 @@ const ThemeSetup = (prop) => {
                   </div>
 
                 </div>
-   
+
 
                 <div className="TC-name">Body</div>
 
@@ -460,7 +460,7 @@ const ThemeSetup = (prop) => {
                     <input onChange={() => themeIconClientFn('.2rem', themeIconColorLine, themeIconBG, 'none', '')} type="radio" name="selectIconSideBar" id="regtangNoBorder" />
                   </div>
                 </div>
-      
+
 
                 <div className='setThemeGrid'>
 

@@ -145,7 +145,7 @@ const _TimePickerMobile = (prop) => {
       return (check_3 = false);
     }
 
-    
+
     setSumTimeM3({ start: arrayStartM3, end: arrayEndM3 + 59 });
 
     console.log('Complete Schedule 3');

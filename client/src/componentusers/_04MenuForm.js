@@ -7,7 +7,7 @@ import MBupdown from '../all-icon/button-icon/updown.svg'
 import MBLang from '../all-icon/button-icon/lang.svg'
 
 import { useSelector } from 'react-redux'
-
+import AnchorLink from 'react-anchor-link-smooth-scroll'
 const _04MenuForm = (prop) => {
   const { user } = useSelector((state) => state.user);
 
@@ -60,13 +60,31 @@ const _04MenuForm = (prop) => {
 
   const [visibleRA, setVisbleRA] = useState(false)
 
-
-
+  // let point = []
+  const [hold, setHold] = useState(true)
+  const reloadAllMenu = (event) => {
+    // let x = event.touches[0].clientX;
+    let y = event.touches[0].clientY;
+    console.log(y)
+    // point.push(y)
+    // console.log(point)
+    if (y > 10 && hold) {
+      prop.getAllMenu()
+      setHold(false)
+      setTimeout(() => {
+        setHold(true)
+      }, 1000);
+    }
+  }
 
 
   return (
-    <div className="MC_Standard_0_FullPage">
-
+    <div className="MC_Standard_0_FullPage " >
+      <div className={`${prop.loadingManual ? 'showMe' : 'hiddenMe'} photoLoading`}>
+        <div className="iconLoadingBanner">
+          <span className='barOne'></span > <span className='barTwo'></span> <span className='barThree'></span>
+        </div>
+      </div>
       <div className="topBar_function ">
         <div className="GruopBtn">
           <button onClick={() => {
@@ -83,18 +101,20 @@ const _04MenuForm = (prop) => {
 
         <div className={`MB_flexStartBtn`}>
           <input onChange={prop.inputMenuTimeName} value={prop.menuName[prop.currentMenuName]} type='text' maxLength="20"
-           className={`MB_EditName_Input text_center`} placeholder='' />
+            className={`MB_EditName_Input text_center`} placeholder='' />
 
-        
+
         </div>
 
         <div className="GruopBtn">
-          <button onClick={() => {
+          <a onClick={() => {
+            // prop.setNewForm(true)
             prop.openForm()
+
             checkReArange()
-          }} type='button' form='foodForm' className={`MB_Btn MB_Btn_Color`}>
+          }} href='#topForm' type='button' form='foodForm' className={`MB_Btn MB_Btn_Color`}>
             <img src={MBiconPlus} alt="" />
-          </button>
+          </a>
           <span className='MB_textBtn'>Add Category</span>
         </div>
 
@@ -104,7 +124,7 @@ const _04MenuForm = (prop) => {
       <div className="MB_Standard_0_FullAgain  MB_SetGrid_Full zindexUnderTop">
 
 
-        <div className="MB_Standard_Section_canScroll MB_Make_PadingBanner paddingBottom_9 overScroll_none" >
+        <div onTouchMove={reloadAllMenu}  className="MB_Standard_Section_canScroll MB_Make_PadingBanner paddingBottom_9 overScroll_none" >
 
 
           <div className="MB_categoryStart">
@@ -118,18 +138,18 @@ const _04MenuForm = (prop) => {
               .map((el, index) => (
                 <div className="MB_Flex_LisrBtn" key={index} >
                   <div className={`MB_tabCat `}>
-                    <button name={el.menuId} onClick={() => {
+                    <a name={el.menuId} onClick={() => {
                       checkReArange()
                       prop.findOneMenu(el.menuId)
-                    }} className={`itemCat  ${prop.menuId === el.menuId ? 'itemCatChoose' : ''}`}>
+                    }} href='#topForm' className={`itemCat  ${prop.menuId === el.menuId ? 'itemCatChoose' : ''}`}>
                       {index + 1}
-                    </button>
-                    <button name={el.menuId} onClick={() => {
+                    </a>
+                    <a name={el.menuId} onClick={() => {
                       checkReArange()
                       prop.findOneMenu(el.menuId)
-                    }} className='btnCat'>
+                    }} href='#topForm' className='btnCat'>
                       {el.catagory}
-                    </button>
+                    </a>
                   </div>
 
 
@@ -242,6 +262,10 @@ const _04MenuForm = (prop) => {
                   </button>}
                 </div>
               ))}
+
+ 
+
+
 
           </div>
 

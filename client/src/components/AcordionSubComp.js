@@ -194,7 +194,7 @@ const AcordionSubComp = (prop) => {
   useEffect(() => {
     getImage();
   }, []);
-
+  console.log(prop.themeSetup.body.bodyFonttColor)
 
   const heartIcon = {
     favor1: 'favor1.svg', favor2: 'favor2.svg',
@@ -289,7 +289,7 @@ const AcordionSubComp = (prop) => {
                   'fontFamily': `${prop.themeSetup.body.bodyFontFamily}`,
                   'color': `${prop.themeSetup.body.bodyFonttColor}`,
                   'fontSize': `${prop.themeSetup.body.bodyFontSize * 1}rem`, 'fontWeight': '400'
-                }} value={el.description}/>}
+                }} value={el.description} />}
 
                 <i className="x">//- Remark 1 2</i>
 
@@ -356,13 +356,13 @@ const AcordionSubComp = (prop) => {
                       'color': `${prop.themeSetup.body.bodyFonttColor}`,
                       'fontSize': `${prop.themeSetup.body.bodyFontSize * .95}rem`, 'fontWeight': '400'
                     }}
-                    value={el.description}/>}
+                    value={el.description} />}
 
                   {prop.language === 2 && <ReactQuill readOnly modules={{ toolbar: false }} className={prop.sideBar ? 'paddingL_40' : ''} style={{
                     'fontFamily': `${prop.themeSetup.body.bodyFontFamily}`,
                     'color': `${prop.themeSetup.body.bodyFonttColor}`,
                     'fontSize': `${prop.themeSetup.body.bodyFontSize * .95}rem`, 'fontWeight': '400'
-                  }} value={el.description_2}/>}
+                  }} value={el.description_2} />}
 
                   {prop.language === 1 && <ReactQuill readOnly modules={{ toolbar: false }} className={`Acc_remark ${prop.sideBar ? 'paddingL_40' : ''}`} style={{
                     'fontFamily': `${prop.themeSetup.body.bodyFontFamily}`,

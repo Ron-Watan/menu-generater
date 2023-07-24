@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 import { colorPalette } from '../componentusers/ColorPickerData.js'
 import { SketchPicker, ChromePicker } from 'react-color';
 import { Alpha } from 'react-color/lib/components/common';
-
+import { HexColorPicker } from "react-colorful";
 // var { Alpha } = require('react-color/lib/components/common')
 const _ColorTrayMobile = (prop) => {
   // prop.noSetTheme
@@ -54,10 +54,11 @@ const _ColorTrayMobile = (prop) => {
       prop.setCategoryMotion({ ...prop.categoryMotion, [prop.nameTheme]: seeColor })
     }
   }
-
+  const [color, setColor] = useState("#aabbcc");
+  // return <HexColorPicker color={color} onChange={setColor} />;
   return (
     <div className='MB_colorPickerTable'>
-
+      <HexColorPicker color={color} onChange={setColor} />
       <ChromePicker
         value="ddd" color={colorOnTray} onChange={getColorTray} disableAlpha />
 

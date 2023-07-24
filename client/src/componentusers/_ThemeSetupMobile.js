@@ -231,9 +231,11 @@ const _ThemeSetupMobile = (prop) => {
 
   const [colorOnClick, setColorOnClick] = useState('')
 
-  const clickColor = (e) => {
-    setColorOnClick(e.target.style.backgroundColor)
+  const clickColor = (color) => {
+    setColorOnClick(color)
+    // console.dir(e)
   }
+  // console.dir(navBarColor)
 
 
   // useEffect(() => {
@@ -302,7 +304,7 @@ const _ThemeSetupMobile = (prop) => {
               </div>}
 
               <i className="x">1 -----------------------------------------------</i>
-              {themeTab === 'navFoot' && <div className='MB_themeNavFootBar'>
+              {themeTab === 'navFoot' && <div className='MB_themeNavFootBar MB_Standard_Section_canScroll'>
 
 
                 <i className="x">restaurantName Section</i>
@@ -328,7 +330,7 @@ const _ThemeSetupMobile = (prop) => {
 
                     <button onClick={(e) => {
                       setOnoffColorPicker(true)
-                      clickColor(e)
+                      clickColor(nameFontColor)
                       setNoSetTheme(1)
                       setNameTheme('nameFontColor')
                     }} className="colorPickerItem borderPickC color_PBig color_PBig-Active" style={{ 'backgroundColor': `${nameFontColor}` }} id='FontColor1'></button>
@@ -381,13 +383,13 @@ const _ThemeSetupMobile = (prop) => {
                 <div className='MB_themeRow'>
 
                   <div className='navbarColor MB_themeGrid'>
-                    <label htmlFor="NavbarColor" className='MB_TC_small'>BG Color</label>
+                    <label htmlFor="NavbarColor" className='MB_TC_small'>Bar Color</label>
 
                     <button onClick={(e) => {
                       setOnoffColorPicker(true)
                       setNoSetTheme(1)
                       setNameTheme('navBarColor')
-                      clickColor(e)
+                      clickColor(navBarColor)
                     }} className="colorPickerItem borderPickC color_PBig color_PBig-Active" style={{ 'backgroundColor': `${navBarColor}` }} id='NavbarColor' ></button>
 
                   </div>
@@ -403,7 +405,7 @@ const _ThemeSetupMobile = (prop) => {
                       setOnoffColorPicker(true)
                       setNoSetTheme(1)
                       setNameTheme('navBarFontColor')
-                      clickColor(e)
+                      clickColor(navBarFontColor)
                     }} className="colorPickerItem borderPickC color_PBig color_PBig-Active" style={{ 'backgroundColor': `${navBarFontColor}` }} id='navBarFontColor'></button>
 
                   </div>
@@ -592,13 +594,13 @@ const _ThemeSetupMobile = (prop) => {
                 </div>
                 <div className='MB_themeRow'>
                   <div className="bodyFontColr MB_themeGrid">
-                    <label htmlFor="themeIconColorLine" className='MB_TC_small'>Line color</label>
+                    <label htmlFor="themeIconColorLine" className='MB_TC_small'>Line icon color</label>
 
                     <button onClick={(e) => {
                       setOnoffColorPicker(true)
                       setNoSetTheme(3)
                       setNameTheme('themeIconColorLine')
-                      clickColor(e)
+                      clickColor(themeIconColorLine)
                     }} className="colorPickerItem borderPickC color_PBig color_PBig-Active" style={{ 'backgroundColor': `${themeIconColorLine}` }} id='themeIconColorLine' >
                     </button>
 
@@ -607,13 +609,13 @@ const _ThemeSetupMobile = (prop) => {
                 <div className='MB_themeRow'>
 
                   <div className="bodyFontColr MB_themeGrid">
-                    <label htmlFor="themeIconBG" className='MB_TC_small'>BG Color</label>
+                    <label htmlFor="themeIconBG" className='MB_TC_small'>BG icon color</label>
 
                     <button onClick={(e) => {
                       setOnoffColorPicker(true)
                       setNoSetTheme(3)
                       setNameTheme('themeIconBG')
-                      clickColor(e)
+                      clickColor(themeIconBG)
                     }} className="colorPickerItem borderPickC color_PBig color_PBig-Active" style={{ 'backgroundColor': `${themeIconBG}` }} id='themeIconBG' >
                     </button>
 
@@ -630,7 +632,7 @@ const _ThemeSetupMobile = (prop) => {
                       setOnoffColorPicker(true)
                       setNoSetTheme(31)
                       setNameTheme('themeIconColorBorder')
-                      clickColor(e)
+                      clickColor(themeIconColorBorder)
                     }} className="colorPickerItem borderPickC color_PBig color_PBig-Active" style={{ 'backgroundColor': `${themeIconColorBorder}` }} id='themeIconColorBorder'>
                     </button>
 
@@ -667,7 +669,7 @@ const _ThemeSetupMobile = (prop) => {
                       setOnoffColorPicker(true)
                       setNoSetTheme(2)
                       setNameTheme('bodyBgColor')
-                      clickColor(e)
+                      clickColor(bodyBgColor)
                     }} className="colorPickerItem borderPickC color_PBig color_PBig-Active" style={{ 'backgroundColor': `${bodyBgColor}` }} id='bodyBgColor'>
                     </button>
 
@@ -684,7 +686,7 @@ const _ThemeSetupMobile = (prop) => {
                       setOnoffColorPicker(true)
                       setNoSetTheme(2)
                       setNameTheme('bodyFonttColor')
-                      clickColor(e)
+                      clickColor(bodyFonttColor)
                     }} className="colorPickerItem borderPickC color_PBig color_PBig-Active" style={{ 'backgroundColor': `${bodyFonttColor}` }} id='bodyFonttColor'>
                     </button>
                   </div>

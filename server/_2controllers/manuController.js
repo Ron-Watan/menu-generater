@@ -244,6 +244,11 @@ export const saveImage = (req, res) => {
       },
     };
     Images.create(image);
+    res.send({
+      message: 'Success',
+      images: image,
+      success: true,
+    });
   });
 };
 
@@ -252,6 +257,10 @@ export const delelteImage = (req, res) => {
 
   Images.findOneAndDelete({ imgId: imgId }).then((image) => {
     console.log('Delete Image');
+    res.send({
+      message: 'Success',
+      success: true,
+    });
   });
 };
 

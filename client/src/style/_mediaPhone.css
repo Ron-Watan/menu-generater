@@ -56,9 +56,9 @@
     display: none;
   }
 } */
-body {
-  background-color: #000 !important;
-}
+/* body {
+  background-color: #1D49DC !important;
+} */
 /* //- 0000 --------------------------------------------------------- */
 
 /* background: linear-gradient(to right top, #FE560F, #f0a000); */
@@ -453,7 +453,7 @@ body {
 }
 
 .MB_textTrash {
-  font-size: 0.7rem;
+  font-size: 0.55rem;
   font-weight: 400;
   white-space: nowrap;
 }
@@ -500,13 +500,14 @@ body {
 }
 .RemoveBtnSize {
   width: 7rem;
-  padding: 0.6rem 1rem;
+  padding: 0.4rem 0.5rem;
   color: #444;
-  font-weight: 300;
+  font-weight: 500;
   box-shadow: none;
   display: flex;
   gap: 0.2rem;
   border: 0.5px solid #333;
+  font-size: 0.6rem;
 }
 .CancelPadding {
   width: 5rem;
@@ -758,6 +759,12 @@ body {
   top: -100px;
   visibility: hidden;
 }
+.topForm {
+  display: block;
+  position: relative;
+  top: -100px;
+  visibility: hidden;
+}
 /* 4444 /////////////////////////////////////// */
 .MB_Make_PadingForm {
   padding-top: 5rem;
@@ -798,6 +805,8 @@ body {
 }
 .text_center {
   text-align: center;
+  padding-left: 0.5rem !important;
+  border-radius: 1.4rem !important;
 }
 .zIndexTop {
   z-index: 100;
@@ -1011,10 +1020,10 @@ body {
   font-weight: 400;
 }
 .redtagexpain {
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   font-weight: 300;
   font-style: italic;
-  padding-left: 1rem;
+  padding-left: 0.1rem;
   /* position: absolute;
   left: 5%;
   bottom: -50%; */
@@ -1561,11 +1570,19 @@ body {
   font-size: 1em;
   padding: 0.5rem;
   width: 6rem;
-
+  height: 2.5rem;
 }
 
-.swal2-cancel{
+.swal2-cancel {
   color: #000;
   background-color: transparent;
   border: 1px solid #000;
+}
+.swal2-deny {
+  font-size: 0.9rem;
+}
+
+
+:where(.swal2-styled).swal2-default-outline:focus {
+  box-shadow: none;
 }

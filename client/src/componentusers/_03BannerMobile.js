@@ -118,7 +118,7 @@ const _03BannerMobile = (prop) => {
     setChange(false)
     // dispath(showLoading())
 
-    setLoadingManual(true)
+    // setLoadingManual(true)
     axios
       .post(`${process.env.REACT_APP_API}/user/images/allBanner`, { userId: user.userId })
       .then((result) => {
@@ -135,7 +135,7 @@ const _03BannerMobile = (prop) => {
         setCurBanner(mapArrayBanner)
 
         // dispath(hideLoading());
-        setLoadingManual(false)
+        // setLoadingManual(false)
       })
       .catch((err) => {
         console.error(err);
@@ -211,7 +211,7 @@ const _03BannerMobile = (prop) => {
 
     getAllImageBanner();
 
-  }, [user]);
+  }, []);
 
   // useEffect(() => {
   //   getAllImageBanner()

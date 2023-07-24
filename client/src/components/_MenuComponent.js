@@ -369,6 +369,9 @@ const _MenuComponent = () => {
 
 
   // font-family: 'Roboto Slab', serif;
+  document.body.style.backgroundColor = '#000'
+
+
   const [loadingManual, setLoadingManual] = useState(true);
 
 
@@ -831,7 +834,10 @@ const _MenuComponent = () => {
 
 
 
-      <div className='extraSpace'></div>
+      <div className='extraSpace'
+      // style={{ 'height': `${themeSetup.navAndFootBar.navBarColor}` }}
+      
+      ></div>
 
 
 

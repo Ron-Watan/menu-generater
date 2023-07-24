@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 import { colorPalette } from '../componentusers/ColorPickerData.js'
 import { SketchPicker, ChromePicker } from 'react-color';
 import { Alpha } from 'react-color/lib/components/common';
-
+import { HexColorPicker, HexColorInput } from "react-colorful";
 // var { Alpha } = require('react-color/lib/components/common')
 const _ColorPickkerMobile = (prop) => {
   // prop.noSetTheme
@@ -33,11 +33,12 @@ const _ColorPickkerMobile = (prop) => {
     }
   }
 
-
   const [colorOnTray, setColorOnTray] = useState(prop.colorOnClick)
 
-  const getColorTray = (color, event) => {
-    let seeColor = color.hex
+  const getColorTray = (color) => {
+    // let seeColor = color.hex
+    let seeColor = color
+
     setColorOnTray(color)
     if (prop.noSetTheme === 1) {
       prop.setNavAndFootBar({ ...prop.navAndFootBar, [prop.nameTheme]: seeColor })
@@ -231,8 +232,11 @@ const _ColorPickkerMobile = (prop) => {
 
           {choosePallete === 'tray' &&
             <div className="MB_tray_position">
-              <ChromePicker lassName="MB_tray_Size"
-                value="ddd" color={colorOnTray} onChange={getColorTray} disableAlpha />
+
+              <HexColorPicker color={colorOnTray} onChange={getColorTray} />
+              <div className="colorBoxInput"><span className="colorBoxTray" style={{ 'backgroundColor': `${colorOnTray}` }} ></span><span># &nbsp;<HexColorInput className="MB_tray_input" color={colorOnTray} onChange={getColorTray} /></span> </div>
+              {/* <ChromePicker lassName="MB_tray_Size"
+                value="ddd" color={colorOnTray} onChange={getColorTray} disableAlpha /> */}
             </div>}
 
 
