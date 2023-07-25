@@ -167,12 +167,14 @@ const AcordionSubComp = (prop) => {
     axios
       .post(`${process.env.REACT_APP_API}/user/images/preview`, { imgId: prop.listMunu.imgId })
       .then((result) => {
+
         if (!result.data.images) {
           return setFile('')
           // return dispath(hideLoading());
         }
 
         const getResult = result.data.images;
+        console.log(getResult)
         const base64Flag = 'data:image/png;base64,';
         const imageStr = arrayBufferToBase64(getResult.img.data.data);
         const tagImage = base64Flag + imageStr;
@@ -194,7 +196,7 @@ const AcordionSubComp = (prop) => {
   useEffect(() => {
     getImage();
   }, []);
-  console.log(prop.themeSetup.body.bodyFonttColor)
+
 
   const heartIcon = {
     favor1: 'favor1.svg', favor2: 'favor2.svg',

@@ -21,7 +21,8 @@ export const getClentMenu = (req, res) => {
 
 export const getAllImageBanner = (req, res) => {
   const { link } = req.params
-  Banners.find({ link: link }).then(result => {
+  Banners.findOne({ link: link }).then(result => {
+
     res.send({
       message: 'Success',
       images: result,
@@ -32,7 +33,7 @@ export const getAllImageBanner = (req, res) => {
 }
 
 export const sentfeedBack = (req, res) => {
-  console.log('Helloget  sent feedBack')
+
   const { link } = req.params
   const { feedBack } = req.body;
   Clients.findOne({ link: link })

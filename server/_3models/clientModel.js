@@ -33,7 +33,11 @@ const clientSchema = mongoose.Schema(
       default: {},
     },
     themeSetup: {
-      type: 'Object',
+      type: Object,
+      default: {},
+    },
+    onOffSetting: {
+      type: Object,
       default: {},
     },
     unseenFeedBack: {

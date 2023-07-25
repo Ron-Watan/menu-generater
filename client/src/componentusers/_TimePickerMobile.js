@@ -33,11 +33,17 @@ const _TimePickerMobile = (prop) => {
     minsM3: '00',
   });
 
+  const [checkTimeChange, setCheckTimeChange] = useState(false)
+
+
   const timeStartFn = (name) => (e) => {
+    setCheckTimeChange(true)
     setTimeStart({ ...timeStart, [name]: e.target.value });
   };
 
   const timeEndFn = (name) => (e) => {
+    setCheckTimeChange(true)
+
     setTimeEnd({ ...timeEnd, [name]: e.target.value });
   };
 
@@ -62,6 +68,8 @@ const _TimePickerMobile = (prop) => {
   let check_2 = false;
   let check_3 = false;
 
+  const [errorTimeSet, setErrorTimeSet] = useState(false)
+
 
   function menu_1() {
     //-
@@ -72,13 +80,15 @@ const _TimePickerMobile = (prop) => {
     const endSliceM1 = timePicker.indexOf(arrayEndM1);
 
     if (startSliceM1 === -1 || endSliceM1 === -1) {
-      alert('time 1 slice no match');
+      // alert('time 1 slice no match');
+      setErrorTimeSet(true)
       return (check_1 = false);
     }
 
     const minusM1 = endSliceM1 - startSliceM1;
     if (minusM1 <= 0) {
-      alert('time 1 minus no match');
+      // alert('time 1 minus no match');
+      setErrorTimeSet(true)
       return (check_1 = false);
     }
 
@@ -86,7 +96,8 @@ const _TimePickerMobile = (prop) => {
 
     setSumTimeM1({ start: arrayStartM1, end: arrayEndM1 + 59 });
 
-    console.log('Complete Schedule 1');
+    // console.log('Complete Schedule 1');
+
     return (check_1 = true);
   }
 
@@ -99,26 +110,30 @@ const _TimePickerMobile = (prop) => {
     console.log(startSliceM2, endSliceM2);
 
     if (startSliceM2 === -1 || endSliceM2 === -1) {
-      alert('time 2 slice no match');
+      // alert('time 2 slice no match');
+      setErrorTimeSet(true)
       return (check_2 = false);
     }
 
     const minusM2 = endSliceM2 - startSliceM2;
     if (minusM2 <= 0) {
-      alert('time 2 minus no match');
+      // alert('time 2 minus no match');
+      setErrorTimeSet(true)
       return (check_2 = false);
     }
 
     const checklengthBase2 = checklengthBase(arrayStartM2, arrayEndM2);
     const checklengthM2 = timePicker.splice(startSliceM2, minusM2 + 1).length;
     if (checklengthBase2 !== checklengthM2) {
-      alert('!!!!');
+      // alert('!!!!');
+      setErrorTimeSet(true)
       return (check_2 = false);
     }
 
     setSumTimeM2({ start: arrayStartM2, end: arrayEndM2 + 59 });
 
-    console.log('Complete Schedule 2');
+    // console.log('Complete Schedule 2');
+
     return (check_2 = true);
   }
 
@@ -130,25 +145,28 @@ const _TimePickerMobile = (prop) => {
     const endSliceM3 = timePicker.indexOf(arrayEndM3);
 
     if (startSliceM3 === -1 || endSliceM3 === -1) {
-      alert('time 3 slice no match');
+      // alert('time 3 slice no match');
+      setErrorTimeSet(true)
       return (check_3 = false);
     }
     const minusM3 = endSliceM3 - startSliceM3;
     if (minusM3 <= 0) {
-      alert('time 3 minus no match');
+      // alert('time 3 minus no match');
+      setErrorTimeSet(true)
       return (check_3 = false);
     }
     const checklengthBase3 = checklengthBase(arrayStartM3, arrayEndM3);
     const checklengthM3 = timePicker.splice(startSliceM3, minusM3 + 1).length;
     if (checklengthBase3 !== checklengthM3) {
-      alert('!!!!');
+      // alert('!!!!');
+      setErrorTimeSet(true)
       return (check_3 = false);
     }
 
 
     setSumTimeM3({ start: arrayStartM3, end: arrayEndM3 + 59 });
 
-    console.log('Complete Schedule 3');
+    // console.log('Complete Schedule 3');
     return (check_3 = true);
   }
 
@@ -210,10 +228,12 @@ const _TimePickerMobile = (prop) => {
   });
 
   const menuAllDayTypeValue = (name) => {
+    setCheckTimeChange(true)
     setMenuAllDayType({ ...menuAllDayType, [name]: !menuAllDayType[name] });
   };
 
   const setTimeTypeFn = (valBool) => {
+    setCheckTimeChange(true)
     if (valBool === true) {
       setTimeType(true);
       setSumTimeM1({ start: '', end: '' });
@@ -224,6 +244,7 @@ const _TimePickerMobile = (prop) => {
   };
 
   const menuSelectTypeValue = (name, e) => {
+    setCheckTimeChange(true)
     if (e.target.checked) {
       setMenuSelectType({ ...menuSelectType, [name]: e.target.value });
     } else {
@@ -237,6 +258,7 @@ const _TimePickerMobile = (prop) => {
   let code = menuSelectType.menu_1 + menuSelectType.menu_2 + menuSelectType.menu_3;
 
   const [windowConfirm, setWindowConfirm] = useState(false);
+
 
   const setTimeValue = (code) => {
     if (timeType) return setWindowConfirm(true);
@@ -287,7 +309,7 @@ const _TimePickerMobile = (prop) => {
 
   const saveTimeSetup = () => {
     // dispath(showLoading());
-
+    console.log('save')
     axios
       .post(
         `${process.env.REACT_APP_API}/user/saveTimeSetup`,
@@ -311,15 +333,16 @@ const _TimePickerMobile = (prop) => {
           // Swal.fire(result.data.message)
           dispath(setUser(result.data.userMenu));
           // dispath(hideLoading());
+
           Swal.fire({
-            title: 'SAVED',
-            text: 'Your menu has been saved',
+            title: 'Saved',
             toast: true,
             icon: 'success',
             showConfirmButton: false,
-            iconColor: '#cb2722',
-            timer: 2000,
-          });
+            timer: 1500,
+          }).then(nothinh => {
+            prop.setOnOffTimePicker_MB(false);
+          })
         } else {
           Swal.fire(result.data.message);
           // dispath(hideLoading());
@@ -332,26 +355,7 @@ const _TimePickerMobile = (prop) => {
       });
   };
 
-  // const fu = () => {
-  //   reverseToTimeStart(sumTimeM1.start) - reverseToTimeEnd(sumTimeM1.end)
-  //   reverseToTimeStart(sumTimeM2.start) - reverseToTimeEnd(sumTimeM2.end)
-  //   reverseToTimeStart(sumTimeM3.start) - reverseToTimeEnd(sumTimeM3.end)
-  // }
-  // const [timeStart1, setTimeStart1] = useState({
-  //   hrsM1: '00', minsM1: '00',
-  //   hrsM2: '00', minsM2: '00',
-  //   hrsM3: '00', minsM3: '00'
-  // })
 
-  // const [timeEnd1, setTimeEnd1] = useState({
-  //   hrsM1: '00', minsM1: '00',
-  //   hrsM2: '00', minsM2: '00',
-  //   hrsM3: '00', minsM3: '00'
-  // })
-  // reverseStartHrs()
-  // reverseStartMins()
-  // reverseEndHrs()
-  // reverseEndMins()
 
   const getTimeFromProp = () => {
     setTimeType(prop.timeSetup.timeType);
@@ -382,46 +386,83 @@ const _TimePickerMobile = (prop) => {
     });
   };
 
-  // useEffect(() => {
-  //   if (prop.navTime2TimePicker) {
-  //     getTimeFromProp();
-  //   }
-  // }, [prop.navTime2TimePicker]);
+
+  const checkTimeChangeFn = () => {
+
+    if (checkTimeChange) {
+      Swal.fire({
+        title: 'Do you want to save the changes?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Save',
+        denyButtonText: `Don't save`,
+        confirmButtonColor: '#f56e4f',
+
+      }).then((result) => {
+        if (result.isConfirmed) {
+          setTimeValue(code);
+          setTimePicker([...timePickerData]);
+          setCheckTimeChange(false)
+          // if (validation(saveSubmitFn) === true) {
+          //   setTimeout(() => {
+          //     prop.setCheckInputForm(false)
+          //     prop.setStart(false)
+          //     prop.setMenuId('')
+          //   }, 1500);
+          // }
+
+        } else if (result.isDenied) {
+          getTimeFromProp()
+          setTimeout(() => {
+            prop.setOnOffTimePicker_MB(false)
+            setCheckTimeChange(false)
+          }, 500);
+        }
+      })
+
+    } else {
+
+      prop.setOnOffTimePicker_MB(false)
+      setCheckTimeChange(false)
+      // if (prop.checkEditImg) prop.getAllImage()
+      // if (prop.listMenu.length === 0) {
+      // prop.setListMenu([prop.listMenuModel])
+      // }
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+  useEffect(() => {
+    if (errorTimeSet) {
+      Swal.fire({
+        title: 'Invalid input',
+        toast: true,
+        icon: 'error',
+        showConfirmButton: false,
+
+        timer: 1500,
+      });
+      setErrorTimeSet(false)
+    }
+    if (windowConfirm) {
+      saveTimeSetup();
+    }
+
+  }, [timePicker])
+
   useEffect(() => {
     if (prop.navTime2TimePicker) {
       getTimeFromProp();
     }
   }, [prop.navTime2TimePicker]);
-  // const [countForInfo, setCountForInfo] = useState(0);
-  // let count = 0;
-  // const countData=
-  // for (let x in menuAllDayType) {
-  //   if (menuAllDayType[x]) {
-  //     count++;
-  //   }
-  //   setCountForInfo(count);
-  // }
-  // console.log(countForInfo);
-  // qqq
-  // const [timeM, setTimeM] = useState(0)
-  // const [timeM1, setTimeM1] = useState(0)
-  // const [timeM2, setTimeM2] = useState(0)
-
-
-  // let rrr = 0
-  // const testTime = (e) => {
-
-  //   setTimeM(testTime + (e.target.value - timeM))
-  // }
-  // const testTime1 = (e) => {
-  //   setTimeM1(e.target.value)
-
-  //   setTimeM1(timeM1 + (e.target.value - timeM1))
-  // }
-  // const testTime2 = (e) => {
-
-  //   setTimeM2(e.target.value)
-  // }
 
 
   //-///-///-///-///-///-///-///-///-   END FUNCTION   ///-///-///-///-///-///-///-///-///-
@@ -432,7 +473,7 @@ const _TimePickerMobile = (prop) => {
 
         <div className="GruopBtn">
           <button onClick={() => {
-            prop.setOnOffTimePicker_MB(false)
+            checkTimeChangeFn()
           }} className="MB_Btn MB_Btn_Border">
             <img src={MBiconClose} alt="" />
           </button>
@@ -522,61 +563,6 @@ const _TimePickerMobile = (prop) => {
 
               </div>
 
-              {/* <div className="MB_timePikerRow flex_start" >
-                <div className="MB_Time_flexBox">
-
-                  <div className='MB_titleTime'>{prop.menuName.menu_1}</div>
-                </div>
-
-                <label className={`containerSwitch switchLang  ${!timeType && 'opcaityTime'}`}>
-
-
-                  <input onChange={() => menuAllDayTypeValue('menu_1')} type='checkbox' name='menu_1' checked={timeType && menuAllDayType.menu_1} disabled={!timeType} />
-                  <span className='sliderLang forOFLang2'></span>
-
-                </label>
-
-
-              </div> */}
-              {/* <div className="MB_timePikerRow flex_start">
-                <div className="MB_Time_flexBox">
-                  <div className='MB_titleTime'>{prop.menuName.menu_2}</div>
-                </div>
-
-                <label className={`containerSwitch switchLang  ${!timeType && 'opcaityTime'}`}>
-
-
-
-                  <input onChange={() => menuAllDayTypeValue('menu_2')} type='checkbox' name='menu_2' checked={timeType && menuAllDayType.menu_2} id='' disabled={!timeType} />
-                  <span className='sliderLang forOFLang2'></span>
-
-                </label>
-
-
-
-
-
-
-
-              </div> */}
-              {/* <div className="MB_timePikerRow flex_start">
-                <div className="MB_Time_flexBox">
-                  <div className='MB_titleTime'>{prop.menuName.menu_3}</div>
-                </div>
-
-
-
-                <label className={`containerSwitch switchLang  ${!timeType && 'opcaityTime'}`}>
-
-
-
-                  <input onChange={() => menuAllDayTypeValue('menu_3')} type='checkbox' name='menu_3' checked={timeType && menuAllDayType.menu_3} id='' disabled={!timeType} />
-                  <span className='sliderLang forOFLang2'></span>
-
-                </label>
-              </div> */}
-
-
 
 
 
@@ -598,7 +584,10 @@ const _TimePickerMobile = (prop) => {
             <label htmlFor='MBschedule' className='MB_flexHeaderTime'>
 
               <div className='MB_TimeRadioBtn'>
-                <input onChange={() => setTimeType(false)} type='radio' name='MBtimeType' id='MBschedule' checked={!timeType} />
+                <input onChange={() => {
+                  setTimeType(false)
+                  setCheckTimeChange(true)
+                }} type='radio' name='MBtimeType' id='MBschedule' checked={!timeType} />
               </div>
               <span>Schedule</span>
             </label>
@@ -621,11 +610,13 @@ const _TimePickerMobile = (prop) => {
               </div>
               <div className="MB_BorderBt"></div>
 
-              <div className={`MB_OF_Flex `}>
+              <div className={`MB_OF_Flex MB_OF_Flex_ex`}>
                 <div className={`timePikerContainer MB_timeInput `}>
                   <div className={`MB_flexTime  ${menuSelectType.menu_1 !== '1' && 'opcaityTime'}`}>
+
                     <div className='timeBox'>
                       <div className='MB_inputTime'>
+
                         <select value={timeStart.hrsM1} onChange={timeStartFn('hrsM1')} name='hrsM1' id='' disabled={menuSelectType.menu_1 !== '1'} className=''>
                           <option value='00'>00</option>
                           <option value='01'>01</option>
@@ -666,6 +657,7 @@ const _TimePickerMobile = (prop) => {
                     <div className='textTo'>to</div>
 
                     <div className='timeBox'>
+                  
                       <div className='MB_inputTime'>
                         <select value={timeEnd.hrsM1} onChange={timeEndFn('hrsM1')} name='hrsM1' id='' disabled={menuSelectType.menu_1 !== '1'} className=''>
                           <option value='00'>00</option>
@@ -710,6 +702,8 @@ const _TimePickerMobile = (prop) => {
                       </div>
                     </div>
                   </div>
+                  <span className='oclock'>*24-hour clock</span>
+
                 </div>
               </div>
 
@@ -821,6 +815,8 @@ const _TimePickerMobile = (prop) => {
                       </div>
                     </div>
                   </div>
+                  <span className='oclock'>*24-hour clock</span>
+
                 </div>
               </div>
 
@@ -932,367 +928,12 @@ const _TimePickerMobile = (prop) => {
 
                     </div>
                   </div>
+                  <span className='oclock'>*24-hour clock</span>
+
                 </div>
               </div>
 
             </div>
-
-
-
-
-
-
-
-
-
-            {/* <div className="MB_timePikerGrid2">
-
-
-
-              <div className="MB_timePikerRow">
-                <div className="MB_Time_flexBox">
-                  <div className='MB_titleTime'>{prop.menuName.menu_1}</div>
-                </div>
-
-
-                <label className={`containerSwitch switchLang  ${timeType && 'opcaityTime'}`}>
-
-                  <input onChange={(e) => menuSelectTypeValue('menu_1', e)} type='checkbox' checked={!timeType && menuSelectType.menu_1} name='menu_1' value='1' id='' disabled={timeType} />
-                  <span className='sliderLang forOFLang2'></span>
-
-                </label>
-
-
-                <div className={`timePikerContainer MB_timeInput `}>
-                  <div className={`MB_flexTime  ${menuSelectType.menu_1 !== '1' && 'opcaityTime'}`}>
-                    <div className='timeBox'>
-                      <div className='MB_inputTime'>
-                        <select value={timeStart.hrsM1} onChange={timeStartFn('hrsM1')} name='hrsM1' id='' disabled={menuSelectType.menu_1 !== '1'} className=''>
-                          <option value='00'>00</option>
-                          <option value='01'>01</option>
-                          <option value='02'>02</option>
-                          <option value='03'>03</option>
-                          <option value='04'>04</option>
-                          <option value='05'>05</option>
-                          <option value='06'>06</option>
-                          <option value='07'>07</option>
-                          <option value='08'>08</option>
-                          <option value='09'>09</option>
-                          <option value='10'>10</option>
-                          <option value='11'>11</option>
-                          <option value='12'>12</option>
-                          <option value='13'>13</option>
-                          <option value='14'>14</option>
-                          <option value='15'>15</option>
-                          <option value='16'>16</option>
-                          <option value='17'>17</option>
-                          <option value='18'>18</option>
-                          <option value='19'>19</option>
-                          <option value='20'>20</option>
-                          <option value='21'>21</option>
-                          <option value='22'>22</option>
-                          <option value='23'>23</option>
-                        </select>
-
-                        <span className='MB_px'>:</span>
-                        <select onChange={timeStartFn('minsM1')} name='mins' id='' disabled={menuSelectType.menu_1 !== '1'} className=''>
-                          <option value='00'>00</option>
-                          <option value='15'>15</option>
-                          <option value='30'>30</option>
-                          <option value='45'>45</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <div className='textTo'>to</div>
-
-                    <div className='timeBox'>
-                      <div className='MB_inputTime'>
-                        <select value={timeEnd.hrsM1} onChange={timeEndFn('hrsM1')} name='hrsM1' id='' disabled={menuSelectType.menu_1 !== '1'} className=''>
-                          <option value='00'>00</option>
-                          <option value='01'>01</option>
-                          <option value='02'>02</option>
-                          <option value='03'>03</option>
-                          <option value='04'>04</option>
-                          <option value='05'>05</option>
-                          <option value='06'>06</option>
-                          <option value='07'>07</option>
-                          <option value='08'>08</option>
-                          <option value='09'>09</option>
-                          <option value='10'>10</option>
-                          <option value='11'>11</option>
-                          <option value='12'>12</option>
-                          <option value='13'>13</option>
-                          <option value='14'>14</option>
-                          <option value='15'>15</option>
-                          <option value='16'>16</option>
-                          <option value='17'>17</option>
-                          <option value='18'>18</option>
-                          <option value='19'>19</option>
-                          <option value='20'>20</option>
-                          <option value='21'>21</option>
-                          <option value='22'>22</option>
-                          <option value='23'>23</option>
-                          <option value='24'>24</option>
-                        </select>
-                        <span className='MB_px'>:</span>
-                        <select value={timeEnd.minsM1} onChange={timeEndFn('minsM1')} name='minsM1' id='' disabled={menuSelectType.menu_1 !== '1'} className=''>
-                          <option value='00'>00</option>
-                          {timeEnd.hrsM1 === '24' ? (
-                            ''
-                          ) : (
-                            <>
-                              <option value='15'>15</option>
-                              <option value='30'>30</option>
-                              <option value='45'>45</option>
-                            </>
-                          )}
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-
-
-              </div>
-              <div className="MB_timePikerRow">
-                <div className="MB_Time_flexBox">
-                  <div className='MB_titleTime'>{prop.menuName.menu_2}</div>
-                </div>
-                <label className={`containerSwitch switchLang  ${timeType && 'opcaityTime'}`}>
-
-
-                  <input onChange={(e) => menuSelectTypeValue('menu_2', e)} type='checkbox' checked={!timeType && menuSelectType.menu_2} name='menu_2' value='2' id='' disabled={timeType} />
-                  <span className='sliderLang forOFLang2'></span>
-
-                </label>
-
-
-                <div className={`timePikerContainer MB_timeInput `}>
-                  <div className={`MB_flexTime  ${menuSelectType.menu_2 !== '2' && 'opcaityTime'}`}>
-                    <div className={`timeBox`}>
-                      <div className='MB_inputTime'>
-                        <select value={timeStart.hrsM2} onChange={timeStartFn('hrsM2')} name='hrsM2' id='' disabled={menuSelectType.menu_2 !== '2'} className=''>
-                          <option value='00'>00</option>
-                          <option value='01'>01</option>
-                          <option value='02'>02</option>
-                          <option value='03'>03</option>
-                          <option value='04'>04</option>
-                          <option value='05'>05</option>
-                          <option value='06'>06</option>
-                          <option value='07'>07</option>
-                          <option value='08'>08</option>
-                          <option value='09'>09</option>
-                          <option value='10'>10</option>
-                          <option value='11'>11</option>
-                          <option value='12'>12</option>
-                          <option value='13'>13</option>
-                          <option value='14'>14</option>
-                          <option value='15'>15</option>
-                          <option value='16'>16</option>
-                          <option value='17'>17</option>
-                          <option value='18'>18</option>
-                          <option value='19'>19</option>
-                          <option value='20'>20</option>
-                          <option value='21'>21</option>
-                          <option value='22'>22</option>
-                          <option value='23'>23</option>
-                        </select>
-                        <span className='MB_px'>:</span>
-                        <select onChange={timeStartFn('minsM2')} name='minsM2' id='' disabled={menuSelectType.menu_2 !== '2'} className=''>
-                          <option value='00'>00</option>
-                          <option value='15'>15</option>
-                          <option value='30'>30</option>
-                          <option value='45'>45</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <div className={`textTo`}>to</div>
-
-                    <div className='timeBox'>
-                      <div className='MB_inputTime'>
-                        <select value={timeEnd.hrsM2} onChange={timeEndFn('hrsM2')} name='hrsM2' id='' disabled={menuSelectType.menu_2 !== '2'} className=''>
-                          <option value='00'>00</option>
-                          <option value='01'>01</option>
-                          <option value='02'>02</option>
-                          <option value='03'>03</option>
-                          <option value='04'>04</option>
-                          <option value='05'>05</option>
-                          <option value='06'>06</option>
-                          <option value='07'>07</option>
-                          <option value='08'>08</option>
-                          <option value='09'>09</option>
-                          <option value='10'>10</option>
-                          <option value='11'>11</option>
-                          <option value='12'>12</option>
-                          <option value='13'>13</option>
-                          <option value='14'>14</option>
-                          <option value='15'>15</option>
-                          <option value='16'>16</option>
-                          <option value='17'>17</option>
-                          <option value='18'>18</option>
-                          <option value='19'>19</option>
-                          <option value='20'>20</option>
-                          <option value='21'>21</option>
-                          <option value='22'>22</option>
-                          <option value='23'>23</option>
-                          <option value='24'>24</option>
-                        </select>
-                        <span className='MB_px'>:</span>
-                        <select value={timeEnd.minsM2} onChange={timeEndFn('minsM2')} name='minsM2' id='' disabled={menuSelectType.menu_2 !== '2'} className=''>
-                          <option value='00'>00</option>
-                          {timeEnd.hrsM2 === '24' ? (
-                            ''
-                          ) : (
-                            <>
-                              <option value='15'>15</option>
-                              <option value='30'>30</option>
-                              <option value='45'>45</option>
-                            </>
-                          )}
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="MB_timePikerRow">
-
-                <div className="MB_Time_flexBox">
-                  <div className='MB_titleTime'>{prop.menuName.menu_3}</div>
-                </div>
-
-                <label className={`containerSwitch switchLang  ${timeType && 'opcaityTime'}`}>
-
-                  <input onChange={(e) => menuSelectTypeValue('menu_3', e)} type='checkbox' checked={!timeType && menuSelectType.menu_3} name='menu_3' value='3' id='' disabled={timeType} />
-                  <span className='sliderLang forOFLang2'></span>
-
-                </label>
-
-
-                <div className={`timePikerContainer MB_timeInput`}>
-                  <div className={`MB_flexTime  ${menuSelectType.menu_3 !== '3' && 'opcaityTime'}`}>
-                    <div className='timeBox'>
-                      <div className='MB_inputTime'>
-                        <select value={timeStart.hrsM3} onChange={timeStartFn('hrsM3')} name='hrsM3' id='' disabled={menuSelectType.menu_3 !== '3'} className=''>
-                          <option value='00'>00</option>
-                          <option value='01'>01</option>
-                          <option value='02'>02</option>
-                          <option value='03'>03</option>
-                          <option value='04'>04</option>
-                          <option value='05'>05</option>
-                          <option value='06'>06</option>
-                          <option value='07'>07</option>
-                          <option value='08'>08</option>
-                          <option value='09'>09</option>
-                          <option value='10'>10</option>
-                          <option value='11'>11</option>
-                          <option value='12'>12</option>
-                          <option value='13'>13</option>
-                          <option value='14'>14</option>
-                          <option value='15'>15</option>
-                          <option value='16'>16</option>
-                          <option value='17'>17</option>
-                          <option value='18'>18</option>
-                          <option value='19'>19</option>
-                          <option value='20'>20</option>
-                          <option value='21'>21</option>
-                          <option value='22'>22</option>
-                          <option value='23'>23</option>
-                        </select>
-                        <span className='MB_px'>:</span>
-                        <select onChange={timeStartFn('minsM3')} name='minsM3' id='' disabled={menuSelectType.menu_3 !== '3'} className=''>
-                          <option value='00'>00</option>
-                          <option value='15'>15</option>
-                          <option value='30'>30</option>
-                          <option value='45'>45</option>
-                        </select>
-
-
-                      </div>
-                    </div>
-
-                    <div className='textTo'>to</div>
-
-                    <div className='timeBox'>
-                      <div className='MB_inputTime'>
-                        <select value={timeEnd.hrsM3} onChange={timeEndFn('hrsM3')} name='hrsM3' id='' disabled={menuSelectType.menu_3 !== '3'} className=''>
-                          <option value='00'>00</option>
-                          <option value='01'>01</option>
-                          <option value='02'>02</option>
-                          <option value='03'>03</option>
-                          <option value='04'>04</option>
-                          <option value='05'>05</option>
-                          <option value='06'>06</option>
-                          <option value='07'>07</option>
-                          <option value='08'>08</option>
-                          <option value='09'>09</option>
-                          <option value='10'>10</option>
-                          <option value='11'>11</option>
-                          <option value='12'>12</option>
-                          <option value='13'>13</option>
-                          <option value='14'>14</option>
-                          <option value='15'>15</option>
-                          <option value='16'>16</option>
-                          <option value='17'>17</option>
-                          <option value='18'>18</option>
-                          <option value='19'>19</option>
-                          <option value='20'>20</option>
-                          <option value='21'>21</option>
-                          <option value='22'>22</option>
-                          <option value='23'>23</option>
-                          <option value='24'>24</option>
-                        </select>
-                        <span className='MB_px'>:</span>
-                        <select value={timeEnd.minsM3} onChange={timeEndFn('minsM3')} name='minsM3' id='' disabled={menuSelectType.menu_3 !== '3'} className=''>
-                          <option value='00'>00</option>
-                          {timeEnd.hrsM3 === '24' ? (
-                            ''
-                          ) : (
-                            <>
-                              <option value='15'>15</option>
-                              <option value='30'>30</option>
-                              <option value='45'>45</option>
-                            </>
-                          )}
-                        </select>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-
-
-
-
-
-
-
-
-
-
-
-         
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            </div> */}
 
           </div>
 
@@ -1310,21 +951,25 @@ const _TimePickerMobile = (prop) => {
 
             <button
               onClick={() => {
+                // setWindowConfirmFn()
                 setTimeValue(code);
                 setTimePicker([...timePickerData]);
               }}
               className='MB_Sq_Btn SaveBtnSize MB_Btn_Color  MB_G2'>
 
-              <span>Confirm</span>
+              <span>Save</span>
             </button>
 
             {/* CANCEL BUTTON */}
-            <button onClick={() => getTimeFromProp()}
+            {/* <button onClick={() => {
+              getTimeFromProp()
+              setCheckTimeChange(false)
+            }}
               className='MB_Sq_Btn CancelPadding MB_Btn_Border MB_G3'>
 
 
               <span>Cancel</span>
-            </button>
+            </button> */}
 
           </div>
         </div>
@@ -1334,7 +979,7 @@ const _TimePickerMobile = (prop) => {
 
 
 
-        {windowConfirm && (
+        {false && (
           <div className='MB_timePikerGrid-confirm'>
             {timeType && (
               <div className='timePikerResultBox'>
@@ -1406,13 +1051,13 @@ const _TimePickerMobile = (prop) => {
                 }}
                 className='MB_Sq_Btn MB_Btn_Color MB_G2'>
 
-                <span>Confirm</span>
+                <span>Confirm222</span>
               </button>
 
               <button onClick={() => setWindowConfirm(false)} className='MB_Sq_Btn MB_Btn_Border MB_G3'>
 
 
-                <span>Cancle</span>
+                <span>Cancel</span>
               </button>
             </div>
           </div>

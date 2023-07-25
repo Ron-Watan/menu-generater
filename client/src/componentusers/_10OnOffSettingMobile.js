@@ -23,9 +23,9 @@ const _10OnOffSettingMobile = (prop) => {
     description: '', accordian: '', footbar: '', langIcon: '', favoritHeart: '', feedBack: ''
   })
 
-
+  const [checkUpdateOnOff, setCheckUpdateOnOff] = useState(false)
   const onOffCheckBox = (name) => {
-
+    setCheckUpdateOnOff(true)
     setOnOffSetting({ ...onOffSetting, [name]: !onOffSetting[name] })
   }
   // console.log(onOffSetting)
@@ -53,6 +53,31 @@ const _10OnOffSettingMobile = (prop) => {
       });
   };
 
+
+  useEffect(() => {
+    if (checkUpdateOnOff) {
+      saveOnOffSetting()
+      setCheckUpdateOnOff(false)
+    }
+ 
+
+  }, [onOffSetting])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const getOnOffFromProp = () => {
     setOnOffSetting(prop.onOffSetting);
   };
@@ -63,13 +88,17 @@ const _10OnOffSettingMobile = (prop) => {
     }
   }, [prop.navOnOff2OnOffSetting]);
 
+
+
+
+
   return (
     <div className="MB_FullPage_Container">
       <div className="topBar_function backdrop_blur">
         <div className="GruopBtn">
           <button
             onClick={() => {
-              saveOnOffSetting()
+              // saveOnOffSetting()
               prop.setOnOffSetting_MB(false)
             }}
             className='MB_Btn MB_Btn_Border'>
@@ -92,7 +121,7 @@ const _10OnOffSettingMobile = (prop) => {
       <div className="MB_AB_FullAgain zindexUnder1 ">
         <div className="MB_2LangLayout_Grid ">
           <div className="">
-            <div className="MB_InScroll_fullNew paddingBottom_5 BlueLinear overScroll_none">
+            <div className="MB_InScroll_fullNew paddingBottom_5 overScroll_none">
 
 
               <div className="MB_OnOffContainer ">

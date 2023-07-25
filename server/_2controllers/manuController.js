@@ -290,7 +290,7 @@ export const getImage = (req, res) => {
 export const getAllImageBanner = (req, res) => {
   const { userId } = req.body;
   // console.log(userId)
-  Banners.find({ userId: userId }).then((result) => {
+  Banners.findOne({ userId: userId }).then((result) => {
     res.send({
       message: 'Success',
       images: result,
@@ -299,7 +299,7 @@ export const getAllImageBanner = (req, res) => {
   });
 };
 
-export const uploadImageBanner = (req, res) => {
+export const uploadImageBanner1 = (req, res) => {
   const { userId, link } = req.body;
   const arrayBannerImg = req.files;
   Banners.deleteMany({ userId: userId }).then((result) => {
@@ -329,19 +329,38 @@ export const uploadImageBanner = (req, res) => {
     });
 
   });
-
-  // Users.findOne({ userId: userId }).select('bannerImage').then(user => {
-  //   const bannerId = originalname
-  //   user.bannerImage.push(bannerId)
-  //   user.save()
-  //   res.send({
-  //     message: 'Success',
-  //     userBanner: user,
-  //     success: true
-  //   });
-  // })
 };
 
+export const uploadImageBanner = (req, res) => {
+  const { userId, link } = req.body;
+
+  const arrayBannerImg = req.files;
+  Banners.findOne({ userId: userId }).then(banner => {
+
+    const createAddress = arrayBannerImg.map((el) => {
+      fs.access('./images/', (err) => {
+        if (err) {
+          fs.mkdirSync('./images/');
+        }
+      });
+      return {
+        data: fs.readFileSync(path.join('./images/' + el.filename)),
+        contentType: 'image/png',
+        size: el.size / 1000
+      }
+
+    });
+
+    banner.bannerImage = createAddress
+    banner.save();
+    res.send({
+      message: 'Success',
+      images: banner,
+      success: true,
+    });
+
+  });
+};
 export const saveTimeSetup = (req, res) => {
 
   const { userId, timeSetup } = req.body;

@@ -1,5 +1,6 @@
 import Users from "../_3models/menuModel.js"
 import Clients from "../_3models/clientModel.js";
+import Banners from '../_3models/bannerModel.js';
 import { v4 as uuidv4 } from 'uuid';
 import bcrypt from "bcryptjs"
 import jwt from 'jsonwebtoken'
@@ -21,7 +22,7 @@ export const register = (req, res) => {
 
       Users.create(req.body).then(result => {
 
-        const { clientId, link, menuName, bannerImage, languageSetup, timeSetup, themeSetup } = result;
+        const { clientId, link, menuName, bannerImage, languageSetup, timeSetup, themeSetup, onOffSetting } = result;
 
         Clients.create({
           clientId: clientId,
@@ -31,7 +32,13 @@ export const register = (req, res) => {
           languageSetup: languageSetup,
           timeSetup: timeSetup,
           themeSetup: themeSetup,
+          onOffSetting: onOffSetting,
         })
+        Banners.create({
+          link: link,
+          userId: req.body.userId,
+        })
+
 
 
 

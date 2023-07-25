@@ -383,11 +383,11 @@ const _MenuComponent = () => {
 
 
       <i className="x">!Theme</i>
-      <div className={`${loadingManual ? 'showMe' : 'hiddenMe'} bannerLoadingMaain`}>
+      {/* <div className={`${loadingManual ? 'showMe' : 'hiddenMe'} bannerLoadingMaain`}>
         <div className='iconLoadingBanner'>
           <span className='barOne'></span> <span className='barTwo'></span> <span className='barThree'></span>
         </div>
-      </div>
+      </div> */}
 
 
       <div className=' mobileViewport_Wrapper'>

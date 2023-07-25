@@ -44,7 +44,7 @@ const _04MobileLanguage = (prop) => {
       return false
     }
   }
-  console.log(prop.checkInputForm)
+
   const checkInputFormFn = () => {
 
     if (prop.checkInputForm) {

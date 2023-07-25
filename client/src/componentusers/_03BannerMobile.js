@@ -10,12 +10,11 @@ import { hideLoading, showLoading } from '../redux/alertSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import Resizer from 'react-image-file-resizer';
 import SwipeToDelete from 'react-swipe-to-delete-ios'
+import Swal from 'sweetalert2'
 
 const _03BannerMobile = (prop) => {
 
-
   const [indexDot, setIndexDot] = useState(0)
-
   function setFinishedIndex(i) {
     prop.setIndexToBanner(i)
   };
@@ -24,6 +23,8 @@ const _03BannerMobile = (prop) => {
   const { user } = useSelector((state) => state.user);
 
   const [loadingManual, setLoadingManual] = useState(false)
+
+  const [checkBannerChange, setCheckBannerChange] = useState(false)
 
   const resizeFileBanner = (file) =>
     new Promise((resolve) => {
@@ -38,7 +39,7 @@ const _03BannerMobile = (prop) => {
         (uri) => {
           if (prop.bannerImgArr.length > 6) return setLoadingManual(false)
           prop.setBannerImgArr([...prop.bannerImgArr, uri])
-          setChange(true)
+          setCheckBannerChange(true)
           setLoadingManual(false)
         },
         'base64'
@@ -65,7 +66,7 @@ const _03BannerMobile = (prop) => {
   // UPLOAD IMAGE
 
   const uploadImageBanner = () => {
-    setChange(true)
+    setCheckBannerChange(true)
     setLoadingManual(true)
     const newData = [...prop.bannerImgArr]
     const formData = new FormData();
@@ -74,14 +75,22 @@ const _03BannerMobile = (prop) => {
     newData.forEach(bannerImg => {
       const newFile = dataURIToBlobBanner(bannerImg);
       formData.append('avatar', newFile);
-
     })
-
     axios
       .post(`${process.env.REACT_APP_API}/user/images/uplaodBanner`, formData)
       .then((result) => {
-        console.log(result)
         setLoadingManual(false)
+        Swal.fire({
+          title: 'Saved',
+          toast: true,
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        }).then(nothinh => {
+          prop.setOnoffBanner_MB(false)
+          prop.setIndexToBanner('')
+          setCheckBannerChange(false)
+        })
         // const getArrayBanner = result.data.images;
         // const mapArrayBanner = getArrayBanner.map(el => {
         //   const base64Flag = 'data:image/png;base64,';
@@ -114,26 +123,24 @@ const _03BannerMobile = (prop) => {
 
   // console.log(Boolean(prop.bannerImgArr === curBanner))
   const getAllImageBanner = () => {
-
-    setChange(false)
+    setCheckBannerChange(false)
     // dispath(showLoading())
-
     // setLoadingManual(true)
     axios
       .post(`${process.env.REACT_APP_API}/user/images/allBanner`, { userId: user.userId })
       .then((result) => {
 
-        const getArrayBanner = result.data.images;
+        const getArrayBanner = result.data.images.bannerImage;
+
+        console.log(getArrayBanner)
         const mapArrayBanner = getArrayBanner.map(el => {
           const base64Flag = 'data:image/png;base64,';
-          const imageStr = arrayBufferToBase64Banner(el.img.data.data);
+          // const imageStr = arrayBufferToBase64Banner(el.img.data.data);
+          const imageStr = arrayBufferToBase64Banner(el.data.data);
           const tagImage = base64Flag + imageStr;
           return tagImage
         })
         prop.setBannerImgArr(mapArrayBanner)
-
-        setCurBanner(mapArrayBanner)
-
         // dispath(hideLoading());
         // setLoadingManual(false)
       })
@@ -147,42 +154,12 @@ const _03BannerMobile = (prop) => {
     const newData = [...prop.bannerImgArr]
     newData.splice(prop.indexToBanner, 1)
     prop.setBannerImgArr(newData)
-    setChange(true)
+    setCheckBannerChange(true)
   }
 
 
-
-  // returns [2, 1, 3]
-
-  // useEffect(() => {
-  //   if (prop.resizeFileBannerTG) {
-  //     resizeFileBanner(prop.resizeFileBannerTG);
-  //   }
-  // }, [prop.resizeFileBannerTG]);
-  // const refresh = () => {
-  //   prop.setBannerImgArr(prop.bannerImgArr)
-
-  // }
-
-  // useEffect(() => {
-  //   refresh()
-  // }, [prop.bannerImgArr]);
-
-  // useEffect(() => {
-  //   if (prop.saveImageBannerTG) {
-  //     uploadImageBanner();
-  //   }
-  // }, [prop.saveImageBannerTG]);
-
-  // useEffect(() => {
-  //   if (prop.deleteImageBannerTG) {
-  //     deleteImageBanner();
-  //   }
-  // }, [prop.deleteImageBannerTG]);
-
   function arrayMmove(arr, old_index, new_index) {
-    setChange(true)
-
+    setCheckBannerChange(true)
     setLoadingManual(true)
     if (new_index >= arr.length) {
       var k = new_index - arr.length + 1;
@@ -190,42 +167,67 @@ const _03BannerMobile = (prop) => {
         arr.push(undefined);
       }
     }
-
     const newData = [...arr]
     newData.splice(new_index, 0, newData.splice(old_index, 1)[0]);
     prop.setBannerImgArr(newData)
-
     setLoadingManual(false)
-    // arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
-    // prop.setBannerImgArr(arr)
-    // return arr;
+    if (old_index - new_index > 0) prop.setIndexToBanner(prop.indexToBanner - 1)
+    else prop.setIndexToBanner(prop.indexToBanner + 1)
+
   };
 
-  // useEffect(() => {
-  //   if (prop.getAllImageBannerTG) {
-  //     getAllImageBanner();
-  //   }
-  // }, [prop.getAllImageBannerTG]);
-
   useEffect(() => {
+    if (prop.getAllImageBannerTG) {
+      getAllImageBanner();
+    }
+  }, [prop.getAllImageBannerTG]);
 
-    getAllImageBanner();
+  // useEffect(() => {
 
-  }, []);
+  //   getAllImageBanner();
+
+  // }, []);
 
   // useEffect(() => {
   //   getAllImageBanner()
   // }, [user])
-  const [chacnge, setChange] = useState(false)
 
-  const checkChecnge = () => {
-    if (!chacnge) return
-    getAllImageBanner()
-  }
+
+
 
 
   const { loading } = useSelector((state) => state.alerts);
 
+  const checkBannerChangeFn = () => {
+
+    if (checkBannerChange) {
+      Swal.fire({
+        title: 'Do you want to save the changes?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Save',
+        denyButtonText: `Don't save`,
+        confirmButtonColor: '#f56e4f',
+
+      }).then((result) => {
+        if (result.isConfirmed) {
+          uploadImageBanner()
+
+
+        } else if (result.isDenied) {
+          prop.setOnoffBanner_MB(false)
+          prop.setIndexToBanner('')
+          setCheckBannerChange(false)
+        }
+      })
+
+    } else {
+      prop.setOnoffBanner_MB(false)
+      prop.setIndexToBanner('')
+      setCheckBannerChange(false)
+
+    }
+  }
 
   return (
     <div className="MC_Standard_0_FullPage">
@@ -237,9 +239,10 @@ const _03BannerMobile = (prop) => {
       <div className="topBar_function backdrop_blur">
         <div className="GruopBtn">
           <button onClick={() => {
-            prop.setOnoffBanner_MB(false)
-            checkChecnge()
-            prop.setIndexToBanner('')
+            checkBannerChangeFn()
+            // prop.setOnoffBanner_MB(false)
+            // checkChecnge()
+            // prop.setIndexToBanner('')
           }} className="MB_Btn MB_Btn_Border">
             <img src={MBiconClose} alt="" />
           </button>
@@ -304,7 +307,7 @@ const _03BannerMobile = (prop) => {
                     className={`smallUpDown up ${index === 0 ? 'hiddenMe' : ''}
                   ${prop.indexToBanner === index ? '' : 'hiddenMe'}`}>
                     <img src={MBiconDown} alt="" /></button>
-                  
+
                   <button onClick={() => { arrayMmove(prop.bannerImgArr, index, index + 1) }}
                     className={`smallUpDown ${index == prop.bannerImgArr.length - 1 ? 'hiddenMe' : ''}
                     ${prop.indexToBanner === index ? '' : 'hiddenMe'}`}>
@@ -351,48 +354,6 @@ const _03BannerMobile = (prop) => {
         </div>
 
       </div>
-
-      {/* <div className={`MB_AB_FullAgain MB_ShowSMS ${!openfeedBack && 'MB_slide_Left'}`}>
-        <div className="topBar_function">
-          <div className="GruopBtn">
-            <button
-              onClick={() => setOpenfeedBack(false)}
-              className='MB_Btn MB_Btn_Border'>
-
-              <img src={MBiconBack} alt="" />
-
-
-            </button>
-            <span className='MB_textBtn'>Back</span>
-          </div>
-
-
-          <div className="MB_Bigstar biggerStar Flex_AllCenter"><span className='MB_Bigstar_Point Flex_AllCenter'>{currentPointStar.pointStar}</span><img src={MBiconStarList} alt="" /></div>
-
-
-          <div className="GruopBtn">
-            <button className="MB_BtnEmpty ">
-
-            </button>
-          </div>
-        </div>
-
-        <div className="MB_2LangLayout_Grid gridRow_1fr">
-          <div className="MB_Container_Sroll">
-            <div className="MB_InScroll_2nd paddingTop_3">
-
-              <div className="MB_SmsDetail">
-                {currentPointStar.message}
-              </div>
-
-
-
-            </div>
-          </div>
-        </div>
-
-
-      </div> */}
 
 
     </div>

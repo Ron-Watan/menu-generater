@@ -88,14 +88,15 @@ const BannerSubCompo = (prop) => {
     axios
       .get(`${process.env.REACT_APP_API}/clients/allBanner/${link}`,)
       .then((result) => {
-
-        const getArrayBanner = result.data.images;
-
-
+    
+        const getArrayBanner = result.data.images.bannerImage;
+       
+        // console.log(getArrayBanner)
         const mapArrayBanner = getArrayBanner.map(el => {
           const base64Flag = 'data:image/png;base64,';
-          const imageStr = arrayBufferToBase64Banner(el.img.data.data);
+          const imageStr = arrayBufferToBase64Banner(el.data.data);
           const tagImage = base64Flag + imageStr;
+       
           return tagImage
         })
         setBannerImgArr(mapArrayBanner)
@@ -120,7 +121,7 @@ const BannerSubCompo = (prop) => {
 
   return (
     <div className="bannerWrapperC"
-    style={{ 'backgroundColor': `${prop.themeSetup.body.bodyBgColor}` }}>
+      style={{ 'backgroundColor': `${prop.themeSetup.body.bodyBgColor}` }}>
       <div className="bannerSectionFormC" >
 
         <div className="boxImageFormC">

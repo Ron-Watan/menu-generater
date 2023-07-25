@@ -96,6 +96,15 @@
 .timePikerContainer {
   width: 100%;
 }
+
+.oclock{
+  display: flex;
+  justify-content: end;
+  font-size: .8rem;
+  font-weight: 400;
+  color:#999;
+  padding-top: .4rem;
+}
 .MB_inputTime {
   border: 0.5px solid #777;
   border-radius: 0.4rem;
@@ -103,7 +112,9 @@
   width: 100%;
   /* box-shadow: .1rem .1rem 2rem rgba(0, 0, 0, 0.10); */
   background-color: #dde6fb;
-  /* font-weight: 600; */
+  font-weight: 500;
+  color:#444;
+
 }
 
 .MB_inputTime select {
@@ -318,7 +329,7 @@ select::-webkit-scrollbar-thumb:hover {
   padding: 0.5rem;
   padding-top: 0.1rem;
 
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 700;
   color: #000;
 }
@@ -338,9 +349,9 @@ background-color: #fae8e6; */
   /* height: 100%; */
   display: flex;
   border-radius: 1rem;
-
   padding: 1.2rem 0.1rem;
   color: #000;
+  border: #333 .5px solid;
 }
 
 .MB_langStyle {
@@ -360,15 +371,15 @@ background-color: #fae8e6; */
 }
 
 .MB_ex25 {
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: 700;
   display: flex;
   justify-content: center;
   align-items: center;
   color: #888;
   background-color: #fff;
-  width: 8rem;
-  height: 5rem;
+  width: 7.5rem;
+  height: 4rem;
   border-radius: 1rem;
 }
 
@@ -439,10 +450,11 @@ background-color: #fae8e6; */
 }
 
 .MB_inputTextLang {
-  /* border: #999 1px solid; */
+  border: #333 .5px solid;
   border-radius: 2rem;
   padding: 0.5rem 1rem;
   outline: none;
+  font-weight: 500;
 }
 .MB_opcaityTime {
   opacity: 0.6;
@@ -1131,10 +1143,14 @@ input:checked + .forOFLang2:before {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 0.8rem 1rem;
+  padding: .8rem 1rem;
   border-radius: 0.5rem;
-}
 
+}
+.MB_OF_Flex_ex{
+  padding-top: 1rem;
+  padding-bottom: .2rem;
+}
 .MB_BorderBt {
   border-bottom: 1px solid #ccc;
   width: 100%;

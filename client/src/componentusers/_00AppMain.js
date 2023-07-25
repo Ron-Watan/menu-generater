@@ -1052,7 +1052,7 @@ const _AppMain = () => {
   const [bannerImgArr, setBannerImgArr] = useState([]);
 
   const [indexToBanner, setIndexToBanner] = useState('');
-
+  console.log(bannerImgArr)
   // UPLOAD IMAGE
 
   const dataURIToBlobBanner = (dataURI) => {
@@ -1244,7 +1244,7 @@ const _AppMain = () => {
   const { loading } = useSelector((state) => state.alerts);
 
   return (
-    <div className='mainAppMonitor'>
+    <div className='mainAppMonitor unselectable'>
       <div className={`${getAllLoading || deleteLoading ? 'showMe' : 'hiddenMe'} allLoading`}>
         <div className="iconLoadingBanner">
           <span className='barOne'></span > <span className='barTwo'></span> <span className='barThree'></span>
@@ -1342,7 +1342,7 @@ const _AppMain = () => {
 
         <div className={`mobile_function ${!onOffTimePicker_MB && 'MB_slide_Down'}`}>
           <_TimePickerMobile navTime2TimePicker={navTime2TimePicker} setOnOffTimePicker_MB={setOnOffTimePicker_MB}
-            menuName={menuName} onOffMenuTime={onOffMenuTime} setonOffMenuTime={setonOffMenuTime} timeSetup={timeSetup} setTimeSetup={setTimeSetup} />
+            menuName={menuName} onOffMenuTime={onOffMenuTime} timeSetup={timeSetup} setTimeSetup={setTimeSetup} />
         </div>
 
         <div className={`mobile_function ${!onOffLangSetup_MB && 'MB_slide_Down'}`}>
@@ -1547,7 +1547,7 @@ const _AppMain = () => {
         className={`mobile_iframe  ${(onOffBanner_MB || onOffMenu1_MB || onOffMenu2_MB ||
           onOffMenu3_MB || onOffTimePicker_MB || onOffLangSetup_MB || onOffFeedBAck_MB || onOffSetting_MB || onOffQRCCode_MB)
           && 'iframe_scale_Down'}`}
-        src="http://192.168.1.13:3000/customer/37f91f16-undefined" />
+        src="http://192.168.1.13:3000/customer/8e468036-undefined" />
 
 
     </div>

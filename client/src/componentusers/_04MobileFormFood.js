@@ -68,7 +68,7 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
       return true
     } else {
       Swal.fire({
-        title: 'Input invalid',
+        title: 'Invalid input',
         // text: 'Your menu has been saved',
         toast: true,
 
