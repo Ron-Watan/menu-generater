@@ -151,10 +151,24 @@ const _03BannerMobile = (prop) => {
   };
 
   const deleteImageBanner = () => {
-    const newData = [...prop.bannerImgArr]
-    newData.splice(prop.indexToBanner, 1)
-    prop.setBannerImgArr(newData)
-    setCheckBannerChange(true)
+    Swal.fire({
+      title: 'Do you want to delete an item?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Delete',
+      denyButtonText: `Don't delete`,
+      confirmButtonColor: ' #dc3741',
+      denyButtonColor: '#f56e4f',
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        const newData = [...prop.bannerImgArr]
+        newData.splice(prop.indexToBanner, 1)
+        prop.setBannerImgArr(newData)
+        setCheckBannerChange(true)
+      }
+    })
+
   }
 
 
@@ -251,7 +265,7 @@ const _03BannerMobile = (prop) => {
         </div>
         <div className="MB_title">Promotion/Banner Photo</div>
 
-        <div className="GruopBtn">
+        <div className={`GruopBtn ${prop.bannerImgArr.length === 7 && 'hiddenMe'}`}>
           <label htmlFor='file-uploadBanner' className='MB_Btn MB_Btn_Color'>
             <img src={MBiconPlus} alt="" />
             <input
@@ -269,6 +283,8 @@ const _03BannerMobile = (prop) => {
           </label>
           <span className='MB_textBtn'>Add Photo</span>
         </div>
+
+
       </div>
 
       {/* <div className="MB_banner_Section">  zindexUnder1 */}
@@ -296,7 +312,7 @@ const _03BannerMobile = (prop) => {
                     }}
                     value={el.menuId}
                     type='submit'
-                    className={`MB_Btn `}>
+                    className={`MB_Btn forBinWhite`}>
 
                     <img src={MBiconBin} alt="" />
                   </button>
@@ -339,6 +355,11 @@ const _03BannerMobile = (prop) => {
               className='MB_Sq_Btn SaveBtnSize MB_Btn_Color  MB_G2'>
               <span>SAVE</span>
             </button>
+
+            <div
+              className='MB_Sq_Btn SaveBtnSize MB_Btn_Count  MB_G3'>
+              <span>{prop.bannerImgArr.length}/7</span>
+            </div>
             {/* 
             <i className="x">CANCEL BUTTON</i>
             <button

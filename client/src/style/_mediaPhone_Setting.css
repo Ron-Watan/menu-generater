@@ -1021,12 +1021,18 @@ input:checked + .forOFLang2:before {
   justify-content: center;
   align-items: center;
 }
+
 .MB_tray_input {
   border: 1px solid #444;
   padding: 0.5rem;
   border-radius: 0.5rem;
   width: 150px;
   text-align: center;
+}
+.MB_tray_input_QR{
+  font-size: 1rem;
+  padding: 0.3rem;
+  width: 100px;
 }
 .MB_tray_position .react-colorful {
   height: 240px;

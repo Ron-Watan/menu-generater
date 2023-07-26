@@ -491,18 +491,9 @@ const _TimePickerMobile = (prop) => {
 
       <div className="MB_Standard_0_FullAgain  MB_SetGrid_ForBtn zindexUnderTop">
 
-
-
-
         <div className="MB_Standard_Section_canScroll  MB_Make_PadingTime MB_Wrap_ForBtn " >
 
-
           <div className="MB_timePickerCard2 gapG15">
-
-
-
-
-
 
 
             <label htmlFor='MBallDay' className='MB_flexHeaderTime'>

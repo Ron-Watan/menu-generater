@@ -413,24 +413,23 @@ const _AppMain = () => {
       });
   };
 
-
   //- //= //-
-  // const uploadImage = () => {
-  //   const newFile = dataURIToBlob(file);
-  //   const formData = new FormData();
+  const uploadImage = (imgId) => {
+    const newFile = dataURIToBlob(file);
+    const formData = new FormData();
 
-  //   formData.append('avatar', newFile, imgId);
-  //   formData.append('userId', user.userId);
-  //   axios
-  //     .post(`${process.env.REACT_APP_API}/user/images/uplaod`, formData)
-  //     // .post(`${process.env.REACT_APP_API}/user/images`, formData, { headers: { 'Content-Type': 'multipart/form-data' } })
-  //     .then((result) => {
-  //       dispath(hideLoading());
-  //     })
-  //     .catch((err) => {
-  //       console.error(err);
-  //     });
-  // };
+    formData.append('avatar', newFile, imgId);
+    formData.append('userId', user.userId);
+    axios
+      .post(`${process.env.REACT_APP_API}/user/images/uplaod`, formData)
+      // .post(`${process.env.REACT_APP_API}/user/images`, formData, { headers: { 'Content-Type': 'multipart/form-data' } })
+      .then((result) => {
+        dispath(hideLoading());
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
 
 
   //- //= //-
@@ -1052,7 +1051,7 @@ const _AppMain = () => {
   const [bannerImgArr, setBannerImgArr] = useState([]);
 
   const [indexToBanner, setIndexToBanner] = useState('');
-  console.log(bannerImgArr)
+
   // UPLOAD IMAGE
 
   const dataURIToBlobBanner = (dataURI) => {
@@ -1363,7 +1362,8 @@ const _AppMain = () => {
         </div>
 
         <div className={`mobile_function ${!onOffQRCCode_MB && 'MB_slide_Down'}`}>
-          <_02QRCode setOnOffQRCCode_MB={setOnOffQRCCode_MB} />
+          <_02QRCode setOnOffQRCCode_MB={setOnOffQRCCode_MB} uploadImage={uploadImage} dataURIToBlob={dataURIToBlob}
+          />
         </div>
 
         <div className={`mobile_function ${!onOffSetting_MB && 'MB_slide_Down'}`}>

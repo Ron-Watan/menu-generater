@@ -467,7 +467,9 @@
   box-shadow: 0.1rem 0.1rem 0.3rem rgba(0, 0, 0, 0.15);
   z-index: 1;
 }
-
+.forBinWhite {
+  background-color: #ffffff8b;
+}
 .MB_BtnEmpty {
   min-width: 2.8rem;
   height: 2.8rem;
@@ -478,6 +480,11 @@
   color: #000;
 }
 
+.MB_Btn_Count {
+  border: 0.5px solid #999;
+  box-shadow: none !important;
+  color: #999;
+}
 .MB_Btn_Color {
   background-color: #f56e4f;
   color: #fff;
@@ -544,8 +551,9 @@
 
 .MB_smIconAB {
   position: absolute;
-  top: 0.3rem;
+  bottom: 0.3rem;
   left: 0.3rem;
+  z-index: 1000;
 }
 .mobile_function {
   /* font-family: 'Poppins'; */
@@ -1237,6 +1245,7 @@
   height: 2.5rem;
   border: #999 solid 1px;
   border-radius: 50%;
+  background-color: #ffffff8b;
 }
 
 .up {
@@ -1582,7 +1591,234 @@
   font-size: 0.9rem;
 }
 
-
 :where(.swal2-styled).swal2-default-outline:focus {
   box-shadow: none;
+}
+
+/* ////////////////////// */
+.QR_inputBox_Full {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  border-radius: 0.8rem;
+  /* border: 0.5px solid #333; */
+  /* box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2); */
+  background: #f4f4f4;
+  margin-top: 0.5rem;
+}
+.MB_Make_QR {
+  padding: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 3rem;
+}
+.MB_qrContainer1 {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  padding-bottom: 0rem;
+  align-items: center;
+}
+.QR_EditSec {
+  /* background-color:#2a9fff; */
+  border-radius: 1rem;
+  border: 0.5px solid #333;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+}
+.MB_qrContainer2 {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.MB_qrContainer3 {
+  display: flex;
+  gap: 0.5rem;
+  flex-direction: column;
+}
+
+.MB_themeRow2 {
+  display: flex;
+  width: 100%;
+  gap: 0.7rem;
+
+  /* padding-right: .5rem; */
+}
+.MB_qrCodeBox {
+  display: flex;
+  width: 12rem;
+  height: 12rem;
+  /* margin: 0 auto; */
+}
+.MB_qrCodeitem canvas {
+  width: 100%;
+  height: 100%;
+}
+.QrBtnSize {
+  width: 3rem;
+  height: 2rem;
+  color: #333;
+}
+.QrBtnSizeLevel {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  height: 2rem;
+  min-width: 4rem;
+  color: #333;
+}
+.QR_btnOk {
+  width: 7rem;
+  height: 2.3rem;
+  background-color: #2a9fff;
+  border-radius: 0.3rem;
+  border: 0.5px solid #333;
+  color: #fff;
+}
+.presetColor {
+  width: 13rem;
+  height: 2.5rem;
+  border-radius: 0.3rem;
+  border: 0.5px solid #333;
+}
+.QR_tray_position {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  justify-content: center;
+  align-items: center;
+  /* width: 100%; */
+  /* padding-top: 3rem; */
+}
+.QR_tray_position .react-colorful {
+  height: 200px;
+  width: 300px;
+}
+.QR_tray_position .react-colorful__hue {
+  height: 40px;
+  border-radius: 0 0 4px 4px;
+}
+.MB_tray_poQR_tray_positionsition .react-colorful__hue-pointer {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+.QR_Borderset {
+  border-bottom: 0.5px solid #333;
+  margin-bottom: 0.3rem;
+}
+.gap1Rem {
+  gap: 2rem;
+}
+
+.color_PickQr {
+  width: 4rem;
+  height: 2rem;
+  border-radius: 1rem;
+}
+.QR_inputBox {
+  width: 22rem;
+  height: 3rem;
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+
+  align-items: center;
+}
+.QR_flex {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.QR_flex2 {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.QR_labelFontR {
+  height: 2rem;
+  outline: none;
+  border: #aaa 0.5px solid;
+  color: #444;
+  border-radius: 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.2rem 1rem;
+
+  background-color: #f9f9f9;
+  width: 5rem;
+  max-width: 6rem;
+}
+.smallInch {
+  padding-left: 0.1rem;
+  font-size: 0.8rem;
+  font-style: italic;
+}
+.smallLogoQR{
+
+  font-size: 0.8rem;
+  font-style: italic;
+}
+.downloadQR {
+  padding: 0.5em;
+  background-color: #3263ae;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1.5rem;
+  height: 2.5rem;
+  font-size: 0.9rem;
+}
+.QR_link {
+  color: #000 !important;
+  background-color: transparent !important;
+  border: #000 1px solid !important;
+}
+
+.selectable {
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: auto !important;
+}
+
+.setRelative {
+  position: relative;
+}
+.QR_uplaodLogo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.9rem;
+  font-weight: 500
+
+}
+
+.blueUpload {
+  background-color: #cfdeff;
+  height: 2.2rem !important;
+}
+.gap2rem{
+  gap:3rem;
+
+}
+.flexStart{
+ justify-content: flex-start;
+ width: unset !important;
+ 
+}
+/* .logoSizeBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 15rem;
+} */
+.QRBin{
+  width: 2.2rem !important;
+  height: 2.2rem !important;
+  min-width:2.2rem !important;
+
 }
