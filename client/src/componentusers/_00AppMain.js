@@ -40,14 +40,14 @@ import _03BannerMobile from './_03BannerMobile';
 import _04MenuForm from './_04MenuForm';
 import _04MobileFormFood from './_04MobileFormFood';
 import _04MobileLanguage from './_04MobileLanguage';
+import _07TimePickerMobile from './_07TimePickerMobile';
 import _08LanguageSetupMobile from './_08LanguageSetupMobile';
+import _09ThemeSetupMobile from './_09ThemeSetupMobile';
 import _10OnOffSettingMobile from './_10OnOffSettingMobile';
 
 
 
 
-import _TimePickerMobile from './_TimePickerMobile';
-import _ThemeSetupMobile from './_ThemeSetupMobile';
 
 
 
@@ -143,6 +143,7 @@ const _AppMain = () => {
   const [timeSetup, setTimeSetup] = useState({});
   const [languageSetup, setLanguageSetup] = useState({});
   const [onOffSetting, setOnOffSetting] = useState({});
+
   // const [onOffSetting, setOnOffSetting] = useState({
 
   //   menuName: '', banner: '', sideBar: '', filter: '', vetgeterian: '', vegan: '', gluten_free: '', halal: '',
@@ -474,6 +475,16 @@ const _AppMain = () => {
             showConfirmButton: false,
 
             timer: 1500,
+          }).then(nothing => {
+            setCheckInputForm(false)
+            // dispath(setUser(getReult));
+            // setTimeout(() => {
+            // getAllMenu();
+            // setMenuId('');
+            setCheckEditImg(false)
+            setOneClickCat(false)
+            setGetAllLoading(false)
+            // }, 1500);
           });
         } else {
           Swal.fire(result.data.message);
@@ -1253,6 +1264,19 @@ const _AppMain = () => {
       <i className='x'>//- START MOBILE //------------------------------------------------</i>
 
       <div className="mobile-creator unselectable">
+
+
+
+        <div className={`mobile_function ${!onOffFeedBAck_MB && 'MB_slide_Down'}`}>
+          <_01FeedBackMobile setOnOffFeedBAck_MB={setOnOffFeedBAck_MB} setGetStarNotification={setGetStarNotification} />
+        </div>
+
+        <div className={`mobile_function ${!onOffQRCCode_MB && 'MB_slide_Down'}`}>
+          <_02QRCode setOnOffQRCCode_MB={setOnOffQRCCode_MB} uploadImage={uploadImage} dataURIToBlob={dataURIToBlob} arrayBufferToBase64={arrayBufferToBase64}
+          />
+        </div>
+
+
         <i className="x"> Banner-----------------------------------------------</i>
         <div className={`mobile_function  ${!onOffBanner_MB && 'MB_slide_Down'}`}>
 
@@ -1340,7 +1364,7 @@ const _AppMain = () => {
         </div>
 
         <div className={`mobile_function ${!onOffTimePicker_MB && 'MB_slide_Down'}`}>
-          <_TimePickerMobile navTime2TimePicker={navTime2TimePicker} setOnOffTimePicker_MB={setOnOffTimePicker_MB}
+          <_07TimePickerMobile navTime2TimePicker={navTime2TimePicker} setOnOffTimePicker_MB={setOnOffTimePicker_MB}
             menuName={menuName} onOffMenuTime={onOffMenuTime} timeSetup={timeSetup} setTimeSetup={setTimeSetup} />
         </div>
 
@@ -1350,24 +1374,14 @@ const _AppMain = () => {
         </div>
 
         <div className={`mobile_ThemeFunction ${!onOffThemeSetup_MB && 'MB_slide_Left'}`}>
-          <_ThemeSetupMobile setOnOffThemeSetup_MB={setOnOffThemeSetup_MB} navTheme2ThemeSetUp={navTheme2ThemeSetUp}
+          <_09ThemeSetupMobile setOnOffThemeSetup_MB={setOnOffThemeSetup_MB} navTheme2ThemeSetUp={navTheme2ThemeSetUp}
             restaurantName={restaurantName} setRestaurantName={setRestaurantName}
             reloadIFrame={reloadIFrame} setMBnavIcon={setMBnavIcon} />
         </div>
 
 
-
-        <div className={`mobile_function ${!onOffFeedBAck_MB && 'MB_slide_Down'}`}>
-          <_01FeedBackMobile setOnOffFeedBAck_MB={setOnOffFeedBAck_MB} setGetStarNotification={setGetStarNotification} />
-        </div>
-
-        <div className={`mobile_function ${!onOffQRCCode_MB && 'MB_slide_Down'}`}>
-          <_02QRCode setOnOffQRCCode_MB={setOnOffQRCCode_MB} uploadImage={uploadImage} dataURIToBlob={dataURIToBlob}
-          />
-        </div>
-
         <div className={`mobile_function ${!onOffSetting_MB && 'MB_slide_Down'}`}>
-          <_10OnOffSettingMobile setOnOffSetting_MB={setOnOffSetting_MB} navOnOff2OnOffSetting={navOnOff2OnOffSetting} onOffSetting={onOffSetting} />
+          <_10OnOffSettingMobile setOnOffSetting_MB={setOnOffSetting_MB} navOnOff2OnOffSetting={navOnOff2OnOffSetting} onOffSetting={onOffSetting} setOnOffSetting={setOnOffSetting} />
         </div>
 
 
@@ -1547,7 +1561,7 @@ const _AppMain = () => {
         className={`mobile_iframe  ${(onOffBanner_MB || onOffMenu1_MB || onOffMenu2_MB ||
           onOffMenu3_MB || onOffTimePicker_MB || onOffLangSetup_MB || onOffFeedBAck_MB || onOffSetting_MB || onOffQRCCode_MB)
           && 'iframe_scale_Down'}`}
-        src="http://192.168.1.13:3000/customer/8e468036-undefined" />
+        src="http://192.168.1.13:3000/customer/ce144dc5-undefined" />
 
 
     </div>

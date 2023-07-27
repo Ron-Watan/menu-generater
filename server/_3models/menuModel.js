@@ -107,6 +107,9 @@ const userSchema = mongoose.Schema(
       }
 
     },
+    qrCodeSetUp: {
+      type: 'Object',
+    },
     unseenFeedBack: {
       type: Array,
       default: [],

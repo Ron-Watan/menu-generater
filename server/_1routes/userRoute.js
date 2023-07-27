@@ -5,7 +5,7 @@ import {
   uploadImageBanner, getAllImageBanner,
   uploadImage, saveImage, getAllImage, getImage, delelteImage,
   saveNameMenu, saveTimeSetup, saveLangSetup, setupTheme, getTheme, saveOnOffSetting,
-  getFeedBack, saveFeedBack,saveReArangeList
+  getFeedBack, saveFeedBack,saveReArangeList,saveQRCode,getQrCode
 } from '../_2controllers/manuController.js'
 import multer from "multer";
 import formidable from "formidable";
@@ -41,6 +41,7 @@ router.post('/saveOnOffSetting', requireLogin, saveOnOffSetting)
 router.post('/getFeedBack', requireLogin, getFeedBack)
 router.post('/saveFeedBack', requireLogin, saveFeedBack)
 router.post('/saveReArangeList', requireLogin, saveReArangeList)
+router.post('/saveQRCode', requireLogin, saveQRCode)
 
 
 
@@ -64,6 +65,7 @@ router.post('/images/allBanner', getAllImageBanner)
 
 router.post('/setupTheme', requireLogin, setupTheme)
 router.post('/getTheme', requireLogin, getTheme)
+router.post('/getQrCode', requireLogin, getQrCode)
 
 
 

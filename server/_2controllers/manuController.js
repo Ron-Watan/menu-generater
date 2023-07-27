@@ -257,6 +257,8 @@ export const delelteImage = (req, res) => {
 
   Images.findOneAndDelete({ imgId: imgId }).then((image) => {
     console.log('Delete Image');
+    console.log(image);
+
     res.send({
       message: 'Success',
       success: true,
@@ -508,6 +510,49 @@ export const saveFeedBack = (req, res) => {
 
     });
 };
+
+
+export const saveQRCode = (req, res) => {
+  console.log('HelloMaaddsd')
+  const { userId, qrCodeSetUp } = req.body;
+
+  Users.findOne({ userId: userId })
+    .select('qrCodeSetUp')
+    .then((user) => {
+
+      user.qrCodeSetUp = qrCodeSetUp;
+      user.save();
+      res.send({
+        message: 'Success',
+        userOnOffSetting: user,// Slected
+        success: true,
+      });
+      // Clients.findOne({ clientId: user.clientId }).then((client) => {
+      //   client.onOffSetting = onOffSetting;
+      //   client.save();
+      // });
+    });
+
+};
+
+
+export const getQrCode = (req, res) => {
+
+  const { userId } = req.body;
+  Users.findOne({ userId: userId })
+    .select('qrCodeSetUp')
+    .then((user) => {
+      res.send({
+        message: 'Success',
+        qrCodeSetUp: user,
+        success: true,
+      }); //send to client side
+    });
+};
+
+
+
+
 
 
 

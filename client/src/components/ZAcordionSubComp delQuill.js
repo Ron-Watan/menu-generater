@@ -14,11 +14,6 @@ import axios from 'axios';
 // import { Checkbox, FormControlLabel, FormGroup } from '@mui/material';
 import ReactQuill from 'react-quill';
 // import 'react-quill/dist/quill.snow.css';
-import {
-  Editor,
-  EditorProvider,
-  Toolbar
-} from 'react-simple-wysiwyg';
 
 const Accordion = styled((props) => (
 
@@ -179,7 +174,7 @@ const AcordionSubComp = (prop) => {
         }
 
         const getResult = result.data.images;
-
+        console.log(getResult)
         const base64Flag = 'data:image/png;base64,';
         const imageStr = arrayBufferToBase64(getResult.img.data.data);
         const tagImage = base64Flag + imageStr;
@@ -237,7 +232,7 @@ const AcordionSubComp = (prop) => {
       <ul className="">
         <i className="x">!Theme</i>
         {newSubListMenu.map((el, index) => (
-
+          // <div ref={(element) => { elementRef.current[index] = element; }} onClick={drag} className='' key={index}>
           <div className='accTab' key={index}>
             {prop.footbar && <button onClick={event => removeFavorite(index, event, el.food_name, el.price)} className={`${!el.favor && 'displayNone'} heartFavor2Box`}>
               {prop.favoritHeart && <div className={` heartFavor2Box-1 flex justify-center gap-x-6`}>
@@ -247,11 +242,11 @@ const AcordionSubComp = (prop) => {
             </button>}
 
 
-            <i className="x">//=ON/OFF SlIDE ACCORDIAN </i>
+            <i className="x">//=ON SlIDE ACCORDIAN </i>
 
             <i className="x">//- On Food Name 1 2</i>
 
-            <Accordion expanded={(expanded === el.panelCode || prop.accordian === false) && true} onChange={handleChange(el.panelCode)}>
+            {prop.accordian && <Accordion expanded={expanded === el.panelCode && true} onChange={handleChange(el.panelCode)}>
               <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
 
                 <i className="x">//- Name 1 2</i>
@@ -261,7 +256,8 @@ const AcordionSubComp = (prop) => {
                     'color': `${prop.themeSetup.body.bodyFonttColor}`,
                     'fontSize': `${prop.themeSetup.body.bodyFontSize * 1.05}rem`, 'fontWeight': '500'
                   }}>
-                  <span>{prop.language === 1 ? el.food_name : el.food_name_2}</span>
+                  {prop.language === 1 && <span>{el.food_name}</span>}
+                  {prop.language === 2 && <span>{el.food_name_2}</span>}
                 </div>
                 <i className="x">//- Price 1 2</i>
 
@@ -283,48 +279,34 @@ const AcordionSubComp = (prop) => {
               <i className="x">//= IF ON DESCRIPTION </i>
 
               {prop.description && <AccordionDetails>
-
                 <i className="x">//- Descritption 1 2</i>
-                <EditorProvider>
-                  <Editor readOnly disabled={true} value={prop.language === 1 ? el.description : el.description_2}
-                    containerProps={{
-                      style: {
-                        paddingLeft: `${prop.sideBar ? '30px' : ''}`,
-                        fontFamily: `${prop.themeSetup.body.bodyFontFamily}`,
-                        color: `${prop.themeSetup.body.bodyFonttColor}`,
-                        fontSize: `${prop.themeSetup.body.bodyFontSize * 1}rem`,
-                        fontWeight: '400',
-
-                        border: 'none',
-                        minHeight: 'unset',
-                        paddingTop: '0',
-                      }
-                    }}
-                  >
-                  </Editor>
-                </EditorProvider>
+                {prop.language === 1 && <ReactQuill readOnly modules={{ toolbar: false }} className={prop.sideBar ? 'paddingL_40' : ''}
+                  style={{
+                    'fontFamily': `${prop.themeSetup.body.bodyFontFamily}`,
+                    'color': `${prop.themeSetup.body.bodyFonttColor}`,
+                    'fontSize': `${prop.themeSetup.body.bodyFontSize * 1}rem`, 'fontWeight': '400'
+                  }}
+                  value={el.description} />}
+                {prop.language === 2 && <ReactQuill readOnly modules={{ toolbar: false }} className={prop.sideBar ? 'paddingL_40' : ''} style={{
+                  'fontFamily': `${prop.themeSetup.body.bodyFontFamily}`,
+                  'color': `${prop.themeSetup.body.bodyFonttColor}`,
+                  'fontSize': `${prop.themeSetup.body.bodyFontSize * 1}rem`, 'fontWeight': '400'
+                }} value={el.description} />}
 
                 <i className="x">//- Remark 1 2</i>
-                <EditorProvider>
-                  <Editor readOnly disabled={true} value={prop.language === 1 ? el.remark : el.remark_2}
-                    containerProps={{
-                      style: {
-                        paddingLeft: `${prop.sideBar ? '30px' : ''}`,
-                        fontFamily: `${prop.themeSetup.body.bodyFontFamily} !important`,
-                        color: `${prop.themeSetup.body.bodyFonttColor}`,
-                        fontSize: `${prop.themeSetup.body.bodyFontSize * .9}rem`,
 
-                        fontStyle: 'italic',
-                        fontWeight: '400',
-                        border: 'none',
-                        minHeight: 'unset',
-                        paddingTop: '0',
-                      }
-                    }}
-                  >
-                  </Editor>
-                </EditorProvider>
-
+                {(prop.language === 1 && el.remark) && <ReactQuill readOnly modules={{ toolbar: false }} className={`Acc_remark ${prop.sideBar ? 'paddingL_40' : ''}`} style={{
+                  'fontFamily': `${prop.themeSetup.body.bodyFontFamily} !important`,
+                  'color': `${prop.themeSetup.body.bodyFonttColor}`,
+                  'fontSize': `${prop.themeSetup.body.bodyFontSize * .90}rem`,
+                  'fontWeight': '400',
+                }} value={el.remark} />}
+                {prop.language === 2 && <ReactQuill readOnly modules={{ toolbar: false }} className={`Acc_remark ${prop.sideBar ? 'paddingL_40' : ''}`} style={{
+                  'fontFamily': `${prop.themeSetup.body.bodyFontFamily}`,
+                  'color': `${prop.themeSetup.body.bodyFonttColor}`,
+                  'fontSize': `${prop.themeSetup.body.bodyFontSize * .90}rem`,
+                  'fontWeight': '400',
+                }} value={el.remark_2} />}
                 <div className={`heartFavor1Box`}>
 
                   {(prop.favoritHeart && prop.footbar) && <button onClick={event => addFavorite(index, event, el.panelCode)} className={`${el.favor && 'opacity-0 transition-all'} `}>
@@ -332,7 +314,92 @@ const AcordionSubComp = (prop) => {
                   </button>}
                 </div>
               </AccordionDetails>}
-            </Accordion>
+            </Accordion>}
+
+
+            <i className="x">//= OFF ACCORDIAN </i>
+            {!prop.accordian && <div expanded={expanded === el.panelCode && true} onChange={handleChange(el.panelCode)}>
+              <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
+
+                <i className="x">//- Name 1 2</i>
+
+                <div className={prop.sideBar ? 'paddingL_40' : ''}
+                  style={{
+                    'color': `${prop.themeSetup.body.bodyFonttColor}`,
+                    'fontSize': `${prop.themeSetup.body.bodyFontSize * 1}rem`, 'fontWeight': '500'
+                  }}>
+                  {prop.language === 1 && <span>{el.food_name}</span>}
+                  {prop.language === 2 && <span>{el.food_name_2}</span>}
+                </div>
+
+                <i className="x">//- Price 1 2</i>
+
+                <div className={`flex`}
+                  style={{
+                    'color': `${prop.themeSetup.body.bodyFonttColor}`,
+                    'fontSize': `${prop.themeSetup.body.bodyFontSize * 1}rem`, 'fontWeight': '500'
+                  }}>
+                  {prop.language === 1 && <span>{prop.languageSetup.style_1 ?
+                    <div ><span>{prop.languageSetup.followed_1 && prop.languageSetup.symbol_1}</span><span>{el.price}</span> <span>&nbsp;{!prop.languageSetup.followed_1 && prop.languageSetup.symbol_1}</span> </div>
+                    : <div ><span></span><span>{el.price}</span><span></span></div>}</span>}
+                  {prop.language === 2 && <span>{prop.languageSetup.style_2 ?
+                    <div ><span>{prop.languageSetup.followed_2 && prop.languageSetup.symbol_2}</span><span>{el.price_2}</span> <span>&nbsp;{!prop.languageSetup.followed_2 && prop.languageSetup.symbol_2}</span> </div>
+                    : <div ><span></span><span>{el.price_2}</span><span></span></div>}</span>}
+                </div>
+
+              </AccordionSummary>
+
+              <i className="x">//= IF ON DESCRIPTION </i>
+              {prop.description &&
+                <AccordionDetails>
+                  {prop.language === 1 && <ReactQuill readOnly modules={{ toolbar: false }} className={prop.sideBar ? 'paddingL_40' : ''}
+                    style={{
+                      'fontFamily': `${prop.themeSetup.body.bodyFontFamily}`,
+                      'color': `${prop.themeSetup.body.bodyFonttColor}`,
+                      'fontSize': `${prop.themeSetup.body.bodyFontSize * .95}rem`, 'fontWeight': '400'
+                    }}
+                    value={el.description} />}
+
+                  {prop.language === 2 && <ReactQuill readOnly modules={{ toolbar: false }} className={prop.sideBar ? 'paddingL_40' : ''} style={{
+                    'fontFamily': `${prop.themeSetup.body.bodyFontFamily}`,
+                    'color': `${prop.themeSetup.body.bodyFonttColor}`,
+                    'fontSize': `${prop.themeSetup.body.bodyFontSize * .95}rem`, 'fontWeight': '400'
+                  }} value={el.description_2} />}
+
+                  {prop.language === 1 && <ReactQuill readOnly modules={{ toolbar: false }} className={`Acc_remark ${prop.sideBar ? 'paddingL_40' : ''}`} style={{
+                    'fontFamily': `${prop.themeSetup.body.bodyFontFamily}`,
+                    'color': `${prop.themeSetup.body.bodyFonttColor}`,
+                    'fontSize': `${prop.themeSetup.body.bodyFontSize * .90}rem`,
+                    'fontWeight': '400',
+                  }} value={el.remark} />}
+
+                  {prop.language === 2 && <ReactQuill readOnly modules={{ toolbar: false }} className={`Acc_remark ${prop.sideBar ? 'paddingL_40' : ''}`} style={{
+                    'fontFamily': `${prop.themeSetup.body.bodyFontFamily}`,
+                    'color': `${prop.themeSetup.body.bodyFonttColor}`,
+                    'fontSize': `${prop.themeSetup.body.bodyFontSize * .90}rem`,
+                    'fontWeight': '400',
+                  }} value={el.remark_2} />}
+                  <div className={`heartFavor1Box`}>
+
+                    {(prop.favoritHeart && prop.footbar) && <button onClick={event => addFavorite(index, event, el.panelCode)} className={`${el.favor && 'opacity-0 transition-all'} `}>
+                      <img src={require(`../all-icon/footbar-icon/${heartIcon.favor1}`)} alt="" />
+                    </button>}
+                  </div>
+                </AccordionDetails>}
+            </div>}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
           </div>

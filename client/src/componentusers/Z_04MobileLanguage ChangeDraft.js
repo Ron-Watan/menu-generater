@@ -3,16 +3,12 @@ import ReactQuill, { Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import Swal from 'sweetalert2';
 import MBerroricon from '../all-icon/button-icon/error.svg'
-
+// import { Editor } from '@tinymce/tinymce-react';
 // import { useRef } from 'react';
-
+import { convertToRaw, EditorState } from "draft-js";
+import { Editor } from "react-draft-wysiwyg";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { useState } from 'react';
-import {
-  BtnBold, BtnUnderline, BtnClearFormatting,
-  Editor,
-  EditorProvider,
-  Toolbar
-} from 'react-simple-wysiwyg';
 
 const _04MobileLanguage = (prop) => {
 
@@ -101,7 +97,24 @@ const _04MobileLanguage = (prop) => {
       // }
     }
   }
-
+  // const editorRef = useRef(null);
+  // const log = () => {
+  //   if (editorRef.current) {
+  //     console.log(editorRef.current.getContent());
+  //   }
+  // };
+  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+  const [text, setText] = useState();
+  const onEditorStateChange = function (editorState) {
+    setEditorState(editorState);
+    const { blocks } = convertToRaw(editorState.getCurrentContent());
+    /*let text = blocks.reduce((acc, item) => {
+      acc = acc + item.text;
+      return acc;
+    }, "");*/
+    let text = editorState.getCurrentContent().getPlainText("\u0001");
+    setText(text);
+  };
   return (
 
     <div className="MB_FullPage_Container">
@@ -143,13 +156,6 @@ const _04MobileLanguage = (prop) => {
                   <div className='MB_flex_NoInp gap2'>
                     <span className='MB_2ndTitle'>Default</span>
                     {/* <ReactQuill theme="snow" readOnly modules={{ toolbar: false }} disabled={true} value={prop.state.catagory} placeholder='Catagory name' type='text' name='catagory' id='catagory' autoComplete='off' className='MB_EditName_Input MB_GrayInput' required /> */}
-                    <div className="width100">
-                      <div className="coverEdit MB_GrayInput"></div>
-
-                      <input readOnly value={prop.state.catagory} placeholder='Catagory name' type='text'
-                        autoComplete='off' className='MB_EditName_Input MB_White ' />
-                    </div>
-
                   </div>
 
                   <div className='MB_flex_NoInp gap2'>
@@ -164,7 +170,31 @@ const _04MobileLanguage = (prop) => {
 
               </div>
               {/* //////////////////////////////////////////////// */}
-
+              <Editor
+                editorState={editorState}
+                toolbarClassName="toolbarClassName"
+                wrapperClassName="wrapperClassName"
+                editorClassName="editorClassName"
+                onEditorStateChange={onEditorStateChange}
+              />
+              {/* <Editor
+                onInit={(evt, editor) => editorRef.current = editor}
+                initialValue="<p>This is the initial content of the editor.</p>"
+                init={{
+                  height: 500,
+                  menubar: false,
+                  plugins: [
+                    'advlist autolink lists link image charmap print preview anchor',
+                    'searchreplace visualblocks code fullscreen',
+                    'insertdatetime media table paste code help wordcount'
+                  ],
+                  toolbar: 'undo redo | formatselect | ' +
+                    'bold italic backcolor | alignleft aligncenter ' +
+                    'alignright alignjustify | bullist numlist outdent indent | ' +
+                    'removeformat | help',
+                  content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+                }}
+              /> */}
 
               <div className='MB_layoutManu '>
                 {prop.listMenu.map((el, index) => (
@@ -172,22 +202,11 @@ const _04MobileLanguage = (prop) => {
                     <div className='MB_layoutManu1'>
 
                       <i className='sr-only'>//-!FOOD NAME</i>
-                      <div className='MB_flex_NoInp'>
+                      {/* <div className='MB_flex_NoInp'>
                         <span className='MB_item'>{index + 1}</span>
-
-                        <div className="width100">
-                          <div className="coverEdit MB_GrayInput"> </div>
-          
-                          <input readOnly value={el.food_name} type='text' className='MB_EditName_Input MB_White ' placeholder='Food name' />
-                        </div>
-
-                        {/* <ReactQuill readOnly modules={{ toolbar: false }} value={el.food_name} type='text'
+                        <ReactQuill readOnly modules={{ toolbar: false }} value={el.food_name} type='text'
                           disabled={true} name='food_name' id='food-name' autoComplete='off' className='MB_EditName_Input  MB_GrayInput' placeholder='Food name' />
-                      */}
-
-
-                      </div>
-
+                      </div> */}
                       <div className='MB_flex_NoInp'>
                         <span className='MB_item hiddenMe'>{index + 1}</span>
                         <input onChange={(event) => prop.inputListValue(index, event)} value={el.food_name_2} type='text'
@@ -198,100 +217,50 @@ const _04MobileLanguage = (prop) => {
 
 
                       <i className='sr-only'>//-!DESCRIPTION</i>
-                      <div className='editDescriptionROnly'>
-                        <div className="coverEdit MB_GrayInput"></div>
-                        <EditorProvider>
-                          <Editor readOnly disabled={true} value={el.description} placeholder='Description'>
-                            <Toolbar>
-                            </Toolbar>
-                          </Editor>
-                        </EditorProvider>
-                        {/* <ReactQuill readOnly modules={{ toolbar: false }} value={el.description}
+                      {/* <div className=''>
+                        <ReactQuill readOnly modules={{ toolbar: false }} value={el.description}
                           id='description'
-                          disabled={true} name='description' className='MB_EditName_Input MB_GrayInput MB_fontSmall testAreaD' placeholder='Description' /> */}
-                      </div>
+                          disabled={true} name='description' className='MB_EditName_Input MB_GrayInput MB_fontSmall testAreaD' placeholder='Description' />
+                      </div> */}
 
 
-                      <div className='editDescription'>
-                        <EditorProvider>
-                          <Editor value={el.description_2} onChange={(event) => prop.inputListValue(index, event)} name='description_2' placeholder='Description (2nd)' >
-                            <Toolbar>
-                              <BtnBold />
-                              <BtnUnderline />
-                              <BtnClearFormatting />
-
-                            </Toolbar>
-                          </Editor>
-                        </EditorProvider>
-
-
-                        {/* <ReactQuill onChange={(event) => prop.inputRQuill(index, 'description_2', event)} value={el.description_2}
-                          id='description_2' name='description_2' rows='2' className='MB_EditName_Input MB_White MB_fontSmall testAreaD forQPt' placeholder='Description (2nd)' modules={modules} /> */}
-                      </div>
+                      {/* <div className=''>
+                        <ReactQuill onChange={(event) => prop.inputRQuill(index, 'description_2', event)} value={el.description_2}
+                          id='description_2' name='description_2' rows='2' className='MB_EditName_Input MB_White MB_fontSmall testAreaD forQPt' placeholder='Description (2nd)' modules={modules} />
+                      </div> */}
 
                       <i className='sr-only'>//-!REMARK</i>
-
-                      <div className='editRemarkROnly'>
-                        <div className="coverEdit MB_GrayInput"></div>
-
-                        <EditorProvider>
-                          <Editor readOnly disabled={true} value={el.remark} placeholder='Remark'>
-                            <Toolbar>
-                            </Toolbar>
-                          </Editor>
-                        </EditorProvider>
-                        {/* <ReactQuill readOnly modules={{ toolbar: false }} value={el.remark} name='remark' rows='1' id='remark'
+                      {/* 
+                      <div className=''>
+                        <ReactQuill readOnly modules={{ toolbar: false }} value={el.remark} name='remark' rows='1' id='remark'
                           disabled={true} className='MB_EditName_Input MB_GrayInput MB_fontSmall italic testAreaR' placeholder='Remark (optional)' />
-                       */}
-
-                      </div>
-                      <div className='editRemark'>
-                        <EditorProvider>
-                          <Editor value={el.remark_2} onChange={(event) => prop.inputListValue(index, event)} name='remark_2' placeholder='Remark (2nd)'  >
-                            <Toolbar>
-                              <BtnBold />
-                              <BtnUnderline />
-                              <BtnClearFormatting />
-                            </Toolbar>
-                          </Editor>
-                        </EditorProvider>
-
-
-
-                        {/* <ReactQuill onChange={(event) => prop.inputRQuill(index, 'remark_2', event)} value={el.remark_2} name='remark_2' rows='1'
+                      </div> */}
+                      {/* <div className=''>
+                        <ReactQuill onChange={(event) => prop.inputRQuill(index, 'remark_2', event)} value={el.remark_2} name='remark_2' rows='1'
                           id='remark_2' className='MB_EditName_Input MB_White MB_fontSmall italic testAreaR forQPt' placeholder='Remark (2nd)' modules={modules} />
-                     
-                      */}
-
-                      </div>
+                      </div> */}
 
                       <i className='sr-only'>!PRICE</i>
 
                       <div className='MB_flex_NoInp'>
-                        <div className='MB_labelPrice'>
+                        <label htmlFor='price' className='MB_labelPrice'>
                           Price
-                        </div>
-                        <div className="width100">
-                          <div className="coverEdit MB_GrayInput"> </div>
+                        </label>
 
-                          <input readOnly value={el.price} type='text' className='MB_EditName_Input MB_White ' placeholder='Food name' />
-
-
-                          {/* <ReactQuill readOnly modules={{ toolbar: false }} value={el.price} type='text' name='price' id='price' autoComplete='off'
+                        {/* <ReactQuill readOnly modules={{ toolbar: false }} value={el.price} type='text' name='price' id='price' autoComplete='off'
                           disabled={true} className='MB_EditName_Input MB_GrayInput' pattern='[0-9]*.\d{0,2}' placeholder='0' /> */}
 
-                        </div>
                       </div>
 
                       <div className='MB_flex_NoInp posReative'>
-                        <div className='MB_labelPrice'>
+                        <label htmlFor='price' className='MB_labelPrice'>
                           Price
-                        </div>
+                        </label>
 
                         <input onChange={(event) => {
                           prop.inputListValue(index, event)
                           // ErrorFn(index, 'errPrice', false)
-                        }} onClick={() => ErrorFn(index, 'errPrice', false)} value={el.price_2} type='text' name='price_2' autoComplete='off'
+                        }} onClick={() => ErrorFn(index, 'errPrice', false)} value={el.price_2} type='text' name='price_2' id='price_2' autoComplete='off'
                           className='MB_EditName_Input MB_White' pattern='[0-9]*.\d{0,2}' placeholder='(2nd)' />
                         {el.errPrice && <span className="errCategory"><img src={MBerroricon} alt="" /> <span>number only</span></span>}
                       </div>

@@ -97,13 +97,13 @@
   width: 100%;
 }
 
-.oclock{
+.oclock {
   display: flex;
   justify-content: end;
-  font-size: .8rem;
+  font-size: 0.8rem;
   font-weight: 400;
-  color:#999;
-  padding-top: .4rem;
+  color: #999;
+  padding-top: 0.4rem;
 }
 .MB_inputTime {
   border: 0.5px solid #777;
@@ -113,8 +113,7 @@
   /* box-shadow: .1rem .1rem 2rem rgba(0, 0, 0, 0.10); */
   background-color: #dde6fb;
   font-weight: 500;
-  color:#444;
-
+  color: #444;
 }
 
 .MB_inputTime select {
@@ -351,7 +350,7 @@ background-color: #fae8e6; */
   border-radius: 1rem;
   padding: 1.2rem 0.1rem;
   color: #000;
-  border: #333 .5px solid;
+  border: #333 0.5px solid;
 }
 
 .MB_langStyle {
@@ -450,7 +449,7 @@ background-color: #fae8e6; */
 }
 
 .MB_inputTextLang {
-  border: #333 .5px solid;
+  border: #333 0.5px solid;
   border-radius: 2rem;
   padding: 0.5rem 1rem;
   outline: none;
@@ -682,8 +681,8 @@ input:checked + .forOFLang2:before {
   transform: translate(-50%, -76%);
   width: 4rem;
   height: 4rem;
-  background-color: #7c868967;
-  background-color: #7388c162;
+
+  background-color: #cfdeff;
 
   border-radius: 0.2rem;
   z-index: -1;
@@ -763,6 +762,21 @@ input:checked + .forOFLang2:before {
 .MB_themeContainer_Acc {
   border-radius: 0 0.5rem 0.5rem 0;
 }
+.MB_themeContainerColor {
+  position: fixed;
+  bottom: 13rem;
+  right: 0;
+  width: 80%;
+  height: 25rem;
+  transform: translateY(35%);
+  background-color: #fff;
+  border-radius: 0.5rem 0 0 0.5rem;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  z-index: 100;
+  pointer-events: all;
+  border: #ccc solid 1px;
+}
 
 .MB_themeRow_reverse {
   text-align: end;
@@ -773,11 +787,10 @@ input:checked + .forOFLang2:before {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  height: 3rem;
+  height: 2.5rem;
   gap: 0.5rem;
   background-color: rgb(243, 243, 243);
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.15);
-
   z-index: 1;
 }
 
@@ -789,6 +802,9 @@ input:checked + .forOFLang2:before {
   justify-content: center;
   align-items: center;
 }
+.MB_menuListBtn img {
+  height: 2.3rem;
+}
 .MB_Theme_tabChoose {
   background-color: #ddddddad;
   border-bottom: #96a1bf 2px solid;
@@ -796,10 +812,13 @@ input:checked + .forOFLang2:before {
 
 .MB_themeLayout_Grid {
   display: grid;
-  grid-template-rows: 1fr 3.5rem;
+  grid-template-rows: 1fr 3rem;
   /* gap: 0.5rem; */
   width: 100%;
   height: 100%;
+}
+.MB_themeLayout_Full {
+  grid-template-rows: 1fr !important;
 }
 
 .MB_flexBTN_Between {
@@ -820,7 +839,11 @@ input:checked + .forOFLang2:before {
   overflow-y: scroll;
   height: 100%;
 }
-
+.ThemePallete_Padding {
+  padding: 0.5rem;
+  padding-top: 4rem;
+  padding-bottom: 3rem;
+}
 .MB_themeNavFootBar {
   display: flex;
   flex-direction: column;
@@ -829,6 +852,11 @@ input:checked + .forOFLang2:before {
   padding-top: 4rem;
 }
 
+.MB_themeNavFootBar_ForIcon {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
 .MB_themeRow {
   display: flex;
   width: 100%;
@@ -988,11 +1016,18 @@ input:checked + .forOFLang2:before {
   background-color: #eee;
   width: 90%;
 }
+.MB_labelFontR:focus,
+.MB_presentInput:focus {
+  outline: solid #444 1px;
+}
 .text_selectCenter {
   text-align-last: center;
 }
 .text_width80 {
   width: 80%;
+}
+.text_widthRem {
+  width: 9rem;
 }
 .MB_labelFontR option {
   font-size: 0.9rem;
@@ -1005,14 +1040,15 @@ input:checked + .forOFLang2:before {
 .MB_tray_position {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
 
   justify-content: center;
   align-items: center;
   width: 100%;
-  padding-top: 3rem;
+  padding-top: 4.5rem;
 }
 .colorBoxInput {
+  position: relative;
   display: flex;
   width: 280px;
   gap: 1rem;
@@ -1024,12 +1060,14 @@ input:checked + .forOFLang2:before {
 
 .MB_tray_input {
   border: 1px solid #444;
-  padding: 0.5rem;
+  padding: 0.2rem;
   border-radius: 0.5rem;
-  width: 150px;
+  width: 6rem;
   text-align: center;
+  outline: none;
 }
-.MB_tray_input_QR{
+
+.MB_tray_input_QR {
   font-size: 1rem;
   padding: 0.3rem;
   width: 100px;
@@ -1052,6 +1090,45 @@ input:checked + .forOFLang2:before {
   height: 2.5rem;
   border-radius: 0.3rem;
   border: 0.5px solid #444;
+}
+.okColorBtn {
+  background-color: #6090ff;
+  height: 2.2rem !important;
+  padding: 0.5rem 1.5rem;
+  font-size: 0.9rem;
+  border-radius: 1rem;
+  font-weight: 500;
+  border: 0.5px #333 solid;
+  width: 5rem;
+  color: #fff;
+  transform: translateX(1rem);
+}
+.cancleColorBtn {
+  border: 0.5px #333 solid;
+  width: 2rem;
+  height: 2rem;
+  color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  justify-self: flex-end;
+  border-radius: 50%;
+}
+.marginR {
+  margin-right: 1rem;
+}
+.grisAlignSelf {
+  align-self: center;
+  justify-self: flex-end;
+}
+.okColorBtn:hover {
+  transform: scale(1.1);
+  background-color: #9bb0df;
+}
+.cancleColorBtn:hover {
+  transform: scale(1.1);
+  background-color: #d2d2d2;
 }
 .chrome-picker {
   width: 90% !important;
@@ -1149,13 +1226,12 @@ input:checked + .forOFLang2:before {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: .8rem 1rem;
+  padding: 0.8rem 1rem;
   border-radius: 0.5rem;
-
 }
-.MB_OF_Flex_ex{
+.MB_OF_Flex_ex {
   padding-top: 1rem;
-  padding-bottom: .2rem;
+  padding-bottom: 0.2rem;
 }
 .MB_BorderBt {
   border-bottom: 1px solid #ccc;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
-import { timePickerData } from './TimePickerData';
-import { timePickerBaseData } from './TimePickerData';
+import { timePickerData } from './_21TimePickerData';
+import { timePickerBaseData } from './_21TimePickerData';
 import '../style/timePicker.css';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
@@ -10,7 +10,7 @@ import { setUser } from '../redux/userSlice';
 import Swal from 'sweetalert2';
 import MBiconClose from '../all-icon/button-icon/MBclose.svg'
 
-const _TimePickerMobile = (prop) => {
+const _07TimePickerMobile = (prop) => {
   //= prop.timeSetup prop.setTimeSetup
   const dispath = useDispatch();
   const { user } = useSelector((state) => state.user);
@@ -648,7 +648,7 @@ const _TimePickerMobile = (prop) => {
                     <div className='textTo'>to</div>
 
                     <div className='timeBox'>
-                  
+
                       <div className='MB_inputTime'>
                         <select value={timeEnd.hrsM1} onChange={timeEndFn('hrsM1')} name='hrsM1' id='' disabled={menuSelectType.menu_1 !== '1'} className=''>
                           <option value='00'>00</option>
@@ -1076,4 +1076,4 @@ const _TimePickerMobile = (prop) => {
   );
 };
 
-export default _TimePickerMobile;
+export default _07TimePickerMobile;

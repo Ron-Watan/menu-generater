@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
-import { timePickerData } from './TimePickerData';
-import { timePickerBaseData } from './TimePickerData';
+import { timePickerData } from './_21TimePickerData';
+import { timePickerBaseData } from './_21TimePickerData';
 import '../style/timePicker.css';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';

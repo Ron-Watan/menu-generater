@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import { colorPalette } from '../componentusers/ColorPickerData.js'
+import { colorPalette } from './ColorPickerData.js'
 import { SketchPicker, ChromePicker } from 'react-color';
 import { Alpha } from 'react-color/lib/components/common';
 import { HexColorPicker } from "react-colorful";

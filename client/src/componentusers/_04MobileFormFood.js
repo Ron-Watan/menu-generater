@@ -1,25 +1,24 @@
 import React, { useRef, forwardRef, useState } from 'react'
-import { BsSquare, BsCheckSquare, BsCheckCircle, BsCircle, BsFill0CircleFill } from 'react-icons/bs';
+import {BsCheckCircle, BsCircle } from 'react-icons/bs';
 import MBiconBin from '../all-icon/button-icon/MBbin.svg'
 import MBiconPlus from '../all-icon/button-icon/MBplusicon.svg'
-import SwipeToDelete from 'react-swipe-to-delete-ios'
 import MBiconBack from '../all-icon/button-icon/MBback.svg'
 import MBaddIcon from '../all-icon/button-icon/addIcon.svg'
 import MBerroricon from '../all-icon/button-icon/error.svg'
-
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+import MBiconDown from '../all-icon/button-icon/down.svg'
+import MBiconSetting from '../all-icon/button-icon/setting.svg'
 import Swal from 'sweetalert2';
 
-
+import {
+  BtnBold, BtnUnderline, BtnClearFormatting,
+  Editor,
+  EditorProvider,
+  Toolbar
+} from 'react-simple-wysiwyg';
 
 const _04MobileFormFood = forwardRef((prop, ref) => {
 
-  const modules = {
-    toolbar: [
-      ['bold', 'underline', { 'list': 'ordered' }, { 'list': 'bullet' }, 'clean']
-    ]
-  }
+
   //  Make Input hide Error(false) 
   const ErrorFn = (index, name, bol) => {
     let dataSet = [...prop.listMenu];
@@ -34,8 +33,6 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
     prop.setOneClickCat(false)
     prop.setState({ ...prop.state, [name]: false });
   };
-
-
 
 
 
@@ -100,13 +97,13 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
       }).then((result) => {
         if (result.isConfirmed) {
           validation(saveSubmitFn)
-          if (validation(saveSubmitFn) === true) {
-            setTimeout(() => {
-              prop.setCheckInputForm(false)
-              prop.setStart(false)
-              prop.setMenuId('')
-            }, 1500);
-          }
+          // if (validation(saveSubmitFn) === true) {
+          //   setTimeout(() => {
+          //     prop.setCheckInputForm(false)
+          //     prop.setStart(false)
+          //     prop.setMenuId('')
+          //   }, 1500);
+          // }
 
         } else if (result.isDenied) {
           setTimeout(() => {
@@ -133,8 +130,16 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
   }
 
 
+  function arrayMmove(arr, old_index, new_index, propSetCatList) {
+    // setChangeRA(true)
+
+    const newData = [...arr]
+    newData.splice(new_index, 0, newData.splice(old_index, 1)[0]);
+    propSetCatList(newData)
+  };
+  const [showControl, setShowControl] = useState(false)
+  //-
   const emptyIcon = '/static/media/_empty.7b62bbf4b02d3d65f678e4361123ec76.svg#empty000'
-  // console.log(prop.file)
 
   return (
 
@@ -280,19 +285,20 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
 
                     <i className='sr-only'>!DESCRIPTION</i>
                     <div className=''>
-                      <div className=''>
+                      <div className='editDescription'>
                         {/* <textarea onChange={(event) => prop.inputListValue(index, event)} value={el.description} id='description'
                           name='description' rows='4' className='MB_EditName_Input MB_White MB_fontSmall testAreaD' placeholder='Description (optional)'></textarea> */}
 
-                        <ReactQuill onChange={(event) => prop.inputRQuill(index, 'description', event)} value={el.description} modules={modules}
-                          name='description' className='MB_EditName_Input forQPt MB_White MB_fontSmall testAreaD' placeholder='Description (optional)' />
+                        <EditorProvider>
+                          <Editor value={el.description} onChange={(event) => prop.inputListValue(index, event)} name='description' placeholder='Description (optional)' >
+                            <Toolbar>
+                              <BtnBold />
+                              <BtnUnderline />
+                              <BtnClearFormatting />
 
-                        {/* <ReactQuill
-                          value={el.description}
-                          onChange={() => ''}
-                          modules={modules}
-                          className='MB_EditName_Input MB_White MB_fontXSmall italic testAreaR' placeholder='Remark (optional)'
-                        /> */}
+                            </Toolbar>
+                          </Editor>
+                        </EditorProvider>
 
                       </div>
 
@@ -300,18 +306,20 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
 
                     <i className='sr-only'>!REMARK</i>
                     <div className=''>
-                      <div className=''>
-
-                        <ReactQuill
-                          value={el.remark}
-                          onChange={(event) => prop.inputRQuill(index, 'remark', event)}
-                          modules={modules}
-                          className='MB_EditName_Input forQPt MB_White MB_fontXSmall italic testAreaR' placeholder='Remark (optional)'
-                        />
+                      <div className='editRemark'>
                         {/* <textarea onChange={(event) => prop.inputListValue(index, event)} value={el.remark} name='remark' rows='2' id='remark'
                           className='MB_EditName_Input MB_White MB_fontXSmall italic testAreaR' placeholder='Remark (optional)' />
                          */}
+                        <EditorProvider>
+                          <Editor value={el.remark} onChange={(event) => prop.inputListValue(index, event)} name='remark' placeholder='Remark (optional)' >
+                            <Toolbar>
+                              <BtnBold />
+                              <BtnUnderline />
+                              <BtnClearFormatting />
 
+                            </Toolbar>
+                          </Editor>
+                        </EditorProvider>
                       </div>
 
 
@@ -456,19 +464,36 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
                       </div>
 
                       <div className="MB_layoutManu1_1">
-                        <div className={`MB_TrashIconBox GruopBtn ${prop.listMenu.length === 1 && 'hiddenMe'}`}>
-                          <a href={`#MBend${prop.listMenu.length - 2}`}
-                            onClick={() => prop.removeItem(index)} className='MB_TrashIcon'>
-                            <img src={MBiconBin} alt="" />
-                          </a>
-                          <span className='MB_textTrash'>REMOVE ITEM</span>
+                        <div className="form_comtrolBox">
+                          <div className={`MB_TrashIconBox ${prop.listMenu.length === 1 && 'hiddenMe'}`}>
+                            <div onClick={() => setShowControl(!showControl)} className='MB_SetIcon'>
+                              <img src={MBiconSetting} alt="" />
+                            </div>
+                            {/* <span className='MB_textTrash'>REMOVE ITEM</span> */}
+                          </div>
+                          {showControl && <div className={`form_comtrolBox1`}>
+                            {/* <div className={`MB_TrashIconBox GruopBtn ${prop.listMenu.length === 1 && 'hiddenMe'}`}> */}
+
+                            <div className={`MB_TrashIconBox ${prop.listMenu.length === 1 && 'displayNone'}`}>
+                              <a href={`#MBend${index}`}
+                                onClick={() => prop.removeItem(index)} className='MB_TrashIcon'>
+                                <img src={MBiconBin} alt="" />
+                              </a>
+                              {/* <span className='MB_textTrash'>REMOVE ITEM</span> */}
+                            </div>
+                            <a href={`#MBend${index - 1}`} onClick={() => { arrayMmove(prop.listMenu, index, index - 1, prop.setListMenu) }} type='submit' className={`smallUpDown up ${index === 0 && 'displayNone'}     `}>
+                              <img src={MBiconDown} alt="" />
+                            </a>
+
+                            <a href={`#MBend${index + 1}`} onClick={() => { arrayMmove(prop.listMenu, index, index + 1, prop.setListMenu) }} type='submit' className={`smallUpDown ${index === prop.listMenu.length - 1 && 'displayNone'}`}>
+                              <img src={MBiconDown} alt="" />
+                            </a>
+                          </div>}
                         </div>
-
-
                         <div className="redtagbox">
 
                           <input onChange={(event) => prop.inputListValue(index, event)} value={el.redTag} name='redTag' rows='1' type='text'
-                            id='redTag' autoComplete='off' className='MB_EditName_Input MB_White MB_fontXSmallRed italic' placeholder='Red Remark (optional)' />
+                            id='redTag' autoComplete='off' className='MB_EditName_Input MB_White MB_fontXSmallRed italic redTagPadding' placeholder='Red Remark (optional)' />
                           <span className='redtagexpain'>example: Not avalable today</span>
                         </div>
 
@@ -603,11 +628,11 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
 
         </div>
 
-      </div>
+      </div >
 
 
 
-    </div>
+    </div >
 
 
   )

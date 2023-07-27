@@ -1,10 +1,13 @@
-import React, { useRef, useState } from 'react'
-import { colorPalette } from '../componentusers/ColorPickerData.js'
-import { SketchPicker, ChromePicker } from 'react-color';
-import { Alpha } from 'react-color/lib/components/common';
+import React, { useState } from 'react'
+import { colorPalette } from './ColorPickerData.js'
+
 import { HexColorPicker, HexColorInput } from "react-colorful";
-// var { Alpha } = require('react-color/lib/components/common')
-const _ColorPickkerMobile = (prop) => {
+import MBicon_Tray from '../all-icon/mobile-bar/tray.svg'
+import MBicon_Pallete from '../all-icon/mobile-bar/pallete.svg'
+import MBiconClose from '../all-icon/button-icon/MBclose.svg'
+
+
+const _09TsubColorPickerMobile = (prop) => {
   // prop.noSetTheme
   //prop.nameTheme
   // prop.navAndFootBar
@@ -16,6 +19,7 @@ const _ColorPickkerMobile = (prop) => {
   //prop.setCategoryMotion
 
   const getColorPicker = (e) => {
+    prop.setCheckChangeTheme(true)
     let color = e.target.value
     if (prop.noSetTheme === 1) {
       prop.setNavAndFootBar({ ...prop.navAndFootBar, [prop.nameTheme]: color })
@@ -36,7 +40,7 @@ const _ColorPickkerMobile = (prop) => {
   const [colorOnTray, setColorOnTray] = useState(prop.colorOnClick)
 
   const getColorTray = (color) => {
-    // let seeColor = color.hex
+    prop.setCheckChangeTheme(true)
     let seeColor = color
 
     setColorOnTray(color)
@@ -62,18 +66,42 @@ const _ColorPickkerMobile = (prop) => {
     <div className='MB_AB_FullAgain'>
 
       <div className={`MB_themeMenuList `}>
-        <div onClick={() => setChoosePallete('tray')} className='MB_menuListBtn'>QT</div>
+        <div onClick={() => setChoosePallete('tray')} className={`MB_menuListBtn ${choosePallete === 'tray' && 'MB_Theme_tabChoose'}`}>
+          <img src={MBicon_Tray} alt="" />
 
-        <div onClick={() => setChoosePallete('pallete')} className='MB_menuListBtn'>NF</div>
+        </div>
+
+        <div onClick={() => setChoosePallete('pallete')} className={`MB_menuListBtn ${choosePallete === 'pallete' && 'MB_Theme_tabChoose'}`}>
+          <img src={MBicon_Pallete} alt="" />
+
+        </div>
+
+
+
+        <button onClick={() => {
+          prop.setOnoffColorPicker(false)
+        }} className='MB_menuListBtn okColorBtn grisAlignSelf'>
+          Ok
+        </button>
+        <button onClick={() => {
+          prop.setOnoffColorPicker(false)
+          getColorTray(prop.colorOnClick)
+          // }} className=' MB_menuListBtn okColorBtn cancleColorBtn grisAlignSelf marginR'>
+        }} className=' cancleColorBtn marginR'>
+
+          <img src={MBiconClose} alt="" />
+        </button>
+
+
 
       </div>
 
       <div className="MB_AB_FullAgain">
 
-        <div className='MB_themeLayout_Grid'>
+        <div className='MB_themeLayout_Grid MB_themeLayout_Full'>
 
 
-          {choosePallete === 'pallete' && <div className='MB_Container_Sroll'>
+          {choosePallete === 'pallete' && <div className='MB_Container_Sroll ThemePallete_Padding'>
 
             {/* <div className="colorPickerTitle">New</div> */}
             <div className="MB_colorPickerGridRow">
@@ -83,26 +111,26 @@ const _ColorPickkerMobile = (prop) => {
               ))}
             </div>
 
-            <div className="MB_colorPickerGridRow">
-              {/* <div className="colorPickerName">Gray</div> */}
+            {/* <div className="MB_colorPickerGridRow">
+        
               {colorPalette.gray.map((el, index) => (
                 <button onClick={getColorPicker} value={el} className="MB_colorPickerItem" style={{ 'backgroundColor': `${el}` }} key={index}></button>
               ))}
-            </div>
+            </div> */}
 
-            <div className="MB_colorPickerGridRow">
-              {/* <div className="colorPickerName">Zinc</div> */}
+            {/* <div className="MB_colorPickerGridRow">
+         
               {colorPalette.zinc.map((el, index) => (
                 <button onClick={getColorPicker} value={el} className="MB_colorPickerItem" style={{ 'backgroundColor': `${el}` }} key={index}></button>
               ))}
-            </div>
+            </div> */}
 
-            <div className="MB_colorPickerGridRow">
-              {/* <div className="colorPickerName">Neutral</div> */}
+            {/* <div className="MB_colorPickerGridRow">
+        
               {colorPalette.neutral.map((el, index) => (
                 <button onClick={getColorPicker} value={el} className="MB_colorPickerItem" style={{ 'backgroundColor': `${el}` }} key={index}></button>
               ))}
-            </div>
+            </div> */}
 
             <div className="MB_colorPickerGridRow">
               {/* <div className="colorPickerName">Stone</div> */}
@@ -234,19 +262,25 @@ const _ColorPickkerMobile = (prop) => {
             <div className="MB_tray_position">
 
               <HexColorPicker color={colorOnTray} onChange={getColorTray} />
-              <div className="colorBoxInput"><span className="colorBoxTray" style={{ 'backgroundColor': `${colorOnTray}` }} ></span><span># &nbsp;<HexColorInput className="MB_tray_input" color={colorOnTray} onChange={getColorTray} /></span> </div>
+              <div className="colorBoxInput">
+
+                <span className="colorBoxTray" style={{ 'backgroundColor': `${colorOnTray}` }} ></span>
+                <span># &nbsp;<HexColorInput className="MB_tray_input" color={colorOnTray} onChange={getColorTray} /></span>
+
+              </div>
+
               {/* <ChromePicker lassName="MB_tray_Size"
                 value="ddd" color={colorOnTray} onChange={getColorTray} disableAlpha /> */}
             </div>}
 
 
-          <div className="MB_flexBTN_Around">
+          {/* <div className="MB_flexBTN_Around">
             <button onClick={() => {
               prop.setOnoffColorPicker(false)
             }} className='MB_Sq_Btn MB_Btn_Border for_btn_theme'>
               OK
             </button>
-          </div>
+          </div> */}
         </div >
       </div >
 
@@ -255,4 +289,4 @@ const _ColorPickkerMobile = (prop) => {
   )
 }
 
-export default _ColorPickkerMobile
+export default _09TsubColorPickerMobile
