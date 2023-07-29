@@ -5,11 +5,8 @@ import { ticketPass } from '../protectors/authorize';
 import { useDispatch, useSelector } from 'react-redux';
 import { hideLoading, showLoading } from '../redux/alertSlice';
 import { setUser } from '../redux/userSlice';
-
 import _MenuComponent from '../components/_MenuComponent';
-// qqq
 
-import NavbarComponent from './NavbarComponent';
 import '../style/_main.css';
 import '../style/mainForm.css';
 import '../style/sideForm.css';
@@ -20,19 +17,9 @@ import '../style/themeSetup.css';
 import '../style/_mediaPhone.css';
 import '../style/_mediaPhone_Setting.css';
 
-import { BsSquare, BsCheckSquare } from 'react-icons/bs';
 import { v4 as uuidv4 } from 'uuid';
 import Resizer from 'react-image-file-resizer';
-import GenerateMenu from './GenerateMenu';
-import BannerMainForm from './BannerMainForm';
-import EditMenuName from './EditMenuName';
-import TimePicker from './TimePicker';
-import AddLanguage from './AddLanguage';
-import AddLanguageSetup from './AddLanguageSetup';
-import IconPickker from './IconPickker';
-
 import _20IconPickerMobile from './_20IconPickerMobile';
-
 
 import _01FeedBackMobile from './_01FeedBackMobile';
 import _02QRCode from './_02QRCode';
@@ -44,21 +31,14 @@ import _07TimePickerMobile from './_07TimePickerMobile';
 import _08LanguageSetupMobile from './_08LanguageSetupMobile';
 import _09ThemeSetupMobile from './_09ThemeSetupMobile';
 import _10OnOffSettingMobile from './_10OnOffSettingMobile';
+import FunctionalIFrameComponent from './zIframe.js'
+// import _MenuComponent from '../../src/components/_MenuComponent'
 
+import _SimulationApp from './simulattion/_SimulationApp'
+// import _SimulationApp from '../../src/styleClient'
 
-
-
-
-
-
-
-import ColorPickker from './ColorPickker';
 
 import iconPhoto from '../icon/meal.svg';
-
-import ThemeSetup from './ThemeSetup';
-
-
 import MBicon_User from '../all-icon/mobile-bar/user.svg'
 import MBicon_Banner from '../all-icon/mobile-bar/banner.svg'
 import MBicon_Menu1 from '../all-icon/mobile-bar/menu1.svg'
@@ -72,31 +52,14 @@ import MBicon_Theme from '../all-icon/mobile-bar/theme.svg'
 import MBicon_Logout from '../all-icon/mobile-bar/logout.svg'
 import MBicon_Onoff from '../all-icon/mobile-bar/onoff.svg'
 import MBicon_StarNoti from '../all-icon/mobile-bar/starnoti.svg'
-
-
-
-import MBiconPlus from '../all-icon/button-icon/MBplusicon.svg'
-import MBiconClose from '../all-icon/button-icon/MBclose.svg'
-import MBiconBack from '../all-icon/button-icon/MBback.svg'
-
+import IFrame from './zIframe'
+import styled from '@emotion/styled';
 
 
 
 const icon = '/static/media/food-color-SVG-sprite.c7acaa791b17c993c83fb8c054053b75.svg#food-tray`';
-// import PreviewMyIcon from './PreviewMyIcon';
-
-/*
 
 
-001_getAllMenu
-
-
-
-005_findOneMenu
-
-
-901_chooseMenu
-*/
 //-///-///-///-///-///-///-///-///-///-
 
 
@@ -141,9 +104,23 @@ const _AppMain = () => {
   }); // timeSwitcher()
 
   const [timeSetup, setTimeSetup] = useState({});
-  const [languageSetup, setLanguageSetup] = useState({});
+  // const [languageSetup, setLanguageSetup] = useState({});
   const [onOffSetting, setOnOffSetting] = useState({});
 
+
+  const [languageSetup, setLanguageSetup] = useState({
+    onLanguage_2: '',
+    language_1: 'English',
+    code_1: 'EN',
+    symbol_1: '$',
+    style_1: false,
+    followed_1: true,
+    language_2: '',
+    code_2: '',
+    symbol_2: '',
+    style_2: true,
+    followed_2: true,
+  });
   // const [onOffSetting, setOnOffSetting] = useState({
 
   //   menuName: '', banner: '', sideBar: '', filter: '', vetgeterian: '', vegan: '', gluten_free: '', halal: '',
@@ -255,13 +232,13 @@ const _AppMain = () => {
   const [originalName, setOriginalName] = useState('');
 
 
-  const [themeSetup, setThemeSetup] = useState('');
   const [getAllLoading, setGetAllLoading] = useState(false);
+
 
   //- //= //-001_getAllMenu
   const getAllMenu = () => {
     // dispath(showLoading())
-    setGetAllLoading(true)
+    // setGetAllLoading(true)
     axios
       .post(`${process.env.REACT_APP_API}/user/getAllMenu`, { userId: user.userId }, ticketPass)
       .then((result) => {
@@ -275,7 +252,7 @@ const _AppMain = () => {
           setMenuName(getReult.menuName);
           setTimeSetup(getReult.timeSetup);
           setLanguageSetup(getReult.languageSetup);
-          setThemeSetup(getReult.themeSetup);
+          // setThemeSetup(getReult.themeSetup);
           setOnOffSetting(getReult.onOffSetting)
 
           const catList_menu_1 = getReult.menu.filter(el => el.menuTime === 1)
@@ -293,7 +270,7 @@ const _AppMain = () => {
           // console.log(checkTime);
           // setCategoryList(result.data.userMenu.menu)
           // dispath(hideLoading())
-          setGetAllLoading(false)
+          // setGetAllLoading(false)
           console.log('Server: Connected');
           setOnConnected(true);
         } else {
@@ -1129,7 +1106,101 @@ const _AppMain = () => {
         Swal.fire("Can't not connect the server");
       });
   };
-  /////////////////////////////////////////////////////
+  //=///////=//=//=//=//=//=////////////////////////////////////////////////
+  const [themeSetup, setThemeSetup] = useState('')
+
+  const [checkChangeTheme, setCheckChangeTheme] = useState(false)
+
+
+  const [noSetTheme, setNoSetTheme] = useState('')
+  const [nameTheme, setNameTheme] = useState('')
+
+  //  ----------------------------------------------------------------------------------------------
+  const [logoRestaurant, setLogoRestaurant] = useState('')
+  const imgId = user.link + 'restlogo'
+  // const currentRestaurantName = user.restaurant_name
+  // const inputRestaurantName = (e) => {
+  //   setCheckChangeTheme(true)
+  //   prop.setRestaurantName(e.target.value)
+  // }
+  // 1 ----------------------------------------------------------------------------------------------
+  const [navAndFootBar, setNavAndFootBar] = useState({
+    nameFontFamily: '', nameFontColor: '', nameFontSize: '',
+    navBarColor: '', navBarFontColor: '',
+    footBarStyle: ''
+  })
+  const { nameFontFamily, nameFontColor, nameFontSize, navBarColor, navBarFontColor, footBarStyle } = navAndFootBar
+
+  const nameAllFontStyleFn = (name) => (e) => {
+    setCheckChangeTheme(true)
+    setNavAndFootBar({ ...navAndFootBar, [name]: e.target.value })
+  }
+  // 2 ----------------------------------------------------------------------------------------------
+
+  const [bodyStyle, setBodyStyle] = useState({
+
+    bodyBgColor: '', bodyFontFamily: '', bodyFonttColor: '', bodyFontSize: ''
+  })
+  const { bodyBgColor, bodyFontFamily, bodyFonttColor, bodyFontSize } = bodyStyle
+
+  const bodyAllFontStyleFn = (name) => (e) => {
+    setCheckChangeTheme(true)
+    setBodyStyle({ ...bodyStyle, [name]: e.target.value })
+  }
+  // 3 ----------------------------------------------------------------------------------------------
+
+  const [themeIconNoBD, setThemeIconNoBD] = useState({
+    themeIconRadius: '1.5rem', themeIconColorLine: '', themeIconBG: '', themeIconSolid: 'none'
+  })
+  const { themeIconRadius, themeIconColorLine, themeIconBG, themeIconSolid } = themeIconNoBD
+
+  const [themeIconColorBorder, setThemeIconColorBorder] = useState('')
+  const [extraIcon, setExtraIcon] = useState(false)
+
+  const themeIconClientFn = (radius, colorLine, colorBg, solid, colorBorder) => {
+    setCheckChangeTheme(true)
+    setThemeIconNoBD({
+      themeIconRadius: radius, themeIconColorLine: colorLine, themeIconBG: colorBg, themeIconSolid: solid, themeIconColorBorder: colorBorder
+    })
+    setExtraIcon(false)
+  }
+  // 4 ----------------------------------------------------------------------------------------------
+  const [categoryMotion, setCategoryMotion] = useState({
+    categoryPhotoSize: '',
+    categoryFontColor: '',
+    categoryBoxClass: '', categoryBoxColor: '',
+    categorySpanClass: '', categorySpanColor: '',
+    categoryActiveClass: ''
+
+  })
+  const { categoryPhotoSize, categoryFontColor, categoryBoxClass, categoryBoxColor, categorySpanClass, categorySpanColor, categoryActiveClass } = categoryMotion
+
+  const [chooseCatTheme, seatChooseCatTheme] = useState('')
+
+  const categoryMotionFn = (photoSize, fontColor, boxClass, boxColor, sapnClass, spanColor, avtiveClass) => {
+    setCheckChangeTheme(true)
+    setCategoryMotion({
+      categoryPhotoSize: photoSize,
+      categoryFontColor: fontColor,
+      categoryBoxClass: boxClass, categoryBoxColor: boxColor,
+      categorySpanClass: sapnClass, categorySpanColor: spanColor,
+      categoryActiveClass: avtiveClass
+    })
+
+  }
+
+  const categoryMotionInput = (name) => (e) => {
+    setCheckChangeTheme(true)
+    setCategoryMotion({ ...categoryMotion, [name]: e.target.value })
+  }
+  //////=//=//=//=///////////////////////////////
+
+
+
+  window.addEventListener('scroll', () => {
+    console.log('rrr')
+
+  })
 
 
 
@@ -1140,7 +1211,7 @@ const _AppMain = () => {
 
 
 
-  ///////////////////////////////////
+  //////=//=//=//=///////////////////////////////
 
   const [onOffQrCode, setOnoffQrCode] = useState(false);
   const [onOffBanner, setOnoffBanner] = useState(false);
@@ -1248,13 +1319,13 @@ const _AppMain = () => {
   // }, [user.userId]);
 
 
-
   //-///=///-///=///-///=///-///=///-   END FUNCTION   ///-///=///-///=///-///=///-///=///-
 
   const { loading } = useSelector((state) => state.alerts);
 
   return (
-    <div className='mainAppMonitor unselectable'>
+    <div className=' mainAppMonitor '>
+      {/* <div className='mainAppMonitor extraDit'> */}
       <div className={`${getAllLoading || deleteLoading ? 'showMe' : 'hiddenMe'} allLoading`}>
         <div className="iconLoadingBanner">
           <span className='barOne'></span > <span className='barTwo'></span> <span className='barThree'></span>
@@ -1293,7 +1364,7 @@ const _AppMain = () => {
             setOnoffBanner_MB={setOnoffBanner_MB}
             setDeleteImageBannerTG={setDeleteImageBannerTG}
             setSaveImageBannerTG={setSaveImageBannerTG}
-
+            userId={user.userId}
 
           />
         </div>
@@ -1370,198 +1441,302 @@ const _AppMain = () => {
 
         <div className={`mobile_function ${!onOffLangSetup_MB && 'MB_slide_Down'}`}>
           <_08LanguageSetupMobile setOnOffLangSetup_MB={setOnOffLangSetup_MB} navLang2LangSetUp={navLang2LangSetUp} setOnOffLangSetup={setOnOffLangSetup}
-            languageSetup={languageSetup} />
+            languageSetup={languageSetup} setLanguageSetup={setLanguageSetup} />
+
         </div>
 
         <div className={`mobile_ThemeFunction ${!onOffThemeSetup_MB && 'MB_slide_Left'}`}>
           <_09ThemeSetupMobile setOnOffThemeSetup_MB={setOnOffThemeSetup_MB} navTheme2ThemeSetUp={navTheme2ThemeSetUp}
             restaurantName={restaurantName} setRestaurantName={setRestaurantName}
-            reloadIFrame={reloadIFrame} setMBnavIcon={setMBnavIcon} />
+            reloadIFrame={reloadIFrame} setMBnavIcon={setMBnavIcon} dataURIToBlob={dataURIToBlob} arrayBufferToBase64={arrayBufferToBase64}
+
+            // setNameTheme={setNameTheme}
+            // nameTheme={nameTheme}
+            navAndFootBar={navAndFootBar}
+            setNavAndFootBar={setNavAndFootBar}
+            nameAllFontStyleFn={nameAllFontStyleFn}
+            nameFontFamily={nameFontFamily}
+            nameFontColor={nameFontColor}
+            nameFontSize={nameFontSize}
+            navBarColor={navBarColor}
+            navBarFontColor={navBarFontColor}
+            footBarStyle={footBarStyle}
+
+            bodyStyle={bodyStyle}
+            setBodyStyle={setBodyStyle}
+            bodyAllFontStyleFn={bodyAllFontStyleFn}
+            bodyBgColor={bodyBgColor}
+            bodyFontFamily={bodyFontFamily}
+            bodyFonttColor={bodyFonttColor}
+            bodyFontSize={bodyFontSize}
+
+
+            categoryMotion={categoryMotion}
+            setCategoryMotion={setCategoryMotion}
+            categoryPhotoSize={categoryPhotoSize}
+            categoryFontColor={categoryFontColor}
+            categoryBoxClass={categoryBoxClass}
+            categoryBoxColor={categoryBoxColor}
+            categorySpanClass={categorySpanClass}
+            categorySpanColor={categorySpanColor}
+            categoryActiveClass={categoryActiveClass}
+            chooseCatTheme={chooseCatTheme}
+            seatChooseCatTheme={seatChooseCatTheme}
+            categoryMotionInput={categoryMotionInput}
+            categoryMotionFn={categoryMotionFn}
+
+
+
+            themeIconNoBD={themeIconNoBD}
+            setThemeIconNoBD={setThemeIconNoBD}
+            themeIconRadius={themeIconRadius}
+            themeIconColorLine={themeIconColorLine}
+            themeIconBG={themeIconBG}
+            themeIconSolid={themeIconSolid}
+            themeIconColorBorder={themeIconColorBorder}
+            setThemeIconColorBorder={setThemeIconColorBorder}
+            extraIcon={extraIcon}
+            setExtraIcon={setExtraIcon}
+
+
+          />
         </div>
 
+        <div className="">
+          <div className={`mobile_function ${!onOffSetting_MB && 'MB_slide_Down'}`}>
+            <_10OnOffSettingMobile setOnOffSetting_MB={setOnOffSetting_MB} navOnOff2OnOffSetting={navOnOff2OnOffSetting} onOffSetting={onOffSetting} setOnOffSetting={setOnOffSetting} />
+          </div>
 
-        <div className={`mobile_function ${!onOffSetting_MB && 'MB_slide_Down'}`}>
-          <_10OnOffSettingMobile setOnOffSetting_MB={setOnOffSetting_MB} navOnOff2OnOffSetting={navOnOff2OnOffSetting} onOffSetting={onOffSetting} setOnOffSetting={setOnOffSetting} />
+
+          <i className='x'>//- START MOBILE BAR //------------------------------------------------</i>
+
+          <div className="MC_IconFixed">
+            <i className='x'> Home -----------------------------------------------</i>
+            <button onClick={() => setMBnavIcon(!mBnavIcon)} className={`MC_Tab MB_None_Adm ${mBnavIcon && 'adminActive'}  ${onOffThemeSetup_MB && 'displayNone'}  `}>
+              <img src={MBicon_User} alt="" />
+            </button>
+          </div>
+
+
+          <i className='x'> Scroll Navigation -----------------------------------------------</i>
+          <i className='x'> 0-----------------------------------------------</i>
+
+          <div className={`MC_nav ${!mBnavIcon && 'displayNone'}`}>
+
+
+
+
+
+            {/* <div className={`MB_emptySm`}>&nbsp;</div> */}
+
+
+
+            <i className='x'> 1 Feed Back -----------------------------------------------</i>
+            <button onClick={() => {
+              setOnOffFeedBAck_MB(!onOffFeedBAck_MB)
+
+            }}
+              name='Manu1MB'
+              className={`MC_Tab MB_None `} >
+              <img src={MBicon_Feedback} alt="" />
+              {getStarNotification > 0 && <span className={'starNotification'}>
+                <img src={MBicon_StarNoti} alt="" />
+                <span className={'starNotification starNotification_text'}>{getStarNotification}</span>
+              </span>}
+            </button>
+            <i className='x'> 2 QR Code-----------------------------------------------</i>
+
+
+            <button onClick={() => {
+              setOnOffQRCCode_MB(!onOffQRCCode_MB);
+            }}
+              name='Manu1MB'
+              className={`MC_Tab MB_None `} >
+              <img src={MBicon_Qrcode} alt="" />
+
+
+
+            </button>
+
+
+
+
+
+            <i className='x'> 3 Banner-----------------------------------------------</i>
+            <button onClick={() => {
+              setOnoffBanner_MB(!onOffBanner_MB);
+              setGetAllImageBannerTG((getAllImageBannerTG) => getAllImageBannerTG + 1)
+            }}
+              name='bannerMB'
+              className={`MC_Tab MB_None `} >
+              <img src={MBicon_Banner} alt="" />
+            </button>
+
+
+
+
+
+
+
+
+
+
+
+
+            <i className='x'> 4 Menu1-----------------------------------------------</i>
+
+            <button onClick={() => {
+              setOnoffMenu1_MB(!onOffMenu1_MB);
+              setMenuTime(1)
+            }}
+              name='Manu1MB'
+              className={`MC_Tab MB_None `} >
+
+              <img src={MBicon_Menu1} alt="" />
+            </button>
+
+            <i className='x'> 5 Menu2-----------------------------------------------</i>
+            <button onClick={() => {
+              setOnoffMenu2_MB(!onOffMenu2_MB);
+              setMenuTime(2)
+            }}
+              name='Manu1MB'
+              className={`MC_Tab MB_None `} >
+              <img src={MBicon_Menu2} alt="" />
+            </button>
+
+            <i className='x'> 6 Menu3-----------------------------------------------</i>
+            <button onClick={() => {
+              setOnoffMenu3_MB(!onOffMenu3_MB);
+              setMenuTime(3)
+            }}
+              name='Manu1MB'
+              className={`MC_Tab MB_None `} >
+              <img src={MBicon_Menu3} alt="" />
+            </button>
+
+            <i className='x'> 7 Time-----------------------------------------------</i>
+            <button onClick={() => {
+              setOnOffTimePicker_MB(!onOffTimePicker_MB);
+              setNavTime2TimePicker((testTG) => navTime2TimePicker + 1);
+
+            }}
+              name='Manu1MB'
+              className={`MC_Tab MB_None `} >
+              <img src={MBicon_Time} alt="" />
+            </button>
+
+            <i className='x'> 8 Language-----------------------------------------------</i>
+            <button onClick={() => {
+              setOnOffLangSetup_MB(!onOffLangSetup_MB);
+              setNavLang2LangSetUp((testTG) => navLang2LangSetUp + 1);
+            }}
+              name='Manu1MB'
+              className={`MC_Tab MB_None `} >
+              <img src={MBicon_Lang} alt="" />
+            </button>
+
+
+
+            <i className='x'> 9 Theme-----------------------------------------------</i>
+            <button onClick={() => {
+              setOnOffThemeSetup_MB(!onOffThemeSetup_MB);
+              setMBnavIcon(false)
+            }}
+              name='Manu1MB'
+              className={`MC_Tab MB_None `} >
+              <img src={MBicon_Theme} alt="" />
+            </button>
+
+
+            <i className='x'> 10 On Off-----------------------------------------------</i>
+            <button onClick={() => {
+              setOnOffSetting_MB(!onOffSetting_MB);
+              setVavOnOff2OnOffSetting((testTG) => navOnOff2OnOffSetting + 1);
+            }}
+              name='Manu1MB'
+              className={`MC_Tab MB_None `} >
+              <img src={MBicon_Onoff} alt="" />
+            </button>
+
+            <i className='x'> 11 Log Out-----------------------------------------------</i>
+            <button onClick={() => {
+              setOnOffSetting_MB(!onOffSetting_MB);
+            }}
+              name='Manu1MB'
+              className={`MC_Tab MB_None `} >
+              <img src={MBicon_Logout} alt="" />
+            </button>
+
+            <i className='x'> 12 Empty-----------------------------------------------</i>
+            <div className={`MB_empty`}>&nbsp;</div>
+
+          </div>
+          <i className='x'> END Navigation</i>
+
+
         </div>
-
-
-        <i className='x'>//- START MOBILE BAR //------------------------------------------------</i>
-
-        <div className="MC_IconFixed">
-          <i className='x'> Home -----------------------------------------------</i>
-          <button onClick={() => setMBnavIcon(!mBnavIcon)} className={`MC_Tab MB_None_Adm ${mBnavIcon && 'adminActive'}  ${onOffThemeSetup_MB && 'displayNone'}  `}>
-            <img src={MBicon_User} alt="" />
-          </button>
-        </div>
-
-
-        <i className='x'> Scroll Navigation -----------------------------------------------</i>
-        <i className='x'> 0-----------------------------------------------</i>
-
-        <div className={`MC_nav ${!mBnavIcon && 'displayNone'}`}>
-
-
-
-
-
-          {/* <div className={`MB_emptySm`}>&nbsp;</div> */}
-
-
-
-          <i className='x'> 1 Feed Back -----------------------------------------------</i>
-          <button onClick={() => {
-            setOnOffFeedBAck_MB(!onOffFeedBAck_MB)
-
-          }}
-            name='Manu1MB'
-            className={`MC_Tab MB_None `} >
-            <img src={MBicon_Feedback} alt="" />
-            {getStarNotification > 0 && <span className={'starNotification'}>
-              <img src={MBicon_StarNoti} alt="" />
-              <span className={'starNotification starNotification_text'}>{getStarNotification}</span>
-            </span>}
-          </button>
-          <i className='x'> 2 QR Code-----------------------------------------------</i>
-
-
-          <button onClick={() => {
-            setOnOffQRCCode_MB(!onOffQRCCode_MB);
-          }}
-            name='Manu1MB'
-            className={`MC_Tab MB_None `} >
-            <img src={MBicon_Qrcode} alt="" />
-
-
-
-          </button>
-
-
-
-
-
-          <i className='x'> 3 Banner-----------------------------------------------</i>
-          <button onClick={() => {
-            setOnoffBanner_MB(!onOffBanner_MB);
-            setGetAllImageBannerTG((getAllImageBannerTG) => getAllImageBannerTG + 1)
-          }}
-            name='bannerMB'
-            className={`MC_Tab MB_None `} >
-            <img src={MBicon_Banner} alt="" />
-          </button>
-
-
-
-
-
-
-
-
-
-
-
-
-          <i className='x'> 4 Menu1-----------------------------------------------</i>
-
-          <button onClick={() => {
-            setOnoffMenu1_MB(!onOffMenu1_MB);
-            setMenuTime(1)
-          }}
-            name='Manu1MB'
-            className={`MC_Tab MB_None `} >
-
-            <img src={MBicon_Menu1} alt="" />
-          </button>
-
-          <i className='x'> 5 Menu2-----------------------------------------------</i>
-          <button onClick={() => {
-            setOnoffMenu2_MB(!onOffMenu2_MB);
-            setMenuTime(2)
-          }}
-            name='Manu1MB'
-            className={`MC_Tab MB_None `} >
-            <img src={MBicon_Menu2} alt="" />
-          </button>
-
-          <i className='x'> 6 Menu3-----------------------------------------------</i>
-          <button onClick={() => {
-            setOnoffMenu3_MB(!onOffMenu3_MB);
-            setMenuTime(3)
-          }}
-            name='Manu1MB'
-            className={`MC_Tab MB_None `} >
-            <img src={MBicon_Menu3} alt="" />
-          </button>
-
-          <i className='x'> 7 Time-----------------------------------------------</i>
-          <button onClick={() => {
-            setOnOffTimePicker_MB(!onOffTimePicker_MB);
-            setNavTime2TimePicker((testTG) => navTime2TimePicker + 1);
-
-          }}
-            name='Manu1MB'
-            className={`MC_Tab MB_None `} >
-            <img src={MBicon_Time} alt="" />
-          </button>
-
-          <i className='x'> 8 Language-----------------------------------------------</i>
-          <button onClick={() => {
-            setOnOffLangSetup_MB(!onOffLangSetup_MB);
-            setNavLang2LangSetUp((testTG) => navLang2LangSetUp + 1);
-          }}
-            name='Manu1MB'
-            className={`MC_Tab MB_None `} >
-            <img src={MBicon_Lang} alt="" />
-          </button>
-
-
-
-          <i className='x'> 9 Theme-----------------------------------------------</i>
-          <button onClick={() => {
-            setOnOffThemeSetup_MB(!onOffThemeSetup_MB);
-            setMBnavIcon(false)
-          }}
-            name='Manu1MB'
-            className={`MC_Tab MB_None `} >
-            <img src={MBicon_Theme} alt="" />
-          </button>
-
-
-          <i className='x'> 10 On Off-----------------------------------------------</i>
-          <button onClick={() => {
-            setOnOffSetting_MB(!onOffSetting_MB);
-            setVavOnOff2OnOffSetting((testTG) => navOnOff2OnOffSetting + 1);
-          }}
-            name='Manu1MB'
-            className={`MC_Tab MB_None `} >
-            <img src={MBicon_Onoff} alt="" />
-          </button>
-
-          <i className='x'> 11 Log Out-----------------------------------------------</i>
-          <button onClick={() => {
-            setOnOffSetting_MB(!onOffSetting_MB);
-          }}
-            name='Manu1MB'
-            className={`MC_Tab MB_None `} >
-            <img src={MBicon_Logout} alt="" />
-          </button>
-
-          <i className='x'> 12 Empty-----------------------------------------------</i>
-          <div className={`MB_empty`}>&nbsp;</div>
-
-        </div>
-        <i className='x'> END Navigation</i>
-
-
-
 
 
 
       </div>
-      <iframe id='iframe'
+
+      {/* style={{ 'backgroundColor': `${prop.themeSetup.body.bodyBgColor}`, 'color': `${prop.themeSetup.body.bodyFonttColor}` }}
+
+      styled={'backgroundColor': ${(onOffBanner_MB || onOffMenu1_MB || onOffMenu2_MB ||
+          onOffMenu3_MB || onOffTimePicker_MB || onOffLangSetup_MB || onOffFeedBAck_MB || onOffSetting_MB || onOffQRCCode_MB)
+        && 'fixed'}`} */}
+
+      {/* <div className=""> */}
+      <div className={`simulation ${(onOffBanner_MB || onOffMenu1_MB || onOffMenu2_MB ||
+        onOffMenu3_MB || onOffTimePicker_MB || onOffLangSetup_MB || onOffFeedBAck_MB || onOffSetting_MB || onOffQRCCode_MB)
+        && 'iframe_scale_Down'}`}
+        style={{
+          'position': `${(onOffBanner_MB || onOffMenu1_MB || onOffMenu2_MB || onOffThemeSetup_MB ||
+            onOffMenu3_MB || onOffTimePicker_MB || onOffLangSetup_MB || onOffFeedBAck_MB || onOffSetting_MB || onOffQRCCode_MB)
+            ? 'fixed' : 'sticky'}`
+        }}
+
+      >
+
+        <_SimulationApp
+          restaurantName={restaurantName}
+          allMenuName={menuName}
+          themeSetup={themeSetup}
+          navAndFootBar={navAndFootBar}
+          bodyStyle={bodyStyle}
+          categoryList_1={categoryList_1}
+          categoryList_2={categoryList_2}
+          categoryList_3={categoryList_3}
+
+          categoryMotion={categoryMotion}
+
+          themeIconRadius={themeIconRadius}
+          themeIconColorLine={themeIconColorLine}
+          themeIconBG={themeIconBG}
+          themeIconSolid={themeIconSolid}
+          themeIconColorBorder={themeIconColorBorder}
+          extraIcon={extraIcon}
+
+          link={user.link}
+          bannerImgArr={bannerImgArr}
+
+          onOffSetting={onOffSetting}
+          languageSetup={languageSetup}
+          user={user}
+          timeSetup={timeSetup}
+        />
+
+      </div>
+
+
+      {/* </div> */}
+
+      {/* <iframe id='iframe'
         className={`mobile_iframe  ${(onOffBanner_MB || onOffMenu1_MB || onOffMenu2_MB ||
           onOffMenu3_MB || onOffTimePicker_MB || onOffLangSetup_MB || onOffFeedBAck_MB || onOffSetting_MB || onOffQRCCode_MB)
           && 'iframe_scale_Down'}`}
-        src="http://192.168.1.13:3000/customer/ce144dc5-undefined" />
+        src="http://192.168.1.13:3000/customer/ce144dc5-undefined" /> */}
 
 
     </div>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { colorPalette } from './ColorPickerData.js'
+import { colorPalette } from './_22ColorPickerData.js'
 
 import { HexColorPicker, HexColorInput } from "react-colorful";
 import MBicon_Tray from '../all-icon/mobile-bar/tray.svg'

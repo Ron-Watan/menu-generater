@@ -7,7 +7,7 @@ import MBupdown from '../all-icon/button-icon/updown.svg'
 import MBLang from '../all-icon/button-icon/lang.svg'
 
 import { useSelector } from 'react-redux'
-import AnchorLink from 'react-anchor-link-smooth-scroll'
+// import AnchorLink from 'react-anchor-link-smooth-scroll'
 const _04MenuForm = (prop) => {
   const { user } = useSelector((state) => state.user);
 

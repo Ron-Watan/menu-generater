@@ -51,28 +51,28 @@ const BannerSubCompo = (prop) => {
 
 
 
-  const resizeFileBanner = (file) =>
-    new Promise((resolve) => {
-      setLoadingManual(true)
-      Resizer.imageFileResizer(
-        file,
-        585,
-        1039,
-        'JPEG',
-        80,
-        0,
-        (uri) => {
-          if (bannerImgArr.length > 6) return setLoadingManual(false)
-          // setBannerImg(uri);
-          setBannerImgArr([...bannerImgArr, uri])
-          // getAllImageBanner()
-          setIndexDot(bannerImgArr.length)
-          setFinishedIndex(bannerImgArr.length)
-          setLoadingManual(false)
-        },
-        'base64'
-      );
-    });
+  // const resizeFileBanner = (file) =>
+  //   new Promise((resolve) => {
+  //     setLoadingManual(true)
+  //     Resizer.imageFileResizer(
+  //       file,
+  //       585,
+  //       1039,
+  //       'JPEG',
+  //       80,
+  //       0,
+  //       (uri) => {
+  //         if (bannerImgArr.length > 6) return setLoadingManual(false)
+  //         // setBannerImg(uri);
+  //         setBannerImgArr([...bannerImgArr, uri])
+  //         // getAllImageBanner()
+  //         setIndexDot(bannerImgArr.length)
+  //         setFinishedIndex(bannerImgArr.length)
+  //         setLoadingManual(false)
+  //       },
+  //       'base64'
+  //     );
+  //   });
 
   function arrayBufferToBase64Banner(buffer) {
     var binary = '';

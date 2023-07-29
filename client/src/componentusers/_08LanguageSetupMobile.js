@@ -11,38 +11,38 @@ const _08LanguageSetupMobile = (prop) => {
   const dispath = useDispatch();
   const { user } = useSelector((state) => state.user);
 
-  const [languageSetup, setLanguageSetup] = useState({
-    onLanguage_2: '',
-    language_1: 'English',
-    code_1: 'EN',
-    symbol_1: '$',
-    style_1: false,
-    followed_1: true,
-    language_2: '',
-    code_2: '',
-    symbol_2: '',
-    style_2: true,
-    followed_2: true,
-  });
-
+  // const [languageSetup, setLanguageSetup] = useState({
+  //   onLanguage_2: '',
+  //   language_1: 'English',
+  //   code_1: 'EN',
+  //   symbol_1: '$',
+  //   style_1: false,
+  //   followed_1: true,
+  //   language_2: '',
+  //   code_2: '',
+  //   symbol_2: '',
+  //   style_2: true,
+  //   followed_2: true,
+  // });
+  const [languageSetup, setLanguageSetup] = useState({})
   const styleSymboleFn0 = (name) => (even) => {
     setCheckLangChange(true)
-    setLanguageSetup({ ...languageSetup, [name]: even.target.value });
+    prop.setLanguageSetup({ ...prop.languageSetup, [name]: even.target.value });
   };
   const styleSymboleFn1 = (name, valBoolean) => {
     setCheckLangChange(true)
 
-    setLanguageSetup({ ...languageSetup, [name]: valBoolean });
+    prop.setLanguageSetup({ ...prop.languageSetup, [name]: valBoolean });
   };
   const styleSymboleFn2 = (name) => (even) => {
     setCheckLangChange(true)
-    setLanguageSetup({ ...languageSetup, [name]: !languageSetup[name] });
+    prop.setLanguageSetup({ ...prop.languageSetup, [name]: !prop.languageSetup[name] });
   };
 
   const styleSymboleFn3 = (name) => {
     setCheckLangChange(true)
 
-    setLanguageSetup({ ...languageSetup, [name]: !languageSetup[name] });
+    prop.setLanguageSetup({ ...prop.languageSetup, [name]: !prop.languageSetup[name] });
   };
 
   const [onOffLang2nd, setOnOffLang2nd] = useState(false);
@@ -52,6 +52,7 @@ const _08LanguageSetupMobile = (prop) => {
 
   const saveLangSetup = () => {
     // dispath(showLoading());
+    const languageSetup = prop.languageSetup
 
     axios
       .post(
@@ -109,7 +110,7 @@ const _08LanguageSetupMobile = (prop) => {
           setCheckLangChange(false)
 
         } else if (result.isDenied) {
-          getLangFromProp()
+          prop.setLanguageSetup(languageSetup);
           setTimeout(() => {
             prop.setOnOffLangSetup_MB(false)
             setCheckLangChange(false)
@@ -183,16 +184,16 @@ const _08LanguageSetupMobile = (prop) => {
             <div className='MB_langSetMenuAb '>
               <div className='LangSet'>
                 <div className='langName'>
-                  <input onChange={styleSymboleFn0('language_1')} value={languageSetup.language_1} className='MB_inputTextLang lmed fontSmall' type='text' name='' maxLength='8' placeholder='Language' id='' />
-                  <input onChange={styleSymboleFn0('code_1')} value={languageSetup.code_1} className='MB_inputTextLang lsmall fontSmall' type='text' name='' maxLength='3' placeholder='Code' id='' />
-                  <input onChange={styleSymboleFn0('symbol_1')} value={languageSetup.symbol_1} className='MB_inputTextLang lsmall fontSmall' type='text' name='' maxLength='5' placeholder='Symbole' id='' />
+                  <input onChange={styleSymboleFn0('language_1')} value={prop.languageSetup.language_1} className='MB_inputTextLang lmed fontSmall' type='text' name='' maxLength='8' placeholder='Language' id='' />
+                  <input onChange={styleSymboleFn0('code_1')} value={prop.languageSetup.code_1} className='MB_inputTextLang lsmall fontSmall' type='text' name='' maxLength='3' placeholder='Code' id='' />
+                  <input onChange={styleSymboleFn0('symbol_1')} value={prop.languageSetup.symbol_1} className='MB_inputTextLang lsmall fontSmall' type='text' name='' maxLength='5' placeholder='Symbole' id='' />
                 </div>
                 <div className='MB_langStyle'>
                   {/* STYLE 1 */}
                   <div className="MB_langStyle_1">
-                    {languageSetup.style_1 ? (
+                    {prop.languageSetup.style_1 ? (
                       <div className='MB_ex25'>
-                        <span>{languageSetup.followed_1 && languageSetup.symbol_1}</span> <span>25</span> <span>&nbsp;{!languageSetup.followed_1 && languageSetup.symbol_1}</span>{' '}
+                        <span>{prop.languageSetup.followed_1 && prop.languageSetup.symbol_1}</span> <span>25</span> <span>&nbsp;{!prop.languageSetup.followed_1 && prop.languageSetup.symbol_1}</span>{' '}
                       </div>
                     ) : (
                       <div className='MB_ex25'>
@@ -211,7 +212,7 @@ const _08LanguageSetupMobile = (prop) => {
                   <div className='boxSymStyle'>
                     {/* NONE */}
                     <label htmlFor='MB_none' className='MB_LangRadioBtn exPdR'>
-                      <input onChange={() => styleSymboleFn1('style_1', false)} checked={!languageSetup.style_1}
+                      <input onChange={() => styleSymboleFn1('style_1', false)} checked={!prop.languageSetup.style_1}
                         className='radioLang' type='radio' name='MB_cstyle1' id='MB_none' />
                       <span className='MB_radioLang_span'>NONE</span>
                     </label>
@@ -221,14 +222,14 @@ const _08LanguageSetupMobile = (prop) => {
 
                       {/* STYLED */}
                       <label htmlFor='MB_Styled' className='MB_LangRadioBtn'>
-                        <input onChange={() => styleSymboleFn1('style_1', true)} checked={languageSetup.style_1}
+                        <input onChange={() => styleSymboleFn1('style_1', true)} checked={prop.languageSetup.style_1}
                           className='radioLang' type='radio' name='MB_cstyle1' id='MB_Styled' />
                         <span className='MB_radioLang_span'>STYLED</span>
 
                         {/* SWITCH */}
-                        <label htmlFor='MB_followed1' className={`containerSwitch switchLang ${!languageSetup.style_1 && 'opcaityTime'}`}>
-                          <input onChange={styleSymboleFn2('followed_1')} disabled={!languageSetup.style_1}
-                            type='checkbox' name='MB_followed1' id='MB_followed1' checked={!languageSetup.followed_1}/> <span className='sliderLang sliderLang1'></span>
+                        <label htmlFor='MB_followed1' className={`containerSwitch switchLang ${!prop.languageSetup.style_1 && 'opcaityTime'}`}>
+                          <input onChange={styleSymboleFn2('followed_1')} disabled={!prop.languageSetup.style_1}
+                            type='checkbox' name='MB_followed1' id='MB_followed1' checked={!prop.languageSetup.followed_1} /> <span className='sliderLang sliderLang1'></span>
                         </label>
                       </label>
 
@@ -253,24 +254,24 @@ const _08LanguageSetupMobile = (prop) => {
               <label htmlFor='onOffLang2' className={`containerSwitch switchLang `}>
                 <input onChange={
                   () => styleSymboleFn3('onLanguage_2')
-                } type='checkbox' name='onOffLang2' id='onOffLang2' checked={languageSetup.onLanguage_2} />
+                } type='checkbox' name='onOffLang2' id='onOffLang2' checked={prop.languageSetup.onLanguage_2} />
                 <span className='sliderLang forOFLang2' ></span>
               </label>
             </div>
 
-            <div className={`MB_langSetMenuAb ${!languageSetup.onLanguage_2 && 'MB_opcaityTime'}`}>
+            <div className={`MB_langSetMenuAb ${!prop.languageSetup.onLanguage_2 && 'MB_opcaityTime'}`}>
               <div className='LangSet'>
                 <div className='langName'>
-                  <input onChange={styleSymboleFn0('language_2')} value={languageSetup.language_2} className='MB_inputTextLang lmed fontSmall' type='text' name='' maxLength='8' placeholder='Language' id='' disabled={!languageSetup.onLanguage_2} />
-                  <input onChange={styleSymboleFn0('code_2')} value={languageSetup.code_2} className='MB_inputTextLang lsmall fontSmall' type='text' name='' maxLength='3' placeholder='Code' id='' disabled={!languageSetup.onLanguage_2} />
-                  <input onChange={styleSymboleFn0('symbol_2')} value={languageSetup.symbol_2} className='MB_inputTextLang lsmall fontSmall' type='text' name='' maxLength='5' placeholder='Symbole' id='' disabled={!languageSetup.onLanguage_2} />
+                  <input onChange={styleSymboleFn0('language_2')} value={prop.languageSetup.language_2} className='MB_inputTextLang lmed fontSmall' type='text' name='' maxLength='8' placeholder='Language' id='' disabled={!prop.languageSetup.onLanguage_2} />
+                  <input onChange={styleSymboleFn0('code_2')} value={prop.languageSetup.code_2} className='MB_inputTextLang lsmall fontSmall' type='text' name='' maxLength='3' placeholder='Code' id='' disabled={!prop.languageSetup.onLanguage_2} />
+                  <input onChange={styleSymboleFn0('symbol_2')} value={prop.languageSetup.symbol_2} className='MB_inputTextLang lsmall fontSmall' type='text' name='' maxLength='5' placeholder='Symbole' id='' disabled={!prop.languageSetup.onLanguage_2} />
                 </div>
                 <div className='MB_langStyle'>
                   {/* STYLE 2 */}
                   <div className="MB_langStyle_1">
-                    {languageSetup.style_2 ? (
+                    {prop.languageSetup.style_2 ? (
                       <div className='MB_ex25'>
-                        <span>{languageSetup.followed_2 && languageSetup.symbol_2}</span> <span>25</span> <span>&nbsp;{!languageSetup.followed_2 && languageSetup.symbol_2}</span>{' '}
+                        <span>{prop.languageSetup.followed_2 && prop.languageSetup.symbol_2}</span> <span>25</span> <span>&nbsp;{!prop.languageSetup.followed_2 && prop.languageSetup.symbol_2}</span>{' '}
                       </div>
                     ) : (
                       <div className='MB_ex25'>
@@ -286,21 +287,21 @@ const _08LanguageSetupMobile = (prop) => {
                   <div className='boxSymStyle'>
                     {/* NONE */}
                     <label htmlFor='MB_none2' className='MB_LangRadioBtn exPdR'>
-                      <input onChange={() => styleSymboleFn1('style_2', false)} checked={!languageSetup.style_2} className='radioLang'
-                        type='radio' name='MB_cstyle2' id='MB_none2' disabled={!languageSetup.onLanguage_2} />
+                      <input onChange={() => styleSymboleFn1('style_2', false)} checked={!prop.languageSetup.style_2} className='radioLang'
+                        type='radio' name='MB_cstyle2' id='MB_none2' disabled={!prop.languageSetup.onLanguage_2} />
                       <span className='MB_radioLang_span'>NONE</span>
                     </label>
 
                     <div className='flexStyleBeAf'>
                       {/* STYLED */}
                       <label htmlFor='MB_Styled2' className='MB_LangRadioBtn'>
-                        <input onChange={() => styleSymboleFn1('style_2', true)} checked={languageSetup.style_2} className='radioLang'
-                          type='radio' name='MB_cstyle2' id='MB_Styled2' disabled={!languageSetup.onLanguage_2} />
+                        <input onChange={() => styleSymboleFn1('style_2', true)} checked={prop.languageSetup.style_2} className='radioLang'
+                          type='radio' name='MB_cstyle2' id='MB_Styled2' disabled={!prop.languageSetup.onLanguage_2} />
                         <span className='MB_radioLang_span'>STYLED</span>
 
                         {/* SWITCH */}
-                        <label htmlFor='MB_followed2' className={`containerSwitch switchLang ${!languageSetup.style_2 && 'opcaityTime'}`}>
-                          <input onClick={styleSymboleFn2('followed_2')} disabled={!languageSetup.style_2 || !languageSetup.onLanguage_2} checked={!languageSetup.followed_2} type='checkbox' name='MB_followed2' id='MB_followed2' /> <span className='sliderLang sliderLang1'></span>
+                        <label htmlFor='MB_followed2' className={`containerSwitch switchLang ${!prop.languageSetup.style_2 && 'opcaityTime'}`}>
+                          <input onClick={styleSymboleFn2('followed_2')} disabled={!prop.languageSetup.style_2 || !prop.languageSetup.onLanguage_2} checked={!prop.languageSetup.followed_2} type='checkbox' name='MB_followed2' id='MB_followed2' /> <span className='sliderLang sliderLang1'></span>
                         </label>
 
                       </label>

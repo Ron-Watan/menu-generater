@@ -155,7 +155,9 @@ const _02QRCode = (prop) => {
 
 
 
-
+  window.addEventListener('scroll', () => { 
+    console.log('99999');
+  })
 
 
 

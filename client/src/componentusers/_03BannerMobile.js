@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import Slider from 'react-touch-drag-slider'
+// import Slider from 'react-touch-drag-slider'
 import MBiconBin from '../all-icon/button-icon/MBbin.svg'
 import MBiconPlus from '../all-icon/button-icon/MBplusicon.svg'
 import MBiconClose from '../all-icon/button-icon/MBclose.svg'
@@ -9,7 +9,7 @@ import axios from 'axios'
 import { hideLoading, showLoading } from '../redux/alertSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import Resizer from 'react-image-file-resizer';
-import SwipeToDelete from 'react-swipe-to-delete-ios'
+// import SwipeToDelete from 'react-swipe-to-delete-ios'
 import Swal from 'sweetalert2'
 
 const _03BannerMobile = (prop) => {
@@ -126,26 +126,30 @@ const _03BannerMobile = (prop) => {
     setCheckBannerChange(false)
     // dispath(showLoading())
     // setLoadingManual(true)
+    const userId=user.userId
     axios
-      .post(`${process.env.REACT_APP_API}/user/images/allBanner`, { userId: user.userId })
+      .post(`${process.env.REACT_APP_API}/user/images/allBanner`, { userId: user.userId})
       .then((result) => {
+        if (result.data.success) {
+          const getArrayBanner = result.data.images.bannerImage;
 
-        const getArrayBanner = result.data.images.bannerImage;
+      
+          const mapArrayBanner = getArrayBanner.map(el => {
+            const base64Flag = 'data:image/png;base64,';
+            // const imageStr = arrayBufferToBase64Banner(el.img.data.data);
+            const imageStr = arrayBufferToBase64Banner(el.data.data);
+            const tagImage = base64Flag + imageStr;
+            return tagImage
+          })
+          prop.setBannerImgArr(mapArrayBanner)
+          // dispath(hideLoading());
+          // setLoadingManual(false)
+          console.log('BannerPhoto Completed');
 
-        console.log(getArrayBanner)
-        const mapArrayBanner = getArrayBanner.map(el => {
-          const base64Flag = 'data:image/png;base64,';
-          // const imageStr = arrayBufferToBase64Banner(el.img.data.data);
-          const imageStr = arrayBufferToBase64Banner(el.data.data);
-          const tagImage = base64Flag + imageStr;
-          return tagImage
-        })
-        prop.setBannerImgArr(mapArrayBanner)
-        // dispath(hideLoading());
-        // setLoadingManual(false)
+        }
       })
       .catch((err) => {
-        console.error(err);
+        console.log('BannerPhoto Loading...');
       });
 
   };
@@ -202,9 +206,9 @@ const _03BannerMobile = (prop) => {
 
   // }, []);
 
-  // useEffect(() => {
-  //   getAllImageBanner()
-  // }, [user])
+  useEffect(() => {
+    getAllImageBanner()
+  }, [user])
 
 
 

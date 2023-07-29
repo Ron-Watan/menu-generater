@@ -62,6 +62,7 @@ const _MenuComponent = () => {
   const [colorTheme, setColorTheme] = useState('iconRectabg');
 
   const [restaurantName, setRestaurantName] = useState('');
+  const [restaurantLogo, setRestaurantLogo] = useState('');
 
   const [themeSetup, setThemeSetup] = useState({
     navAndFootBar: {
@@ -334,9 +335,42 @@ const _MenuComponent = () => {
 
 
 
+  //=-----------------------------------------------
+  function arrayBufferToBase64(buffer) {
+    var binary = '';
+    var bytes = [].slice.call(new Uint8Array(buffer));
+    bytes.forEach((b) => (binary += String.fromCharCode(b)));
+    return window.btoa(binary);
+  }
 
+  const getImage = () => {
+    const imgId = link + 'restlogo'
+    axios
+      .post(`${process.env.REACT_APP_API}/user/images/preview`, { imgId: imgId })
+      .then((result) => {
 
+        if (!result.data.images) {
+          return setRestaurantLogo('')
+          // return dispath(hideLoading());
+        }
 
+        const getResult = result.data.images;
+        const base64Flag = 'data:image/png;base64,';
+        const imageStr = arrayBufferToBase64(getResult.img.data.data);
+        const tagImage = base64Flag + imageStr;
+
+        // console.log(tagImage)
+
+        setRestaurantLogo(tagImage);
+        // dispath(hideLoading());
+        // setTimeout(() => {
+        //   dispath(hideLoading());
+        // }, 500);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
 
 
 
@@ -350,12 +384,12 @@ const _MenuComponent = () => {
 
   //=-----------------------------------------------
 
-
-
   useEffect(() => {
     getClientMenu();
   }, []);
-
+  useEffect(() => {
+    getImage();
+  }, []);
   // const navIcon = {
   //   filter: 'filter.svg',
   //   dropDown: 'down-chevron.svg',
@@ -400,6 +434,7 @@ const _MenuComponent = () => {
 
             <div className='navSlit1'>
               <i className="x">!Theme</i>
+              <div className="logoResta"><img className='logoRestaImg' src={restaurantLogo} alt=""/></div>
               <span style={{
                 'backgroundColor': `${themeSetup.navAndFootBar.navBarColor}`,
                 'fontFamily': `${themeSetup.navAndFootBar.nameFontFamily}`,
@@ -443,11 +478,11 @@ const _MenuComponent = () => {
 
                     <div className=' menuNameNavBox navMenuNameText'>
                       <div className='navMenuNameText-top'
-                      
-                      style={{ 'backgroundColor': `${themeSetup.navAndFootBar.navBarColor}` }}>
 
-                      
-                      {chooseMenu}</div>
+                        style={{ 'backgroundColor': `${themeSetup.navAndFootBar.navBarColor}` }}>
+
+
+                        {chooseMenu}</div>
 
                       <div className={`navMenuNameText-Ab ${!switchManuBtn && 'navMenuNameText-move'}`}>
                         {timeSetup.allDayType.menu_1 && (

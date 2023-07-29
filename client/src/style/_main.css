@@ -45,7 +45,8 @@ html {
 .mainAppMonitor {
   font-family: 'Lato', sans-serif;
   -webkit-font-smoothing: antialiased;
-  min-width: 800px;
+  position: relative;
+
 }
 
 .topbarWin {

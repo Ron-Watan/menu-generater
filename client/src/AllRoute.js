@@ -1,11 +1,11 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import { useSelector } from "react-redux"
-import MenuComponent from "./components/MenuComponent"
+// import MenuComponent from "./components/MenuComponent"
 import RegisterComponent from "./accounts/RegisterComponent"
 import LoginComponent from "./accounts/LoginComponent"
 import _00AppMain from "./componentusers/_00AppMain"
 import ProtectRoute from "./protectors/ProtectRoute"
-import GenerateMenu from "./componentusers/GenerateMenu"
+// import GenerateMenu from "./componentusers/GenerateMenu"
 import _MenuComponent from "./components/_MenuComponent"
 
 const AllRoute = () => {
@@ -36,7 +36,7 @@ const AllRoute = () => {
           {/* <Route path="/generatemenu" exact Component={GenerateMenu} /> */}
 
           {/* <Route path="/" exact Component={App} /> */}
-          <Route path="/xx" exact Component={GenerateMenu} />
+          {/* <Route path="/xx" exact Component={GenerateMenu} /> */}
 
 
           {/* <Route Component={ProtectRoute}> */}

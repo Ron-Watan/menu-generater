@@ -148,6 +148,7 @@ const FooterComponent = (prop) => {
   // })
   // prop.feedBackSMSFn
   // prop.sentfeedBack
+
   return (
     <div className="unselectable">
 

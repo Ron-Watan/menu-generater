@@ -291,7 +291,7 @@ export const getImage = (req, res) => {
 
 export const getAllImageBanner = (req, res) => {
   const { userId } = req.body;
-  // console.log(userId)
+  console.log(req.body)
   Banners.findOne({ userId: userId }).then((result) => {
     res.send({
       message: 'Success',

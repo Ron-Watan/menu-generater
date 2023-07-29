@@ -8,98 +8,106 @@ import MBicon_Quickt from '../all-icon/mobile-bar/quickt.svg'
 import MBicon_Navbart from '../all-icon/mobile-bar/navbart.svg'
 import MBicon_Sidet from '../all-icon/mobile-bar/sidebart.svg'
 import MBicon_Bodyt from '../all-icon/mobile-bar/bodyt.svg'
-
+import MBiconBin from '../all-icon/button-icon/MBbin.svg'
+import Resizer from 'react-image-file-resizer';
 
 const _09ThemeSetupMobile = (prop) => {
   // prop.setOnOffTheme
   // prop.restaurantName
   // prop.setRestaurantName
+
+
+  //=
   const { user } = useSelector((state) => state.user);
   const [checkChangeTheme, setCheckChangeTheme] = useState(false)
   // ----------------------------------------------------------------------------------------------
   const [noSetTheme, setNoSetTheme] = useState('')
   const [nameTheme, setNameTheme] = useState('')
+
   //  ----------------------------------------------------------------------------------------------
+  const [logoRestaurant, setLogoRestaurant] = useState('')
+  const imgId = user.link + 'restlogo'
   const currentRestaurantName = user.restaurant_name
   const inputRestaurantName = (e) => {
     setCheckChangeTheme(true)
     prop.setRestaurantName(e.target.value)
   }
   // 1 ----------------------------------------------------------------------------------------------
-  const [navAndFootBar, setNavAndFootBar] = useState({
-    nameFontFamily: '', nameFontColor: '', nameFontSize: '',
-    navBarColor: '', navBarFontColor: '',
-    footBarStyle: ''
-  })
-  const { nameFontFamily, nameFontColor, nameFontSize, navBarColor, navBarFontColor, footBarStyle } = navAndFootBar
+  // const [navAndFootBar, setNavAndFootBar] = useState({
+  //   nameFontFamily: '', nameFontColor: '', nameFontSize: '',
+  //   navBarColor: '', navBarFontColor: '',
+  //   footBarStyle: ''
+  // })
+  // const { nameFontFamily, nameFontColor, nameFontSize, navBarColor, navBarFontColor, footBarStyle } = navAndFootBar
 
-  const nameAllFontStyleFn = (name) => (e) => {
-    setCheckChangeTheme(true)
-    setNavAndFootBar({ ...navAndFootBar, [name]: e.target.value })
-  }
+  // const nameAllFontStyleFn = (name) => (e) => {
+  //   setCheckChangeTheme(true)
+  //   setNavAndFootBar({ ...navAndFootBar, [name]: e.target.value })
+  // }
   // 2 ----------------------------------------------------------------------------------------------
 
-  const [bodyStyle, setBodyStyle] = useState({
+  // const [bodyStyle, setBodyStyle] = useState({
 
-    bodyBgColor: '', bodyFontFamily: '', bodyFonttColor: '', bodyFontSize: ''
-  })
-  const { bodyBgColor, bodyFontFamily, bodyFonttColor, bodyFontSize } = bodyStyle
+  //   bodyBgColor: '', bodyFontFamily: '', bodyFonttColor: '', bodyFontSize: ''
+  // })
+  // const { bodyBgColor, bodyFontFamily, bodyFonttColor, bodyFontSize } = bodyStyle
 
-  const bodyAllFontStyleFn = (name) => (e) => {
-    setCheckChangeTheme(true)
-    setBodyStyle({ ...bodyStyle, [name]: e.target.value })
-  }
+  // const bodyAllFontStyleFn = (name) => (e) => {
+  //   setCheckChangeTheme(true)
+  //   setBodyStyle({ ...bodyStyle, [name]: e.target.value })
+  // }
   // 3 ----------------------------------------------------------------------------------------------
 
-  const [themeIconNoBD, setThemeIconNoBD] = useState({
-    themeIconRadius: '1.5rem', themeIconColorLine: '', themeIconBG: '', themeIconSolid: 'none'
-  })
-  const { themeIconRadius, themeIconColorLine, themeIconBG, themeIconSolid } = themeIconNoBD
+  // const [themeIconNoBD, setThemeIconNoBD] = useState({
+  //   themeIconRadius: '1.5rem', themeIconColorLine: '', themeIconBG: '', themeIconSolid: 'none'
+  // })
+  // const { themeIconRadius, themeIconColorLine, themeIconBG, themeIconSolid } = themeIconNoBD
 
-  const [themeIconColorBorder, setThemeIconColorBorder] = useState('')
-  const [extraIcon, setExtraIcon] = useState(false)
+  // const [themeIconColorBorder, setThemeIconColorBorder] = useState('')
+  // const [extraIcon, setExtraIcon] = useState(false)
 
   const themeIconClientFn = (radius, colorLine, colorBg, solid, colorBorder) => {
     setCheckChangeTheme(true)
-    setThemeIconNoBD({
+    prop.setThemeIconNoBD({
       themeIconRadius: radius, themeIconColorLine: colorLine, themeIconBG: colorBg, themeIconSolid: solid, themeIconColorBorder: colorBorder
     })
-    setExtraIcon(false)
+    prop.setExtraIcon(false)
   }
   // 4 ----------------------------------------------------------------------------------------------
-  const [categoryMotion, setCategoryMotion] = useState({
-    categoryPhotoSize: '',
-    categoryFontColor: '',
-    categoryBoxClass: '', categoryBoxColor: '',
-    categorySpanClass: '', categorySpanColor: '',
-    categoryActiveClass: ''
+  // const [categoryMotion, setCategoryMotion] = useState({
+  //   categoryPhotoSize: '',
+  //   categoryFontColor: '',
+  //   categoryBoxClass: '', categoryBoxColor: '',
+  //   categorySpanClass: '', categorySpanColor: '',
+  //   categoryActiveClass: ''
 
-  })
-  const { categoryPhotoSize, categoryFontColor, categoryBoxClass, categoryBoxColor, categorySpanClass, categorySpanColor, categoryActiveClass } = categoryMotion
+  // })
+  // const { categoryPhotoSize, categoryFontColor, categoryBoxClass, categoryBoxColor, categorySpanClass, categorySpanColor, categoryActiveClass } = categoryMotion
 
-  const [chooseCatTheme, seatChooseCatTheme] = useState('')
+  // const [chooseCatTheme, seatChooseCatTheme] = useState('')
 
-  const categoryMotionFn = (photoSize, fontColor, boxClass, boxColor, sapnClass, spanColor, avtiveClass) => {
-    setCheckChangeTheme(true)
-    setCategoryMotion({
-      categoryPhotoSize: photoSize,
-      categoryFontColor: fontColor,
-      categoryBoxClass: boxClass, categoryBoxColor: boxColor,
-      categorySpanClass: sapnClass, categorySpanColor: spanColor,
-      categoryActiveClass: avtiveClass
-    })
+  // const categoryMotionFn = (photoSize, fontColor, boxClass, boxColor, sapnClass, spanColor, avtiveClass) => {
+  //   setCheckChangeTheme(true)
+  //   setCategoryMotion({
+  //     categoryPhotoSize: photoSize,
+  //     categoryFontColor: fontColor,
+  //     categoryBoxClass: boxClass, categoryBoxColor: boxColor,
+  //     categorySpanClass: sapnClass, categorySpanColor: spanColor,
+  //     categoryActiveClass: avtiveClass
+  //   })
 
-  }
+  // }
 
-  const categoryMotionInput = (name) => (e) => {
-    setCheckChangeTheme(true)
-    setCategoryMotion({ ...categoryMotion, [name]: e.target.value })
-  }
+  // const categoryMotionInput = (name) => (e) => {
+  //   setCheckChangeTheme(true)
+  //   setCategoryMotion({ ...categoryMotion, [name]: e.target.value })
+  // }
 
 
   // ----------------------------------------------------------------------------------------------
   const setupTheme = (e) => {
     // e.preventDefault();
+    delelteImage(imgId)
     axios
       .post(
         `${process.env.REACT_APP_API}/user/setupTheme`,
@@ -108,35 +116,36 @@ const _09ThemeSetupMobile = (prop) => {
           clientId: user.clientId,
           restaurantName: prop.restaurantName,
           themeSetup: {
-            navAndFootBar: navAndFootBar,
-            body: bodyStyle,
+            navAndFootBar: prop.navAndFootBar,
+            body: prop.bodyStyle,
             sideBar: {
-              extraIcon: extraIcon,
-              themeIconRadius: themeIconRadius,
-              themeIconColorLine: themeIconColorLine,
-              themeIconBG: themeIconBG,
-              themeIconSolid: themeIconSolid,
-              themeIconColorBorder: themeIconColorBorder,
+              extraIcon: prop.extraIcon,
+              themeIconRadius: prop.themeIconRadius,
+              themeIconColorLine: prop.themeIconColorLine,
+              themeIconBG: prop.themeIconBG,
+              themeIconSolid: prop.themeIconSolid,
+              themeIconColorBorder: prop.themeIconColorBorder,
             },
-            categoryMotion: categoryMotion
+            categoryMotion: prop.categoryMotion
           }
         },
         ticketPass
       )
       .then((result) => {
         if (result.data.success) {
+          logoRestaurant && uploadImage()
           setCheckChangeTheme(false)
           const getReult = result.data.userTheme;
           const getThemeSetup = getReult.themeSetup
           prop.setRestaurantName(getReult.restaurantName)
-          setNavAndFootBar(getThemeSetup.navAndFootBar)
-          setBodyStyle(getThemeSetup.body)
-          setCategoryMotion(getThemeSetup.categoryMotion)
+          prop.setNavAndFootBar(getThemeSetup.navAndFootBar)
+          prop.setBodyStyle(getThemeSetup.body)
+          prop.setCategoryMotion(getThemeSetup.categoryMotion)
 
           const getSideBar = getThemeSetup.sideBar
 
 
-          setThemeIconNoBD(
+          prop.setThemeIconNoBD(
             {
               themeIconRadius: getSideBar.themeIconRadius,
               themeIconColorLine: getSideBar.themeIconColorLine,
@@ -144,8 +153,8 @@ const _09ThemeSetupMobile = (prop) => {
               themeIconSolid: getSideBar.themeIconSolid
             }
           )
-          setThemeIconColorBorder(getSideBar.themeIconColorBorder)
-          setExtraIcon(getSideBar.extraIcon)
+          prop.setThemeIconColorBorder(getSideBar.themeIconColorBorder)
+          prop.setExtraIcon(getSideBar.extraIcon)
           Swal.fire({
             title: 'Saved',
             // text: 'Your menu has been saved',
@@ -185,12 +194,12 @@ const _09ThemeSetupMobile = (prop) => {
           const getThemeSetup = getReult.themeSetup
 
           prop.setRestaurantName(getReult.restaurantName)
-          setNavAndFootBar(getThemeSetup.navAndFootBar)
-          setBodyStyle(getThemeSetup.body)
-          setCategoryMotion(getThemeSetup.categoryMotion)
+          prop.setNavAndFootBar(getThemeSetup.navAndFootBar)
+          prop.setBodyStyle(getThemeSetup.body)
+          prop.setCategoryMotion(getThemeSetup.categoryMotion)
 
           const getSideBar = getThemeSetup.sideBar
-          setThemeIconNoBD(
+          prop.setThemeIconNoBD(
             {
               themeIconRadius: getSideBar.themeIconRadius,
               themeIconColorLine: getSideBar.themeIconColorLine,
@@ -198,9 +207,9 @@ const _09ThemeSetupMobile = (prop) => {
               themeIconSolid: getSideBar.themeIconSolid
             }
           )
-          setThemeIconColorBorder(getSideBar.themeIconColorBorder)
-          setExtraIcon(getSideBar.extraIcon)
-
+          prop.setThemeIconColorBorder(getSideBar.themeIconColorBorder)
+          prop.setExtraIcon(getSideBar.extraIcon)
+          getImage(imgId);
         } else {
           // Swal.fire(result.data.message)
           // dispath(hideLoading())
@@ -213,6 +222,77 @@ const _09ThemeSetupMobile = (prop) => {
         // Swal.fire("Can't not connect the server")
       });
   };
+
+
+
+  const resizeFile = (file) =>
+    new Promise((resolve) => {
+      Resizer.imageFileResizer(
+        file,
+        200,
+        200,
+        'JPG',
+        100,
+        0,
+        (uri) => {
+          console.log('uuuu')
+          setLogoRestaurant(uri);
+          setCheckChangeTheme(true)
+        },
+        'base64'
+      );
+    });
+
+
+  const getImage = (imgId) => {
+    axios
+      .post(`${process.env.REACT_APP_API}/user/images/preview`, { imgId: imgId })
+      .then((result) => {
+        if (!result.data.images) {
+          return setLogoRestaurant('')
+        }
+        const getResult = result.data.images;
+        const base64Flag = 'data:image/png;base64,';
+        const imageStr = prop.arrayBufferToBase64(getResult.img.data.data);
+        const tagImage = base64Flag + imageStr;
+
+        setLogoRestaurant(tagImage);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  const uploadImage = () => {
+
+    const newFile = prop.dataURIToBlob(logoRestaurant);
+    const formData = new FormData();
+
+    formData.append('avatar', newFile, imgId);
+    formData.append('userId', user.userId);
+    axios
+      .post(`${process.env.REACT_APP_API}/user/images/uplaod`, formData)
+      // .post(`${process.env.REACT_APP_API}/user/images`, formData, { headers: { 'Content-Type': 'multipart/form-data' } })
+      .then((result) => {
+        getImage()
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  const delelteImage = (imgId) => {
+
+    axios
+      .post(`${process.env.REACT_APP_API}/user/images/delete`, { imgId: imgId })
+      .then((result) => {
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+
 
   const [colorOnClick, setColorOnClick] = useState('')
 
@@ -229,6 +309,8 @@ const _09ThemeSetupMobile = (prop) => {
   //   }
   // }, [prop.navTheme2ThemeSetUp]);
 
+
+
   const [themeTab, setThemeTab] = useState('quick')
   const [chooseIconStyle, setChooseIconStyle] = useState('')
 
@@ -236,7 +318,10 @@ const _09ThemeSetupMobile = (prop) => {
 
   useEffect(() => {
     getTheme();
-  }, [user]);
+  }, [user.userId]);
+  useEffect(() => {
+    getImage();
+  }, [user.userId]);
 
 
 
@@ -280,7 +365,21 @@ const _09ThemeSetupMobile = (prop) => {
   }
 
 
+  // prop.setThemeSetup = Steal
+  // prop.setThemeSetup({
+  //   navAndFootBar: navAndFootBar,
+  //   body: bodyStyle,
 
+  //   sideBar: {
+  //     extraIcon: extraIcon,
+  //     themeIconRadius: themeIconRadius,
+  //     themeIconColorLine: themeIconColorLine,
+  //     themeIconBG: themeIconBG,
+  //     themeIconSolid: themeIconSolid,
+  //     themeIconColorBorder: themeIconColorBorder
+  //   },
+  //   categoryMotion: categoryMotion
+  // })
 
   // ----------------------------------------------------------------------------------------------
   // ----------------------------------------------------------------------------------------------
@@ -336,6 +435,7 @@ const _09ThemeSetupMobile = (prop) => {
                   <div className="MB_TC_name">Restaurant Name</div>
                 </div>
 
+
                 <div className='MB_themeRow'>
                   <input onChange={inputRestaurantName} value={prop.restaurantName} type='text' maxLength="20"
                     name='' id='menuName' autoComplete='off' className='MB_presentInput' placeholder={currentRestaurantName}
@@ -349,6 +449,41 @@ const _09ThemeSetupMobile = (prop) => {
                 </div>
 
                 <div className='MB_themeRow'>
+                  <div className="MB_themeGrid">
+
+                    <label className='MB_TC_small'>Logo</label>
+                    <div className="MB_themeRow2 gap2rem">
+                      <label htmlFor='resta-upload' className='MB_labelPhoto flexStart'>
+                        <div className='colorPickerItem borderPickC color_PickQr color_PBig-Active setRelative blueUpload'>
+                          <input
+                            onChange={(e) => {
+                              if (e.target.files.length === 0) return;
+
+                              resizeFile(e.target.files[0]).then((res) => { });
+                            }}
+                            id='resta-upload'
+                            name='file-upload'
+                            type='file'
+                            className='inputPhoto'
+                          />
+                          <span className='QR_uplaodLogo' >Upload</span>
+                        </div>
+
+                      </label>
+                      <button onClick={() => {
+                        setCheckChangeTheme(true)
+                        setLogoRestaurant('')
+                      }} className={`MB_Btn forBinWhite QRBin`}>
+                        <img src={MBiconBin} alt="" />
+                      </button>
+                    </div>
+
+                  </div>
+                </div>
+
+
+
+                <div className='MB_themeRow'>
                   <i className="x">nameFontColor Section</i>
                   <div className='fontColor MB_themeGrid'>
                     <label htmlFor="FontColor1" className='MB_TC_small'>Font Color</label>
@@ -356,10 +491,10 @@ const _09ThemeSetupMobile = (prop) => {
                     <button onClick={(e) => {
                       setOnoffColorPicker(true)
 
-                      clickColor(nameFontColor)
+                      clickColor(prop.nameFontColor)
                       setNoSetTheme(1)
                       setNameTheme('nameFontColor')
-                    }} className="colorPickerItem borderPickC color_PBig color_PBig-Active" style={{ 'backgroundColor': `${nameFontColor}` }} id='FontColor1'></button>
+                    }} className="colorPickerItem borderPickC color_PBig color_PBig-Active" style={{ 'backgroundColor': `${prop.nameFontColor}` }} id='FontColor1'></button>
                   </div>
                 </div>
                 <div className='MB_themeRow'>
@@ -367,7 +502,7 @@ const _09ThemeSetupMobile = (prop) => {
                   <div className='fontStyle MB_themeGrid'>
                     <label htmlFor="fontStyle1" className='MB_TC_small'>Font Style</label>
 
-                    <select onChange={nameAllFontStyleFn('nameFontFamily')} value={nameFontFamily} id='fontStyle1' className='MB_labelFontR text_selectCenter'>
+                    <select onChange={prop.nameAllFontStyleFn('nameFontFamily')} value={prop.nameFontFamily} id='fontStyle1' className='MB_labelFontR text_selectCenter'>
                       < option value='Merriweather' > Merriweather</option>
                       <option value='Urbanist'>Urbanist</option>
                       <option value='Oleo Script Swash Caps'>Oleo Script</option>
@@ -385,7 +520,7 @@ const _09ThemeSetupMobile = (prop) => {
                   <div className='fontStyle MB_themeGrid'>
                     <label htmlFor="FontSize1" className='MB_TC_small'>Font-Size</label>
 
-                    <select onChange={nameAllFontStyleFn('nameFontSize')} value={nameFontSize} id='FontSize1' className='MB_labelFontR text_selectCenter'>
+                    <select onChange={prop.nameAllFontStyleFn('nameFontSize')} value={prop.nameFontSize} id='FontSize1' className='MB_labelFontR text_selectCenter'>
                       < option value='1rem' > X-Small</option>
                       <option value='1.2rem'>Small</option>
                       <option value='1.6rem'>Medium</option>
@@ -415,8 +550,8 @@ const _09ThemeSetupMobile = (prop) => {
                       setOnoffColorPicker(true)
                       setNoSetTheme(1)
                       setNameTheme('navBarColor')
-                      clickColor(navBarColor)
-                    }} className="colorPickerItem borderPickC color_PBig color_PBig-Active" style={{ 'backgroundColor': `${navBarColor}` }} id='NavbarColor' ></button>
+                      clickColor(prop.navBarColor)
+                    }} className="colorPickerItem borderPickC color_PBig color_PBig-Active" style={{ 'backgroundColor': `${prop.navBarColor}` }} id='NavbarColor' ></button>
 
                   </div>
 
@@ -431,8 +566,8 @@ const _09ThemeSetupMobile = (prop) => {
                       setOnoffColorPicker(true)
                       setNoSetTheme(1)
                       setNameTheme('navBarFontColor')
-                      clickColor(navBarFontColor)
-                    }} className="colorPickerItem borderPickC color_PBig color_PBig-Active" style={{ 'backgroundColor': `${navBarFontColor}` }} id='navBarFontColor'></button>
+                      clickColor(prop.navBarFontColor)
+                    }} className="colorPickerItem borderPickC color_PBig color_PBig-Active" style={{ 'backgroundColor': `${prop.navBarFontColor}` }} id='navBarFontColor'></button>
 
                   </div>
 
@@ -480,8 +615,8 @@ const _09ThemeSetupMobile = (prop) => {
                           <use xlinkHref={`${icon1}#appetizer`} />
                         </svg> */}
                       </label>
-                      <span className={` ${(chooseIconStyle === 'circleNoborder' || (extraIcon === false && themeIconRadius === '1.5rem' && themeIconSolid === 'none')) && 'tabChhoseIcon'}`}></span>
-                      <input onChange={() => themeIconClientFn('1.5rem', themeIconColorLine, themeIconBG, 'none')} type="radio" name="selectIconSideBar" id="circleNoborder" />
+                      <span className={` ${(chooseIconStyle === 'circleNoborder' || (prop.extraIcon === false && prop.themeIconRadius === '1.5rem' && prop.themeIconSolid === 'none')) && 'tabChhoseIcon'}`}></span>
+                      <input onChange={() => themeIconClientFn('1.5rem', prop.themeIconColorLine, prop.themeIconBG, 'none')} type="radio" name="selectIconSideBar" id="circleNoborder" />
                     </div>
 
 
@@ -499,9 +634,9 @@ const _09ThemeSetupMobile = (prop) => {
                           <use xlinkHref={`${icon1}#appetizer`} />
                         </svg> */}
                       </label>
-                      <span className={` ${(chooseIconStyle === 'radiusNoborder' || (extraIcon === false && themeIconRadius === '1rem' && themeIconSolid === 'none')) && 'tabChhoseIcon'}`}></span>
+                      <span className={` ${(chooseIconStyle === 'radiusNoborder' || (prop.extraIcon === false && prop.themeIconRadius === '1rem' && prop.themeIconSolid === 'none')) && 'tabChhoseIcon'}`}></span>
 
-                      <input onChange={() => themeIconClientFn('1rem', themeIconColorLine, themeIconBG, 'none', '')} type="radio" name="selectIconSideBar" id="radiusNoborder" />
+                      <input onChange={() => themeIconClientFn('1rem', prop.themeIconColorLine, prop.themeIconBG, 'none', '')} type="radio" name="selectIconSideBar" id="radiusNoborder" />
                     </div>
                     <div className="labelFlexCol RadioHidden">
                       <label onClick={() => setChooseIconStyle('regtangNoBorder')} htmlFor='regtangNoBorder' className={`MB_IconTheme }`}
@@ -515,9 +650,9 @@ const _09ThemeSetupMobile = (prop) => {
                           <use xlinkHref={`${icon1}#appetizer`} />
                         </svg> */}
                       </label>
-                      <span className={` ${(chooseIconStyle === 'regtangNoBorder' || (extraIcon === false && themeIconRadius === '.2rem' && themeIconSolid === 'none')) && 'tabChhoseIcon'}`}></span>
+                      <span className={` ${(chooseIconStyle === 'regtangNoBorder' || (prop.extraIcon === false && prop.themeIconRadius === '.2rem' && prop.themeIconSolid === 'none')) && 'tabChhoseIcon'}`}></span>
 
-                      <input onChange={() => themeIconClientFn('.2rem', themeIconColorLine, themeIconBG, 'none', '')} type="radio" name="selectIconSideBar" id="regtangNoBorder" />
+                      <input onChange={() => themeIconClientFn('.2rem', prop.themeIconColorLine, prop.themeIconBG, 'none', '')} type="radio" name="selectIconSideBar" id="regtangNoBorder" />
                     </div>
                   </div>
 
@@ -538,10 +673,10 @@ const _09ThemeSetupMobile = (prop) => {
                           <use xlinkHref={`${icon1}#appetizer`} />
                         </svg> */}
                       </label>
-                      <span className={` ${(chooseIconStyle === 'circleWithBorder' || (extraIcon === false && themeIconRadius === '1.5rem' && themeIconSolid === 'solid')) && 'tabChhoseIcon'}`}></span>
+                      <span className={` ${(chooseIconStyle === 'circleWithBorder' || (prop.extraIcon === false && prop.themeIconRadius === '1.5rem' && prop.themeIconSolid === 'solid')) && 'tabChhoseIcon'}`}></span>
 
                       <input onChange={() => {
-                        themeIconClientFn('1.5rem', themeIconColorLine, themeIconBG, 'solid')
+                        themeIconClientFn('1.5rem', prop.themeIconColorLine, prop.themeIconBG, 'solid')
 
                       }} type="radio" name="selectIconSideBar" id="circleWithBorder" />
 
@@ -559,9 +694,9 @@ const _09ThemeSetupMobile = (prop) => {
                           <use xlinkHref={`${icon1}#appetizer`} />
                         </svg> */}
                       </label>
-                      <span className={` ${(chooseIconStyle === 'radiusWithborder' || (extraIcon === false && themeIconRadius === '1rem' && themeIconSolid === 'solid')) && 'tabChhoseIcon'}`}></span>
+                      <span className={` ${(chooseIconStyle === 'radiusWithborder' || (prop.extraIcon === false && prop.themeIconRadius === '1rem' && prop.themeIconSolid === 'solid')) && 'tabChhoseIcon'}`}></span>
 
-                      <input onChange={() => themeIconClientFn('1rem', themeIconColorLine, themeIconBG, 'solid', themeIconColorBorder)} type="radio" name="selectIconSideBar" id="radiusWithborder" />
+                      <input onChange={() => themeIconClientFn('1rem', prop.themeIconColorLine, prop.themeIconBG, 'solid', prop.themeIconColorBorder)} type="radio" name="selectIconSideBar" id="radiusWithborder" />
                     </div>
 
                     <div className="labelFlexCol RadioHidden">
@@ -576,9 +711,9 @@ const _09ThemeSetupMobile = (prop) => {
                           <use xlinkHref={`${icon1}#appetizer`} />
                         </svg> */}
                       </label>
-                      <span className={` ${(chooseIconStyle === 'regtangWithBorder' || (extraIcon === false && themeIconRadius === '.2rem' && themeIconSolid === 'solid')) && 'tabChhoseIcon'}`}></span>
+                      <span className={` ${(chooseIconStyle === 'regtangWithBorder' || (prop.extraIcon === false && prop.themeIconRadius === '.2rem' && prop.themeIconSolid === 'solid')) && 'tabChhoseIcon'}`}></span>
 
-                      <input onChange={() => themeIconClientFn('.2rem', themeIconColorLine, themeIconBG, 'solid', themeIconColorBorder)} type="radio" name="selectIconSideBar" id="regtangWithBorder" className='radioHiddenIcon' />
+                      <input onChange={() => themeIconClientFn('.2rem', prop.themeIconColorLine, prop.themeIconBG, 'solid', prop.themeIconColorBorder)} type="radio" name="selectIconSideBar" id="regtangWithBorder" className='radioHiddenIcon' />
                     </div>
 
 
@@ -595,9 +730,9 @@ const _09ThemeSetupMobile = (prop) => {
                         </svg> */}
                         <span className='text12x'>None (1.2x)</span>
                       </label>
-                      <span className={` ${(chooseIconStyle === 'NoBGExtraSize' || extraIcon === true) && 'tabChhoseIcon'}`}></span>
+                      <span className={` ${(chooseIconStyle === 'NoBGExtraSize' || prop.extraIcon === true) && 'tabChhoseIcon'}`}></span>
                       <input onChange={() => {
-                        setExtraIcon(true)
+                         prop.setExtraIcon(true)
                       }} type="radio" name="selectIconSideBar" id="NoBGExtraSize" />
 
                     </div>
@@ -637,7 +772,7 @@ const _09ThemeSetupMobile = (prop) => {
                   <div className="MB_TC_name mg-t-1">Icon Color</div>
 
                 </div>
-                {!extraIcon && <div className="MB_themeNavFootBar_ForIcon">
+                {!prop.extraIcon && <div className="MB_themeNavFootBar_ForIcon">
                   <div className='MB_themeRow'>
                     <div className="bodyFontColr MB_themeGrid">
                       <label htmlFor="themeIconColorLine" className='MB_TC_small'>Line icon color</label>
@@ -646,8 +781,8 @@ const _09ThemeSetupMobile = (prop) => {
                         setOnoffColorPicker(true)
                         setNoSetTheme(3)
                         setNameTheme('themeIconColorLine')
-                        clickColor(themeIconColorLine)
-                      }} className="colorPickerItem borderPickC color_PBig color_PBig-Active" style={{ 'backgroundColor': `${themeIconColorLine}` }} id='themeIconColorLine' >
+                        clickColor(prop.themeIconColorLine)
+                      }} className="colorPickerItem borderPickC color_PBig color_PBig-Active" style={{ 'backgroundColor': `${prop.themeIconColorLine}` }} id='themeIconColorLine' >
                       </button>
 
                     </div>
@@ -661,8 +796,8 @@ const _09ThemeSetupMobile = (prop) => {
                         setOnoffColorPicker(true)
                         setNoSetTheme(3)
                         setNameTheme('themeIconBG')
-                        clickColor(themeIconBG)
-                      }} className="colorPickerItem borderPickC color_PBig color_PBig-Active" style={{ 'backgroundColor': `${themeIconBG}` }} id='themeIconBG' >
+                        clickColor(prop.themeIconBG)
+                      }} className="colorPickerItem borderPickC color_PBig color_PBig-Active" style={{ 'backgroundColor': `${prop.themeIconBG}` }} id='themeIconBG' >
                       </button>
                     </div>
                   </div>
@@ -670,7 +805,7 @@ const _09ThemeSetupMobile = (prop) => {
                   {(chooseIconStyle === 'circleWithBorder' ||
                     chooseIconStyle === 'radiusWithborder' ||
                     chooseIconStyle === 'regtangWithBorder' ||
-                    themeIconSolid === 'solid'
+                    prop.themeIconSolid === 'solid'
 
                   ) && <div className='MB_themeRow'>
 
@@ -681,8 +816,8 @@ const _09ThemeSetupMobile = (prop) => {
                           setOnoffColorPicker(true)
                           setNoSetTheme(31)
                           setNameTheme('themeIconColorBorder')
-                          clickColor(themeIconColorBorder)
-                        }} className="colorPickerItem borderPickC color_PBig color_PBig-Active" style={{ 'backgroundColor': `${themeIconColorBorder}` }} id='themeIconColorBorder'>
+                          clickColor(prop.themeIconColorBorder)
+                        }} className="colorPickerItem borderPickC color_PBig color_PBig-Active" style={{ 'backgroundColor': `${prop.themeIconColorBorder}` }} id='themeIconColorBorder'>
                         </button>
 
                       </div>
@@ -721,9 +856,9 @@ const _09ThemeSetupMobile = (prop) => {
                       setOnoffColorPicker(true)
                       setNoSetTheme(2)
                       setNameTheme('bodyBgColor')
-                      clickColor(bodyBgColor)
+                      clickColor(prop.bodyBgColor)
 
-                    }} className="colorPickerItem borderPickC color_PBig color_PBig-Active" style={{ 'backgroundColor': `${bodyBgColor}` }} id='bodyBgColor'>
+                    }} className="colorPickerItem borderPickC color_PBig color_PBig-Active" style={{ 'backgroundColor': `${prop.bodyBgColor}` }} id='bodyBgColor'>
                     </button>
 
                   </div>
@@ -739,8 +874,8 @@ const _09ThemeSetupMobile = (prop) => {
                       setOnoffColorPicker(true)
                       setNoSetTheme(2)
                       setNameTheme('bodyFonttColor')
-                      clickColor(bodyFonttColor)
-                    }} className="colorPickerItem borderPickC color_PBig color_PBig-Active" style={{ 'backgroundColor': `${bodyFonttColor}` }} id='bodyFonttColor'>
+                      clickColor(prop.bodyFonttColor)
+                    }} className="colorPickerItem borderPickC color_PBig color_PBig-Active" style={{ 'backgroundColor': `${prop.bodyFonttColor}` }} id='bodyFonttColor'>
                     </button>
                   </div>
                 </div>
@@ -750,7 +885,7 @@ const _09ThemeSetupMobile = (prop) => {
                   <div className="MB_themeGrid">
                     <label htmlFor="BodyfontStyle" className='MB_TC_small'>Font Style</label>
 
-                    <select onChange={bodyAllFontStyleFn('bodyFontFamily')} value={bodyFontFamily} id='BodyfontStyle' className='MB_labelFontR text_width80 text_selectCenter'>
+                    <select onChange={prop.bodyAllFontStyleFn('bodyFontFamily')} value={prop.bodyFontFamily} id='BodyfontStyle' className='MB_labelFontR text_width80 text_selectCenter'>
                       < option value='Merriweather' > Merriweather</option>
                       <option value='Urbanist'>Urbanist</option>
                       <option value='Oleo Script Swash Caps'>Oleo Script</option>
@@ -768,7 +903,7 @@ const _09ThemeSetupMobile = (prop) => {
                   <div className="MB_themeGrid">
                     <label htmlFor="BodyFontSizeX" className='MB_TC_small'>Font Size</label>
 
-                    <select onChange={bodyAllFontStyleFn('bodyFontSize')} value={bodyFontSize} id='BodyFontSizeX' className='MB_labelFontR text_width80 text_selectCenter'>
+                    <select onChange={prop.bodyAllFontStyleFn('bodyFontSize')} value={prop.bodyFontSize} id='BodyFontSizeX' className='MB_labelFontR text_width80 text_selectCenter'>
                       <option value='0.8' >X-Small</option>
                       <option value='0.9'>Small</option>
                       <option value='1'>Medium</option>
@@ -790,7 +925,7 @@ const _09ThemeSetupMobile = (prop) => {
                 <div className='MB_themeRow'>
                   <div className="MB_themeGrid">
                     <select
-                      onChange={categoryMotionInput('categoryPhotoSize')} value={categoryPhotoSize}
+                      onChange={prop.categoryMotionInput('categoryPhotoSize')} value={prop.categoryPhotoSize}
                       id='FontSize1' className='MB_labelFontR text_widthRem text_selectCenter'>
                       <option value='5.5rem'>small</option>
                       <option value='10rem'>Medium</option>
@@ -816,13 +951,13 @@ const _09ThemeSetupMobile = (prop) => {
                         }}>
 
                       </label>
-                      <span className={` ${categoryBoxClass === 'category-Custom-CircleSimple' && 'tabChhoseIcon'}`}></span>
+                      <span className={` ${prop.categoryBoxClass === 'category-Custom-CircleSimple' && 'tabChhoseIcon'}`}></span>
 
                       <input
                         onChange={() => {
 
-                          categoryMotionFn(categoryPhotoSize, categoryFontColor, 'category-Custom-CircleSimple', categoryBoxColor, 'category-Custom-Circle', categorySpanColor, 'category-Custom-Circle-Active')
-                          seatChooseCatTheme('circle')
+                          prop.categoryMotionFn(prop.categoryPhotoSize, prop.categoryFontColor, 'category-Custom-CircleSimple', prop.categoryBoxColor, 'category-Custom-Circle', prop.categorySpanColor, 'category-Custom-Circle-Active')
+                          // prop.seatChooseCatTheme('circle')
                         }}
                         type="radio" name="themeCategory" id="categoryClass-Circle" />
 
@@ -838,11 +973,11 @@ const _09ThemeSetupMobile = (prop) => {
                         }}>
 
                       </label>
-                      <span className={` ${(categoryBoxClass === 'category-Custom-BarLine') && 'tabChhoseIcon'}`}></span>
+                      <span className={` ${(prop.categoryBoxClass === 'category-Custom-BarLine') && 'tabChhoseIcon'}`}></span>
 
                       <input onChange={() => {
-                        categoryMotionFn(categoryPhotoSize, categoryFontColor, 'category-Custom-BarLine', categoryBoxColor, 'category-Custom-Line', categorySpanColor, 'category-Custom-Line-Active')
-                        seatChooseCatTheme('boxLine')
+                        prop.categoryMotionFn(prop.categoryPhotoSize, prop.categoryFontColor, 'category-Custom-BarLine', prop.categoryBoxColor, 'category-Custom-Line', prop.categorySpanColor, 'category-Custom-Line-Active')
+                        // seatChooseCatTheme('boxLine')
                       }} type="radio" name="themeCategory" id="categoryClass-BoxLine" className='radioHiddenIcon' />
                     </div>
 
@@ -865,8 +1000,8 @@ const _09ThemeSetupMobile = (prop) => {
                       setOnoffColorPicker(true)
                       setNoSetTheme(4)
                       setNameTheme('categoryFontColor')
-                      clickColor(categoryFontColor)
-                    }} className="colorPickerItem borderPickC color_PBig color_PBig-Active" style={{ 'backgroundColor': `${categoryFontColor}` }} >
+                      clickColor(prop.categoryFontColor)
+                    }} className="colorPickerItem borderPickC color_PBig color_PBig-Active" style={{ 'backgroundColor': `${prop.categoryFontColor}` }} >
                     </button>
 
                   </div>
@@ -874,7 +1009,7 @@ const _09ThemeSetupMobile = (prop) => {
                 </div>
 
 
-                {categoryBoxClass === 'category-Custom-BarLine' &&
+                {prop.categoryBoxClass === 'category-Custom-BarLine' &&
                   <div className='MB_themeRow'>
                     <div className="bodyFontColr MB_themeGrid ">
                       <label htmlFor='catColorBox' className="MB_TC_small">BG Color</label>
@@ -883,8 +1018,8 @@ const _09ThemeSetupMobile = (prop) => {
                         setOnoffColorPicker(true)
                         setNoSetTheme(4)
                         setNameTheme('categoryBoxColor')
-                        clickColor(categoryBoxColor)
-                      }} className="colorPickerItem borderPickC color_PBig color_PBig-Active" style={{ 'backgroundColor': `${categoryBoxColor}` }} >
+                        clickColor(prop.categoryBoxColor)
+                      }} className="colorPickerItem borderPickC color_PBig color_PBig-Active" style={{ 'backgroundColor': `${prop.categoryBoxColor}` }} >
                       </button>
                     </div>
                   </div>}
@@ -898,8 +1033,8 @@ const _09ThemeSetupMobile = (prop) => {
                       setOnoffColorPicker(true)
                       setNoSetTheme(4)
                       setNameTheme('categorySpanColor')
-                      clickColor(categorySpanColor)
-                    }} className="colorPickerItem borderPickC color_PBig color_PBig-Active" style={{ 'backgroundColor': `${categorySpanColor}` }} >
+                      clickColor(prop.categorySpanColor)
+                    }} className="colorPickerItem borderPickC color_PBig color_PBig-Active" style={{ 'backgroundColor': `${prop.categorySpanColor}` }} >
                     </button>
 
                   </div>
@@ -976,18 +1111,20 @@ const _09ThemeSetupMobile = (prop) => {
           noSetTheme={noSetTheme}
           nameTheme={nameTheme}
 
-          navAndFootBar={navAndFootBar}
-          setNavAndFootBar={setNavAndFootBar}
+          // navAndFootBar={navAndFootBar}
+          // setNavAndFootBar={setNavAndFootBar}
+          setNavAndFootBar={prop.setNavAndFootBar}
+          navAndFootBar={prop.navAndFootBar}
 
-          bodyStyle={bodyStyle}
-          setBodyStyle={setBodyStyle}
+          bodyStyle={prop.bodyStyle}
+          setBodyStyle={prop.setBodyStyle}
+          
+          themeIconNoBD={prop.themeIconNoBD}
+          setThemeIconNoBD={prop.setThemeIconNoBD}
+          setThemeIconColorBorder={prop.setThemeIconColorBorder}
 
-          themeIconNoBD={themeIconNoBD}
-          setThemeIconNoBD={setThemeIconNoBD}
-          setThemeIconColorBorder={setThemeIconColorBorder}
-
-          categoryMotion={categoryMotion}
-          setCategoryMotion={setCategoryMotion}
+          categoryMotion={prop.categoryMotion}
+          setCategoryMotion={prop.setCategoryMotion}
 
           colorOnClick={colorOnClick}
           setOnoffColorPicker={setOnoffColorPicker}
