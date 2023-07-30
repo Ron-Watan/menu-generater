@@ -137,7 +137,6 @@ const AcordionSubComp = (prop) => {
   let newData = []
   const acArrayEl = document.querySelectorAll('.acArray')
   window.addEventListener('scroll', () => {
-    console.log("yyy")
     acArrayEl.forEach((element, index) => {
       if (!element) return
       const point = element.getBoundingClientRect().top
@@ -153,7 +152,6 @@ const AcordionSubComp = (prop) => {
 
       }
     })
-
     prop.setTriggerIcon(newData)
 
   },)
@@ -243,7 +241,7 @@ const AcordionSubComp = (prop) => {
 
 
           }}> {prop.listMunu.catagory}</span>
-          <span className={`${prop.categoryMotion.categorySpanClass} ${prop.triggerIcon[prop.indexM] && `${prop.categoryMotion.categoryActiveClass}`}`} style={{ 'backgroundColor': `${prop.categoryMotion.categorySpanColor}` }}></span>
+          <span className={`${prop.categoryMotion.categorySpanClass} ${(prop.triggerIcon[prop.indexM]||prop.categoryActiveTheme) && `${prop.categoryMotion.categoryActiveClass}`}`} style={{ 'backgroundColor': `${prop.categoryMotion.categorySpanColor}` }}></span>
         </div>
 
       </div>

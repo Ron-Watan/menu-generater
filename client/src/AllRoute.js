@@ -23,15 +23,16 @@ const AllRoute = () => {
           </div>
         </div>
       </div>)} */}
-
-      {/* {loading && (<div className=" photoLoading">
-        <div className="iconLoading">
+      <div className={`${loading && 'Full_Transparent_Loading'} `}>
+        <div className="iconLoadingBanner">
           <span className='barOne'></span > <span className='barTwo'></span> <span className='barThree'></span>
         </div>
-      </div>)} */}
+      </div>
+
 
 
       <Routes>
+
         <Route Component={ProtectRoute}>
           {/* <Route path="/generatemenu" exact Component={GenerateMenu} /> */}
 

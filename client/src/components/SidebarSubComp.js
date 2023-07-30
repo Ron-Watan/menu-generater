@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 // import icon2 from '../all-icon-client/food-color-SVG-sprite.svg'
 import styled, { createGlobalStyle } from 'styled-components';
 import AnchorLink from 'react-anchor-link-smooth-scroll'
- 
+
 const SidebarSubComp = (prop) => {
   const [barActive, setBarActive] = useState(true);
 
@@ -28,21 +28,21 @@ const SidebarSubComp = (prop) => {
   const [themeIconBorderColor, serThemeIconBorderColor] = useState('#777');
 
 
-//   const GlobalStyle =
-//     createGlobalStyle`
-//   .theme-icon-lineColor {
-//     fill: ${prop.themeSetup.sideBar.themeIconColorLine};
-//   }
+  //   const GlobalStyle =
+  //     createGlobalStyle`
+  //   .theme-icon-lineColor {
+  //     fill: ${prop.themeSetup.sideBar.themeIconColorLine};
+  //   }
 
-//   .theme-icon-styleRadius{
-//     border-radius: ${prop.themeSetup.sideBar.themeIconRadius};
-//   }
-//   .theme-icon-BG-Border{
-//     background-color: ${prop.themeSetup.sideBar.themeIconBG};
-//     border:  ${prop.themeSetup.sideBar.themeIconSolid} 2px ${prop.themeSetup.sideBar.themeIconColorBorder};
-//   }
+  //   .theme-icon-styleRadius{
+  //     border-radius: ${prop.themeSetup.sideBar.themeIconRadius};
+  //   }
+  //   .theme-icon-BG-Border{
+  //     background-color: ${prop.themeSetup.sideBar.themeIconBG};
+  //     border:  ${prop.themeSetup.sideBar.themeIconSolid} 2px ${prop.themeSetup.sideBar.themeIconColorBorder};
+  //   }
 
-// `;
+  // `;
 
 
   // useEffect(() => {
@@ -57,13 +57,20 @@ const SidebarSubComp = (prop) => {
           prop.menuTime == 1 &&
           prop.iconMenu_1.map((el, index) => {
             return (
-              <AnchorLink href={prop.iconMenu_1[index]?.link} value={el.catagory} 
+              <AnchorLink href={prop.iconMenu_1[index]?.link} value={el.catagory}
                 style={{
                   'backgroundColor': `${prop.themeSetup.sideBar.themeIconBG}`,
                   'border': `${prop.themeSetup.sideBar.themeIconSolid} 0px ${prop.themeSetup.sideBar.themeIconColorBorder}`,
                   'borderRadius': `${prop.themeSetup.sideBar.themeIconRadius}`
-                
+
                 }}
+                // style={{
+                //   'backgroundColor': `${prop.themeSetup.sideBar.themeIconBG}`,
+                //   'borderRadius': `${prop.themeSetup.sideBar.themeIconRadius}`,
+                //   'borderWidth': '0px',
+                //   'borderStyle': `${prop.themeSetup.sideBar.themeIconSolid}`,
+                //   'borderColor': `${prop.themeSetup.sideBar.themeIconColorBorder}`
+                // }}
 
                 className={` circle-iconButton theme-icon-styleRadius theme-icon-BG-Border ${prop.triggerIcon[index] && 'circle-iconButton-Active'}   ${prop.themeSetup.sideBar.extraIcon && 'extraIcon-client'}`} key={index}>
                 <svg
@@ -80,12 +87,12 @@ const SidebarSubComp = (prop) => {
           prop.iconMenu_2.map((el, index) => {
             return (
               <a href={prop.iconMenu_2[index]?.link} value={el.catagory}
-              style={{
-                'backgroundColor': `${prop.themeSetup.sideBar.themeIconBG}`,
-                'border': `${prop.themeSetup.sideBar.themeIconSolid} 2px ${prop.themeSetup.sideBar.themeIconColorBorder}`,
-                'borderRadius': `${prop.themeSetup.sideBar.themeIconRadius}`
+                style={{
+                  'backgroundColor': `${prop.themeSetup.sideBar.themeIconBG}`,
+                  'border': `${prop.themeSetup.sideBar.themeIconSolid} 0px ${prop.themeSetup.sideBar.themeIconColorBorder}`,
+                  'borderRadius': `${prop.themeSetup.sideBar.themeIconRadius}`
 
-              }}
+                }}
                 className={` circle-iconButton theme-icon-styleRadius theme-icon-BG-Border ${prop.triggerIcon[index] && 'circle-iconButton-Active'} ${prop.themeSetup.sideBar.extraIcon && 'extraIcon-client'}`} key={index}>
                 <svg
                   style={{ 'fill': `${prop.themeSetup.sideBar.themeIconColorLine}` }}
@@ -100,13 +107,13 @@ const SidebarSubComp = (prop) => {
           prop.iconMenu_3.map((el, index) => {
             return (
               <a href={prop.iconMenu_3[index]?.link} value={el.catagory}
-              style={{
-                'backgroundColor': `${prop.themeSetup.sideBar.themeIconBG}`,
-                'border': `${prop.themeSetup.sideBar.themeIconSolid} 2px ${prop.themeSetup.sideBar.themeIconColorBorder}`,
-                'borderRadius': `${prop.themeSetup.sideBar.themeIconRadius}`
+                style={{
+                  'backgroundColor': `${prop.themeSetup.sideBar.themeIconBG}`,
+                  'border': `${prop.themeSetup.sideBar.themeIconSolid} 0px ${prop.themeSetup.sideBar.themeIconColorBorder}`,
+                  'borderRadius': `${prop.themeSetup.sideBar.themeIconRadius}`
 
-              }}
-                
+                }}
+
                 className={` circle-iconButton theme-icon-styleRadius theme-icon-BG-Border ${prop.triggerIcon[index] && 'circle-iconButton-Active'} ${prop.themeSetup.sideBar.extraIcon && 'extraIcon-client'}`} key={index}>
                 <svg
                   style={{ 'fill': `${prop.themeSetup.sideBar.themeIconColorLine}` }}
@@ -117,7 +124,7 @@ const SidebarSubComp = (prop) => {
             );
           })}
       </div>
-    </div>
+    </div >
   );
 };
 

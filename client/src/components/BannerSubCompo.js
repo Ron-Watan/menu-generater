@@ -113,7 +113,7 @@ const BannerSubCompo = (prop) => {
   useEffect(() => {
     getAllImageBanner()
 
-  }, [user])
+  }, [link])
 
 
 

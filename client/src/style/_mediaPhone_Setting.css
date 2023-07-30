@@ -1053,18 +1053,19 @@ input:checked + .forOFLang2:before {
   width: 280px;
   gap: 1rem;
   font-size: 1.1rem;
-  font-weight: 500;
+  font-weight:400;
   justify-content: center;
   align-items: center;
 }
 
 .MB_tray_input {
-  border: 1px solid #444;
+  border: 1px solid #999;
   padding: 0.2rem;
   border-radius: 0.5rem;
   width: 6rem;
   text-align: center;
   outline: none;
+  color: #666;
 }
 
 .MB_tray_input_QR {

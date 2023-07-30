@@ -4,9 +4,8 @@ import axios from "axios"
 import { authenticate, getToken, ticketPass } from "../protectors/authorize"
 import Swal from "sweetalert2"
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from "react-redux"
-import { hideLoading, showLoading } from "../redux/alertSlice"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from 'react-redux';
+import { hideLoading, showLoading } from '../redux/alertSlice';
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import { QRCodeCanvas } from 'qrcode.react';
 import '../style/generate.css'
@@ -32,7 +31,7 @@ import QRd3 from '../all-icon/qricon/dotdot.svg'
 
 const _02QRCode = (prop) => {
   const { user } = useSelector(state => state.user)
-
+  const dispath = useDispatch();
   // const [sizeQr, setSizeQr] = useState('8')
   // const [sizeQrPx, setSizeQrPx] = useState('300')
   const [checkQRcodeChange, setCheckQRcodeChange] = useState(false)
@@ -66,8 +65,8 @@ const _02QRCode = (prop) => {
     setQrCodeSetUp({ ...qrCodeSetUp, ['sizeQrPx']: value })
   }
 
-  const qrLink = "http://192.168.1.13:3000/customer/ce144dc5-undefined"
-
+  const qrLink = ` http://192.168.1.13:3000/customer/${user.link}`
+  // const qrLink = `http://52.53.181.80/customer/${user.link}`
   const qrCode = new QRCodeStyling({
     // width: 300,
     // height: 300,
@@ -104,34 +103,42 @@ const _02QRCode = (prop) => {
 
 
   const getQrCode = () => {
+    dispath(showLoading())
+
     axios
       .post(`${process.env.REACT_APP_API}/user/getQrCode`, { userId: user.userId }, ticketPass)
       .then((result) => {
         if (result.data.success) {
-          const getReult = result.data.qrCodeSetUp.qrCodeSetUp;
+          const getReult = result.data.qrCodeSetUp;
+
+
           // const getQrCode = getReult.qrCodeSetUp
-          setQrCodeSetUp(getReult)
+          setQrCodeSetUp(getReult.qrCodeSetUp)
+          dispath(hideLoading())
         } else {
+          dispath(hideLoading())
           // Swal.fire(result.data.message)
-          // dispath(hideLoading())
+          dispath(hideLoading())
         }
       })
       .catch((err) => {
         // dispath(hideLoading());
-        // console.log("Can't not connect the server", err);
+        console.log("QR err", err);
 
         // Swal.fire("Can't not connect the server")
       });
   };
   const imgId = user.userId + 'qrlogo'
   const getImage = (imgId) => {
+
+    dispath(showLoading())
     axios
       .post(`${process.env.REACT_APP_API}/user/images/preview`, { imgId: imgId })
       .then((result) => {
         if (!result.data.images) {
 
           return setLogoQr('')
-          // return dispath(hideLoading());
+          return dispath(hideLoading());
         }
 
         const getResult = result.data.images;
@@ -139,14 +146,8 @@ const _02QRCode = (prop) => {
         const imageStr = prop.arrayBufferToBase64(getResult.img.data.data);
         const tagImage = base64Flag + imageStr;
 
-        // console.log(tagImage)
-
         setLogoQr(tagImage);
-
-        // dispath(hideLoading());
-        // setTimeout(() => {
-        //   dispath(hideLoading());
-        // }, 500);
+        // dispath(hideLoading())
       })
       .catch((err) => {
         console.error(err);
@@ -155,13 +156,9 @@ const _02QRCode = (prop) => {
 
 
 
-  window.addEventListener('scroll', () => { 
-    console.log('99999');
-  })
-
-
-
   const saveQRCode = () => {
+
+    dispath(showLoading())
     delelteImage(imgId)
     axios
       .post(
@@ -174,9 +171,6 @@ const _02QRCode = (prop) => {
       )
       .then((result) => {
         if (result.data.success) {
-          // Swal.fire(result.data.message)
-          // dispath(setUser(result.data.userMenu));
-          // dispath(hideLoading());
           logoQr && uploadImage()
           Swal.fire({
             title: 'Saved',
@@ -186,16 +180,18 @@ const _02QRCode = (prop) => {
             timer: 1500,
           }).then(nothinh => {
             setCheckQRcodeChange(false)
-
+            dispath(hideLoading())
           })
+
         } else {
           Swal.fire(result.data.message);
-          // dispath(hideLoading());
+          dispath(hideLoading())
+
         }
       })
       .catch((err) => {
-        // dispath(hideLoading());
-        console.log("Can't not connect the server");
+        dispath(hideLoading());
+        console.log("QR Fail");
         Swal.fire("Can't not connect the server");
       });
   };
@@ -230,7 +226,7 @@ const _02QRCode = (prop) => {
   const [qrLoading, setQrLoading] = useState(false)
   const resizeFile = (file) =>
     new Promise((resolve) => {
-      setQrLoading(true)
+      dispath(showLoading())
       Resizer.imageFileResizer(
         file,
         200,
@@ -239,8 +235,10 @@ const _02QRCode = (prop) => {
         100,
         0,
         (uri) => {
+
           setLogoQr(uri);
-          setQrLoading(false)
+          dispath(hideLoading())
+
           setCheckQRcodeChange(true)
 
           setTimeout(() => {
@@ -257,6 +255,8 @@ const _02QRCode = (prop) => {
 
   const uploadImage = () => {
 
+    // dispath(showLoading())
+
     const newFile = prop.dataURIToBlob(logoQr);
     const formData = new FormData();
 
@@ -266,19 +266,22 @@ const _02QRCode = (prop) => {
       .post(`${process.env.REACT_APP_API}/user/images/uplaod`, formData)
       // .post(`${process.env.REACT_APP_API}/user/images`, formData, { headers: { 'Content-Type': 'multipart/form-data' } })
       .then((result) => {
-        // dispath(hideLoading());
+        // dispath(hideLoading())
+
       })
       .catch((err) => {
+
         console.error(err);
       });
   };
 
   const delelteImage = (imgId) => {
 
-
+    // dispath(showLoading())
     axios
       .post(`${process.env.REACT_APP_API}/user/images/delete`, { imgId: imgId })
       .then((result) => {
+        // dispath(hideLoading())
 
       })
       .catch((err) => {
@@ -291,7 +294,7 @@ const _02QRCode = (prop) => {
 
   const onDownloadClick = () => {
     if (sizeQr >= 1) {
-      sizeQrPxFn(sizeQr * (96 / 2.56))
+      sizeQrPxFn(sizeQr * (96 / 2.54))
       console.log('rrrr')
       setClickDownLoad(true)
     }
@@ -329,11 +332,7 @@ const _02QRCode = (prop) => {
     qrCodeColorFn(name, presetColor)
   }
 
-  useEffect(() => {
-    getImage(imgId)
-    getQrCode();
 
-  }, [user]);
 
   const checkQRcodeChangeFn = () => {
 
@@ -370,6 +369,15 @@ const _02QRCode = (prop) => {
 
     }
   }
+
+  useEffect(() => {
+    if (user.userId) getImage(imgId)
+  }, [user]);
+
+  useEffect(() => {
+    if (user.userId) getQrCode();
+  }, [user]);
+
   return (
     <div className="MB_FullPage_Container">
       <div className={`${qrLoading ? 'showMe' : 'hiddenMe'} allLoading`}>
@@ -516,7 +524,7 @@ const _02QRCode = (prop) => {
 
                 </div>
                 <div className="QR_Borderset"></div>
-    
+
                 <div className='MB_themeRow2 gap1Rem'>
                   {/* // const connerOption='dot' 'square' 'extra-rounded' */}
                   <div className="MB_qrContainer3 ">
@@ -604,13 +612,16 @@ const _02QRCode = (prop) => {
                           <input
                             onChange={(e) => {
                               if (e.target.files.length === 0) return;
-
                               resizeFile(e.target.files[0]).then((res) => { });
                             }}
                             id='qr-upload'
                             name='file-upload'
                             type='file'
                             className='inputPhoto'
+
+                            onClick={(e) => {
+                              e.target.value = ''
+                            }}
                           />
                           <span className='QR_uplaodLogo' >Upload</span>
                         </div>

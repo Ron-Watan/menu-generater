@@ -235,7 +235,7 @@
   width: 100%;
   height: 100%;
   align-items: flex-start;
-  background-color: #f3f3f380;
+  background-color: #f3f3f3;
 }
 .bordertop {
   border-top: #999 solid 0.5px;
@@ -714,7 +714,7 @@
   background-color: #f3f3f3;
 }
 .floatBtnIcon {
-  width: 18%;
+  width: 4rem;
 }
 
 .MB_LinColBox {

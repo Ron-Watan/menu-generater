@@ -88,7 +88,7 @@ const SidebarSubComp = (prop) => {
               <a href={prop.iconMenu_2[index]?.link} value={el.catagory}
               style={{
                 'backgroundColor': `${prop.themeIconBG}`,
-                'border': `${prop.themeIconSolid} 2px ${prop.themeIconColorBorder}`,
+                'border': `${prop.themeIconSolid} 0px ${prop.themeIconColorBorder}`,
                 'borderRadius': `${prop.themeIconRadius}`
 
               }}
@@ -108,7 +108,7 @@ const SidebarSubComp = (prop) => {
               <a href={prop.iconMenu_3[index]?.link} value={el.catagory}
               style={{
                 'backgroundColor': `${prop.themeIconBG}`,
-                'border': `${prop.themeIconSolid} 2px ${prop.themeIconColorBorder}`,
+                'border': `${prop.themeIconSolid} 0px ${prop.themeIconColorBorder}`,
                 'borderRadius': `${prop.themeIconRadius}`
 
               }}

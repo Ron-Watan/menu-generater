@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+  <path d="m13.04,2.5h14.36c2.23,0,4.04,1.81,4.04,4.04v.45H9.01v-.45c0-2.23,1.81-4.04,4.04-4.04Z" fill="#a7a9ac" stroke="#231f20" stroke-width=".25"/>
+  <path d="m8.56,11.28c0-1.24,1-2.24,2.24-2.24h0c1.24,0,2.24,1,2.24,2.24h0c0,1.24-1,2.24-2.24,2.24h0c-1.24,0-2.24-1-2.24-2.24h0Z" fill="none" stroke="#231f20" stroke-miterlimit="10" stroke-width=".25"/>
+  <path d="m10.8,14.42h0c1.24,0,2.24,1,2.24,2.24h0c0,1.24-1,2.24-2.24,2.24h0c-1.24,0-2.24-1-2.24-2.24h0c0-1.24,1-2.24,2.24-2.24Z" fill="none" stroke="#231f20" stroke-miterlimit="10" stroke-width=".25"/>
+  <path d="m10.8,19.8h0c1.24,0,2.24,1,2.24,2.24h0c0,1.24-1,2.24-2.24,2.24h0c-1.24,0-2.24-1-2.24-2.24h0c0-1.24,1-2.24,2.24-2.24Z" fill="none" stroke="#231f20" stroke-miterlimit="10" stroke-width=".25"/>
+  <path d="m10.8,25.19h0c1.24,0,2.24,1,2.24,2.24h0c0,1.24-1,2.24-2.24,2.24h0c-1.24,0-2.24-1-2.24-2.24h0c0-1.24,1-2.24,2.24-2.24Z" fill="none" stroke="#231f20" stroke-miterlimit="10" stroke-width=".25"/>
+  <path d="m9.01,32.12h22.44v1.35c0,2.23-1.81,4.04-4.04,4.04h-14.36c-2.23,0-4.04-1.81-4.04-4.04v-1.35Z" fill="#a7a9ac" stroke="#231f20" stroke-width=".25"/>
+  <rect x="14.14" y="9.25" width="17.3" height="5.62" fill="none" stroke="#231f20" stroke-miterlimit="10" stroke-width=".25"/>
+  <rect x="14.14" y="23.82" width="17.3" height="5.62" fill="none" stroke="#231f20" stroke-miterlimit="10" stroke-width=".25"/>
+  <rect x="14.14" y="16.53" width="17.3" height="5.62" fill="none" stroke="#231f20" stroke-miterlimit="10" stroke-width=".25"/>
+</svg>

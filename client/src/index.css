@@ -8,7 +8,7 @@
 html {
   overscroll-behavior: none;
   background-color: #000;
-
+  overscroll-behavior-x: none;
 }
 
 body {
@@ -16,7 +16,7 @@ body {
   overflow-x: hidden;
   overflow-y: scroll;
   overscroll-behavior: none;
-
+  overscroll-behavior-x: none;
   height: calc(var(--vh, 1vh) \* 100);
 }
 

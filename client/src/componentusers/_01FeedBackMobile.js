@@ -21,13 +21,14 @@ import Swal from 'sweetalert2';
 
 import axios from 'axios';
 import { ticketPass } from '../protectors/authorize';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { hideLoading, showLoading } from '../redux/alertSlice';
 
 
 const _FeedBackMobile = (prop) => {
 
   const { user } = useSelector((state) => state.user);
-  // const [somthingChange, setSomeThingChange] = useState(false)
+  const dispath = useDispatch();
 
   const [unSeenChange, setUnseenChange] = useState(false)
   const [deleteChange, setDeleteChange] = useState(false)
@@ -88,7 +89,7 @@ const _FeedBackMobile = (prop) => {
 
 
   const getFeedBack = () => {
-    // dispath(showLoading())
+    dispath(showLoading())
     axios
       .post(`${process.env.REACT_APP_API}/user/getFeedBack`, { clientId: user.clientId }, ticketPass)
       .then((result) => {
@@ -101,13 +102,13 @@ const _FeedBackMobile = (prop) => {
           let unread = getReult.unseenFeedBack
           let count = 0
           for (let x of unread) {
-            if (x.readMessage === true)  count++
+            if (x.readMessage === true) count++
           }
           prop.setGetStarNotification(count)
-
+          dispath(hideLoading())
         } else {
           // Swal.fire(result.data.message)
-          // dispath(hideLoading())
+          dispath(hideLoading())
         }
 
 
@@ -137,8 +138,8 @@ const _FeedBackMobile = (prop) => {
 
 
   const saveFeedBack = () => {
-    console.log('Yex')
-    // dispath(showLoading())
+    dispath(showLoading())
+
     axios
       .post(`${process.env.REACT_APP_API}/user/saveFeedBack`, {
 
@@ -162,24 +163,24 @@ const _FeedBackMobile = (prop) => {
           let unread = getReult.unseenFeedBack
           let count = 0
           for (let x of unread) {
-            if (x.readMessage === true)  count++
+            if (x.readMessage === true) count++
           }
           prop.setGetStarNotification(count)
 
           setUnseenChange(false)
           setDeleteChange(false)
           setCheckRead(false)
-        } else {
-          console.log('fdfdfdfdf')
-          // Swal.fire(result.data.message)
           // dispath(hideLoading())
+
+        } else {
+
+          // Swal.fire(result.data.message)
+          dispath(hideLoading())
+
         }
       })
       .catch((err) => {
-
-        // console.log("Can't not connect the server", err);
-        console.log('Server: Connecting...');
-        // Swal.fire("Can't not connect the server")
+        console.log('FeedBAck problem');
       });
 
 

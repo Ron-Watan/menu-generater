@@ -37,9 +37,9 @@ const _SimulationApp = (prop) => {
 
 
   //= Set Data\
-  const [clientData, setClientData] = useState({});
-  const [originalClientMenu, setOriginalClientMenu] = useState([]);
-  const [clientMenu, setClientMenu] = useState([]);
+  // const [clientData, setClientData] = useState({});
+  // const [originalClientMenu, setOriginalClientMenu] = useState([]);
+  // const [clientMenu, setClientMenu] = useState([]);
 
 
   const [allMenuName, setAllMenuName] = useState('');
@@ -49,21 +49,21 @@ const _SimulationApp = (prop) => {
   const [counttype, setCounttype] = useState(1);
 
   const [language, setLanguage] = useState(1);
-  const [languageSetup, setLanguageSetup] = useState({});
+  // const [languageSetup, setLanguageSetup] = useState({});
 
   const [favorList, setFavorList] = useState([]);
   const { link } = useParams();
 
-  const [started, setStarted] = useState(false);
+  // const [started, setStarted] = useState(false);
 
   const [iconMenu_1, setIconMenu_1] = useState([]);
   const [iconMenu_2, setIconMenu_2] = useState([]);
   const [iconMenu_3, setIconMenu_3] = useState([]);
 
-  const [colorTheme, setColorTheme] = useState('iconRectabg');
+  // const [colorTheme, setColorTheme] = useState('iconRectabg');
 
-  const [restaurantName, setRestaurantName] = useState('');
-  const [restaurantLogo, setRestaurantLogo] = useState('');
+  // const [restaurantName, setRestaurantName] = useState('');
+  // const [restaurantLogo, setRestaurantLogo] = useState('');
 
   // const [themeSetup, setThemeSetup] = useState({
   //   navAndFootBar: {
@@ -101,11 +101,6 @@ const _SimulationApp = (prop) => {
   //=-----------------------------------------------
 
 
-
-  window.addEventListener('scroll', () => {
-    console.log('ddddddddddd')
-  })
-
   //=-----------------------------------------------
 
 
@@ -122,15 +117,15 @@ const _SimulationApp = (prop) => {
         if (result.data.success) {
           const getResault = result.data.clientMenu;
 
-          setClientData(getResault);
-          setOriginalClientMenu(getResault.menu);
-          setClientMenu(getResault.menu);
+          // setClientData(getResault);
+          // setOriginalClientMenu(getResault.menu);
+          // setClientMenu(getResault.menu);
           setAllMenuName(getResault.menuName);
-          setLanguageSetup(getResault.languageSetup);
+          // setLanguageSetup(getResault.languageSetup);
           // setThemeSetup(getResault.themeSetup)
-          setRestaurantName(getResault.restaurantName)
+          // setRestaurantName(getResault.restaurantName)
           setTimeSetup(getResault.timeSetup)
-          setOnOffSetting(getResault.onOffSetting)
+          // setOnOffSetting(getResault.onOffSetting)
           const allDayType = getResault.timeSetup.allDayType;
 
           let allDayFirstMenu = 3
@@ -200,7 +195,7 @@ const _SimulationApp = (prop) => {
 
 
           setLoadingManual(false);
-
+          console.log('Client Simulate Completed');
         } else {
 
         }
@@ -252,11 +247,15 @@ const _SimulationApp = (prop) => {
   const [triggerIcon, setTriggerIcon] = useState([]);
   const [switchFilterBtn, setSwitchFilterBtn] = useState(false);
 
+
   //=-----------------------------------------------
+  const [iconFilter, setIconFilter] = useState('food_name');
+
+
   const filterSerach = (filterName) => {
     const memoTime = menuTime;
     let cutomerFilter = [];
-    originalClientMenu.forEach((el) => {
+    prop.originalClientMenu.forEach((el) => {
       let catagory = el.catagory;
       let menuTime = el.menuTime;
       let imgId = el.imgId;
@@ -270,7 +269,7 @@ const _SimulationApp = (prop) => {
       cutomerFilter.push({ catagory: catagory, menuTime: menuTime, imgId: imgId, listMenu: newlistMenu });
     });
 
-    setClientMenu(cutomerFilter);
+    prop.setCategoryList(cutomerFilter);
     setMenuTime(0);
     setTimeout(() => {
       setMenuTime(memoTime);
@@ -278,8 +277,6 @@ const _SimulationApp = (prop) => {
   };
 
   //=-----------------------------------------------
-  const [iconFilter, setIconFilter] = useState('food_name');
-
 
   //=-----------------------------------------------
 
@@ -386,18 +383,14 @@ const _SimulationApp = (prop) => {
   //=-----------------------------------------------
 
   useEffect(() => {
-    getClientMenu();
+    if (prop.user.userId) getClientMenu();
   }, [prop.user]);
-  // useEffect(() => {
-  //   getImage();
-  // }, []);
+
 
   // document.body.style.backgroundColor = prop.navAndFootBar.navBarColor
 
-
   const [loadingManual, setLoadingManual] = useState(true);
 
-  // console.log(prop.categoryList_1)
   //=-----------------------------------------------
   return (
     <>
@@ -415,7 +408,7 @@ const _SimulationApp = (prop) => {
 
               <div className='navSlit1'>
                 <i className="x">!Theme</i>
-                <div className="logoResta"><img className='logoRestaImg' src={restaurantLogo} alt="" /></div>
+                {prop.restaurantLogo && <div className="logoResta"><img className='logoRestaImg' src={prop.restaurantLogo} alt="" /></div>}
                 <span style={{
                   'backgroundColor': `${prop.navAndFootBar?.navBarColor}`,
                   'fontFamily': `${prop.navAndFootBar?.nameFontFamily}`,
@@ -432,7 +425,7 @@ const _SimulationApp = (prop) => {
                 }}>
 
 
-                {prop.onOffSetting.menuName && <div className="menuNameNavBox">
+                {prop.onOffSetting?.menuName && <div className="menuNameNavBox">
                   {!timeSetup?.timeType && (
                     <div
                       onClick={() => {
@@ -665,7 +658,8 @@ const _SimulationApp = (prop) => {
             className={`${switchManuBtn || switchFilterBtn ? 'overlayForNav' : 'displayNone'}`}></div>
 
           {sideBar && <div className=' sideBarSectiontest'>
-            <SidebarSubComp triggerIcon={triggerIcon} menuTime={menuTime} iconMenu_1={iconMenu_1} iconMenu_2={iconMenu_2} iconMenu_3={iconMenu_3} colorTheme={colorTheme}
+            <SidebarSubComp triggerIcon={triggerIcon} menuTime={menuTime} iconMenu_1={iconMenu_1} iconMenu_2={iconMenu_2} iconMenu_3={iconMenu_3}
+
               themeIconRadius={prop.themeIconRadius}
               themeIconColorLine={prop.themeIconColorLine}
               themeIconBG={prop.themeIconBG}
@@ -675,17 +669,21 @@ const _SimulationApp = (prop) => {
 
             />
           </div>}
-          {prop.onOffSetting.banner && <div className='bannerSectionC'>
-            <BannerSubCompo bodyStyle={prop.bodyStyle} link={prop.link} bannerImgArr={prop.bannerImgArr} />
+          {prop.onOffSetting.banner && <div className='bannerSectionC'
+                    style={{ 'backgroundColor': `${prop.bodyStyle.bodyBgColor}` }}
+                    >
+            <BannerSubCompo
+              bodyStyle={prop.bodyStyle} link={prop.link} bannerImgArr={prop.bannerImgArr} />
           </div>}
 
           <ThemeProvider theme={theme} >
 
-            {true &&
-              prop.categoryList_1
+            {menuTime === 1 &&
+              prop.categoryList
+                .filter((el) => el.menuTime === 1)
                 .map((el, index) => (
                   <AcordionSubComp
-                
+
                     listMunu={el}
                     indexM={index}
                     addFavorite={addFavorite}
@@ -707,10 +705,12 @@ const _SimulationApp = (prop) => {
                     categoryMotion={prop.categoryMotion}
                     categoryMotionInput={prop.categoryMotionInput}
                     categoryMotionFn={prop.categoryMotionFn}
+                    categoryActiveTheme={prop.categoryActiveTheme}
                   />
                 ))}
             {menuTime === 2 &&
-              prop.categoryList_2
+              prop.categoryList
+                .filter((el) => el.menuTime === 2)
                 .map((el, index) => (
                   <AcordionSubComp
                     listMunu={el}
@@ -720,21 +720,25 @@ const _SimulationApp = (prop) => {
                     triggerIcon={triggerIcon}
                     setTriggerIcon={setTriggerIcon}
                     key={index}
-                    languageSetup={languageSetup}
+
                     setLanguage={setLanguage}
                     language={language}
                     // prop.themeSetup={prop.themeSetup}
                     description={description}
                     accordian={accordian}
 
+                    languageSetup={prop.languageSetup}
                     bodyStyle={prop.bodyStyle}
                     categoryMotion={prop.categoryMotion}
                     categoryMotionInput={prop.categoryMotionInput}
                     categoryMotionFn={prop.categoryMotionFn}
+                    categoryActiveTheme={prop.categoryActiveTheme}
+
                   />
                 ))}
             {menuTime === 3 &&
-              prop.categoryList_3
+              prop.categoryList
+                .filter((el) => el.menuTime === 3)
                 .map((el, index) => (
                   <AcordionSubComp
                     listMunu={el}
@@ -744,7 +748,7 @@ const _SimulationApp = (prop) => {
                     triggerIcon={triggerIcon}
                     setTriggerIcon={setTriggerIcon}
                     key={index}
-                    languageSetup={languageSetup}
+
                     setLanguage={setLanguage}
                     language={language}
 
@@ -753,10 +757,13 @@ const _SimulationApp = (prop) => {
                     accordian={accordian}
                     footbar={footbar}
 
+                    languageSetup={prop.languageSetup}
                     bodyStyle={prop.bodyStyle}
                     categoryMotion={prop.categoryMotion}
                     categoryMotionInput={prop.categoryMotionInput}
                     categoryMotionFn={prop.categoryMotionFn}
+                    categoryActiveTheme={prop.categoryActiveTheme}
+
                   />
                 ))}
           </ThemeProvider>

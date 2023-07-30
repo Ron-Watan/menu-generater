@@ -6,11 +6,12 @@ import MBiconClose from '../all-icon/button-icon/MBclose.svg'
 import MBiconDown from '../all-icon/button-icon/down.svg'
 
 import axios from 'axios'
-import { hideLoading, showLoading } from '../redux/alertSlice'
 import { useDispatch, useSelector } from 'react-redux'
+import { hideLoading, showLoading } from '../redux/alertSlice';
 import Resizer from 'react-image-file-resizer';
 // import SwipeToDelete from 'react-swipe-to-delete-ios'
 import Swal from 'sweetalert2'
+
 
 const _03BannerMobile = (prop) => {
 
@@ -28,7 +29,7 @@ const _03BannerMobile = (prop) => {
 
   const resizeFileBanner = (file) =>
     new Promise((resolve) => {
-      setLoadingManual(true)
+      dispath(showLoading())
       Resizer.imageFileResizer(
         file,
         585,
@@ -40,7 +41,7 @@ const _03BannerMobile = (prop) => {
           if (prop.bannerImgArr.length > 6) return setLoadingManual(false)
           prop.setBannerImgArr([...prop.bannerImgArr, uri])
           setCheckBannerChange(true)
-          setLoadingManual(false)
+          dispath(hideLoading())
         },
         'base64'
       );
@@ -67,7 +68,8 @@ const _03BannerMobile = (prop) => {
 
   const uploadImageBanner = () => {
     setCheckBannerChange(true)
-    setLoadingManual(true)
+    dispath(showLoading())
+
     const newData = [...prop.bannerImgArr]
     const formData = new FormData();
     formData.append('userId', user.userId);
@@ -79,26 +81,19 @@ const _03BannerMobile = (prop) => {
     axios
       .post(`${process.env.REACT_APP_API}/user/images/uplaodBanner`, formData)
       .then((result) => {
-        setLoadingManual(false)
         Swal.fire({
           title: 'Saved',
           toast: true,
           icon: 'success',
           showConfirmButton: false,
-          timer: 1500,
+          timer: 1000,
         }).then(nothinh => {
           prop.setOnoffBanner_MB(false)
           prop.setIndexToBanner('')
           setCheckBannerChange(false)
+          dispath(hideLoading())
+
         })
-        // const getArrayBanner = result.data.images;
-        // const mapArrayBanner = getArrayBanner.map(el => {
-        //   const base64Flag = 'data:image/png;base64,';
-        //   const imageStr = arrayBufferToBase64Banner(el.img.data.data);
-        //   const tagImage = base64Flag + imageStr;
-        //   return tagImage
-        // })
-        // prop.setBannerImgArr(mapArrayBanner)
 
       })
       .catch((err) => {
@@ -123,17 +118,17 @@ const _03BannerMobile = (prop) => {
 
   // console.log(Boolean(prop.bannerImgArr === curBanner))
   const getAllImageBanner = () => {
+    dispath(showLoading())
+
     setCheckBannerChange(false)
-    // dispath(showLoading())
-    // setLoadingManual(true)
-    const userId=user.userId
+
     axios
-      .post(`${process.env.REACT_APP_API}/user/images/allBanner`, { userId: user.userId})
+      .post(`${process.env.REACT_APP_API}/user/images/allBanner`, { userId: user.userId })
       .then((result) => {
         if (result.data.success) {
           const getArrayBanner = result.data.images.bannerImage;
 
-      
+
           const mapArrayBanner = getArrayBanner.map(el => {
             const base64Flag = 'data:image/png;base64,';
             // const imageStr = arrayBufferToBase64Banner(el.img.data.data);
@@ -142,8 +137,8 @@ const _03BannerMobile = (prop) => {
             return tagImage
           })
           prop.setBannerImgArr(mapArrayBanner)
-          // dispath(hideLoading());
-          // setLoadingManual(false)
+
+          dispath(hideLoading())
           console.log('BannerPhoto Completed');
 
         }
@@ -178,7 +173,7 @@ const _03BannerMobile = (prop) => {
 
   function arrayMmove(arr, old_index, new_index) {
     setCheckBannerChange(true)
-    setLoadingManual(true)
+    dispath(showLoading())
     if (new_index >= arr.length) {
       var k = new_index - arr.length + 1;
       while (k--) {
@@ -188,7 +183,7 @@ const _03BannerMobile = (prop) => {
     const newData = [...arr]
     newData.splice(new_index, 0, newData.splice(old_index, 1)[0]);
     prop.setBannerImgArr(newData)
-    setLoadingManual(false)
+    dispath(hideLoading())
     if (old_index - new_index > 0) prop.setIndexToBanner(prop.indexToBanner - 1)
     else prop.setIndexToBanner(prop.indexToBanner + 1)
 
@@ -200,14 +195,9 @@ const _03BannerMobile = (prop) => {
     }
   }, [prop.getAllImageBannerTG]);
 
-  // useEffect(() => {
-
-  //   getAllImageBanner();
-
-  // }, []);
-
   useEffect(() => {
-    getAllImageBanner()
+    // if(prop.bannerImgArr) return
+    if (user.userId) getAllImageBanner()
   }, [user])
 
 

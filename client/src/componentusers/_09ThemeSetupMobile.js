@@ -1,6 +1,7 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux'
+import { hideLoading, showLoading } from '../redux/alertSlice';
 import Swal from 'sweetalert2';
 import { ticketPass } from '../protectors/authorize';
 import _09TsubColorPickerMobile from './_09TsubColorPickerMobile';
@@ -19,13 +20,14 @@ const _09ThemeSetupMobile = (prop) => {
 
   //=
   const { user } = useSelector((state) => state.user);
+  const dispath = useDispatch();
   const [checkChangeTheme, setCheckChangeTheme] = useState(false)
   // ----------------------------------------------------------------------------------------------
   const [noSetTheme, setNoSetTheme] = useState('')
   const [nameTheme, setNameTheme] = useState('')
 
   //  ----------------------------------------------------------------------------------------------
-  const [logoRestaurant, setLogoRestaurant] = useState('')
+  // const [restaurantLogo, setRestaurantLogo] = useState('')
   const imgId = user.link + 'restlogo'
   const currentRestaurantName = user.restaurant_name
   const inputRestaurantName = (e) => {
@@ -102,11 +104,54 @@ const _09ThemeSetupMobile = (prop) => {
   //   setCheckChangeTheme(true)
   //   setCategoryMotion({ ...categoryMotion, [name]: e.target.value })
   // }
+  const [onOffColorPicker, setOnoffColorPicker] = useState(false)
+  const [onOffWindowTheme, setOnOffWindowTheme] = useState(true)
+
+  const getTheme = () => {
+    dispath(showLoading())
+    axios
+      .post(`${process.env.REACT_APP_API}/user/getTheme`, { userId: user.userId }, ticketPass)
+      .then((result) => {
+        if (result.data.success) {
+          const getReult = result.data.userTheme;
+          const getThemeSetup = getReult.themeSetup
+
+          prop.setRestaurantName(getReult.restaurantName)
+          prop.setNavAndFootBar(getThemeSetup.navAndFootBar)
+          prop.setBodyStyle(getThemeSetup.body)
+          prop.setCategoryMotion(getThemeSetup.categoryMotion)
+
+          const getSideBar = getThemeSetup.sideBar
+          prop.setThemeIconNoBD(
+            {
+              themeIconRadius: getSideBar.themeIconRadius,
+              themeIconColorLine: getSideBar.themeIconColorLine,
+              themeIconBG: getSideBar.themeIconBG,
+              themeIconSolid: getSideBar.themeIconSolid
+            }
+          )
+          prop.setThemeIconColorBorder(getSideBar.themeIconColorBorder)
+          prop.setExtraIcon(getSideBar.extraIcon)
+          getImage(imgId);
+          console.log("Theme Setup Completed")
+          dispath(hideLoading())
+        } else {
+          Swal.fire(result.data.message)
+          dispath(hideLoading())
+        }
+      })
+      .catch((err) => {
+        // dispath(hideLoading());
+        console.log("Theme Setup Loading", err);
+
+        // Swal.fire("Can't not connect the server")
+      });
+  };
 
 
   // ----------------------------------------------------------------------------------------------
   const setupTheme = (e) => {
-    // e.preventDefault();
+    dispath(showLoading())
     delelteImage(imgId)
     axios
       .post(
@@ -133,7 +178,7 @@ const _09ThemeSetupMobile = (prop) => {
       )
       .then((result) => {
         if (result.data.success) {
-          logoRestaurant && uploadImage()
+          prop.restaurantLogo && uploadImage()
           setCheckChangeTheme(false)
           const getReult = result.data.userTheme;
           const getThemeSetup = getReult.themeSetup
@@ -155,18 +200,17 @@ const _09ThemeSetupMobile = (prop) => {
           )
           prop.setThemeIconColorBorder(getSideBar.themeIconColorBorder)
           prop.setExtraIcon(getSideBar.extraIcon)
+
           Swal.fire({
             title: 'Saved',
             // text: 'Your menu has been saved',
             toast: true,
             icon: 'success',
             showConfirmButton: false,
-
             timer: 1000,
-          }).then(nothing => {
-            prop.setOnOffThemeSetup_MB(false)
-          });
-
+          }).then(result => {
+            dispath(hideLoading())
+          })
         } else {
 
 
@@ -181,52 +225,12 @@ const _09ThemeSetupMobile = (prop) => {
 
 
 
-  const [onOffColorPicker, setOnoffColorPicker] = useState(false)
-  const [onOffWindowTheme, setOnOffWindowTheme] = useState(true)
-
-  const getTheme = () => {
-    // dispath(showLoading())
-    axios
-      .post(`${process.env.REACT_APP_API}/user/getTheme`, { userId: user.userId }, ticketPass)
-      .then((result) => {
-        if (result.data.success) {
-          const getReult = result.data.userTheme;
-          const getThemeSetup = getReult.themeSetup
-
-          prop.setRestaurantName(getReult.restaurantName)
-          prop.setNavAndFootBar(getThemeSetup.navAndFootBar)
-          prop.setBodyStyle(getThemeSetup.body)
-          prop.setCategoryMotion(getThemeSetup.categoryMotion)
-
-          const getSideBar = getThemeSetup.sideBar
-          prop.setThemeIconNoBD(
-            {
-              themeIconRadius: getSideBar.themeIconRadius,
-              themeIconColorLine: getSideBar.themeIconColorLine,
-              themeIconBG: getSideBar.themeIconBG,
-              themeIconSolid: getSideBar.themeIconSolid
-            }
-          )
-          prop.setThemeIconColorBorder(getSideBar.themeIconColorBorder)
-          prop.setExtraIcon(getSideBar.extraIcon)
-          getImage(imgId);
-        } else {
-          // Swal.fire(result.data.message)
-          // dispath(hideLoading())
-        }
-      })
-      .catch((err) => {
-        // dispath(hideLoading());
-        // console.log("Can't not connect the server", err);
-
-        // Swal.fire("Can't not connect the server")
-      });
-  };
 
 
 
   const resizeFile = (file) =>
     new Promise((resolve) => {
+      dispath(showLoading())
       Resizer.imageFileResizer(
         file,
         200,
@@ -235,9 +239,9 @@ const _09ThemeSetupMobile = (prop) => {
         100,
         0,
         (uri) => {
-          console.log('uuuu')
-          setLogoRestaurant(uri);
+          prop.setRestaurantLogo(uri);
           setCheckChangeTheme(true)
+          dispath(hideLoading())
         },
         'base64'
       );
@@ -245,18 +249,21 @@ const _09ThemeSetupMobile = (prop) => {
 
 
   const getImage = (imgId) => {
+    dispath(showLoading())
     axios
       .post(`${process.env.REACT_APP_API}/user/images/preview`, { imgId: imgId })
       .then((result) => {
         if (!result.data.images) {
-          return setLogoRestaurant('')
+          dispath(hideLoading())
+          return prop.setRestaurantLogo('')
         }
         const getResult = result.data.images;
         const base64Flag = 'data:image/png;base64,';
         const imageStr = prop.arrayBufferToBase64(getResult.img.data.data);
         const tagImage = base64Flag + imageStr;
 
-        setLogoRestaurant(tagImage);
+        prop.setRestaurantLogo(tagImage);
+        dispath(hideLoading())
       })
       .catch((err) => {
         console.error(err);
@@ -264,8 +271,8 @@ const _09ThemeSetupMobile = (prop) => {
   };
 
   const uploadImage = () => {
-
-    const newFile = prop.dataURIToBlob(logoRestaurant);
+    dispath(showLoading())
+    const newFile = prop.dataURIToBlob(prop.restaurantLogo);
     const formData = new FormData();
 
     formData.append('avatar', newFile, imgId);
@@ -275,6 +282,7 @@ const _09ThemeSetupMobile = (prop) => {
       // .post(`${process.env.REACT_APP_API}/user/images`, formData, { headers: { 'Content-Type': 'multipart/form-data' } })
       .then((result) => {
         getImage()
+        dispath(hideLoading())
       })
       .catch((err) => {
         console.error(err);
@@ -282,10 +290,11 @@ const _09ThemeSetupMobile = (prop) => {
   };
 
   const delelteImage = (imgId) => {
-
+    dispath(showLoading())
     axios
       .post(`${process.env.REACT_APP_API}/user/images/delete`, { imgId: imgId })
       .then((result) => {
+        dispath(hideLoading())
       })
       .catch((err) => {
         console.error(err);
@@ -316,14 +325,6 @@ const _09ThemeSetupMobile = (prop) => {
 
 
 
-  useEffect(() => {
-    getTheme();
-  }, [user.userId]);
-  useEffect(() => {
-    getImage();
-  }, [user.userId]);
-
-
 
   const checkChangeThemeFn = () => {
 
@@ -338,8 +339,13 @@ const _09ThemeSetupMobile = (prop) => {
 
       }).then((result) => {
         if (result.isConfirmed) {
-          setupTheme()
           setCheckChangeTheme(false)
+          setupTheme()
+          setTimeout(() => {
+            prop.setOnOffThemeSetup_MB(false)
+            prop.setCategoryActiveTheme(false)
+
+          }, 500);
 
 
         } else if (result.isDenied) {
@@ -348,6 +354,8 @@ const _09ThemeSetupMobile = (prop) => {
           getTheme()
           setTimeout(() => {
             prop.setOnOffThemeSetup_MB(false)
+            prop.setCategoryActiveTheme(false)
+
             setCheckChangeTheme(false)
           }, 500);
         }
@@ -356,6 +364,7 @@ const _09ThemeSetupMobile = (prop) => {
     } else {
 
       prop.setOnOffThemeSetup_MB(false)
+      prop.setCategoryActiveTheme(false)
       setCheckChangeTheme(false)
       // if (prop.checkEditImg) prop.getAllImage()
       // if (prop.listMenu.length === 0) {
@@ -380,7 +389,16 @@ const _09ThemeSetupMobile = (prop) => {
   //   },
   //   categoryMotion: categoryMotion
   // })
+  const ref = useRef()
+  console.dir(ref.current?.files[0].size)
+  useEffect(() => {
+    if (user.userId) getTheme()
+  }, [user]);
+  useEffect(() => {
+    if (user.userId) getImage()
+  }, [user]);
 
+  const [loadSameImg, setLoadSameImg] = useState('')
   // ----------------------------------------------------------------------------------------------
   // ----------------------------------------------------------------------------------------------
   return (
@@ -456,10 +474,14 @@ const _09ThemeSetupMobile = (prop) => {
                       <label htmlFor='resta-upload' className='MB_labelPhoto flexStart'>
                         <div className='colorPickerItem borderPickC color_PickQr color_PBig-Active setRelative blueUpload'>
                           <input
+                            ref={ref}
                             onChange={(e) => {
                               if (e.target.files.length === 0) return;
-
+                              setLoadSameImg(e.target.files[0].size)
                               resizeFile(e.target.files[0]).then((res) => { });
+                            }}
+                            onClick={(e) => {
+                              e.target.value = ''
                             }}
                             id='resta-upload'
                             name='file-upload'
@@ -471,8 +493,8 @@ const _09ThemeSetupMobile = (prop) => {
 
                       </label>
                       <button onClick={() => {
+                        prop.setRestaurantLogo('')
                         setCheckChangeTheme(true)
-                        setLogoRestaurant('')
                       }} className={`MB_Btn forBinWhite QRBin`}>
                         <img src={MBiconBin} alt="" />
                       </button>
@@ -732,7 +754,7 @@ const _09ThemeSetupMobile = (prop) => {
                       </label>
                       <span className={` ${(chooseIconStyle === 'NoBGExtraSize' || prop.extraIcon === true) && 'tabChhoseIcon'}`}></span>
                       <input onChange={() => {
-                         prop.setExtraIcon(true)
+                        prop.setExtraIcon(true)
                       }} type="radio" name="selectIconSideBar" id="NoBGExtraSize" />
 
                     </div>
@@ -1118,7 +1140,7 @@ const _09ThemeSetupMobile = (prop) => {
 
           bodyStyle={prop.bodyStyle}
           setBodyStyle={prop.setBodyStyle}
-          
+
           themeIconNoBD={prop.themeIconNoBD}
           setThemeIconNoBD={prop.setThemeIconNoBD}
           setThemeIconColorBorder={prop.setThemeIconColorBorder}

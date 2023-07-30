@@ -11,10 +11,10 @@ import jwt from 'jsonwebtoken'
 //- REGISTER
 export const register = (req, res) => {
 
-  const { password } = req.body
+  const { firstName, password } = req.body
   req.body.userId = uuidv4()
   req.body.clientId = uuidv4()
-  req.body.link = uuidv4().slice(0, 9) + req.body.restaurentName
+  req.body.link = firstName + '-' + uuidv4().slice(0, 8)
 
   bcrypt.hash(password, 10, (hashErr, hash) => {
     if (hash) {

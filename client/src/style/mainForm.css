@@ -306,19 +306,21 @@ buttonFormContainer
   width: 100%;
   height: 100%;
   background-color: rgba(17, 129, 86, 0.559);
-
 }
-.allLoading{
+.Full_Transparent_Loading {
   position: absolute;
   z-index: 2800;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  background-color: #70d1d6a5;
 
-  background-color: #c070d6a5;
-
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  user-select: none;
 }
+
 .iconLoading {
   position: absolute;
   display: flex;
@@ -512,7 +514,6 @@ buttonFormContainer
 
 /* /////////////////////////////////////////// */
 
-
 .addItembtn {
   font-size: 0.9rem;
   padding: 0.5rem 0.5rem;
@@ -542,7 +543,6 @@ buttonFormContainer
 
 /* ////////////////// */
 
-
 .dietOption {
   font-size: 0.8rem;
   font-style: italic;
@@ -561,13 +561,11 @@ buttonFormContainer
 .hideCheckBox {
   opacity: 0;
   position: absolute;
-
-
 }
 .hideCheckBox + svg {
   background-color: #fff;
   border-radius: 50%;
-  border: #333 .5px solid;
+  border: #333 0.5px solid;
   fill: none;
 }
 .hideCheckBox:checked + svg {

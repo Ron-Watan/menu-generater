@@ -109,6 +109,10 @@ const userSchema = mongoose.Schema(
     },
     qrCodeSetUp: {
       type: 'Object',
+      default: {
+        levelCode: 'Q', dotOption: '', cornersOption: '', dotCornersOption: '', colorQrCode: '#000', bgQrCode: '#fff',
+        sizeQr: 8, sizeQrPx: 300
+      },
     },
     unseenFeedBack: {
       type: Array,

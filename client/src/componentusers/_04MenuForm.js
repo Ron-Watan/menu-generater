@@ -18,11 +18,6 @@ const _04MenuForm = (prop) => {
   // prop.categoryList_1
   // prop.categoryList_2
   // prop.categoryList_3
-
-
-
-
-
   // pre-set-Menu
 
   function arrayMmove(arr, old_index, new_index, propSetCatList) {
@@ -35,7 +30,6 @@ const _04MenuForm = (prop) => {
     //     arr.push(undefined);
     //   }
     // }
-
     const newData = [...arr]
     newData.splice(new_index, 0, newData.splice(old_index, 1)[0]);
     propSetCatList(newData)

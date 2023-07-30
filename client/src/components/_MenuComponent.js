@@ -434,7 +434,7 @@ const _MenuComponent = () => {
 
             <div className='navSlit1'>
               <i className="x">!Theme</i>
-              <div className="logoResta"><img className='logoRestaImg' src={restaurantLogo} alt=""/></div>
+              <div className="logoResta"><img className='logoRestaImg' src={restaurantLogo} alt="" /></div>
               <span style={{
                 'backgroundColor': `${themeSetup.navAndFootBar.navBarColor}`,
                 'fontFamily': `${themeSetup.navAndFootBar.nameFontFamily}`,
@@ -709,7 +709,9 @@ const _MenuComponent = () => {
           <SidebarSubComp triggerIcon={triggerIcon} menuTime={menuTime} iconMenu_1={iconMenu_1} iconMenu_2={iconMenu_2} iconMenu_3={iconMenu_3} colorTheme={colorTheme} themeSetup={themeSetup} />
         </div>}
         {/* == <BannerExample /> == */}
-        {banner && <div className='bannerSectionC'>
+        {banner && <div className='bannerSectionC'
+          style={{ 'backgroundColor': `${themeSetup.body.bodyBgColor}` }}
+        >
           <BannerSubCompo themeSetup={themeSetup} />
         </div>}
         {/* == MENU == */}

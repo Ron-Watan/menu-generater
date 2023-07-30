@@ -1,7 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux'
+import { hideLoading, showLoading } from '../redux/alertSlice';
 import { ticketPass } from '../protectors/authorize';
 import { setUser } from '../redux/userSlice';
 import MBiconClose from '../all-icon/button-icon/MBclose.svg'
@@ -51,7 +52,7 @@ const _08LanguageSetupMobile = (prop) => {
 
 
   const saveLangSetup = () => {
-    // dispath(showLoading());
+    dispath(showLoading())
     const languageSetup = prop.languageSetup
 
     axios
@@ -65,26 +66,25 @@ const _08LanguageSetupMobile = (prop) => {
       )
       .then((result) => {
         if (result.data.success) {
-          // Swal.fire(result.data.message)
-          dispath(setUser(result.data.userMenu));
-          // dispath(hideLoading());
           Swal.fire({
             title: 'Saved',
             toast: true,
             icon: 'success',
             showConfirmButton: false,
-            timer: 1500,
+            timer: 1000,
           }).then(nothinh => {
             prop.setOnOffLangSetup_MB(false)
             setCheckLangChange(false)
+            dispath(setUser(result.data.userMenu));
+    
           })
         } else {
           Swal.fire(result.data.message);
-          // dispath(hideLoading());
+          dispath(hideLoading())
         }
       })
       .catch((err) => {
-        // dispath(hideLoading());
+
         console.log("Can't not connect the server");
         Swal.fire("Can't not connect the server");
       });

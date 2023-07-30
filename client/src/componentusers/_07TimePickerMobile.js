@@ -3,7 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { timePickerData } from './_21TimePickerData';
 import { timePickerBaseData } from './_21TimePickerData';
 import '../style/timePicker.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux'
+import { hideLoading, showLoading } from '../redux/alertSlice';
 import axios from 'axios';
 import { ticketPass } from '../protectors/authorize';
 import { setUser } from '../redux/userSlice';
@@ -308,8 +309,7 @@ const _07TimePickerMobile = (prop) => {
   };
 
   const saveTimeSetup = () => {
-    // dispath(showLoading());
-    console.log('save')
+    dispath(showLoading())
     axios
       .post(
         `${process.env.REACT_APP_API}/user/saveTimeSetup`,
@@ -330,27 +330,25 @@ const _07TimePickerMobile = (prop) => {
       )
       .then((result) => {
         if (result.data.success) {
-          // Swal.fire(result.data.message)
-          dispath(setUser(result.data.userMenu));
-          // dispath(hideLoading());
-
           Swal.fire({
             title: 'Saved',
             toast: true,
             icon: 'success',
             showConfirmButton: false,
-            timer: 1500,
+            timer: 1000,
           }).then(nothinh => {
             prop.setOnOffTimePicker_MB(false);
+            dispath(setUser(result.data.userMenu));
+          
           })
         } else {
           Swal.fire(result.data.message);
-          // dispath(hideLoading());
+          dispath(hideLoading())
         }
       })
       .catch((err) => {
         // dispath(hideLoading());
-        console.log("Can't not connect the server");
+        console.log("Time Problem");
         Swal.fire("Can't not connect the server");
       });
   };

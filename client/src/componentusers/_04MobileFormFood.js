@@ -1,5 +1,5 @@
 import React, { useRef, forwardRef, useState } from 'react'
-import {BsCheckCircle, BsCircle } from 'react-icons/bs';
+import { BsCheckCircle, BsCircle } from 'react-icons/bs';
 import MBiconBin from '../all-icon/button-icon/MBbin.svg'
 import MBiconPlus from '../all-icon/button-icon/MBplusicon.svg'
 import MBiconBack from '../all-icon/button-icon/MBback.svg'
@@ -17,7 +17,6 @@ import {
 } from 'react-simple-wysiwyg';
 
 const _04MobileFormFood = forwardRef((prop, ref) => {
-
 
   //  Make Input hide Error(false) 
   const ErrorFn = (index, name, bol) => {
@@ -60,9 +59,9 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
 
     if (foodname && category && price) {
       saveSubmitFn()
-      prop.setCheckInputForm(false)
 
-      return true
+
+
     } else {
       Swal.fire({
         title: 'Invalid input',
@@ -96,14 +95,8 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
 
       }).then((result) => {
         if (result.isConfirmed) {
+          prop.setCheckInputForm(false)
           validation(saveSubmitFn)
-          // if (validation(saveSubmitFn) === true) {
-          //   setTimeout(() => {
-          //     prop.setCheckInputForm(false)
-          //     prop.setStart(false)
-          //     prop.setMenuId('')
-          //   }, 1500);
-          // }
 
         } else if (result.isDenied) {
           setTimeout(() => {
@@ -230,13 +223,15 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
                 <input
                   onChange={(e) => {
                     if (e.target.files.length === 0) return;
-                    prop.setOriginalName(e.target.files[0]?.name);
                     prop.resizeFile(e.target.files[0]).then((res) => { });
                   }}
                   id='file-upload'
                   name='file-upload'
                   type='file'
                   className='inputPhoto'
+                  onClick={(e) => {
+                    e.target.value = ''
+                  }}
                 />
 
                 <div name='photo' className='MB_photoFlex'>

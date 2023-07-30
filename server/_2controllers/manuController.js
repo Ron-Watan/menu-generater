@@ -80,7 +80,7 @@ export const createManu = (req, res) => {
 //- // componentusers/MainForm.js
 export const saveEditMenu = (req, res) => {
   const { menuId, catagory, catagory_2, icon_catagory, imgId, listMenu, menuTime, menuTimeName } = req.body;
-  console.log(catagory_2);
+
   Users.findOneAndUpdate(
     { 'menu.menuId': menuId },
     {
@@ -206,10 +206,10 @@ export const findOneMenu = (req, res) => {
 //-
 
 export const uploadImage = (req, res) => {
-  // console.log(req.file)
   const { userId } = req.body;
   fs.access('./images/', (err) => {
     if (err) {
+      console.log('up')
       fs.mkdirSync('./images/');
     }
   });
@@ -223,8 +223,11 @@ export const uploadImage = (req, res) => {
       contentType: 'image/png',
     },
   };
-
   Images.create(image);
+  res.send({
+    message: 'Success',
+    success: true,
+  });
 };
 
 export const saveImage = (req, res) => {
@@ -257,12 +260,13 @@ export const delelteImage = (req, res) => {
 
   Images.findOneAndDelete({ imgId: imgId }).then((image) => {
     console.log('Delete Image');
-    console.log(image);
-
     res.send({
       message: 'Success',
       success: true,
     });
+  }).catch(err => {
+
+    res.send({ message: "Delete Error" })
   });
 };
 
@@ -291,7 +295,7 @@ export const getImage = (req, res) => {
 
 export const getAllImageBanner = (req, res) => {
   const { userId } = req.body;
-  console.log(req.body)
+
   Banners.findOne({ userId: userId }).then((result) => {
     res.send({
       message: 'Success',
@@ -366,7 +370,7 @@ export const uploadImageBanner = (req, res) => {
 export const saveTimeSetup = (req, res) => {
 
   const { userId, timeSetup } = req.body;
-  console.log(timeSetup);
+
 
   Users.findOne({ userId: userId })
     .select('userId restaurentName menu menuName  bannerImage languageSetup timeSetup onOffSetting clientId link')
@@ -387,9 +391,9 @@ export const saveTimeSetup = (req, res) => {
 };
 
 export const saveLangSetup = (req, res) => {
-  console.log('eeeeeeeeeeeeeee');
+
   const { userId, languageSetup } = req.body;
-  console.log(languageSetup);
+
 
   Users.findOne({ userId: userId })
     .select('userId restaurentName menu menuName  bannerImage languageSetup timeSetup onOffSetting clientId link')
@@ -454,7 +458,7 @@ export const getTheme = (req, res) => {
 
 
 export const saveOnOffSetting = (req, res) => {
-  console.log('HelloMaaddsd')
+
   const { userId, onOffSetting } = req.body;
 
   Users.findOne({ userId: userId })
@@ -511,36 +515,11 @@ export const saveFeedBack = (req, res) => {
     });
 };
 
-
-export const saveQRCode = (req, res) => {
-  console.log('HelloMaaddsd')
-  const { userId, qrCodeSetUp } = req.body;
-
-  Users.findOne({ userId: userId })
-    .select('qrCodeSetUp')
-    .then((user) => {
-
-      user.qrCodeSetUp = qrCodeSetUp;
-      user.save();
-      res.send({
-        message: 'Success',
-        userOnOffSetting: user,// Slected
-        success: true,
-      });
-      // Clients.findOne({ clientId: user.clientId }).then((client) => {
-      //   client.onOffSetting = onOffSetting;
-      //   client.save();
-      // });
-    });
-
-};
-
-
 export const getQrCode = (req, res) => {
 
   const { userId } = req.body;
   Users.findOne({ userId: userId })
-    .select('qrCodeSetUp')
+    .select('qrCodeSetUp link')
     .then((user) => {
       res.send({
         message: 'Success',
@@ -549,6 +528,33 @@ export const getQrCode = (req, res) => {
       }); //send to client side
     });
 };
+
+
+export const saveQRCode = (req, res) => {
+
+  const { userId, qrCodeSetUp } = req.body;
+
+  Users.findOne({ userId: userId })
+    .select('qrCodeSetUp link')
+    .then((user) => {
+      user.qrCodeSetUp = qrCodeSetUp;
+      user.save();
+      res.send({
+        message: 'Success',
+        qrCodeSetUp: user,// Slected
+        success: true,
+      });
+      // Clients.findOne({ clientId: user.clientId }).then((client) => {
+      //   client.onOffSetting = onOffSetting;
+      //   client.save();
+      // });
+    }).catch(err => {
+      console.log('eeeeeeeeeeeeeeeeeeeeeeeee')
+      res.send({ message: "QR Error" })
+    })
+
+};
+
 
 
 
@@ -563,7 +569,7 @@ export const getQrCode = (req, res) => {
 //- // componentusers/MainForm.js
 export const saveReArangeList = (req, res) => {
   const { userId, menu } = req.body;
-  console.log(userId);
+
 
   Users.findOne({ userId: userId })
     .then((user) => {

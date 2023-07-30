@@ -23,6 +23,7 @@ const _10OnOffSettingMobile = (prop) => {
   }
   // console.log(onOffSetting)
   const saveOnOffSetting = () => {
+    prop.setProtectLoading(true)
     axios
       .post(
         `${process.env.REACT_APP_API}/user/saveOnOffSetting`,
@@ -36,11 +37,13 @@ const _10OnOffSettingMobile = (prop) => {
         if (result.data.success) {
           const getReult = result.data.userOnOffSetting.onOffSetting;
           prop.setOnOffSetting(getReult)
+          prop.setProtectLoading(false)
         } else {
+          prop.setProtectLoading(false)
         }
       })
       .catch((err) => {
-        // dispath(hideLoading());
+
         console.log("Can't not connect the server");
         Swal.fire("Can't not connect the server");
       });
