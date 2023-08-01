@@ -411,12 +411,12 @@ const _AppMain = () => {
 
 
         },
-        'base64'
+        'file'
       );
     });
 
   const dataURIToBlob = (dataURI) => {
-    console.log(1)
+
     const splitDataURI = dataURI.split(',');
     const byteString = splitDataURI[0].indexOf('base64') >= 0 ? atob(splitDataURI[1]) : decodeURI(splitDataURI[1]);
     const mimeString = splitDataURI[0].split(':')[1].split(';')[0];
@@ -433,18 +433,50 @@ const _AppMain = () => {
     bytes.forEach((b) => (binary += String.fromCharCode(b)));
     return window.btoa(binary);
   }
-  //- //= //-
+
+  function readURL(input) {
+
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        setFile(e.target.result)
+        // $('#blah')
+        //   .attr('src', e.target.result)
+        //   .width(150)
+        //   .height(200);
+      };
+
+      reader.readAsDataURL(input.files[0]);
+
+    }
+  }
+
+
+
+  //- //= //-// UPLOAD IMAGE
   const uploadImage = (imgId) => {
     dispath(showLoading())
 
-    const newFile = dataURIToBlob(file);
+    // const newFile = dataURIToBlob(file);
     const formData = new FormData();
 
-    formData.append('avatar', newFile, imgId);
-    formData.append('userId', user.userId);
+    // formData.append('avatar', newFile, imgId);
+    // formData.append('userId', user.userId);
+
+    // console.log(file)
+    // formData.append('avatar', file, imgId);
+    // formData.append('userId', user.userId);
+    // console.log('formData good')
+
+
+
+    formData.append("avatar", file)
+    formData.append('imgId', imgId);
+
     axios
-      .post(`${process.env.REACT_APP_API}/user/images/uplaod`, formData)
-      // .post(`${process.env.REACT_APP_API}/user/images`, formData, { headers: { 'Content-Type': 'multipart/form-data' } })
+      // .post(`${process.env.REACT_APP_API}/user/images/uplaod`, formData)
+      .post(`${process.env.REACT_APP_API}/user/images/uplaod`, formData, { headers: { 'Content-Type': 'multipart/form-data' } })
       .then((result) => {
         dispath(hideLoading())
 
@@ -861,9 +893,19 @@ const _AppMain = () => {
           .post(`${process.env.REACT_APP_API}/user/deleteMenu`, { menuId: menuId, listMenu: [...listMenu], userId: user.userId, link: user.link }, ticketPass)
           .then((result) => {
             if (result.data.success) {
-              dispath(setUser(result.data.userMenu));
-              setCheckInputForm(false)
-              dispath(hideLoading())
+              Swal.fire({
+                title: 'Delete',
+                toast: true,
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 1000,
+              }).then(Fired => {
+                dispath(setUser(result.data.userMenu));
+                setCheckInputForm(false)
+                // dispath(hideLoading())
+
+              });
+
             } else {
               Swal.fire(result.data.message);
               dispath(hideLoading())
@@ -1047,8 +1089,6 @@ const _AppMain = () => {
   const [checkChangeName, setCheckChangeName] = useState(false)
   const currentMenuName = 'menu_' + menuTime
   const inputMenuTimeName = (e) => {
-    setMenuName({ ...menuName, [currentMenuName]: e.target.value })
-    setCheckChangeName(true)
   }
 
   const saveNameMenu = () => {
@@ -1317,7 +1357,6 @@ const _AppMain = () => {
           <span className='barOne'></span > <span className='barTwo'></span> <span className='barThree'></span>
         </div>
       </div>
-
       <i className='x'>//- START MOBILE //------------------------------------------------</i>
 
       <div className="mobile-creator unselectable">

@@ -134,6 +134,20 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
   //-
   const emptyIcon = '/static/media/_empty.7b62bbf4b02d3d65f678e4361123ec76.svg#empty000'
 
+
+
+  const [previewImg, setPreviewImg] = useState(prop.iconPhoto)
+
+  const previewImgFn = (e) => {
+    console.log(e)
+    const data = new FileReader()
+    data.addEventListener('load', () => {
+      setPreviewImg(data.result)
+    })
+    data.readAsDataURL(e.target.files[0])
+  }
+
+
   return (
 
     <div className="">
@@ -215,6 +229,7 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
 
 
       <div className="MB_Standard_0_FullAgain MB_SetGrid_ForBtn vhFormFood zindexUnderTop">
+
         <div className="MB_Standard_Section_canScroll MB_Make_PadingForm MB_Wrap_ForBtn  vhFormFoodBtn" >
           <form id='foodForm' encType='multipart/form-data' className={` MB_formMenu`}>
             <div id='topForm' className="topForm"></div>
@@ -224,6 +239,7 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
                   onChange={(e) => {
                     if (e.target.files.length === 0) return;
                     prop.resizeFile(e.target.files[0]).then((res) => { });
+                    previewImgFn(e)
                   }}
                   id='file-upload'
                   name='file-upload'
@@ -240,8 +256,9 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
                       <span className='barOne'></span > <span className='barTwo'></span> <span className='barThree'></span>
                     </div>
                   </div>
+                  {/* <img className='MB_boxPhoto' src={prop.file ? prop.file : prop.iconPhoto} alt='' /> */}
 
-                  <img className='MB_boxPhoto' src={prop.file ? prop.file : prop.iconPhoto} alt='' />
+                  <img className='MB_boxPhoto' src={previewImg} alt='' />
                 </div>
               </label>
 

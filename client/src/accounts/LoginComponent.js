@@ -8,7 +8,9 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch } from "react-redux"
 import { hideLoading, showLoading } from "../redux/alertSlice"
 import { useSelector } from "react-redux"
+import UserPool from "../UserPool"
 
+import { CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js'
 
 const LoginComponent = () => {
   // const { loading } = useSelector(state => state.alerts)
@@ -28,24 +30,59 @@ const LoginComponent = () => {
   const submitData = (e) => {
     e.preventDefault()
     dispath(showLoading())
-    console.log('wddd')
-    axios.post(`${process.env.REACT_APP_API}/user/login`, { email, password })
-      .then(result => {
-        if (result.data.success) {
-          dispath(hideLoading())
-          authenticate(result, () => navigate('/'))
-          setState({ ...state, email: '', password: '' })
-          Swal.fire(result.data.message)
-        } else {
-          Swal.fire(result.data.message)
-          dispath(hideLoading())
-        }
-      }).catch(err => {
+
+    const userData = new CognitoUser({
+      Username: email,
+      Pool: UserPool
+    });
+
+    const authDetail = new AuthenticationDetails({
+      Username: email,
+      Password: password,
+    })
+
+    userData.authenticateUser(authDetail, {
+      onSuccess: (result) => {
+        
         dispath(hideLoading())
 
-        console.log("Can't not connect the server")
-        Swal.fire("Can't not connect the server")
-      })
+        authenticate(result.getAccessToken().getJwtToken(), () => navigate('/'))
+        setState({ ...state, email: '', password: '' })
+        Swal.fire(result.data.message)
+
+
+      },
+
+      onFailure: (err) => {
+        console.log(err);
+      },
+      newPasswordRequired: (result) => {
+
+        console.log('new password + ' + result);
+      },
+    })
+
+
+
+    // axios.post(`${process.env.REACT_APP_API}/user/login`, { email, password })
+    //   .then(result => {
+    //     console.log(result)
+    //     if (result.data.success) {
+
+    //       dispath(hideLoading())
+    //       authenticate(result, () => navigate('/'))
+    //       setState({ ...state, email: '', password: '' })
+    //       Swal.fire(result.data.message)
+    //     } else {
+    //       Swal.fire(result.data.message)
+    //       dispath(hideLoading())
+    //     }
+    //   }).catch(err => {
+    //     dispath(hideLoading())
+
+    //     console.log("Can't not connect the server")
+    //     Swal.fire("Can't not connect the server")
+    //   })
   }
 
   // useEffect(() => {

@@ -1,16 +1,28 @@
 //set token and useername to session storage
 
 
-export const authenticate = (result, next) => {
+export const authenticate = (tokenCognito, next) => {
 
   if (window !== 'undefined') {
-    sessionStorage.setItem('token', JSON.stringify(result.data.token))
+    sessionStorage.setItem('token', JSON.stringify(tokenCognito))
     // sessionStorage.setItem('id', JSON.stringify(result.data.userId))
   }
   next()
   window.location.reload(false);
 
 }
+
+// export const authenticate = (result, next) => {
+
+//   if (window !== 'undefined') {
+//     sessionStorage.setItem('token', JSON.stringify(result.data.token))
+//     // sessionStorage.setItem('id', JSON.stringify(result.data.userId))
+//   }
+//   next()
+//   window.location.reload(false);
+
+// }
+
 // function refreshPage() {
 //   window.location.reload(false);
 // }

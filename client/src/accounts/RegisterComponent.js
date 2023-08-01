@@ -4,6 +4,8 @@ import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
 import NavbarComponent from './NavbarComponent'
 // import { hideLoading, showLoading } from '../redux/alertSlice'
+import UserPool from "../UserPool"
+import { combineReducers } from '@reduxjs/toolkit'
 
 
 const RegisterComponent = () => {
@@ -25,14 +27,36 @@ const RegisterComponent = () => {
   const submit = (e) => {
     e.preventDefault()
     // dispath(showLoading())
-    axios.post(`${process.env.REACT_APP_API}/user/register`, { firstName, lastName, email, password }).then(res => {
-      // dispath(hideLoading())
-      if (res.data.success) {
-        Swal.fire(res.data.message)
-        navigate('/login')
+
+
+    UserPool.signUp(email, password, [], null, (err, result) => {
+      if (err) {
+        alert(err);
+
+        return;
       }
-      else { Swal.fire(res.data.message) }
-    }).catch(err => { console.log(err) })
+      const userId =result.userSub
+      axios.post(`${process.env.REACT_APP_API}/user/register`, { userId,firstName, lastName, email }).then(res => {
+
+        if (res.data.success) {
+          Swal.fire(res.data.message)
+          navigate('/login')
+        }
+        else { Swal.fire(res.data.message) }
+      }).catch(err => { console.log(err) })
+
+
+    });
+
+
+    // axios.post(`${process.env.REACT_APP_API}/user/register`, { firstName, lastName, email, password }).then(res => {
+    //   // dispath(hideLoading())
+    //   if (res.data.success) {
+    //     Swal.fire(res.data.message)
+    //     navigate('/login')
+    //   }
+    //   else { Swal.fire(res.data.message) }
+    // }).catch(err => { console.log(err) })
   }
 
   return (

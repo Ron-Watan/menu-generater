@@ -100,9 +100,8 @@ const BannerSubCompo = (prop) => {
           return tagImage
         })
         setBannerImgArr(mapArrayBanner)
-
         dispath(hideLoading());
-        setLoadingManual(false)
+        
       })
       .catch((err) => {
         console.error(err);

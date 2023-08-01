@@ -12,10 +12,10 @@ import formidable from "formidable";
 import fs from "fs";
 // import { getResult, resizeImages, uploadImages } from '../_2controllers/uploadController.js';
 
-// const myStorage = multer.memoryStorage()
-const upload = multer({ dest: 'images/' })
-// const upload = multer({ myStorage })
 
+// const upload = multer({ dest: 'images/' }) **
+const storage = multer.memoryStorage()
+const upload = multer({ storage: storage })
 
 const router = express.Router()
 

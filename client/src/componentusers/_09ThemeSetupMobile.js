@@ -389,8 +389,7 @@ const _09ThemeSetupMobile = (prop) => {
   //   },
   //   categoryMotion: categoryMotion
   // })
-  const ref = useRef()
-  console.dir(ref.current?.files[0].size)
+ 
   useEffect(() => {
     if (user.userId) getTheme()
   }, [user]);
@@ -474,10 +473,8 @@ const _09ThemeSetupMobile = (prop) => {
                       <label htmlFor='resta-upload' className='MB_labelPhoto flexStart'>
                         <div className='colorPickerItem borderPickC color_PickQr color_PBig-Active setRelative blueUpload'>
                           <input
-                            ref={ref}
                             onChange={(e) => {
                               if (e.target.files.length === 0) return;
-                              setLoadSameImg(e.target.files[0].size)
                               resizeFile(e.target.files[0]).then((res) => { });
                             }}
                             onClick={(e) => {

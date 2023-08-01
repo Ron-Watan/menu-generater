@@ -3,14 +3,42 @@ import Images from '../_3models/imageModel.js';
 import Banners from '../_3models/bannerModel.js';
 
 import { v4 as uuidv4 } from 'uuid';
-// import bcrypt from 'bcryptjs';
-// import jwt from 'jsonwebtoken';
 import Clients from '../_3models/clientModel.js';
 
 import fs, { mkdirSync } from 'fs';
-// import sharp from "sharp";
-// import formidable from 'formidable';
 import path from 'path';
+import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3"
+
+import dotenv from 'dotenv'; dotenv.config()
+
+
+const bucketName = process.env.AWS_BUCKET_NAME
+const region = process.env.AWS_REGION
+const accessKeyId = process.env.AWS_ACCESS_KEY_ID
+const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY
+const s3Client = new S3Client({
+  region,
+  credentials: {
+    accessKeyId,
+    secretAccessKey
+  }
+})
+
+export const uploadImage = (req, res) => {
+  const folderName ='img'
+  const imgFile = req.file.buffer
+  const imgId = req.body.imgId
+  const folderKey = `${folderName}/${imgId}`
+
+  s3Client.send(new PutObjectCommand({
+    Bucket: bucketName,
+    Body: imgFile,
+    Key: req.file.originalname,
+    ContentType: req.file.mimetype
+  }));
+
+};
+
 
 //-
 export const getAllMenu = (req, res) => {
@@ -203,10 +231,13 @@ export const findOneMenu = (req, res) => {
 };
 
 //-
-//-
+//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-
 
-export const uploadImage = (req, res) => {
+
+
+export const uploadImage5 = (req, res) => {
   const { userId } = req.body;
+  console.log(req.file)
   fs.access('./images/', (err) => {
     if (err) {
       console.log('up')
@@ -229,6 +260,17 @@ export const uploadImage = (req, res) => {
     success: true,
   });
 };
+
+
+
+
+
+
+
+
+
+
+
 
 export const saveImage = (req, res) => {
   // console.log(req.file)
@@ -259,9 +301,9 @@ export const delelteImage = (req, res) => {
   const { imgId } = req.body;
 
   Images.findOneAndDelete({ imgId: imgId }).then((image) => {
-    console.log('Delete Image');
     res.send({
       message: 'Success',
+      data: image,
       success: true,
     });
   }).catch(err => {

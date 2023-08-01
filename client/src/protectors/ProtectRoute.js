@@ -16,6 +16,7 @@ const ProtectRoute = () => {
 
   const dispath = useDispatch()
   const checkUserAuthorize = () => {
+ 
     axios
       .post(`${process.env.REACT_APP_API}/user/info-user`, {}, ticketPass)
       .then(result => {
