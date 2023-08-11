@@ -1,4 +1,4 @@
-import React, { useRef, forwardRef, useState } from 'react'
+import React, { forwardRef, useState } from 'react'
 import { BsCheckCircle, BsCircle } from 'react-icons/bs';
 import MBiconBin from '../all-icon/button-icon/MBbin.svg'
 import MBiconPlus from '../all-icon/button-icon/MBplusicon.svg'
@@ -17,7 +17,7 @@ import {
 } from 'react-simple-wysiwyg';
 
 const _04MobileFormFood = forwardRef((prop, ref) => {
-
+  const photoHostName = `${process.env.REACT_APP_API}/user/photos/`
   //  Make Input hide Error(false) 
   const ErrorFn = (index, name, bol) => {
     let dataSet = [...prop.listMenu];
@@ -99,11 +99,14 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
           validation(saveSubmitFn)
 
         } else if (result.isDenied) {
+
           setTimeout(() => {
             prop.setCheckInputForm(false)
             prop.setStart(false)
             prop.setMenuId('');
             prop.getAllMenu()
+            prop.setCheckEditImg(false)
+            prop.setPreviewImg(prop.iconPhoto)
 
           }, 200);
         }
@@ -115,6 +118,8 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
       prop.setStart(false)
       prop.setMenuId('');
       prop.clearForm()
+      prop.setPreviewImg(prop.iconPhoto)
+      prop.setCheckEditImg(false)
       // if (prop.checkEditImg) prop.getAllImage()
       // if (prop.listMenu.length === 0) {
       // prop.setListMenu([prop.listMenuModel])
@@ -136,16 +141,18 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
 
 
 
-  const [previewImg, setPreviewImg] = useState(prop.iconPhoto)
+  // const [previewImg, setPreviewImg] = useState(prop.iconPhoto)
 
-  const previewImgFn = (e) => {
-    console.log(e)
-    const data = new FileReader()
-    data.addEventListener('load', () => {
-      setPreviewImg(data.result)
-    })
-    data.readAsDataURL(e.target.files[0])
-  }
+  // const previewImgFn = (e) => {
+  //   if (!e) return prop.setPreviewImg('')
+  //   const data = new FileReader()
+  //   data.addEventListener('load', () => {
+  //     prop.setPreviewImg(data.result)
+  //   })
+  //   data.readAsDataURL(e.target.files[0])
+  //   prop.setCheckEditImg(true)
+  // }
+
 
 
   return (
@@ -228,21 +235,26 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
 
 
 
-      <div className="MB_Standard_0_FullAgain MB_SetGrid_ForBtn vhFormFood zindexUnderTop">
+      <div className="MB_Standard_0_FullAgain MB_SetGrid_Full  zindexUnderTop">
 
-        <div className="MB_Standard_Section_canScroll MB_Make_PadingForm MB_Wrap_ForBtn  vhFormFoodBtn" >
+        <div className="MB_Standard_Section_canScroll MB_Make_PadingForm" >
+
+
+
           <form id='foodForm' encType='multipart/form-data' className={` MB_formMenu`}>
-            <div id='topForm' className="topForm"></div>
+            {/* <div id='topForm' className="topForm"></div> */}
             <div className='xxx'>
               <label htmlFor='file-upload' className='MB_labelPhoto'>
                 <input
                   onChange={(e) => {
                     if (e.target.files.length === 0) return;
                     prop.resizeFile(e.target.files[0]).then((res) => { });
-                    previewImgFn(e)
+                    // prop.setFile(e.target.files[0])
+
+                    // previewImgFn(e)
                   }}
                   id='file-upload'
-                  name='file-upload'
+                  name='avatar'
                   type='file'
                   className='inputPhoto'
                   onClick={(e) => {
@@ -256,9 +268,16 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
                       <span className='barOne'></span > <span className='barTwo'></span> <span className='barThree'></span>
                     </div>
                   </div>
-                  {/* <img className='MB_boxPhoto' src={prop.file ? prop.file : prop.iconPhoto} alt='' /> */}
 
-                  <img className='MB_boxPhoto' src={previewImg} alt='' />
+                  {/* <img className='MB_boxPhoto' src={prop.file ? prop.file : prop.iconPhoto} alt='' /> */}
+                  {/* <img className='MB_boxPhoto' src={prop.file ? `${photoHostName}${prop.file}` : prop.iconPhoto} alt='' /> */}
+                  {/* <img className='MB_boxPhoto' src={`${photoHostName}${prop.file}`} alt='' /> */}
+                  
+                  {!prop.checkEditImg && < img className='MB_boxPhoto' src={prop.file ? `${photoHostName}${prop.filePreview}` : prop.iconPhoto} alt='' />}
+                  {prop.checkEditImg && <img className='MB_boxPhoto' src={prop.file} alt='' />}
+    
+
+                  {/* {prop.previewImg&&<img className='MB_boxPhoto' src={prop.previewImg} alt='' />} */}
                 </div>
               </label>
 
@@ -563,23 +582,23 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
         {/* ////////////////////////////////////////////////////////////////////////// */}
 
 
-        <div className="MB_Positon_Bottom_btn">
+        <div className="MB_Positon_Bottom_btn_New">
 
 
           {(!prop.menuId && prop.start) && <div className={`MB_Frid_3Btn`}>
 
             {/* SAVE BUTTON NEW CAT*/}
 
-            {(!prop.oneClickCat && !prop.imgLoading) && <a onClick={() => {
+            {(!prop.oneClickCat && !prop.imgLoading) && <span onClick={() => {
               validation(prop.submitCatagory)
               prop.setOneClickCat(true)
             }} type='submit' form='foodForm'
               className='MB_Sq_Btn MB_Sq_Btn-NewCAt MB_Btn_Color MB_G2'>
               <span>SAVE NEW CATEGORY</span>
-            </a>}
+            </span>}
             {(prop.oneClickCat || prop.imgLoading) && <span
               className='MB_Sq_Btn MB_Sq_Btn-NewCAt MB_Btn_Color MB_G2'>
-              <span>NO NEW CATEGORY</span>
+              <span>SAVE NEW CATEGORY</span>
             </span>}
 
             <a href={`#MBend${prop.listMenu.length - 1}`} className="GruopBtn_row MB_G3" onClick={() => {
@@ -616,7 +635,7 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
             </button>}
 
             {prop.imgLoading && <span className='MB_Sq_Btn SaveBtnSize MB_Btn_Color MB_G2'>
-              <span>No SAVE</span>
+              <span>SAVE</span>
             </span>}
 
             <i className='x'>Add Item</i>

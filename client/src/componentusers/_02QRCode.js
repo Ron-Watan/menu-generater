@@ -1,19 +1,19 @@
 //-
 
 import axios from "axios"
-import { authenticate, getToken, ticketPass } from "../protectors/authorize"
+import { ticketPass } from "../protectors/authorize"
 import Swal from "sweetalert2"
-import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { hideLoading, showLoading } from '../redux/alertSlice';
-import { useEffect, useLayoutEffect, useRef, useState } from "react"
-import { QRCodeCanvas } from 'qrcode.react';
+import { useEffect, useRef, useState } from "react"
 import '../style/generate.css'
 import MBiconClose from '../all-icon/button-icon/MBclose.svg'
 import QRCodeStyling from "qr-code-styling";
 import { HexColorPicker, HexColorInput } from "react-colorful";
 import Resizer from 'react-image-file-resizer';
 import MBiconBin from '../all-icon/button-icon/MBbin.svg'
+
+
 
 import QRm1 from '../all-icon/qricon/reg.svg'
 import QRm2 from '../all-icon/qricon/regb.svg'
@@ -29,67 +29,74 @@ import QRd2 from '../all-icon/qricon/dotcir.svg'
 import QRd3 from '../all-icon/qricon/dotdot.svg'
 
 
+
 const _02QRCode = (prop) => {
+
+
   const { user } = useSelector(state => state.user)
   const dispath = useDispatch();
-  // const [sizeQr, setSizeQr] = useState('8')
-  // const [sizeQrPx, setSizeQrPx] = useState('300')
-  const [checkQRcodeChange, setCheckQRcodeChange] = useState(false)
-  const [logoQr, setLogoQr] = useState('')
+  const qrLink = `${process.env.REACT_APP_HOST_CLIENT}/${user.link}`
+  // const photoHostName = `${process.env.REACT_APP_API}/user/photos/`
+  // const imgId = user.link + '-qrlogo'
 
+  const ref = useRef(null);
+
+  const [checkQRcodeChange, setCheckQRcodeChange] = useState(false)
 
   const [qrCodeSetUp, setQrCodeSetUp] = useState({
     levelCode: 'Q', dotOption: '', cornersOption: '', dotCornersOption: '', colorQrCode: '#000', bgQrCode: '#fff',
-    sizeQr: 8, sizeQrPx: 300
+    sizeQr: 8, sizeQrPx: 300, logoQr: ''
   })
-  const { levelCode, dotOption, cornersOption, dotCornersOption, colorQrCode, bgQrCode, sizeQr, sizeQrPx } = qrCodeSetUp
+  const { levelCode, dotOption, cornersOption, dotCornersOption, colorQrCode, bgQrCode, sizeQr, sizeQrPx, logoQr } = qrCodeSetUp
+
+
   const qrCodeSetUpFn = (name, value) => {
     setCheckQRcodeChange(true)
     setQrCodeSetUp({ ...qrCodeSetUp, [name]: value })
   }
   const qrCodeColorFn = (name, color) => {
     setCheckQRcodeChange(true)
-
     setQrCodeSetUp({ ...qrCodeSetUp, [name]: color })
   }
-  const inputSizeQr = (even) => {
+
+  const [actualSize, setActualSize] = useState(300)
+
+  const inputSizeQr = (name, even) => {
     setCheckQRcodeChange(true)
+    let QrPxsize = Number(even.target.value) * (96 / 2.54)
+    setQrCodeSetUp({ ...qrCodeSetUp, [name]: even.target.value })
+    if (QrPxsize < 75) return
+    setActualSize(QrPxsize)
 
-    setQrCodeSetUp({ ...qrCodeSetUp, ['sizeQr']: even.target.value })
-  }
-  // const inputSizeMemo = (value) => {
-  //   setQrCodeSetUp({ ...qrCodeSetUp, ['sizeQr']: value })
-  // }
-  const sizeQrPxFn = (value) => {
-    console.log(value)
-    setQrCodeSetUp({ ...qrCodeSetUp, ['sizeQrPx']: value })
   }
 
-  const qrLink = ` http://192.168.1.13:3000/customer/${user.link}`
-  // const qrLink = `http://52.53.181.80/customer/${user.link}`
+  const [onOffTrayQR, setOnOffTrayQR] = useState(false)
+  const [onOffTrayBG, setOnOffTrayBG] = useState(false)
+
+
+  const [bgColorQrCode, setBgColorQrCode] = useState('')
+  const [dotColorQrCode, setdotColorQrCode] = useState('')
+
   const qrCode = new QRCodeStyling({
-    // width: 300,
-    // height: 300,
-    width: sizeQrPx,
-    height: sizeQrPx,
+    width: actualSize,
+    height: actualSize,
     data: qrLink,
-    margin: 0,
-    // image: 'https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg',
-    image: `${logoQr}`,
+    image: logoQr,
+
     qrOptions: {
       errorCorrectionLevel: `${levelCode}`
     },
     dotsOptions: {
-      color: `${colorQrCode}`,
+      color: `${dotColorQrCode ? dotColorQrCode : colorQrCode}`,
       type: `${dotOption}`
     },
     backgroundOptions: {
-      color: `${bgQrCode}`,
+      color: `${bgColorQrCode ? bgColorQrCode : bgQrCode}`,
     },
     imageOptions: {
-      // crossOrigin: "anonymous",
+      crossOrigin: "anonymous",
       margin: 0,
-      imageSize: .4,
+
     },
     cornersSquareOptions: {
       type: `${cornersOption}`
@@ -103,63 +110,52 @@ const _02QRCode = (prop) => {
 
 
   const getQrCode = () => {
-    dispath(showLoading())
-
     axios
       .post(`${process.env.REACT_APP_API}/user/getQrCode`, { userId: user.userId }, ticketPass)
       .then((result) => {
         if (result.data.success) {
-          const getReult = result.data.qrCodeSetUp;
+          const getReult = result.data.qrCodeSetUp.qrCodeSetUp;
 
-
-          // const getQrCode = getReult.qrCodeSetUp
-          setQrCodeSetUp(getReult.qrCodeSetUp)
-          dispath(hideLoading())
+          setQrCodeSetUp(getReult)
         } else {
-          dispath(hideLoading())
-          // Swal.fire(result.data.message)
-          dispath(hideLoading())
+
         }
       })
       .catch((err) => {
-        // dispath(hideLoading());
-        console.log("QR err", err);
 
-        // Swal.fire("Can't not connect the server")
       });
   };
-  const imgId = user.userId + 'qrlogo'
-  const getImage = (imgId) => {
 
-    dispath(showLoading())
-    axios
-      .post(`${process.env.REACT_APP_API}/user/images/preview`, { imgId: imgId })
-      .then((result) => {
-        if (!result.data.images) {
+  const resizeFile = (file) =>
+    new Promise((resolve) => {
+      dispath(showLoading())
+      Resizer.imageFileResizer(
+        file,
+        200,
+        200,
+        'PNG',
+        100,
+        0,
+        (uri) => {
+          qrCodeSetUpFn('logoQr', uri);
 
-          return setLogoQr('')
-          return dispath(hideLoading());
-        }
+          setCheckQRcodeChange(true)
 
-        const getResult = result.data.images;
-        const base64Flag = 'data:image/png;base64,';
-        const imageStr = prop.arrayBufferToBase64(getResult.img.data.data);
-        const tagImage = base64Flag + imageStr;
-
-        setLogoQr(tagImage);
-        // dispath(hideLoading())
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
+          // setTimeout(() => {
+          //   qrCodeSetUpFn('levelCode', 'L')
+          // }, 100);
+          // setTimeout(() => {
+          //   qrCodeSetUpFn('levelCode', 'Q')
+          // }, 200);
+          dispath(hideLoading());
+        },
+        'base64'
+      );
+    });
 
 
 
   const saveQRCode = () => {
-
-    dispath(showLoading())
-    delelteImage(imgId)
     axios
       .post(
         `${process.env.REACT_APP_API}/user/saveQRCode`,
@@ -171,7 +167,7 @@ const _02QRCode = (prop) => {
       )
       .then((result) => {
         if (result.data.success) {
-          logoQr && uploadImage()
+
           Swal.fire({
             title: 'Saved',
             toast: true,
@@ -180,139 +176,45 @@ const _02QRCode = (prop) => {
             timer: 1500,
           }).then(nothinh => {
             setCheckQRcodeChange(false)
-            dispath(hideLoading())
-          })
 
+          })
         } else {
           Swal.fire(result.data.message);
-          dispath(hideLoading())
-
+          // dispath(hideLoading());
         }
       })
       .catch((err) => {
-        dispath(hideLoading());
-        console.log("QR Fail");
+        // dispath(hideLoading());
+        console.log("Can't not connect the server");
         Swal.fire("Can't not connect the server");
       });
   };
 
 
-  // const [url, setUrl] = useState("http://192.168.1.13:3000/customer/8e468036-undefined");
-  // const [fileExt, setFileExt] = useState("png");
-  const ref = useRef(null);
 
-  // useEffect(() => {
-
-  //   qrCode.append(ref.current);
-
-  // }, []);
-
-
-  useEffect(() => {
-    qrCode.append(ref.current);
-    qrCode.update(ref.current);
-  }, [dotOption, cornersOption, dotCornersOption, levelCode, colorQrCode, bgQrCode, logoQr]);
-
-
-
-  // const onUrlChange = (event) => {
-  //   event.preventDefault();
-  //   setUrl(event.target.value);
-  // };
-
-  // const onExtensionChange = (event) => {
-  //   setFileExt(event.target.value);
-  // };
-  const [qrLoading, setQrLoading] = useState(false)
-  const resizeFile = (file) =>
-    new Promise((resolve) => {
-      dispath(showLoading())
-      Resizer.imageFileResizer(
-        file,
-        200,
-        200,
-        'JPG',
-        100,
-        0,
-        (uri) => {
-
-          setLogoQr(uri);
-          dispath(hideLoading())
-
-          setCheckQRcodeChange(true)
-
-          setTimeout(() => {
-            qrCodeSetUpFn('levelCode', 'L')
-          }, 100);
-          setTimeout(() => {
-            qrCodeSetUpFn('levelCode', 'Q')
-          }, 200);
-        },
-        'base64'
-      );
-    });
-
-
-  const uploadImage = () => {
-
-    // dispath(showLoading())
-
-    const newFile = prop.dataURIToBlob(logoQr);
-    const formData = new FormData();
-
-    formData.append('avatar', newFile, imgId);
-    formData.append('userId', user.userId);
-    axios
-      .post(`${process.env.REACT_APP_API}/user/images/uplaod`, formData)
-      // .post(`${process.env.REACT_APP_API}/user/images`, formData, { headers: { 'Content-Type': 'multipart/form-data' } })
-      .then((result) => {
-        // dispath(hideLoading())
-
-      })
-      .catch((err) => {
-
-        console.error(err);
-      });
-  };
-
-  const delelteImage = (imgId) => {
-
-    // dispath(showLoading())
-    axios
-      .post(`${process.env.REACT_APP_API}/user/images/delete`, { imgId: imgId })
-      .then((result) => {
-        // dispath(hideLoading())
-
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-
-  };
-
-  const [clickDownLoad, setClickDownLoad] = useState(false)
 
   const onDownloadClick = () => {
-    if (sizeQr >= 1) {
-      sizeQrPxFn(sizeQr * (96 / 2.54))
-      console.log('rrrr')
-      setClickDownLoad(true)
-    }
-  };
-
-
-  useEffect(() => {
-    if (clickDownLoad) {
+    if (sizeQr >= 2) {
+      // sizeQrPxFn(sizeQr * (96 / 2.54))
       qrCode.download({
         name: "QR-Code",
         extension: 'png'
       });
-      setClickDownLoad(false)
-      sizeQrPxFn(300)
-
-      // inputSizeMemo(sizeQr)
+      // setClickDownLoad(true)
     }
-  }, [sizeQrPx]);
+  };
+
+
+  // useEffect(() => {
+  //   if (clickDownLoad) {
+  //     qrCode.download({
+  //       name: "QR-Code",
+  //       extension: 'png'
+  //     });
+  //     setClickDownLoad(false)
+  //     sizeQrPxFn(300)
+  //   }
+  // }, [sizeQrPx]);
 
   const checkInputNumber = (e) => {
     if (e.target.value.length > e.target.maxLength) {
@@ -323,15 +225,6 @@ const _02QRCode = (prop) => {
     }
 
   }
-
-  const [onOffTrayQR, setOnOffTrayQR] = useState(false)
-  const [onOffTrayBG, setOnOffTrayBG] = useState(false)
-  const [presetColor, setPresetColor] = useState('')
-
-  const setColor = (name) => {
-    qrCodeColorFn(name, presetColor)
-  }
-
 
 
   const checkQRcodeChangeFn = () => {
@@ -356,7 +249,7 @@ const _02QRCode = (prop) => {
 
           prop.setOnOffQRCCode_MB(false)
           setCheckQRcodeChange(false)
-          getImage(imgId)
+
           getQrCode();
 
         }
@@ -370,21 +263,32 @@ const _02QRCode = (prop) => {
     }
   }
 
-  useEffect(() => {
-    if (user.userId) getImage(imgId)
-  }, [user]);
+
 
   useEffect(() => {
-    if (user.userId) getQrCode();
+    qrCode.append(ref.current);
+    qrCode.update(ref.current);
+  }, [qrCode]);
+
+  useEffect(() => {
+    if (prop.getQRCodeTG) {
+      getQrCode();
+    }
+  }, [prop.getQRCodeTG]);
+
+  useEffect(() => {
+    if (user.userId) {
+      getQrCode();
+    }
   }, [user]);
 
   return (
     <div className="MB_FullPage_Container">
-      <div className={`${qrLoading ? 'showMe' : 'hiddenMe'} allLoading`}>
+      {/* <div className={`${qrLoading ? 'showMe' : 'hiddenMe'} allLoading`}>
         <div className="iconLoadingBanner">
           <span className='barOne'></span > <span className='barTwo'></span> <span className='barThree'></span>
         </div>
-      </div>
+      </div> */}
       <div className="topBar_function backdrop_blur">
         <div className="GruopBtn">
           <button
@@ -417,7 +321,12 @@ const _02QRCode = (prop) => {
                 <div className="">
                   <input type="text" min='3' max='100' maxLength='5'
                     onInput={checkInputNumber}
-                    onChange={inputSizeQr} value={sizeQr} className='QR_labelFontR text_selectCenter' /> <span className="MB_TC_small" > cm. x {sizeQr} cm.</span>
+                    onChange={(even) => {
+                      inputSizeQr('sizeQr', even)
+                      // sizeQrPxFn('sizeQrPx', even)
+                    }
+
+                    } value={sizeQr} className='QR_labelFontR text_selectCenter' /> <span className="MB_TC_small" > cm. x {sizeQr} cm.</span>
                 </div>
                 {/* <div className="smallInch"><span>{String(sizeQr/2.54).slice(0,4)} in.</span> x <span>{String(sizeQr/2.54).slice(0,4)} in.</span></div> */}
               </div>
@@ -431,12 +340,13 @@ const _02QRCode = (prop) => {
 
       </div>
       {onOffTrayQR && <div className="QR_tray_position">
-        <div className="presetColor" style={{ 'backgroundColor': `${presetColor}` }}>   </div>
-        <HexColorPicker color={presetColor} onChange={setPresetColor} />
-        <div className="colorBoxInput"><span># &nbsp;<HexColorInput className="MB_tray_input MB_tray_input_QR" color={presetColor} onChange={setPresetColor} /></span>
+        {/* <div className="presetColor" style={{ 'backgroundColor': `${presetColor}` }}>   </div> */}
+        <HexColorPicker color={dotColorQrCode} onChange={setdotColorQrCode} />
+        <div className="colorBoxInput"><span># &nbsp;<HexColorInput className="MB_tray_input MB_tray_input_QR" color={dotColorQrCode} onChange={setdotColorQrCode} /></span>
 
           <span onClick={() => {
-            setColor('colorQrCode')
+            // setColor('colorQrCode')
+            qrCodeColorFn('colorQrCode', dotColorQrCode)
             setOnOffTrayQR(false)
 
           }} className="QR_btnOk Flex_AllCenter"><span>OK</span></span></div>
@@ -445,12 +355,13 @@ const _02QRCode = (prop) => {
 
 
       {onOffTrayBG && <div className="QR_tray_position">
-        <div className="presetColor" style={{ 'backgroundColor': `${presetColor}` }}>   </div>
-        <HexColorPicker color={presetColor} onChange={setPresetColor} />
-        <div className="colorBoxInput"><span># &nbsp;<HexColorInput className="MB_tray_input MB_tray_input_QR" color={presetColor} onChange={setPresetColor} /></span>
+        {/* <div className="presetColor" style={{ 'backgroundColor': `${presetColor}` }}>   </div> */}
+        <HexColorPicker color={bgColorQrCode} onChange={setBgColorQrCode} />
+        <div className="colorBoxInput"><span># &nbsp;<HexColorInput className="MB_tray_input MB_tray_input_QR" color={bgColorQrCode} onChange={setBgColorQrCode} /></span>
 
           <span onClick={() => {
-            setColor('bgQrCode')
+            // setColor('bgQrCode')
+            qrCodeColorFn('bgQrCode', bgColorQrCode)
             setOnOffTrayBG(false)
 
           }} className="QR_btnOk Flex_AllCenter"><span>OK</span></span></div>
@@ -578,7 +489,7 @@ const _02QRCode = (prop) => {
                     <div className='MB_themeRow2'>
                       <button onClick={(e) => {
                         setOnOffTrayQR(true)
-                        setPresetColor(colorQrCode)
+                        // setPresetColor(colorQrCode)
                       }} className="colorPickerItem borderPickC color_PickQr color_PBig-Active" style={{ 'backgroundColor': `${colorQrCode}` }} id='navBarFontColor'></button>
                     </div>
                     <div className="QR_Borderset"></div>
@@ -586,11 +497,11 @@ const _02QRCode = (prop) => {
                   </div>
 
                   <div className="MB_qrContainer3">
-                    <label htmlFor="" className='MB_TC_small'>Background Color</label>
+                    <span htmlFor="" className='MB_TC_small'>Background Color</span>
                     <div className='MB_themeRow2'>
                       <button onClick={(e) => {
                         setOnOffTrayBG(true)
-                        setPresetColor(bgQrCode)
+                        // setPresetColor(bgQrCode)
                       }} className="colorPickerItem borderPickC color_PickQr color_PBig-Active" style={{ 'backgroundColor': `${bgQrCode}` }} id='navBarFontColor'></button>
                     </div>
                     <div className="QR_Borderset"></div>
@@ -605,7 +516,7 @@ const _02QRCode = (prop) => {
                 <div className="MB_themeRow2 ">
                   <div className="MB_qrContainer3">
 
-                    <label htmlFor="" className='MB_TC_small'>Logo</label>
+                    <span htmlFor="" className='MB_TC_small'>Logo</span>
                     <div className="MB_themeRow2 gap2rem">
                       <label htmlFor='qr-upload' className='MB_labelPhoto flexStart'>
                         <div className='colorPickerItem borderPickC color_PickQr color_PBig-Active setRelative blueUpload'>
@@ -627,14 +538,12 @@ const _02QRCode = (prop) => {
                         </div>
 
                       </label>
-                      {/* <div className="logoSizeBox">
-                        <span onClick={() => logoSizeFn(-1)} className="">-</span>
-                        <span className=""> Logo Size</span>
-                        <span onClick={() => logoSizeFn(+1)} className="">+</span>
-                      </div> */}
+
                       <button onClick={() => {
                         setCheckQRcodeChange(true)
-                        setLogoQr('')
+                        qrCodeSetUpFn('logoQr', '');
+
+
                       }} className={`MB_Btn forBinWhite QRBin`}>
                         <img src={MBiconBin} alt="" />
                       </button>
@@ -666,17 +575,6 @@ const _02QRCode = (prop) => {
 
                     <span>Save</span>
                   </button>
-
-                  {/* CANCEL BUTTON */}
-                  {/* <button onClick={() => {
-                        getTimeFromProp()
-                      setCheckTimeChange(false)
-                    }}
-                                    className='MB_Sq_Btn CancelPadding MB_Btn_Border MB_G3'>
-
-
-                              <span>Cancel</span>
-                                      </button> */}
 
                 </div>
               </div>

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { hideLoading, showLoading } from '../redux/alertSlice';
 import Swal from 'sweetalert2';
@@ -11,23 +11,23 @@ import MBicon_Sidet from '../all-icon/mobile-bar/sidebart.svg'
 import MBicon_Bodyt from '../all-icon/mobile-bar/bodyt.svg'
 import MBiconBin from '../all-icon/button-icon/MBbin.svg'
 import Resizer from 'react-image-file-resizer';
+import * as Util from "../componentusers/_99Utility"
 
 const _09ThemeSetupMobile = (prop) => {
-  // prop.setOnOffTheme
-  // prop.restaurantName
-  // prop.setRestaurantName
 
 
   //=
   const { user } = useSelector((state) => state.user);
+
   const dispath = useDispatch();
   const [checkChangeTheme, setCheckChangeTheme] = useState(false)
   // ----------------------------------------------------------------------------------------------
   const [noSetTheme, setNoSetTheme] = useState('')
+
   const [nameTheme, setNameTheme] = useState('')
 
   //  ----------------------------------------------------------------------------------------------
-  // const [restaurantLogo, setRestaurantLogo] = useState('')
+
   const imgId = user.link + 'restlogo'
   const currentRestaurantName = user.restaurant_name
   const inputRestaurantName = (e) => {
@@ -105,7 +105,6 @@ const _09ThemeSetupMobile = (prop) => {
   //   setCategoryMotion({ ...categoryMotion, [name]: e.target.value })
   // }
   const [onOffColorPicker, setOnoffColorPicker] = useState(false)
-  const [onOffWindowTheme, setOnOffWindowTheme] = useState(true)
 
   const getTheme = () => {
     dispath(showLoading())
@@ -132,8 +131,9 @@ const _09ThemeSetupMobile = (prop) => {
           )
           prop.setThemeIconColorBorder(getSideBar.themeIconColorBorder)
           prop.setExtraIcon(getSideBar.extraIcon)
-          getImage(imgId);
-          console.log("Theme Setup Completed")
+          // getImage(imgId);
+
+
           dispath(hideLoading())
         } else {
           Swal.fire(result.data.message)
@@ -152,7 +152,7 @@ const _09ThemeSetupMobile = (prop) => {
   // ----------------------------------------------------------------------------------------------
   const setupTheme = (e) => {
     dispath(showLoading())
-    delelteImage(imgId)
+    // delelteImage(imgId)
     axios
       .post(
         `${process.env.REACT_APP_API}/user/setupTheme`,
@@ -161,6 +161,7 @@ const _09ThemeSetupMobile = (prop) => {
           clientId: user.clientId,
           restaurantName: prop.restaurantName,
           themeSetup: {
+            restaurantLogo: prop.restaurantLogo,
             navAndFootBar: prop.navAndFootBar,
             body: prop.bodyStyle,
             sideBar: {
@@ -178,7 +179,7 @@ const _09ThemeSetupMobile = (prop) => {
       )
       .then((result) => {
         if (result.data.success) {
-          prop.restaurantLogo && uploadImage()
+          // prop.logoRestaurant && uploadImage()
           setCheckChangeTheme(false)
           const getReult = result.data.userTheme;
           const getThemeSetup = getReult.themeSetup
@@ -230,7 +231,6 @@ const _09ThemeSetupMobile = (prop) => {
 
   const resizeFile = (file) =>
     new Promise((resolve) => {
-      dispath(showLoading())
       Resizer.imageFileResizer(
         file,
         200,
@@ -239,68 +239,63 @@ const _09ThemeSetupMobile = (prop) => {
         100,
         0,
         (uri) => {
-          prop.setRestaurantLogo(uri);
+          prop.logoRestaurantFn('logoRestaurant', uri)
+          // prop.nameAllFontStyleFn()
+          // prop.setLogoRestaurant(uri);
           setCheckChangeTheme(true)
-          dispath(hideLoading())
         },
         'base64'
       );
     });
 
 
-  const getImage = (imgId) => {
-    dispath(showLoading())
-    axios
-      .post(`${process.env.REACT_APP_API}/user/images/preview`, { imgId: imgId })
-      .then((result) => {
-        if (!result.data.images) {
-          dispath(hideLoading())
-          return prop.setRestaurantLogo('')
-        }
-        const getResult = result.data.images;
-        const base64Flag = 'data:image/png;base64,';
-        const imageStr = prop.arrayBufferToBase64(getResult.img.data.data);
-        const tagImage = base64Flag + imageStr;
+  // const getImage = (imgId) => {
+  //   axios
+  //     .post(`${process.env.REACT_APP_API}/user/images/preview`, { imgId: imgId })
+  //     .then((result) => {
+  //       if (!result.data.images) {
+  //         return prop.setLogoRestaurant('')
+  //       }
+  //       const getResult = result.data.images;
+  //       const base64Flag = 'data:image/png;base64,';
+  //       const imageStr = Util.arrayBufferToBase64(getResult.img.data.data);
+  //       const tagImage = base64Flag + imageStr;
 
-        prop.setRestaurantLogo(tagImage);
-        dispath(hideLoading())
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
+  //       prop.setLogoRestaurant(tagImage);
+  //     })
+  //     .catch((err) => {
+  //       console.error(err);
+  //     });
+  // };
 
-  const uploadImage = () => {
-    dispath(showLoading())
-    const newFile = prop.dataURIToBlob(prop.restaurantLogo);
-    const formData = new FormData();
+  // const uploadImage = () => {
 
-    formData.append('avatar', newFile, imgId);
-    formData.append('userId', user.userId);
-    axios
-      .post(`${process.env.REACT_APP_API}/user/images/uplaod`, formData)
-      // .post(`${process.env.REACT_APP_API}/user/images`, formData, { headers: { 'Content-Type': 'multipart/form-data' } })
-      .then((result) => {
-        getImage()
-        dispath(hideLoading())
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
+  //   const newFile = Util.dataURIToBlob(prop.logoRestaurant);
+  //   const formData = new FormData();
 
-  const delelteImage = (imgId) => {
-    dispath(showLoading())
-    axios
-      .post(`${process.env.REACT_APP_API}/user/images/delete`, { imgId: imgId })
-      .then((result) => {
-        dispath(hideLoading())
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
+  //   formData.append('avatar', newFile, imgId);
+  //   formData.append('userId', user.userId);
+  //   axios
+  //     .post(`${process.env.REACT_APP_API}/user/images/uplaod`, formData)
+  //     // .post(`${process.env.REACT_APP_API}/user/images`, formData, { headers: { 'Content-Type': 'multipart/form-data' } })
+  //     .then((result) => {
+  //       // getImage()
+  //     })
+  //     .catch((err) => {
+  //       console.error(err);
+  //     });
+  // };
 
+  // const delelteImage = (imgId) => {
+
+  //   axios
+  //     .post(`${process.env.REACT_APP_API}/user/images/delete`, { imgId: imgId })
+  //     .then((result) => {
+  //     })
+  //     .catch((err) => {
+  //       console.error(err);
+  //     });
+  // };
 
 
   const [colorOnClick, setColorOnClick] = useState('')
@@ -349,13 +344,11 @@ const _09ThemeSetupMobile = (prop) => {
 
 
         } else if (result.isDenied) {
-
           prop.setMBnavIcon(true)
           getTheme()
           setTimeout(() => {
             prop.setOnOffThemeSetup_MB(false)
             prop.setCategoryActiveTheme(false)
-
             setCheckChangeTheme(false)
           }, 500);
         }
@@ -389,13 +382,15 @@ const _09ThemeSetupMobile = (prop) => {
   //   },
   //   categoryMotion: categoryMotion
   // })
- 
+
+
+
   useEffect(() => {
     if (user.userId) getTheme()
   }, [user]);
-  useEffect(() => {
-    if (user.userId) getImage()
-  }, [user]);
+  // useEffect(() => {
+  //   if (user.userId) getImage()
+  // }, [user]);
 
   const [loadSameImg, setLoadSameImg] = useState('')
   // ----------------------------------------------------------------------------------------------
@@ -489,12 +484,13 @@ const _09ThemeSetupMobile = (prop) => {
                         </div>
 
                       </label>
-                      <button onClick={() => {
-                        prop.setRestaurantLogo('')
+                      <span onClick={() => {
                         setCheckChangeTheme(true)
-                      }} className={`MB_Btn forBinWhite QRBin`}>
+                        prop.logoRestaurantFn('logoRestaurant', '')
+
+                      }} className={`MB_Btn2 forBinWhite QRBin`}>
                         <img src={MBiconBin} alt="" />
-                      </button>
+                      </span>
                     </div>
 
                   </div>

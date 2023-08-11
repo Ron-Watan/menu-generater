@@ -1,18 +1,18 @@
 import Users from "../_3models/menuModel.js"
 import Clients from "../_3models/clientModel.js";
-import Banners from '../_3models/bannerModel.js';
+// import Banners from '../_3models/bannerModel.js';
 import { v4 as uuidv4 } from 'uuid';
 import bcrypt from "bcryptjs"
 import jwt from 'jsonwebtoken'
-import { S3Client } from "@aws-sdk/client-s3";
+// import { S3Client } from "@aws-sdk/client-s3";
 import { CognitoJwtVerifier } from "aws-jwt-verify"
-import AWS from 'aws-sdk'
+// import AWS from 'aws-sdk'
 
-const s3 = new AWS.S3({
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  region: process.env.AWS_REGION
-});
+// const s3 = new AWS.S3({
+//   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+//   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+//   region: process.env.AWS_REGION
+// });
 
 const verifier = CognitoJwtVerifier.create({
   userPoolId: "us-west-1_lmMYcjfH6",
@@ -25,9 +25,9 @@ const verifier = CognitoJwtVerifier.create({
 
 export const register = (req, res) => {
 
-  const { firstName } = req.body
+  const { restaurantName } = req.body
   req.body.clientId = uuidv4()
-  req.body.link = firstName + '-' + uuidv4().slice(0, 8)
+  req.body.link = restaurantName + '-' + uuidv4().slice(0, 8)
 
       Users.create(req.body).then(result => {
 
@@ -43,10 +43,10 @@ export const register = (req, res) => {
           themeSetup: themeSetup,
           onOffSetting: onOffSetting,
         })
-        Banners.create({
-          link: link,
-          userId: req.body.userId,
-        })
+        // Banners.create({
+        //   link: link,
+        //   userId: req.body.userId,
+        // })
 
 
 
@@ -87,9 +87,9 @@ export const login = (req, res) => {
 
 export const generateMenu = (req, res) => {
   const { userId, link } = req.body;
-  console.log(link)
+
   Users.findOne({ userId: userId }).then(user => {
-    console.log(user)
+
     Clients.create({
       link: link
     })
@@ -114,7 +114,6 @@ export const requireLogin = async(req, res, next) => {
   try {
     const payload = await verifier.verify(token);
     console.log('Token is valid');
-    console.log(payload);
     req.proved = payload
     next()
   } catch {
@@ -123,6 +122,11 @@ export const requireLogin = async(req, res, next) => {
 
 
 }
+// catch {
+//   { res.status(404).json(err) })
+//   console.log("Token not valid!");
+//   alert("Token not valid!");
+// }
 
 
 
@@ -143,7 +147,9 @@ export const getInfoUserToStore = (req, res) => {
         })
 
       }
-    }).catch(err => { res.status(404).json(err) })
+    }).catch(err =>
+    
+      { res.status(404).json(err) })
 }
 
 

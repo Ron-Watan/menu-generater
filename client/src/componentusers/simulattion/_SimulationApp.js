@@ -1,6 +1,6 @@
 
-import 'remixicon/fonts/remixicon.css';
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+// import 'remixicon/fonts/remixicon.css';
+import { useEffect, useState } from 'react';
 import AcordionSubComp from './AcordionSubComp';
 
 import { createTheme, ThemeProvider } from '@mui/material';
@@ -8,18 +8,15 @@ import SidebarSubComp from './SidebarSubComp';
 import FooterComponent from './FooterComponent';
 import BannerSubCompo from './BannerSubCompo';
 import axios from 'axios';
-// import { ticketPass } from '../protectors/authorize';
-import { useNavigate, useParams } from 'react-router-dom';
-// import { useDispatch, useSelector } from 'react-redux';
+
+import { useParams } from 'react-router-dom';
+
 
 import '../../styleClient/mainClient.css';
 import '../../styleClient/sidebarClient.css';
 import '../../styleClient/footerClient.css';
 import '../../styleClient/accordianClient.css';
-// import { clientDataModel } from './modelData/clientData'
-// import { createGlobalStyle } from 'styled-components';
-import Swal from 'sweetalert2';
-// prop.themeSetup
+
 const theme = createTheme({
   typography: {
     fontFamily: ['Roboto Slab', 'roboto slab'].join(','),
@@ -34,7 +31,7 @@ const nowTime = h * 60 * 60 + m * 60 + s;
 
 //= //=
 const _SimulationApp = (prop) => {
-
+  const photoHostName = `${process.env.REACT_APP_API}/user/photos/`
 
   //= Set Data\
   // const [clientData, setClientData] = useState({});
@@ -42,7 +39,6 @@ const _SimulationApp = (prop) => {
   // const [clientMenu, setClientMenu] = useState([]);
 
 
-  const [allMenuName, setAllMenuName] = useState('');
 
   const [chooseMenu, setChooseMenu] = useState('');
   const [menuTime, setMenuTime] = useState(0);
@@ -120,7 +116,7 @@ const _SimulationApp = (prop) => {
           // setClientData(getResault);
           // setOriginalClientMenu(getResault.menu);
           // setClientMenu(getResault.menu);
-          setAllMenuName(getResault.menuName);
+
           // setLanguageSetup(getResault.languageSetup);
           // setThemeSetup(getResault.themeSetup)
           // setRestaurantName(getResault.restaurantName)
@@ -380,6 +376,7 @@ const _SimulationApp = (prop) => {
 
 
 
+
   //=-----------------------------------------------
 
   useEffect(() => {
@@ -387,20 +384,20 @@ const _SimulationApp = (prop) => {
   }, [prop.user]);
 
 
-  // document.body.style.backgroundColor = prop.navAndFootBar.navBarColor
+  document.body.style.backgroundColor = prop.bodyStyle.bodyBgColor
 
   const [loadingManual, setLoadingManual] = useState(true);
 
   //=-----------------------------------------------
   return (
     <>
-      <div className='Mviewport'
+      <div className='Mviewport unselectable'
 
         style={{ 'fontFamily': `${prop.themeSetup.body?.bodyFontFamily} , serif`, 'backgroundColor': `${prop.themeSetup.body?.bodyBgColor}` }}>
 
         <div className=' mobileViewport_Wrapper '>
 
-          <nav className='navBar_Simutlate'
+          <nav className='navBar_Client'
             style={{ 'backgroundColor': `${prop.navAndFootBar?.navBarColor}` }}>
 
 
@@ -408,7 +405,7 @@ const _SimulationApp = (prop) => {
 
               <div className='navSlit1'>
                 <i className="x">!Theme</i>
-                {prop.restaurantLogo && <div className="logoResta"><img className='logoRestaImg' src={prop.restaurantLogo} alt="" /></div>}
+                {prop.logoRestaurant && <div className="logoResta"><img className='logoRestaImg' src={prop.logoRestaurant} /></div>}
                 <span style={{
                   'backgroundColor': `${prop.navAndFootBar?.navBarColor}`,
                   'fontFamily': `${prop.navAndFootBar?.nameFontFamily}`,
@@ -459,38 +456,38 @@ const _SimulationApp = (prop) => {
                           {timeSetup.allDayType.menu_1 && (
                             <div
                               onClick={() => {
-                                setChooseMenu(allMenuName.menu_1);
+                                setChooseMenu(prop.menuName.menu_1);
                                 setMenuTime(1);
                               }}
-                              className={` ${chooseMenu === allMenuName.menu_1 && 'displayNone'} navMenuNameText-tab`}
+                              className={` ${chooseMenu === prop.menuName.menu_1 && 'displayNone'} navMenuNameText-tab`}
                               style={{ 'backgroundColor': `${prop.navAndFootBar?.navBarColor}` }}>
-                              {allMenuName.menu_1}
+                              {prop.menuName.menu_1}
                             </div>
                           )}
 
                           {timeSetup.allDayType.menu_2 && (
                             <div
                               onClick={() => {
-                                setChooseMenu(allMenuName.menu_2);
+                                setChooseMenu(prop.menuName.menu_2);
                                 setMenuTime(2);
                               }}
-                              className={` ${chooseMenu === allMenuName.menu_2 && 'displayNone'} 
+                              className={` ${chooseMenu === prop.menuName.menu_2 && 'displayNone'} 
                           navMenuNameText-tab`}
                               style={{ 'backgroundColor': `${prop.navAndFootBar?.navBarColor}` }}>
-                              {allMenuName.menu_2}
+                              {prop.menuName.menu_2}
                             </div>
                           )}
 
                           {timeSetup.allDayType.menu_3 && (
                             <div
                               onClick={() => {
-                                setChooseMenu(allMenuName.menu_3);
+                                setChooseMenu(prop.menuName.menu_3);
                                 setMenuTime(3);
                               }}
-                              className={` ${chooseMenu === allMenuName.menu_3 && 'displayNone'} 
+                              className={` ${chooseMenu === prop.menuName.menu_3 && 'displayNone'} 
                           navMenuNameText-tab`}
                               style={{ 'backgroundColor': `${prop.navAndFootBar?.navBarColor}` }}>
-                              {allMenuName.menu_3}
+                              {prop.menuName.menu_3}
                             </div>
                           )}
                         </div>
@@ -670,10 +667,10 @@ const _SimulationApp = (prop) => {
             />
           </div>}
           {prop.onOffSetting.banner && <div className='bannerSectionC'
-                    style={{ 'backgroundColor': `${prop.bodyStyle.bodyBgColor}` }}
-                    >
-            <BannerSubCompo
-              bodyStyle={prop.bodyStyle} link={prop.link} bannerImgArr={prop.bannerImgArr} />
+            style={{ 'backgroundColor': `${prop.bodyStyle.bodyBgColor}` }}
+          >
+            <BannerSubCompo bodyStyle={prop.bodyStyle} link={prop.link} bannerImgArr={prop.bannerImgArr}  />
+         
           </div>}
 
           <ThemeProvider theme={theme} >
@@ -768,7 +765,6 @@ const _SimulationApp = (prop) => {
                 ))}
           </ThemeProvider>
 
-          <div className="footerSpace"></div>
 
           {prop.onOffSetting.footbar && <div className=''>
             <FooterComponent

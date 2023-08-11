@@ -6,11 +6,9 @@ import morgan from "morgan";
 import userRoute from './_1routes/userRoute.js'
 import clientsRoute from './_1routes/clientsRoute.js'
 
-
-import multer from "multer";
 import bodyparser from "body-parser";
-
-
+// const methodOverride = require('method-override');
+import methodOverride from "method-override";
 const app = express()
 
 
@@ -23,15 +21,22 @@ app.use(morgan('dev')) // log HTTP named dev
 app.use('/api/user', userRoute)
 app.use('/api/clients', clientsRoute)
 
-
-app.use(bodyparser.urlencoded({ extended: true }))
-app.use(bodyparser.json())
+app.use(methodOverride('_method'));
+app.set('view engine', 'ejs');
+// app.use(bodyparser.urlencoded({ extended: true }))
+// app.use(bodyparser.json())
 // app.use('/images', express.static('images'))
+const maxRequestBodySize = '10mb';
 
+app.use(bodyparser.urlencoded({ extended: true, limit: maxRequestBodySize }))
+app.use(bodyparser.json({ limit: maxRequestBodySize }))
 
+// const maxRequestBodySize = '10mb';
+// app.use(express.json({limit: maxRequestBodySize}));
+// app.use(express.urlencoded({limit: maxRequestBodySize}));
 
-
-
+// app.use(bodyparser.json({limit: maxRequestBodySize}));
+// app.use(bodyparser.urlencoded({limit: maxRequestBodySize}));
 // const multerStorage = multer.memoryStorage();
 
 // const multerFilter = (req, file, cb) => {

@@ -52,7 +52,7 @@ const AllRoute = () => {
 
         <Route path="/login" exact Component={LoginComponent} />
         <Route path="/register" exact Component={RegisterComponent} />
-        <Route path="/customer/:link" exact Component={_MenuComponent} />
+        <Route path="/:link" exact Component={_MenuComponent} />
 
       </Routes>
     </BrowserRouter >

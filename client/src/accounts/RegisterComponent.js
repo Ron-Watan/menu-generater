@@ -14,10 +14,11 @@ const RegisterComponent = () => {
   const [state, setState] = useState({
     firstName: "",
     lastName: "",
+    restaurantName:"",
     email: "",
     password: ""
   })
-  const { firstName, lastName, email, password } = state
+  const { firstName, lastName, restaurantName,email, password } = state
   const inputValue = name => even => {
     setState({ ...state, [name]: even.target.value })
 
@@ -27,8 +28,6 @@ const RegisterComponent = () => {
   const submit = (e) => {
     e.preventDefault()
     // dispath(showLoading())
-
-
     UserPool.signUp(email, password, [], null, (err, result) => {
       if (err) {
         alert(err);
@@ -36,7 +35,7 @@ const RegisterComponent = () => {
         return;
       }
       const userId =result.userSub
-      axios.post(`${process.env.REACT_APP_API}/user/register`, { userId,firstName, lastName, email }).then(res => {
+      axios.post(`${process.env.REACT_APP_API}/user/register`, { userId,firstName, restaurantName, email }).then(res => {
 
         if (res.data.success) {
           Swal.fire(res.data.message)
@@ -74,7 +73,7 @@ const RegisterComponent = () => {
               </div>
 
               <div className="col-span-1">
-                <input value={lastName} onChange={inputValue('lastName')} className=" appearance-none border-1 border-slate-300 hover:border-blue-500 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="lastname" type="text" placeholder="Last Name" />
+                <input value={restaurantName} onChange={inputValue('restaurantName')} className=" appearance-none border-1 border-slate-300 hover:border-blue-500 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="lastname" type="text" placeholder="Last Name" />
               </div>
 
               <div className="col-span-2">

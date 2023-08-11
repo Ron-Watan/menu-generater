@@ -85,7 +85,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 // prop.themeSetup
 
 const AcordionSubComp = (prop) => {
-
+  const photoHostName = `${process.env.REACT_APP_API}/user/photos/`
   const subListMenu = prop.listMunu.listMenu
 
   const [expanded, setExpanded] = useState('');
@@ -160,48 +160,48 @@ const AcordionSubComp = (prop) => {
   //     transform: itemTranslate
   //   });
   // },
-  const [filea, setFile] = useState('');
-  const file='https://world-client-image.s3.us-west-1.amazonaws.com/img/43dae682-3eb9-4212-aca0-099db567fbe5?response-content-disposition=inline&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEDEaCXVzLXdlc3QtMSJGMEQCICk3eWChI198DdBlkigJMG3nTtTfaNv3IkGtG0natLAgAiBsUHOxb7jP4437aMbwAM2c4e6Bvt5NA5WAoy0K509vAirtAgjK%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAAaDDgxNDE1NDMwMzkwNCIMiBDaxYcHP6qXOrEWKsECJGdVO7xJnPhK3Q3ApQPcWg57qGdMHdgXhmszDTBePr4UJLeUJymoEVV9I7m0acVpXJn4ryrbmhZ6O2zfC11oEOyBhFDWXMW8Ux7%2BgrI7qb0Nl%2BqFVJmw%2B3YUmYKKJnEJRNN3pVl%2F59%2F5lOPfdYfLTnViFuBEJFTTjA8a7x0ucdmCsL9VJEp9i5SS91g%2FQaADQdkgIwVCPPurCdDjq9UrJ2pXxgd9JPeppdERYPUF0O7u0U3%2Bq65EI0j%2FOpyZIK9j%2Bh9i11Z76hiB7t%2B5ipwtgUn%2Bke4LOHTIzWeHncN6r%2BGlT7PNPg30qSKElnOXgCo5QLKwuRKpo2yvn8%2BeljrIj0IDVnUxHviKB%2FihL8xXbKa%2B%2F3ViR4EQcpoenyqqvACo9MDHCCQBZVdXXn0NC5FqWUbFhs8IqVUdejnmly319PKwMP2KoKYGOrQCIav4K7KzavKxykXDWCuNpkdOYJ7RnVK6B%2Fhi9Afxk1JznxdkTo2908iXEFG6INFCTKSUKR1MHFdi4IR6ejHPjy7CYoZ6GqiGXLqBp7a3F0vJu7U5wYhwFU6dzRTFgyY5A0sgjFAqgh%2BrnEUHgnFx9dMV7MxRLJ6amf7rhhoGqTF%2FMTHPl%2ByiySkRymsjF%2BRiQQaMFvcka2%2BB0QWaRLD1d1fK1hfA2pKvdtg0SFFexjCSoxIRTSBU82%2FFMedHOwi3sQIoju0puEeDQ5C5nPzXBpSWMz%2B75g%2FIWBkdcUoblLZKk%2BhiICSbhPJUB1r%2BcmMRDh4sNNIJGYQiglWomUHndPPS1Ghv4KkJ5QFWfci65F6dqLe2Dd08tEFRIbRjhcRe6Ae8TZFFPx1rAMHCS%2B6tPdnGqcs%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20230801T023111Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Credential=ASIA33D3AZGQGR5LOIEB%2F20230801%2Fus-west-1%2Fs3%2Faws4_request&X-Amz-Signature=05cae05cf3c61b794ff656fffa5b3cdff7f1bdcd07eff655d97b73ec62b0cf3e'
-  function arrayBufferToBase64(buffer) {
-    var binary = '';
-    var bytes = [].slice.call(new Uint8Array(buffer));
-    bytes.forEach((b) => (binary += String.fromCharCode(b)));
-    return window.btoa(binary);
-  }
-  const getImage = () => {
-    // dispath(showLoading())
-    axios
-      .post(`${process.env.REACT_APP_API}/user/images/preview`, { imgId: prop.listMunu.imgId })
-      .then((result) => {
+  // const [file, setFile] = useState('');
 
-        if (!result.data.images) {
-          return setFile('')
-          // return dispath(hideLoading());
-        }
+  // function arrayBufferToBase64(buffer) {
+  //   var binary = '';
+  //   var bytes = [].slice.call(new Uint8Array(buffer));
+  //   bytes.forEach((b) => (binary += String.fromCharCode(b)));
+  //   return window.btoa(binary);
+  // }
+  // const getImage = () => {
+  //   // dispath(showLoading())
+  //   axios
+  //     .post(`${process.env.REACT_APP_API}/user/images/preview`, { imgId: prop.listMunu.imgId })
+  //     .then((result) => {
 
-        const getResult = result.data.images;
+  //       if (!result.data.images) {
+  //         return setFile('')
+  //         // return dispath(hideLoading());
+  //       }
 
-        const base64Flag = 'data:image/png;base64,';
-        const imageStr = arrayBufferToBase64(getResult.img.data.data);
-        const tagImage = base64Flag + imageStr;
+  //       const getResult = result.data.images;
 
-        // console.log(tagImage)
+  //       const base64Flag = 'data:image/png;base64,';
+  //       const imageStr = arrayBufferToBase64(getResult.img.data.data);
+  //       const tagImage = base64Flag + imageStr;
 
-        setFile(tagImage);
-        // dispath(hideLoading());
-        // setTimeout(() => {
-        //   dispath(hideLoading());
-        // }, 500);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
+  //       // console.log(tagImage)
+
+  //       setFile(tagImage);
+  //       // dispath(hideLoading());
+  //       // setTimeout(() => {
+  //       //   dispath(hideLoading());
+  //       // }, 500);
+  //     })
+  //     .catch((err) => {
+  //       console.error(err);
+  //     });
+  // };
 
 
-  useEffect(() => {
-    getImage();
-  }, []);
+  // useEffect(() => {
+  //   getImage();
+  // }, []);
 
 
   const heartIcon = {
@@ -215,7 +215,7 @@ const AcordionSubComp = (prop) => {
       style={{ 'backgroundColor': `${prop.themeSetup.body.bodyBgColor}` }}>
 
       <div className="categoryImg" style={{
-        backgroundImage: `url(${file})`,
+        backgroundImage: `url(${photoHostName}${prop.listMunu.imgId})`,
         backgroundPosition: 'center',
         backgroundSize: 'cover',
         height: `${prop.themeSetup.categoryMotion.categoryPhotoSize}`
@@ -346,32 +346,3 @@ const AcordionSubComp = (prop) => {
 }
 
 export default AcordionSubComp
-
-
-// export default function CustomizedAccordions() {
-//   return <CustomizedAccordions1 menu={userManuLists} />;
-// }
-
-
-
-{/* <div className='grid grid-cols-3 gap-1 justify-start mt-2'>
-                  <button className={`border border-blue text-black text-C_icon rounded-md px-1 py-1 text-sm flex flex-row justify-center gap-x-2`}>
-                    <p>{`${el.option_name_2}`}</p><p>{`+$${el.option_price_2}`}</p> </button>
-
-
-                    <button className={`border border-blue text-black text-C_icon rounded-md px-1 py-1 text-sm flex flex-row justify-center gap-x-2`}>
-                    <p>{`${el.option_name_2}`}</p><p>{`+$${el.option_price_2}`}</p> </button>
-
-                    <button className={`border border-blue text-black text-C_icon rounded-md px-1 py-1 text-sm flex flex-row justify-center gap-x-2`}>
-                    <p>{`${el.option_name_3}`}</p><p>{`+$${el.option_price_3}`}</p> </button>
-
-                    <button className={`border border-blue text-black text-C_icon rounded-md px-1 py-1 text-sm flex flex-row justify-center gap-x-2`}>
-                    <p>{`${el.option_name_4}`}</p><p>{`+$${el.option_price_4}`}</p> </button>
-
-                    <button className={`border border-blue text-black text-C_icon rounded-md px-1 py-1 text-sm flex flex-row justify-center gap-x-2`}>
-                    <p>{`${el.option_name_5}`}</p><p>{`+$${el.option_price_5}`}</p> </button>
-
-                    <button className={`border border-blue text-black text-C_icon rounded-md px-1 py-1 text-sm flex flex-row justify-center gap-x-2`}>
-                    <p>{`${el.option_name_6}`}</p><p>{`+$${el.option_price_6}`}</p> </button>
-     
-                </div> */}

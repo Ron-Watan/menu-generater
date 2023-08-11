@@ -9,11 +9,27 @@ import { useDispatch } from "react-redux"
 import { hideLoading, showLoading } from "../redux/alertSlice"
 import { useSelector } from "react-redux"
 import UserPool from "../UserPool"
-
 import { CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js'
+// import * as AWS from "@aws-sdk/client-cognito-identity-provider";
+import AWS from 'aws-sdk'
+// AWS.config.update({ region: 'us-west-1' });
+AWS.config.update({
+  accessKeyId: 'AKIA33D3AZGQPRO6F77Q',
+  secretAccessKey: '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',
+  region: 'us-west-1',
+  // UserPoolId: 'us-west-1_lmMYcjfH6',
+  // ClientId: '2j1e3apf787h6e1trgao5jak8m'
+});
+
+// const cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider({
+//   // accessKeyId: 'AKIA33D3AZGQPRO6F77Q',
+//   // secretAccessKey: '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',
+//   // region: 'us-west-1'
+// });
+
+
 
 const LoginComponent = () => {
-  // const { loading } = useSelector(state => state.alerts)
 
   const dispath = useDispatch()
   const [state, setState] = useState({
@@ -31,6 +47,8 @@ const LoginComponent = () => {
     e.preventDefault()
     dispath(showLoading())
 
+
+    /// Cognito //
     const userData = new CognitoUser({
       Username: email,
       Pool: UserPool
@@ -43,47 +61,132 @@ const LoginComponent = () => {
 
     userData.authenticateUser(authDetail, {
       onSuccess: (result) => {
-        
+
+            authenticate(result.getAccessToken().getJwtToken(), () => navigate('/'))
+              setState({ ...state, email: '', password: '' })
+        ///////////////////////////
+
+
+        // signOutResult = userData.globalSignOut(userId, 'us-west-1_lmMYcjfH6')
+        // userData.getSession((err, result) => {
+        //   if (result) {
+        //     userData.globalSignOut({
+        //       onSuccess: (result) => {
+
+        //         authenticate(result.getAccessToken().getJwtToken(), () => navigate('/'))
+        //         setState({ ...state, email: '', password: '' })
+        //       }
+        //     });
+        //   }
+        // })
+
+
+        //////////////////////
+
+        // console.log(result.getAccessToken().getJwtToken())
+        // authenticate(result.getAccessToken().getJwtToken(), () => navigate('/'))
+        // setState({ ...state, email: '', password: '' })
+        // const cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider({
+        //       apiVersion: '2016-04-18',
+        //       region: 'us-west-1'
+        //     })
+        // var params = {
+        //   AccessToken: result.getAccessToken().getJwtToken() /* required */
+        // };
+
+        // new Promise((resolve, reject) => {
+        //   ///////////////////////////
+        //   cognitoidentityserviceprovider.globalSignOut(params, function (err, data) {
+        //     if (err) {
+        //       console.log('not work')
+        //       console.log(err, err.stack)
+        //       reject(err)
+        //     }
+        //     else {
+
+        //       // authenticate(result.getAccessToken().getJwtToken(), () => navigate('/'))
+        //       // setState({ ...state, email: '', password: '' })
+        //       // console.log(data)
+        //       resolve(data)
+        //     };
+        //   });
+        // })
+        ////////////////////////////
+
+        // var params = {
+        //   UserPoolId: 'us-west-1_lmMYcjfH6', /* required */
+        //   Username: email /* required */
+        // };
+        // cognitoidentityserviceprovider.adminUserGlobalSignOut(params, function (err, data) {
+        //   if (err) console.log(err, err.stack); // an error occurred
+        //   else {
+        //     authenticate(result.getAccessToken().getJwtToken(), () => navigate('/'))
+        //       setState({ ...state, email: '', password: '' })
+        //       // console.log(data)
+        //     console.log('htttt')
+        //     console.log(data)
+        //   };           // successful response
+        // });
+
+
+
+
+
+
+
+
+
+
+
+        ////////////////////////
+
+        // var signOut = (accessToken) =>
+        // new Promise((resolve, reject) => {
+        //   var params = {
+        //     //UserPoolId: process.env.USER_POOL_ID, /* required */
+        //     AccessToken: accessToken /* required */
+        //   };
+        //   var cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider({
+        //     apiVersion: '2016-04-18',
+        //     region: 'us-east-1'
+        //   })
+        //   console.log("Signing out user .. ");
+        //   cognitoidentityserviceprovider.globalSignOut(params, function(err, data) {
+        //     if (err) {
+        //       console.log(err, err.stack); // an error occurred
+        //       reject(err)
+        //     } else {
+        //       console.log(data);
+        //       resolve(data)
+        //     }
+        //   })
+
+
+
+
+
         dispath(hideLoading())
-
-        authenticate(result.getAccessToken().getJwtToken(), () => navigate('/'))
-        setState({ ...state, email: '', password: '' })
-        Swal.fire(result.data.message)
-
-
       },
-
       onFailure: (err) => {
+        console.log('fontend');
         console.log(err);
       },
       newPasswordRequired: (result) => {
-
         console.log('new password + ' + result);
       },
     })
 
 
 
-    // axios.post(`${process.env.REACT_APP_API}/user/login`, { email, password })
-    //   .then(result => {
-    //     console.log(result)
-    //     if (result.data.success) {
 
-    //       dispath(hideLoading())
-    //       authenticate(result, () => navigate('/'))
-    //       setState({ ...state, email: '', password: '' })
-    //       Swal.fire(result.data.message)
-    //     } else {
-    //       Swal.fire(result.data.message)
-    //       dispath(hideLoading())
-    //     }
-    //   }).catch(err => {
-    //     dispath(hideLoading())
 
-    //     console.log("Can't not connect the server")
-    //     Swal.fire("Can't not connect the server")
-    //   })
+
+
+
   }
+
+
+
 
   // useEffect(() => {
   //   getToken() && navigate('/')

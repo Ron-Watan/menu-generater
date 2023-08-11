@@ -1,34 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Slider from 'react-touch-drag-slider'
-// import "../style/bannerMainForm.css"
 import "../styleClient/bannerClient.css"
 
-import axios from 'axios'
-import { hideLoading, showLoading } from '../redux/alertSlice'
-import { useDispatch, useSelector } from 'react-redux'
-// import iconPhoto from '../icon/downloadIcon.svg'
-import iconPhoto from '../icon/meal.svg';
 
-// here we are importing some images
-// but the Slider children can be an array of any element nodes,
-// or your own components
 
-// import images from './images/'
-
-import Resizer from 'react-image-file-resizer';
-import { useParams } from 'react-router-dom'
 
 //=
 const BannerSubCompo = (prop) => {
   // prop.themeSetup
-  const elementRef = useRef([]);
+  // const elementRef = useRef([]);
 
-  useEffect(() => {
+  // useEffect(() => {
     // console.log(elementRef.current.offsetHeight);
-  }, [elementRef.current[0]]);
-
-  //
-  // console.log(elementRef.current.offsetHeight);
+  // }, [elementRef.current[0]]);
 
 
   const drag = () => {
@@ -41,78 +25,8 @@ const BannerSubCompo = (prop) => {
     setIndexDot(i)
   };
 
-  const dispath = useDispatch();
-
-  const { user } = useSelector((state) => state.user);
-  const { link } = useParams()
-  const [loadingManual, setLoadingManual] = useState(false)
-  const [bannerImgArr, setBannerImgArr] = useState([])
 
 
-
-
-  // const resizeFileBanner = (file) =>
-  //   new Promise((resolve) => {
-  //     setLoadingManual(true)
-  //     Resizer.imageFileResizer(
-  //       file,
-  //       585,
-  //       1039,
-  //       'JPEG',
-  //       80,
-  //       0,
-  //       (uri) => {
-  //         if (bannerImgArr.length > 6) return setLoadingManual(false)
-  //         // setBannerImg(uri);
-  //         setBannerImgArr([...bannerImgArr, uri])
-  //         // getAllImageBanner()
-  //         setIndexDot(bannerImgArr.length)
-  //         setFinishedIndex(bannerImgArr.length)
-  //         setLoadingManual(false)
-  //       },
-  //       'base64'
-  //     );
-  //   });
-
-  function arrayBufferToBase64Banner(buffer) {
-    var binary = '';
-    var bytes = [].slice.call(new Uint8Array(buffer));
-    bytes.forEach((b) => (binary += String.fromCharCode(b)));
-    return window.btoa(binary);
-  }
-
-  // GET ALL IMAGE
-
-  const getAllImageBanner = () => {
-    dispath(showLoading())
-    axios
-      .get(`${process.env.REACT_APP_API}/clients/allBanner/${link}`,)
-      .then((result) => {
-    
-        const getArrayBanner = result.data.images.bannerImage;
-       
-        // console.log(getArrayBanner)
-        const mapArrayBanner = getArrayBanner.map(el => {
-          const base64Flag = 'data:image/png;base64,';
-          const imageStr = arrayBufferToBase64Banner(el.data.data);
-          const tagImage = base64Flag + imageStr;
-       
-          return tagImage
-        })
-        setBannerImgArr(mapArrayBanner)
-        dispath(hideLoading());
-        
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-
-  };
-
-  useEffect(() => {
-    getAllImageBanner()
-
-  }, [link])
 
 
 
@@ -136,22 +50,22 @@ const BannerSubCompo = (prop) => {
             scaleOnDrag={false}
           >
             {
-              bannerImgArr.map((el, index) => (
-                <div className="unselectable" key={index}>
+              prop.bannerImgArr.map((el, index) => (
 
-                  <img ref={(element) => {
-                    elementRef.current[index] = element;
-                  }} onClick={drag} key={index} src={el} className='imageBannerFormC' />
+                // <img ref={(element) => {
+                //   elementRef.current[index] = element;
+                // }} onClick={drag} key={index} src={el} className='imageBannerFormC' />
+                <img key={index} src={el} className='imageBannerFormC' />
 
-                </div>
+
+
               ))
             }
-
           </Slider >
 
           {/* DOT BUTTON*/}
           <div className="dotBarFlex">
-            {Array.from({ length: bannerImgArr.length }).map((item, index) => (
+            {Array.from({ length: prop.bannerImgArr.length }).map((item, index) => (
               <button onClick={() => {
                 setIndexDot(index)
                 setFinishedIndex(index)

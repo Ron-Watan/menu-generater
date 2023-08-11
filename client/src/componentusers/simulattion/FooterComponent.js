@@ -240,10 +240,9 @@ const FooterComponent = (prop) => {
         ></div>
         {/* style={{ 'backgroundColor': `${prop.navAndFootBar.navBarColor}` } */}
       </nav>
-      <div className="eeeee"></div>
 
 
-      <div className=" fixed top-full -translate-y-full popupListBar">
+      <div className="fixed top-full popupListBar">
 
 
         {/* Slide Tab 1*/}

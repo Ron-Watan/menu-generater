@@ -51,6 +51,10 @@ const userSchema = mongoose.Schema(
       type: Array,
       default: [],
     },
+    bannerNumber: {
+      type: Number,
+
+    },
     languageSetup: {
       type: Object,
       default: {
@@ -111,7 +115,7 @@ const userSchema = mongoose.Schema(
       type: 'Object',
       default: {
         levelCode: 'Q', dotOption: '', cornersOption: '', dotCornersOption: '', colorQrCode: '#000', bgQrCode: '#fff',
-        sizeQr: 8, sizeQrPx: 300
+        sizeQr: 8, sizeQrPx: 300, logoQr: ''
       },
     },
     unseenFeedBack: {
@@ -129,6 +133,11 @@ const userSchema = mongoose.Schema(
     link: {
       type: String,
     },
+    bannerImage: {
+      type: Array,
+      default: [],
+    },
+
   },
   { timestamps: true }
 );

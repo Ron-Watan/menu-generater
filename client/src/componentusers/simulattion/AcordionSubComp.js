@@ -13,6 +13,7 @@ import axios from 'axios';
 // import { Hidden } from '@mui/material';
 // import { Checkbox, FormControlLabel, FormGroup } from '@mui/material';
 import { useSwipeable } from 'react-swipeable';
+import * as Util from "../_99Utility"
 
 
 import {
@@ -74,6 +75,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 
 
 const AcordionSubComp = (prop) => {
+  const photoHostName = `${process.env.REACT_APP_API}/user/photos/`
 
   const subListMenu = prop.listMunu.listMenu
 
@@ -156,65 +158,43 @@ const AcordionSubComp = (prop) => {
 
   },)
 
+  // const [file, setFile] = useState();
+  // const getImage = () => {
+  //   // dispath(showLoading())
+  //   axios
+  //     .post(`${process.env.REACT_APP_API}/user/images/preview`, { imgId: prop.listMunu.imgId })
+  //     .then((result) => {
+
+  //       if (!result.data.images) {
+  //         return setFile('')
+  //         // return dispath(hideLoading());
+  //       }
+
+  //       const getResult = result.data.images;
+
+  //       const base64Flag = 'data:image/png;base64,';
+  //       const imageStr = Util.arrayBufferToBase64(getResult.img.data.data);
+  //       const tagImage = base64Flag + imageStr;
+
+  //       // console.log(tagImage)
+
+  //       setFile(tagImage);
+  //       // dispath(hideLoading());
+  //       // setTimeout(() => {
+  //       //   dispath(hideLoading());
+  //       // }, 500);
+  //     })
+  //     .catch((err) => {
+  //       console.error(err);
+  //     });
+  // };
 
 
+  // useEffect(() => {
+  //   getImage();
+  // }, []);
 
 
-  // console.log(prop.triggerIcon)
-  // componentWillUnmount: function() {
-  //   window.removeEventListener('scroll', this.handleScroll);
-  // },
-
-  // const scrollFn = () => (event) {
-  //   let scrollTop = event.srcElement.body.scrollTop,
-  //     itemTranslate = Math.min(0, scrollTop / 3 - 60);
-
-  //   setState({
-  //     transform: itemTranslate
-  //   });
-  // },
-  const [file, setFile] = useState();
-  function arrayBufferToBase64(buffer) {
-    var binary = '';
-    var bytes = [].slice.call(new Uint8Array(buffer));
-    bytes.forEach((b) => (binary += String.fromCharCode(b)));
-    return window.btoa(binary);
-  }
-  const getImage = () => {
-    // dispath(showLoading())
-    axios
-      .post(`${process.env.REACT_APP_API}/user/images/preview`, { imgId: prop.listMunu.imgId })
-      .then((result) => {
-
-        if (!result.data.images) {
-          return setFile('')
-          // return dispath(hideLoading());
-        }
-
-        const getResult = result.data.images;
-
-        const base64Flag = 'data:image/png;base64,';
-        const imageStr = arrayBufferToBase64(getResult.img.data.data);
-        const tagImage = base64Flag + imageStr;
-
-        // console.log(tagImage)
-
-        setFile(tagImage);
-        // dispath(hideLoading());
-        // setTimeout(() => {
-        //   dispath(hideLoading());
-        // }, 500);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
-
-
-  useEffect(() => {
-    getImage();
-  }, []);
-  // console.log(prop.categoryMotion)
 
   const heartIcon = {
     favor1: 'favor1.svg', favor2: 'favor2.svg',
@@ -227,7 +207,7 @@ const AcordionSubComp = (prop) => {
       style={{ 'backgroundColor': `${prop.bodyStyle.bodyBgColor}` }}>
 
       <div className="categoryImg" style={{
-        backgroundImage: `url(${file})`,
+        backgroundImage: `url(${photoHostName}${prop.listMunu.imgId})`,
         backgroundPosition: 'center',
         backgroundSize: 'cover',
         height: `${prop.categoryMotion.categoryPhotoSize}`
@@ -241,7 +221,7 @@ const AcordionSubComp = (prop) => {
 
 
           }}> {prop.listMunu.catagory}</span>
-          <span className={`${prop.categoryMotion.categorySpanClass} ${(prop.triggerIcon[prop.indexM]||prop.categoryActiveTheme) && `${prop.categoryMotion.categoryActiveClass}`}`} style={{ 'backgroundColor': `${prop.categoryMotion.categorySpanColor}` }}></span>
+          <span className={`${prop.categoryMotion.categorySpanClass} ${(prop.triggerIcon[prop.indexM] || prop.categoryActiveTheme) && `${prop.categoryMotion.categoryActiveClass}`}`} style={{ 'backgroundColor': `${prop.categoryMotion.categorySpanColor}` }}></span>
         </div>
 
       </div>
@@ -260,14 +240,14 @@ const AcordionSubComp = (prop) => {
             </button>}
 
 
-            <i className="x">//=ON/OFF SlIDE ACCORDIAN </i>
+            <i className="x">ON/OFF SlIDE ACCORDIAN </i>
 
-            <i className="x">//- On Food Name 1 2</i>
+            <i className="x">On Food Name 1 2</i>
 
             <Accordion expanded={(expanded === el.panelCode || prop.accordian === false) && true} onChange={handleChange(el.panelCode)}>
               <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
 
-                <i className="x">//- Name 1 2</i>
+                <i className="x"> Name 1 2</i>
 
                 <div className={prop.sideBar ? 'paddingL_40' : ''}
                   style={{
@@ -278,7 +258,7 @@ const AcordionSubComp = (prop) => {
                   }}>
                   <span>{prop.language === 1 ? el.food_name : el.food_name_2}</span>
                 </div>
-                <i className="x">//- Price 1 2</i>
+                <i className="x"> Price 1 2</i>
 
                 <div className={`flex`}
                   style={{
@@ -297,11 +277,11 @@ const AcordionSubComp = (prop) => {
 
               </AccordionSummary>
 
-              <i className="x">//= IF ON DESCRIPTION </i>
+              <i className="x"> IF ON DESCRIPTION </i>
 
               {prop.description && <AccordionDetails>
 
-                <i className="x">//- Descritption 1 2</i>
+                <i className="x"> Descritption 1 2</i>
 
                 <EditorProvider>
                   <Editor readOnly disabled={true} value={prop.language === 1 ? el.description : el.description_2}
@@ -322,7 +302,7 @@ const AcordionSubComp = (prop) => {
                   </Editor>
                 </EditorProvider>
 
-                <i className="x">//- Remark 1 2</i>
+                <i className="x">Remark 1 2</i>
                 <EditorProvider>
                   <Editor readOnly disabled={true} value={prop.language === 1 ? el.remark : el.remark_2}
                     containerProps={{

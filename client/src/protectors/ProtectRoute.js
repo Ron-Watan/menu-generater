@@ -31,7 +31,9 @@ const ProtectRoute = () => {
           navigate('/login')
         }
       }).catch(err => {
-        console.log("App-CheckUserAuthorize/ Connection : fail", err)
+        console.log("App-CheckUserAuthorize/ Connection : fail")
+        console.log(err)
+
         dispath(hideLoading());
         // localStorage.clear()
         // navigate("/login");

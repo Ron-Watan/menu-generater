@@ -23,7 +23,6 @@
   z-index: 100;
 }
 .simulation {
-
   top: 0;
   left: 0;
   width: 100vw;
@@ -62,18 +61,10 @@
   width: 100vw;
   position: relative;
 }
-.navBar_Simutlate {
-  /* position: -webkit-fixed;
-  position: fixed !important; */
-  top: 0;
-  z-index: 1000;
-  max-width: 86rem;
-  width: 100%;
-  position: relative;
-  position: -webkit-sticky !important;
-  position: sticky !important;
-}
 
+.simulation::-webkit-scrollbar {
+  display: none;
+}
 
 /* .mobile_iframe::-webkit-scrollbar {
   display: none;
@@ -214,7 +205,7 @@
 }
 .MB_Make_PadingBanner {
   padding-top: 5rem;
-  padding-bottom: 2rem;
+  padding-bottom: 14rem;
 }
 
 .MB_Make_PadingLang {
@@ -237,6 +228,21 @@
   align-items: flex-start;
   background-color: #f3f3f3;
 }
+.MB_Positon_Bottom_btn_New {
+  display: flex;
+  align-items: center;
+  background-color: #f3f3f3;
+  min-height: 1.5rem;
+  padding: 0.5rem;
+  box-shadow: 3px 3px 10px 2px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  max-width: 86rem;
+  margin: 0 auto;
+}
 .bordertop {
   border-top: #999 solid 0.5px;
 }
@@ -256,7 +262,7 @@
   grid-template-columns: repeat(3, 1fr);
   justify-items: center;
   align-items: center;
-  padding-top: 0.5rem;
+  /* padding-top: 0.5rem; */
 }
 
 .MB_Frid_6Btn {
@@ -535,6 +541,15 @@
   box-shadow: 0.1rem 0.1rem 0.3rem rgba(0, 0, 0, 0.15);
   z-index: 1;
 }
+.MB_Btn2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 50%;
+  box-shadow: 0.1rem 0.1rem 0.3rem rgba(0, 0, 0, 0.15);
+}
 .forBinWhite {
   background-color: #ffffff8b;
 }
@@ -770,6 +785,11 @@
   transform: translateY(130%);
   /* top:  100rem !important; */
 }
+.MB_slide_Left {
+  transform: translateX(100%);
+  transition: all 0.3s;
+  /* top:  100rem !important; */
+}
 
 .MB_banner_Section {
   position: relative;
@@ -867,7 +887,11 @@
 /* 4444 /////////////////////////////////////// */
 .MB_Make_PadingForm {
   padding-top: 5rem;
-  padding-bottom: 5rem;
+  padding-bottom: 6rem;
+  padding-right: 0.2rem;
+}
+.MB_Make_PadingForm_AddLang {
+  padding-bottom: 12rem;
 }
 .MB_flexStartBtn {
   width: 100%;
@@ -1098,12 +1122,6 @@
   transition: all 0.3s;
 }
 
-.MB_slide_Left {
-  transform: translateX(100%);
-  transition: all 0.3s;
-  /* top:  100rem !important; */
-}
-
 @media (min-width: 1024px) {
   .MB_slide_Left {
     transform: translateY(100%);
@@ -1200,12 +1218,7 @@
   justify-content: space-between;
   align-items: flex-end;
 }
-.vhFormFood {
-  grid-template-rows: 1fr 18vh;
-}
-.vhFormFoodBtn {
-  height: 82vh;
-}
+
 .vhForSimulate {
   height: 100vh;
 }
@@ -1512,7 +1525,7 @@
   display: flex;
   align-items: center;
   width: 100%;
-  justify-content: end;
+  justify-content: flex-end;
   /* padding-right: 1rem; */
 }
 
@@ -1802,14 +1815,14 @@
   justify-content: center;
   align-items: center;
   position: absolute;
-  padding: 0.2rem;
+  padding: 0.2rem 0.5rem;
   height: 1.5rem;
   background-color: rgb(254 226 226);
   right: 0.2rem;
-  top: 0.2rem;
+  top: 0.6rem;
   font-weight: 500;
   color: #ef4444;
-  border-radius: 0.3rem;
+  border-radius: 0.8rem;
 }
 
 :where(.swal2-popup) {
@@ -1907,6 +1920,10 @@
   width: 12rem;
   height: 12rem;
   /* margin: 0 auto; */
+}
+.MB_qrCodeitem {
+  width: 100%;
+  height: 100%;
 }
 .MB_qrCodeitem canvas {
   width: 100%;

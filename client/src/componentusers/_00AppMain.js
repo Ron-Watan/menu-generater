@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { ticketPass } from '../protectors/authorize';
@@ -31,7 +31,6 @@ import _07TimePickerMobile from './_07TimePickerMobile';
 import _08LanguageSetupMobile from './_08LanguageSetupMobile';
 import _09ThemeSetupMobile from './_09ThemeSetupMobile';
 import _10OnOffSettingMobile from './_10OnOffSettingMobile';
-import FunctionalIFrameComponent from './zIframe.js'
 // import _MenuComponent from '../../src/components/_MenuComponent'
 
 import _SimulationApp from './simulattion/_SimulationApp'
@@ -52,18 +51,17 @@ import MBicon_Theme from '../all-icon/mobile-bar/theme.svg'
 import MBicon_Logout from '../all-icon/mobile-bar/logout.svg'
 import MBicon_Onoff from '../all-icon/mobile-bar/onoff.svg'
 import MBicon_StarNoti from '../all-icon/mobile-bar/starnoti.svg'
-import IFrame from './zIframe'
-import styled from '@emotion/styled';
-
-
-
-const icon = '/static/media/food-color-SVG-sprite.c7acaa791b17c993c83fb8c054053b75.svg#food-tray`';
+// import styled from '@emotion/styled';
+// import { S3Client, PutObjectCommand, S3 } from "@aws-sdk/client-s3"
+// import AWS from 'aws-sdk'
+import * as Util from "../componentusers/_99Utility"
 
 
 //-///-///-///-///-///-///-///-///-///-
 
 
 const _AppMain = () => {
+
   function getCurrentDimension() {
     return {
       width: window.innerWidth,
@@ -82,14 +80,24 @@ const _AppMain = () => {
     };
   }, [screenSize]);
 
-  // const banner = useRef();
+
 
   const dispath = useDispatch();
 
   //1//
   const { user } = useSelector((state) => state.user);
-  const [restaurantName, setRestaurantName] = useState('')
+
   //1// After Reload SET:
+  const [indexToBanner, setIndexToBanner] = useState('');
+
+  const [originalBannerImgArr, setOriginalBannerImgArr] = useState([]);
+  const [bannerImgArr, setBannerImgArr] = useState([]);
+  const [bannerNumber, setBannerNumber] = useState(0);
+  const [realBannerFile, setRealBannerFile] = useState([])
+
+
+
+
   const [originalClientMenu, setOriginalClientMenu] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
   const [categoryList_1, setCategoryList_1] = useState([])
@@ -122,28 +130,13 @@ const _AppMain = () => {
     style_2: true,
     followed_2: true,
   });
-  // const [onOffSetting, setOnOffSetting] = useState({
-
-  //   menuName: '', banner: '', sideBar: '', filter: '', vetgeterian: '', vegan: '', gluten_free: '', halal: '',
-  //   footbar: '', langIcon: '', favoritHeart: '', feedBack: ''
-  // })
-
-
-
-  // const timeSetup = {
-  //   timeType: timeType,
-  //   allDayType: { menu_1: menuAllDayType.menu_1, menu_2: menuAllDayType.menu_2, menu_3: menuAllDayType.menu_3 },
-  //   selectType: {
-  //     menu_1: sumTimeM1, menu_2: sumTimeM2, menu_3: sumTimeM3,
-  //   }
-  // }
 
   const [menuId, setMenuId] = useState('');
 
   const [menuTime, setMenuTime] = useState(1); // timeSwitcher()
 
   const [checkInputForm, setCheckInputForm] = useState(false)
-  // console.log(checkInputForm)
+
   const [state, setState] = useState({
     catagory: '',
     catagory_2: '',
@@ -220,17 +213,13 @@ const _AppMain = () => {
     let data = dataSet[index];
     data[name] = event
     setListMenu(dataSet);
-    // let dataSet = [...listMenu];
-    // let data = dataSet[index];
-    // data[event.target.name] = event.target.value;
-    // setListMenu(dataSet);
+
   };
 
 
   const [file, setFile] = useState();
+  const [filePreview, setFilePreview] = useState();
 
-  // const [description, setDescription] = useState("")
-  // const [originalName, setOriginalName] = useState('');
 
 
   const [protectLoading, setProtectLoading] = useState(false);
@@ -239,6 +228,7 @@ const _AppMain = () => {
   //- //= //-001_getAllMenu
   const getAllMenu = () => {
     dispath(showLoading())
+    console.log('getAllMenu')
     axios
       .post(`${process.env.REACT_APP_API}/user/getAllMenu`, { userId: user.userId }, ticketPass)
       .then((result) => {
@@ -246,7 +236,11 @@ const _AppMain = () => {
 
 
           const getReult = result.data.userMenu;
-          setOriginalClientMenu(getReult.menu);
+          setOriginalBannerImgArr(getReult.bannerImage)
+          setRealBannerFile(getReult.bannerImage)
+          setBannerImgArr(getReult.bannerImage)
+          setBannerNumber(getReult.bannerNumber)
+          // setOriginalClientMenu(getReult.menu);
           setCategoryList(getReult.menu);
 
           setMenuName(getReult.menuName);
@@ -270,6 +264,17 @@ const _AppMain = () => {
           // console.log(checkTime);
           // setCategoryList(result.data.userMenu.menu)
           // dispath(hideLoading())
+
+
+
+
+
+
+
+
+
+
+
           dispath(hideLoading())
           console.log('Server: Connected');
           setOnConnected(true);
@@ -286,110 +291,9 @@ const _AppMain = () => {
       });
   };
 
-  const checkMaximumLists = () => {
-    let countLists = 0;
-    categoryList.forEach((el) => {
-      if (el.menuTime === menuTime) countLists++;
-    });
-    return countLists;
-  };
 
 
   //- //= //-
-  const [checkEditImg, setCheckEditImg] = useState(false)
-  const [oneClickCat, setOneClickCat] = useState(false)
-
-
-  const submitCatagory = (e) => {
-    dispath(showLoading())
-
-    let imgId = uuidv4();
-    if (checkMaximumLists() > 14) return alert('DDDD');
-    // scrollToTop();
-    // if (!state.catagory.trim()) return;
-
-    // file && uploadImage();
-    // if(!file) imgId = 'a711e1b0-87ad-4156-bcac-52c05303c8fd'
-    // dispath(showLoading())
-    axios
-      .post(
-        `${process.env.REACT_APP_API}/user/create-manu`,
-        {
-          userId: user.userId,
-          clientId: user.clientId,
-          menuTime: menuTime,
-          catagory: state.catagory,
-          catagory_2: '',
-          icon_catagory: state.icon_catagory,
-          imgId: imgId,
-
-          link: user.link,
-          listMenu: [...listMenu],
-        },
-        ticketPass
-      )
-      .then((result) => {
-        if (result.data.success) {
-          const getReult = result.data.userMenu;
-          console.log('Submit Good !!!!!!!!!!!!!!')
-
-
-          checkEditImg && uploadImage(imgId)
-          // if (checkEditImg) {
-          // const newFile = dataURIToBlob(file);
-          // const formData = new FormData();
-
-          // formData.append('avatar', newFile, imgId);
-          // formData.append('userId', user.userId);
-          // axios
-          //   .post(`${process.env.REACT_APP_API}/user/images/uplaod`, formData)
-          //   // .post(`${process.env.REACT_APP_API}/user/images`, formData, { headers: { 'Content-Type': 'multipart/form-data' } })
-          //   .then((result) => {
-          //     dispath(hideLoading());
-          //     setCheckEditImg(false)
-          //   })
-          //   .catch((err) => {
-          //     console.error(err);
-          //   });
-          // }
-
-
-          // getAllMenu();
-          // actionDelay();
-          // Unchecked();
-          // clearAllPage();
-          // clearForm()
-          // dispath(hideLoading());
-
-          Swal.fire({
-            title: 'Saved',
-            toast: true,
-            icon: 'success',
-            showConfirmButton: false,
-            timer: 1500,
-          }).then(nothing => {
-            setCheckInputForm(false)
-            dispath(setUser(getReult));
-            setStart(false)
-            setMenuId('');
-            setCheckEditImg(false)
-            setOneClickCat(false)
-            dispath(hideLoading())
-          })
-
-        } else {
-          // Swal.fire(result.data.message)
-          dispath(hideLoading())
-        }
-      })
-      .catch((err) => {
-
-        console.log("Can't not connect the server");
-        Swal.fire("Can't not connect the server");
-      });
-  };
-
-
   //- //= //-
   const resizeFile = (file) =>
     new Promise((resolve) => {
@@ -408,95 +312,166 @@ const _AppMain = () => {
           setCheckEditImg(true)
           setImgLoading(false)
           dispath(hideLoading())
-
-
         },
-        'file'
+        'base64'
       );
     });
 
-  const dataURIToBlob = (dataURI) => {
+  // console.log(file)
+  const [checkEditImg, setCheckEditImg] = useState(false)
+  const [oneClickCat, setOneClickCat] = useState(false)
 
-    const splitDataURI = dataURI.split(',');
-    const byteString = splitDataURI[0].indexOf('base64') >= 0 ? atob(splitDataURI[1]) : decodeURI(splitDataURI[1]);
-    const mimeString = splitDataURI[0].split(':')[1].split(';')[0];
-
-    const ia = new Uint8Array(byteString.length);
-    for (let i = 0; i < byteString.length; i++) ia[i] = byteString.charCodeAt(i);
-
-    return new Blob([ia], { type: mimeString });
+  const checkMaximumLists = () => {
+    let countLists = 0;
+    categoryList.forEach((el) => {
+      if (el.menuTime === menuTime) countLists++;
+    });
+    return countLists;
   };
 
-  function arrayBufferToBase64(buffer) {
-    var binary = '';
-    var bytes = [].slice.call(new Uint8Array(buffer));
-    bytes.forEach((b) => (binary += String.fromCharCode(b)));
-    return window.btoa(binary);
-  }
-
-  function readURL(input) {
-
-    if (input.files && input.files[0]) {
-      var reader = new FileReader();
-
-      reader.onload = function (e) {
-        setFile(e.target.result)
-        // $('#blah')
-        //   .attr('src', e.target.result)
-        //   .width(150)
-        //   .height(200);
-      };
-
-      reader.readAsDataURL(input.files[0]);
-
-    }
-  }
 
 
+  const submitCatagory = (e) => {
+    let imgId = ''
+    if (file) imgId = user.link + '-' + uuidv4().slice(-8);
 
-  //- //= //-// UPLOAD IMAGE
-  const uploadImage = (imgId) => {
-    dispath(showLoading())
-
-    // const newFile = dataURIToBlob(file);
-    const formData = new FormData();
-
-    // formData.append('avatar', newFile, imgId);
-    // formData.append('userId', user.userId);
-
-    // console.log(file)
-    // formData.append('avatar', file, imgId);
-    // formData.append('userId', user.userId);
-    // console.log('formData good')
-
-
-
-    formData.append("avatar", file)
-    formData.append('imgId', imgId);
-
+    if (checkMaximumLists() > 14) return alert('Fullll');
     axios
-      // .post(`${process.env.REACT_APP_API}/user/images/uplaod`, formData)
-      .post(`${process.env.REACT_APP_API}/user/images/uplaod`, formData, { headers: { 'Content-Type': 'multipart/form-data' } })
+      .post(
+        `${process.env.REACT_APP_API}/user/create-manu`,
+        {
+          userId: user.userId,
+          clientId: user.clientId,
+          menuTime: menuTime,
+          catagory: state.catagory,
+          catagory_2: '',
+          icon_catagory: state.icon_catagory,
+          imgId: imgId,
+          link: user.link,
+          listMenu: [...listMenu],
+        },
+        ticketPass
+      )
       .then((result) => {
-        dispath(hideLoading())
+        if (result.data.success) {
+          const getReult = result.data.userMenu;
 
-        console.log('UpLoad Good')
+          if (file) {
+            const newFile = Util.dataURIToBlob(file);
+            const formData = new FormData();
+            formData.append('avatar', newFile, imgId);
+            formData.append('userId', user.userId);
+            axios
+              .post(`${process.env.REACT_APP_API}/user/photos/uplaod`, formData)
+              .then((result) => {
+                dispath(hideLoading());
+              })
+              .catch((err) => {
+                console.error(err);
+              });
+          }
 
+          Swal.fire({
+            title: 'Saved',
+            toast: true,
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 1500,
+          }).then(nothing => {
+            setCheckInputForm(false)
+            // dispath(setUser(getReult));
+            // setTimeout(() => {
+            getAllMenu();
+            setStart(false)
+            setMenuId('');
+            setCheckEditImg(false)
+            setOneClickCat(false)
+
+          })
+
+        } else {
+
+          dispath(hideLoading());
+        }
       })
       .catch((err) => {
-        dispath(hideLoading())
-        alert('Image TooLarge')
-        console.error(err);
+        dispath(hideLoading());
+        console.log("Can't not connect the server");
+        Swal.fire("Can't not connect the server");
       });
   };
 
 
+
+
+  //- //= //-// UPLOAD IMAGE
+
+  const uploadImage = (imgId) => {
+
+    axios
+      .post(`${process.env.REACT_APP_API}/user/images/uplaod`, file)
+      .then((result) => {
+        dispath(hideLoading());
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  // const uploadImage1 = (imgId) => {
+  //   const newFile = Util.dataURIToBlob(file);
+  //   const formData = new FormData();
+
+  //   formData.append('avatar', newFile, imgId);
+  //   formData.append('userId', user.userId);
+  //   axios
+  //     .post(`${process.env.REACT_APP_API}/user/images/uplaod`, formData)
+  //     .then((result) => {
+  //       dispath(hideLoading());
+  //     })
+  //     .catch((err) => {
+  //       console.error(err);
+  //     });
+  // };
+
+  // console.log(state.imgId)
+  //- //= //-
+  // const saveImage = () => {
+
+  //   let imgId = ''
+  //   if (!state.imgId) imgId = user.link + '-' + uuidv4().slice(-8);
+  //   else imgId = state.imgId
+
+  //   console.log(imgId)
+  //   const newFile = Util.dataURIToBlob(file);
+  //   const formData = new FormData();
+  //   formData.append('avatar', newFile, imgId);
+  //   formData.append('userId', user.userId);
+  //   axios
+  //     .post(`${process.env.REACT_APP_API}/user/images/uplaod`, formData)
+  //     .then((result) => {
+  //       // getAllImage()
+  //       dispath(hideLoading());
+  //     })
+  //     .catch((err) => {
+  //       console.error(err);
+  //     });
+
+  // };
+
+
+
   //- //= //-
   const saveEditMenu = (e) => {
+    if (!menuId) return;
     dispath(showLoading())
 
-    if (!menuId) return;
-    checkEditImg && saveImage();
+    let imgId = ''
+    if (!state.imgId) imgId = user.link + '-' + uuidv4().slice(-8);
+    else imgId = state.imgId
+
+    checkEditImg && delelteImage();
+
 
     axios
       .post(
@@ -509,7 +484,7 @@ const _AppMain = () => {
           catagory: state.catagory,
           catagory_2: state.catagory_2,
           icon_catagory: state.icon_catagory,
-          imgId: state.imgId,
+          imgId: imgId,
           link: user.link,
 
           listMenu: [...listMenu],
@@ -517,9 +492,28 @@ const _AppMain = () => {
         ticketPass
       )
       .then((result) => {
+
         if (result.data.success) {
-          dispath(setUser(result.data.userMenu));
-          setCheckEditImg(false)
+
+
+          if (checkEditImg) {
+            const newFile = Util.dataURIToBlob(file);
+            const formData = new FormData();
+            formData.append('avatar', newFile, imgId);
+            formData.append('userId', user.userId);
+            axios
+              .post(`${process.env.REACT_APP_API}/user/photos/uplaod`, formData)
+              .then((result) => {
+                getAllMenu()
+                dispath(hideLoading());
+              })
+              .catch((err) => {
+                console.error(err);
+              });
+          }
+
+          // getAllMenu()
+          // dispath(setUser(result.data.userMenu));
           Swal.fire({
             title: 'Saved',
             // text: 'Your menu has been saved',
@@ -530,13 +524,14 @@ const _AppMain = () => {
 
             timer: 1500,
           }).then(nothing => {
+
+
             !checkInputForm && setStart(false)
             setCheckInputForm(false)
             setCheckEditImg(false)
             setOneClickCat(false)
 
             dispath(hideLoading())
-
             // }, 1500);
           });
         } else {
@@ -551,63 +546,165 @@ const _AppMain = () => {
       });
   };
 
-
-
-  // const [allImage, setAllImage] = useState([]);
-
-  // const getAllImage = () => {
-  //   setLoadingManual(true)
-
-  //   console.log('all Img')
-  //   console.log(user.userId)
-  //   axios
-  //     .post(`${process.env.REACT_APP_API}/user/images/all`, { userId: user.userId })
-  //     .then((result) => {
-
-  //       const getResult = result.data.images;
-  //       const mapAllImage = getResult.map((el) => {
-  //         const base64Flag = 'data:image/png;base64,';
-  //         const imageStr = arrayBufferToBase64(el.img.data.data);
-  //         const tagImage = base64Flag + imageStr;
-  //         return {
-  //           imgId: el.imgId,
-  //           tagImage: tagImage,
-  //         };
-  //       });
-
-
-  //       setLoadingManual(false)
-  //       setCheckEditImg(false)
-
-  //     })
-  //     .catch((err) => {
-  //       console.error(err);
-  //     });
-  // };
-
-  //- //= //-
-  const saveImage = () => {
+  const [imgLoading, setImgLoading] = useState(false)
+  const getImage = (imgId) => {
     dispath(showLoading())
-
-    const newFile = dataURIToBlob(file);
-    const formData = new FormData();
-
-    formData.append('avatar', newFile, state.imgId);
-    formData.append('userId', user.userId);
     axios
-      .post(`${process.env.REACT_APP_API}/user/images/save`, formData)
+      .post(`${process.env.REACT_APP_API}/user/photos/getImage`, { imgId: imgId })
       .then((result) => {
-        dispath(hideLoading())
+        if (!result.data.images.filename) {
+          dispath(hideLoading())
+          return setFile('')
+        }
+        console.log(result.data.images.filename)
+        setFile(result.data.images.filename);
+        setFilePreview(result.data.images.filename)
+        setTimeout(() => {
+          dispath(hideLoading())
+        }, 500);
 
       })
       .catch((err) => {
-        alert('Image TooLarge')
+        dispath(hideLoading())
         console.error(err);
       });
+  };
+  //=//=//=//=//=//=//=//=//=//=//=//=//=
+  const findOneMenu = (menuId) => {
+
+    setStart(true);
+    setOnOffLangForm(false);
+    scrollToTop();
+    setMenuId(menuId);
+    setFile('')
+
+
+    categoryList.map(oneMennu => {
+
+      if (oneMennu.menuId === menuId) {
+        oneMennu.imgId && getImage(oneMennu.imgId)
+        setState({
+          catagory: oneMennu.catagory,
+          catagory_2: oneMennu.catagory_2,
+          icon_catagory: oneMennu.icon_catagory,
+          imgId: oneMennu.imgId,
+        });
+        setListMenu(oneMennu.listMenu);
+      }
+
+
+    })
+
+
   };
 
 
 
+  const additem = () => {
+    let newListMenu = listMenuModel;
+    setListMenu([...listMenu, newListMenu]);
+
+  };
+
+  const removeItem = (index) => {
+
+    Swal.fire({
+      title: 'Do you want to delete an item?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Delete',
+      denyButtonText: `Don't delete`,
+      confirmButtonColor: ' #dc3741',
+      denyButtonColor: '#f56e4f',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setCheckInputForm(true)
+        let data = [...listMenu];
+        data.splice(index, 1);
+        setListMenu(data);
+      }
+    })
+
+  };
+
+  //- //= //-
+  const delelteImage = () => {
+    if (!state.imgId) return
+    if (!file) {
+      setMenuId('');
+      setStart(false);
+    } else {
+
+      axios
+        .post(`${process.env.REACT_APP_API}/user/photos/delete`, { imgId: state.imgId })
+        .then((result) => {
+          setTimeout(() => {
+            setMenuId('');
+            setStart(false);
+          }, 1000);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+  };
+
+
+  const deleteMenu = (e) => {
+    e.preventDefault();
+
+    Swal.fire({
+      title: 'Do you want to delete Category?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Delete',
+      denyButtonText: `Don't delete`,
+      confirmButtonColor: ' #dc3741',
+      denyButtonColor: '#f56e4f',
+    }).then((result) => {
+
+      if (result.isConfirmed) {
+        dispath(showLoading())
+        delelteImage()
+        axios
+          .post(`${process.env.REACT_APP_API}/user/deleteMenu`, { menuId: menuId, listMenu: [...listMenu], userId: user.userId, link: user.link }, ticketPass)
+          .then((result) => {
+            if (result.data.success) {
+              Swal.fire({
+                title: 'Delete',
+                toast: true,
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 1000,
+              }).then(Fired => {
+                // dispath(setUser(result.data.userMenu));
+                getAllMenu();
+                setCheckInputForm(false)
+                setStart(false)
+                setMenuId('');
+                setCheckEditImg(false)
+                setOneClickCat(false)
+                dispath(hideLoading())
+
+              });
+
+            } else {
+              Swal.fire(result.data.message);
+              dispath(hideLoading())
+            }
+          })
+          .catch((err) => {
+
+            console.log("Can't not connect the server");
+            Swal.fire("Can't not connect the server");
+          });
+
+
+      }
+    })
+
+
+  };
   const saveReArangeList = () => {
     dispath(showLoading())
 
@@ -647,282 +744,6 @@ const _AppMain = () => {
         Swal.fire("Can't not connect the server");
       });
   };
-  //- 005_findOneMenu
-
-  // const findOneMenu = (e) => {
-  //   e.preventDefault();
-  //   setStart(true);
-  //   setOnOffLangForm(false);
-  //   const menuId = e.target.name;
-  //   setMenuId(menuId);
-  //   scrollToTop();
-  //   dispath(showLoading());
-  //   axios
-  //     .post(`${process.env.REACT_APP_API}/user/findOneMenu`, { menuId: menuId, userId: user.userId }, ticketPass)
-  //     .then((result) => {
-  //       if (result.data.success) {
-  //         dispath(hideLoading());
-  //         chooseMenu(result.data.userMenu);
-  //         actionDelay();
-  //       } else {
-  //         Swal.fire(result.data.message);
-  //         dispath(hideLoading());
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       // dispath(hideLoading())
-  //       console.log("Can't not connect the server", err);
-  //       Swal.fire("Can't not connect the server");
-  //     });
-  // };        
-
-
-  // <button onClick={() => {
-  //   setGetAllImageBannerTG((getAllImageBannerTG) => getAllImageBannerTG + 1)
-  //   prop.setTestTG((prop.testTG) => prop.testTG + 1)
-  // }
-  // const [triggerMemo, setTriggerMemo] = useState('')
-
-
-  // useEffect(() => {
-  //   if (triggerMemo) {
-  //     setMemoListMenu([...categoryList]);
-  //     console.log('meeeeeeeeeee')
-  //   }
-  // }, [triggerMemo]);
-
-
-
-  // const [someValue, setSomeValue] = useState(0)
-  // const heloooo = (() => {
-  //   console.log('heloo2')
-  // })
-  // const getNumberWithMemo = useCallback(() => {
-  //   console.log('hello')
-  //   heloooo()
-  // }, [someValue])
-
-  // setSomeValue((prev) => ++prev)
-
-  // const funrrr = () => {
-  //   const resr = document.querySelector('#food-name')
-  //   return resr.value
-  //   console.log(resr)
-  // }
-
-  const [imgLoading, setImgLoading] = useState(false)
-  const getImage = (imgId) => {
-    dispath(showLoading())
-    axios
-      .post(`${process.env.REACT_APP_API}/user/images/preview`, { imgId: imgId })
-      .then((result) => {
-        if (!result.data.images) {
-
-          dispath(hideLoading())
-          return setFile('')
-
-        }
-
-        const getResult = result.data.images;
-        const base64Flag = 'data:image/png;base64,';
-        const imageStr = arrayBufferToBase64(getResult.img.data.data);
-        const tagImage = base64Flag + imageStr;
-
-        setFile(tagImage);
-        dispath(hideLoading())
-      })
-      .catch((err) => {
-        dispath(hideLoading())
-        console.error(err);
-      });
-  };
-  //=//=//=//=//=//=//=//=//=//=//=//=//=
-
-  const findOneMenu = (menuId) => {
-
-    setStart(true);
-    setOnOffLangForm(false);
-    scrollToTop();
-    // const menuId = e.target.name;
-    setMenuId(menuId);
-    setFile('')
-    // dispath(showLoading())
-
-    categoryList.map(oneMennu => {
-
-      if (oneMennu.menuId === menuId) {
-
-        oneMennu.imgId && getImage(oneMennu.imgId)
-        // allImage.map(el => {
-        //   if (el.imgId === oneMennu.imgId) {
-        //     setFile(el.tagImage)
-        //     setLoadingManual(false)
-        //   }
-
-        // })
-
-        setState({
-          catagory: oneMennu.catagory,
-          catagory_2: oneMennu.catagory_2,
-          icon_catagory: oneMennu.icon_catagory,
-          imgId: oneMennu.imgId,
-        });
-        setListMenu(oneMennu.listMenu);
-        // setMemoIcon(oneMennu.icon_catagory)
-
-
-
-      }
-
-
-
-    })
-
-    // const newData = [...categoryList]
-    // console.log(newData === categoryList);
-
-
-    // user.menu.map(oneMennu => {
-    //   if (oneMennu.menuId === menuId) {
-
-    //     allImage.map(el => {
-    //       if (el.imgId === oneMennu.imgId) {
-    //         setFile(el.tagImage)
-    //       }
-    //     })
-
-
-    //     setMemoListMenu([...oneMennu.listMenu])
-
-    //   }
-    // })
-
-
-  };
-
-
-
-
-
-  const clearAllPage = () => {
-    setStart(false);
-    setMenuId('');
-    setFile('');
-    setListMenu([listMenuModel]);
-    setState({ catagory: '', imgId: '' });
-
-  };
-
-
-
-
-  const additem = () => {
-    let newListMenu = listMenuModel;
-    setListMenu([...listMenu, newListMenu]);
-
-  };
-
-  const removeItem = (index) => {
-
-    Swal.fire({
-      title: 'Do you want to delete an item?',
-      showDenyButton: true,
-      showCancelButton: true,
-      confirmButtonText: 'Delete',
-      denyButtonText: `Don't delete`,
-      confirmButtonColor: ' #dc3741',
-      denyButtonColor: '#f56e4f',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        setCheckInputForm(true)
-        let data = [...listMenu];
-        data.splice(index, 1);
-        setListMenu(data);
-      }
-    })
-
-  };
-  const [deleteLoading, setDeleteLoading] = useState(false)
-  //- //= //-
-  const delelteImage = () => {
-    dispath(showLoading())
-    setDeleteLoading(true)
-
-    if (!file) {
-      setDeleteLoading(false)
-      setMenuId('');
-      setStart(false);
-    } else {
-
-      axios
-        .post(`${process.env.REACT_APP_API}/user/images/delete`, { imgId: state.imgId })
-        .then((result) => {
-          setTimeout(() => {
-            setDeleteLoading(false)
-            dispath(hideLoading())
-            setMenuId('');
-            setStart(false);
-          }, 1000);
-
-        })
-        .catch((err) => {
-          dispath(hideLoading())
-          console.error(err);
-        });
-    }
-  };
-
-
-  const deleteMenu = (e) => {
-    e.preventDefault();
-
-    Swal.fire({
-      title: 'Do you want to delete Category?',
-      showDenyButton: true,
-      showCancelButton: true,
-      confirmButtonText: 'Delete',
-      denyButtonText: `Don't delete`,
-      confirmButtonColor: ' #dc3741',
-      denyButtonColor: '#f56e4f',
-    }).then((result) => {
-
-      if (result.isConfirmed) {
-        dispath(showLoading())
-        delelteImage()
-        axios
-          .post(`${process.env.REACT_APP_API}/user/deleteMenu`, { menuId: menuId, listMenu: [...listMenu], userId: user.userId, link: user.link }, ticketPass)
-          .then((result) => {
-            if (result.data.success) {
-              Swal.fire({
-                title: 'Delete',
-                toast: true,
-                icon: 'success',
-                showConfirmButton: false,
-                timer: 1000,
-              }).then(Fired => {
-                dispath(setUser(result.data.userMenu));
-                setCheckInputForm(false)
-                // dispath(hideLoading())
-
-              });
-
-            } else {
-              Swal.fire(result.data.message);
-              dispath(hideLoading())
-            }
-          })
-          .catch((err) => {
-
-            console.log("Can't not connect the server");
-            Swal.fire("Can't not connect the server");
-          });
-
-
-      }
-    })
-
-
-  };
   // menus.forEach(menu => {
   //   menu.list.map(el => {
 
@@ -932,43 +753,38 @@ const _AppMain = () => {
   // })
 
   const [deleteBtn, setDeleteBtn] = useState(false);
-  // function showDeleteBtn() { }
-  // const [valuePhoto, setvaluePhoto] = useState('No file Chosen');
-  // const valuePhotoFn = (e) => {
-  //   setvaluePhoto(e.target.value);
-  // };
 
   const [start, setStart] = useState(false);
 
 
   const ref = useRef([]);
 
-  const Unchecked = () => {
-    // console.log(ref.current.length)
-    for (let i = 0; i < ref.current.length; i++) {
-      ref.current[i].checked = false;
-    }
-  };
-  const Checked = () => {
-    // console.log(ref.current.length)
-    for (let i = 0; i < ref.current.length; i++) {
-      ref.current[i].checked = true;
-    }
-  };
+  // const Unchecked = () => {
+  //   // console.log(ref.current.length)
+  //   for (let i = 0; i < ref.current.length; i++) {
+  //     ref.current[i].checked = false;
+  //   }
+  // };
+  // const Checked = () => {
+  //   // console.log(ref.current.length)
+  //   for (let i = 0; i < ref.current.length; i++) {
+  //     ref.current[i].checked = true;
+  //   }
+  // };
 
-  const [stateUp, setStateUp] = useState({
-    file: null,
-  });
-  const fileHandler = (e) => {
-    setStateUp({ ...stateUp, file: e.target.files[0] });
-    document.getElementById('h1').textContent = e.target.files[0].name;
-  };
+  // const [stateUp, setStateUp] = useState({
+  //   file: null,
+  // });
+  // const fileHandler = (e) => {
+  //   setStateUp({ ...stateUp, file: e.target.files[0] });
+  //   document.getElementById('h1').textContent = e.target.files[0].name;
+  // };
 
-  function actionDelay() {
-    setTimeout(() => {
-      getAllMenu();
-    }, 2000);
-  }
+  // function actionDelay() {
+  //   setTimeout(() => {
+  //     getAllMenu();
+  //   }, 2000);
+  // }
   //=//=//=//=//=//=//=//=//=//=//=//=//=
 
 
@@ -981,6 +797,7 @@ const _AppMain = () => {
         icon_catagory: '/static/media/_empty.7b62bbf4b02d3d65f678e4361123ec76.svg#empty000',
       });
       setFile('');
+      setPreviewImg(iconPhoto)
       resolve(listMenu)
 
     });
@@ -1035,19 +852,6 @@ const _AppMain = () => {
 
 
   }
-  // const chooseMenu = (oneMennu) => {
-  //   setState({
-  //     catagory: oneMennu.catagory,
-  //     catagory_2: oneMennu.catagory_2,
-  //     icon_catagory: oneMennu.icon_catagory,
-  //     imgId: oneMennu.imgId,
-  //   });
-  //   setMenuId(oneMennu.menuId);
-  //   getImage(oneMennu.imgId);
-  //   actionDelay();
-  //   setListMenu(oneMennu.listMenu);
-  //   setMemoIcon(oneMennu.icon_catagory);
-  // };
 
   const scrollToTop = () => {
     window.scrollTo(0, 0);
@@ -1057,40 +861,17 @@ const _AppMain = () => {
   //   document.body.classList.remove('overflow-hidden');
   // }
 
-  const [activeInput, setactiveInput] = useState(false);
 
-  /////// CLOSE CONTROL /////////////////////////
-  // function timeSwitcher(menuNo) {
-  // setMenuTime(menuNo);
-  // callmenuName(menuNo)
-  // menuTimeNameFn(menuNo)
-  // clearAllPage()
-
-  // actionDelay();
-  // };
-  const [bannerImgArr, setBannerImgArr] = useState([]);
-
-  const [indexToBanner, setIndexToBanner] = useState('');
 
   // UPLOAD IMAGE
-
-  const dataURIToBlobBanner = (dataURI) => {
-    const splitDataURI = dataURI.split(',');
-    const byteString = splitDataURI[0].indexOf('base64') >= 0 ? atob(splitDataURI[1]) : decodeURI(splitDataURI[1]);
-    const mimeString = splitDataURI[0].split(':')[1].split(';')[0];
-
-    const ia = new Uint8Array(byteString.length);
-    for (let i = 0; i < byteString.length; i++) ia[i] = byteString.charCodeAt(i);
-
-    return new Blob([ia], { type: mimeString });
-  };
 
 
   const [checkChangeName, setCheckChangeName] = useState(false)
   const currentMenuName = 'menu_' + menuTime
   const inputMenuTimeName = (e) => {
+    setMenuName({ ...menuName, [currentMenuName]: e.target.value })
+    setCheckChangeName(true)
   }
-
   const saveNameMenu = () => {
     dispath(showLoading())
     axios
@@ -1141,29 +922,24 @@ const _AppMain = () => {
 
   const [checkChangeTheme, setCheckChangeTheme] = useState(false)
 
-
-  const [noSetTheme, setNoSetTheme] = useState('')
-  const [nameTheme, setNameTheme] = useState('')
-
   //  ----------------------------------------------------------------------------------------------
-  const [restaurantLogo, setRestaurantLogo] = useState('')
-  // const imgId = user.link + 'restlogo'
-  // const currentRestaurantName = user.restaurant_name
-  // const inputRestaurantName = (e) => {
-  //   setCheckChangeTheme(true)
-  //   prop.setRestaurantName(e.target.value)
-  // }
+  const [restaurantName, setRestaurantName] = useState('')
+  // const [logoRestaurant, setLogoRestaurant] = useState('') // for DB
   // 1 ----------------------------------------------------------------------------------------------
   const [navAndFootBar, setNavAndFootBar] = useState({
     nameFontFamily: '', nameFontColor: '', nameFontSize: '',
     navBarColor: '', navBarFontColor: '',
-    footBarStyle: ''
+    footBarStyle: '', logoRestaurant: ''
   })
-  const { nameFontFamily, nameFontColor, nameFontSize, navBarColor, navBarFontColor, footBarStyle } = navAndFootBar
+  const { nameFontFamily, nameFontColor, nameFontSize, navBarColor, navBarFontColor, footBarStyle, logoRestaurant } = navAndFootBar
 
   const nameAllFontStyleFn = (name) => (e) => {
     setCheckChangeTheme(true)
     setNavAndFootBar({ ...navAndFootBar, [name]: e.target.value })
+  }
+  const logoRestaurantFn = (name, value) => {
+    setCheckChangeTheme(true)
+    setNavAndFootBar({ ...navAndFootBar, [name]: value })
   }
   // 2 ----------------------------------------------------------------------------------------------
 
@@ -1281,7 +1057,7 @@ const _AppMain = () => {
   const [saveImageBannerTG, setSaveImageBannerTG] = useState(0);
   const [resizeFileBannerTG, setResizeFileBannerTG] = useState(0);
   const [getAllImageBannerTG, setGetAllImageBannerTG] = useState(0);
-
+  const [getQRCodeTG, setGetQRCodeTG] = useState(0);
 
   const [activeWindowIconPicker, setActiveWindowIconPicker] = useState(false);
   const [memoicon, setMemoIcon] = useState('');
@@ -1297,6 +1073,9 @@ const _AppMain = () => {
   const [navOnOff2OnOffSetting, setVavOnOff2OnOffSetting] = useState(0);
 
   //=
+
+
+  const [turnOnFormSection, setTurnOnFormSection] = useState(false)
 
   const [onConnected, setOnConnected] = useState(false);
 
@@ -1319,15 +1098,6 @@ const _AppMain = () => {
 
   const [getStarNotification, setGetStarNotification] = useState('')
 
-  // function usePrevious(value) {
-  //   const ref = useRef();
-  //   // useEffect(() => {
-  //   ref.current = value; //assign the value of ref to the argument
-  //   // }, [value]); //this code will run when the value of 'value' changes
-  //   console.log(ref.current)
-  //   return ref.current; //in the end, return the current ref value.
-  // }
-
   if (onOffBanner_MB || onOffMenu1_MB || onOffMenu2_MB ||
     onOffMenu3_MB || onOffTimePicker_MB || onOffLangSetup_MB || onOffFeedBAck_MB || onOffSetting_MB || onOffQRCCode_MB) {
     document.body.classList.add('overflow-hidden')
@@ -1339,11 +1109,10 @@ const _AppMain = () => {
     if (user.userId) getAllMenu()
   }, [user]);
 
-
   // useEffect(() => {
-  //   getAllImage()
-  // }, [user.userId]);
-
+  //   if (user.userId) getAllImage()
+  // }, [user]);
+  const [previewImg, setPreviewImg] = useState(iconPhoto)
 
   //-///=///-///=///-///=///-///=///-   END FUNCTION   ///-///=///-///=///-///=///-///=///-
 
@@ -1369,8 +1138,10 @@ const _AppMain = () => {
         </div>
 
         <div className={`mobile_function ${!onOffQRCCode_MB && 'MB_slide_Down'}`}>
-          <_02QRCode setProtectLoading={setProtectLoading}
-            setOnOffQRCCode_MB={setOnOffQRCCode_MB} uploadImage={uploadImage} dataURIToBlob={dataURIToBlob} arrayBufferToBase64={arrayBufferToBase64}
+          <_02QRCode
+            setProtectLoading={setProtectLoading}
+            getQRCodeTG={getQRCodeTG}
+            setOnOffQRCCode_MB={setOnOffQRCCode_MB} uploadImage={uploadImage}
           />
         </div>
 
@@ -1381,18 +1152,22 @@ const _AppMain = () => {
           <_03BannerMobile setProtectLoading={setProtectLoading}
             bannerImgArr={bannerImgArr}
             setBannerImgArr={setBannerImgArr}
+            bannerNumber={bannerNumber}
             indexToBanner={indexToBanner}
             setIndexToBanner={setIndexToBanner}
-            deleteImageBannerTG={deleteImageBannerTG}
-            saveImageBannerTG={saveImageBannerTG}
-            resizeFileBannerTG={resizeFileBannerTG}
-            setResizeFileBannerTG={setResizeFileBannerTG}
-            getAllImageBannerTG={getAllImageBannerTG}
+            // deleteImageBannerTG={deleteImageBannerTG}
+            // saveImageBannerTG={saveImageBannerTG}
+            // resizeFileBannerTG={resizeFileBannerTG}
+            // setResizeFileBannerTG={setResizeFileBannerTG}
+            // getAllImageBannerTG={getAllImageBannerTG}
             setOnoffBanner_MB={setOnoffBanner_MB}
-            setDeleteImageBannerTG={setDeleteImageBannerTG}
-            setSaveImageBannerTG={setSaveImageBannerTG}
-            userId={user.userId}
-
+            // setDeleteImageBannerTG={setDeleteImageBannerTG}
+            // setSaveImageBannerTG={setSaveImageBannerTG}
+            originalBannerImgArr={originalBannerImgArr}
+            setOriginalBannerImgArr={setOriginalBannerImgArr}
+            realBannerFile={realBannerFile}
+            setRealBannerFile={setRealBannerFile}
+            getAllMenu={getAllMenu}
           />
         </div>
 
@@ -1435,7 +1210,7 @@ const _AppMain = () => {
 
         </div>
 
-        <div className={` mobile_formFood ${!start && 'MB_slide_Down'}`}>
+        {turnOnFormSection && <div className={` mobile_formFood ${!start && 'MB_slide_Left'}`}>
           <_04MobileFormFood setProtectLoading={setProtectLoading}
             ref={ref} menuId={menuId} listMenu={listMenu} inputListValue={inputListValue} iconPhoto={iconPhoto} file={file}
             resizeFile={resizeFile} delelteImage={delelteImage} setFile={setFile} additem={additem} removeItem={removeItem}
@@ -1446,11 +1221,13 @@ const _AppMain = () => {
             getAllMenu={getAllMenu} loadingManual={loadingManual} clearForm={clearForm} checkEditImg={checkEditImg}
             oneClickCat={oneClickCat}
             setOneClickCat={setOneClickCat}
-
+            previewImg={previewImg}
+            setPreviewImg={setPreviewImg}
+            setCheckEditImg={setCheckEditImg}
+            filePreview={filePreview}
           />
-
-        </div>
-        <div className={` mobile_formFood ${!onOffLangForm && 'MB_slide_Down'}`}>
+        </div>}
+        <div className={` mobile_formFood ${!onOffLangForm && 'MB_slide_Left'}`}>
           <_04MobileLanguage setProtectLoading={setProtectLoading}
             state={state} listMenu={listMenu} inputValue={inputValue} inputRQuill={inputRQuill}
             inputListValue={inputListValue} setOnOffLangForm={setOnOffLangForm} setStart={setStart} saveEditMenu={saveEditMenu}
@@ -1481,14 +1258,15 @@ const _AppMain = () => {
           <_09ThemeSetupMobile setProtectLoading={setProtectLoading}
             setOnOffThemeSetup_MB={setOnOffThemeSetup_MB} navTheme2ThemeSetUp={navTheme2ThemeSetUp}
             restaurantName={restaurantName} setRestaurantName={setRestaurantName}
-            reloadIFrame={reloadIFrame} setMBnavIcon={setMBnavIcon} dataURIToBlob={dataURIToBlob} arrayBufferToBase64={arrayBufferToBase64}
-            restaurantLogo={restaurantLogo}
-            setRestaurantLogo={setRestaurantLogo}
+            setMBnavIcon={setMBnavIcon}
+            // logoRestaurant={logoRestaurant}
+            // setLogoRestaurant={setLogoRestaurant} //for Mongo
             // setNameTheme={setNameTheme}
             // nameTheme={nameTheme}
             navAndFootBar={navAndFootBar}
             setNavAndFootBar={setNavAndFootBar}
             nameAllFontStyleFn={nameAllFontStyleFn}
+            logoRestaurantFn={logoRestaurantFn}
             nameFontFamily={nameFontFamily}
             nameFontColor={nameFontColor}
             nameFontSize={nameFontSize}
@@ -1584,7 +1362,8 @@ const _AppMain = () => {
 
 
             <button onClick={() => {
-              setOnOffQRCCode_MB(!onOffQRCCode_MB);
+              setOnOffQRCCode_MB(!onOffQRCCode_MB)
+              setGetQRCodeTG((getQRCodeTG) => getQRCodeTG + 1)
             }}
               name='Manu1MB'
               className={`MC_Tab MB_None `} >
@@ -1623,6 +1402,7 @@ const _AppMain = () => {
 
             <button onClick={() => {
               setOnoffMenu1_MB(!onOffMenu1_MB);
+              setTurnOnFormSection(true)
               setMenuTime(1)
             }}
               name='Manu1MB'
@@ -1634,6 +1414,8 @@ const _AppMain = () => {
             <i className='x'> 5 Menu2-----------------------------------------------</i>
             <button onClick={() => {
               setOnoffMenu2_MB(!onOffMenu2_MB);
+              setTurnOnFormSection(true)
+
               setMenuTime(2)
             }}
               name='Manu1MB'
@@ -1644,6 +1426,8 @@ const _AppMain = () => {
             <i className='x'> 6 Menu3-----------------------------------------------</i>
             <button onClick={() => {
               setOnoffMenu3_MB(!onOffMenu3_MB);
+              setTurnOnFormSection(true)
+
               setMenuTime(3)
             }}
               name='Manu1MB'
@@ -1737,13 +1521,16 @@ const _AppMain = () => {
       >
 
         <_SimulationApp
-          restaurantLogo={restaurantLogo}
+          menuName={menuName}
+
+          logoRestaurant={logoRestaurant}
           restaurantName={restaurantName}
           allMenuName={menuName}
           themeSetup={themeSetup}
           navAndFootBar={navAndFootBar}
           bodyStyle={bodyStyle}
 
+          bannerImgArr={bannerImgArr}
 
           categoryList_1={categoryList_1}
           categoryList_2={categoryList_2}
@@ -1764,7 +1551,7 @@ const _AppMain = () => {
           extraIcon={extraIcon}
 
           link={user.link}
-          bannerImgArr={bannerImgArr}
+
 
           onOffSetting={onOffSetting}
           languageSetup={languageSetup}

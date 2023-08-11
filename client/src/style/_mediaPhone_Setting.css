@@ -99,7 +99,7 @@
 
 .oclock {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   font-size: 0.8rem;
   font-weight: 400;
   color: #999;
@@ -1124,7 +1124,7 @@ input:checked + .forOFLang2:before {
   justify-self: flex-end;
 }
 .okColorBtn:hover {
-  transform: scale(1.1);
+  /* transform: scale(1.02); */
   background-color: #9bb0df;
 }
 .cancleColorBtn:hover {
@@ -1187,7 +1187,11 @@ input:checked + .forOFLang2:before {
 .MB_Make_PadingTime {
   padding: 1.5rem;
   padding-top: 6rem;
-  padding-bottom: 2rem;
+  padding-bottom: 8rem;
+}
+.MB_Make_Iconpicker {
+
+  padding-bottom: 8rem;
 }
 .gapG15 {
   margin-bottom: 1.5rem;

@@ -339,7 +339,7 @@ const _07TimePickerMobile = (prop) => {
           }).then(nothinh => {
             prop.setOnOffTimePicker_MB(false);
             dispath(setUser(result.data.userMenu));
-          
+
           })
         } else {
           Swal.fire(result.data.message);
@@ -486,10 +486,9 @@ const _07TimePickerMobile = (prop) => {
         </div>
       </div>
 
+      <div className="MB_Standard_0_FullAgain  MB_SetGrid_Full zindexUnderTop">
 
-      <div className="MB_Standard_0_FullAgain  MB_SetGrid_ForBtn zindexUnderTop">
-
-        <div className="MB_Standard_Section_canScroll  MB_Make_PadingTime MB_Wrap_ForBtn " >
+        <div className="MB_Standard_Section_canScroll  MB_Make_PadingTime  " >
 
           <div className="MB_timePickerCard2 gapG15">
 
@@ -933,14 +932,15 @@ const _07TimePickerMobile = (prop) => {
 
         </div>
 
-        <div className="MB_Positon_Bottom_btn">
+        {/* SAVE BUTTON */}
+
+        {/* <div className="MB_Positon_Bottom_btn">
           <div className="MB_Frid_3Btn">
 
-            {/* SAVE BUTTON */}
+
 
             <button
               onClick={() => {
-                // setWindowConfirmFn()
                 setTimeValue(code);
                 setTimePicker([...timePickerData]);
               }}
@@ -949,20 +949,23 @@ const _07TimePickerMobile = (prop) => {
               <span>Save</span>
             </button>
 
-            {/* CANCEL BUTTON */}
-            {/* <button onClick={() => {
-              getTimeFromProp()
-              setCheckTimeChange(false)
-            }}
-              className='MB_Sq_Btn CancelPadding MB_Btn_Border MB_G3'>
 
+          </div>
+        </div> */}
+        <div className="MB_Positon_Bottom_btn_New">
+          <div className="MB_Frid_3Btn">
+            <button
+              onClick={() => {
+                setTimeValue(code);
+                setTimePicker([...timePickerData]);
+              }}
+              className='MB_Sq_Btn SaveBtnSize MB_Btn_Color  MB_G2'>
 
-              <span>Cancel</span>
-            </button> */}
+              <span>Save</span>
+            </button>
 
           </div>
         </div>
-
 
 
 
@@ -1031,7 +1034,7 @@ const _07TimePickerMobile = (prop) => {
               </div>
             )}
 
-            <div className='MB_Frid_3Btn'>
+            {/* <div className='MB_Frid_3Btn'>
               <button
                 onClick={() => {
                   saveTimeSetup();
@@ -1039,7 +1042,6 @@ const _07TimePickerMobile = (prop) => {
                   prop.setonOffMenuTime(false);
                 }}
                 className='MB_Sq_Btn MB_Btn_Color MB_G2'>
-
                 <span>Confirm222</span>
               </button>
 
@@ -1048,7 +1050,7 @@ const _07TimePickerMobile = (prop) => {
 
                 <span>Cancel</span>
               </button>
-            </div>
+            </div> */}
           </div>
         )}
 

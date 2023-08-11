@@ -104,7 +104,7 @@ const _10OnOffSettingMobile = (prop) => {
       <div className="MB_AB_FullAgain zindexUnder1 ">
         <div className="MB_2LangLayout_Grid ">
           <div className="">
-            <div className="MB_InScroll_fullNew paddingBottom_5 overScroll_none">
+            <div className="MB_InScroll_fullNew paddingBottom_5">
 
 
               <div className="MB_OnOffContainer ">

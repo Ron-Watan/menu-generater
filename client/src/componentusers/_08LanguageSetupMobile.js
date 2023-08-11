@@ -176,8 +176,8 @@ const _08LanguageSetupMobile = (prop) => {
       </div>
 
 
-      <div className="MB_Standard_0_FullAgain  MB_SetGrid_ForBtn zindexUnderTop">
-        <div className="MB_Standard_Section_canScroll  MB_Make_PadingTime MB_Wrap_ForBtn " >
+      <div className="MB_Standard_0_FullAgain  MB_SetGrid_Full zindexUnderTop">
+        <div className="MB_Standard_Section_canScroll  MB_Make_PadingTime " >
 
           <div className="  " >
             <div className='MB_titletopLang'>Default Language</div>
@@ -316,7 +316,7 @@ const _08LanguageSetupMobile = (prop) => {
 
         </div>
 
-        <div className="MB_Positon_Bottom_btn">
+        <div className="MB_Positon_Bottom_btn_New">
           <div className="MB_Frid_3Btn">
 
             {/* SAVE BUTTON */}
@@ -336,23 +336,7 @@ const _08LanguageSetupMobile = (prop) => {
 
       </div>
 
-      {/* <div className="MB_Frid_3Btn">
-        <i className="x">SAVE BUTTON</i>
-
-        <button onClick={saveLangSetup}
-          className='MB_Sq_Btn MB_Btn_Color MB_G2'>
-          <span>SAVE</span>
-        </button>
-
-        <i className="x">CANCEL BUTTON</i>
-
-        <button onClick={() => prop.setOnOffLangSetup_MB(false)}
-          className='MB_Sq_Btn MB_Btn_Border MB_G3'>
-
-          <span>CANCEL</span>
-        </button>
-
-      </div> */}
+ 
 
 
     </div>

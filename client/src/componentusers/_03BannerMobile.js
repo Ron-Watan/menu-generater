@@ -1,44 +1,41 @@
-import React, { useEffect, useRef, useState } from 'react'
-// import Slider from 'react-touch-drag-slider'
+import React, { useState } from 'react'
 import MBiconBin from '../all-icon/button-icon/MBbin.svg'
 import MBiconPlus from '../all-icon/button-icon/MBplusicon.svg'
 import MBiconClose from '../all-icon/button-icon/MBclose.svg'
 import MBiconDown from '../all-icon/button-icon/down.svg'
-
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { hideLoading, showLoading } from '../redux/alertSlice';
 import Resizer from 'react-image-file-resizer';
-// import SwipeToDelete from 'react-swipe-to-delete-ios'
 import Swal from 'sweetalert2'
+import { ticketPass } from '../protectors/authorize';
+import { setUser } from '../redux/userSlice'
 
 
 const _03BannerMobile = (prop) => {
 
-  const [indexDot, setIndexDot] = useState(0)
-  function setFinishedIndex(i) {
-    prop.setIndexToBanner(i)
-  };
+  const photoHostName = `${process.env.REACT_APP_API}/user/photos/`
 
   const dispath = useDispatch();
   const { user } = useSelector((state) => state.user);
-
-  const [loadingManual, setLoadingManual] = useState(false)
-
+  const { loading } = useSelector((state) => state.alerts);
   const [checkBannerChange, setCheckBannerChange] = useState(false)
+
+
 
   const resizeFileBanner = (file) =>
     new Promise((resolve) => {
       dispath(showLoading())
       Resizer.imageFileResizer(
         file,
-        585,
-        1039,
-        'JPEG',
-        80,
+        390,
+        693,
+        'JPG',
+        90,
         0,
         (uri) => {
-          if (prop.bannerImgArr.length > 6) return setLoadingManual(false)
+      
+          if (prop.bannerImgArr.length > 6) return dispath(hideLoading())
           prop.setBannerImgArr([...prop.bannerImgArr, uri])
           setCheckBannerChange(true)
           dispath(hideLoading())
@@ -46,65 +43,273 @@ const _03BannerMobile = (prop) => {
         'base64'
       );
     });
-  function arrayBufferToBase64Banner(buffer) {
-    var binary = '';
-    var bytes = [].slice.call(new Uint8Array(buffer));
-    bytes.forEach((b) => (binary += String.fromCharCode(b)));
-    return window.btoa(binary);
-  }
 
-  const dataURIToBlobBanner = (dataURI) => {
-    const splitDataURI = dataURI.split(',');
-    const byteString = splitDataURI[0].indexOf('base64') >= 0 ? atob(splitDataURI[1]) : decodeURI(splitDataURI[1]);
-    const mimeString = splitDataURI[0].split(':')[1].split(';')[0];
 
-    const ia = new Uint8Array(byteString.length);
-    for (let i = 0; i < byteString.length; i++) ia[i] = byteString.charCodeAt(i);
 
-    return new Blob([ia], { type: mimeString });
-  };
 
-  // UPLOAD IMAGE
+
+
+
+
+
+
+
+
+  const resizeFileBannerReal = (file) =>
+    new Promise((resolve, reject) => {
+      dispath(showLoading())
+      Resizer.imageFileResizer(
+        file,
+        390,
+        693,
+        'JPG',
+        90,
+        0,
+        (uri) => {
+          if (prop.realBannerFile.length > 6) return dispath(hideLoading())
+          prop.setRealBannerFile([...prop.realBannerFile, uri])
+          setCheckBannerChange(true)
+
+          dispath(hideLoading())
+        },
+        'file'
+      );
+   
+    });
+
+
+  //-
 
   const uploadImageBanner = () => {
-    setCheckBannerChange(true)
     dispath(showLoading())
+    if (prop.realBannerFile.length === 0) {
+      return Swal.fire({
+        title: 'Saved',
+        toast: true,
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 1000,
+      }).then(nothinh => {
+        prop.setOnoffBanner_MB(false)
+        prop.setIndexToBanner('')
+        dispath(hideLoading())
+      })
+    }
+    if (!checkBannerChange) {
+      return Swal.fire({
+        title: 'Saved',
+        toast: true,
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 1000,
+      }).then(nothinh => {
+        prop.setOnoffBanner_MB(false)
+        prop.setIndexToBanner('')
+        dispath(hideLoading())
+      })
+    }
 
-    const newData = [...prop.bannerImgArr]
-    const formData = new FormData();
-    formData.append('userId', user.userId);
-    formData.append('link', user.link);
-    newData.forEach(bannerImg => {
-      const newFile = dataURIToBlobBanner(bannerImg);
-      formData.append('avatar', newFile);
+    let imgId = user.link + '-banner--'
+    let linkDB = []
+    for (let i = 0; i < prop.realBannerFile.length; i++) {
+      linkDB.push(imgId + i)
+    }
+
+    //SAVE PHOTOS
+    let formData = '';
+    const newData = [...prop.realBannerFile] // File
+    newData.forEach((bannerImg, index) => {
+
+      if (bannerImg.slice(0, -10) === user.link) {
+        axios
+          .post(`${process.env.REACT_APP_API}/user/photos/rename`, { imgId: bannerImg, newImgId: imgId + index })
+          .then((result) => {
+            Swal.fire({
+              title: 'Saved',
+              toast: true,
+              icon: 'success',
+              showConfirmButton: false,
+              timer: 800,
+            }).then(nothinh => {
+              // prop.getAllMenu()
+              getAllImageBanner()
+              // window.location.reload(false)
+              prop.setOnoffBanner_MB(false)
+              prop.setIndexToBanner('')
+              setCheckBannerChange(false)
+              dispath(hideLoading())
+            })
+          })
+      }
+
+      else if (bannerImg.slice(0, -10) !== user.link) {
+        formData = new FormData()
+        formData.append('avatar', bannerImg, imgId + index);
+        axios
+          .post(`${process.env.REACT_APP_API}/user/photos/uplaod`, formData)
+          .then((result) => {
+            // console.log(result)
+
+            Swal.fire({
+              title: 'Saved',
+              toast: true,
+              icon: 'success',
+              showConfirmButton: false,
+              timer: 1000,
+            }).then(next => {
+              // prop.getAllMenu()
+              getAllImageBanner()
+              // window.location.reload(false)
+              prop.setOnoffBanner_MB(false)
+              prop.setIndexToBanner('')
+              setCheckBannerChange(false)
+              dispath(hideLoading())
+            })
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      }
+
+
+
     })
+    //SAVE DB
     axios
-      .post(`${process.env.REACT_APP_API}/user/images/uplaodBanner`, formData)
+      .post(`${process.env.REACT_APP_API}/user/photos/dataBanner`,
+        { userId: user.userId, bannerImage: linkDB, banner: prop.bannerImgArr.length })
       .then((result) => {
-        Swal.fire({
-          title: 'Saved',
-          toast: true,
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 1000,
-        }).then(nothinh => {
-          prop.setOnoffBanner_MB(false)
-          prop.setIndexToBanner('')
-          setCheckBannerChange(false)
-          dispath(hideLoading())
+        // const getReult = result.data.userMenu;
 
-        })
-
+        // prop.getAllMenu()
+        // getAllImageBanner()
+        // dispath(setUser(getReult))
+        console.log('bata1')
+        // dispath(hideLoading())
       })
       .catch((err) => {
         console.error(err);
       });
 
 
-    // setTimeout(() => {
-    // dispath(hideLoading());
-    // }, 2000);
+  };
 
+
+  //=
+  //=
+  //=
+  //=
+
+  const uploadImageBanner1 = () => {
+
+
+    let imgIdDel = user.link + '-banner--'
+    let linkDBDel = []
+    for (let i = 0; i < 7; i++) {
+      linkDBDel.push(imgIdDel + i)
+    }
+
+
+    axios
+      .post(`${process.env.REACT_APP_API}/user/photos/deleteArray`, { imgId: linkDBDel })
+      .then((result) => {
+
+        // dispath(showLoading())
+        let imgId = user.link + '-banner--'
+        let linkDB = []
+        for (let i = 0; i < prop.realBannerFile.length; i++) {
+          linkDB.push(imgId + i)
+        }
+
+        //SAVE PHOTOS
+        let formData = '';
+        const newData = [...prop.realBannerFile] // File
+        newData.forEach((bannerImg, index) => {
+
+          if (bannerImg.slice(0, -10) === user.link) {
+            axios
+              .post(`${process.env.REACT_APP_API}/user/photos/rename`, { imgId: bannerImg, newImgId: imgId + index })
+              .then((result) => {
+                Swal.fire({
+                  title: 'Saved',
+                  toast: true,
+                  icon: 'success',
+                  showConfirmButton: false,
+                  timer: 800,
+                }).then(nothinh => {
+                  prop.getAllMenu()
+                  getAllImageBanner()
+                  window.location.reload(false)
+                  prop.setOnoffBanner_MB(false)
+                  prop.setIndexToBanner('')
+                  setCheckBannerChange(false)
+                  dispath(hideLoading())
+                })
+              })
+          }
+
+          else if (bannerImg.slice(0, -10) !== user.link) {
+            formData = new FormData()
+            formData.append('avatar', bannerImg, imgId + index);
+            axios
+              .post(`${process.env.REACT_APP_API}/user/photos/uplaod`, formData)
+              .then((result) => {
+                // console.log(result)
+
+                Swal.fire({
+                  title: 'Saved',
+                  toast: true,
+                  icon: 'success',
+                  showConfirmButton: false,
+                  timer: 1000,
+                }).then(next => {
+                  // prop.getAllMenu()
+                  getAllImageBanner()
+                  // window.location.reload(false)
+                  prop.setOnoffBanner_MB(false)
+                  prop.setIndexToBanner('')
+                  setCheckBannerChange(false)
+                  dispath(hideLoading())
+                })
+              })
+              .catch((err) => {
+                console.error(err);
+              });
+          }
+
+
+
+        })
+        //SAVE DB
+        axios
+          .post(`${process.env.REACT_APP_API}/user/photos/dataBanner`,
+            { userId: user.userId, bannerImage: linkDB, banner: prop.bannerImgArr.length })
+          .then((result) => {
+            // const getReult = result.data.userMenu;
+
+            // prop.getAllMenu()
+            // getAllImageBanner()
+            // dispath(setUser(getReult))
+            console.log('bata1')
+            // dispath(hideLoading())
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+
+
+
+
+
+
+
+
+
+
+
+
+
+      })
 
   };
 
@@ -112,34 +317,23 @@ const _03BannerMobile = (prop) => {
 
 
 
-  // GET ALL IMAGE
-  const [curBanner, setCurBanner] = useState([])
 
 
-  // console.log(Boolean(prop.bannerImgArr === curBanner))
+
+
+  //=
   const getAllImageBanner = () => {
-    dispath(showLoading())
 
-    setCheckBannerChange(false)
 
     axios
-      .post(`${process.env.REACT_APP_API}/user/images/allBanner`, { userId: user.userId })
+      .post(`${process.env.REACT_APP_API}/user/getAllMenu`, { userId: user.userId }, ticketPass)
       .then((result) => {
+        // console.log(result.data.userMenu)
         if (result.data.success) {
-          const getArrayBanner = result.data.images.bannerImage;
 
-
-          const mapArrayBanner = getArrayBanner.map(el => {
-            const base64Flag = 'data:image/png;base64,';
-            // const imageStr = arrayBufferToBase64Banner(el.img.data.data);
-            const imageStr = arrayBufferToBase64Banner(el.data.data);
-            const tagImage = base64Flag + imageStr;
-            return tagImage
-          })
-          prop.setBannerImgArr(mapArrayBanner)
-
-          dispath(hideLoading())
-          console.log('BannerPhoto Completed');
+          const getReult = result.data.userMenu;
+          // dispath(setUser(result.data.userMenu));
+          prop.setBannerImgArr(getReult.bannerImage)
 
         }
       })
@@ -150,8 +344,16 @@ const _03BannerMobile = (prop) => {
   };
 
   const deleteImageBanner = () => {
+
+    let imgId = user.link + '-banner--'
+    let linkDB = []
+    for (let i = 0; i < prop.realBannerFile.length; i++) {
+      linkDB.push(imgId + i)
+    }
+    linkDB.splice(prop.indexToBanner, 1)
+
     Swal.fire({
-      title: 'Do you want to delete an item?',
+      title: 'Do you want to delete this Photo?',
       showDenyButton: true,
       showCancelButton: true,
       confirmButtonText: 'Delete',
@@ -159,21 +361,47 @@ const _03BannerMobile = (prop) => {
       confirmButtonColor: ' #dc3741',
       denyButtonColor: '#f56e4f',
     }).then((result) => {
-      if (result.isConfirmed) {
 
+      if (result.isConfirmed) {
         const newData = [...prop.bannerImgArr]
         newData.splice(prop.indexToBanner, 1)
         prop.setBannerImgArr(newData)
-        setCheckBannerChange(true)
+        //////////////////////////
+        const newData2 = [...prop.realBannerFile]
+        let dataDeleted = newData2.splice(prop.indexToBanner, 1)
+        prop.setRealBannerFile(newData2)
+        prop.setIndexToBanner('')
+        if (dataDeleted[0].slice(0, -10) !== user.link) return
+        console.log('delete')
+        axios
+          .post(`${process.env.REACT_APP_API}/user/photos/delete`, { imgId: dataDeleted[0] })
+          .then((result) => {
+
+            //SAVE DB
+            axios
+              .post(`${process.env.REACT_APP_API}/user/photos/dataBanner`,
+                { userId: user.userId, bannerImage: linkDB, banner: prop.bannerImgArr.length - 1 })
+              .then((result) => {
+                console.log('bata2')
+                dispath(hideLoading())
+              })
+              .catch((err) => {
+                console.error(err);
+              });
+
+
+
+          })
       }
     })
 
   }
 
 
+
   function arrayMmove(arr, old_index, new_index) {
     setCheckBannerChange(true)
-    dispath(showLoading())
+
     if (new_index >= arr.length) {
       var k = new_index - arr.length + 1;
       while (k--) {
@@ -183,28 +411,40 @@ const _03BannerMobile = (prop) => {
     const newData = [...arr]
     newData.splice(new_index, 0, newData.splice(old_index, 1)[0]);
     prop.setBannerImgArr(newData)
-    dispath(hideLoading())
+
+
     if (old_index - new_index > 0) prop.setIndexToBanner(prop.indexToBanner - 1)
     else prop.setIndexToBanner(prop.indexToBanner + 1)
 
   };
 
-  useEffect(() => {
-    if (prop.getAllImageBannerTG) {
-      getAllImageBanner();
+
+  function arrayMmove2(arr, old_index, new_index) {
+    setCheckBannerChange(true)
+
+    if (new_index >= arr.length) {
+      var k = new_index - arr.length + 1;
+      while (k--) {
+        arr.push(undefined);
+      }
     }
-  }, [prop.getAllImageBannerTG]);
+    const newData = [...arr]
+    newData.splice(new_index, 0, newData.splice(old_index, 1)[0]);
 
-  useEffect(() => {
-    // if(prop.bannerImgArr) return
-    if (user.userId) getAllImageBanner()
-  }, [user])
+    prop.setRealBannerFile(newData)
 
 
 
+    if (old_index - new_index > 0) prop.setIndexToBanner(prop.indexToBanner - 1)
+    else prop.setIndexToBanner(prop.indexToBanner + 1)
+
+  };
 
 
-  const { loading } = useSelector((state) => state.alerts);
+
+
+
+
 
   const checkBannerChangeFn = () => {
 
@@ -225,6 +465,10 @@ const _03BannerMobile = (prop) => {
         } else if (result.isDenied) {
           prop.setOnoffBanner_MB(false)
           prop.setIndexToBanner('')
+          prop.getAllMenu()
+          // prop.setBannerImgArr(prop.originalBannerImgArr)
+          // prop.setBannerPreviewArr(prop.originalBannerImgArr)
+
           setCheckBannerChange(false)
         }
       })
@@ -237,13 +481,31 @@ const _03BannerMobile = (prop) => {
     }
   }
 
+  // useEffect(() => {
+  //   if (prop.getAllImageBannerTG) {
+  //     prop.getAllMenu()
+  //   }
+  // }, [prop.getAllImageBannerTG]);
+
+  // useEffect(() => {
+  //   // if(prop.bannerImgArr) return
+  //   if (user.userId) getAllImageBanner()
+  // }, [user])
+
+
+  // useEffect(() => {
+  //   if (prop.originalBannerImgArr.length === prop.bannerNumber) convertBanner()
+  // }, [prop.originalBannerImgArr])
+
+
+
   return (
     <div className="MC_Standard_0_FullPage">
-      <div className={`${loadingManual ? 'showMe' : 'hiddenMe'} photoLoading`}>
+      {/* <div className={`${loadingManual ? 'showMe' : 'hiddenMe'} photoLoading`}>
         <div className="iconLoadingBanner">
           <span className='barOne'></span > <span className='barTwo'></span> <span className='barThree'></span>
         </div>
-      </div>
+      </div> */}
       <div className="topBar_function backdrop_blur">
         <div className="GruopBtn">
           <button onClick={() => {
@@ -262,18 +524,19 @@ const _03BannerMobile = (prop) => {
         <div className={`GruopBtn ${prop.bannerImgArr.length === 7 && 'hiddenMe'}`}>
           <label htmlFor='file-uploadBanner' className='MB_Btn MB_Btn_Color'>
             <img src={MBiconPlus} alt="" />
-            <input
-              onChange={(e) => {
-
-                // if (e.target.files.length === 0) return;
-                resizeFileBanner(e.target.files[0]);
-                e.target.value = ''
-              }}
-              id='file-uploadBanner'
-              name='file-uploadBanner'
-              type='file'
-              className='inputPhoto w_h_3'
-            />
+            <form action="" encType='multipart/form-data' >
+              <input
+                onChange={(e) => {
+                  resizeFileBanner(e.target.files[0]);
+                  resizeFileBannerReal(e.target.files[0])
+                  e.target.value = ''
+                }}
+                id='file-uploadBanner'
+                name='file-uploadBanner'
+                type='file'
+                className='inputPhoto w_h_3'
+              />
+            </form>
           </label>
           <span className='MB_textBtn'>Add Photo</span>
         </div>
@@ -282,11 +545,11 @@ const _03BannerMobile = (prop) => {
       </div>
 
       {/* <div className="MB_banner_Section">  zindexUnder1 */}
-      <div className="MB_Standard_0_FullAgain MB_SetGrid_ForBtn zindexUnderTop">
+      <div className="MB_Standard_0_FullAgain MB_SetGrid_Full zindexUnderTop">
 
 
         {/* <div className="MB_InScroll_fullNew paddingBottom_8 overScroll_none "> */}
-        <div className="MB_Standard_Section_canScroll MB_Make_PadingBanner MB_Wrap_ForBtn " >
+        <div className="MB_Standard_Section_canScroll MB_Make_PadingBanner " >
 
           {/* <div className="MB_PaddingWrapper"> */}
           <div className="MB_bannerShow_Flex_Column">
@@ -294,8 +557,17 @@ const _03BannerMobile = (prop) => {
 
 
               <div key={index} className={`bannerShow_list ${prop.indexToBanner === index && 'MB_bannerShow_chooseCat'}`}>
-                <button name={el.menuId} onClick={() => prop.setIndexToBanner(index)} className={`btnCat MB_photoSize ${prop.indexToBanner === index && 'MB_sizeBigger'}`}>
-                  <img src={el} className='MB_imageBannerForm photoList' />
+                <button onClick={() => prop.setIndexToBanner(index)} className={`btnCat MB_photoSize ${prop.indexToBanner === index && 'MB_sizeBigger'}`}>
+
+                  {/* //= */}
+
+                  {/* <img src={el} className='MB_imageBannerForm photoList' /> */}
+
+                  {/* {el.slice(0, -10) === user.link && <img src={`${photoHostName}${el}`} className='MB_imageBannerForm photoList' />}
+                  {el.slice(0, -10) !== user.link && <img src={el} className='MB_imageBannerForm photoList' />} */}
+                  <img src={`${el.slice(0, -10) === user.link ? photoHostName + el : el}`} className='MB_imageBannerForm photoList' />
+
+
                 </button>
 
                 <div className={` MB_smIconAB ${prop.indexToBanner === index ? '' : 'displayNone'}`}>
@@ -304,7 +576,7 @@ const _03BannerMobile = (prop) => {
                       deleteImageBanner()
                       // prop.setDeleteImageBannerTG((deleteImageBannerTG) => deleteImageBannerTG + 1);
                     }}
-                    value={el.menuId}
+                    // value={el.menuId}
                     type='submit'
                     className={`MB_Btn forBinWhite`}>
 
@@ -313,12 +585,19 @@ const _03BannerMobile = (prop) => {
                 </div>
 
                 <div className="MB_postUpDown">
-                  <button onClick={() => { arrayMmove(prop.bannerImgArr, index, index - 1) }}
+                  <button onClick={() => {
+                    arrayMmove(prop.bannerImgArr, index, index - 1)
+                    arrayMmove2(prop.realBannerFile, index, index - 1)
+
+                  }}
                     className={`smallUpDown up ${index === 0 ? 'hiddenMe' : ''}
                   ${prop.indexToBanner === index ? '' : 'hiddenMe'}`}>
                     <img src={MBiconDown} alt="" /></button>
 
-                  <button onClick={() => { arrayMmove(prop.bannerImgArr, index, index + 1) }}
+                  <button onClick={() => {
+                    arrayMmove(prop.bannerImgArr, index, index + 1)
+                    arrayMmove2(prop.realBannerFile, index, index + 1)
+                  }}
                     className={`smallUpDown ${index == prop.bannerImgArr.length - 1 ? 'hiddenMe' : ''}
                     ${prop.indexToBanner === index ? '' : 'hiddenMe'}`}>
                     <img src={MBiconDown} alt="" /></button>
@@ -337,7 +616,7 @@ const _03BannerMobile = (prop) => {
 
 
         </div>
-        <div className="MB_Positon_Bottom_btn">
+        <div className="MB_Positon_Bottom_btn_New">
           <div className="MB_Frid_3Btn">
 
             {/* SAVE BUTTON */}

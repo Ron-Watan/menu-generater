@@ -55,8 +55,8 @@ const _20IconPickerMobile = (prop) => {
         <div className="floatBtnIcon">
         </div>
       </div>
-      <div className="MB_Standard_0_FullAgain topiconinPicker MB_SetGrid_ForIconPick zindexUnderTop">
-        <div className="MB_Standard_Section_canScroll  MB_Wrap_ForIconPick  overScroll_none" >
+      <div className="MB_Standard_0_FullAgain topiconinPicker MB_SetGrid_Full zindexUnderTop">
+        <div className="MB_Standard_Section_canScroll  overScroll_none MB_Make_Iconpicker" >
 
 
           <div className='MB_iconPickerTable'>
@@ -142,7 +142,7 @@ const _20IconPickerMobile = (prop) => {
 
 
         </div>
-        <div className="MB_Positon_Bottom_btn">
+        <div className="MB_Positon_Bottom_btn_New">
           <div className="MB_Frid_3Btn">
 
             <button onClick={() => prop.setActiveWindowIconPicker(false)} className='MB_Sq_Btn SaveBtnSize MB_Btn_Color MB_G2'>

@@ -106,7 +106,7 @@ const _04MenuForm = (prop) => {
             prop.openForm()
 
             checkReArange()
-          }} href='#topForm' type='button' form='foodForm' className={`MB_Btn MB_Btn_Color`}>
+          }} type='button' form='foodForm' className={`MB_Btn MB_Btn_Color`}>
             <img src={MBiconPlus} alt="" />
           </a>
           <span className='MB_textBtn'>Add Category</span>
@@ -117,8 +117,9 @@ const _04MenuForm = (prop) => {
 
       <div className="MB_Standard_0_FullAgain  MB_SetGrid_Full zindexUnderTop">
 
+      {/* <div onTouchMove={reloadAllMenu}  className="MB_Standard_Section_canScroll MB_Make_PadingBanner paddingBottom_9 overScroll_none" > */}
 
-        <div onTouchMove={reloadAllMenu}  className="MB_Standard_Section_canScroll MB_Make_PadingBanner paddingBottom_9 overScroll_none" >
+        <div className="MB_Standard_Section_canScroll MB_Make_PadingBanner paddingBottom_9 overScroll_none" >
 
 
           <div className="MB_categoryStart">
@@ -132,18 +133,18 @@ const _04MenuForm = (prop) => {
               .map((el, index) => (
                 <div className="MB_Flex_LisrBtn" key={index} >
                   <div className={`MB_tabCat `}>
-                    <a name={el.menuId} onClick={() => {
+                    <button name={el.menuId} onClick={() => {
                       checkReArange()
                       prop.findOneMenu(el.menuId)
-                    }} href='#topForm' className={`itemCat  ${prop.menuId === el.menuId ? 'itemCatChoose' : ''}`}>
+                    }}  className={`itemCat  ${prop.menuId === el.menuId ? 'itemCatChoose' : ''}`}>
                       {index + 1}
-                    </a>
-                    <a name={el.menuId} onClick={() => {
+                    </button>
+                    <button name={el.menuId} onClick={() => {
                       checkReArange()
                       prop.findOneMenu(el.menuId)
-                    }} href='#topForm' className='btnCat'>
+                    }}  className='btnCat'>
                       {el.catagory}
-                    </a>
+                    </button>
                   </div>
 
 
