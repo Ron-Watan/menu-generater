@@ -11,15 +11,15 @@ import { useSelector } from "react-redux"
 import UserPool from "../UserPool"
 import { CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js'
 // import * as AWS from "@aws-sdk/client-cognito-identity-provider";
-import AWS from 'aws-sdk'
+// import AWS from 'aws-sdk'
 // AWS.config.update({ region: 'us-west-1' });
-AWS.config.update({
-  accessKeyId: 'AKIA33D3AZGQPRO6F77Q',
-  secretAccessKey: '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',
-  region: 'us-west-1',
-  // UserPoolId: 'us-west-1_lmMYcjfH6',
-  // ClientId: '2j1e3apf787h6e1trgao5jak8m'
-});
+// AWS.config.update({
+//   accessKeyId: 'AKIA33D3AZGQPRO6F77Q',
+//   secretAccessKey: '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',
+//   region: 'us-west-1',
+//   // UserPoolId: 'us-west-1_lmMYcjfH6',
+//   // ClientId: '2j1e3apf787h6e1trgao5jak8m'
+// });
 
 // const cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider({
 //   // accessKeyId: 'AKIA33D3AZGQPRO6F77Q',

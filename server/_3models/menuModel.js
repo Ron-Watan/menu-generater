@@ -39,11 +39,11 @@ const userSchema = mongoose.Schema(
       },
       menu_2: {
         type: String,
-        default: 'Lunch',
+        default: 'Dinner',
       },
       menu_3: {
         type: String,
-        default: 'Dinner',
+        default: 'Kids Menu',
       },
     },
 
@@ -88,16 +88,18 @@ const userSchema = mongoose.Schema(
       type: 'Object',
       default: {
         navAndFootBar: {
-          nameFontFamily: 'Roboto', nameFontColor: '#fff', nameFontSize: '1rem', navBarColor: '#000', navBarFontColor: '#fff', navBarLogoColor: '#fff'
+          nameFontFamily: 'Inter', nameFontColor: '#fff', nameFontSize: '1.6rem', navBarColor: '#000', navBarFontColor: '#fff', navBarLogoColor: '#fff'
         },
         body: {
-          bodyBgColor: '#fff', bodyFontFamily: 'Roboto', bodyFonttColor: '#000'
+          bodyBgColor: '#fff', bodyFontFamily: 'Inter', bodyFonttColor: '#000',bodyFontSize:'1'
         },
         sideBar: {
-          extraIcon: false, themeIconRadius: '', themeIconColorLine: '', themeIconBG: '', themeIconSolid: '', themeIconColorBorder: '',
+          extraIcon: false, themeIconRadius: '1.5rem', themeIconColorLine: '#555', themeIconBG: '#fff', themeIconSolid: 'none', themeIconColorBorder: '',
         },
         categoryMotion: {
-          categoryFontColor: '', categoryBoxClass: '', categoryBoxColor: '', categorySpanClass: '', categorySpanColor: '', categoryActiveClass: ''
+          categoryFontColor: '#fff', categoryBoxClass: 'category-Custom-BarLine', categoryBoxColor: '#000',
+          categorySpanClass: 'category-Custom-Line', categorySpanColor: '#777', categoryActiveClass: 'category-Custom-Line-Active',
+          categoryPhotoSize:'10rem'
         }
 
       }
@@ -107,14 +109,14 @@ const userSchema = mongoose.Schema(
       type: 'Object',
       default: {
         menuName: true, banner: true, sideBar: true, filter: true, vetgeterian: true, vegan: true, gluten_free: true, halal: true,
-        footbar: true, favoritHeart: true, feedBack: true
-      }
+        description: true, accordian: true, footbar: true, langIcon: true, favoritHeart: true, feedBack: true
+          }
 
     },
     qrCodeSetUp: {
       type: 'Object',
       default: {
-        levelCode: 'Q', dotOption: '', cornersOption: '', dotCornersOption: '', colorQrCode: '#000', bgQrCode: '#fff',
+        levelCode: 'Q', dotOption: 'square', cornersOption: 'square', dotCornersOption: 'square', colorQrCode: '#000', bgQrCode: '#fff',
         sizeQr: 8, sizeQrPx: 300, logoQr: ''
       },
     },

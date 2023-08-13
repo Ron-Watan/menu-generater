@@ -105,7 +105,7 @@
 }
 .navMenuNameText {
   font-size: 1.1rem;
-  font-weight: 600;
+  font-weight: 500;
   color: inherit;
 }
 
@@ -245,7 +245,13 @@
   -ms-user-select: none;
   user-select: none;
 }
-
+.selectable {
+  -webkit-user-select: auto;
+  -webkit-touch-callout: auto;
+  -moz-user-select: auto;
+  -ms-user-select: auto;
+  user-select: auto;
+}
 .extraT {
   font-family: 'Roboto Slab', serif;
 }

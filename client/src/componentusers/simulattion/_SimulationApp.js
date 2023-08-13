@@ -35,7 +35,7 @@ const _SimulationApp = (prop) => {
 
   //= Set Data\
   // const [clientData, setClientData] = useState({});
-  // const [originalClientMenu, setOriginalClientMenu] = useState([]);
+  const [originalClientMenu, setOriginalClientMenu] = useState([]);
   // const [clientMenu, setClientMenu] = useState([]);
 
 
@@ -107,14 +107,14 @@ const _SimulationApp = (prop) => {
   const getClientMenu = () => {
     setLoadingManual(true);
     axios
-      .get(`${process.env.REACT_APP_API}/clients/${prop.link}`)
+      .get(`${process.env.REACT_APP_API}/clients/${prop.user.link}`)
 
       .then((result) => {
         if (result.data.success) {
           const getResault = result.data.clientMenu;
 
           // setClientData(getResault);
-          // setOriginalClientMenu(getResault.menu);
+          setOriginalClientMenu(getResault.menu);
           // setClientMenu(getResault.menu);
 
           // setLanguageSetup(getResault.languageSetup);
@@ -251,7 +251,7 @@ const _SimulationApp = (prop) => {
   const filterSerach = (filterName) => {
     const memoTime = menuTime;
     let cutomerFilter = [];
-    prop.originalClientMenu.forEach((el) => {
+    originalClientMenu.forEach((el) => {
       let catagory = el.catagory;
       let menuTime = el.menuTime;
       let imgId = el.imgId;
@@ -265,7 +265,7 @@ const _SimulationApp = (prop) => {
       cutomerFilter.push({ catagory: catagory, menuTime: menuTime, imgId: imgId, listMenu: newlistMenu });
     });
 
-    prop.setCategoryList(cutomerFilter);
+    setOriginalClientMenu(cutomerFilter);
     setMenuTime(0);
     setTimeout(() => {
       setMenuTime(memoTime);
@@ -392,9 +392,8 @@ const _SimulationApp = (prop) => {
   return (
     <>
       <div className='Mviewport unselectable'
-
         style={{ 'fontFamily': `${prop.themeSetup.body?.bodyFontFamily} , serif`, 'backgroundColor': `${prop.themeSetup.body?.bodyBgColor}` }}>
-
+        
         <div className=' mobileViewport_Wrapper '>
 
           <nav className='navBar_Client'
@@ -417,6 +416,7 @@ const _SimulationApp = (prop) => {
               <i className="x">!Theme NavBGColor 2/10  NavFontColor 1</i>
               <div className=' navSlit2 navNameAndFilter'
                 style={{
+                  'fontFamily': `${prop.bodyStyle?.bodyFontFamily}`,
                   'backgroundColor': `${prop.navAndFootBar?.navBarColor}`,
                   'color': `${prop.navAndFootBar?.navBarFontColor}`,
                 }}>
@@ -654,7 +654,7 @@ const _SimulationApp = (prop) => {
             }}
             className={`${switchManuBtn || switchFilterBtn ? 'overlayForNav' : 'displayNone'}`}></div>
 
-          {sideBar && <div className=' sideBarSectiontest'>
+          {prop.onOffSetting.sideBar && <div className=' sideBarSectiontest'>
             <SidebarSubComp triggerIcon={triggerIcon} menuTime={menuTime} iconMenu_1={iconMenu_1} iconMenu_2={iconMenu_2} iconMenu_3={iconMenu_3}
 
               themeIconRadius={prop.themeIconRadius}
@@ -669,8 +669,12 @@ const _SimulationApp = (prop) => {
           {prop.onOffSetting.banner && <div className='bannerSectionC'
             style={{ 'backgroundColor': `${prop.bodyStyle.bodyBgColor}` }}
           >
-            <BannerSubCompo bodyStyle={prop.bodyStyle} link={prop.link} bannerImgArr={prop.bannerImgArr}  />
-         
+            <BannerSubCompo bodyStyle={prop.bodyStyle} link={prop.link}
+              bannerImgArr={prop.bannerImgArr}
+              imageKey={prop.imageKey}
+
+            />
+
           </div>}
 
           <ThemeProvider theme={theme} >
@@ -703,6 +707,9 @@ const _SimulationApp = (prop) => {
                     categoryMotionInput={prop.categoryMotionInput}
                     categoryMotionFn={prop.categoryMotionFn}
                     categoryActiveTheme={prop.categoryActiveTheme}
+                    imageKey={prop.imageKey}
+                    onOffSetting={prop.onOffSetting}
+
                   />
                 ))}
             {menuTime === 2 &&
@@ -730,6 +737,7 @@ const _SimulationApp = (prop) => {
                     categoryMotionInput={prop.categoryMotionInput}
                     categoryMotionFn={prop.categoryMotionFn}
                     categoryActiveTheme={prop.categoryActiveTheme}
+                    imageKey={prop.imageKey}
 
                   />
                 ))}
@@ -761,12 +769,14 @@ const _SimulationApp = (prop) => {
                     categoryMotionFn={prop.categoryMotionFn}
                     categoryActiveTheme={prop.categoryActiveTheme}
 
+                    imageKey={prop.imageKey}
+
                   />
                 ))}
           </ThemeProvider>
 
 
-          {prop.onOffSetting.footbar && <div className=''>
+          <div className={prop.onOffSetting.footbar ? 'showMe' : 'displayNone'}>
             <FooterComponent
               navAndFootBar={prop.navAndFootBar}
               bodyStyle={prop.bodyStyle}
@@ -791,7 +801,7 @@ const _SimulationApp = (prop) => {
             />
 
 
-          </div>}
+          </div>
 
 
           <div>
@@ -811,7 +821,8 @@ const _SimulationApp = (prop) => {
 
 
 
-        <div className='extraSpace'
+        <div className='extraSpace2'
+          style={{ 'backgroundColor': `${prop.bodyStyle.bodyBgColor}` }}
         ></div>
 
       </div>

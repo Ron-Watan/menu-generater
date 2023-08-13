@@ -143,10 +143,10 @@ const _04MobileLanguage = (prop) => {
                 <span className='MB_2ndTitle'>Default</span>
                 {/* <ReactQuill theme="snow" readOnly modules={{ toolbar: false }} disabled={true} value={prop.state.catagory} placeholder='Catagory name' type='text' name='catagory' id='catagory' autoComplete='off' className='MB_EditName_Input MB_GrayInput' required /> */}
                 <div className="width100">
-                  <div className="coverEdit MB_GrayInput"></div>
+                  {/* <div className="coverEdit MB_GrayInput"></div> */}
 
                   <input readOnly value={prop.state.catagory} placeholder='Catagory name' type='text'
-                    autoComplete='off' className='MB_EditName_Input MB_White ' />
+                    autoComplete='off' className='MB_EditName_Input MB_GrayInput ' />
                 </div>
 
               </div>
@@ -175,9 +175,9 @@ const _04MobileLanguage = (prop) => {
                     <span className='MB_item'>{index + 1}</span>
 
                     <div className="width100">
-                      <div className="coverEdit MB_GrayInput"> </div>
+                      {/* <div className="coverEdit MB_GrayInput"> </div> */}
 
-                      <input readOnly value={el.food_name} type='text' className='MB_EditName_Input MB_White ' placeholder='Food name' />
+                      <input readOnly value={el.food_name} type='text' className='MB_EditName_Input MB_GrayInput ' placeholder='Food name' />
                     </div>
 
                     {/* <ReactQuill readOnly modules={{ toolbar: false }} value={el.food_name} type='text'
@@ -198,70 +198,36 @@ const _04MobileLanguage = (prop) => {
 
                   <i className='sr-only'>//-!DESCRIPTION</i>
                   <div className='editDescriptionROnly'>
-                    <div className="coverEdit MB_GrayInput"></div>
-                    <EditorProvider>
-                      <Editor readOnly disabled={true} value={el.description} placeholder='Description'>
-                        <Toolbar>
-                        </Toolbar>
-                      </Editor>
-                    </EditorProvider>
-                    {/* <ReactQuill readOnly modules={{ toolbar: false }} value={el.description}
-                          id='description'
-                          disabled={true} name='description' className='MB_EditName_Input MB_GrayInput MB_fontSmall testAreaD' placeholder='Description' /> */}
+                    {/* <div className="coverEdit MB_GrayInput selectable"></div> */}
+                    <div className=''>
+
+                      <textarea readOnly value={el.description}
+                        name='description' rows='4' className='MB_EditName_Input MB_GrayInput MB_fontSmall testAreaD' placeholder='Description (optional)'></textarea>
+                    </div>
+
                   </div>
 
 
-                  <div className='editDescription'>
-                    <EditorProvider>
-                      <Editor value={el.description_2} onChange={(event) => prop.inputListValue(index, event)} name='description_2' placeholder='Description (2nd)' >
-                        <Toolbar>
-                          <BtnBold />
-                          <BtnUnderline />
-                          <BtnClearFormatting />
+                  <div className=''>
 
-                        </Toolbar>
-                      </Editor>
-                    </EditorProvider>
+                    <textarea onChange={(event) => prop.inputListValue(index, event)} value={el.description_2}
+                      name='description_2' rows='4' className='MB_EditName_Input MB_White MB_fontSmall testAreaD' placeholder='Description (2nd)'></textarea>
 
-
-                    {/* <ReactQuill onChange={(event) => prop.inputRQuill(index, 'description_2', event)} value={el.description_2}
-                          id='description_2' name='description_2' rows='2' className='MB_EditName_Input MB_White MB_fontSmall testAreaD forQPt' placeholder='Description (2nd)' modules={modules} /> */}
                   </div>
 
                   <i className='sr-only'>//-!REMARK</i>
 
                   <div className='editRemarkROnly'>
-                    <div className="coverEdit MB_GrayInput"></div>
+                    {/* <div className=" MB_GrayInput selectable"></div> */}
 
-                    <EditorProvider>
-                      <Editor readOnly disabled={true} value={el.remark} placeholder='Remark'>
-                        <Toolbar>
-                        </Toolbar>
-                      </Editor>
-                    </EditorProvider>
-                    {/* <ReactQuill readOnly modules={{ toolbar: false }} value={el.remark} name='remark' rows='1' id='remark'
-                          disabled={true} className='MB_EditName_Input MB_GrayInput MB_fontSmall italic testAreaR' placeholder='Remark (optional)' />
-                       */}
+                    <textarea readOnly value={el.remark} name='remark' rows='3' id='remark'
+                      className='MB_EditName_Input MB_GrayInput MB_fontXSmall italic testAreaR' placeholder='Remark (optional)' />
 
                   </div>
-                  <div className='editRemark'>
-                    <EditorProvider>
-                      <Editor value={el.remark_2} onChange={(event) => prop.inputListValue(index, event)} name='remark_2' placeholder='Remark (2nd)'  >
-                        <Toolbar>
-                          <BtnBold />
-                          <BtnUnderline />
-                          <BtnClearFormatting />
-                        </Toolbar>
-                      </Editor>
-                    </EditorProvider>
 
-
-
-                    {/* <ReactQuill onChange={(event) => prop.inputRQuill(index, 'remark_2', event)} value={el.remark_2} name='remark_2' rows='1'
-                          id='remark_2' className='MB_EditName_Input MB_White MB_fontSmall italic testAreaR forQPt' placeholder='Remark (2nd)' modules={modules} />
-                     
-                      */}
-
+                  <div className=''>
+                    <textarea onChange={(event) => prop.inputListValue(index, event)} value={el.remark_2} name='remark_2' rows='3' id='remark'
+                      className='MB_EditName_Input MB_White MB_fontXSmall italic testAreaR' placeholder='Remark Remark (2nd)' />
                   </div>
 
                   <i className='sr-only'>!PRICE</i>
@@ -271,9 +237,9 @@ const _04MobileLanguage = (prop) => {
                       Price
                     </div>
                     <div className="width100">
-                      <div className="coverEdit MB_GrayInput"> </div>
+                      {/* <div className="coverEdit MB_GrayInput"> </div> */}
 
-                      <input readOnly value={el.price} type='text' className='MB_EditName_Input MB_White ' placeholder='Food name' />
+                      <input readOnly value={el.price} type='text' className='MB_EditName_Input MB_GrayInput ' placeholder='Food name' />
 
 
                       {/* <ReactQuill readOnly modules={{ toolbar: false }} value={el.price} type='text' name='price' id='price' autoComplete='off'

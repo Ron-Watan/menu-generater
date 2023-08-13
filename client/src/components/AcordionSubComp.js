@@ -211,11 +211,13 @@ const AcordionSubComp = (prop) => {
   //- //- //- //- //- //- //- //- //- //- //- //-
 
   return (
-    <div id={prop.indexM} className={`acArray mx-auto max-w-7xl `}
+    <div id={prop.indexM} className={`acArray mx-auto max-w-7xl unselectable`}
       style={{ 'backgroundColor': `${prop.themeSetup.body.bodyBgColor}` }}>
 
       <div className="categoryImg" style={{
-        backgroundImage: `url(${photoHostName}${prop.listMunu.imgId})`,
+        // backgroundImage: `url(${photoHostName}${prop.listMunu.imgId})`,
+        backgroundImage: `url(${prop.listMunu.imgId ? photoHostName + prop.listMunu.imgId : ''})`,
+
         backgroundPosition: 'center',
         backgroundSize: 'cover',
         height: `${prop.themeSetup.categoryMotion.categoryPhotoSize}`
@@ -225,10 +227,10 @@ const AcordionSubComp = (prop) => {
         <div className={prop.themeSetup.categoryMotion.categoryBoxClass} style={{ 'backgroundColor': `${prop.themeSetup.categoryMotion.categoryBoxColor}` }}>
           <span className={`category-Custom-Title`} style={{
             'color': `${prop.themeSetup.categoryMotion.categoryFontColor}`,
-            'fontSize': `${prop.themeSetup.body.bodyFontSize * 1.5}rem`, 'fontWeight': '500'
+            'fontSize': `${prop.themeSetup.body.bodyFontSize * 1.4}rem`, 'fontWeight': '500'
 
 
-          }}> {prop.listMunu.catagory}</span>
+          }}> {prop.language === 1 ? prop.listMunu.catagory : prop.listMunu.catagory_2}</span>
           <span className={`${prop.themeSetup.categoryMotion.categorySpanClass} ${prop.triggerIcon[prop.indexM] && `${prop.themeSetup.categoryMotion.categoryActiveClass}`}`} style={{ 'backgroundColor': `${prop.themeSetup.categoryMotion.categorySpanColor}` }}></span>
         </div>
 
@@ -286,48 +288,43 @@ const AcordionSubComp = (prop) => {
               {prop.description && <AccordionDetails>
 
                 <i className="x">//- Descritption 1 2</i>
-                <EditorProvider>
-                  <Editor readOnly disabled={true} value={prop.language === 1 ? el.description : el.description_2}
-                    containerProps={{
-                      style: {
-                        paddingLeft: `${prop.sideBar ? '30px' : ''}`,
-                        fontFamily: `${prop.themeSetup.body.bodyFontFamily}`,
-                        color: `${prop.themeSetup.body.bodyFonttColor}`,
-                        fontSize: `${prop.themeSetup.body.bodyFontSize * 1}rem`,
-                        fontWeight: '400',
 
-                        border: 'none',
-                        minHeight: 'unset',
-                        paddingTop: '0',
-                      }
-                    }}
-                  >
-                  </Editor>
-                </EditorProvider>
+                <div
+                  style={{
+                    'paddingLeft': `${prop.sideBar ? '38px' : '8px'}`,
+                    'fontFamily': `${prop.themeSetup.body.bodyFontFamily}`,
+                    'color': `${prop.themeSetup.body.bodyFonttColor}`,
+                    'fontSize': `${prop.themeSetup.body.bodyFontSize * 1}rem`,
+                    'fontWeight': '400',
+                    'border': 'none',
+                    'minHeight': 'unset',
+                    'paddingTop': '.8rem',
+                    'whiteSpace': 'pre-wrap',
+                  }}>
+
+                  {prop.language === 1 ? el.description : el.description_2}
+                </div>
 
                 <i className="x">//- Remark 1 2</i>
-                <EditorProvider>
-                  <Editor readOnly disabled={true} value={prop.language === 1 ? el.remark : el.remark_2}
-                    containerProps={{
-                      style: {
-                        paddingLeft: `${prop.sideBar ? '30px' : ''}`,
-                        fontFamily: `${prop.themeSetup.body.bodyFontFamily} !important`,
-                        color: `${prop.themeSetup.body.bodyFonttColor}`,
-                        fontSize: `${prop.themeSetup.body.bodyFontSize * .9}rem`,
-
-                        fontStyle: 'italic',
-                        fontWeight: '400',
-                        border: 'none',
-                        minHeight: 'unset',
-                        paddingTop: '0',
-                      }
-                    }}
-                  >
-                  </Editor>
-                </EditorProvider>
-
+                {el.remark &&
+                  <div
+                    style={{
+                      'paddingLeft': `${prop.sideBar ? '38px' : '8px'}`,
+                      'fontFamily': `${prop.themeSetup.body.bodyFontFamily} !important`,
+                      'color': `${prop.themeSetup.body.bodyFonttColor}`,
+                      'fontSize': `${prop.themeSetup.body.bodyFontSize * .9}rem`,
+                      'fontStyle': 'italic',
+                      'fontWeight': '400',
+                      'border': 'none',
+                      'minHeight': 'unset',
+                      'paddingTop': '.8rem',
+                      'whiteSpace': 'pre-wrap',
+                
+                    }}>
+                    {prop.language === 1 ? el.remark : el.remark_2}
+                  </div>
+                }
                 <div className={`heartFavor1Box`}>
-
                   {(prop.favoritHeart && prop.footbar) && <button onClick={event => addFavorite(index, event, el.panelCode)} className={`${el.favor && 'opacity-0 transition-all'} `}>
                     <img src={require(`../all-icon/footbar-icon/${heartIcon.favor1}`)} alt="" />
                   </button>}

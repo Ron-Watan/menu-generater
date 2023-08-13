@@ -9,12 +9,7 @@ import MBiconDown from '../all-icon/button-icon/down.svg'
 import MBiconSetting from '../all-icon/button-icon/setting.svg'
 import Swal from 'sweetalert2';
 
-import {
-  BtnBold, BtnUnderline, BtnClearFormatting,
-  Editor,
-  EditorProvider,
-  Toolbar
-} from 'react-simple-wysiwyg';
+
 
 const _04MobileFormFood = forwardRef((prop, ref) => {
   const photoHostName = `${process.env.REACT_APP_API}/user/photos/`
@@ -40,8 +35,7 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
     let category = true
     if (!prop.state.catagory || !prop.state.catagory.trim()) {
       category = false
-      prop.setState({ ...prop.state, ['errCategory']: true });
-
+      prop.setState({ ...prop.state, errCategory: true });
     }
 
     let foodname = true
@@ -59,7 +53,6 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
 
     if (foodname && category && price) {
       saveSubmitFn()
-
 
 
     } else {
@@ -95,8 +88,15 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
 
       }).then((result) => {
         if (result.isConfirmed) {
-          prop.setCheckInputForm(false)
           validation(saveSubmitFn)
+
+          if (saveSubmitFn === prop.saveEditMenu) {
+            setTimeout(() => {
+              prop.setStart(false)
+              prop.setMenuId('');
+            }, 1000);
+          }
+          prop.setCheckInputForm(false)
 
         } else if (result.isDenied) {
 
@@ -130,7 +130,7 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
 
   function arrayMmove(arr, old_index, new_index, propSetCatList) {
     // setChangeRA(true)
-
+    prop.setCheckInputForm(true)
     const newData = [...arr]
     newData.splice(new_index, 0, newData.splice(old_index, 1)[0]);
     propSetCatList(newData)
@@ -152,33 +152,37 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
   //   data.readAsDataURL(e.target.files[0])
   //   prop.setCheckEditImg(true)
   // }
-
+  
+  
+  const scrollToTop = () => {
+    window.scrollTo(0, 0);
+  };
 
 
   return (
 
-    <div className="">
+    <div className="" >
 
       <div className="topBar_function">
 
         {!prop.menuId && <div className="GruopBtn">
-          <button onClick={() => {
+          <a href="#" onClick={() => {
             checkInputFormFn(prop.submitCatagory)
 
           }} className="MB_Btn MB_Btn_Border">
             <img src={MBiconBack} alt="" />
-          </button>
+          </a>
           <span className='MB_textBtn'>Back</span>
         </div>}
 
         {prop.menuId && <div className="GruopBtn">
 
-          <button onClick={() => {
+          <a href="#"onClick={() => {
             checkInputFormFn(prop.saveEditMenu)
-
+            setShowControl(false)
           }} className="MB_Btn MB_Btn_Border">
             <img src={MBiconBack} alt="" />
-          </button>
+          </a>
           <span className='MB_textBtn'>Back</span>
 
         </div>}
@@ -235,14 +239,14 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
 
 
 
-      <div className="MB_Standard_0_FullAgain MB_SetGrid_Full  zindexUnderTop">
+      <div className="MB_Standard_0_FullAgain MB_SetGrid_Full  zindexUnderTop" >
 
         <div className="MB_Standard_Section_canScroll MB_Make_PadingForm" >
 
 
 
           <form id='foodForm' encType='multipart/form-data' className={` MB_formMenu`}>
-            {/* <div id='topForm' className="topForm"></div> */}
+            <div id='topForm' className="topForm"></div>
             <div className='xxx'>
               <label htmlFor='file-upload' className='MB_labelPhoto'>
                 <input
@@ -272,10 +276,10 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
                   {/* <img className='MB_boxPhoto' src={prop.file ? prop.file : prop.iconPhoto} alt='' /> */}
                   {/* <img className='MB_boxPhoto' src={prop.file ? `${photoHostName}${prop.file}` : prop.iconPhoto} alt='' /> */}
                   {/* <img className='MB_boxPhoto' src={`${photoHostName}${prop.file}`} alt='' /> */}
-                  
+
                   {!prop.checkEditImg && < img className='MB_boxPhoto' src={prop.file ? `${photoHostName}${prop.filePreview}` : prop.iconPhoto} alt='' />}
                   {prop.checkEditImg && <img className='MB_boxPhoto' src={prop.file} alt='' />}
-    
+
 
                   {/* {prop.previewImg&&<img className='MB_boxPhoto' src={prop.previewImg} alt='' />} */}
                 </div>
@@ -316,43 +320,17 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
 
                     <i className='sr-only'>!DESCRIPTION</i>
                     <div className=''>
-                      <div className='editDescription'>
-                        {/* <textarea onChange={(event) => prop.inputListValue(index, event)} value={el.description} id='description'
-                          name='description' rows='4' className='MB_EditName_Input MB_White MB_fontSmall testAreaD' placeholder='Description (optional)'></textarea> */}
 
-                        <EditorProvider>
-                          <Editor value={el.description} onChange={(event) => prop.inputListValue(index, event)} name='description' placeholder='Description (optional)' >
-                            <Toolbar>
-                              <BtnBold />
-                              <BtnUnderline />
-                              <BtnClearFormatting />
-
-                            </Toolbar>
-                          </Editor>
-                        </EditorProvider>
-
-                      </div>
+                      <textarea onChange={(event) => prop.inputListValue(index, event)} value={el.description} id='description'
+                        name='description' rows='4' className='MB_EditName_Input MB_White MB_fontSmall testAreaD' placeholder='Description (optional)'></textarea>
 
                     </div>
 
                     <i className='sr-only'>!REMARK</i>
                     <div className=''>
-                      <div className='editRemark'>
-                        {/* <textarea onChange={(event) => prop.inputListValue(index, event)} value={el.remark} name='remark' rows='2' id='remark'
-                          className='MB_EditName_Input MB_White MB_fontXSmall italic testAreaR' placeholder='Remark (optional)' />
-                         */}
-                        <EditorProvider>
-                          <Editor value={el.remark} onChange={(event) => prop.inputListValue(index, event)} name='remark' placeholder='Remark (optional)' >
-                            <Toolbar>
-                              <BtnBold />
-                              <BtnUnderline />
-                              <BtnClearFormatting />
 
-                            </Toolbar>
-                          </Editor>
-                        </EditorProvider>
-                      </div>
-
+                      <textarea onChange={(event) => prop.inputListValue(index, event)} value={el.remark} name='remark' rows='3' id='remark'
+                        className='MB_EditName_Input MB_White MB_fontXSmall italic testAreaR' placeholder='Remark (optional)' />
 
 
                     </div>
@@ -389,7 +367,7 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
                             <div className='flex h-6 items-center'>
                               <input
                                 onChange={(event) => {
-                                  prop.inputListValue(index, event);
+                                  prop.inputCheck(index, event);
                                 }}
                                 ref={(element) => {
                                   ref.current[0] = element;
@@ -416,7 +394,7 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
                             <div className='flex h-6 items-center'>
                               <input
                                 onChange={(event) => {
-                                  prop.inputListValue(index, event);
+                                  prop.inputCheck(index, event);
                                 }}
                                 ref={(element) => {
                                   ref.current[1] = element;
@@ -443,7 +421,7 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
                             <div className='flex h-6 items-center'>
                               <input
                                 onChange={(event) => {
-                                  prop.inputListValue(index, event);
+                                  prop.inputCheck(index, event);
                                 }}
                                 ref={(element) => {
                                   ref.current[2] = element;
@@ -470,7 +448,7 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
                             <div className='flex h-6 items-center'>
                               <input
                                 onChange={(event) => {
-                                  prop.inputListValue(index, event);
+                                  prop.inputCheck(index, event);
                                 }}
                                 ref={(element) => {
                                   ref.current[3] = element;
@@ -507,7 +485,10 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
 
                             <div className={`MB_TrashIconBox ${prop.listMenu.length === 1 && 'displayNone'}`}>
                               <a href={`#MBend${index}`}
-                                onClick={() => prop.removeItem(index)} className='MB_TrashIcon'>
+                                onClick={() => {
+                                  prop.removeItem(index)
+                                  setShowControl(false)
+                                }} className='MB_TrashIcon'>
                                 <img src={MBiconBin} alt="" />
                               </a>
                               {/* <span className='MB_textTrash'>REMOVE ITEM</span> */}
@@ -533,6 +514,7 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
                     </fieldset>
 
 
+            
 
                   </div>
 
@@ -587,11 +569,12 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
 
           {(!prop.menuId && prop.start) && <div className={`MB_Frid_3Btn`}>
 
-            {/* SAVE BUTTON NEW CAT*/}
+            {/* SAVE BUTTON NEW CAT//=*/}
 
             {(!prop.oneClickCat && !prop.imgLoading) && <span onClick={() => {
               validation(prop.submitCatagory)
               prop.setOneClickCat(true)
+              setShowControl(false)
             }} type='submit' form='foodForm'
               className='MB_Sq_Btn MB_Sq_Btn-NewCAt MB_Btn_Color MB_G2'>
               <span>SAVE NEW CATEGORY</span>
@@ -601,8 +584,11 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
               <span>SAVE NEW CATEGORY</span>
             </span>}
 
-            <a href={`#MBend${prop.listMenu.length - 1}`} className="GruopBtn_row MB_G3" onClick={() => {
-              prop.additem()
+            <a href={`#MBend${prop.listMenu.length - 1}`} className="GruopBtn_row MB_G3"
+              onClick={() => {
+                setShowControl(false)
+                prop.additem()
+               
             }}>
               <span
                 type='' className='MB_Btn MB_Btn_Color '>
@@ -630,7 +616,10 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
 
             <i className='x'>SAVE BUTTONT Edit Save Cancel</i>
 
-            {!prop.imgLoading && <button onClick={() => validation(prop.saveEditMenu)} type='' className='MB_Sq_Btn SaveBtnSize MB_Btn_Color MB_G2'>
+            {!prop.imgLoading && <button onClick={() => {
+              setShowControl(false)
+              validation(prop.saveEditMenu)
+            }} type='' className='MB_Sq_Btn SaveBtnSize MB_Btn_Color MB_G2'>
               <span>SAVE</span>
             </button>}
 
@@ -640,8 +629,10 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
 
             <i className='x'>Add Item</i>
 
-            <a href={`#MBend${prop.listMenu.length - 1}`} className="GruopBtn_row MB_G3" onClick={() => {
+            <a href={`#MBend${prop.listMenu.length - 1}`} className="GruopBtn_row MB_G3"
+              onClick={() => {
               prop.additem()
+              setShowControl(false)
             }}>
               <span
                 type='' className='MB_Btn MB_Btn_Color '>
@@ -654,7 +645,7 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
           </div>
 
 
-
+   
 
 
         </div>
@@ -662,7 +653,7 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
       </div >
 
 
-
+    
     </div >
 
 

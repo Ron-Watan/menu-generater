@@ -173,7 +173,7 @@ router.post('/photos/uplaod', upload.single("avatar"), async (req, res) => {
 
   }
 })
-router.post('/photos/uplaod1', upload.single("avatar"), (req, res) => {
+router.post('/photos/uplaodOne', upload.single("avatar"), (req, res) => {
   res.send({
     message: 'Success',
     // data: req.file,

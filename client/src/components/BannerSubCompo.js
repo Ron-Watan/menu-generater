@@ -7,11 +7,13 @@ import "../styleClient/bannerClient.css"
 
 //=
 const BannerSubCompo = (prop) => {
+  let photoHostName = `${process.env.REACT_APP_API}/user/photos/`
+
   // prop.themeSetup
   // const elementRef = useRef([]);
 
   // useEffect(() => {
-    // console.log(elementRef.current.offsetHeight);
+  // console.log(elementRef.current.offsetHeight);
   // }, [elementRef.current[0]]);
 
 
@@ -29,11 +31,10 @@ const BannerSubCompo = (prop) => {
 
 
 
-
   //-///-///-///-///-///-///-///-///-   END FUNCTION   ///-///-///-///-///-///-///-///-///-
 
   return (
-    <div className="bannerWrapperC"
+    <div className="bannerWrapperC unselectable"
       style={{ 'backgroundColor': `${prop.themeSetup.body.bodyBgColor}` }}>
       <div className="bannerSectionFormC" >
 
@@ -55,7 +56,9 @@ const BannerSubCompo = (prop) => {
                 // <img ref={(element) => {
                 //   elementRef.current[index] = element;
                 // }} onClick={drag} key={index} src={el} className='imageBannerFormC' />
-                <img key={index} src={el} className='imageBannerFormC' />
+                 // <img key={index} src={el} className='imageBannerFormC' />
+                <img key={index} src={`${el.slice(0, -10) === prop.link ? photoHostName + el : el}`} className='imageBannerFormC' />
+               
 
 
 

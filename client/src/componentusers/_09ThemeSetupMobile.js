@@ -28,8 +28,8 @@ const _09ThemeSetupMobile = (prop) => {
 
   //  ----------------------------------------------------------------------------------------------
 
-  const imgId = user.link + 'restlogo'
-  const currentRestaurantName = user.restaurant_name
+  const imgId = user?.link + 'restlogo'
+  const currentRestaurantName = user?.restaurant_name
   const inputRestaurantName = (e) => {
     setCheckChangeTheme(true)
     prop.setRestaurantName(e.target.value)
@@ -386,7 +386,7 @@ const _09ThemeSetupMobile = (prop) => {
 
 
   useEffect(() => {
-    if (user.userId) getTheme()
+    if (user?.userId) getTheme()
   }, [user]);
   // useEffect(() => {
   //   if (user.userId) getImage()
@@ -518,11 +518,14 @@ const _09ThemeSetupMobile = (prop) => {
                     <label htmlFor="fontStyle1" className='MB_TC_small'>Font Style</label>
 
                     <select onChange={prop.nameAllFontStyleFn('nameFontFamily')} value={prop.nameFontFamily} id='fontStyle1' className='MB_labelFontR text_selectCenter'>
+                      <option value='Inter' > Inter</option>
                       < option value='Merriweather' > Merriweather</option>
                       <option value='Urbanist'>Urbanist</option>
                       <option value='Oleo Script Swash Caps'>Oleo Script</option>
                       <option value='Merriweather'>Merriweather</option>
                       <option value='Poppins'>Poppins</option>
+                      <option value='Roboto'>Roboto</option>
+                      <option value='Roboto Slab'>Roboto Slab</option>
 
                     </select>
 
@@ -901,6 +904,7 @@ const _09ThemeSetupMobile = (prop) => {
                     <label htmlFor="BodyfontStyle" className='MB_TC_small'>Font Style</label>
 
                     <select onChange={prop.bodyAllFontStyleFn('bodyFontFamily')} value={prop.bodyFontFamily} id='BodyfontStyle' className='MB_labelFontR text_width80 text_selectCenter'>
+                      <option value='Inter' > Inter</option>
                       < option value='Merriweather' > Merriweather</option>
                       <option value='Urbanist'>Urbanist</option>
                       <option value='Oleo Script Swash Caps'>Oleo Script</option>
@@ -908,7 +912,6 @@ const _09ThemeSetupMobile = (prop) => {
                       <option value='Poppins'>Poppins</option>
                       <option value='Roboto'>Roboto</option>
                       <option value='Roboto Slab'>Roboto Slab</option>
-
 
                     </select>
                   </div>

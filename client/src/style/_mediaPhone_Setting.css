@@ -1053,7 +1053,7 @@ input:checked + .forOFLang2:before {
   width: 280px;
   gap: 1rem;
   font-size: 1.1rem;
-  font-weight:400;
+  font-weight: 400;
   justify-content: center;
   align-items: center;
 }
@@ -1190,7 +1190,6 @@ input:checked + .forOFLang2:before {
   padding-bottom: 8rem;
 }
 .MB_Make_Iconpicker {
-
   padding-bottom: 8rem;
 }
 .gapG15 {
@@ -1422,3 +1421,6 @@ input:checked + .forOFLang2:before {
   z-index: 1;
   background-color: transparent !important;
 }
+
+.itemLangChoose,.itemLangChooseUp,.itemLangChooseDown {
+  background-color: #95b2f2;}

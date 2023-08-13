@@ -19,23 +19,23 @@ import { clientDataModel } from './modelData/clientData'
 import { createGlobalStyle } from 'styled-components';
 import Swal from 'sweetalert2';
 // qqq
-const theme = createTheme({
-  typography: {
-    fontFamily: ['Roboto Slab', 'roboto slab'].join(','),
-  },
-});
+// const theme = createTheme({
+//   typography: {
+//     fontFamily: ['Roboto Slab', 'roboto slab'].join(','),
+//   },
+// });
 
-const dateTime = new Date();
-const h = dateTime.getHours();
-const m = dateTime.getMinutes();
-const s = dateTime.getSeconds();
-const nowTime = h * 60 * 60 + m * 60 + s;
+
 
 //= //=
 const _MenuComponent = () => {
 
-
   //= Set Data\
+  const dateTime = new Date();
+  const h = dateTime.getHours();
+  const m = dateTime.getMinutes();
+  const s = dateTime.getSeconds();
+  const nowTime = h * 60 * 60 + m * 60 + s;
 
   const [bannerImgArr, setBannerImgArr] = useState([])
 
@@ -56,8 +56,6 @@ const _MenuComponent = () => {
   const [favorList, setFavorList] = useState([]);
   const { link } = useParams();
 
-  const [started, setStarted] = useState(false);
-
   const [iconMenu_1, setIconMenu_1] = useState([]);
   const [iconMenu_2, setIconMenu_2] = useState([]);
   const [iconMenu_3, setIconMenu_3] = useState([]);
@@ -65,7 +63,7 @@ const _MenuComponent = () => {
   const [colorTheme, setColorTheme] = useState('iconRectabg');
 
   const [restaurantName, setRestaurantName] = useState('');
-  const [restaurantLogo, setRestaurantLogo] = useState('');
+
 
   const [themeSetup, setThemeSetup] = useState({
     navAndFootBar: {
@@ -109,6 +107,7 @@ const _MenuComponent = () => {
   //=-----------------------------------------------
 
 
+  const [startLoading, setStartLoading] = useState(true);
 
   const onOffSideBarFn = (bol) => {
     setOnOffSetting({ ...onOffSetting, ['sideBar']: bol })
@@ -125,8 +124,8 @@ const _MenuComponent = () => {
         if (result.data.success) {
           const getResault = result.data.clientMenu;
           // setClientData(getResault);
-          // setBannerImgArr(getResault.bannerImage)
-          // setOriginalClientMenu(getResault.menu);
+          setBannerImgArr(getResault.bannerImage)
+          setOriginalClientMenu(getResault.menu);
           setClientMenu(getResault.menu);
           setAllMenuName(getResault.menuName);
           setLanguageSetup(getResault.languageSetup);
@@ -180,29 +179,17 @@ const _MenuComponent = () => {
 
           getResault.menu.map((el, index) => {
             if (!el.icon_catagory) return;
-
-
             if (el.menuTime === 1) {
-              // let newAddress = 'http://192.168.1.13' + el.icon_catagory.slice(16);
-              // iconMenu_1.push({ icon: newAddress, iconAct: newAddress, link: `#${newIndex1}` });
               iconMenu_1.push({ icon: el.icon_catagory, iconAct: el.icon_catagory, link: `#${newIndex1}` })
-
               newIndex1++;
             }
             if (el.menuTime === 2) {
-              // let newAddress = 'http://192.168.1.13' + el.icon_catagory.slice(16);
-              // iconMenu_2.push({ icon: newAddress, iconAct: newAddress, link: `#${newIndex2}` });
               iconMenu_2.push({ icon: el.icon_catagory, iconAct: el.icon_catagory, link: `#${newIndex2}` })
-
               newIndex2++;
             }
             if (el.menuTime === 3) {
-              // let newAddress = 'http://192.168.1.13' + el.icon_catagory.slice(16);
-              // iconMenu_3.push({ icon: newAddress, iconAct: newAddress, link: `#${newIndex3}` });
               iconMenu_3.push({ icon: el.icon_catagory, iconAct: el.icon_catagory, link: `#${newIndex3}` })
-
               newIndex3++;
-
             }
             setIconMenu_1(iconMenu_1);
             setIconMenu_2(iconMenu_2);
@@ -212,7 +199,9 @@ const _MenuComponent = () => {
 
           setLoadingManual(false);
           // console.log(nowTimeState)
-
+          setTimeout(() => {
+            setStartLoading(false)
+          }, 600);
           // dispath(hideLoading())
         } else {
           // Swal.fire(result.data.message)
@@ -389,6 +378,9 @@ const _MenuComponent = () => {
 
   //=-----------------------------------------------
 
+  // useEffect(() => {
+  //   if(link)getClientMenu();
+  // }, [link]);
   useEffect(() => {
     getClientMenu();
   }, []);
@@ -422,11 +414,11 @@ const _MenuComponent = () => {
 
 
       <i className="x">!Theme</i>
-      {/* <div className={`${loadingManual ? 'showMe' : 'hiddenMe'} bannerLoadingMaain`}>
-        <div className='iconLoadingBanner'>
-          <span className='barOne'></span> <span className='barTwo'></span> <span className='barThree'></span>
+      <div className={`${startLoading && 'Full_Start_Loading'} `}>
+        <div className="iconLoadingBanner">
+          <span className='barOne'></span > <span className='barTwo'></span> <span className='barThree'></span>
         </div>
-      </div> */}
+      </div>
 
 
       <div className=' mobileViewport_Wrapper'>
@@ -438,8 +430,8 @@ const _MenuComponent = () => {
           <div className='navFlexLogoandName'>
 
             <div className='navSlit1'>
-              <i className="x">!Theme</i>
-              {restaurantLogo&& <div className="logoResta"><img className='logoRestaImg' src={restaurantLogo} /></div>}
+              {/* <i className="x">!Theme</i> */}
+              {themeSetup.navAndFootBar.logoRestaurant && <div className="logoResta"><img className='logoRestaImg' src={themeSetup.navAndFootBar.logoRestaurant} /></div>}
 
               <span style={{
                 'backgroundColor': `${themeSetup.navAndFootBar.navBarColor}`,
@@ -453,6 +445,7 @@ const _MenuComponent = () => {
             <i className="x">!Theme NavBGColor 2/10  NavFontColor 1</i>
             <div className=' navSlit2 navNameAndFilter'
               style={{
+                'fontFamily': `${themeSetup.body.bodyFontFamily}`,
                 'backgroundColor': `${themeSetup.navAndFootBar.navBarColor}`,
                 'color': `${themeSetup.navAndFootBar.navBarFontColor}`,
               }}>
@@ -718,7 +711,7 @@ const _MenuComponent = () => {
         {banner && <div className='bannerSectionC'
           style={{ 'backgroundColor': `${themeSetup.body.bodyBgColor}` }}
         >
-          <BannerSubCompo themeSetup={themeSetup} bannerImgArr={bannerImgArr} />
+          <BannerSubCompo themeSetup={themeSetup} bannerImgArr={bannerImgArr} link={link} />
         </div>}
         {/* == MENU == */}
         {/* <CssBaseline /> */}

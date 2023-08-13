@@ -91,7 +91,7 @@ const _FeedBackMobile = (prop) => {
   const getFeedBack = () => {
     dispath(showLoading())
     axios
-      .post(`${process.env.REACT_APP_API}/user/getFeedBack`, { clientId: user.clientId }, ticketPass)
+      .post(`${process.env.REACT_APP_API}/user/getFeedBack`, { clientId: user?.clientId }, ticketPass)
       .then((result) => {
         if (result.data.success) {
           const getReult = result.data.bothFeedBack;

@@ -14,7 +14,7 @@ import axios from 'axios';
 // import { Checkbox, FormControlLabel, FormGroup } from '@mui/material';
 import { useSwipeable } from 'react-swipeable';
 import * as Util from "../_99Utility"
-
+// import useAutosizeTextArea from "./useAutosizeTextArea";
 
 import {
   Editor,
@@ -73,7 +73,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 
 
 
-
+//=
 const AcordionSubComp = (prop) => {
   const photoHostName = `${process.env.REACT_APP_API}/user/photos/`
 
@@ -86,10 +86,12 @@ const AcordionSubComp = (prop) => {
 
   };
 
+  const addPanel = () => {
+    subListMenu.map((element, index) => {
+      element.panelCode = 'panel' + index
+    })
+  }
 
-  subListMenu.map((element, index) => {
-    element.panelCode = 'panel' + index
-  })
 
   const [newSubListMenu, setNewSubListMenu] = useState(subListMenu)
 
@@ -108,7 +110,6 @@ const AcordionSubComp = (prop) => {
     prop.removeFavorite(index, [...newSubListMenu], prop.indexM)
     data.favor = false
   }
-
 
 
   // document.addEventListener('', () => {
@@ -132,6 +133,11 @@ const AcordionSubComp = (prop) => {
   //   prop.setTriggerIcon(newData)
 
   // },)
+  // useEffect(() => {
+  //   addPanel()
+
+
+  // }, [subListMenu])
 
   //= setTriggerIcon
 
@@ -158,47 +164,12 @@ const AcordionSubComp = (prop) => {
 
   },)
 
-  // const [file, setFile] = useState();
-  // const getImage = () => {
-  //   // dispath(showLoading())
-  //   axios
-  //     .post(`${process.env.REACT_APP_API}/user/images/preview`, { imgId: prop.listMunu.imgId })
-  //     .then((result) => {
-
-  //       if (!result.data.images) {
-  //         return setFile('')
-  //         // return dispath(hideLoading());
-  //       }
-
-  //       const getResult = result.data.images;
-
-  //       const base64Flag = 'data:image/png;base64,';
-  //       const imageStr = Util.arrayBufferToBase64(getResult.img.data.data);
-  //       const tagImage = base64Flag + imageStr;
-
-  //       // console.log(tagImage)
-
-  //       setFile(tagImage);
-  //       // dispath(hideLoading());
-  //       // setTimeout(() => {
-  //       //   dispath(hideLoading());
-  //       // }, 500);
-  //     })
-  //     .catch((err) => {
-  //       console.error(err);
-  //     });
-  // };
-
-
-  // useEffect(() => {
-  //   getImage();
-  // }, []);
-
 
 
   const heartIcon = {
     favor1: 'favor1.svg', favor2: 'favor2.svg',
   }
+
 
   //- //- //- //- //- //- //- //- //- //- //- //-
 
@@ -207,7 +178,9 @@ const AcordionSubComp = (prop) => {
       style={{ 'backgroundColor': `${prop.bodyStyle.bodyBgColor}` }}>
 
       <div className="categoryImg" style={{
-        backgroundImage: `url(${photoHostName}${prop.listMunu.imgId})`,
+        // backgroundImage: `url(${photoHostName}${prop.listMunu.imgId})`,
+
+        backgroundImage: `url(${prop.listMunu.imgId ? `${photoHostName}${prop.listMunu.imgId}?key=${prop.imageKey}` : ''})`,
         backgroundPosition: 'center',
         backgroundSize: 'cover',
         height: `${prop.categoryMotion.categoryPhotoSize}`
@@ -216,11 +189,12 @@ const AcordionSubComp = (prop) => {
 
         <div className={prop.categoryMotion.categoryBoxClass} style={{ 'backgroundColor': `${prop.categoryMotion.categoryBoxColor}` }}>
           <span className={`category-Custom-Title`} style={{
+            'fontFamily': `${prop.bodyStyle?.bodyFontFamily}`,
             'color': `${prop.categoryMotion.categoryFontColor}`,
-            'fontSize': `${prop.bodyStyle.bodyFontSize * 1.5}rem`, 'fontWeight': '500'
+            'fontSize': `${prop.bodyStyle.bodyFontSize * 1.4}rem`, 'fontWeight': '500'
 
 
-          }}> {prop.listMunu.catagory}</span>
+          }}> {prop.language === 1 ? prop.listMunu.catagory : prop.listMunu.catagory_2}</span>
           <span className={`${prop.categoryMotion.categorySpanClass} ${(prop.triggerIcon[prop.indexM] || prop.categoryActiveTheme) && `${prop.categoryMotion.categoryActiveClass}`}`} style={{ 'backgroundColor': `${prop.categoryMotion.categorySpanColor}` }}></span>
         </div>
 
@@ -229,7 +203,7 @@ const AcordionSubComp = (prop) => {
       {/* <ul className="px-2 sm:px-6 lg:px-8"> */}
       <ul className="">
         <i className="x">!Theme</i>
-        {newSubListMenu.map((el, index) => (
+        {subListMenu.map((el, index) => (
 
           <div className='accTab' key={index}>
             {prop.footbar && <button onClick={event => removeFavorite(index, event, el.food_name, el.price)} className={`${!el.favor && 'displayNone'} heartFavor2Box`}>
@@ -244,7 +218,7 @@ const AcordionSubComp = (prop) => {
 
             <i className="x">On Food Name 1 2</i>
 
-            <Accordion expanded={(expanded === el.panelCode || prop.accordian === false) && true} onChange={handleChange(el.panelCode)}>
+            <Accordion expanded={(expanded === el.panelCode || prop.onOffSetting.accordian === false) && true} onChange={handleChange(el.panelCode)}>
               <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
 
                 <i className="x"> Name 1 2</i>
@@ -279,49 +253,46 @@ const AcordionSubComp = (prop) => {
 
               <i className="x"> IF ON DESCRIPTION </i>
 
-              {prop.description && <AccordionDetails>
+              {prop.onOffSetting.description && <AccordionDetails>
 
                 <i className="x"> Descritption 1 2</i>
 
-                <EditorProvider>
-                  <Editor readOnly disabled={true} value={prop.language === 1 ? el.description : el.description_2}
-                    containerProps={{
-                      style: {
-                        paddingLeft: `${prop.sideBar ? '30px' : ''}`,
-                        fontFamily: `${prop.bodyStyle.bodyFontFamily}`,
-                        color: `${prop.bodyStyle.bodyFonttColor}`,
-                        fontSize: `${prop.bodyStyle.bodyFontSize * 1}rem`,
-                        fontWeight: '400',
+                <div
+                  style={{
+                    'paddingLeft': `${prop.sideBar ? '38px' : '8px'}`,
+                    'fontFamily': `${prop.bodyStyle.bodyFontFamily}`,
+                    'color': `${prop.bodyStyle.bodyFonttColor}`,
+                    'fontSize': `${prop.bodyStyle.bodyFontSize * 1}rem`,
+                    'fontWeight': '400',
+                    'border': 'none',
+                    'minHeight': 'unset',
+                    'paddingTop': '.8rem',
+                    'whiteSpace': 'pre-wrap',
+                  }}>
 
-                        border: 'none',
-                        minHeight: 'unset',
-                        paddingTop: '0',
-                      }
-                    }}
-                  >
-                  </Editor>
-                </EditorProvider>
+                  {prop.language === 1 ? el.description : el.description_2}
+                </div>
 
                 <i className="x">Remark 1 2</i>
-                <EditorProvider>
-                  <Editor readOnly disabled={true} value={prop.language === 1 ? el.remark : el.remark_2}
-                    containerProps={{
-                      style: {
-                        paddingLeft: `${prop.sideBar ? '30px' : ''}`,
-                        fontFamily: `${prop.bodyStyle.bodyFontFamily}`,
-                        color: `${prop.bodyStyle.bodyFonttColor}`,
-                        fontSize: `${prop.bodyStyle.bodyFontSize * .9}rem`,
+                {el.remark &&
+                  <div
+                    style={{
+                      'paddingLeft': `${prop.sideBar ? '38px' : '8px'}`,
+                      'fontFamily': `${prop.bodyStyle.bodyFontFamily}`,
+                      'color': `${prop.bodyStyle.bodyFonttColor}`,
+                      'fontSize': `${prop.bodyStyle.bodyFontSize * .9}rem`,
+                      'fontStyle': 'italic',
+                      'fontWeight': '400',
+                      'border': 'none',
+                      'minHeight': 'unset',
+                      'paddingTop': '.8rem',
+                      'whiteSpace': 'pre-wrap',
 
-                        fontStyle: 'italic',
-                        fontWeight: '400',
-                        border: 'none',
-                        minHeight: 'unset',
-                        paddingTop: '0',
-                      }
-                    }}
-                  >
-                  </Editor>
-                </EditorProvider>
+                    }}>
+
+                    {prop.language === 1 ? `${el.remark}` : el.remark_2}
+                  </div>
+                }
 
                 <div className={`heartFavor1Box`}>
 

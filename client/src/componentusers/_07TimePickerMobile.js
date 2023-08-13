@@ -339,7 +339,7 @@ const _07TimePickerMobile = (prop) => {
           }).then(nothinh => {
             prop.setOnOffTimePicker_MB(false);
             dispath(setUser(result.data.userMenu));
-
+            setCheckTimeChange(false)
           })
         } else {
           Swal.fire(result.data.message);

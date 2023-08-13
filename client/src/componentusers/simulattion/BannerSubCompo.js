@@ -8,12 +8,13 @@ import { useDispatch, useSelector } from 'react-redux'
 //=
 const BannerSubCompo = (prop) => {
 
-  const photoHostName = `${process.env.REACT_APP_API}/user/photos/`
+  let photoHostName = `${process.env.REACT_APP_API}/user/photos/`
+
   const dispath = useDispatch();
 
   //1//
   const { user } = useSelector((state) => state.user);
-  
+
   const [indexDot, setIndexDot] = useState(0)
   function setFinishedIndex(i) {
     // console.log("finished dragging on slide", i);
@@ -42,8 +43,8 @@ const BannerSubCompo = (prop) => {
           >
             {
               prop.bannerImgArr.map((el, index) => (
-
-                <img key={index} src={`${el.slice(0, -10) === user.link ? photoHostName + el : el}`} className='imageBannerFormC' />
+                // ${photoHostName}${el}?key=${prop.imageKey}
+                <img key={index} src={`${el.slice(0, -10) === user?.link ? `${photoHostName}${el}?key=${prop.imageKey}` : el}`} className='imageBannerFormC' />
 
                 // <img key={index} src={`${photoHostName}${el}`} className='imageBannerFormC' />
 

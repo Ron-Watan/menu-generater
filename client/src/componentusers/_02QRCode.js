@@ -33,9 +33,9 @@ import QRd3 from '../all-icon/qricon/dotdot.svg'
 const _02QRCode = (prop) => {
 
 
-  const { user } = useSelector(state => state.user)
+  // const { user } = useSelector(state => state.user)
   const dispath = useDispatch();
-  const qrLink = `${process.env.REACT_APP_HOST_CLIENT}/${user.link}`
+  const qrLink = `${process.env.REACT_APP_HOST_CLIENT}/${prop.user?.link}`
   // const photoHostName = `${process.env.REACT_APP_API}/user/photos/`
   // const imgId = user.link + '-qrlogo'
 
@@ -111,7 +111,7 @@ const _02QRCode = (prop) => {
 
   const getQrCode = () => {
     axios
-      .post(`${process.env.REACT_APP_API}/user/getQrCode`, { userId: user.userId }, ticketPass)
+      .post(`${process.env.REACT_APP_API}/user/getQrCode`, { userId: prop.user.userId }, ticketPass)
       .then((result) => {
         if (result.data.success) {
           const getReult = result.data.qrCodeSetUp.qrCodeSetUp;
@@ -160,7 +160,7 @@ const _02QRCode = (prop) => {
       .post(
         `${process.env.REACT_APP_API}/user/saveQRCode`,
         {
-          userId: user.userId,
+          userId: prop.user.userId,
           qrCodeSetUp: qrCodeSetUp
         },
         ticketPass
@@ -277,10 +277,10 @@ const _02QRCode = (prop) => {
   }, [prop.getQRCodeTG]);
 
   useEffect(() => {
-    if (user.userId) {
+    if (prop.user?.userId) {
       getQrCode();
     }
-  }, [user]);
+  }, [prop.user]);
 
   return (
     <div className="MB_FullPage_Container">

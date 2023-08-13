@@ -1,5 +1,5 @@
 import Users from '../_3models/menuModel.js';
-import Images from '../_3models/imageModel.js';
+// import Images from '../_3models/imageModel.js';
 // import Banners from '../_3models/bannerModel.js';
 import { v4 as uuidv4 } from 'uuid';
 import Clients from '../_3models/clientModel.js';
@@ -261,11 +261,21 @@ export const getImage1 = (req, res) => {
 //-
 //-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-
 export const uploadImageBanner = (req, res) => {
-  const { userId, bannerImage, banner } = req.body;
+  const { userId, clientId, bannerImage, banner } = req.body;
   Users.findOne({ userId: userId }).then(user => {
     user.bannerNumber = banner
-    user.bannerImage=bannerImage
+    user.bannerImage = bannerImage
     user.save();
+
+
+    Clients.findOne({ clientId: clientId }).then((client) => {
+
+      client.bannerImage = bannerImage
+      client.save();
+
+    });
+
+
     res.send({
       message: 'Success',
       success: true,
@@ -491,8 +501,6 @@ export const saveQRCode = (req, res) => {
 //- // componentusers/MainForm.js
 export const saveReArangeList = (req, res) => {
   const { userId, menu } = req.body;
-
-
   Users.findOne({ userId: userId })
     .then((user) => {
 
@@ -500,7 +508,7 @@ export const saveReArangeList = (req, res) => {
       user.save();
       res.send({
         message: 'Success',
-        userOnOffSetting: user,// Slected
+        // userOnOffSetting: user,// Slected
         success: true,
       });
       Clients.findOne({ clientId: user.clientId }).then((client) => {

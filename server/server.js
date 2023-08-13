@@ -12,6 +12,9 @@ import methodOverride from "method-override";
 const app = express()
 
 
+const maxRequestBodySize = '10mb';
+app.use(bodyparser.urlencoded({ extended: true, limit: maxRequestBodySize }))
+app.use(bodyparser.json({ limit: maxRequestBodySize }))
 
 app.use(express.json())
 app.use(cors())
@@ -23,13 +26,17 @@ app.use('/api/clients', clientsRoute)
 
 app.use(methodOverride('_method'));
 app.set('view engine', 'ejs');
+
+
+
+
+
+
+
 // app.use(bodyparser.urlencoded({ extended: true }))
 // app.use(bodyparser.json())
 // app.use('/images', express.static('images'))
-const maxRequestBodySize = '10mb';
 
-app.use(bodyparser.urlencoded({ extended: true, limit: maxRequestBodySize }))
-app.use(bodyparser.json({ limit: maxRequestBodySize }))
 
 // const maxRequestBodySize = '10mb';
 // app.use(express.json({limit: maxRequestBodySize}));

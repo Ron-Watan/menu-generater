@@ -1,17 +1,17 @@
-import mongoose from 'mongoose'
+// import mongoose from 'mongoose'
 
-const bannersSchema = mongoose.Schema({
-  userId: String,
-  link: String,
-  imgId: String,
-  destination: String,
-  img: {
-    data: Buffer,
-    contentType: String
-  },
-  size: Number,
+// const bannersSchema = mongoose.Schema({
+//   userId: String,
+//   link: String,
+//   imgId: String,
+//   destination: String,
+//   img: {
+//     data: Buffer,
+//     contentType: String
+//   },
+//   size: Number,
 
-}, { timestamps: true })
+// }, { timestamps: true })
 
 // const bannersSchema = mongoose.Schema(
 //   {
@@ -36,7 +36,7 @@ const bannersSchema = mongoose.Schema({
 
 //   }, { timestamps: true })
 
-const Banners = mongoose.model('Banners', bannersSchema)
+// const Banners = mongoose.model('Banners', bannersSchema)
 
-export default Banners
+// export default Banners
 
