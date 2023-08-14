@@ -235,8 +235,8 @@ const FooterComponent = (prop) => {
           </div>}
 
         </div>
-        <div className="spanfootBarSectionC"
-        ></div>
+        {/* <div className="spanfootBarSectionC"
+        ></div> */}
         {/* style={{ 'backgroundColor': `${prop.themeSetup.navAndFootBar.navBarColor}` } */}
       </nav>
       <div className="eeeee"></div>
@@ -251,9 +251,11 @@ const FooterComponent = (prop) => {
 
         {/*//- FAVORITE LIST */}
         <span onClick={() => switcher('listTab')} className={`popupList ${listTab && 'popupListUp'} popupListText`}
-          style={{ 'backgroundColor': `${prop.themeSetup.body.bodyBgColor}`, 'color': `${prop.themeSetup.body.bodyFonttColor}` }}
-
-
+          style={{
+            'fontFamily': `${prop.themeSetup.body.bodyFontFamily} !important`,
+            'backgroundColor': `${prop.themeSetup.body.bodyBgColor}`,
+            'color': `${prop.themeSetup.body.bodyFonttColor}`
+          }}
         >
           <div className="itemList">{`${itemFavor} Item(s)`}</div>
           <div className="overflow">
@@ -266,13 +268,13 @@ const FooterComponent = (prop) => {
                         <li className="gridFavList">
                           <div className="flex gap-x-4">
                             <div className="min-w-0 flex-auto">
-                              <p className="text-sm font-semibold leading-6 text-gray-900">{el.name}</p>
+                              <p className="favorListtext">{el.name}</p>
                             </div>
                           </div>
 
                           <div className="flex gap-x-4">
                             <div className="min-w-0 flex-auto">
-                              <p className="text-sm font-semibold leading-6 text-gray-900">{el.price}</p>
+                              {/* <p className="text-sm font-semibold leading-6 text-gray-900">{el.price}</p> */}
                             </div>
                           </div>
 
@@ -286,21 +288,6 @@ const FooterComponent = (prop) => {
 
             })}
 
-            <li className="gridFavList">
-              <div className="flex gap-x-4">
-                <div className="min-w-0 flex-auto">
-                  <p className="text-sm font-semibold leading-6 text-gray-900">Total</p>
-                </div>
-              </div>
-
-              <div className="flex gap-x-4">
-                <div className="min-w-0 flex-auto">
-                  <p className="text-sm font-semibold leading-6 text-gray-900">{sumFaverPrice}</p>
-                </div>
-              </div>
-
-            </li>
-
 
           </div>
 
@@ -312,7 +299,12 @@ const FooterComponent = (prop) => {
 
         {/* Slide Tab 3*/}
         <span className={`popupList coment ${commentTab && 'popupListUp coment'} popupListText`}
-          style={{ 'backgroundColor': `${prop.themeSetup.body.bodyBgColor}`, 'color': `${prop.themeSetup.body.bodyFonttColor}` }}
+          style={{
+            'fontFamily': `${prop.themeSetup.body.bodyFontFamily} !important`,
+
+            'backgroundColor': `${prop.themeSetup.body.bodyBgColor}`,
+            'color': `${prop.themeSetup.body.bodyFonttColor}`
+          }}
         >
           <div className="GruopBtn headCommentBtn">
             <button onClick={() => switcher('overlay')}

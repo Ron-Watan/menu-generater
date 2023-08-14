@@ -5,22 +5,12 @@ import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
-// import catalog1 from '../img/promotion1.png'
-import useEnhancedEffect from '@mui/material/utils/useEnhancedEffect';
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import axios from 'axios';
-// import { Hidden } from '@mui/material';
-// import { Checkbox, FormControlLabel, FormGroup } from '@mui/material';
-import { useSwipeable } from 'react-swipeable';
-import * as Util from "../_99Utility"
-// import useAutosizeTextArea from "./useAutosizeTextArea";
+import { useState } from 'react';
+// import fff from '../../all-icon/footbar-icon'
 
-import {
-  Editor,
-  EditorProvider,
-  Toolbar
-} from 'react-simple-wysiwyg';
+
+
+
 
 const Accordion = styled((props) => (
 
@@ -206,13 +196,13 @@ const AcordionSubComp = (prop) => {
         {subListMenu.map((el, index) => (
 
           <div className='accTab' key={index}>
-            {prop.footbar && <button onClick={event => removeFavorite(index, event, el.food_name, el.price)} className={`${!el.favor && 'displayNone'} heartFavor2Box`}>
-              {prop.favoritHeart && <div className={` heartFavor2Box-1 flex justify-center gap-x-6`}>
+     
+            {prop.onOffSetting.footbar && <button onClick={event => removeFavorite(index, event, el.food_name, el.price)} className={`${!el.favor && 'displayNone'} heartFavor2Box`}>
+              {prop.onOffSetting.favoritHeart && <div className={` heartFavor2Box-1`}>
 
-                {/* <img src={require(`../all-icon/footbar-icon/${heartIcon.favor2}`)} alt="" /> */}
+                <img src={require(`../../all-icon/footbar-icon/${heartIcon.favor2}`)} alt="" />
               </div>}
             </button>}
-
 
             <i className="x">ON/OFF SlIDE ACCORDIAN </i>
 
@@ -226,7 +216,6 @@ const AcordionSubComp = (prop) => {
                 <div className={prop.sideBar ? 'paddingL_40' : ''}
                   style={{
                     'fontFamily': `${prop.bodyStyle.bodyFontFamily}`,
-
                     'color': `${prop.bodyStyle.bodyFonttColor}`,
                     'fontSize': `${prop.bodyStyle.bodyFontSize * 1.05}rem`, 'fontWeight': '500'
                   }}>
@@ -294,12 +283,15 @@ const AcordionSubComp = (prop) => {
                   </div>
                 }
 
-                <div className={`heartFavor1Box`}>
-
-                  {(prop.favoritHeart && prop.footbar) && <button onClick={event => addFavorite(index, event, el.panelCode)} className={`${el.favor && 'opacity-0 transition-all'} `}>
-                    {/* <img src={require(`../all-icon/footbar-icon/${heartIcon.favor1}`)} alt="" /> */}
+                <div className={`heartFavor1Box`}
+                  style={{
+                    'height': `${(!prop.favoritHeart || !prop.footbar) ? '1.5rem' : ''}`,
+                  }}>
+                  {(prop.onOffSetting.favoritHeart && prop.onOffSetting.footbar) && <button onClick={event => addFavorite(index, event, el.panelCode)} className={`${el.favor && 'opacity-0 transition-all'} `}>
+                    <img src={require(`../../all-icon/footbar-icon/${heartIcon.favor1}`)} alt="" />
                   </button>}
                 </div>
+
               </AccordionDetails>}
             </Accordion>
 

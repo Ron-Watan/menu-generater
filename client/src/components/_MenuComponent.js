@@ -715,8 +715,8 @@ const _MenuComponent = () => {
         </div>}
         {/* == MENU == */}
         {/* <CssBaseline /> */}
-
-        <ThemeProvider theme={theme} >
+        {/* <ThemeProvider theme={theme} > */}
+        {/* <ThemeProvider  > */}
 
           {menuTime === 1 &&
             clientMenu
@@ -738,6 +738,7 @@ const _MenuComponent = () => {
                   sideBar={sideBar}
                   description={description}
                   accordian={accordian}
+                  footbar={footbar}
 
                 />
               ))}
@@ -759,6 +760,7 @@ const _MenuComponent = () => {
                   themeSetup={themeSetup}
                   description={description}
                   accordian={accordian}
+                  footbar={footbar}
                 />
               ))}
           {menuTime === 3 &&
@@ -783,7 +785,7 @@ const _MenuComponent = () => {
                   footbar={footbar}
                 />
               ))}
-        </ThemeProvider>
+        {/* </ThemeProvider> */}
 
         {/* <div className="footerSpace"></div> */}
 

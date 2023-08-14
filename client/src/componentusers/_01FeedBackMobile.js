@@ -170,7 +170,7 @@ const _FeedBackMobile = (prop) => {
           setUnseenChange(false)
           setDeleteChange(false)
           setCheckRead(false)
-          // dispath(hideLoading())
+          dispath(hideLoading())
 
         } else {
 

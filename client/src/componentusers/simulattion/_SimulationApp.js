@@ -1,5 +1,5 @@
 
-// import 'remixicon/fonts/remixicon.css';
+
 import { useEffect, useState } from 'react';
 import AcordionSubComp from './AcordionSubComp';
 
@@ -31,7 +31,7 @@ const nowTime = h * 60 * 60 + m * 60 + s;
 
 //= //=
 const _SimulationApp = (prop) => {
-  const photoHostName = `${process.env.REACT_APP_API}/user/photos/`
+  // const photoHostName = `${process.env.REACT_APP_API}/user/photos/`
 
   //= Set Data\
   // const [clientData, setClientData] = useState({});
@@ -48,7 +48,7 @@ const _SimulationApp = (prop) => {
   // const [languageSetup, setLanguageSetup] = useState({});
 
   const [favorList, setFavorList] = useState([]);
-  const { link } = useParams();
+  // const { link } = useParams();
 
   // const [started, setStarted] = useState(false);
 
@@ -56,26 +56,6 @@ const _SimulationApp = (prop) => {
   const [iconMenu_2, setIconMenu_2] = useState([]);
   const [iconMenu_3, setIconMenu_3] = useState([]);
 
-  // const [colorTheme, setColorTheme] = useState('iconRectabg');
-
-  // const [restaurantName, setRestaurantName] = useState('');
-  // const [restaurantLogo, setRestaurantLogo] = useState('');
-
-  // const [themeSetup, setThemeSetup] = useState({
-  //   navAndFootBar: {
-  //     nameFontFamily: 'Restaurant', nameFontColor: '#fff', nameFontSize: '1.2rem', navBarColor: '#000', navBarFontColor: '#fff', navBarLogoColor: '#fff', footBarStyle: 'box'
-  //   },
-  //   body: {
-  //     bodyBgColor: '#fff', bodyFontFamily: 'Roboto', bodyFonttColor: '#000', bodyFontSize: '1'
-  //   },
-  //   sideBar: {
-  //     extraIcon: '', themeIconRadius: '3rem', themeIconColorLine: '', themeIconBG: '', themeIconSolid: '', themeIconColorBorder: '',
-  //   },
-  //   categoryMotion: {
-  //     categoryPhotoSize: '10rem', categoryFontColor: '#fff', categoryBoxClass: 'category-Custom-BarLine', categoryBoxColor: '', categorySpanClass: 'category-Custom-Line', categorySpanColor: '', categoryActiveClass: 'category-Custom-Line-Active'
-  //   }
-
-  // })
 
   const [timeSetup, setTimeSetup] = useState({
     timeType: true,
@@ -93,7 +73,7 @@ const _SimulationApp = (prop) => {
     menuName: true, banner: true, sideBar: true, filter: true, vetgeterian: true, vegan: true, gluten_free: true, halal: true,
     description: true, accordian: true, footbar: true, langIcon: true, favoritHeart: true, feedBack: true
   })
-  const { menuName, banner, sideBar, filter, vetgeterian, vegan, gluten_free, halal, description, accordian, footbar, langIcon, favoritHeart, feedBack } = onOffSetting
+  const { sideBar, vetgeterian, vegan, gluten_free, halal, description, accordian, footbar, favoritHeart } = onOffSetting
   //=-----------------------------------------------
 
 
@@ -403,8 +383,8 @@ const _SimulationApp = (prop) => {
             <div className='navFlexLogoandName'>
 
               <div className='navSlit1'>
-                <i className="x">!Theme</i>
-                {prop.logoRestaurant && <div className="logoResta"><img className='logoRestaImg' src={prop.logoRestaurant} /></div>}
+             
+                {prop.logoRestaurant && <div className="logoResta"><img className='logoRestaImg' src={prop.logoRestaurant} alt=''/></div>}
                 <span style={{
                   'backgroundColor': `${prop.navAndFootBar?.navBarColor}`,
                   'fontFamily': `${prop.navAndFootBar?.nameFontFamily}`,
@@ -413,7 +393,7 @@ const _SimulationApp = (prop) => {
                   'fontWeight': '600'
                 }}>{prop.restaurantName}</span>
               </div>
-              <i className="x">!Theme NavBGColor 2/10  NavFontColor 1</i>
+        
               <div className=' navSlit2 navNameAndFilter'
                 style={{
                   'fontFamily': `${prop.bodyStyle?.bodyFontFamily}`,
@@ -435,7 +415,7 @@ const _SimulationApp = (prop) => {
                       </div>
                     </div>
                   )}
-                  <i className="x">!Theme Nav BG Color 3-5/10</i>
+       
                   {timeSetup?.timeType && (
                     <div
                       onClick={() => {
@@ -492,7 +472,7 @@ const _SimulationApp = (prop) => {
                           )}
                         </div>
                       </div>
-                      <i className="x">!Theme NavFontColor 1-2/8</i>
+           
                       {counttype > 1 && <div>{switchManuBtn ? <svg width="10" height="5" viewBox="0 0 46 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <line x1="23.1213" y1="2" x2="44" y2="22.8787" stroke={prop.navAndFootBar?.navBarFontColor} strokeWidth="3" strokeLinecap="round" />
                         <line x1="1.5" y1="-1.5" x2="31.0269" y2="-1.5" transform="matrix(-0.707107 0.707107 0.707107 0.707107 25 2)" stroke={prop.navAndFootBar?.navBarFontColor} strokeWidth="3" strokeLinecap="round" />
@@ -514,7 +494,7 @@ const _SimulationApp = (prop) => {
                     setSwitchManuBtn(false);
                   }}
                   className='filterBtn'>
-                  <i className="x">!Theme NavFontColor 3-7/8</i>
+            
                   <div className='navFilterNameText '>
                     <div className='filterBtn-main'>
                       {iconFilter === 'food_name' && <svg width="21" height="21" viewBox="0 0 54 46" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -574,7 +554,7 @@ const _SimulationApp = (prop) => {
                       </svg>}
                     </div>
 
-                    <i className="x">!Theme Nav BG Color 5-10/10</i>
+           
                     <div className={`filterBtn-Ab ${!switchFilterBtn && 'filterBtn-move'}`}>
                       {prop.onOffSetting.vetgeterian && <div
                         onClick={() => {
@@ -781,7 +761,7 @@ const _SimulationApp = (prop) => {
               navAndFootBar={prop.navAndFootBar}
               bodyStyle={prop.bodyStyle}
 
-              // favorList={favorList}
+              favorList={favorList}
               // languageSetup={languageSetup}
               setLanguage={setLanguage}
               language={language}

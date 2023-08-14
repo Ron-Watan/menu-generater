@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.eadee8b5.css",
-    "main.js": "/static/js/main.97c256b9.js",
+    "main.css": "/static/css/main.544df7d0.css",
+    "main.js": "/static/js/main.a46f04d0.js",
     "static/js/787.c4e7f8f9.chunk.js": "/static/js/787.c4e7f8f9.chunk.js",
     "static/media/remixicon.svg?t=1684338274817": "/static/media/remixicon.ce0e40c97bfc62e3edab.svg",
     "static/media/promotion1.png": "/static/media/promotion1.81752eb5812e1e582040.png",
@@ -19,7 +19,7 @@
     "static/media/_01line_google_sprite.svg": "/static/media/_01line_google_sprite.726560b4b50829b6bf287412a0cb02d3.svg",
     "static/media/_00app_icon.svg": "/static/media/_00app_icon.406bf85968027acf102b19ea39464423.svg",
     "static/media/onoff.svg": "/static/media/onoff.1e8a635d66dadf6211651cff080f39b5.svg",
-    "static/media/lang.svg": "/static/media/lang.aaebd3e207ddfd223443cc5992fd38e5.svg",
+    "static/media/lang.svg": "/static/media/lang.0d0fce1bd4b39dfd4f05d2eca1d6d028.svg",
     "static/media/feedback.svg": "/static/media/feedback.fe656a4c9a4c4e624dcf.svg",
     "static/media/translation.svg": "/static/media/translation.57d7bf6491dc934201fa.svg",
     "static/media/glutenfree.svg": "/static/media/glutenfree.623b51e8ba3b4ca359a9.svg",
@@ -30,6 +30,7 @@
     "static/media/logout.svg": "/static/media/logout.4c6e86be57a766ddc6d68851aada9446.svg",
     "static/media/menu1.svg": "/static/media/menu1.92dc83c90e15d9f786076eca9b3ceaed.svg",
     "static/media/vegan.svg": "/static/media/vegan.b6489b851d8fcdeb6a91.svg",
+    "static/media/setLang.svg": "/static/media/setLang.67c063a7a1e6fcae81a982ffd9d78792.svg",
     "static/media/time.svg": "/static/media/time.ebed8e8af396a50d9950baef364da8b2.svg",
     "static/media/filter.svg": "/static/media/filter.f50d50ce6a905234c44e.svg",
     "static/media/quickt.svg": "/static/media/quickt.7113806cf1e5d7074acda201bec50fa5.svg",
@@ -80,12 +81,12 @@
     "static/media/dotcir.svg": "/static/media/dotcir.5fb539ac8202e476dc033311214f0ce1.svg",
     "static/media/bordreg.svg": "/static/media/bordreg.0f3feabad6ba6ce1a223e80063e39934.svg",
     "static/media/_empty.svg": "/static/media/_empty.7b62bbf4b02d3d65f678e4361123ec76.svg",
-    "main.eadee8b5.css.map": "/static/css/main.eadee8b5.css.map",
-    "main.97c256b9.js.map": "/static/js/main.97c256b9.js.map",
+    "main.544df7d0.css.map": "/static/css/main.544df7d0.css.map",
+    "main.a46f04d0.js.map": "/static/js/main.a46f04d0.js.map",
     "787.c4e7f8f9.chunk.js.map": "/static/js/787.c4e7f8f9.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.eadee8b5.css",
-    "static/js/main.97c256b9.js"
+    "static/css/main.544df7d0.css",
+    "static/js/main.a46f04d0.js"
   ]
 }

@@ -433,7 +433,7 @@ const _AppMain = () => {
       });
   };
 
- 
+
   //- //= //-
 
   const saveEditMenu = (e) => {
@@ -528,7 +528,7 @@ const _AppMain = () => {
   };
 
   const [imgLoading, setImgLoading] = useState(false)
-  
+
   //=//=//=//=//=//=//=//=//=//=//=//=//=
 
   const findOneMenu = (menuId) => {
@@ -901,7 +901,7 @@ const _AppMain = () => {
 
 
   //-
- 
+
 
   //- MOBILE  //-///=///-///=///-///=///-///=///-   END FUNCTION   ///-///=///-///=///-///=///-///=///-
 
@@ -995,10 +995,10 @@ const _AppMain = () => {
       <div className="mobile-creator unselectable">
 
 
-        {turnOnFormSection && <div className={`mobile_function ${!onOffFeedBAck_MB && 'MB_slide_Down'}`}>
+        <div className={`mobile_function ${!onOffFeedBAck_MB && 'MB_slide_Down'}`}>
           <_01FeedBackMobile setProtectLoading={setProtectLoading}
             setOnOffFeedBAck_MB={setOnOffFeedBAck_MB} setGetStarNotification={setGetStarNotification} />
-        </div>}
+        </div>
 
         {turnOnFormSection && <div className={`mobile_function ${!onOffQRCCode_MB && 'MB_slide_Down'}`}>
           <_02QRCode
@@ -1107,7 +1107,6 @@ const _AppMain = () => {
             setCheckInputForm={setCheckInputForm} setListMenu={setListMenu} setMenuId={setMenuId} clearForm={clearForm} checkInputForm={checkInputForm} getAllMenu={getAllMenu}
           />
         </div>
-
         <div className={`mobile_function topColorPicker ${!activeWindowIconPicker && 'MB_slide_Down'}`}>
           <_20IconPickerMobile setProtectLoading={setProtectLoading}
             state={state} setState={setState} memoicon={memoicon} activeWindowIconPicker={activeWindowIconPicker}

@@ -36,16 +36,16 @@
   top: 100%;
   width: 100%;
   height: 200%;
-  background-color: inherit;
+
 } */
-.spanfootBarSectionC {
+/* .spanfootBarSectionC {
   position: absolute;
   top: 100%;
   width: 100%;
   height: 200%;
   background-color: inherit;
-  /* background: linear-gradient(to bottom, #680c0c, #000); */
-}
+  background: linear-gradient(to bottom, #680c0c, #000);
+} */
 
 .footBarGrid3 {
   display: grid;
@@ -141,7 +141,7 @@
   left: 2px;
   top: 50%; */
   transform: translateX(-5px);
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 .itemFavorListShow {
@@ -177,15 +177,17 @@
 .itemList {
   text-align: center;
   padding-bottom: 1rem;
+  font-weight: 500;
 }
 
 .favCatList {
   border-bottom: #bbb 1px solid;
   padding-top: 0.5rem;
   font-weight: 600;
-  color: #999;
   padding-left: 0.5rem;
   margin-right: 1rem;
+  margin-bottom: .5rem;
+  font-size: 1.1rem;
 }
 
 .gridFavList {
@@ -193,11 +195,15 @@
   width: 100%;
   justify-content: space-between;
   align-items: center;
-  padding: 0.2rem;
-  padding-left: 1rem;
-  padding-right: 2rem;
-}
+  padding: .5rem 2rem .5rem 1rem;
 
+}
+.favorListtext{
+line-height: 1.5;
+font-size: 1rem;
+font-weight: 400;
+
+}
 .starReview {
   margin-top: 1rem;
   margin-bottom: 1.5rem;
@@ -353,6 +359,7 @@
   outline: none;
   filter: brightness(1.05);
   border: #555 1px solid;
+  padding: 1rem;
 }
 .popupList {
   content: '';

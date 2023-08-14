@@ -104,12 +104,20 @@ const FooterComponent = (prop) => {
 
   const reformModel = []
 
-  // prop.favorList.map((el, index) => {
-  //   reformModel[el.code] = { category: el.category, list: [] }
-  // })
-  // prop.favorList.map((el, index) => {
-  //   reformModel[el.code].list.push(el)
-  // })
+
+
+
+
+
+
+
+  
+  prop.favorList.map((el, index) => {
+    reformModel[el.code] = { category: el.category, list: [] }
+  })
+  prop.favorList.map((el, index) => {
+    reformModel[el.code].list.push(el)
+  })
 
 
   let sumFaverPrice = 0
@@ -150,6 +158,7 @@ const FooterComponent = (prop) => {
   // })
   // prop.feedBackSMSFn
   // prop.sentfeedBack
+
   return (
     <div className="unselectable">
 
@@ -164,9 +173,15 @@ const FooterComponent = (prop) => {
               <i className="x">!Theme Nav BG Color 2/3</i>
               {prop.onOffSetting.langIcon && <button className='footbatBtnLang'
 
-                style={{ 'backgroundColor': `${prop.navAndFootBar.navBarColor}` }}>
+                style={{
+
+                  'backgroundColor': `${prop.navAndFootBar.navBarColor}`
+                }}>
                 <span className={`langCode`}
-                  style={{ 'color': `${prop.navAndFootBar.navBarFontColor}` }}>
+                  style={{
+                    'fontFamily': `${prop.bodyStyle.bodyFontFamily}`,
+                    'color': `${prop.navAndFootBar.navBarFontColor}`,
+                  }}>
                   {prop.language === 1 ? prop.languageSetup.code_1 : prop.languageSetup.code_2}
                 </span>
                 {/* //- */}
@@ -184,12 +199,18 @@ const FooterComponent = (prop) => {
 
               {(prop.onOffSetting.langIcon && prop.language === 1)
                 && <button value='2' onClick={switcherlng('secondNoUse')} className={`popupLang ${languageTab && 'popupLangUp1'}  popupLangText ${!prop.languageSetup.onLanguage_2 && 'displayNone'} `}
-                  style={{ 'backgroundColor': `${prop.navAndFootBar.navBarColor}`, 'color': `${prop.navAndFootBar.navBarFontColor}` }}>
+                  style={{
+                    'fontFamily': `${prop.bodyStyle.bodyFontFamily}`,
+                    'backgroundColor': `${prop.navAndFootBar.navBarColor}`, 'color': `${prop.navAndFootBar.navBarFontColor}`
+                  }}>
                   {prop.languageSetup.language_2}
                 </button>}
               {(prop.onOffSetting.langIcon && prop.language === 2)
                 && <button value='1' onClick={switcherlng('firstNoUse')} className={`popupLang ${languageTab && 'popupLangUp1'}  popupLangText`}
-                  style={{ 'backgroundColor': `${prop.navAndFootBar.navBarColor}`, 'color': `${prop.navAndFootBar.navBarFontColor}` }}>
+                  style={{
+                    'fontFamily': `${prop.bodyStyle.bodyFontFamily}`,
+                    'backgroundColor': `${prop.navAndFootBar.navBarColor}`, 'color': `${prop.navAndFootBar.navBarFontColor}`
+                  }}>
                   {prop.languageSetup.language_1}
                 </button>}
 
@@ -236,9 +257,7 @@ const FooterComponent = (prop) => {
           </div>}
 
         </div>
-        <div className="spanfootBarSectionC"
-        ></div>
-        {/* style={{ 'backgroundColor': `${prop.navAndFootBar.navBarColor}` } */}
+
       </nav>
 
 
@@ -251,29 +270,44 @@ const FooterComponent = (prop) => {
 
         {/*//- FAVORITE LIST */}
         <span onClick={() => switcher('listTab')} className={`popupList ${listTab && 'popupListUp'} popupListText`}
-          style={{ 'backgroundColor': `${prop.bodyStyle.bodyBgColor}`, 'color': `${prop.bodyStyle.bodyFonttColor}` }}
-
+          style={{
+            'backgroundColor': `${prop.bodyStyle.bodyBgColor}`,
+            'color': `${prop.bodyStyle.bodyFonttColor}`,
+            'fontFamily': `${prop.bodyStyle.bodyFontFamily}`,
+          }}
 
         >
+          {/* //infoFavorList */}
           <div className="itemList">{`${itemFavor} Item(s)`}</div>
-          <div className="overflow">
-      
+          <div className="overflow ">
+            {/* Not Available in simulation mode. */}
+            {reformModel.map((catelog, index) => {
+              return (
+                <div className="" key={index}><div className="favCatList">{catelog.category}</div>
+                  {catelog.list.map(el => {
+                    return (
+                      <ul className="line" key={index} >
+                        <li className="gridFavList">
+                          <div className="flex gap-x-4">
+                            <div className="min-w-0 flex-auto">
+                              <p className="favorListtext">{el.name}</p>
+                            </div>
+                          </div>
 
-            <li className="gridFavList">
-              <div className="flex gap-x-4">
-                <div className="min-w-0 flex-auto">
-                  <p className="text-sm font-semibold leading-6 text-gray-900">Total</p>
+                          <div className="flex gap-x-4">
+                            <div className="min-w-0 flex-auto">
+                            </div>
+                          </div>
+
+                        </li>
+                      </ul>
+                    )
+                  })}
+
                 </div>
-              </div>
+              )
 
-              <div className="flex gap-x-4">
-                <div className="min-w-0 flex-auto">
-                  <p className="text-sm font-semibold leading-6 text-gray-900">{sumFaverPrice}</p>
-                </div>
-              </div>
-
-            </li>
-
+            })}
 
           </div>
 
@@ -285,7 +319,11 @@ const FooterComponent = (prop) => {
 
         {/* Slide Tab 3*/}
         <span className={`popupList coment ${commentTab && 'popupListUp coment'} popupListText`}
-          style={{ 'backgroundColor': `${prop.bodyStyle.bodyBgColor}`, 'color': `${prop.bodyStyle.bodyFonttColor}` }}
+          style={{
+            'fontFamily': `${prop.bodyStyle.bodyFontFamily}`,
+            'backgroundColor': `${prop.bodyStyle.bodyBgColor}`,
+            'color': `${prop.bodyStyle.bodyFonttColor}`
+          }}
         >
           <div className="GruopBtn headCommentBtn">
             <button onClick={() => switcher('overlay')}

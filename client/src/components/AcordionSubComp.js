@@ -243,7 +243,7 @@ const AcordionSubComp = (prop) => {
 
           <div className='accTab' key={index}>
             {prop.footbar && <button onClick={event => removeFavorite(index, event, el.food_name, el.price)} className={`${!el.favor && 'displayNone'} heartFavor2Box`}>
-              {prop.favoritHeart && <div className={` heartFavor2Box-1 flex justify-center gap-x-6`}>
+              {prop.favoritHeart && <div className={` heartFavor2Box-1`}>
 
                 <img src={require(`../all-icon/footbar-icon/${heartIcon.favor2}`)} alt="" />
               </div>}
@@ -271,7 +271,10 @@ const AcordionSubComp = (prop) => {
                 <div className={`flex`}
                   style={{
                     'color': `${prop.themeSetup.body.bodyFonttColor}`,
-                    'fontSize': `${prop.themeSetup.body.bodyFontSize * 1.05}rem`, 'fontWeight': '500'
+                    'fontSize': `${prop.themeSetup.body.bodyFontSize * 1.05}rem`,
+                    'fontWeight': '500',
+                 
+                   
                   }}>
                   {prop.language === 1 && <span>{prop.languageSetup.style_1 ?
                     <div ><span>{prop.languageSetup.followed_1 && prop.languageSetup.symbol_1}</span><span>{el.price}</span> <span>&nbsp;{!prop.languageSetup.followed_1 && prop.languageSetup.symbol_1}</span> </div>
@@ -324,11 +327,15 @@ const AcordionSubComp = (prop) => {
                     {prop.language === 1 ? el.remark : el.remark_2}
                   </div>
                 }
-                <div className={`heartFavor1Box`}>
+                <div className={`heartFavor1Box`}
+                  style={{
+                    'height': `${(!prop.favoritHeart || !prop.footbar) ? '1.5rem' : ''}`,
+                  }}>
                   {(prop.favoritHeart && prop.footbar) && <button onClick={event => addFavorite(index, event, el.panelCode)} className={`${el.favor && 'opacity-0 transition-all'} `}>
                     <img src={require(`../all-icon/footbar-icon/${heartIcon.favor1}`)} alt="" />
                   </button>}
                 </div>
+
               </AccordionDetails>}
             </Accordion>
 
