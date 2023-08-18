@@ -5,7 +5,7 @@ import { ticketPass } from '../protectors/authorize';
 import { useDispatch, useSelector } from 'react-redux';
 import { hideLoading, showLoading } from '../redux/alertSlice';
 import { setUser } from '../redux/userSlice';
-import _MenuComponent from '../components/_MenuComponent';
+// import _MenuComponent from '../components/_MenuComponent';
 
 import '../style/_main.css';
 import '../style/mainForm.css';
@@ -31,13 +31,16 @@ import _07TimePickerMobile from './_07TimePickerMobile';
 import _08LanguageSetupMobile from './_08LanguageSetupMobile';
 import _09ThemeSetupMobile from './_09ThemeSetupMobile';
 import _10OnOffSettingMobile from './_10OnOffSettingMobile';
+import _11ExtraInfo from './_11ExtraInfo';
+
+
 // import _MenuComponent from '../../src/components/_MenuComponent'
 
 import _SimulationApp from './simulattion/_SimulationApp'
 // import _SimulationApp from '../../src/styleClient'
 
 
-import iconPhoto from '../icon/meal.svg';
+import iconPhoto from '../all-icon/button-icon/meal.svg';
 import MBicon_User from '../all-icon/mobile-bar/user.svg'
 import MBicon_Banner from '../all-icon/mobile-bar/banner.svg'
 import MBicon_Menu1 from '../all-icon/mobile-bar/menu1.svg'
@@ -50,6 +53,8 @@ import MBicon_Time from '../all-icon/mobile-bar/time.svg'
 import MBicon_Theme from '../all-icon/mobile-bar/theme.svg'
 import MBicon_Logout from '../all-icon/mobile-bar/logout.svg'
 import MBicon_Onoff from '../all-icon/mobile-bar/onoff.svg'
+import MBicon_Contact from '../all-icon/mobile-bar/contact.svg'
+
 import MBicon_StarNoti from '../all-icon/mobile-bar/starnoti.svg'
 // import styled from '@emotion/styled';
 // import { S3Client, PutObjectCommand, S3 } from "@aws-sdk/client-s3"
@@ -247,6 +252,9 @@ const _AppMain = () => {
           setCategoryList_1(catList_menu_1)
           setCategoryList_2(catList_menu_2)
           setCategoryList_3(catList_menu_3)
+
+          // console.log(getReult)
+          setExtraInfo(getReult.extraInfo)
           //   const checkTime = getReult.filter((el) => el.menuTime == menuTime;
           //   return el.menuTime == menuTime;
           // });
@@ -268,9 +276,11 @@ const _AppMain = () => {
           dispath(hideLoading())
           console.log('Server: Connected');
           setOnConnected(true);
+
+
           setTimeout(() => {
             setStartLoading(false)
-          }, 1000);
+          }, 500);
 
         } else {
           // Swal.fire(result.data.message)
@@ -285,7 +295,7 @@ const _AppMain = () => {
       });
   };
 
-
+  const [imgLoading, setImgLoading] = useState(false)
 
   //- //= //-
   //- //= //-
@@ -296,10 +306,10 @@ const _AppMain = () => {
       // setLoadingManual(true)
       Resizer.imageFileResizer(
         file,
-        390,
-        693,
+        507,
+        900,
         'JPEG',
-        100,
+        80,
         0,
         (uri) => {
           setFile(uri);
@@ -484,13 +494,14 @@ const _AppMain = () => {
                 }).then(next => {
                   setStart(false)
                   setMenuId('');
-                  console.log('HelloSave')
-                  // getAllMenu();
-
+                  // console.log('HelloSave')
+                  getAllMenu();
+                  setFile('')
                   dispath(setUser(result.data.userMenu));
                   setCheckInputForm(false)
                   setCheckEditImg(false)
                   setOneClickCat(false)
+
 
                 });
               })
@@ -527,19 +538,20 @@ const _AppMain = () => {
       });
   };
 
-  const [imgLoading, setImgLoading] = useState(false)
+
 
   //=//=//=//=//=//=//=//=//=//=//=//=//=
 
   const findOneMenu = (menuId) => {
     dispath(showLoading())
+    setImgLoading(true)
     setStart(true);
     setOnOffLangForm(false);
     // scrollToTop();
     setMenuId(menuId);
-    setFile('')
+    // setFile('')
 
-    categoryList.map(oneMennu => {
+    categoryList.forEach(oneMennu => {
       if (oneMennu.menuId === menuId) {
         // oneMennu.imgId && getImage(oneMennu.imgId)
         setState({
@@ -552,15 +564,15 @@ const _AppMain = () => {
 
         setFile(oneMennu.imgId);
         setFilePreview(oneMennu.imgId)
-
+        handleClickImageKey()
       }
 
     })
 
     setTimeout(() => {
       dispath(hideLoading())
+      setImgLoading(false)
     }, 500);
-
 
   };
 
@@ -670,7 +682,7 @@ const _AppMain = () => {
   const saveReArangeList = () => {
     dispath(showLoading())
     let newCategoryMoved = []
-    newCategoryMoved.push(...categoryList_1, ...categoryList_3, ...categoryList_3)
+    newCategoryMoved.push(...categoryList_1, ...categoryList_2, ...categoryList_3)
 
     axios
       .post(
@@ -713,7 +725,7 @@ const _AppMain = () => {
   //   })
   // })
 
-  const [deleteBtn, setDeleteBtn] = useState(false);
+  // const [deleteBtn, setDeleteBtn] = useState(false);
 
   const [start, setStart] = useState(false);
 
@@ -784,7 +796,7 @@ const _AppMain = () => {
         }, ticketPass)
       .then((result) => {
         if (result.data.success) {
-          const getReult = result.data.userMenu;
+          // const getReult = result.data.userMenu;
           dispath(setUser(result.data.userMenu));
           // setMenuName(getReult.menuName)
           dispath(hideLoading())
@@ -886,7 +898,10 @@ const _AppMain = () => {
   }
   //////=//=//=//=///////////////////////////////
 
-
+  const [extraInfo, setExtraInfo] = useState({
+    address_1: '', address_2: '', phone: '',
+    email: '', website: '', instagram: '', facebook: '', youtube: '', tiktok: ''
+  });
 
 
 
@@ -916,6 +931,7 @@ const _AppMain = () => {
   const [onOffThemeSetup_MB, setOnOffThemeSetup_MB] = useState(false);
   const [onOffSetting_MB, setOnOffSetting_MB] = useState(false);
   const [onOffQRCCode_MB, setOnOffQRCCode_MB] = useState(false);
+  const [onOffExtra_MB, setOnOffExtra_MB] = useState(false);
 
   //-
 
@@ -923,12 +939,12 @@ const _AppMain = () => {
   const [onOffLangForm, setOnOffLangForm] = useState(false); // Lang Form
   const [onOffLangSetup, setOnOffLangSetup] = useState(false); // Lang Setup
 
-  const [activeInputEn, setActiveInputEditName] = useState(false); // Edit Name
+  // const [activeInputEn, setActiveInputEditName] = useState(false); // Edit Name
   // aaa
   //=
-  const [deleteImageBannerTG, setDeleteImageBannerTG] = useState(0);
-  const [saveImageBannerTG, setSaveImageBannerTG] = useState(0);
-  const [resizeFileBannerTG, setResizeFileBannerTG] = useState(0);
+  // const [deleteImageBannerTG, setDeleteImageBannerTG] = useState(0);
+  // const [saveImageBannerTG, setSaveImageBannerTG] = useState(0);
+  // const [resizeFileBannerTG, setResizeFileBannerTG] = useState(0);
   const [getAllImageBannerTG, setGetAllImageBannerTG] = useState(0);
   const [getQRCodeTG, setGetQRCodeTG] = useState(0);
 
@@ -948,7 +964,7 @@ const _AppMain = () => {
   //=
 
 
-  const [turnOnFormSection, setTurnOnFormSection] = useState(false)
+  const [turnOnSection, setTurnOnSection] = useState(false) // Normal is Closed Sectiion
 
   const [onConnected, setOnConnected] = useState(false);
 
@@ -996,22 +1012,43 @@ const _AppMain = () => {
 
 
         <div className={`mobile_function ${!onOffFeedBAck_MB && 'MB_slide_Down'}`}>
-          <_01FeedBackMobile setProtectLoading={setProtectLoading}
-            setOnOffFeedBAck_MB={setOnOffFeedBAck_MB} setGetStarNotification={setGetStarNotification} />
+          <_01FeedBackMobile
+            setProtectLoading={setProtectLoading}
+            setOnOffFeedBAck_MB={setOnOffFeedBAck_MB}
+            setGetStarNotification={setGetStarNotification}
+            setTurnOnSection={setTurnOnSection}
+            turnOnSection={turnOnSection}
+          />
         </div>
 
-        {turnOnFormSection && <div className={`mobile_function ${!onOffQRCCode_MB && 'MB_slide_Down'}`}>
+        <div className={`mobile_function ${!onOffQRCCode_MB && 'MB_slide_Down'}`}>
           <_02QRCode
             setProtectLoading={setProtectLoading}
             getQRCodeTG={getQRCodeTG}
-            setOnOffQRCCode_MB={setOnOffQRCCode_MB} uploadImage={uploadImage}
+            setOnOffQRCCode_MB={setOnOffQRCCode_MB}
+            uploadImage={uploadImage}
             user={user}
+            setTurnOnSection={setTurnOnSection}
+            turnOnSection={turnOnSection}
           />
-        </div>}
+        </div>
 
+        <i className="x"> Extra Info-----------------------------------------------</i>
+        <div className={`mobile_function  ${!onOffExtra_MB && 'MB_slide_Down'}`}>
+
+          <_11ExtraInfo
+            setOnOffExtra_MB={setOnOffExtra_MB}
+            setRestaurantName={setRestaurantName}
+            restaurantName={restaurantName}
+            extraInfo={extraInfo}
+            setExtraInfo={setExtraInfo}
+            setTurnOnSection={setTurnOnSection}
+            turnOnSection={turnOnSection}
+          />
+        </div>
 
         <i className="x"> Banner-----------------------------------------------</i>
-        {turnOnFormSection && <div className={`mobile_function  ${!onOffBanner_MB && 'MB_slide_Down'}`}>
+        <div className={`mobile_function  ${!onOffBanner_MB && 'MB_slide_Down'}`}>
 
           <_03BannerMobile setProtectLoading={setProtectLoading}
             bannerImgArr={bannerImgArr}
@@ -1034,12 +1071,14 @@ const _AppMain = () => {
             getAllMenu={getAllMenu}
 
             imageKey={imageKey}
+            setTurnOnSection={setTurnOnSection}
+            turnOnSection={turnOnSection}
           />
-        </div>}
+        </div>
 
 
-        <i className="x"> Manu 1 111 -----------------------------------------------</i>
-        {turnOnFormSection && <div className={`mobile_function ${(!onOffMenu1_MB && !onOffMenu2_MB && !onOffMenu3_MB) && 'MB_slide_Down'}`}>
+        <i className="x"> Manu 1 2 3 -----------------------------------------------</i>
+        <div className={`mobile_function ${(!onOffMenu1_MB && !onOffMenu2_MB && !onOffMenu3_MB) && 'MB_slide_Down'}`}>
           <_04MenuForm setProtectLoading={setProtectLoading}
             inputMenuTimeName={inputMenuTimeName}
             menuName={menuName}
@@ -1058,8 +1097,9 @@ const _AppMain = () => {
             setListMenu={setListMenu}
             listMenuModel={listMenuModel}
             findOneMenu={findOneMenu} setOnOffLangForm={setOnOffLangForm}
-            deleteBtn={deleteBtn} deleteMenu={deleteMenu} saveEditMenu={saveEditMenu}
+            deleteMenu={deleteMenu} saveEditMenu={saveEditMenu}
             start={start} setStart={setStart}
+            // deleteBtn={deleteBtn}
             // file={file}
             setOnoffMenu1_MB={setOnoffMenu1_MB}
             setOnoffMenu2_MB={setOnoffMenu2_MB}
@@ -1073,12 +1113,13 @@ const _AppMain = () => {
             saveReArangeList={saveReArangeList}
             getAllMenu={getAllMenu}
 
-
+            setTurnOnSection={setTurnOnSection}
+            turnOnSection={turnOnSection}
           />
 
-        </div>}
+        </div>
 
-        {turnOnFormSection && <div className={` mobile_formFood ${!start && 'MB_slide_Left'}`}>
+        {turnOnSection && <div className={` mobile_formFood ${!start && 'MB_slide_Left'}`}>
           <_04MobileFormFood setProtectLoading={setProtectLoading}
             ref={ref} menuId={menuId} listMenu={listMenu}
             inputListValue={inputListValue} inputCheck={inputCheck}
@@ -1209,18 +1250,14 @@ const _AppMain = () => {
 
           <div className={`MC_nav ${!mBnavIcon && 'displayNone'}`}>
 
-
-
-
-
             {/* <div className={`MB_emptySm`}>&nbsp;</div> */}
-
 
 
             <i className='x'> 1 Feed Back -----------------------------------------------</i>
             <button onClick={() => {
+
               setOnOffFeedBAck_MB(!onOffFeedBAck_MB)
-              setTurnOnFormSection(true)
+              setTurnOnSection(true)
 
             }}
               name='Manu1MB'
@@ -1232,22 +1269,18 @@ const _AppMain = () => {
               </span>}
             </button>
             <i className='x'> 2 QR Code-----------------------------------------------</i>
-
-
             <button onClick={() => {
+
               setOnOffQRCCode_MB(!onOffQRCCode_MB)
+
               setGetQRCodeTG((getQRCodeTG) => getQRCodeTG + 1)
-              setTurnOnFormSection(true)
+              setTurnOnSection(true)
             }}
               name='Manu1MB'
               className={`MC_Tab MB_None `} >
               <img src={MBicon_Qrcode} alt="" />
 
-
-
             </button>
-
-
 
 
 
@@ -1255,7 +1288,7 @@ const _AppMain = () => {
             <button onClick={() => {
               setOnoffBanner_MB(!onOffBanner_MB);
               setGetAllImageBannerTG((getAllImageBannerTG) => getAllImageBannerTG + 1)
-              setTurnOnFormSection(true)
+              setTurnOnSection(true)
             }}
               name='bannerMB'
               className={`MC_Tab MB_None `} >
@@ -1267,17 +1300,11 @@ const _AppMain = () => {
 
 
 
-
-
-
-
-
-
             <i className='x'> 4 Menu1-----------------------------------------------</i>
 
             <button onClick={() => {
               setOnoffMenu1_MB(!onOffMenu1_MB);
-              setTurnOnFormSection(true)
+              setTurnOnSection(true)
               setMenuTime(1)
             }}
               name='Manu1MB'
@@ -1288,8 +1315,10 @@ const _AppMain = () => {
 
             <i className='x'> 5 Menu2-----------------------------------------------</i>
             <button onClick={() => {
+
               setOnoffMenu2_MB(!onOffMenu2_MB);
-              setTurnOnFormSection(true)
+
+              setTurnOnSection(true)
 
               setMenuTime(2)
             }}
@@ -1300,9 +1329,10 @@ const _AppMain = () => {
 
             <i className='x'> 6 Menu3-----------------------------------------------</i>
             <button onClick={() => {
-              setOnoffMenu3_MB(!onOffMenu3_MB);
-              setTurnOnFormSection(true)
-
+       
+                setOnoffMenu3_MB(!onOffMenu3_MB);
+   
+              setTurnOnSection(true)
               setMenuTime(3)
             }}
               name='Manu1MB'
@@ -1329,6 +1359,15 @@ const _AppMain = () => {
               name='Manu1MB'
               className={`MC_Tab MB_None `} >
               <img src={MBicon_Lang} alt="" />
+            </button>
+
+            <i className='x'> onOffExtra_MB-----------------------------------------------</i>
+            <button onClick={() => {
+              setOnOffExtra_MB(!onOffExtra_MB)
+            }}
+              name='Manu1MB'
+              className={`MC_Tab MB_None `} >
+              <img src={MBicon_Contact} alt="" />
             </button>
 
 
@@ -1385,11 +1424,11 @@ const _AppMain = () => {
 
       {/* <div className=""> */}
       <div className={`simulation ${(onOffBanner_MB || onOffMenu1_MB || onOffMenu2_MB ||
-        onOffMenu3_MB || onOffTimePicker_MB || onOffLangSetup_MB || onOffFeedBAck_MB || onOffSetting_MB || onOffQRCCode_MB)
+        onOffMenu3_MB || onOffTimePicker_MB || onOffLangSetup_MB || onOffFeedBAck_MB || onOffSetting_MB || onOffQRCCode_MB || onOffExtra_MB)
         && 'iframe_scale_Down'}`}
         style={{
           'position': `${(onOffBanner_MB || onOffMenu1_MB || onOffMenu2_MB || onOffThemeSetup_MB ||
-            onOffMenu3_MB || onOffTimePicker_MB || onOffLangSetup_MB || onOffFeedBAck_MB || onOffSetting_MB || onOffQRCCode_MB)
+            onOffMenu3_MB || onOffTimePicker_MB || onOffLangSetup_MB || onOffFeedBAck_MB || onOffSetting_MB || onOffQRCCode_MB || onOffExtra_MB)
             ? 'fixed' : 'sticky'}`
         }}
 
@@ -1432,6 +1471,7 @@ const _AppMain = () => {
           timeSetup={timeSetup}
 
           imageKey={imageKey}
+          extraInfo={extraInfo}
         />
 
       </div>

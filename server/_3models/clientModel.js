@@ -48,6 +48,10 @@ const clientSchema = mongoose.Schema(
       type: Array,
       default: []
     },
+    extraInfo: {
+      type: 'Object',
+      default: {},
+    },
     onOffSetting: {
       type: 'Object',
       default: {},

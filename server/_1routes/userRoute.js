@@ -4,9 +4,10 @@ import { register, login, getInfoUserToStore, requireLogin, generateMenu } from 
 import {
   findOneMenu, createManu, getAllMenu, saveEditMenu, deleteMenu,
   uploadImageBanner,
-  uploadImage, getAllImage, getImage,
+  uploadImage,
+  getAllImage, getImage,
   saveNameMenu, saveTimeSetup, saveLangSetup, setupTheme, getTheme, saveOnOffSetting,
-  getFeedBack, saveFeedBack, saveReArangeList, saveQRCode, getQrCode
+  getFeedBack, saveFeedBack, saveReArangeList, saveQRCode, getQrCode, saveExtraInfo
 } from '../_2controllers/manuController.js'
 import multer from "multer";
 // import formidable from "formidable";
@@ -105,6 +106,7 @@ router.post('/getFeedBack', requireLogin, getFeedBack)
 router.post('/saveFeedBack', requireLogin, saveFeedBack)
 router.post('/saveReArangeList', requireLogin, saveReArangeList)
 router.post('/saveQRCode', requireLogin, saveQRCode)
+router.post('/saveExtraInfo', requireLogin, saveExtraInfo)
 
 
 

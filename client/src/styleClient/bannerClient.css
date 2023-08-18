@@ -25,7 +25,8 @@ dotFormC */
 .imageBannerFormC {
   display: block;
   border-radius: 5px;
-  box-shadow: 0.2rem 0.2rem 0.4rem 0.1rem rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0.2rem 0.2rem 0.4rem 0.1rem rgba(0, 0, 0, 0.1); */
+
 }
 
 /* .imageBannerC1 {} */
@@ -42,7 +43,7 @@ dotFormC */
   align-items: center;
   /* gap: -2rem; */
   padding-top: .5rem;
-  padding-bottom: 1.5rem;
+  padding-bottom: .8rem;
 }
 
 .dotC {
@@ -97,13 +98,20 @@ dotFormC */
 
 .rtds-single-slide-styles {
   height: 15rem !important;
+
 }
 
 .rtds-single-slide-styles div {
   padding: 0.2rem 0.5rem !important;
+
 }
 
 .rtds-single-slide-styles img {
   /* width: 100% !important; */
   height: 15rem !important;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }

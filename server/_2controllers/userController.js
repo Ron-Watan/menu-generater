@@ -25,17 +25,16 @@ const verifier = CognitoJwtVerifier.create({
 
 export const register = (req, res) => {
 
-  const { restaurantName } = req.body
   req.body.clientId = uuidv4()
-  req.body.link = restaurantName + '-' + uuidv4().slice(0, 8)
 
       Users.create(req.body).then(result => {
 
-        const { clientId, link, menuName, bannerImage, languageSetup, timeSetup, themeSetup, onOffSetting } = result;
+        const { clientId, link, restaurantName,menuName, bannerImage, languageSetup, timeSetup, themeSetup, onOffSetting } = result;
 
         Clients.create({
           clientId: clientId,
           link: link,
+          restaurantName:restaurantName,
           menuName: menuName,
           bannerImage: bannerImage,
           languageSetup: languageSetup,
@@ -52,7 +51,10 @@ export const register = (req, res) => {
 
         res.status(200).send({ message: `Your account has been successfully created`, success: true })
       }).catch(err => {
+        console.log(err)
         if (err.keyValue.email) res.status(200).send({ message: "Email already exists", success: false })
+        else if (err.keyValue.link) res.status(200).send({ message: "Restaurant Link Name already exists", success: false })
+
         else res.send({ message: "Error creating account" })
       })
  

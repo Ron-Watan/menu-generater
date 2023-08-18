@@ -2,7 +2,7 @@
   position: relative;
 }
 .acArray {
-  background-color: #13cac7;
+
   overflow: hidden;
 }
 .test44 {
@@ -17,7 +17,7 @@
   right: 0.1rem;
   z-index: 100;
   height: 99%;
-  /* background-color: #13cac7; */
+
   display: flex;
   justify-content: flex-end;
   width: 3rem;
@@ -42,6 +42,7 @@
   position: relative;
   z-index: 0;
 }
+
 /* .categoryImg::before {
   position: absolute;
   content: '';
@@ -56,6 +57,14 @@
 }
 .ql-container.ql-snow {
   border: none !important;
+}
+
+.paddingPruce{
+  padding-left: .5rem;
+}
+.priceFlexX{
+  display: flex;
+  justify-content: flex-end;
 }
 /* //- BAR-LINE ///////////////////////////////// */
 .ql-editor {

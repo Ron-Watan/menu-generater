@@ -62,7 +62,7 @@ const LoginComponent = () => {
     userData.authenticateUser(authDetail, {
       onSuccess: (result) => {
 
-            authenticate(result.getAccessToken().getJwtToken(), () => navigate('/'))
+            authenticate(result.getAccessToken().getJwtToken(), () => navigate('/app'))
               setState({ ...state, email: '', password: '' })
         ///////////////////////////
 

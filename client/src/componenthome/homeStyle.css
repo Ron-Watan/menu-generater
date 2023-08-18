@@ -1,0 +1,88 @@
+.H-body {
+  font-family: 'Inter', Courier, monospace;
+  background-color: #fff;
+  width: 100%;
+  height: 100vh;
+}
+.H-header {
+  width: 100%;
+
+  position: fixed;
+  z-index: 99;
+  height: 5rem;
+  /* background-image: linear-gradient(to bottom right, #fc4422 35%, #ffbb32); */
+  background: linear-gradient(to right top, #4376ee 50%, #3edde8);
+  /* background-color: #ffbb32; */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.438);
+}
+.H-top-navigation {
+  height: 1.5rem;
+  background-color: #333;
+}
+.H-headerInner {
+  position: relative;
+}
+.H_mainnavigation {
+  position: relative;
+  width: 100%;
+  height: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.H_mainnavigation_ab {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.H-center-navigation {
+  display: flex;
+  justify-content: space-between;
+}
+.H-center-navigation img {
+  margin-top: -0.75rem;
+  max-width: 5rem;
+  /* background-color: aqua; */
+  border-radius: 50%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.438);
+}
+
+.H-rightSideHeader {
+  z-index: 200;
+}
+.H_btnLogin {
+  color: #fff;
+  padding: 0.5rem 1.8rem;
+  background-color: #000000;
+  border-radius: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 400;
+  line-height: 1.4;
+}
+.tempSpace {
+  height: 8rem;
+}
+
+.H_Banner {
+  display: block;
+  border-radius: 5px;
+  box-shadow: 0.2rem 0.2rem 0.4rem 0.1rem rgba(0, 0, 0, 0.1);
+}
+
+.H_Banner .rtds-single-slide-styles {
+  /* width: 100% !important; */
+  height: 30rem !important;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

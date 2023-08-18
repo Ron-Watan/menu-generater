@@ -6,6 +6,37 @@ const userSchema = mongoose.Schema(
       type: String,
       unique: true,
     },
+    email: {
+      type: String,
+      required: true,
+      unique: true
+    },
+    restaurantName: {
+      type: String,
+      required: true,
+    },
+    link: {
+      type: String,
+      required: true,
+      unique: true
+    },
+    onOffSetting: {
+      type: 'Object',
+      default: {},
+    },
+    extraInfo: {
+      type: 'Object',
+      default: {},
+    },
+    // password: {
+    //   type: String,
+    //   required: true,
+    // },
+
+
+
+
+
     firstName: {
       type: String,
       // required: true,
@@ -14,20 +45,8 @@ const userSchema = mongoose.Schema(
       type: String,
       // required: true,
     },
-    email: {
-      type: String,
-      // required: true,
-      // unique: true
-    },
-    password: {
-      type: String,
-      // required: true
-    },
 
-    restaurantName: {
-      type: String,
-      default: 'Restaurant',
-    },
+
     menu: {
       type: Array,
       default: [],
@@ -91,7 +110,7 @@ const userSchema = mongoose.Schema(
           nameFontFamily: 'Inter', nameFontColor: '#fff', nameFontSize: '1.6rem', navBarColor: '#000', navBarFontColor: '#fff', navBarLogoColor: '#fff'
         },
         body: {
-          bodyBgColor: '#fff', bodyFontFamily: 'Inter', bodyFonttColor: '#000',bodyFontSize:'1'
+          bodyBgColor: '#fff', bodyFontFamily: 'Inter', bodyFonttColor: '#000', bodyFontSize: '1'
         },
         sideBar: {
           extraIcon: false, themeIconRadius: '1.5rem', themeIconColorLine: '#555', themeIconBG: '#fff', themeIconSolid: 'none', themeIconColorBorder: '',
@@ -99,7 +118,7 @@ const userSchema = mongoose.Schema(
         categoryMotion: {
           categoryFontColor: '#fff', categoryBoxClass: 'category-Custom-BarLine', categoryBoxColor: '#000',
           categorySpanClass: 'category-Custom-Line', categorySpanColor: '#777', categoryActiveClass: 'category-Custom-Line-Active',
-          categoryPhotoSize:'10rem'
+          categoryPhotoSize: '10rem'
         }
 
       }
@@ -110,7 +129,7 @@ const userSchema = mongoose.Schema(
       default: {
         menuName: true, banner: true, sideBar: true, filter: true, vetgeterian: true, vegan: true, gluten_free: true, halal: true,
         description: true, accordian: true, footbar: true, langIcon: true, favoritHeart: true, feedBack: true
-          }
+      }
 
     },
     qrCodeSetUp: {
@@ -129,10 +148,6 @@ const userSchema = mongoose.Schema(
       default: [],
     },
     clientId: {
-      type: String,
-    },
-
-    link: {
       type: String,
     },
     bannerImage: {

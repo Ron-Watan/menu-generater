@@ -292,7 +292,11 @@ const _02QRCode = (prop) => {
       <div className="topBar_function backdrop_blur">
         <div className="GruopBtn">
           <button
-            onClick={() => checkQRcodeChangeFn()}
+            onClick={() => {
+              prop.setOnOffQRCCode_MB(false)
+              prop.setTurnOnSection(false)
+              checkQRcodeChangeFn()
+            }}
             className='MB_Btn MB_Btn_Border'>
 
             <img src={MBiconClose} alt="" />
@@ -370,7 +374,7 @@ const _02QRCode = (prop) => {
 
       {(!onOffTrayQR && !onOffTrayBG) && <div className="MB_SetGrid_ForBtn zindexUnderTop">
 
-        <div className="MB_Standard_Section_canScroll  MB_Make_QR MB_Wrap_ForBtn" >
+        <div className={`${prop.turnOnSection === true && 'MB_Standard_Section_canScroll'}  MB_Make_QR MB_Wrap_ForBtn`} >
 
           <div className="MB_qrContainer1 QR_EditSec">
             {/* <div className="MB_qrCodeBox ">

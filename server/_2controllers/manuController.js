@@ -10,7 +10,7 @@ export const getAllMenu = (req, res) => {
   // res.send({ message: "Success", success: true, }) //send to client side
   const { userId } = req.body;
   Users.findOne({ userId: userId })
-    .select('userId restaurentName menu menuName themeSetup bannerImage languageSetup timeSetup onOffSetting clientId link bannerNumber')
+    .select('userId restaurentName menu menuName themeSetup bannerImage languageSetup timeSetup onOffSetting clientId link bannerNumber extraInfo')
     .then((user) => {
       res.send({
         message: 'Success',
@@ -520,3 +520,23 @@ export const saveReArangeList = (req, res) => {
 };
 
 
+export const saveExtraInfo = (req, res) => {
+  const { userId, clientId, restaurantName, extraInfo } = req.body;
+  Users.findOne({ userId: userId })
+    .then((user) => {
+
+      user.restaurantName = restaurantName;
+      user.extraInfo = extraInfo;
+      user.save();
+      res.send({
+        message: 'Success',
+        // userOnOffSetting: user,// Slected
+        success: true,
+      });
+      Clients.findOne({ clientId: clientId }).then((client) => {
+        client.restaurantName = restaurantName;
+        client.extraInfo = extraInfo;
+        client.save();
+      });
+    });
+};

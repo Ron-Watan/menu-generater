@@ -284,9 +284,9 @@ const FooterComponent = (prop) => {
             {reformModel.map((catelog, index) => {
               return (
                 <div className="" key={index}><div className="favCatList">{catelog.category}</div>
-                  {catelog.list.map(el => {
+                  {catelog.list.map((el,index2) => {
                     return (
-                      <ul className="line" key={index} >
+                      <ul className="line" key={index2} >
                         <li className="gridFavList">
                           <div className="flex gap-x-4">
                             <div className="min-w-0 flex-auto">

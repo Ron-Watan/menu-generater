@@ -18,6 +18,7 @@ import '../styleClient/accordianClient.css';
 import { clientDataModel } from './modelData/clientData'
 import { createGlobalStyle } from 'styled-components';
 import Swal from 'sweetalert2';
+import SoLogo from '../all-icon/social-icon/social.svg'
 // qqq
 // const theme = createTheme({
 //   typography: {
@@ -101,7 +102,10 @@ const _MenuComponent = () => {
   //=-----------------------------------------------
 
 
-
+  const [extraInfo, setExtraInfo] = useState({
+    address_1: '', address_2: '', phone: '',
+    email: '', website: '', instagram: '', facebook: '', youtube: '', tiktok: ''
+  });
 
 
   //=-----------------------------------------------
@@ -113,7 +117,7 @@ const _MenuComponent = () => {
     setOnOffSetting({ ...onOffSetting, ['sideBar']: bol })
   }
   const getClientMenu = () => {
-    setLoadingManual(true);
+    setStartLoading(true);
     // console.log(co++)
     // dispath(showLoading())
 
@@ -122,26 +126,28 @@ const _MenuComponent = () => {
 
       .then((result) => {
         if (result.data.success) {
-          const getResault = result.data.clientMenu;
-          // setClientData(getResault);
-          setBannerImgArr(getResault.bannerImage)
-          setOriginalClientMenu(getResault.menu);
-          setClientMenu(getResault.menu);
-          setAllMenuName(getResault.menuName);
-          setLanguageSetup(getResault.languageSetup);
-          setThemeSetup(getResault.themeSetup)
-          setRestaurantName(getResault.restaurantName)
-          // setRestaurantLogo(getResault.themeSetup.restaurantLogo)
-          setTimeSetup(getResault.timeSetup)
-          setOnOffSetting(getResault.onOffSetting)
-          // console.log(getResault.onOffSetting)
-          const allDayType = getResault.timeSetup.allDayType;
+          const getResult = result.data.clientMenu;
+          // setClientData(getResult);
+          setBannerImgArr(getResult.bannerImage)
+          setOriginalClientMenu(getResult.menu);
+          setClientMenu(getResult.menu);
+          setAllMenuName(getResult.menuName);
+          setLanguageSetup(getResult.languageSetup);
+          setThemeSetup(getResult.themeSetup)
+          setRestaurantName(getResult.restaurantName)
+          // setRestaurantLogo(getResult.themeSetup.restaurantLogo)
+          setTimeSetup(getResult.timeSetup)
+          setOnOffSetting(getResult.onOffSetting)
+          setExtraInfo(getResult.extraInfo)
+
+          // console.log(getResult.onOffSetting)
+          const allDayType = getResult.timeSetup.allDayType;
 
           let allDayFirstMenu = 3
           let counttype = [];
           for (let x in allDayType) {
             if (allDayType[x]) {
-              counttype.push(getResault.menuName[x])
+              counttype.push(getResult.menuName[x])
               if (Number(x.slice(-1)) < allDayFirstMenu) {
                 allDayFirstMenu = Number(x.slice(-1))
 
@@ -152,21 +158,21 @@ const _MenuComponent = () => {
           setCounttype(counttype.length);
 
 
-          if (getResault.timeSetup.timeType) {
+          if (getResult.timeSetup.timeType) {
             setMenuTime(allDayFirstMenu);
             setChooseMenu(counttype[0]);
             setLoadingManual(false);
-          } else if (getResault.timeSetup.codeSelectType.menu_1 === '1' && nowTime >= Number(getResault.timeSetup.selectType?.menu_1.start) && nowTime <= Number(getResault.timeSetup.selectType?.menu_1.end)) {
+          } else if (getResult.timeSetup.codeSelectType.menu_1 === '1' && nowTime >= Number(getResult.timeSetup.selectType?.menu_1.start) && nowTime <= Number(getResult.timeSetup.selectType?.menu_1.end)) {
             setMenuTime(1);
-            setChooseMenu(getResault.menuName.menu_1);
+            setChooseMenu(getResult.menuName.menu_1);
             setLoadingManual(false)
-          } else if (getResault.timeSetup.codeSelectType.menu_2 === '2' && nowTime >= Number(getResault.timeSetup.selectType?.menu_2.start) && nowTime <= Number(getResault.timeSetup.selectType?.menu_2.end)) {
+          } else if (getResult.timeSetup.codeSelectType.menu_2 === '2' && nowTime >= Number(getResult.timeSetup.selectType?.menu_2.start) && nowTime <= Number(getResult.timeSetup.selectType?.menu_2.end)) {
             setMenuTime(2);
-            setChooseMenu(getResault.menuName.menu_2);
+            setChooseMenu(getResult.menuName.menu_2);
             setLoadingManual(false)
-          } else if (getResault.timeSetup?.codeSelectType.menu_3 === '3' && nowTime >= Number(getResault.timeSetup.selectType?.menu_3.start) && nowTime <= Number(getResault.timeSetup.selectType?.menu_3.end)) {
+          } else if (getResult.timeSetup?.codeSelectType.menu_3 === '3' && nowTime >= Number(getResult.timeSetup.selectType?.menu_3.start) && nowTime <= Number(getResult.timeSetup.selectType?.menu_3.end)) {
             setMenuTime(3);
-            setChooseMenu(getResault.menuName.menu_3);
+            setChooseMenu(getResult.menuName.menu_3);
             setLoadingManual(false)
           }
 
@@ -177,7 +183,7 @@ const _MenuComponent = () => {
           let newIndex2 = 0;
           let newIndex3 = 0;
 
-          getResault.menu.map((el, index) => {
+          getResult.menu.map((el, index) => {
             if (!el.icon_catagory) return;
             if (el.menuTime === 1) {
               iconMenu_1.push({ icon: el.icon_catagory, iconAct: el.icon_catagory, link: `#${newIndex1}` })
@@ -215,6 +221,7 @@ const _MenuComponent = () => {
   };
   //=-----------------------------------------------
   const addFavorite = (index, objFromAccord, catagory, indexM) => {
+    // let copyFavorList = [...favorList]
     let dataSet = objFromAccord;
     let data = dataSet[index];
     let favor = {
@@ -224,10 +231,15 @@ const _MenuComponent = () => {
       name: data['food_name'],
       price: data['price'],
     };
+
     let newFavorList = favor;
     data.favor = true;
+    // copyFavorList.push(favor)
     setFavorList([...favorList, newFavorList]);
+    // setFavorList(copyFavorList);
+
   };
+
   //=-----------------------------------------------
   const removeFavorite = (index, objFromAccord, indexM) => {
     let dataSet = objFromAccord;
@@ -383,7 +395,12 @@ const _MenuComponent = () => {
   // }, [link]);
   useEffect(() => {
     getClientMenu();
+
+
   }, []);
+  // document.body.style.backgroundColor = themeSetup.body.bodyBgColor
+  // document.body.style.backgroundColor = 'red'
+
   // useEffect(() => {
   //   getImage();
   // }, []);
@@ -400,20 +417,28 @@ const _MenuComponent = () => {
 
 
   // font-family: 'Roboto Slab', serif;
-  document.body.style.backgroundColor = '#000'
+  // document.body.style.backgroundColor = '#000'
+
 
 
   const [loadingManual, setLoadingManual] = useState(true);
+  const [scrollBlock, setScrollBlock] = useState(false)
+
 
 
   //=-----------------------------------------------
   return (
 
-    <div className='mobileViewport unselectable'
-      style={{ 'fontFamily': `${themeSetup.body.bodyFontFamily} , serif`, 'backgroundColor': `${themeSetup.body.bodyBgColor}` }}>
+    <div className={`mobileViewport unselectable`}
+      style={{
+        'fontFamily': `${themeSetup.body.bodyFontFamily} , serif`,
+        'backgroundColor': `${themeSetup.body.bodyBgColor}`
+      }}
+
+    >
 
 
-      <i className="x">!Theme</i>
+  
       <div className={`${startLoading && 'Full_Start_Loading'} `}>
         <div className="iconLoadingBanner">
           <span className='barOne'></span > <span className='barTwo'></span> <span className='barThree'></span>
@@ -708,7 +733,9 @@ const _MenuComponent = () => {
           <SidebarSubComp triggerIcon={triggerIcon} menuTime={menuTime} iconMenu_1={iconMenu_1} iconMenu_2={iconMenu_2} iconMenu_3={iconMenu_3} colorTheme={colorTheme} themeSetup={themeSetup} />
         </div>}
         {/* == <BannerExample /> == */}
-        {banner && <div className='bannerSectionC'
+        {(banner && bannerImgArr.length > 0) && <div className={`bannerSectionC`}
+          // {banner && <div className={`bannerSectionC ${bannerImgArr.length===0&& 'displayNone'}`}
+
           style={{ 'backgroundColor': `${themeSetup.body.bodyBgColor}` }}
         >
           <BannerSubCompo themeSetup={themeSetup} bannerImgArr={bannerImgArr} link={link} />
@@ -718,73 +745,77 @@ const _MenuComponent = () => {
         {/* <ThemeProvider theme={theme} > */}
         {/* <ThemeProvider  > */}
 
-          {menuTime === 1 &&
-            clientMenu
-              .filter((el) => el.menuTime === 1)
-              .map((el, index) => (
-                <AcordionSubComp
-                  listMunu={el}
-                  indexM={index}
-                  addFavorite={addFavorite}
-                  removeFavorite={removeFavorite}
-                  triggerIcon={triggerIcon}
-                  setTriggerIcon={setTriggerIcon}
-                  key={index}
-                  languageSetup={languageSetup}
-                  setLanguage={setLanguage}
-                  language={language}
-                  themeSetup={themeSetup}
-                  favoritHeart={favoritHeart}
-                  sideBar={sideBar}
-                  description={description}
-                  accordian={accordian}
-                  footbar={footbar}
-
-                />
-              ))}
-          {menuTime === 2 &&
-            clientMenu
-              .filter((el) => el.menuTime === 2)
-              .map((el, index) => (
-                <AcordionSubComp
-                  listMunu={el}
-                  indexM={index}
-                  addFavorite={addFavorite}
-                  removeFavorite={removeFavorite}
-                  triggerIcon={triggerIcon}
-                  setTriggerIcon={setTriggerIcon}
-                  key={index}
-                  languageSetup={languageSetup}
-                  setLanguage={setLanguage}
-                  language={language}
-                  themeSetup={themeSetup}
-                  description={description}
-                  accordian={accordian}
-                  footbar={footbar}
-                />
-              ))}
-          {menuTime === 3 &&
-            clientMenu
-              .filter((el) => el.menuTime === 3)
-              .map((el, index) => (
-                <AcordionSubComp
-                  listMunu={el}
-                  indexM={index}
-                  addFavorite={addFavorite}
-                  removeFavorite={removeFavorite}
-                  triggerIcon={triggerIcon}
-                  setTriggerIcon={setTriggerIcon}
-                  key={index}
-                  languageSetup={languageSetup}
-                  setLanguage={setLanguage}
-                  language={language}
-
-                  themeSetup={themeSetup}
-                  description={description}
-                  accordian={accordian}
-                  footbar={footbar}
-                />
-              ))}
+        {menuTime === 1 &&
+          clientMenu
+            .filter((el) => el.menuTime === 1)
+            .map((el, index) => (
+              <AcordionSubComp
+                listMunu={el}
+                indexM={index}
+                addFavorite={addFavorite}
+                removeFavorite={removeFavorite}
+                triggerIcon={triggerIcon}
+                setTriggerIcon={setTriggerIcon}
+                key={index}
+                languageSetup={languageSetup}
+                setLanguage={setLanguage}
+                language={language}
+                themeSetup={themeSetup}
+                favoritHeart={favoritHeart}
+                sideBar={sideBar}
+                description={description}
+                accordian={accordian}
+                footbar={footbar}
+                menuTime={menuTime}
+              />
+            ))}
+        {menuTime === 2 &&
+          clientMenu
+            .filter((el) => el.menuTime === 2)
+            .map((el, index) => (
+              <AcordionSubComp
+                listMunu={el}
+                indexM={index}
+                addFavorite={addFavorite}
+                removeFavorite={removeFavorite}
+                triggerIcon={triggerIcon}
+                setTriggerIcon={setTriggerIcon}
+                key={index}
+                languageSetup={languageSetup}
+                setLanguage={setLanguage}
+                language={language}
+                themeSetup={themeSetup}
+                favoritHeart={favoritHeart}
+                sideBar={sideBar}
+                description={description}
+                accordian={accordian}
+                footbar={footbar}
+                menuTime={menuTime}
+              />
+            ))}
+        {menuTime === 3 &&
+          clientMenu
+            .filter((el) => el.menuTime === 3)
+            .map((el, index) => (
+              <AcordionSubComp
+                listMunu={el}
+                indexM={index}
+                addFavorite={addFavorite}
+                removeFavorite={removeFavorite}
+                triggerIcon={triggerIcon}
+                setTriggerIcon={setTriggerIcon}
+                key={index}
+                languageSetup={languageSetup}
+                setLanguage={setLanguage}
+                language={language}
+                themeSetup={themeSetup}
+                favoritHeart={favoritHeart}
+                sideBar={sideBar}
+                description={description}
+                accordian={accordian}
+                footbar={footbar}
+              />
+            ))}
         {/* </ThemeProvider> */}
 
         {/* <div className="footerSpace"></div> */}
@@ -805,84 +836,77 @@ const _MenuComponent = () => {
             feedBackStarFn={feedBackStarFn}
             sentfeedBack={sentfeedBack}
             feedBackSMS={feedBackSMS}
+            scrollBlock={scrollBlock}
+            setScrollBlock={setScrollBlock}
           />
 
 
         </div>}
 
-        <div>
-          {/* <div className="mx-auto max-w-7xl" id='1'>
-
-          <div className="h-40" style={{
-            backgroundImage: `url(${catalog1})`,
-            backgroundPosition: 'top',
-            backgroundSize: 'cover'
-          }}>
-          </div>
-
-          <ul role="list" className="divide-y divide-gray-100 px-2 sm:px-6 lg:px-8">
-
-
-
-            {userManuLists.map(el => {
-
-              <li onClick={() => setMenuActive(el.tabCode)} className='cssTransition flex flex-col justify-left gap-x-6 overflow-hidden' key={uuidv4()}>
-                <div className='flex gap-x-4 py-2 '>
-                  <div className='min-w-0 flex-auto pl-20'>
-                    <div className='flex justify-between '>
-                      <p className='text-sm font-semibold leading-6 text-gray-900 '>{el.title}</p>
-                      <p>{isMenuActive === el.tabCode ? '-' : '+'}</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div
-                  className={` transition-all h-0 `}
-                  style={{
-                    height: isMenuActive === el.tabCode ? `${height}px` : '0px',
-                    transition: 'all .3s',
-                  }}>
-                  <div className={`flex gap-x-4`}>
-                    <div className='min-w-0 flex-auto pl-20'>
-                      <p ref={elementRef} className='text-sm font-semibold leading-6 text-gray-900 border-t'>
-                        {el.content}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-              </li>
-            })}
-
-          </ul>
-        </div> */}
-
-          {/* <div className="mx-auto max-w-7xl" id='3'>
-          <div className="h-40" style={{
-            backgroundImage: `url(${catalog1})`,
-            backgroundPosition: 'top',
-            backgroundSize: 'cover'
-          }}>
-          </div>
-          <ul role="list" className="divide-y divide-gray-100 px-2 sm:px-6 lg:px-8 cssTransition">
-
-            {userManuLists.map(({ title, content, tabCode }) => (
-              <AccordionList title={title} content={content} tabCode={tabCode} />
-            ))}
-
-          </ul>
-        </div> */}
-        </div>
-
+        
 
       </div>
 
 
-
       <div className='extraSpace'
-      // style={{ 'height': `${themeSetup.navAndFootBar.navBarColor}` }}
+        style={{
+          'color': `${themeSetup.body.bodyFonttColor}`,
+        }}
+      >
+        <div className="inFoClient">
+          <div className="inFoClient_Name">{restaurantName}</div>
+          {extraInfo.address_1 && <div className="">{extraInfo.address_1}</div>}
+          {extraInfo.address_2 && <div className="">{extraInfo.address_2}</div>}
 
-      ></div>
+          {extraInfo.phone && <div className="flex">
+            <div className="">{extraInfo.phone}</div>
+          </div>}
+          {extraInfo.email && <div className="">{extraInfo.email}</div>}
+          <div className="flex_sologo">
+            {extraInfo.website && <a href={extraInfo.website} target="_blank" className="box_soLogo"
+              style={{
+                'border': `.5px solid ${themeSetup.body.bodyFonttColor}`
+              }}>
+
+              <svg className='itemSvg_so' fill={themeSetup.body.bodyFonttColor}>
+                <use xlinkHref={`${SoLogo}#social-1`} />
+              </svg>
+            </a>}
+            {extraInfo.instagram && <a href={extraInfo.instagram} target="_blank" className="box_soLogo"
+              style={{
+                'border': `.5px solid ${themeSetup.body.bodyFonttColor}`
+              }}>
+              <svg className='itemSvg_so' fill={themeSetup.body.bodyFonttColor}>
+                <use xlinkHref={`${SoLogo}#social-2`} />
+              </svg>
+            </a>}
+            {extraInfo.facebook && <a href={extraInfo.facebook} target="_blank" className="box_soLogo"
+              style={{
+                'border': `.5px solid ${themeSetup.body.bodyFonttColor}`
+              }}>
+              <svg className='itemSvg_so' fill={themeSetup.body.bodyFonttColor}>
+                <use xlinkHref={`${SoLogo}#social-3`} />
+              </svg>
+            </a>}
+            {extraInfo.youtube && <a href={extraInfo.youtube} target="_blank" className="box_soLogo"
+              style={{
+                'border': `.5px solid ${themeSetup.body.bodyFonttColor}`
+              }}>
+              <svg className='itemSvg_so' fill={themeSetup.body.bodyFonttColor}>
+                <use xlinkHref={`${SoLogo}#social-4`} />
+              </svg>
+            </a>}
+            {extraInfo.tiktok && <a href={extraInfo.tiktok} target="_blank" className="box_soLogo"
+              style={{
+                'border': `.5px solid ${themeSetup.body.bodyFonttColor}`
+              }}>
+              <svg className='itemSvg_so' fill={themeSetup.body.bodyFonttColor}>
+                <use xlinkHref={`${SoLogo}#social-5`} />
+              </svg>
+            </a>}
+          </div>
+        </div>
+      </div>
 
 
 

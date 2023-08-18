@@ -12,7 +12,7 @@
   width: 100vw;
 
   /* effect to address bar */
-  /* height: 100%; */
+  height: 110%;
   /* height: 50rem; */
   position: relative;
   overflow-x: hidden;
@@ -25,6 +25,7 @@
 
 .mobileViewport_Wrapper {
   /* padding-top: 3.5rem; */
+
   position: relative;
   width: 100%;
 }
@@ -234,10 +235,6 @@
   margin-right: 3px;
 }
 
-.extraSpace {
-  height: 120vh;
-}
-
 .unselectable {
   -webkit-user-select: none;
   -webkit-touch-callout: none;
@@ -254,4 +251,41 @@
 }
 .extraT {
   font-family: 'Roboto Slab', serif;
+}
+
+.extraSpace {
+  height: 80vh;
+  padding-bottom: 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
+.inFoClient {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .6rem;
+}
+.inFoClient_Name{
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: .5rem;
+}
+
+.flex_sologo {
+  display: flex;
+  gap: 1rem;
+}
+.box_soLogo {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+.itemSvg_so {
+  width: 1.5rem;
+  height: 1.5rem;
 }

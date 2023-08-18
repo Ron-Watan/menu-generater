@@ -53,17 +53,18 @@ const _03BannerMobile = (prop) => {
 
 
 
-
+  // 390,
+  //     693,
 
   const resizeFileBannerReal = (file) =>
     new Promise((resolve, reject) => {
       dispath(showLoading())
       Resizer.imageFileResizer(
         file,
-        390,
-        693,
+        507,
+        900,
         'JPG',
-        90,
+        80,
         0,
         (uri) => {
           if (prop.realBannerFile.length > 6) return dispath(hideLoading())
@@ -129,9 +130,9 @@ const _03BannerMobile = (prop) => {
 
           .then((result) => {
             Swal.fire({
-              title: '',
+              title: 'Saved',
               toast: true,
-              icon: '',
+              icon: 'success',
               showConfirmButton: false,
               timer: 1000,
             }).then(next => {
@@ -278,7 +279,7 @@ const _03BannerMobile = (prop) => {
             //SAVE DB
             axios
               .post(`${process.env.REACT_APP_API}/user/photos/dataBanner`,
-              { userId: user.userId, clientId: user.clientId, bannerImage: linkDB, banner: prop.bannerImgArr.length })
+                { userId: user.userId, clientId: user.clientId, bannerImage: linkDB, banner: prop.bannerImgArr.length })
               .then((result) => {
                 console.log('bata2')
                 dispath(hideLoading())
@@ -409,7 +410,7 @@ const _03BannerMobile = (prop) => {
         <div className="GruopBtn">
           <button onClick={() => {
             checkBannerChangeFn()
-
+            prop.setTurnOnSection(false)
 
             // prop.setOnoffBanner_MB(false)
             // checkChecnge()
@@ -450,7 +451,7 @@ const _03BannerMobile = (prop) => {
 
 
         {/* <div className="MB_InScroll_fullNew paddingBottom_8 overScroll_none "> */}
-        <div className="MB_Standard_Section_canScroll MB_Make_PadingBanner " >
+        <div className={`${prop.turnOnSection === true && 'MB_Standard_Section_canScroll'} MB_Make_PadingBanner`}  >
 
           {/* <div className="MB_PaddingWrapper"> */}
           <div className="MB_bannerShow_Flex_Column">

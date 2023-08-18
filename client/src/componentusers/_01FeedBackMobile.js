@@ -272,7 +272,10 @@ const _FeedBackMobile = (prop) => {
       <div className="topBar_function backdrop_blur">
         <div className="GruopBtn">
           <button
-            onClick={() => prop.setOnOffFeedBAck_MB(false)}
+            onClick={() => {
+              prop.setOnOffFeedBAck_MB(false)
+              prop.setTurnOnSection(false)
+            }}
             className='MB_Btn MB_Btn_Border'>
 
             <img src={MBiconClose} alt="" />
@@ -297,7 +300,7 @@ const _FeedBackMobile = (prop) => {
         <div className="MB_2LangLayout_Grid gridRow_1fr">
           <div className="">
 
-            <div className="MB_InScroll_fullNew paddingBottom_8 greenLinear">
+            <div className={` ${prop.turnOnSection === true && 'MB_InScroll_fullNew'}  paddingBottom_8 greenLinear`}>
               {/* <div className="MB_PaddingWrapper"> */}
               <div className="MB_SumFeedBack">
                 <div className="MB_FBScoreBox1 Flex_AllCenter">

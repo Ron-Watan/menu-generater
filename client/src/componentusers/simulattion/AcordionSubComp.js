@@ -8,7 +8,7 @@ import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import { useState } from 'react';
 // import fff from '../../all-icon/footbar-icon'
 
-
+import logo from '../images/logo_1.png'
 
 
 
@@ -37,7 +37,7 @@ const AccordionSummary = styled((props) => (
   />
 ))(({ theme }) => ({
   paddingLeft: '30px',
-  paddingRight: '0px',
+  paddingRight: '10px',
   backgroundColor:
     theme.palette.mode === 'dark'
       ? '#e1e1e156'
@@ -76,11 +76,11 @@ const AcordionSubComp = (prop) => {
 
   };
 
-  const addPanel = () => {
-    subListMenu.map((element, index) => {
-      element.panelCode = 'panel' + index
-    })
-  }
+  // const addPanel = () => {
+  subListMenu.map((element, index) => {
+    element.panelCode = 'panel' + index
+  })
+  // }
 
 
   const [newSubListMenu, setNewSubListMenu] = useState(subListMenu)
@@ -90,14 +90,14 @@ const AcordionSubComp = (prop) => {
     let dataSet = [...newSubListMenu];
     let data = dataSet[index]
     data.favor = true
-    prop.addFavorite(index, [...newSubListMenu], prop.listMunu.catagory, prop.indexM)
+    prop.addFavorite(index, [...newSubListMenu], prop.listMunu.catagory, `${prop.menuTime}${prop.indexM}`)
     setExpanded(false)
   }
 
   const removeFavorite = (index) => {
     let dataSet = [...newSubListMenu];
     let data = dataSet[index]
-    prop.removeFavorite(index, [...newSubListMenu], prop.indexM)
+    prop.removeFavorite(index, [...newSubListMenu], `${prop.menuTime}${prop.indexM}`)
     data.favor = false
   }
 
@@ -161,6 +161,25 @@ const AcordionSubComp = (prop) => {
   }
 
 
+
+
+
+
+
+
+
+
+  // window.addEventListener("load", event => {
+  //   // var image = document.querySelector('img');
+  //   console.log('www')
+  //   var img = document.getElementById(`tesssss`),
+  //     style = img.currentStyle || window.getComputedStyle(img, false),
+  //     bi = style.backgroundImage.slice(4, -1).replace(/"/g, "");
+
+
+  //   var isLoaded = img.complete && img.naturalHeight !== 0;
+  //   alert(isLoaded);
+  // });
   //- //- //- //- //- //- //- //- //- //- //- //-
 
   return (
@@ -169,6 +188,7 @@ const AcordionSubComp = (prop) => {
 
       <div className="categoryImg" style={{
         // backgroundImage: `url(${photoHostName}${prop.listMunu.imgId})`,
+        // backgroundImage: `url(${prop.listMunu.imgId ? `${photoHostName}${prop.listMunu.imgId}?key=${prop.imageKey}` : ''})`,
 
         backgroundImage: `url(${prop.listMunu.imgId ? `${photoHostName}${prop.listMunu.imgId}?key=${prop.imageKey}` : ''})`,
         backgroundPosition: 'center',
@@ -181,7 +201,7 @@ const AcordionSubComp = (prop) => {
           <span className={`category-Custom-Title`} style={{
             'fontFamily': `${prop.bodyStyle?.bodyFontFamily}`,
             'color': `${prop.categoryMotion.categoryFontColor}`,
-            'fontSize': `${prop.bodyStyle.bodyFontSize * 1.4}rem`, 'fontWeight': '500'
+            'fontSize': `${prop.bodyStyle.bodyFontSize * 1.4}rem`, 'fontWeight': '600'
 
 
           }}> {prop.language === 1 ? prop.listMunu.catagory : prop.listMunu.catagory_2}</span>
@@ -196,7 +216,7 @@ const AcordionSubComp = (prop) => {
         {subListMenu.map((el, index) => (
 
           <div className='accTab' key={index}>
-     
+
             {prop.onOffSetting.footbar && <button onClick={event => removeFavorite(index, event, el.food_name, el.price)} className={`${!el.favor && 'displayNone'} heartFavor2Box`}>
               {prop.onOffSetting.favoritHeart && <div className={` heartFavor2Box-1`}>
 
@@ -231,10 +251,10 @@ const AcordionSubComp = (prop) => {
                     'fontSize': `${prop.bodyStyle.bodyFontSize * 1.05}rem`, 'fontWeight': '500'
                   }}>
                   {prop.language === 1 && <span>{prop.languageSetup.style_1 ?
-                    <div ><span>{prop.languageSetup.followed_1 && prop.languageSetup.symbol_1}</span><span>{el.price}</span> <span>&nbsp;{!prop.languageSetup.followed_1 && prop.languageSetup.symbol_1}</span> </div>
+                    <div ><span>{prop.languageSetup.followed_1 && prop.languageSetup.symbol_1}</span><span>{el.price}</span> <span>{!prop.languageSetup.followed_1 && prop.languageSetup.symbol_1}</span> </div>
                     : <div ><span></span><span>{el.price}</span><span></span></div>}</span>}
                   {prop.language === 2 && <span>{prop.languageSetup.style_2 ?
-                    <div ><span>{prop.languageSetup.followed_2 && prop.languageSetup.symbol_2}</span><span>{el.price_2}</span> <span>&nbsp;{!prop.languageSetup.followed_2 && prop.languageSetup.symbol_2}</span> </div>
+                    <div ><span>{prop.languageSetup.followed_2 && prop.languageSetup.symbol_2}</span><span>{el.price_2}</span> <span>{!prop.languageSetup.followed_2 && prop.languageSetup.symbol_2}</span> </div>
                     : <div ><span></span><span>{el.price_2}</span><span></span></div>}</span>}
                 </div>
 

@@ -152,12 +152,19 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
   //   data.readAsDataURL(e.target.files[0])
   //   prop.setCheckEditImg(true)
   // }
-  
-  
+
+
   const scrollToTop = () => {
     window.scrollTo(0, 0);
   };
 
+  let img = document.getElementById('dummy')
+  console.dir(img)
+  window.addEventListener("load", event => {
+
+    var isLoaded = img.complete && img.naturalHeight !== 0;
+    alert('www');
+  });
 
   return (
 
@@ -177,7 +184,7 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
 
         {prop.menuId && <div className="GruopBtn">
 
-          <a href="#"onClick={() => {
+          <a href="#" onClick={() => {
             checkInputFormFn(prop.saveEditMenu)
             setShowControl(false)
           }} className="MB_Btn MB_Btn_Border">
@@ -280,7 +287,7 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
                   {!prop.checkEditImg && < img className='MB_boxPhoto' src={prop.file ? `${photoHostName}${prop.filePreview}` : prop.iconPhoto} alt='' />}
                   {prop.checkEditImg && <img className='MB_boxPhoto' src={prop.file} alt='' />}
 
-
+                  {/* <img src={`${photoHostName}${prop.filePreview}`} id="dummy" style={{ display: 'none' }} alt="" /> */}
                   {/* {prop.previewImg&&<img className='MB_boxPhoto' src={prop.previewImg} alt='' />} */}
                 </div>
               </label>
@@ -514,7 +521,7 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
                     </fieldset>
 
 
-            
+
 
                   </div>
 
@@ -588,8 +595,8 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
               onClick={() => {
                 setShowControl(false)
                 prop.additem()
-               
-            }}>
+
+              }}>
               <span
                 type='' className='MB_Btn MB_Btn_Color '>
                 <img src={MBiconPlus} alt="" />
@@ -631,9 +638,9 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
 
             <a href={`#MBend${prop.listMenu.length - 1}`} className="GruopBtn_row MB_G3"
               onClick={() => {
-              prop.additem()
-              setShowControl(false)
-            }}>
+                prop.additem()
+                setShowControl(false)
+              }}>
               <span
                 type='' className='MB_Btn MB_Btn_Color '>
                 <img src={MBiconPlus} alt="" />
@@ -645,7 +652,7 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
           </div>
 
 
-   
+
 
 
         </div>
@@ -653,7 +660,7 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
       </div >
 
 
-    
+
     </div >
 
 

@@ -45,7 +45,7 @@ const AccordionSummary = styled((props) => (
   />
 ))(({ theme }) => ({
   paddingLeft: '30px',
-  paddingRight: '0px',
+  paddingRight: '10px',
   backgroundColor:
     theme.palette.mode === 'dark'
       ? '#e1e1e156'
@@ -104,17 +104,18 @@ const AcordionSubComp = (prop) => {
 
 
   const addFavorite = (index) => {
+    // console.log(index)
     let dataSet = [...newSubListMenu];
     let data = dataSet[index]
     data.favor = true
-    prop.addFavorite(index, [...newSubListMenu], prop.listMunu.catagory, prop.indexM)
+    prop.addFavorite(index, [...newSubListMenu], prop.listMunu.catagory, `${prop.menuTime}${prop.indexM}`)
     setExpanded(false)
   }
-
+  // console.log(newSubListMenu)
   const removeFavorite = (index) => {
     let dataSet = [...newSubListMenu];
     let data = dataSet[index]
-    prop.removeFavorite(index, [...newSubListMenu], prop.indexM)
+    prop.removeFavorite(index, [...newSubListMenu], `${prop.menuTime}${prop.indexM}`)
     data.favor = false
   }
 
@@ -227,7 +228,7 @@ const AcordionSubComp = (prop) => {
         <div className={prop.themeSetup.categoryMotion.categoryBoxClass} style={{ 'backgroundColor': `${prop.themeSetup.categoryMotion.categoryBoxColor}` }}>
           <span className={`category-Custom-Title`} style={{
             'color': `${prop.themeSetup.categoryMotion.categoryFontColor}`,
-            'fontSize': `${prop.themeSetup.body.bodyFontSize * 1.4}rem`, 'fontWeight': '500'
+            'fontSize': `${prop.themeSetup.body.bodyFontSize * 1.4}rem`, 'fontWeight': '600'
 
 
           }}> {prop.language === 1 ? prop.listMunu.catagory : prop.listMunu.catagory_2}</span>
@@ -273,14 +274,14 @@ const AcordionSubComp = (prop) => {
                     'color': `${prop.themeSetup.body.bodyFonttColor}`,
                     'fontSize': `${prop.themeSetup.body.bodyFontSize * 1.05}rem`,
                     'fontWeight': '500',
-                 
-                   
+
+
                   }}>
                   {prop.language === 1 && <span>{prop.languageSetup.style_1 ?
-                    <div ><span>{prop.languageSetup.followed_1 && prop.languageSetup.symbol_1}</span><span>{el.price}</span> <span>&nbsp;{!prop.languageSetup.followed_1 && prop.languageSetup.symbol_1}</span> </div>
+                    <div ><span>{prop.languageSetup.followed_1 && prop.languageSetup.symbol_1}</span><span>{el.price}</span> <span>{!prop.languageSetup.followed_1 && prop.languageSetup.symbol_1}</span> </div>
                     : <div ><span></span><span>{el.price}</span><span></span></div>}</span>}
                   {prop.language === 2 && <span>{prop.languageSetup.style_2 ?
-                    <div ><span>{prop.languageSetup.followed_2 && prop.languageSetup.symbol_2}</span><span>{el.price_2}</span> <span>&nbsp;{!prop.languageSetup.followed_2 && prop.languageSetup.symbol_2}</span> </div>
+                    <div ><span>{prop.languageSetup.followed_2 && prop.languageSetup.symbol_2}</span><span>{el.price_2}</span> <span>{!prop.languageSetup.followed_2 && prop.languageSetup.symbol_2}</span> </div>
                     : <div ><span></span><span>{el.price_2}</span><span></span></div>}</span>}
                 </div>
 
@@ -322,7 +323,7 @@ const AcordionSubComp = (prop) => {
                       'minHeight': 'unset',
                       'paddingTop': '.8rem',
                       'whiteSpace': 'pre-wrap',
-                
+
                     }}>
                     {prop.language === 1 ? el.remark : el.remark_2}
                   </div>

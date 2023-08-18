@@ -6,21 +6,42 @@ import NavbarComponent from './NavbarComponent'
 // import { hideLoading, showLoading } from '../redux/alertSlice'
 import UserPool from "../UserPool"
 import { combineReducers } from '@reduxjs/toolkit'
+import slugify from 'slugify'
 
 
 const RegisterComponent = () => {
   // const dispath = useDispatch()
   const navigate = useNavigate()
   const [state, setState] = useState({
-    firstName: "",
+    restaurantName: "",
+    link: "",
     lastName: "",
-    restaurantName:"",
     email: "",
     password: ""
   })
-  const { firstName, lastName, restaurantName,email, password } = state
+
+  const { link, lastName, restaurantName, email, password } = state
   const inputValue = name => even => {
-    setState({ ...state, [name]: even.target.value })
+    if (name === 'restaurantName') {
+      let reName = slugify(even.target.value, {
+        replacement: '-',  // replace spaces with replacement character, defaults to `-`
+        remove: undefined, // remove characters that match regex, defaults to `undefined`
+        lower: true,      // convert to lower case, defaults to `false`
+        strict: true,     // strip special characters except replacement, defaults to `false`
+        trim: true         // trim leading and trailing replacement chars, defaults to `true`
+      })
+      setState({
+        ...state,
+        ['restaurantName']: even.target.value,
+        ['link']: reName
+      })
+
+      // setState({ ...state, ['link']: reName})
+
+    } else {
+      setState({ ...state, [name]: even.target.value })
+    }
+
 
   }
 
@@ -34,21 +55,28 @@ const RegisterComponent = () => {
 
         return;
       }
-      const userId =result.userSub
-      axios.post(`${process.env.REACT_APP_API}/user/register`, { userId,firstName, restaurantName, email }).then(res => {
+      const userId = result.userSub
+      axios.post(`${process.env.REACT_APP_API}/user/register`, { userId, link, restaurantName, email }).then(res => {
 
         if (res.data.success) {
           Swal.fire(res.data.message)
           navigate('/login')
         }
-        else { Swal.fire(res.data.message) }
-      }).catch(err => { console.log(err) })
+        else if (!res.data.success) {
+          alert('rerer')
+
+          Swal.fire(res.data.message)
+        }
+      }).catch(err => {
+        console.log(err)
+        alert('rerer')
+      })
 
 
     });
 
 
-    // axios.post(`${process.env.REACT_APP_API}/user/register`, { firstName, lastName, email, password }).then(res => {
+    // axios.post(`${process.env.REACT_APP_API}/user/register`, { link, lastName, email, password }).then(res => {
     //   // dispath(hideLoading())
     //   if (res.data.success) {
     //     Swal.fire(res.data.message)
@@ -68,17 +96,18 @@ const RegisterComponent = () => {
           <form onSubmit={submit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
 
             <div className="grid grid-cols-2 gap-3">
-              <div className="col-span-1">
-                <input value={firstName} onChange={inputValue('firstName')} className=" appearance-none border-1 border-slate-300 hover:border-blue-500 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="firstname" type="text" placeholder="First Name" />
-              </div>
-
-              <div className="col-span-1">
-                <input value={restaurantName} onChange={inputValue('restaurantName')} className=" appearance-none border-1 border-slate-300 hover:border-blue-500 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="lastname" type="text" placeholder="Last Name" />
-              </div>
-
+              {/* <div className="col-span-1">
+                <input value={link} onChange={inputValue('link')} className=" appearance-none border-1 border-slate-300 hover:border-blue-500 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link" type="text" placeholder="Username" />
+              </div> */}
               <div className="col-span-2">
                 <input value={email} onChange={inputValue('email')} className={`appearance-none border-1 border-slate-300 hover:border-blue-500 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`} id="email" type="email" placeholder="Email Address" />
               </div>
+
+              <div className="col-span-2">
+                <input value={restaurantName} onChange={inputValue('restaurantName')} className=" appearance-none border-1 border-slate-300 hover:border-blue-500 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="lastname" type="text" placeholder="Restaurant name" />
+              </div>
+              <div className="col-span-2">www.qr-cloudmenu.com/{link}</div>
+
 
               <div className="col-span-2">
                 <input value={password} onChange={inputValue('password')} className=" appearance-none border-1 border-slate-300 hover:border-blue-500 rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="Password" />

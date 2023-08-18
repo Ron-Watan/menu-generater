@@ -11,7 +11,6 @@ import MBicon_Sidet from '../all-icon/mobile-bar/sidebart.svg'
 import MBicon_Bodyt from '../all-icon/mobile-bar/bodyt.svg'
 import MBiconBin from '../all-icon/button-icon/MBbin.svg'
 import Resizer from 'react-image-file-resizer';
-import * as Util from "../componentusers/_99Utility"
 
 const _09ThemeSetupMobile = (prop) => {
 
@@ -28,45 +27,6 @@ const _09ThemeSetupMobile = (prop) => {
 
   //  ----------------------------------------------------------------------------------------------
 
-  const imgId = user?.link + 'restlogo'
-  const currentRestaurantName = user?.restaurant_name
-  const inputRestaurantName = (e) => {
-    setCheckChangeTheme(true)
-    prop.setRestaurantName(e.target.value)
-  }
-  // 1 ----------------------------------------------------------------------------------------------
-  // const [navAndFootBar, setNavAndFootBar] = useState({
-  //   nameFontFamily: '', nameFontColor: '', nameFontSize: '',
-  //   navBarColor: '', navBarFontColor: '',
-  //   footBarStyle: ''
-  // })
-  // const { nameFontFamily, nameFontColor, nameFontSize, navBarColor, navBarFontColor, footBarStyle } = navAndFootBar
-
-  // const nameAllFontStyleFn = (name) => (e) => {
-  //   setCheckChangeTheme(true)
-  //   setNavAndFootBar({ ...navAndFootBar, [name]: e.target.value })
-  // }
-  // 2 ----------------------------------------------------------------------------------------------
-
-  // const [bodyStyle, setBodyStyle] = useState({
-
-  //   bodyBgColor: '', bodyFontFamily: '', bodyFonttColor: '', bodyFontSize: ''
-  // })
-  // const { bodyBgColor, bodyFontFamily, bodyFonttColor, bodyFontSize } = bodyStyle
-
-  // const bodyAllFontStyleFn = (name) => (e) => {
-  //   setCheckChangeTheme(true)
-  //   setBodyStyle({ ...bodyStyle, [name]: e.target.value })
-  // }
-  // 3 ----------------------------------------------------------------------------------------------
-
-  // const [themeIconNoBD, setThemeIconNoBD] = useState({
-  //   themeIconRadius: '1.5rem', themeIconColorLine: '', themeIconBG: '', themeIconSolid: 'none'
-  // })
-  // const { themeIconRadius, themeIconColorLine, themeIconBG, themeIconSolid } = themeIconNoBD
-
-  // const [themeIconColorBorder, setThemeIconColorBorder] = useState('')
-  // const [extraIcon, setExtraIcon] = useState(false)
 
   const themeIconClientFn = (radius, colorLine, colorBg, solid, colorBorder) => {
     setCheckChangeTheme(true)
@@ -75,35 +35,7 @@ const _09ThemeSetupMobile = (prop) => {
     })
     prop.setExtraIcon(false)
   }
-  // 4 ----------------------------------------------------------------------------------------------
-  // const [categoryMotion, setCategoryMotion] = useState({
-  //   categoryPhotoSize: '',
-  //   categoryFontColor: '',
-  //   categoryBoxClass: '', categoryBoxColor: '',
-  //   categorySpanClass: '', categorySpanColor: '',
-  //   categoryActiveClass: ''
 
-  // })
-  // const { categoryPhotoSize, categoryFontColor, categoryBoxClass, categoryBoxColor, categorySpanClass, categorySpanColor, categoryActiveClass } = categoryMotion
-
-  // const [chooseCatTheme, seatChooseCatTheme] = useState('')
-
-  // const categoryMotionFn = (photoSize, fontColor, boxClass, boxColor, sapnClass, spanColor, avtiveClass) => {
-  //   setCheckChangeTheme(true)
-  //   setCategoryMotion({
-  //     categoryPhotoSize: photoSize,
-  //     categoryFontColor: fontColor,
-  //     categoryBoxClass: boxClass, categoryBoxColor: boxColor,
-  //     categorySpanClass: sapnClass, categorySpanColor: spanColor,
-  //     categoryActiveClass: avtiveClass
-  //   })
-
-  // }
-
-  // const categoryMotionInput = (name) => (e) => {
-  //   setCheckChangeTheme(true)
-  //   setCategoryMotion({ ...categoryMotion, [name]: e.target.value })
-  // }
   const [onOffColorPicker, setOnoffColorPicker] = useState(false)
 
   const getTheme = () => {
@@ -249,62 +181,14 @@ const _09ThemeSetupMobile = (prop) => {
     });
 
 
-  // const getImage = (imgId) => {
-  //   axios
-  //     .post(`${process.env.REACT_APP_API}/user/images/preview`, { imgId: imgId })
-  //     .then((result) => {
-  //       if (!result.data.images) {
-  //         return prop.setLogoRestaurant('')
-  //       }
-  //       const getResult = result.data.images;
-  //       const base64Flag = 'data:image/png;base64,';
-  //       const imageStr = Util.arrayBufferToBase64(getResult.img.data.data);
-  //       const tagImage = base64Flag + imageStr;
-
-  //       prop.setLogoRestaurant(tagImage);
-  //     })
-  //     .catch((err) => {
-  //       console.error(err);
-  //     });
-  // };
-
-  // const uploadImage = () => {
-
-  //   const newFile = Util.dataURIToBlob(prop.logoRestaurant);
-  //   const formData = new FormData();
-
-  //   formData.append('avatar', newFile, imgId);
-  //   formData.append('userId', user.userId);
-  //   axios
-  //     .post(`${process.env.REACT_APP_API}/user/images/uplaod`, formData)
-  //     // .post(`${process.env.REACT_APP_API}/user/images`, formData, { headers: { 'Content-Type': 'multipart/form-data' } })
-  //     .then((result) => {
-  //       // getImage()
-  //     })
-  //     .catch((err) => {
-  //       console.error(err);
-  //     });
-  // };
-
-  // const delelteImage = (imgId) => {
-
-  //   axios
-  //     .post(`${process.env.REACT_APP_API}/user/images/delete`, { imgId: imgId })
-  //     .then((result) => {
-  //     })
-  //     .catch((err) => {
-  //       console.error(err);
-  //     });
-  // };
 
 
   const [colorOnClick, setColorOnClick] = useState('')
 
   const clickColor = (color) => {
     setColorOnClick(color)
-    // console.dir(e)
+
   }
-  // console.dir(navBarColor)
 
 
   // useEffect(() => {
@@ -317,7 +201,6 @@ const _09ThemeSetupMobile = (prop) => {
 
   const [themeTab, setThemeTab] = useState('quick')
   const [chooseIconStyle, setChooseIconStyle] = useState('')
-
 
 
 
@@ -367,32 +250,15 @@ const _09ThemeSetupMobile = (prop) => {
   }
 
 
-  // prop.setThemeSetup = Steal
-  // prop.setThemeSetup({
-  //   navAndFootBar: navAndFootBar,
-  //   body: bodyStyle,
-
-  //   sideBar: {
-  //     extraIcon: extraIcon,
-  //     themeIconRadius: themeIconRadius,
-  //     themeIconColorLine: themeIconColorLine,
-  //     themeIconBG: themeIconBG,
-  //     themeIconSolid: themeIconSolid,
-  //     themeIconColorBorder: themeIconColorBorder
-  //   },
-  //   categoryMotion: categoryMotion
-  // })
 
 
 
   useEffect(() => {
     if (user?.userId) getTheme()
   }, [user]);
-  // useEffect(() => {
-  //   if (user.userId) getImage()
-  // }, [user]);
 
-  const [loadSameImg, setLoadSameImg] = useState('')
+
+
   // ----------------------------------------------------------------------------------------------
   // ----------------------------------------------------------------------------------------------
   return (
@@ -448,17 +314,6 @@ const _09ThemeSetupMobile = (prop) => {
                 </div>
 
 
-                <div className='MB_themeRow'>
-                  <input onChange={inputRestaurantName} value={prop.restaurantName} type='text' maxLength="20"
-                    name='' id='menuName' autoComplete='off' className='MB_presentInput' placeholder={currentRestaurantName}
-                    style={{
-                      'fontFamily': `${''}, serif`,
-                      'color': `${'black'}`,
-                      'fontSize': `${'1rem'}`,
-                      'fontWeight': '400'
-                    }}
-                  />
-                </div>
 
                 <div className='MB_themeRow'>
                   <div className="MB_themeGrid">
@@ -519,14 +374,33 @@ const _09ThemeSetupMobile = (prop) => {
 
                     <select onChange={prop.nameAllFontStyleFn('nameFontFamily')} value={prop.nameFontFamily} id='fontStyle1' className='MB_labelFontR text_selectCenter'>
                       <option value='Inter' > Inter</option>
-                      < option value='Merriweather' > Merriweather</option>
+                      <option value='Merriweather' > Merriweather</option>
                       <option value='Urbanist'>Urbanist</option>
-                      <option value='Oleo Script Swash Caps'>Oleo Script</option>
-                      <option value='Merriweather'>Merriweather</option>
+                      <option value='Titillium Web'>Titillium Web</option>
                       <option value='Poppins'>Poppins</option>
                       <option value='Roboto'>Roboto</option>
                       <option value='Roboto Slab'>Roboto Slab</option>
+                      <option value='Outfit'>Outfit</option>
+                      <option value='Bricolage Grotesque'>Bricolage Grotesque</option>
+                      <option value='Kanit'>Kanit</option>
+                      <option value='Lexend Deca'>Lexend Deca</option>
+                      <option value='Josefin Sans Web'>Josefin Sans Web</option>
+                      <option value='Exo'>Exo</option>
+                      <option value='Oleo Script Swash Caps'>Oleo Script</option>
 
+                      <option value='Special Elite'>Special Elite</option>
+                      <option value='Courgette'>Courgette</option>
+                      <option value='Great Vibes'>Great Vibes</option>
+                      <option value='Yatra One'>Yatra One</option>
+
+                      <option value='Bigshot One'>Bigshot One</option>
+                      <option value='Sonsie One'>Sonsie One</option>
+                      <option value='Saira Stencil One'>Saira Stencil One</option>
+                      <option value='Anton'>Anton</option>
+                      <option value='Abril Fatface'>Abril Fatface</option>
+                      <option value='Train One'>Train One</option>
+                      <option value='Caprasimo'>Caprasimo</option>
+                      <option value='Pattaya'>Pattaya</option>
                     </select>
 
 
@@ -539,8 +413,9 @@ const _09ThemeSetupMobile = (prop) => {
                     <label htmlFor="FontSize1" className='MB_TC_small'>Font-Size</label>
 
                     <select onChange={prop.nameAllFontStyleFn('nameFontSize')} value={prop.nameFontSize} id='FontSize1' className='MB_labelFontR text_selectCenter'>
-                      < option value='1rem' > X-Small</option>
-                      <option value='1.2rem'>Small</option>
+                      < option value='1rem' > XX-Small</option>
+                      < option value='1.2rem' > X-Small</option>
+                      <option value='1.4rem'>Small</option>
                       <option value='1.6rem'>Medium</option>
                       <option value='1.8rem'>Large</option>
                       <option value='2.0rem'>X-Large</option>
@@ -905,13 +780,34 @@ const _09ThemeSetupMobile = (prop) => {
 
                     <select onChange={prop.bodyAllFontStyleFn('bodyFontFamily')} value={prop.bodyFontFamily} id='BodyfontStyle' className='MB_labelFontR text_width80 text_selectCenter'>
                       <option value='Inter' > Inter</option>
-                      < option value='Merriweather' > Merriweather</option>
+                      <option value='Merriweather' > Merriweather</option>
                       <option value='Urbanist'>Urbanist</option>
-                      <option value='Oleo Script Swash Caps'>Oleo Script</option>
-                      <option value='Merriweather'>Merriweather</option>
+                      <option value='Titillium Web'>Titillium Web</option>
                       <option value='Poppins'>Poppins</option>
                       <option value='Roboto'>Roboto</option>
                       <option value='Roboto Slab'>Roboto Slab</option>
+                      <option value='Outfit'>Outfit</option>
+                      <option value='Bricolage Grotesque'>Bricolage Grotesque</option>
+                      <option value='Kanit'>Kanit</option>
+                      <option value='Lexend Deca'>Lexend Deca</option>
+                      <option value='Josefin Sans Web'>Josefin Sans Web</option>
+                      <option value='Exo'>Exo</option>
+                      <option value='Oleo Script Swash Caps'>Oleo Script</option>
+
+                      <option value='Special Elite'>Special Elite</option>
+                      <option value='Courgette'>Courgette</option>
+                      <option value='Great Vibes'>Great Vibes</option>
+                      <option value='Yatra One'>Yatra One</option>
+
+                      <option value='Bigshot One'>Bigshot One</option>
+                      <option value='Sonsie One'>Sonsie One</option>
+                      <option value='Saira Stencil One'>Saira Stencil One</option>
+                      <option value='Anton'>Anton</option>
+                      <option value='Abril Fatface'>Abril Fatface</option>
+                      <option value='Train One'>Train One</option>
+                      <option value='Caprasimo'>Caprasimo</option>
+                      <option value='Pattaya'>Pattaya</option>
+
 
                     </select>
                   </div>

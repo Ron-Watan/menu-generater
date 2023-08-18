@@ -320,6 +320,7 @@ font-weight: 400;
   max-width: 86rem;
   width: 100%;
   z-index: 700;
+  /* transform: translateY(-120%) !important; */
   /* height: 10vh; */
 }
 

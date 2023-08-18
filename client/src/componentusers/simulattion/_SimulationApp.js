@@ -9,13 +9,14 @@ import FooterComponent from './FooterComponent';
 import BannerSubCompo from './BannerSubCompo';
 import axios from 'axios';
 
-import { useParams } from 'react-router-dom';
-
-
 import '../../styleClient/mainClient.css';
 import '../../styleClient/sidebarClient.css';
 import '../../styleClient/footerClient.css';
 import '../../styleClient/accordianClient.css';
+
+
+import SoLogo from '../../all-icon/social-icon/social.svg'
+
 
 const theme = createTheme({
   typography: {
@@ -361,10 +362,11 @@ const _SimulationApp = (prop) => {
 
   useEffect(() => {
     if (prop.user.userId) getClientMenu();
+    document.body.style.backgroundColor = prop.bodyStyle.bodyBgColor
   }, [prop.user]);
 
 
-  document.body.style.backgroundColor = prop.bodyStyle.bodyBgColor
+
 
   const [loadingManual, setLoadingManual] = useState(true);
 
@@ -373,7 +375,7 @@ const _SimulationApp = (prop) => {
     <>
       <div className='Mviewport unselectable'
         style={{ 'fontFamily': `${prop.themeSetup.body?.bodyFontFamily} , serif`, 'backgroundColor': `${prop.themeSetup.body?.bodyBgColor}` }}>
-        
+
         <div className=' mobileViewport_Wrapper '>
 
           <nav className='navBar_Client'
@@ -383,8 +385,8 @@ const _SimulationApp = (prop) => {
             <div className='navFlexLogoandName'>
 
               <div className='navSlit1'>
-             
-                {prop.logoRestaurant && <div className="logoResta"><img className='logoRestaImg' src={prop.logoRestaurant} alt=''/></div>}
+
+                {prop.logoRestaurant && <div className="logoResta"><img className='logoRestaImg' src={prop.logoRestaurant} alt='' /></div>}
                 <span style={{
                   'backgroundColor': `${prop.navAndFootBar?.navBarColor}`,
                   'fontFamily': `${prop.navAndFootBar?.nameFontFamily}`,
@@ -393,7 +395,7 @@ const _SimulationApp = (prop) => {
                   'fontWeight': '600'
                 }}>{prop.restaurantName}</span>
               </div>
-        
+
               <div className=' navSlit2 navNameAndFilter'
                 style={{
                   'fontFamily': `${prop.bodyStyle?.bodyFontFamily}`,
@@ -415,7 +417,7 @@ const _SimulationApp = (prop) => {
                       </div>
                     </div>
                   )}
-       
+
                   {timeSetup?.timeType && (
                     <div
                       onClick={() => {
@@ -472,7 +474,7 @@ const _SimulationApp = (prop) => {
                           )}
                         </div>
                       </div>
-           
+
                       {counttype > 1 && <div>{switchManuBtn ? <svg width="10" height="5" viewBox="0 0 46 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <line x1="23.1213" y1="2" x2="44" y2="22.8787" stroke={prop.navAndFootBar?.navBarFontColor} strokeWidth="3" strokeLinecap="round" />
                         <line x1="1.5" y1="-1.5" x2="31.0269" y2="-1.5" transform="matrix(-0.707107 0.707107 0.707107 0.707107 25 2)" stroke={prop.navAndFootBar?.navBarFontColor} strokeWidth="3" strokeLinecap="round" />
@@ -494,7 +496,7 @@ const _SimulationApp = (prop) => {
                     setSwitchManuBtn(false);
                   }}
                   className='filterBtn'>
-            
+
                   <div className='navFilterNameText '>
                     <div className='filterBtn-main'>
                       {iconFilter === 'food_name' && <svg width="21" height="21" viewBox="0 0 54 46" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -554,7 +556,7 @@ const _SimulationApp = (prop) => {
                       </svg>}
                     </div>
 
-           
+
                     <div className={`filterBtn-Ab ${!switchFilterBtn && 'filterBtn-move'}`}>
                       {prop.onOffSetting.vetgeterian && <div
                         onClick={() => {
@@ -646,7 +648,10 @@ const _SimulationApp = (prop) => {
 
             />
           </div>}
-          {prop.onOffSetting.banner && <div className='bannerSectionC'
+          {(prop.onOffSetting.banner && prop.bannerImgArr.length > 0) && <div className={`bannerSectionC`}
+
+            // {prop.onOffSetting.banner && <div className={`bannerSectionC ${prop.bannerImgArr.length === 0 && 'displayNone'}`}
+            // {prop.onOffSetting.banner && <div className='bannerSectionC'
             style={{ 'backgroundColor': `${prop.bodyStyle.bodyBgColor}` }}
           >
             <BannerSubCompo bodyStyle={prop.bodyStyle} link={prop.link}
@@ -689,7 +694,7 @@ const _SimulationApp = (prop) => {
                     categoryActiveTheme={prop.categoryActiveTheme}
                     imageKey={prop.imageKey}
                     onOffSetting={prop.onOffSetting}
-
+                    menuTime={menuTime}
                   />
                 ))}
             {menuTime === 2 &&
@@ -718,7 +723,8 @@ const _SimulationApp = (prop) => {
                     categoryMotionFn={prop.categoryMotionFn}
                     categoryActiveTheme={prop.categoryActiveTheme}
                     imageKey={prop.imageKey}
-
+                    onOffSetting={prop.onOffSetting}
+                    menuTime={menuTime}
                   />
                 ))}
             {menuTime === 3 &&
@@ -750,7 +756,8 @@ const _SimulationApp = (prop) => {
                     categoryActiveTheme={prop.categoryActiveTheme}
 
                     imageKey={prop.imageKey}
-
+                    onOffSetting={prop.onOffSetting}
+                    menuTime={menuTime}
                   />
                 ))}
           </ThemeProvider>
@@ -801,9 +808,90 @@ const _SimulationApp = (prop) => {
 
 
 
-        <div className='extraSpace2'
-          style={{ 'backgroundColor': `${prop.bodyStyle.bodyBgColor}` }}
-        ></div>
+        <div className=' extraSpace2'
+          style={{
+            'fontFamily': `${prop.bodyStyle?.bodyFontFamily}`,
+            'backgroundColor': `${prop.bodyStyle.bodyBgColor}`,
+            'color': `${prop.bodyStyle.bodyFonttColor}`  }}
+        >
+       
+            <div className="inFoClient">
+              <div className="inFoClient_Name">{prop.restaurantName}</div>
+              {prop.extraInfo.address_1 && <div className="">{prop.extraInfo.address_1}</div>}
+              {prop.extraInfo.address_2 && <div className="">{prop.extraInfo.address_2}</div>}
+
+              {prop.extraInfo.phone && <div className="flex">
+                <div className="">{prop.extraInfo.phone}</div>
+              </div>}
+              {prop.extraInfo.email && <div className="">{prop.extraInfo.email}</div>}
+              <div className="flex_sologo">
+                {prop.extraInfo.website && <a href={prop.extraInfo.website} target="_blank" className="box_soLogo"
+                  style={{
+                    'border': `.5px solid ${prop.bodyStyle.bodyFonttColor}`
+                  }}>
+
+                  <svg className='itemSvg_so' fill={prop.bodyStyle.bodyFonttColor}>
+                    <use xlinkHref={`${SoLogo}#social-1`} />
+                  </svg>
+                </a>}
+                {prop.extraInfo.instagram && <a href={prop.extraInfo.instagram} target="_blank" className="box_soLogo"
+                  style={{
+                    'border': `.5px solid ${prop.bodyStyle.bodyFonttColor}`
+                  }}>
+                  <svg className='itemSvg_so' fill={prop.bodyStyle.bodyFonttColor}>
+                    <use xlinkHref={`${SoLogo}#social-2`} />
+                  </svg>
+                </a>}
+                {prop.extraInfo.facebook && <a href={prop.extraInfo.facebook} target="_blank" className="box_soLogo"
+                  style={{
+                    'border': `.5px solid ${prop.bodyStyle.bodyFonttColor}`
+                  }}>
+                  <svg className='itemSvg_so' fill={prop.bodyStyle.bodyFonttColor}>
+                    <use xlinkHref={`${SoLogo}#social-3`} />
+                  </svg>
+                </a>}
+                {prop.extraInfo.youtube && <a href={prop.extraInfo.youtube} target="_blank" className="box_soLogo"
+                  style={{
+                    'border': `.5px solid ${prop.bodyStyle.bodyFonttColor}`
+                  }}>
+                  <svg className='itemSvg_so' fill={prop.bodyStyle.bodyFonttColor}>
+                    <use xlinkHref={`${SoLogo}#social-4`} />
+                  </svg>
+                </a>}
+                {prop.extraInfo.tiktok && <a href={prop.extraInfo.tiktok} target="_blank" className="box_soLogo"
+                  style={{
+                    'border': `.5px solid ${prop.bodyStyle.bodyFonttColor}`
+                  }}>
+                  <svg className='itemSvg_so' fill={prop.bodyStyle.bodyFonttColor}>
+                    <use xlinkHref={`${SoLogo}#social-5`} />
+                  </svg>
+                </a>}
+              </div>
+            </div>
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
 
       </div>
 

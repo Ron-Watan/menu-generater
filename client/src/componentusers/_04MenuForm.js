@@ -174,7 +174,7 @@ const _04MenuForm = (prop) => {
 
     });
   }
-  
+
 
   return (
     <div className="MC_Standard_0_FullPage " >
@@ -189,6 +189,7 @@ const _04MenuForm = (prop) => {
           <Link to=""
             onClick={() => {
               checkFormListChangeFn()
+              prop.setTurnOnSection(false)
 
 
             }}
@@ -219,11 +220,11 @@ const _04MenuForm = (prop) => {
       </div>
 
 
-      <div className="MB_Standard_0_FullAgain  MB_SetGrid_Full zindexUnderTop">
+      <div className="MB_Standard_0_FullAgain  MB_SetGrid_Full zindexUnderTop ">
 
         {/* <div onTouchMove={reloadAllMenu}  className="MB_Standard_Section_canScroll MB_Make_PadingBanner paddingBottom_9 overScroll_none" > */}
 
-        <div className="MB_Standard_Section_canScroll MB_Make_PadingFormList " >
+        <div className={`${prop.turnOnSection===true && 'MB_Standard_Section_canScroll'} MB_Make_PadingFormList `}>
 
 
           <div className="MB_categoryStart">
@@ -407,7 +408,7 @@ const _04MenuForm = (prop) => {
 
             <button onClick={() => {
               saveFormListChangeFn()
-           
+
             }} type='' className='MB_Sq_Btn SaveBtnSize MB_Btn_Color MB_G2'>
               <span>SAVE</span>
             </button>
