@@ -3,7 +3,7 @@
 import axios from "axios"
 import { ticketPass } from "../protectors/authorize"
 import Swal from "sweetalert2"
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { hideLoading, showLoading } from '../redux/alertSlice';
 import { useEffect, useRef, useState } from "react"
 import '../style/generate.css'
@@ -14,7 +14,7 @@ import Resizer from 'react-image-file-resizer';
 import MBiconBin from '../all-icon/button-icon/MBbin.svg'
 
 
-import Refresh from '../all-icon/qricon/refresh.svg'
+
 import QRm1 from '../all-icon/qricon/reg.svg'
 import QRm2 from '../all-icon/qricon/regb.svg'
 import QRm3 from '../all-icon/qricon/regxb.svg'
@@ -76,6 +76,7 @@ const _02QRCode = (prop) => {
   const [dotColorQrCode, setdotColorQrCode] = useState('')
   const [bgColorQrCode, setBgColorQrCode] = useState('')
 
+
   const qrCode = new QRCodeStyling({
     width: actualSize,
     height: actualSize,
@@ -106,6 +107,7 @@ const _02QRCode = (prop) => {
 
     }
   });
+
 
   const getQrCode = () => {
     axios
@@ -138,6 +140,13 @@ const _02QRCode = (prop) => {
           qrCodeSetUpFn('logoQr', uri);
 
           setCheckQRcodeChange(true)
+
+          // setTimeout(() => {
+          //   qrCodeSetUpFn('levelCode', 'L')
+          // }, 100);
+          // setTimeout(() => {
+          //   qrCodeSetUpFn('levelCode', 'Q')
+          // }, 200);
           dispath(hideLoading());
         },
         'base64'
@@ -191,12 +200,21 @@ const _02QRCode = (prop) => {
         name: "QR-Code",
         extension: 'png'
       });
-      setActualSize(300)
-      setQrCodeSetUp({ ...qrCodeSetUp, sizeQr: 8 })
       // setClickDownLoad(true)
     }
   };
 
+
+  // useEffect(() => {
+  //   if (clickDownLoad) {
+  //     qrCode.download({
+  //       name: "QR-Code",
+  //       extension: 'png'
+  //     });
+  //     setClickDownLoad(false)
+  //     sizeQrPxFn(300)
+  //   }
+  // }, [sizeQrPx]);
 
   const checkInputNumber = (e) => {
     if (e.target.value.length > e.target.maxLength) {
@@ -251,17 +269,18 @@ const _02QRCode = (prop) => {
     }
   }
 
-  const [showSize, setShowSize] = useState(false)
+  const [colorOnClick, setColorOnClick] = useState('')
 
+  const clickColor = (color) => {
+    setColorOnClick(color)
 
-
-  const refresh = () => {
-    qrCode.append(ref.current);
-    qrCode.update(ref.current);
   }
 
+
+
   useEffect(() => {
-    refresh()
+    qrCode.append(ref.current);
+    qrCode.update(ref.current);
   }, [qrCode]);
 
   useEffect(() => {
@@ -270,16 +289,12 @@ const _02QRCode = (prop) => {
     }
   }, [prop.getQRCodeTG]);
 
-  // useEffect(() => {
-  //   if (prop.user?.userId) {
-  //     getQrCode();
-  //   }
-  // }, [prop.user]);
   useEffect(() => {
-    if (prop.getQRCodeTG) {
-      getQrCode()
+    if (prop.user?.userId) {
+      getQrCode();
     }
-  }, [prop.getQRCodeTG]);
+  }, [prop.user]);
+
   return (
     <div className="MB_FullPage_Container">
       {/* <div className={`${qrLoading ? 'showMe' : 'hiddenMe'} allLoading`}>
@@ -288,7 +303,7 @@ const _02QRCode = (prop) => {
         </div>
       </div> */}
       <div className="topBar_function backdrop_blur">
-        <div className={`GruopBtn ${(onOffTrayQR || onOffTrayBG) && 'hiddenMe'}`}>
+        <div className="GruopBtn">
           <button
             onClick={() => {
 
@@ -311,97 +326,68 @@ const _02QRCode = (prop) => {
       </div>
       <div className="MB_qrContainer1 ">
         <div className="MB_qrCodeBox ">
-          <div onClick={() => setShowSize(true)} className="MB_qrCodeitem" ref={ref} />
+          <div className="MB_qrCodeitem" ref={ref} />
         </div>
-        {(!onOffTrayQR && !onOffTrayBG) && <div className="smallInch selectable">{qrLink}</div>}
-
-        {showSize && <div className="QR_flex">
-          <div className="">Size</div>
-
-          <div className="">
-            <input type="number" min='3' max='100' maxLength='5'
-              onInput={checkInputNumber}
-              onChange={(even) => {
-                inputSizeQr('sizeQr', even)
-
-              }
-
-              } value={sizeQr} className='QR_labelFontR text_selectCenter' />
-            <span className="" > cm. x {sizeQr} cm.</span>
-          </div>
-
-        </div>}
-
+        <div className="smallInch selectable">{qrLink}</div>
         {(!onOffTrayQR && !onOffTrayBG) &&
 
           <div className="QR_inputBox_Full">
 
-            {!showSize && <button onClick={() => setShowSize(true)} className="downloadQR MB_G2">Download</button>}
-            {showSize && <button onClick={() => {
-              onDownloadClick()
-              setShowSize(false)
-            }
-            } className="downloadQR MB_G2">Confirm</button>}
+            <div className="QR_inputBox ">
+              <div className="QR_flex">
+                <div className="MB_TC_small">Size</div>
+                <div className="">
+                  <div className="">
+                    <input type="text" min='3' max='100' maxLength='5'
+                      onInput={checkInputNumber}
+                      onChange={(even) => {
+                        inputSizeQr('sizeQr', even)
+                        // sizeQrPxFn('sizeQrPx', even)
+                      }
 
-
-
-
-
-
-            <div className="QR_flex2 MB_G3">
-              <button onClick={() => {
-                setTimeout(() => {
-                  qrCodeSetUpFn('levelCode', 'L')
-                }, 50);
-                setTimeout(() => {
-                  qrCodeSetUpFn('levelCode', 'Q')
-                }, 100);
-                setTimeout(() => {
-                  qrCodeSetUpFn('levelCode', qrCodeSetUp.levelCode)
-                }, 200);
-
-
-              }} className="downloadQR QR_link"><img src={Refresh} alt="" /></button>
-              <a href={qrLink} target="blank" className="downloadQR QR_link">Link</a>
-            </div>
-
-
-
-          </div>}
-
-      </div>
-      {onOffTrayBG &&
-        <div className="QR_tray_position_wrapper">
-          <div className="QR_tray_position">
-            {/* <div className="presetColor" style={{ 'backgroundColor': `${presetColor}` }}>   </div> */}
-            <HexColorPicker color={bgColorQrCode} onChange={setBgColorQrCode} />
-            <div className="colorBoxInput">
-              <span># &nbsp;<HexColorInput className="MB_tray_input MB_tray_input_QR" color={bgColorQrCode} onChange={setBgColorQrCode} /></span>
-
-            </div>
-
-
-            <div className="flexBtnQRColor">
-              <span onClick={() => {
-                qrCodeColorFn('bgQrCode', bgColorQrCode)
-                setOnOffTrayBG(false)
-
-              }} className="QR_btnOk Flex_AllCenter"><span>OK</span></span>
-
-
-              <span onClick={() => {
-                // setColor('bgQrCode')
-                qrCodeColorFn('bgQrCode', bgQrCode)
-                setBgColorQrCode(bgQrCode)
-                setOnOffTrayBG(false)
-
-              }} className="QR_btnOk QR_btnCancel Flex_AllCenter"><span>Cancel</span>
-              </span>
-
+                      } value={sizeQr} className='QR_labelFontR text_selectCenter' /> <span className="MB_TC_small" > cm. x {sizeQr} cm.</span>
+                  </div>
+                  {/* <div className="smallInch"><span>{String(sizeQr/2.54).slice(0,4)} in.</span> x <span>{String(sizeQr/2.54).slice(0,4)} in.</span></div> */}
+                </div>
+              </div>
+              <div className="QR_flex2">
+                <button onClick={onDownloadClick} className="downloadQR">Download</button>
+                <a href={qrLink} target="blank" className="downloadQR QR_link">Link</a>
+              </div>
             </div>
           </div>
+
+        }
+
+      </div>
+      {onOffTrayBG && <div className="QR_tray_position">
+        {/* <div className="presetColor" style={{ 'backgroundColor': `${presetColor}` }}>   </div> */}
+        <HexColorPicker color={bgColorQrCode} onChange={setBgColorQrCode} />
+        <div className="colorBoxInput">
+          <span># &nbsp;<HexColorInput className="MB_tray_input MB_tray_input_QR" color={bgColorQrCode} onChange={setBgColorQrCode} /></span>
+
         </div>
-      }
+
+
+        <div className="flexBtnQRColor">
+          <span onClick={() => {
+            qrCodeColorFn('bgQrCode', bgColorQrCode)
+            setOnOffTrayBG(false)
+
+          }} className="QR_btnOk Flex_AllCenter"><span>OK</span></span>
+
+
+          <span onClick={() => {
+            // setColor('bgQrCode')
+            qrCodeColorFn('bgQrCode', bgQrCode)
+            setBgColorQrCode(bgQrCode)
+            setOnOffTrayBG(false)
+
+          }} className="QR_btnOk QR_btnCancel Flex_AllCenter"><span>Cancel</span>
+          </span>
+
+        </div>
+      </div>}
 
       {onOffTrayQR && <div className="QR_tray_position">
         {/* <div className="presetColor" style={{ 'backgroundColor': `${presetColor}` }}>   </div> */}
@@ -436,19 +422,17 @@ const _02QRCode = (prop) => {
 
 
 
-      {(!onOffTrayQR && !onOffTrayBG) && <div className="MB_SetGrid_ForBtn zindexUnderTop ">
+      {(!onOffTrayQR && !onOffTrayBG) && <div className="MB_SetGrid_ForBtn zindexUnderTop">
 
-        <div className={`${prop.toggleScrollQRCode === true && 'MB_Standard_Section_canScroll'}  MB_Make_QR MB_Wrap_ForBtn `} >
+        <div className={`${prop.toggleScrollQRCode === true && 'MB_Standard_Section_canScroll'}  MB_Make_QR MB_Wrap_ForBtn`} >
 
-          <div className="MB_qrContainer1 QR_EditSec unselectable">
-
-            {showSize === true && <div className="coverEdit lightGrey"></div>}
+          <div className="MB_qrContainer1 QR_EditSec">
             {/* <div className="MB_qrCodeBox ">
               <div className="MB_qrCodeitem" ref={ref} />
             </div> */}
             <div className="MB_qrContainer2 paddingBottom_20">
               <div className="MB_qrContainer2">
-                <div className='MB_TC_small'>QR Code Level</div>
+                <label htmlFor="" className='MB_TC_small'>QR Code Level</label>
 
                 <div className='MB_themeRow2'>
                   <button onClick={() => qrCodeSetUpFn('levelCode', 'L')}
@@ -471,7 +455,7 @@ const _02QRCode = (prop) => {
                 </div>
 
                 <div className="QR_Borderset"></div>
-                <div className='MB_TC_small'>Main Style</div>
+                <label htmlFor="" className='MB_TC_small'>Main Style</label>
 
                 <div className='MB_themeRow2'>
 
@@ -509,7 +493,7 @@ const _02QRCode = (prop) => {
                 <div className='MB_themeRow2 gap1Rem'>
                   {/* // const connerOption='dot' 'square' 'extra-rounded' */}
                   <div className="MB_qrContainer3 ">
-                    <div className='MB_TC_small'>Conner Style</div>
+                    <label htmlFor="" className='MB_TC_small'>Conner Style</label>
 
                     <div className='MB_themeRow2 '>
 
@@ -532,7 +516,7 @@ const _02QRCode = (prop) => {
 
 
                   <div className="MB_qrContainer3">
-                    <div className='MB_TC_small'>Inside-Conner Style</div>
+                    <label htmlFor="" className='MB_TC_small'>Inside-Conner Style</label>
                     <div className='MB_themeRow2'>
                       <button onClick={() => qrCodeSetUpFn('dotCornersOption', 'square')}
                         className={`MB_Sq_Btn QrBtnSize MB_Btn_Count ${dotCornersOption === 'square' && 'QRfocus'}`}>
@@ -566,7 +550,7 @@ const _02QRCode = (prop) => {
 
                   </div>
                   <div className="MB_qrContainer3">
-                    <div className='MB_TC_small'>Code Color</div>
+                    <label htmlFor="" className='MB_TC_small'>Code Color</label>
 
                     <div className='MB_themeRow2'>
                       <button onClick={(e) => {

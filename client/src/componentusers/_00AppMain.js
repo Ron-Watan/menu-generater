@@ -963,10 +963,12 @@ const _AppMain = () => {
 
   //=
 
+  // Normal is Closed Sectiion
+  const [turnOnSection, setTurnOnSection] = useState(false)
+  const [toggleScrollQRCode, setToggleScrollQRCode] = useState(false)
+  const [toggleScrollBanner, setToggleScrollBanner] = useState(false)
 
-  const [turnOnSection, setTurnOnSection] = useState(false) // Normal is Closed Sectiion
-
-  const [onConnected, setOnConnected] = useState(false);
+  const [onConnected, setOnConnected] = useState(false)
 
 
 
@@ -1028,8 +1030,9 @@ const _AppMain = () => {
             setOnOffQRCCode_MB={setOnOffQRCCode_MB}
             uploadImage={uploadImage}
             user={user}
-            setTurnOnSection={setTurnOnSection}
-            turnOnSection={turnOnSection}
+
+            setToggleScrollQRCode={setToggleScrollQRCode}
+            toggleScrollQRCode={toggleScrollQRCode}
           />
         </div>
 
@@ -1048,31 +1051,23 @@ const _AppMain = () => {
         </div>
 
         <i className="x"> Banner-----------------------------------------------</i>
-        <div className={`mobile_function  ${!onOffBanner_MB && 'MB_slide_Down'}`}>
+       <div className={`mobile_function  ${!onOffBanner_MB && 'MB_slide_Down'}`}>
 
-          <_03BannerMobile setProtectLoading={setProtectLoading}
+       <_03BannerMobile setProtectLoading={setProtectLoading}
             bannerImgArr={bannerImgArr}
             setBannerImgArr={setBannerImgArr}
-            bannerNumber={bannerNumber}
+            // bannerNumber={bannerNumber}
             indexToBanner={indexToBanner}
             setIndexToBanner={setIndexToBanner}
-            // deleteImageBannerTG={deleteImageBannerTG}
-            // saveImageBannerTG={saveImageBannerTG}
-            // resizeFileBannerTG={resizeFileBannerTG}
-            // setResizeFileBannerTG={setResizeFileBannerTG}
-            // getAllImageBannerTG={getAllImageBannerTG}
             setOnoffBanner_MB={setOnoffBanner_MB}
-            // setDeleteImageBannerTG={setDeleteImageBannerTG}
-            // setSaveImageBannerTG={setSaveImageBannerTG}
             originalBannerImgArr={originalBannerImgArr}
             setOriginalBannerImgArr={setOriginalBannerImgArr}
             realBannerFile={realBannerFile}
             setRealBannerFile={setRealBannerFile}
             getAllMenu={getAllMenu}
-
             imageKey={imageKey}
-            setTurnOnSection={setTurnOnSection}
-            turnOnSection={turnOnSection}
+            setToggleScrollBanner={setToggleScrollBanner}
+            toggleScrollBanner={toggleScrollBanner}
           />
         </div>
 
@@ -1172,10 +1167,7 @@ const _AppMain = () => {
             setOnOffThemeSetup_MB={setOnOffThemeSetup_MB} navTheme2ThemeSetUp={navTheme2ThemeSetUp}
             restaurantName={restaurantName} setRestaurantName={setRestaurantName}
             setMBnavIcon={setMBnavIcon}
-            // logoRestaurant={logoRestaurant}
-            // setLogoRestaurant={setLogoRestaurant} //for Mongo
-            // setNameTheme={setNameTheme}
-            // nameTheme={nameTheme}
+
             navAndFootBar={navAndFootBar}
             setNavAndFootBar={setNavAndFootBar}
             nameAllFontStyleFn={nameAllFontStyleFn}
@@ -1272,9 +1264,8 @@ const _AppMain = () => {
             <button onClick={() => {
 
               setOnOffQRCCode_MB(!onOffQRCCode_MB)
-
               setGetQRCodeTG((getQRCodeTG) => getQRCodeTG + 1)
-              setTurnOnSection(true)
+              setToggleScrollQRCode(true)
             }}
               name='Manu1MB'
               className={`MC_Tab MB_None `} >
@@ -1287,8 +1278,8 @@ const _AppMain = () => {
             <i className='x'> 3 Banner-----------------------------------------------</i>
             <button onClick={() => {
               setOnoffBanner_MB(!onOffBanner_MB);
-              setGetAllImageBannerTG((getAllImageBannerTG) => getAllImageBannerTG + 1)
-              setTurnOnSection(true)
+              // setGetAllImageBannerTG((getAllImageBannerTG) => getAllImageBannerTG + 1)
+              setToggleScrollBanner(true)
             }}
               name='bannerMB'
               className={`MC_Tab MB_None `} >
@@ -1329,9 +1320,9 @@ const _AppMain = () => {
 
             <i className='x'> 6 Menu3-----------------------------------------------</i>
             <button onClick={() => {
-       
-                setOnoffMenu3_MB(!onOffMenu3_MB);
-   
+
+              setOnoffMenu3_MB(!onOffMenu3_MB);
+
               setTurnOnSection(true)
               setMenuTime(3)
             }}
@@ -1415,14 +1406,7 @@ const _AppMain = () => {
 
 
       </div>
-
-      {/* style={{ 'backgroundColor': `${prop.themeSetup.body.bodyBgColor}`, 'color': `${prop.themeSetup.body.bodyFonttColor}` }}
-
-      styled={'backgroundColor': ${(onOffBanner_MB || onOffMenu1_MB || onOffMenu2_MB ||
-          onOffMenu3_MB || onOffTimePicker_MB || onOffLangSetup_MB || onOffFeedBAck_MB || onOffSetting_MB || onOffQRCCode_MB)
-        && 'fixed'}`} */}
-
-      {/* <div className=""> */}
+      
       <div className={`simulation ${(onOffBanner_MB || onOffMenu1_MB || onOffMenu2_MB ||
         onOffMenu3_MB || onOffTimePicker_MB || onOffLangSetup_MB || onOffFeedBAck_MB || onOffSetting_MB || onOffQRCCode_MB || onOffExtra_MB)
         && 'iframe_scale_Down'}`}
@@ -1433,7 +1417,7 @@ const _AppMain = () => {
         }}
 
       >
-
+     
         <_SimulationApp
           menuName={menuName}
 
@@ -1477,13 +1461,9 @@ const _AppMain = () => {
       </div>
 
 
-      {/* </div> */}
 
-      {/* <iframe id='iframe'
-        className={`mobile_iframe  ${(onOffBanner_MB || onOffMenu1_MB || onOffMenu2_MB ||
-          onOffMenu3_MB || onOffTimePicker_MB || onOffLangSetup_MB || onOffFeedBAck_MB || onOffSetting_MB || onOffQRCCode_MB)
-          && 'iframe_scale_Down'}`}
-        src="http://192.168.1.13:3000/customer/ce144dc5-undefined" /> */}
+
+
 
 
     </div>

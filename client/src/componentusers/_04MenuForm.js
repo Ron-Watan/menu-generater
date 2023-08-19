@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import MBiconBin from '../all-icon/button-icon/MBbin.svg'
+
 import MBiconPlus from '../all-icon/button-icon/MBplusicon.svg'
 import MBiconClose from '../all-icon/button-icon/MBclose.svg'
 import MBiconDown from '../all-icon/button-icon/down.svg'
@@ -237,17 +237,15 @@ const _04MenuForm = (prop) => {
             <i className="x">If Menu 1 //-</i>
             {prop.menuTime === 1 && prop.categoryList_1
               .map((el, index) => (
-
                 <div className={`MB_Flex_LisrBtn `} key={index}  >
                   <div className={`MB_tabCat ${chooseRAindex === index ? 'itemLangChoose' : ''}`}>
                     <button name={el.menuId} onClick={() => {
-
                       prop.findOneMenu(el.menuId)
                     }} className={`itemCat `}>
                       {index + 1}
+
                     </button>
                     <a href='#topForm' name={el.menuId} onClick={() => {
-
 
                       prop.findOneMenu(el.menuId)
                     }} className='btnCat'>
@@ -300,17 +298,17 @@ const _04MenuForm = (prop) => {
                 <div className="MB_Flex_LisrBtn" key={index} >
                   <div className={`MB_tabCat ${chooseRAindex === index ? 'itemLangChoose' : ''}`}>
                     <button name={el.menuId} onClick={() => {
-
                       prop.findOneMenu(el.menuId)
                     }} className={`itemCat`}>
                       {index + 1}
+                   
                     </button>
-                    <button name={el.menuId} onClick={() => {
+                    <a href='#topForm'name={el.menuId} onClick={() => {
 
                       prop.findOneMenu(el.menuId)
                     }} className='btnCat'>
                       {el.catagory}
-                    </button>
+                    </a>
                   </div>
 
                   {!visibleRA && <div className='MB_FlexEarth_Remove'>
@@ -353,12 +351,12 @@ const _04MenuForm = (prop) => {
                     }} className={`itemCat `}>
                       {index + 1}
                     </button>
-                    <button name={el.menuId} onClick={() => {
+                    <a href='#topForm' name={el.menuId} onClick={() => {
 
                       prop.findOneMenu(el.menuId)
                     }} className='btnCat'>
                       {el.catagory}
-                    </button>
+                    </a>
                   </div>
                   {!visibleRA && <div className='MB_FlexEarth_Remove'>
                     <i className="x">EARTH BUTTON</i>

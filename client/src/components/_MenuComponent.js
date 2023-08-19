@@ -398,6 +398,7 @@ const _MenuComponent = () => {
 
 
   }, []);
+  console.log('rrr')
   // document.body.style.backgroundColor = themeSetup.body.bodyBgColor
   // document.body.style.backgroundColor = 'red'
 
@@ -814,6 +815,7 @@ const _MenuComponent = () => {
                 description={description}
                 accordian={accordian}
                 footbar={footbar}
+                menuTime={menuTime}
               />
             ))}
         {/* </ThemeProvider> */}

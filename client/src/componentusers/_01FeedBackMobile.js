@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import MBiconClose from '../all-icon/button-icon/MBclose.svg'
 import MBiconBin from '../all-icon/button-icon/MBbin.svg'
 
-import MBiconStar from '../all-icon/button-icon/star.svg'
 import MBiconStarList from '../all-icon/button-icon/starList.svg'
 import MBiconBack from '../all-icon/button-icon/MBback.svg'
 import MBstar5 from '../all-icon/button-icon/star5.svg'
@@ -13,10 +12,7 @@ import MBstar1 from '../all-icon/button-icon/star1.svg'
 import MBstar0 from '../all-icon/button-icon/star0.svg'
 import MBcoms from '../all-icon/button-icon/coms.svg'
 
-import bigstar5 from '../all-icon/button-icon/bigstar5.svg'
 
-
-import Swal from 'sweetalert2';
 
 
 import axios from 'axios';

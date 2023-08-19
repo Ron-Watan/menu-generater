@@ -8,7 +8,6 @@ import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import { useState } from 'react';
 // import fff from '../../all-icon/footbar-icon'
 
-import logo from '../images/logo_1.png'
 
 
 
@@ -233,7 +232,7 @@ const AcordionSubComp = (prop) => {
 
                 <i className="x"> Name 1 2</i>
 
-                <div className={prop.sideBar ? 'paddingL_40' : ''}
+                <div className={prop.onOffSetting.sideBar ? 'paddingL_40' : ''}
                   style={{
                     'fontFamily': `${prop.bodyStyle.bodyFontFamily}`,
                     'color': `${prop.bodyStyle.bodyFonttColor}`,
@@ -268,7 +267,7 @@ const AcordionSubComp = (prop) => {
 
                 <div
                   style={{
-                    'paddingLeft': `${prop.sideBar ? '38px' : '8px'}`,
+                    'paddingLeft': `${prop.onOffSetting.sideBar ? '38px' : '8px'}`,
                     'fontFamily': `${prop.bodyStyle.bodyFontFamily}`,
                     'color': `${prop.bodyStyle.bodyFonttColor}`,
                     'fontSize': `${prop.bodyStyle.bodyFontSize * 1}rem`,
@@ -286,7 +285,7 @@ const AcordionSubComp = (prop) => {
                 {el.remark &&
                   <div
                     style={{
-                      'paddingLeft': `${prop.sideBar ? '38px' : '8px'}`,
+                      'paddingLeft': `${prop.onOffSetting.sideBar ? '38px' : '8px'}`,
                       'fontFamily': `${prop.bodyStyle.bodyFontFamily}`,
                       'color': `${prop.bodyStyle.bodyFonttColor}`,
                       'fontSize': `${prop.bodyStyle.bodyFontSize * .9}rem`,
@@ -305,7 +304,7 @@ const AcordionSubComp = (prop) => {
 
                 <div className={`heartFavor1Box`}
                   style={{
-                    'height': `${(!prop.favoritHeart || !prop.footbar) ? '1.5rem' : ''}`,
+                    'height': `${(!prop.onOffSetting.favoritHeart || !prop.onOffSetting.footbar) ? '1.5rem' : ''}`,
                   }}>
                   {(prop.onOffSetting.favoritHeart && prop.onOffSetting.footbar) && <button onClick={event => addFavorite(index, event, el.panelCode)} className={`${el.favor && 'opacity-0 transition-all'} `}>
                     <img src={require(`../../all-icon/footbar-icon/${heartIcon.favor1}`)} alt="" />

@@ -1,18 +1,7 @@
 import MBiconBack from '../all-icon/button-icon/MBback.svg'
-import ReactQuill, { Quill } from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+
 import Swal from 'sweetalert2';
 import MBerroricon from '../all-icon/button-icon/error.svg'
-
-// import { useRef } from 'react';
-
-import { useState } from 'react';
-import {
-  BtnBold, BtnUnderline, BtnClearFormatting,
-  Editor,
-  EditorProvider,
-  Toolbar
-} from 'react-simple-wysiwyg';
 
 const _04MobileLanguage = (prop) => {
 

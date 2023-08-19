@@ -158,13 +158,12 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
     window.scrollTo(0, 0);
   };
 
-  let img = document.getElementById('dummy')
-  console.dir(img)
-  window.addEventListener("load", event => {
+  // let img = document.getElementById('dummy')
+  // window.addEventListener("load", event => {
 
-    var isLoaded = img.complete && img.naturalHeight !== 0;
-    alert('www');
-  });
+  //   var isLoaded = img.complete && img.naturalHeight !== 0;
+  //   alert('www');
+  // });
 
   return (
 

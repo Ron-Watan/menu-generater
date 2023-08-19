@@ -34,6 +34,7 @@
   overscroll-behavior: none;
   z-index: 0;
   transition: all 0.3s;
+ 
 }
 .simulationBU {
   position: fixed;
@@ -1081,7 +1082,6 @@
   /* border: #333 0.5px solid; */
 }
 
-
 /* //------------------------------------ */
 
 .coverEdit {
@@ -1091,6 +1091,11 @@
   width: 100%;
   height: 100%;
   background-color: transparent;
+  z-index: 1000;
+  border-radius: 1rem;
+}
+.lightGrey {
+  background-color: rgba(0, 0, 0, 0.1);
 }
 /* //------------------------------------ */
 
@@ -1186,16 +1191,16 @@
   border-radius: 0.2rem 0 0 0.2rem;
   color: #444;
 }
-.width_info{
+.width_info {
   width: 30%;
   justify-content: flex-end;
   font-size: 1rem;
   font-weight: 400;
 }
-.inFoClient_Input{
+.inFoClient_Input {
   font-size: 1.1rem !important;
   font-weight: 400 !important;
-  padding-left:1rem !important
+  padding-left: 1rem !important;
 }
 .flexGlow {
   flex-grow: 1;
@@ -1572,9 +1577,8 @@
   border: #aaa solid 1px;
   padding: 0 1rem;
   border-radius: 2rem;
-
 }
-.G-self-end{
+.G-self-end {
   justify-self: end;
   margin-right: 1rem;
 }
@@ -1655,7 +1659,7 @@
   width: 33%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-
+  column-gap: 1rem;
   /* width: 33%;
   display: flex;
   flex-direction: column;
@@ -1927,23 +1931,47 @@
 }
 
 /* ////////////////////// */
+
 .QR_inputBox_Full {
-  display: flex;
-  justify-content: center;
+  /* display: flex;
+  justify-content: center; */
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
   width: 100%;
   border-radius: 0.8rem;
   /* border: 0.5px solid #333; */
   /* box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2); */
-  background: #f4f4f4;
+  /* background: #f4f4f4; */
   margin-top: 0.5rem;
+  gap: 1rem;
+  padding-bottom: 1rem;
+}
+.QR_inputBox {
+  /* width: 22rem; */
+  height: 3rem;
+  font-size: 1rem;
+  border-radius: 1rem;
+  display: flex;
+  justify-content: flex-end;
+  background: #f4f4f4;
+  align-items: center;
+  flex-grow: 1;
+  padding: 0 1rem;
+}
+.QR_flex2 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: flex-end;
 }
 .MB_Make_QR {
   padding: 1rem;
-  padding-top: 1rem;
+  padding-top: 0rem;
   padding-bottom: 3rem;
 }
 .MB_qrContainer1 {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -2002,19 +2030,32 @@
   min-width: 4rem;
   color: #333;
 }
+.flexBtnQRColor {
+  display: flex;
+  gap: 2rem;
+}
 .QR_btnOk {
   width: 7rem;
   height: 2.3rem;
-  background-color: #2a9fff;
-  border-radius: 0.3rem;
+  background-color: #3263ae;
+  border-radius: 2rem;
   border: 0.5px solid #333;
   color: #fff;
+  font-weight: 400;
+}
+.QR_btnCancel {
+  background-color: #fff;
+  color: #000;
 }
 .presetColor {
   width: 13rem;
   height: 2.5rem;
   border-radius: 0.3rem;
   border: 0.5px solid #333;
+}
+
+.QR_tray_position_wrapper {
+  padding: 1rem;
 }
 .QR_tray_position {
   display: flex;
@@ -2023,9 +2064,14 @@
 
   justify-content: center;
   align-items: center;
-  /* width: 100%; */
-  padding-top: 1rem;
+
+  padding: 1rem;
+  padding-bottom: 2rem;
+  border-radius: 1rem;
+  border: 0.5px solid #333;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
 }
+
 .QR_tray_position .react-colorful {
   height: 200px;
   width: 300px;
@@ -2052,25 +2098,19 @@
   height: 2rem;
   border-radius: 1rem;
 }
-.QR_inputBox {
-  width: 22rem;
-  height: 3rem;
-  font-size: 1rem;
-  display: flex;
-  justify-content: space-between;
 
-  align-items: center;
-}
 .QR_flex {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-.QR_flex2 {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-top: 0.5rem;
   display: flex;
   align-items: center;
   gap: 1rem;
+  background-color: #d6e2fb;
+  padding: 0.5rem 2rem;
+  border-radius: 2rem;
 }
+
 .QR_labelFontR {
   height: 2rem;
   outline: none;
@@ -2079,7 +2119,7 @@
   border-radius: 1rem;
   font-size: 1rem;
   font-weight: 500;
-  padding: 0.2rem 1rem;
+  padding: 0.2rem 0.2rem 0.2rem 1rem;
 
   background-color: #f9f9f9;
   width: 5rem;
@@ -2103,7 +2143,11 @@
   align-items: center;
   border-radius: 1.5rem;
   height: 2.5rem;
-  font-size: 0.9rem;
+  font-size: 1rem;
+}
+.downloadQR img {
+  width: 1.5rem;
+  height: 1.5rem;
 }
 .QR_link {
   color: #000 !important;
@@ -2165,6 +2209,6 @@
 }
 
 /* ////////////////////////////// */
-.infoFavorList{
+.infoFavorList {
   text-align: center;
 }

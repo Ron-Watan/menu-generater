@@ -1,46 +1,11 @@
-import React, { useEffect, useState } from 'react';
-// import icon1 from '../all-icon-client/Appetizer-Black-SVG-sprite.svg'
-// import icon2 from '../all-icon-client/food-color-SVG-sprite.svg'
-import styled, { createGlobalStyle } from 'styled-components';
+import React, {useState } from 'react';
+
 import AnchorLink from 'react-anchor-link-smooth-scroll'
  
 const SidebarSubComp = (prop) => {
   const [barActive, setBarActive] = useState(true);
 
-  // const [trigA, setTrickA] = useState()
-  // const trigger = (index, any) => {
-  //   let newdata = [...trigA]
-  //   newdata[index] = any
-  //   setTrickA(newdata)
 
-  // }
-
-  // useEffect(() => {
-
-  //   if (prop.triggerIcon) {
-  //     trigger(prop.triggerIcon.index, true);
-  //   } else trigger(prop.triggerIcon.index, false);
-
-  const [themeIconLine, setThemeIconLine] = useState('');
-  const [themeIconRadius, serThemeIconRadius] = useState('3rem');
-  const [themeIconBG, serThemeIconBG] = useState('#eee');
-  const [themeIconBorder, serThemeIconBorder] = useState('2px');
-  const [themeIconBorderColor, serThemeIconBorderColor] = useState('#777');
-
-
-//   const GlobalStyle =
-//     createGlobalStyle`
-//   .theme-icon-lineColor {
-//     fill: ${prop.themeIconColorLine};
-//   }
-
-//   .theme-icon-styleRadius{
-//     border-radius: ${prop.themeIconRadius};
-//   }
-//   .theme-icon-BG-Border{
-//     background-color: ${prop.themeIconBG};
-//     border:  ${prop.themeIconSolid} 2px ${prop.themeIconColorBorder};
-//   }
 
 // `;
 
@@ -56,7 +21,7 @@ const SidebarSubComp = (prop) => {
   // extraIcon={prop.extraIcon}
 
   return (
-    <div className='sideBarPosition'>
+    <div className='sideBarPosition unselectable'>
       {/* <GlobalStyle /> */}
       <div className='circleBarClient '>
         {barActive &&

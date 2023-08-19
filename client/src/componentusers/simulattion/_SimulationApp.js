@@ -374,8 +374,8 @@ const _SimulationApp = (prop) => {
   return (
     <>
       <div className='Mviewport unselectable'
+        
         style={{ 'fontFamily': `${prop.themeSetup.body?.bodyFontFamily} , serif`, 'backgroundColor': `${prop.themeSetup.body?.bodyBgColor}` }}>
-
         <div className=' mobileViewport_Wrapper '>
 
           <nav className='navBar_Client'
@@ -715,7 +715,7 @@ const _SimulationApp = (prop) => {
                     // prop.themeSetup={prop.themeSetup}
                     description={description}
                     accordian={accordian}
-
+                    sideBar={sideBar}
                     languageSetup={prop.languageSetup}
                     bodyStyle={prop.bodyStyle}
                     categoryMotion={prop.categoryMotion}
@@ -739,7 +739,7 @@ const _SimulationApp = (prop) => {
                     triggerIcon={triggerIcon}
                     setTriggerIcon={setTriggerIcon}
                     key={index}
-
+                    sideBar={sideBar}
                     setLanguage={setLanguage}
                     language={language}
 

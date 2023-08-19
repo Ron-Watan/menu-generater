@@ -25,7 +25,7 @@ const BannerSubCompo = (prop) => {
   //-///-///-///-///-///-///-///-///-   END FUNCTION   ///-///-///-///-///-///-///-///-///-
 
   return (
-    <div className="bannerWrapperC"
+    <div className="bannerWrapperC unselectable"
       style={{ 'backgroundColor': `${prop.bodyStyle.bodyBgColor}` }}>
       <div className="bannerSectionFormC" >
 
@@ -44,7 +44,7 @@ const BannerSubCompo = (prop) => {
             {
               prop.bannerImgArr.map((el, index) => (
                 // ${photoHostName}${el}?key=${prop.imageKey}
-                <img key={index} src={`${el.slice(0, -10) === user?.link ? `${photoHostName}${el}?key=${prop.imageKey}` : el}`} className='imageBannerFormC' />
+                <img key={index} src={`${el.slice(0, -10) === user?.link ? `${photoHostName}${el}?key=${prop.imageKey}` : el}`} className='imageBannerFormC unselectable' />
 
                 // <img key={index} src={`${photoHostName}${el}`} className='imageBannerFormC' />
 

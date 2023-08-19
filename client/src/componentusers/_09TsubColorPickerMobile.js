@@ -8,15 +8,7 @@ import MBiconClose from '../all-icon/button-icon/MBclose.svg'
 
 
 const _09TsubColorPickerMobile = (prop) => {
-  // prop.noSetTheme
-  //prop.nameTheme
-  // prop.navAndFootBar
-  // prop.setNavAndFootBar
-  // prop.themeIconNoBD
-  // prop.setThemeIconNoBD
-  //prop.setThemeIconColorBorder
-  //prop.categoryMotion
-  //prop.setCategoryMotion
+
 
   const getColorPicker = (e) => {
     prop.setCheckChangeTheme(true)

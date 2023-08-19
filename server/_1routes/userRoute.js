@@ -156,7 +156,15 @@ router.post('/photos/uplaod', upload.single("avatar"), async (req, res) => {
   // console.log(req.file.originalname)
   try {
     const file = await gfs.files.find({ filename: imgId }).toArray()
-    if (file.length === 1) return
+
+    
+    if (file.length === 1) { 
+      return res.send({
+        message: 'Success',
+        // data: req.file,
+        success: true,
+      })
+    }
     // gridfsBucket.delete(file._id)
 
     for (let i = 0; i < file.length - 1; i++) {

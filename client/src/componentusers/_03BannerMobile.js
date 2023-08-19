@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import MBiconBin from '../all-icon/button-icon/MBbin.svg'
 import MBiconPlus from '../all-icon/button-icon/MBplusicon.svg'
 import MBiconClose from '../all-icon/button-icon/MBclose.svg'
@@ -8,8 +8,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { hideLoading, showLoading } from '../redux/alertSlice';
 import Resizer from 'react-image-file-resizer';
 import Swal from 'sweetalert2'
-import { ticketPass } from '../protectors/authorize';
-import { setUser } from '../redux/userSlice'
 
 
 const _03BannerMobile = (prop) => {
@@ -18,7 +16,7 @@ const _03BannerMobile = (prop) => {
 
   const dispath = useDispatch();
   const { user } = useSelector((state) => state.user);
-  const { loading } = useSelector((state) => state.alerts);
+
   const [checkBannerChange, setCheckBannerChange] = useState(false)
 
 
@@ -86,6 +84,7 @@ const _03BannerMobile = (prop) => {
 
     dispath(showLoading())
     if (prop.realBannerFile.length === 0) {
+      console.log('11')
       return Swal.fire({
         title: 'Saved',
         toast: true,
@@ -99,6 +98,7 @@ const _03BannerMobile = (prop) => {
       })
     }
     if (!checkBannerChange) {
+      console.log('22')
       return Swal.fire({
         title: 'Saved',
         toast: true,
@@ -124,7 +124,8 @@ const _03BannerMobile = (prop) => {
     const newData = [...prop.realBannerFile] // File
     newData.forEach((bannerImg, index) => {
 
-      if (bannerImg.slice(0, -10) === user.link) {
+      if (bannerImg.slice(0, -10) === user.link) { // Same Photp
+        console.log('33')
         axios
           .post(`${process.env.REACT_APP_API}/user/photos/rename`, { imgId: bannerImg, newImgId: imgId + index })
 
@@ -150,7 +151,8 @@ const _03BannerMobile = (prop) => {
           })
       }
 
-      else if (bannerImg.slice(0, -10) !== user.link) {
+      else if (bannerImg.slice(0, -10) !== user.link) { // New Photp
+        console.log('444')
         formData = new FormData()
         formData.append('avatar', bannerImg, imgId + index);
         axios
@@ -159,9 +161,9 @@ const _03BannerMobile = (prop) => {
             // console.log(result)
 
             Swal.fire({
-              title: '',
+              title: 'Saved',
               toast: true,
-              icon: '',
+              icon: 'success',
               showConfirmButton: false,
               timer: 1000,
             }).then(next => {
@@ -220,27 +222,7 @@ const _03BannerMobile = (prop) => {
 
 
 
-  //=
-  const getAllImageBanner = () => {
 
-
-    axios
-      .post(`${process.env.REACT_APP_API}/user/getAllMenu`, { userId: user.userId }, ticketPass)
-      .then((result) => {
-        // console.log(result.data.userMenu)
-        if (result.data.success) {
-
-          const getReult = result.data.userMenu;
-          // dispath(setUser(result.data.userMenu));
-          prop.setBannerImgArr(getReult.bannerImage)
-
-        }
-      })
-      .catch((err) => {
-        console.log('BannerPhoto Loading...');
-      });
-
-  };
 
   const deleteImageBanner = () => {
 
@@ -380,12 +362,7 @@ const _03BannerMobile = (prop) => {
     }
   }
 
-  useEffect(() => {
-    if (prop.getAllImageBannerTG) {
-      // getAllImageBanner()
 
-    }
-  }, [prop.getAllImageBannerTG]);
 
   // useEffect(() => {
   //   // if(prop.bannerImgArr) return
@@ -397,145 +374,152 @@ const _03BannerMobile = (prop) => {
   //   if (prop.originalBannerImgArr.length === prop.bannerNumber) convertBanner()
   // }, [prop.originalBannerImgArr])
 
+  // useEffect(() => {
+  //   if (prop.getAllImageBannerTG) {
+
+  //   }
+  // }, [prop.getAllImageBannerTG]);
+
 
 
   return (
-    <div className="MC_Standard_0_FullPage">
-      {/* <div className={`${loadingManual ? 'showMe' : 'hiddenMe'} photoLoading`}>
+    <div className="">
+      {prop.toggleScrollBanner?<div className={`MC_Standard_0_FullPage`}>
+        {/* <div className={`${loadingManual ? 'showMe' : 'hiddenMe'} photoLoading`}>
         <div className="iconLoadingBanner">
           <span className='barOne'></span > <span className='barTwo'></span> <span className='barThree'></span>
         </div>
       </div> */}
-      <div className="topBar_function backdrop_blur">
-        <div className="GruopBtn">
-          <button onClick={() => {
-            checkBannerChangeFn()
-            prop.setTurnOnSection(false)
+        <div className="topBar_function backdrop_blur">
+          <div className="GruopBtn">
+            <button onClick={() => {
+              checkBannerChangeFn()
+              prop.setToggleScrollBanner(false)
 
-            // prop.setOnoffBanner_MB(false)
-            // checkChecnge()
-            // prop.setIndexToBanner('')
-          }} className="MB_Btn MB_Btn_Border">
-            <img src={MBiconClose} alt="" />
-          </button>
-          <span className='MB_textBtn'>Close</span>
+              // prop.setOnoffBanner_MB(false)
+              // checkChecnge()
+              // prop.setIndexToBanner('')
+            }} className="MB_Btn MB_Btn_Border">
+              <img src={MBiconClose} alt="" />
+            </button>
+            <span className='MB_textBtn'>Close</span>
 
-        </div>
-        <div className="MB_title">Promotion/Banner Photo</div>
+          </div>
+          <div className="MB_title">Promotion/Banner Photo</div>
 
-        <div className={`GruopBtn ${prop.bannerImgArr.length === 7 && 'hiddenMe'}`}>
-          <label htmlFor='file-uploadBanner' className='MB_Btn MB_Btn_Color'>
-            <img src={MBiconPlus} alt="" />
-            <form action="" encType='multipart/form-data' >
-              <input
-                onChange={(e) => {
-                  resizeFileBanner(e.target.files[0]);
-                  resizeFileBannerReal(e.target.files[0])
-                  e.target.value = ''
-                }}
-                id='file-uploadBanner'
-                name='file-uploadBanner'
-                type='file'
-                className='inputPhoto w_h_3'
-              />
-            </form>
-          </label>
-          <span className='MB_textBtn'>Add Photo</span>
-        </div>
-
-
-      </div>
-
-      {/* <div className="MB_banner_Section">  zindexUnder1 */}
-      <div className="MB_Standard_0_FullAgain MB_SetGrid_Full zindexUnderTop">
-
-
-        {/* <div className="MB_InScroll_fullNew paddingBottom_8 overScroll_none "> */}
-        <div className={`${prop.turnOnSection === true && 'MB_Standard_Section_canScroll'} MB_Make_PadingBanner`}  >
-
-          {/* <div className="MB_PaddingWrapper"> */}
-          <div className="MB_bannerShow_Flex_Column">
-            {prop.bannerImgArr.map((el, index) => (
-
-
-              <div key={index} className={`bannerShow_list ${prop.indexToBanner === index && 'MB_bannerShow_chooseCat'}`}>
-                <button onClick={() => prop.setIndexToBanner(index)} className={`btnCat MB_photoSize ${prop.indexToBanner === index && 'MB_sizeBigger'}`}>
-
-                  {/* //= */}
-
-                  {/* <img src={el} className='MB_imageBannerForm photoList' /> */}
-
-                  {/* {el.slice(0, -10) === user.link && <img src={`${photoHostName}${el}`} className='MB_imageBannerForm photoList' />}
-                  {el.slice(0, -10) !== user.link && <img src={el} className='MB_imageBannerForm photoList' />} */}
-                  <img src={`${el.slice(0, -10) === user?.link ? `${photoHostName}${el}?key=${prop.imageKey}` : el}`} className='MB_imageBannerForm photoList' />
-
-
-                </button>
-
-                <div className={` MB_smIconAB ${prop.indexToBanner === index ? '' : 'displayNone'}`}>
-                  <button
-                    onClick={() => {
-                      deleteImageBanner()
-                      // prop.setDeleteImageBannerTG((deleteImageBannerTG) => deleteImageBannerTG + 1);
-                    }}
-                    // value={el.menuId}
-                    type='submit'
-                    className={`MB_Btn forBinWhite`}>
-
-                    <img src={MBiconBin} alt="" />
-                  </button>
-                </div>
-
-                <div className="MB_postUpDown">
-                  <button onClick={() => {
-                    arrayMmove(prop.bannerImgArr, index, index - 1)
-                    arrayMmove2(prop.realBannerFile, index, index - 1)
-
+          <div className={`GruopBtn ${prop.bannerImgArr.length === 7 && 'hiddenMe'}`}>
+            <label htmlFor='file-uploadBanner' className='MB_Btn MB_Btn_Color'>
+              <img src={MBiconPlus} alt="" />
+              <form action="" encType='multipart/form-data' >
+                <input
+                  onChange={(e) => {
+                    resizeFileBanner(e.target.files[0]);
+                    resizeFileBannerReal(e.target.files[0])
+                    e.target.value = ''
                   }}
-                    className={`smallUpDown up ${index === 0 ? 'hiddenMe' : ''}
-                  ${prop.indexToBanner === index ? '' : 'hiddenMe'}`}>
-                    <img src={MBiconDown} alt="" /></button>
-
-                  <button onClick={() => {
-                    arrayMmove(prop.bannerImgArr, index, index + 1)
-                    arrayMmove2(prop.realBannerFile, index, index + 1)
-                  }}
-                    className={`smallUpDown ${index == prop.bannerImgArr.length - 1 ? 'hiddenMe' : ''}
-                    ${prop.indexToBanner === index ? '' : 'hiddenMe'}`}>
-                    <img src={MBiconDown} alt="" /></button>
-
-                </div>
-
-
-              </div>
-
-
-
-            ))}
+                  id='file-uploadBanner'
+                  name='file-uploadBanner'
+                  type='file'
+                  className='inputPhoto w_h_3'
+                />
+              </form>
+            </label>
+            <span className='MB_textBtn'>Add Photo</span>
           </div>
 
 
-
-
         </div>
-        <div className="MB_Positon_Bottom_btn_New">
-          <div className="MB_Frid_3Btn">
 
-            {/* SAVE BUTTON */}
-            <button
-              onClick={() => {
-                // prop.setSaveImageBannerTG((saveImageBannerTG) => prop.saveImageBannerTG + 1);
-                uploadImageBanner()
-              }}
-              className='MB_Sq_Btn SaveBtnSize MB_Btn_Color  MB_G2'>
-              <span>SAVE</span>
-            </button>
+        {/* <div className="MB_banner_Section">  zindexUnder1 */}
+        <div className="MB_Standard_0_FullAgain  MB_SetGrid_Full zindexUnderTop">
 
-            <div
-              className='MB_Sq_Btn SaveBtnSize MB_Btn_Count  MB_G3'>
-              <span>{prop.bannerImgArr.length}/7</span>
+
+          {/* <div className="MB_InScroll_fullNew paddingBottom_8 overScroll_none "> */}
+          <div className={`MB_Standard_Section_canScroll  MB_Make_PadingBanner`}  >
+
+            {/* <div className="MB_PaddingWrapper"> */}
+            <div className="MB_bannerShow_Flex_Column">
+              {prop.bannerImgArr.map((el, index) => (
+
+
+                <div key={index} className={`bannerShow_list ${prop.indexToBanner === index && 'MB_bannerShow_chooseCat'}`}>
+                  <button onClick={() => prop.setIndexToBanner(index)} className={`btnCat MB_photoSize ${prop.indexToBanner === index && 'MB_sizeBigger'}`}>
+
+                    {/* //= */}
+
+                    {/* <img src={el} className='MB_imageBannerForm photoList' /> */}
+
+                    {/* {el.slice(0, -10) === user.link && <img src={`${photoHostName}${el}`} className='MB_imageBannerForm photoList' />}
+                  {el.slice(0, -10) !== user.link && <img src={el} className='MB_imageBannerForm photoList' />} */}
+                    {prop.toggleScrollBanner && <img src={`${el.slice(0, -10) === user?.link ? `${photoHostName}${el}?key=${prop.imageKey}` : el}`} className='MB_imageBannerForm photoList' />}
+
+
+                  </button>
+
+                  <div className={` MB_smIconAB ${prop.indexToBanner === index ? '' : 'displayNone'}`}>
+                    <button
+                      onClick={() => {
+                        deleteImageBanner()
+                        // prop.setDeleteImageBannerTG((deleteImageBannerTG) => deleteImageBannerTG + 1);
+                      }}
+                      // value={el.menuId}
+                      type='submit'
+                      className={`MB_Btn forBinWhite`}>
+
+                      <img src={MBiconBin} alt="" />
+                    </button>
+                  </div>
+
+                  <div className="MB_postUpDown">
+                    <button onClick={() => {
+                      arrayMmove(prop.bannerImgArr, index, index - 1)
+                      arrayMmove2(prop.realBannerFile, index, index - 1)
+
+                    }}
+                      className={`smallUpDown up ${index === 0 ? 'hiddenMe' : ''}
+                  ${prop.indexToBanner === index ? '' : 'hiddenMe'}`}>
+                      <img src={MBiconDown} alt="" /></button>
+
+                    <button onClick={() => {
+                      arrayMmove(prop.bannerImgArr, index, index + 1)
+                      arrayMmove2(prop.realBannerFile, index, index + 1)
+                    }}
+                      className={`smallUpDown ${index == prop.bannerImgArr.length - 1 ? 'hiddenMe' : ''}
+                    ${prop.indexToBanner === index ? '' : 'hiddenMe'}`}>
+                      <img src={MBiconDown} alt="" /></button>
+
+                  </div>
+
+
+                </div>
+
+
+
+              ))}
             </div>
-            {/* 
+
+
+
+
+          </div>
+          <div className="MB_Positon_Bottom_btn_New">
+            <div className="MB_Frid_3Btn">
+
+              {/* SAVE BUTTON */}
+              <button
+                onClick={() => {
+                  // prop.setSaveImageBannerTG((saveImageBannerTG) => prop.saveImageBannerTG + 1);
+                  uploadImageBanner()
+                }}
+                className='MB_Sq_Btn SaveBtnSize MB_Btn_Color  MB_G2'>
+                <span>SAVE</span>
+              </button>
+
+              <div
+                className='MB_Sq_Btn SaveBtnSize MB_Btn_Count  MB_G3'>
+                <span>{prop.bannerImgArr.length}/7</span>
+              </div>
+              {/* 
             <i className="x">CANCEL BUTTON</i>
             <button
               onClick={() => {
@@ -546,12 +530,12 @@ const _03BannerMobile = (prop) => {
             </button> */}
 
 
+            </div>
           </div>
+
         </div>
 
-      </div>
-
-
+      </div>:''}
     </div>
   )
 }

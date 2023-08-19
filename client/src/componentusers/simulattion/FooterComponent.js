@@ -21,16 +21,9 @@ import MBiconClose from '../../all-icon/button-icon/MBclose.svg'
 
 
 const FooterComponent = (prop) => {
-  // prop.favorList
-  // prop.languageSetup
-  // prop.setLanguage
-  // prop.language
-  // prop.themeSetup
-  // prop.setThemeSetup
+
 
   const [activeLang, setActiveLang] = useState(false)
-  const [activeList, setActiveList] = useState(false)
-  const [activeComment, setActiveComment] = useState(false)
 
 
   const footerStateModel = { languageTab: false, listTab: false, commentTab: false, overlay: false }
