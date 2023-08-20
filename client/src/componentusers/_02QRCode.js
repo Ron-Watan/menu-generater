@@ -315,6 +315,8 @@ const _02QRCode = (prop) => {
         </div>
         {(!onOffTrayQR && !onOffTrayBG) && <div className="smallInch selectable">{qrLink}</div>}
 
+        {/* {(!onOffTrayQR && !onOffTrayBG) && <div className="smallInch selectable">https://www.qr-cloudmenu.com/eighth-coffee</div>} */}
+
         {showSize && <div className="QR_flex">
           <div className="">Size</div>
 

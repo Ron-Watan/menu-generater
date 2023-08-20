@@ -231,7 +231,7 @@ const _11ExtraInfo = (prop) => {
 
 
 
-              <div className="">These infomations will be display on bottom part of menu only.</div>
+              {/* <div className="">These infomations will be display on bottom part of menu only.</div> */}
 
 
             </div>

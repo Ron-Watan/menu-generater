@@ -386,7 +386,7 @@ const _SimulationApp = (prop) => {
 
               <div className='navSlit1'>
 
-                {prop.logoRestaurant && <div className="logoResta"><img className='logoRestaImg' src={prop.logoRestaurant} alt='' /></div>}
+                {/* {prop.logoRestaurant && <div className="logoResta"><img className='logoRestaImg' src={prop.logoRestaurant} alt='' /></div>} */}
                 <span style={{
                   'backgroundColor': `${prop.navAndFootBar?.navBarColor}`,
                   'fontFamily': `${prop.navAndFootBar?.nameFontFamily}`,

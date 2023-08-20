@@ -2,7 +2,7 @@
   font-family: 'Inter', Courier, monospace;
   background-color: #fff;
   width: 100%;
-  height: 100vh;
+  height: 100%;
 }
 .H-header {
   width: 100%;
@@ -31,6 +31,23 @@
   justify-content: space-between;
   padding-left: 1rem;
   padding-right: 1rem;
+}
+.H_ConntentFlex_Center {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.H_ConntentFlexCol_Center {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.H_Padding_FreeTrial {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 .H_mainnavigation_ab {
   position: absolute;
@@ -68,13 +85,13 @@
   line-height: 1.4;
 }
 .tempSpace {
-  height: 8rem;
+  height: 5rem;
 }
 
 .H_Banner {
   display: block;
   border-radius: 5px;
-  box-shadow: 0.2rem 0.2rem 0.4rem 0.1rem rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0.2rem 0.2rem 0.4rem 0.1rem rgba(0, 0, 0, 0.1); */
 }
 
 .H_Banner .rtds-single-slide-styles {
@@ -85,4 +102,153 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+.H_Banner .rtds-single-slide-styles div {
+  padding: 0 !important;
+}
+.H_BannerM {
+  border: #000000 1px solid;
+  width: 100%;
+  height: 100%;
+}
+.H_BannerM_Flex {
+  display: flex;
+  background-size: cover;
+}
+.H_BG1 {
+  background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.3)), url('../componenthome/img/restaurant.jpg');
+}
+.H_BG2 {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3)), url('../componenthome/img/coffeeshop.jpg');
+}
+.H_BannerM_Flex1 {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 50%;
+  min-width: 50vw;
+  height: 30rem;
+}
+
+.H_Banner .rtds-single-slide-styles img {
+  display: flex;
+  height: 25rem !important;
+}
+
+.H_BannerM_Flex2 {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+}
+.H_flexBarCode {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-left: 1rem;
+}
+.H_plus {
+  font-family: 'Saira Stencil One';
+  color: #fff;
+  font-size: 3.5rem;
+  font-weight: 600;
+}
+.H_Banner .rtds-single-slide-styles .H_BoxImg_code {
+  display: flex;
+  height: 7rem !important;
+  margin-top: 3rem;
+}
+
+.H_flexColBarCode {
+  font-family: 'Inter';
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* .H_flexColBarCode_end{
+  align-items: flex-end;
+} */
+.H_BigText {
+  font-size: 1.7rem;
+  font-weight: 600;
+}
+.H_BigText span {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.H_smallText {
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+.H_XsmallText {
+  font-size: 0.6rem;
+  font-weight: 300;
+}
+
+/* ////////////////////////// */
+.W_what {
+  display: flex;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+.H_BannerM_Flex2_iconGap {
+  gap: 0.1rem;
+  margin-top: 1.8rem;
+  margin-left: 1rem;
+}
+.H_BoxIcon {
+  font-family: 'Inter';
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 400;
+  gap: 0.8rem;
+
+  display: flex;
+  align-items: center;
+  height: 3rem;
+}
+.H_Banner .rtds-single-slide-styles .H_icon {
+  width: 2.5rem;
+  height: 3rem;
+}
+
+/* /////////////////////////// DEMO */
+
+.Flex_Demo {
+  display: flex;
+}
+
+.Flex_Demo1 img {
+  height: 25rem;
+}
+
+/* //////////////////// Featurs */
+.dotBarFlexFT {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
+.H_BoxIconFT {
+  
+  width: 2.2rem;
+  height: 2.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all .3s;
+}
+.H_BoxIconFT_Focus{
+  transform: scale(1.3);
+  transition: all .3s;
+}
+.H_iconFT{
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.438);
+
 }
