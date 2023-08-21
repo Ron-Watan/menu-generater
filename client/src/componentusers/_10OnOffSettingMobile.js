@@ -92,7 +92,7 @@ const _10OnOffSettingMobile = (prop) => {
           </button>
           <span className='MB_textBtn'>Close</span>
         </div>
-        <div className="MB_title">General Setting</div>
+        <div className="MB_title">General Settings</div>
 
         <div className="GruopBtn">
           <button className="MB_BtnEmpty ">

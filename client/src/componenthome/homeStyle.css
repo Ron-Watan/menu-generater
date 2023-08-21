@@ -8,24 +8,41 @@
   width: 100%;
 
   position: fixed;
+  /* top: 1.5rem; */
   z-index: 99;
-  height: 5rem;
+  /* height: 5rem; */
   /* background-image: linear-gradient(to bottom right, #fc4422 35%, #ffbb32); */
-  background: linear-gradient(to right top, #4376ee 50%, #3edde8);
+  /* background: linear-gradient(to right top, #4376ee 50%, #3edde8); */
   /* background-color: #ffbb32; */
+  /* background-color: #000000; */
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.438);
 }
+
 .H-top-navigation {
-  height: 1.5rem;
-  background-color: #333;
+  z-index: 99;
+  top: 0;
+  height: 1.2rem;
+  background-color: #222222d7;
+  -webkit-backdrop-filter: blur(1rem);
+  backdrop-filter: blur(1.5rem);
 }
+
 .H-headerInner {
   position: relative;
+  /* background-image: linear-gradient(to bottom right, #fc4422 35%, #ffbb32); */
+  /* background-image: linear-gradient(to top right, #46afe4a7 85%, #c9daf3); */
+
+  background-color: #ffffffc8;
+
+  height: 3.2rem;
+  width: 100%;
+  -webkit-backdrop-filter: blur(1rem);
+  backdrop-filter: blur(1.5rem);
 }
 .H_mainnavigation {
   position: relative;
   width: 100%;
-  height: 3.5rem;
+  height: 3.2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -46,8 +63,8 @@
   justify-content: center;
 }
 .H_Padding_FreeTrial {
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  padding-top: 1rem;
+  padding-bottom: 1,5rem;
 }
 .H_mainnavigation_ab {
   position: absolute;
@@ -64,7 +81,7 @@
 }
 .H-center-navigation img {
   margin-top: -0.75rem;
-  max-width: 5rem;
+  max-width: 4.8rem;
   /* background-color: aqua; */
   border-radius: 50%;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.438);
@@ -74,18 +91,29 @@
   z-index: 200;
 }
 .H_btnLogin {
-  color: #fff;
-  padding: 0.5rem 1.8rem;
-  background-color: #000000;
   border-radius: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
+ 
+  line-height: 1.6;
+}
+
+.H_btnLogin_Loging {
+  color: #fff;
+  background-color: #000000;
+  padding: 0.4rem 1.4rem;
   font-weight: 400;
-  line-height: 1.4;
+}
+.H_btnLogin_Reg {
+  color: #fff;
+  background-color: #000000;
+  background-image: linear-gradient(to top right, #0076e4, #00a3ff);
+  padding: 0.5rem 1.5rem;
+  font-weight: 600;
 }
 .tempSpace {
-  height: 5rem;
+  height: 4.5rem;
 }
 
 .H_Banner {
@@ -107,7 +135,7 @@
   padding: 0 !important;
 }
 .H_BannerM {
-  border: #000000 1px solid;
+  /* border: #000000 1px solid; */
   width: 100%;
   height: 100%;
 }
@@ -116,7 +144,7 @@
   background-size: cover;
 }
 .H_BG1 {
-  background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.3)), url('../componenthome/img/restaurant.jpg');
+  background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)), url('../componenthome/img/restaurant.jpg');
 }
 .H_BG2 {
   background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3)), url('../componenthome/img/coffeeshop.jpg');
@@ -144,13 +172,14 @@
 .H_flexBarCode {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 1.2rem;
-  margin-left: 1rem;
+  /* margin-left: 1rem; */
 }
 .H_plus {
   font-family: 'Saira Stencil One';
   color: #fff;
-  font-size: 3.5rem;
+  font-size: 2.5rem;
   font-weight: 600;
 }
 .H_Banner .rtds-single-slide-styles .H_BoxImg_code {
@@ -167,6 +196,20 @@
   gap: 0.5rem;
   display: flex;
   flex-direction: column;
+  align-items: center;
+}
+.H_flexTitleFT {
+  display: flex;
+  align-items: center;
+}
+.H_flexTitleFTText {
+  font-family: 'Inter';
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  gap: 0.5rem;
+  display: flex;
+
   align-items: center;
 }
 /* .H_flexColBarCode_end{
@@ -200,6 +243,7 @@
   margin-top: 1.8rem;
   margin-left: 1rem;
 }
+
 .H_BoxIcon {
   font-family: 'Inter';
   color: #fff;
@@ -213,42 +257,271 @@
 }
 .H_Banner .rtds-single-slide-styles .H_icon {
   width: 2.5rem;
-  height: 3rem;
+  height: 2.5rem;
 }
 
 /* /////////////////////////// DEMO */
 
+.sectionDemo {
+  padding-top: 6rem;
+  padding-bottom: 0rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
 .Flex_Demo {
   display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 0.5rem 1rem;
+}
+.Flex_Demo1 {
+  width: 60%;
+}
+.Flex_Demo1_img {
+  height: 10rem;
+  border-radius: 0.3rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.438);
 }
 
-.Flex_Demo1 img {
-  height: 25rem;
-}
-
-/* //////////////////// Featurs */
-.dotBarFlexFT {
+.Flex_Demo2 {
+  width: 40%;
   display: flex;
-  justify-content: space-between;
-  padding: 1rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
-.H_BoxIconFT {
-  
-  width: 2.2rem;
-  height: 2.2rem;
+.Flex_Demo2_img {
+  height: 7rem;
+}
+.Flex_Demo2_link {
+  width: 8rem;
+  padding: 0.2rem 1rem;
+  background-color: #fff;
+  border: #777 0.5px solid;
+  border-radius: 1rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  font-size: 0.8rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: all .3s;
+  font-weight: 600;
 }
-.H_BoxIconFT_Focus{
+/* //////////////////// Featurs */
+.sectionFT {
+  padding-top: 4rem;
+  padding-bottom: 2rem;
+}
+.H_Padding_Feater {
+  padding-top: 4rem;
+  padding-bottom: 1rem;
+}
+.H_featureSection {
+  display: flex;
+  flex-direction: column;
+  gap: 6rem;
+  width: 100%;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  margin-top: 3rem;
+}
+
+.H_BannerM_Flex1_FT {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 45%;
+  height: 100%;
+}
+.H_BannerM_Flex2_FT {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 45%;
+}
+
+.dotBarFlexFT {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  gap: 1rem;
+}
+.H_BoxIconFT {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s;
+}
+.H_BoxIconFT_Focus {
   transform: scale(1.3);
-  transition: all .3s;
+  transition: all 0.3s;
 }
-.H_iconFT{
+.H_iconFT {
   width: 100%;
   height: 100%;
   border-radius: 50%;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.438);
+}
 
+.H_BoxImg_FT {
+  height: 20rem;
+}
+
+.H_RegText {
+  font-family: 'Inter';
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  height: 2rem;
+}
+.H_RegText_end {
+  height: 1rem;
+}
+.flex_center {
+  justify-content: center;
+}
+.flex_center_FT {
+  font-weight: 400;
+  font-size: 0.9rem;
+}
+.H_TitleText {
+  color: #333;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.H_boxFeature {
+  font-family: 'Inter';
+  color: #333;
+  gap: 1rem;
+  /* margin-top: 2rem; */
+  height: 100%;
+  max-width: 30rem;
+  justify-content: flex-start;
+}
+
+.H_FTBox {
+  margin-left: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.move1 {
+  margin: -1rem;
+}
+
+.H_boxFeatureText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-left: 1rem;
+}
+.FtTitle {
+  font-size: 1rem;
+  line-height: 1.6;
+  font-weight: 600;
+}
+.Ftsmall {
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+.Ftsmall_white {
+  color: #fff;
+}
+.M_paddingR {
+  padding-right: 0.5rem;
+}
+.SmartGap {
+  gap: 0.1rem;
+  margin-top: 1.8rem;
+}
+.SmartTile_gap {
+  display: flex;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+.H_boxSmartText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+.FtSmart {
+  font-family: 'Inter';
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  /* font-family: 'Inter'; */
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+.FtSmart_small {
+  font-size: 0.75rem;
+  font-weight: 400;
+  text-align: center;
+}
+.demoMargin {
+  margin-top: 0.8rem;
+}
+.Text_italic {
+  font-style: italic;
+}
+/* .Font_Price {
+  color: #fc4422;
+} */
+.Font_Down {
+  align-self: center;
+  border-bottom: 0.5px solid #fff;
+}
+
+/* //////////////////////////////// How Work */
+
+.HowWork_Contaoner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 2rem;
+  gap: 1rem;
+}
+.H_ExtrabigTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+.H_MedTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 2;
+}
+.Font_Down2 {
+  margin-top: 0.5rem;
+  align-self: center;
+  border-bottom: 0.5px solid #060606;
+}
+
+.h_fbanner {
+  height: 7rem;
 }

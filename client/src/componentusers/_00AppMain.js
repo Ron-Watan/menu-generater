@@ -859,13 +859,13 @@ const _AppMain = () => {
   const [themeIconColorBorder, setThemeIconColorBorder] = useState('')
   const [extraIcon, setExtraIcon] = useState(false)
 
-  const themeIconClientFn = (radius, colorLine, colorBg, solid, colorBorder) => {
-    setCheckChangeTheme(true)
-    setThemeIconNoBD({
-      themeIconRadius: radius, themeIconColorLine: colorLine, themeIconBG: colorBg, themeIconSolid: solid, themeIconColorBorder: colorBorder
-    })
-    setExtraIcon(false)
-  }
+  // const themeIconClientFn = (radius, colorLine, colorBg, solid, colorBorder) => {
+  //   setCheckChangeTheme(true)
+  //   setThemeIconNoBD({
+  //     themeIconRadius: radius, themeIconColorLine: colorLine, themeIconBG: colorBg, themeIconSolid: solid, themeIconColorBorder: colorBorder
+  //   })
+  //   setExtraIcon(false)
+  // }
   // 4 ----------------------------------------------------------------------------------------------
   const [categoryActiveTheme, setCategoryActiveTheme] = useState(false)
   const [categoryMotion, setCategoryMotion] = useState({
