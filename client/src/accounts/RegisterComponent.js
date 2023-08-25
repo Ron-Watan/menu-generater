@@ -51,6 +51,7 @@ const RegisterComponent = () => {
     // dispath(showLoading())
     UserPool.signUp(email, password, [], null, (err, result) => {
       if (err) {
+        console.log(err)
         alert(err);
 
         return;
@@ -63,13 +64,13 @@ const RegisterComponent = () => {
           navigate('/login')
         }
         else if (!res.data.success) {
-          alert('rerer')
+          alert('Error')
 
           Swal.fire(res.data.message)
         }
       }).catch(err => {
         console.log(err)
-        alert('rerer')
+        alert('Error')
       })
 
 

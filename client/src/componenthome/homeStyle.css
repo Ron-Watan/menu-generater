@@ -87,7 +87,7 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.438);
 }
 
-.H-rightSideHeader {
+.H-rightSideHeader,.H-leftSideHeader {
   z-index: 200;
 }
 .H_btnLogin {

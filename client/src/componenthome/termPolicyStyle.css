@@ -1,0 +1,34 @@
+.TermPolicySection {
+  width: 100%;
+  padding: 2rem 1rem;
+}
+
+.termTitle{
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.termSubject{
+  font-size: 1rem;
+  font-weight: 600;
+}
+.termContent{
+  font-size: .87rem;
+  line-height: 1.7;
+}
+
+.termSmall{
+  font-size: .8rem;
+}
+.margin_bottomDot5{
+  margin-bottom: .5rem;
+}
+.margin_bottom1{
+  margin-bottom: 1rem;
+}
+
+.margin_bottom15{
+  margin-bottom: 1.5rem;
+}
+.margin_bottom2{
+  margin-bottom: 2rem;
+}

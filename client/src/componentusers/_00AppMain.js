@@ -60,6 +60,7 @@ import MBicon_StarNoti from '../all-icon/mobile-bar/starnoti.svg'
 // import { S3Client, PutObjectCommand, S3 } from "@aws-sdk/client-s3"
 // import AWS from 'aws-sdk'
 import * as Util from "../componentusers/_99Utility"
+import { useNavigate } from 'react-router-dom';
 
 
 //-///-///-///-///-///-///-///-///-///-
@@ -67,31 +68,36 @@ import * as Util from "../componentusers/_99Utility"
 
 const _AppMain = () => {
 
-  function getCurrentDimension() {
-    return {
-      width: window.innerWidth,
-      height: window.innerHeight,
-    };
-  }
-  const [screenSize, setScreenSize] = useState(getCurrentDimension());
-  useEffect(() => {
-    const updateDimension = () => {
-      setScreenSize(getCurrentDimension());
-    };
-    window.addEventListener('resize', updateDimension);
+  // function getCurrentDimension() {
+  //   return {
+  //     width: window.innerWidth,
+  //     height: window.innerHeight,
+  //   };
+  // }
+  // const [screenSize, setScreenSize] = useState(getCurrentDimension());
+  // useEffect(() => {
+  //   const updateDimension = () => {
+  //     setScreenSize(getCurrentDimension());
+  //   };
+  //   window.addEventListener('resize', updateDimension);
 
-    return () => {
-      window.removeEventListener('resize', updateDimension);
-    };
-  }, [screenSize]);
-
-  const ref = useRef([]);
-
-  const dispath = useDispatch();
+  //   return () => {
+  //     window.removeEventListener('resize', updateDimension);
+  //   };
+  // }, [screenSize]);
 
   //1//
+
+  const dispath = useDispatch();
   const { user } = useSelector((state) => state.user);
 
+  //1//
+
+
+
+
+
+  const ref = useRef([]);
   //1// After Reload SET:
   const [indexToBanner, setIndexToBanner] = useState('');
 
@@ -905,19 +911,6 @@ const _AppMain = () => {
 
 
 
-
-
-
-
-
-
-
-  //////=//=//=//=///////////////////////////////
-
-
-  //-
-
-
   //- MOBILE  //-///=///-///=///-///=///-///=///-   END FUNCTION   ///-///=///-///=///-///=///-///=///-
 
 
@@ -985,6 +978,39 @@ const _AppMain = () => {
   const [loadingManual, setLoadingManual] = useState(false)
 
 
+  const navigate = useNavigate()
+
+  const [oneTimeCheck, setOneTimeCheck] = useState(true)
+
+  const checkSubscription = () => {
+    // dispath(showLoading())
+  
+    axios
+      .post(`${process.env.REACT_APP_API}/user/checkSubscription`, { email: user.email }, ticketPass)
+      .then((result) => {
+        const getReult = result.data.status;
+     
+        if (getReult === 'active') {
+
+          getAllMenu()
+          setOneTimeCheck(false)
+        } else if (getReult === 'inActive') {
+          setOneTimeCheck(false)
+          navigate('/subscription')
+
+        }
+      })
+      .catch((err) => {
+
+        console.log('Server: Connecting...');
+
+      });
+
+
+  }
+  useEffect(() => {
+    if (oneTimeCheck && user.userId) checkSubscription()
+  }, [user]);
   useEffect(() => {
     if (user.userId) getAllMenu()
   }, [user]);
@@ -1051,9 +1077,9 @@ const _AppMain = () => {
         </div>
 
         <i className="x"> Banner-----------------------------------------------</i>
-       <div className={`mobile_function  ${!onOffBanner_MB && 'MB_slide_Down'}`}>
+        <div className={`mobile_function  ${!onOffBanner_MB && 'MB_slide_Down'}`}>
 
-       <_03BannerMobile setProtectLoading={setProtectLoading}
+          <_03BannerMobile setProtectLoading={setProtectLoading}
             bannerImgArr={bannerImgArr}
             setBannerImgArr={setBannerImgArr}
             // bannerNumber={bannerNumber}
@@ -1406,7 +1432,7 @@ const _AppMain = () => {
 
 
       </div>
-      
+
       <div className={`simulation ${(onOffBanner_MB || onOffMenu1_MB || onOffMenu2_MB ||
         onOffMenu3_MB || onOffTimePicker_MB || onOffLangSetup_MB || onOffFeedBAck_MB || onOffSetting_MB || onOffQRCCode_MB || onOffExtra_MB)
         && 'iframe_scale_Down'}`}
@@ -1417,7 +1443,7 @@ const _AppMain = () => {
         }}
 
       >
-     
+
         <_SimulationApp
           menuName={menuName}
 

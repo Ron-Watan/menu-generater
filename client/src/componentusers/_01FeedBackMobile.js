@@ -83,7 +83,7 @@ const _FeedBackMobile = (prop) => {
   let totalPointStar_5 = pointStarUn_5 + pointStarSeen_5
 
 
-
+  const [oneTimeRun, setOneTimeRun] = useState(true)
   const getFeedBack = () => {
     dispath(showLoading())
     axios
@@ -101,6 +101,7 @@ const _FeedBackMobile = (prop) => {
             if (x.readMessage === true) count++
           }
           prop.setGetStarNotification(count)
+          setOneTimeRun(false)
           dispath(hideLoading())
         } else {
           // Swal.fire(result.data.message)
@@ -239,7 +240,7 @@ const _FeedBackMobile = (prop) => {
 
 
   useEffect(() => {
-    getFeedBack();
+    if (oneTimeRun && user) getFeedBack();
 
   }, [user]);
 

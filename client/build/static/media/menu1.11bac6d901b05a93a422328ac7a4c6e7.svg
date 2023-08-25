@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 60 60">
+  <defs>
+    <linearGradient id="linear-gradient" x1="30" y1="142" x2="30" y2="82" gradientTransform="translate(0 142) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#09c6f9"/>
+      <stop offset="1" stop-color="#045de9"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="-1476.96" y1="72.03" x2="-1427.3" y2="72.03" gradientTransform="translate(-42.03 -1422.13) rotate(-90)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#addcff"/>
+      <stop offset=".5" stop-color="#eaf6ff"/>
+      <stop offset="1" stop-color="#eaf6ff"/>
+    </linearGradient>
+  </defs>
+  <path d="m30,60c16.57,0,30-13.43,30-30S46.57,0,30,0,0,13.43,0,30s13.43,30,30,30Z" fill="url(#linear-gradient)"/>
+  <circle cx="30" cy="30" r="24.83" fill="url(#linear-gradient-2)"/>
+  <path d="m33.43,35.83v-12.56l-2.28.89c-.19.07-.42.14-.59.14-.56,0-1.01-.45-1.01-1.01,0-.33.14-.75.71-.99l3.5-1.41c.19-.05.47-.21.8-.21.66,0,1.13.49,1.13,1.18v13.97c0,.63-.49,1.13-1.13,1.13s-1.13-.49-1.13-1.13Z" fill="#2890ff" stroke="#2890ff" stroke-miterlimit="10" stroke-width=".5"/>
+  <path d="m41.97,15.2h-21.81c-2.15,0-3.9,1.75-3.9,3.9v1.2h-1.27c-.47,0-.86.38-.86.86s.38.86.86.86h1.27v7.14h-1.27c-.47,0-.86.38-.86.86s.38.86.86.86h1.27v7.14h-1.27c-.47,0-.86.38-.86.86s.38.86.86.86h1.27v1.2c0,2.15,1.75,3.9,3.9,3.9h21.81c2.15,0,3.9-1.75,3.9-3.9v-21.81c0-2.15-1.75-3.9-3.9-3.9Zm-19.07,27.89h-2.74c-1.2,0-2.18-.98-2.18-2.18v-1.2h1.27c.47,0,.86-.38.86-.86s-.38-.86-.86-.86h-1.27v-7.14h1.27c.47,0,.86-.38.86-.86s-.38-.86-.86-.86h-1.27v-7.14h1.27c.47,0,.86-.38.86-.86s-.38-.86-.86-.86h-1.27v-1.2c0-1.2.98-2.18,2.18-2.18h2.83l-.09,26.17Zm21.25-2.18c0,1.2-.98,2.18-2.18,2.18h-17.36l.09-26.17h17.27c1.2,0,2.18.98,2.18,2.18v21.81Z" fill="#2890ff" stroke="#2890ff" stroke-miterlimit="10" stroke-width=".5"/>
+</svg>

@@ -20,19 +20,44 @@ const userSchema = mongoose.Schema(
       required: true,
       unique: true
     },
+
+    stripeCustomerId: {
+      type: String,
+      required: true,
+      unique: true
+    },
+
+    subscriptionActive: {
+      type: String,
+      // default: false,
+    },
+
+    subscriptionId: {
+      type: String,
+    },
+
+
+
+
+
+
+
+
     onOffSetting: {
       type: 'Object',
       default: {},
     },
     extraInfo: {
       type: 'Object',
-      default: {},
+      default: {
+        address_1: '', address_2: '', phone: '',
+        email: '', website: '', instagram: '', facebook: '', youtube: '', tiktok: ''
+      },
     },
     // password: {
     //   type: String,
     //   required: true,
     // },
-
 
 
 

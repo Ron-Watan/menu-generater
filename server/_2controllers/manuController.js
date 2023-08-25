@@ -1,9 +1,9 @@
 import Users from '../_3models/menuModel.js';
-// import Images from '../_3models/imageModel.js';
-// import Banners from '../_3models/bannerModel.js';
 import { v4 as uuidv4 } from 'uuid';
 import Clients from '../_3models/clientModel.js';
 
+// import Images from '../_3models/imageModel.js';
+// import Banners from '../_3models/bannerModel.js';
 
 //-
 export const getAllMenu = (req, res) => {

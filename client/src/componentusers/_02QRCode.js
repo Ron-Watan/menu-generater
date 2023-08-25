@@ -106,6 +106,7 @@ const _02QRCode = (prop) => {
 
     }
   });
+  const [oneTimeRun, setOneTimeRun] = useState(true)
 
   const getQrCode = () => {
     axios
@@ -113,8 +114,8 @@ const _02QRCode = (prop) => {
       .then((result) => {
         if (result.data.success) {
           const getReult = result.data.qrCodeSetUp.qrCodeSetUp;
-
           setQrCodeSetUp(getReult)
+          setOneTimeRun(false)
         } else {
 
         }
@@ -264,22 +265,18 @@ const _02QRCode = (prop) => {
     refresh()
   }, [qrCode]);
 
+
   useEffect(() => {
-    if (prop.getQRCodeTG) {
+    if (oneTimeRun&&prop.user?.userId) {
       getQrCode();
     }
-  }, [prop.getQRCodeTG]);
-
-  // useEffect(() => {
-  //   if (prop.user?.userId) {
-  //     getQrCode();
-  //   }
-  // }, [prop.user]);
+  }, [prop.user]);
   useEffect(() => {
-    if (prop.getQRCodeTG) {
+    if ( prop.getQRCodeTG) {
       getQrCode()
     }
   }, [prop.getQRCodeTG]);
+
   return (
     <div className="MB_FullPage_Container">
       {/* <div className={`${qrLoading ? 'showMe' : 'hiddenMe'} allLoading`}>

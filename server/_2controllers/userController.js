@@ -6,6 +6,10 @@ import bcrypt from "bcryptjs"
 import jwt from 'jsonwebtoken'
 // import { S3Client } from "@aws-sdk/client-s3";
 import { CognitoJwtVerifier } from "aws-jwt-verify"
+import { stripe } from "../_2controllers/Utils.js";
+
+
+
 // import AWS from 'aws-sdk'
 
 // const s3 = new AWS.S3({
@@ -23,12 +27,18 @@ const verifier = CognitoJwtVerifier.create({
 // const ses = new AWS.SES({ apiVersion: '2010-12-01' });
 
 
-export const register = (req, res) => {
 
+
+export const register =  (req, res) => {
+  const { email } = req.body
   req.body.clientId = uuidv4()
 
-      Users.create(req.body).then(result => {
+  stripe.customers.create(
+    { email }, { apiKey: process.env.STRIPE_SECRET_KEY }).then(customersStripe => {
 
+      req.body.stripeCustomerId = customersStripe.id
+
+      Users.create(req.body).then(result => {
         const { clientId, link, restaurantName,menuName, bannerImage, languageSetup, timeSetup, themeSetup, onOffSetting } = result;
 
         Clients.create({
@@ -42,12 +52,6 @@ export const register = (req, res) => {
           themeSetup: themeSetup,
           onOffSetting: onOffSetting,
         })
-        // Banners.create({
-        //   link: link,
-        //   userId: req.body.userId,
-        // })
-
-
 
         res.status(200).send({ message: `Your account has been successfully created`, success: true })
       }).catch(err => {
@@ -57,28 +61,47 @@ export const register = (req, res) => {
 
         else res.send({ message: "Error creating account" })
       })
- 
   
-
+  
+    })
+ 
 }
+
+
+
 
 //- LOGIN
 export const login = (req, res) => {
   const { email } = req.body
 
-  Users.findOne({ email }).then(userResult => {
-    if (!userResult) {
-      return res.send({ message: "Email does not exit" })
-    }
+  Users.findOne({ email }).then(user => {
 
-    bcrypt.compare(req.body.password, userResult.password).then(result => {
-      const userToken = userResult.userId
-      if (result) {
-        const token = jwt.sign({ userToken }, process.env.JWT_SECRET, { expiresIn: '5d' })
-        return res.send({ message: "Login Complete", success: true, token })
+    stripe.subscriptions.list(
+      {
+        customer: user.stripeCustomerId,
+        status: "active",
+        expand: ["data.default_payment_method"],
+      },
+      {
+        apiKey: process.env.STRIPE_SECRET_KEY,
+      }
+    ).then(result => {
+      if (result.data.length === 0) {
+        return res.send({
 
-      } else res.send({ message: "Wrong Password", success: false })
+          status: 'inActive',
+ 
+        });
+      }
+      return res.send({
+ 
+        status: 'active',
+
+      });
+
+
     })
+
 
   }).catch(err => {
     console.log("Error Logging")
@@ -136,7 +159,7 @@ export const requireLogin = async(req, res, next) => {
 //- GET USER INFO to SAVE IN REDUX at Protector Compo
 export const getInfoUserToStore = (req, res) => {
   Users.findOne({ userId: req.proved.username })
-    .select('userId restaurentName menu menuName  bannerImage languageSetup timeSetup clientId link')
+    // .select('userId restaurentName menu menuName  bannerImage languageSetup timeSetup clientId link')
     .then(result => {
       
 

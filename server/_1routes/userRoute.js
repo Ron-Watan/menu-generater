@@ -9,6 +9,10 @@ import {
   saveNameMenu, saveTimeSetup, saveLangSetup, setupTheme, getTheme, saveOnOffSetting,
   getFeedBack, saveFeedBack, saveReArangeList, saveQRCode, getQrCode, saveExtraInfo
 } from '../_2controllers/manuController.js'
+
+import { getSubscription, subscription,checkSubscription } from '../_2controllers/subscriptionController.js'
+
+
 import multer from "multer";
 // import formidable from "formidable";
 // import fs from "fs";
@@ -109,26 +113,27 @@ router.post('/saveQRCode', requireLogin, saveQRCode)
 router.post('/saveExtraInfo', requireLogin, saveExtraInfo)
 
 
-
 router.post('/generateMenu', requireLogin, generateMenu)
 
-
-
-// router.post('/images/uplaodBanner', upload.single("avatar"), uploadImageBanner)
-// router.post('/images/uplaodBanner', upload.array("avatar", 12), uploadImageBanner)
 
 router.post('/photos/dataBanner', uploadImageBanner)
 
 router.post('/images/uplaodBanner', upload.array("avatar", 12), uploadImageBanner)
 
 
+
+router.get('/getSubscription', requireLogin, getSubscription)
+router.post('/subscription', requireLogin, subscription)
+router.post('/checkSubscription', requireLogin, checkSubscription)
+
+
 // router.post('/images/save', upload.single("avatar"), saveImage)
 // router.post('/images/delete1', upload.single("avatar"), delelteImage)
-
-
-router.post('/images/all', getAllImage)
+// router.post('/images/uplaodBanner', upload.single("avatar"), uploadImageBanner)
+// router.post('/images/uplaodBanner', upload.array("avatar", 12), uploadImageBanner)
 // router.post('/images/allBanner', getAllImageBanner)
 
+router.post('/images/all', getAllImage)
 
 router.post('/setupTheme', requireLogin, setupTheme)
 router.post('/getTheme', requireLogin, getTheme)
@@ -157,8 +162,8 @@ router.post('/photos/uplaod', upload.single("avatar"), async (req, res) => {
   try {
     const file = await gfs.files.find({ filename: imgId }).toArray()
 
-    
-    if (file.length === 1) { 
+
+    if (file.length === 1) {
       return res.send({
         message: 'Success',
         // data: req.file,

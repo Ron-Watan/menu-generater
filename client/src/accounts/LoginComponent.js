@@ -32,6 +32,9 @@ import { CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js'
 const LoginComponent = () => {
 
   const dispath = useDispatch()
+
+
+
   const [state, setState] = useState({
     email: '',
     password: ''
@@ -43,10 +46,13 @@ const LoginComponent = () => {
   }
   const navigate = useNavigate()
 
+
+
+
+
   const submitData = (e) => {
     e.preventDefault()
     dispath(showLoading())
-
 
     /// Cognito //
     const userData = new CognitoUser({
@@ -62,8 +68,8 @@ const LoginComponent = () => {
     userData.authenticateUser(authDetail, {
       onSuccess: (result) => {
 
-            authenticate(result.getAccessToken().getJwtToken(), () => navigate('/app'))
-              setState({ ...state, email: '', password: '' })
+        authenticate(result.getAccessToken().getJwtToken(), () => navigate('/app'))
+        setState({ ...state, email: '', password: '' })
         ///////////////////////////
 
 
@@ -127,15 +133,6 @@ const LoginComponent = () => {
         //     console.log(data)
         //   };           // successful response
         // });
-
-
-
-
-
-
-
-
-
 
 
         ////////////////////////
