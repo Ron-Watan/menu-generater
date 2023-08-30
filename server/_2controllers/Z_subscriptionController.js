@@ -72,20 +72,64 @@ export const subscription = (req, res) => {
 //   console.log(ddd)
 // })
 
-export const accoutReloadDB = (req, res) => {
+export const paymentProcess1 = (req, res) => {
 
   const { userId } = req.body
   Users.findOne({ userId }).then(user => {
-    user.subscription = {
-      id: currentSub.id,
-      status: currentSub.status,
-      // brand: currentSub.default_payment_method.card.brand,
-      // lastDigit: currentSub.default_payment_method.card.last4,
-      subscriptionEnd: currentSub.current_period_end,
-      subscriptionCancel: currentSub.cancel_at_period_end,
 
-    }
+    stripe.setupIntents.retrieve(user.subscriptionPayUpdate, {
+      apiKey: process.env.STRIPE_SECRET_KEY,
+    }).then(reIntent => {
+      console.log('ddddddddddddddddddddddddddd')
+      stripe.customers.update(user.stripeCustomerId, {
+        invoice_settings: {
+          default_payment_method: reIntent.payment_method,
+        }
 
+      }, { apiKey: process.env.STRIPE_SECRET_KEY, })
+        .then(resultPM => {
+
+          stripe.subscriptions.update('sub_1NkUTdGFhFwjKc9QXMFDiTd7', {
+
+            default_payment_method: reIntent.payment_method
+
+          }, { apiKey: process.env.STRIPE_SECRET_KEY, })
+            .then(currentSub => {
+              console.log(currentSub)
+
+              // user.subscription = {
+              //   id: currentSub.id,
+              //   status: currentSub.status,
+              //   brand: currentSub.default_payment_method.card.brand,
+              //   lastDigit: currentSub.default_payment_method.card.last4,
+              //   subscriptionEnd: currentSub.current_period_end,
+              //   subscriptionCancel: currentSub.cancel_at_period_end,
+
+              // }
+
+              // user.save()
+
+
+
+
+
+
+
+
+              return res.send({
+                message: 'Success',
+                // subPackage: resultUpPM,
+                success: true,
+              });
+
+
+            })
+
+        })
+
+
+
+    })
 
   })
 }
@@ -125,59 +169,59 @@ export const paymentProcess = (req, res) => {
 
 
 
-    stripe.subscriptions.list(
-      {
-        customer: user.stripeCustomerId,
-        status: "all",
-        expand: ["data.default_payment_method"],
-      },
-      {
-        apiKey: process.env.STRIPE_SECRET_KEY,
-      }
-    ).then(result => {
+              stripe.subscriptions.list(
+                {
+                  customer: user.stripeCustomerId,
+                  status: "all",
+                  expand: ["data.default_payment_method"],
+                },
+                {
+                  apiKey: process.env.STRIPE_SECRET_KEY,
+                }
+              ).then(result => {
 
-      const filterStatus = result.data.filter(el => el.status === 'active' || el.status === 'trialing')
-
-
-
-
-      if (filterStatus.length === 0) {
-        user.subscriptionActive = 'inActive'
-        user.save()
-        return res.send({
-          status: 'inActive',
-        });
-      }
-      const currentSub = filterStatus[0]
-
-
-      user.subscription = {
-        id: currentSub.id,
-        status: currentSub.status,
-        // brand: currentSub.default_payment_method.card.brand,
-        // lastDigit: currentSub.default_payment_method.card.last4,
-        subscriptionEnd: currentSub.current_period_end,
-        subscriptionCancel: currentSub.cancel_at_period_end,
-
-      }
-
-      // user.subscriptionActive = 'active'
-      user.save()
-      return res.send({
-        status: 'active',
-      });
+                const filterStatus = result.data.filter(el => el.status === 'active' || el.status === 'trialing')
 
 
 
 
+                if (filterStatus.length === 0) {
+                  user.subscriptionActive = 'inActive'
+                  user.save()
+                  return res.send({
+                    status: 'inActive',
+                  });
+                }
+                const currentSub = filterStatus[0]
 
 
-      //   })
+                user.subscription = {
+                  id: currentSub.id,
+                  status: currentSub.status,
+                  // brand: currentSub.default_payment_method.card.brand,
+                  // lastDigit: currentSub.default_payment_method.card.last4,
+                  subscriptionEnd: currentSub.current_period_end,
+                  subscriptionCancel: currentSub.cancel_at_period_end,
 
-      // })
+                }
+
+                // user.subscriptionActive = 'active'
+                user.save()
+                return res.send({
+                  status: 'active',
+                });
 
 
-      // })
+
+
+
+
+            //   })
+
+            // })
+
+
+        // })
 
 
 
@@ -382,12 +426,66 @@ export const getSubPayment2 = (req, res) => {
 
 export const getSubPayment = (req, res) => {
 
+  // stripe.billingPortal.configurations.create({
+  //   business_profile: {
+  //     headline: 'Cactus Practice partners with Stripe for simplified billing.',
+  //   },
+  //   features: {
+  //     invoice_history: {
+  //       enabled: false,
+  //     },
+  //     payment_method_update: {
+  //       enabled: true,
+  //     },
+  //   },
+  // }, {
+  //   apiKey: process.env.STRIPE_SECRET_KEY,
+  // }).then(resuu => {
+  //   console.log(resuu)
+  // })
 
   const { userId } = req.body
   Users.findOne({ userId }).then(user => {
     stripe.billingPortal.sessions.create({
       customer: user.stripeCustomerId,
       return_url: process.env.LOCAL_PORT + '/app',
+      // flow_data: {
+      //   type: 'payment_method_update',
+      // },
+
+
+      // flow_data: {
+      //   type: 'subscription_update',
+      //   subscription_update: {
+      //     subscription: user.subscription.id,
+      //   },
+      //   after_completion: {
+      //     type: 'redirect',
+      //     redirect: {
+      //       return_url: process.env.LOCAL_PORT + '/app',
+      //     },
+      //   },
+
+      // }
+
+      
+
+      // flow_data: {
+      //   type: 'subscription_update',
+      //   subscription_update: {
+      //     subscription: user.subscription.id,
+      //   },
+      //   after_completion: {
+      //     type: 'redirect',
+      //     redirect: {
+      //       return_url: process.env.LOCAL_PORT + '/app',
+      //     },
+      //   },
+
+      // }
+
+
+
 
 
 
@@ -406,23 +504,46 @@ export const getSubPayment = (req, res) => {
 
 
 
+
+
+
+
+
+
+
+
+
 };
 
 
-// export const cancelSubscription = (req, res) => {
+// export const changePayment = (req, res) => {
+// console.log('eeeeeeeeeeeeeeeeeeeeeeeeeeee')
+//   const { email, priceId } = req.body
+//   Users.findOne({ email }).then(user => {
 
-//   const { userId } = req.body
-//   Users.findOne({ userId }).then(user => {
-
-//     stripe.subscriptions.update(
-//       user.subscription.id,
+//     stripe.customer.updatdate(
 //       {
-//         cancel_at_period_end: true,
-//       }, {
-//       apiKey: process.env.STRIPE_SECRET_KEY,
-//     }
-//     ).then(result => {
+//         mode: "subscription",
+//         payment_method_types: ["card"],
+//         line_items: [
+//           {
+//             price: priceId,
+//             quantity: 1,
+//           },
+//         ],
+//         success_url: process.env.LOCAL_PORT + "/app",
+//         cancel_url: process.env.LOCAL_PORT,
+//         customer: user.stripeCustomerId,
+//         subscription_data: {
+//           trial_period_days: 30,
+//         }
 
+//       },
+//       {
+//         apiKey: process.env.STRIPE_SECRET_KEY,
+//       }
+//     ).then(result => {
+//       console.log(result)
 //       return res.send({
 //         message: 'Success',
 //         subPackage: result,
@@ -437,34 +558,59 @@ export const getSubPayment = (req, res) => {
 // };
 
 
+export const cancelSubscription = (req, res) => {
+
+  const { userId } = req.body
+  Users.findOne({ userId }).then(user => {
+
+    stripe.subscriptions.update(
+      user.subscription.id,
+      {
+        cancel_at_period_end: true,
+      }, {
+      apiKey: process.env.STRIPE_SECRET_KEY,
+    }
+    ).then(result => {
+
+      return res.send({
+        message: 'Success',
+        subPackage: result,
+        success: true,
+      });
+
+    })
+
+  })
 
 
-// export const continueSubscription = (req, res) => {
+};
 
-//   const { userId } = req.body
-//   Users.findOne({ userId }).then(user => {
+export const continueSubscription = (req, res) => {
 
-//     stripe.subscriptions.update(
-//       user.subscription.id,
-//       {
-//         cancel_at_period_end: false,
-//       }, {
-//       apiKey: process.env.STRIPE_SECRET_KEY,
-//     }
-//     ).then(result => {
+  const { userId } = req.body
+  Users.findOne({ userId }).then(user => {
 
-//       return res.send({
-//         message: 'Success',
-//         subPackage: result,
-//         success: true,
-//       });
+    stripe.subscriptions.update(
+      user.subscription.id,
+      {
+        cancel_at_period_end: false,
+      }, {
+      apiKey: process.env.STRIPE_SECRET_KEY,
+    }
+    ).then(result => {
 
-//     })
+      return res.send({
+        message: 'Success',
+        subPackage: result,
+        success: true,
+      });
 
-//   })
+    })
+
+  })
 
 
-// };
+};
 
 
 
@@ -509,13 +655,6 @@ export const checkSubscription = (req, res) => {
       user.subscriptionActive = 'active'
       user.save()
       return res.send({
-        message: 'Success',
-        resDB: {
-          status: user.subscription.status,
-          subscriptionEnd: user.subscription.subscriptionEnd,
-          subscriptionCancel: user.subscription.subscriptionCancel,
-        },
-        success: true,
         status: 'active',
       });
 

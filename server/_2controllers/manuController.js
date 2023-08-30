@@ -24,13 +24,21 @@ export const getAllMenu = (req, res) => {
 
 export const createManu = (req, res) => {
   // console.log(req.body)
-  const { userId, clientId, catagory, icon_catagory, imgId, listMenu, menuTime } = req.body;
+  const { loginCode, userId, clientId, catagory, icon_catagory, imgId, listMenu, menuTime } = req.body;
 
   const menuId = uuidv4();
 
   Users.findOne({ userId: userId })
-    .select('userId restaurentName menu menuName bannerImage languageSetup timeSetup onOffSetting clientId link')
+    // .select('userId restaurentName menu menuName bannerImage languageSetup timeSetup onOffSetting clientId link')
     .then((user) => {
+
+      if (user.loginCode !== loginCode) {
+        return res.send({
+          message: 'Duplicate',
+          success: false,
+        });
+      }
+
       user.menu.push({
         menuTime: menuTime,
         menuId: menuId,
@@ -261,8 +269,17 @@ export const getImage1 = (req, res) => {
 //-
 //-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-
 export const uploadImageBanner = (req, res) => {
-  const { userId, clientId, bannerImage, banner } = req.body;
+  const { loginCode, userId, clientId, bannerImage, banner } = req.body;
+
   Users.findOne({ userId: userId }).then(user => {
+    if (user.loginCode !== loginCode) {
+
+      return res.send({
+        message: 'Duplicate',
+        success: false,
+      });
+    }
+
     user.bannerNumber = banner
     user.bannerImage = bannerImage
     user.save();

@@ -1,39 +1,20 @@
 //-
-import { useEffect, useState } from "react"
-import NavbarComponent from './NavbarComponent'
+import { useState } from "react"
 import axios from "axios"
-import { authenticate, getToken } from "../protectors/authorize"
+import { authenticate } from "../protectors/authorize"
 import Swal from "sweetalert2"
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from "react-redux"
 import { hideLoading, showLoading } from "../redux/alertSlice"
-import { useSelector } from "react-redux"
 import UserPool from "../UserPool"
 import { CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js'
-// import * as AWS from "@aws-sdk/client-cognito-identity-provider";
-// import AWS from 'aws-sdk'
-// AWS.config.update({ region: 'us-west-1' });
-// AWS.config.update({
-//   accessKeyId: 'AKIA33D3AZGQPRO6F77Q',
-//   secretAccessKey: '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',
-//   region: 'us-west-1',
-//   // UserPoolId: 'us-west-1_lmMYcjfH6',
-//   // ClientId: '2j1e3apf787h6e1trgao5jak8m'
-// });
-
-// const cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider({
-//   // accessKeyId: 'AKIA33D3AZGQPRO6F77Q',
-//   // secretAccessKey: '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',
-//   // region: 'us-west-1'
-// });
-
-
+import { v4 as uuidv4 } from 'uuid';
+import Sect00Navigation from '../componenthome/_00Navigation'
+import '../accounts/styleAccount.css'
 
 const LoginComponent = () => {
 
   const dispath = useDispatch()
-
-
 
   const [state, setState] = useState({
     email: '',
@@ -53,7 +34,6 @@ const LoginComponent = () => {
   const submitData = (e) => {
     e.preventDefault()
     dispath(showLoading())
-
     /// Cognito //
     const userData = new CognitoUser({
       Username: email,
@@ -65,103 +45,41 @@ const LoginComponent = () => {
       Password: password,
     })
 
+
     userData.authenticateUser(authDetail, {
       onSuccess: (result) => {
-
-        authenticate(result.getAccessToken().getJwtToken(), () => navigate('/app'))
-        setState({ ...state, email: '', password: '' })
-        ///////////////////////////
-
-
-        // signOutResult = userData.globalSignOut(userId, 'us-west-1_lmMYcjfH6')
-        // userData.getSession((err, result) => {
-        //   if (result) {
-        //     userData.globalSignOut({
-        //       onSuccess: (result) => {
-
-        //         authenticate(result.getAccessToken().getJwtToken(), () => navigate('/'))
-        //         setState({ ...state, email: '', password: '' })
-        //       }
-        //     });
-        //   }
-        // })
-
-
-        //////////////////////
-
-        // console.log(result.getAccessToken().getJwtToken())
-        // authenticate(result.getAccessToken().getJwtToken(), () => navigate('/'))
+        // const tokenName = 'CognitoIdentityServiceProvider.' + result.getAccessToken().payload.client_id + '.' + result.getAccessToken().payload.username + '.accessToken'
+        // authenticate(tokenName, () => navigate('/app'))
         // setState({ ...state, email: '', password: '' })
-        // const cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider({
-        //       apiVersion: '2016-04-18',
-        //       region: 'us-west-1'
-        //     })
-        // var params = {
-        //   AccessToken: result.getAccessToken().getJwtToken() /* required */
-        // };
+        const tokenName = 'CognitoIdentityServiceProvider.' + result.getAccessToken().payload.client_id + '.' + result.getAccessToken().payload.username + '.accessToken'
+        authenticate(tokenName, () => navigate('/app'))
+        setState({ ...state, email: '', password: '' })
 
-        // new Promise((resolve, reject) => {
-        //   ///////////////////////////
-        //   cognitoidentityserviceprovider.globalSignOut(params, function (err, data) {
-        //     if (err) {
-        //       console.log('not work')
-        //       console.log(err, err.stack)
-        //       reject(err)
-        //     }
-        //     else {
+        const loginCode = uuidv4()
+        sessionStorage.setItem('temp', loginCode)
+        axios.post(`${process.env.REACT_APP_API}/user/login`, { email, loginCode })
+          .then(resultDB => {
+            if (resultDB.data.success) {
+              // Swal.fire(resultDB.data.message)
 
-        //       // authenticate(result.getAccessToken().getJwtToken(), () => navigate('/'))
-        //       // setState({ ...state, email: '', password: '' })
-        //       // console.log(data)
-        //       resolve(data)
-        //     };
-        //   });
-        // })
-        ////////////////////////////
+              dispath(hideLoading())
 
-        // var params = {
-        //   UserPoolId: 'us-west-1_lmMYcjfH6', /* required */
-        //   Username: email /* required */
-        // };
-        // cognitoidentityserviceprovider.adminUserGlobalSignOut(params, function (err, data) {
-        //   if (err) console.log(err, err.stack); // an error occurred
-        //   else {
-        //     authenticate(result.getAccessToken().getJwtToken(), () => navigate('/'))
-        //       setState({ ...state, email: '', password: '' })
-        //       // console.log(data)
-        //     console.log('htttt')
-        //     console.log(data)
-        //   };           // successful response
+            } else {
+              Swal.fire(resultDB.data.message)
+              dispath(hideLoading())
+            }
+          }).catch(err => {
+            dispath(hideLoading())
+
+            console.log("Can't not connect the server")
+            Swal.fire("Can't not connect the server")
+          })
+
+
+        // userData.globalSignOut({
+        //   onSuccess: (globalResult) => {
+        //   }
         // });
-
-
-        ////////////////////////
-
-        // var signOut = (accessToken) =>
-        // new Promise((resolve, reject) => {
-        //   var params = {
-        //     //UserPoolId: process.env.USER_POOL_ID, /* required */
-        //     AccessToken: accessToken /* required */
-        //   };
-        //   var cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider({
-        //     apiVersion: '2016-04-18',
-        //     region: 'us-east-1'
-        //   })
-        //   console.log("Signing out user .. ");
-        //   cognitoidentityserviceprovider.globalSignOut(params, function(err, data) {
-        //     if (err) {
-        //       console.log(err, err.stack); // an error occurred
-        //       reject(err)
-        //     } else {
-        //       console.log(data);
-        //       resolve(data)
-        //     }
-        //   })
-
-
-
-
-
         dispath(hideLoading())
       },
       onFailure: (err) => {
@@ -172,13 +90,6 @@ const LoginComponent = () => {
         console.log('new password + ' + result);
       },
     })
-
-
-
-
-
-
-
 
   }
 
@@ -191,47 +102,58 @@ const LoginComponent = () => {
   // }, [])
 
   return (
-    <div className="">
-      <NavbarComponent />
-      <div className="flex flex-col justify-center items-center mt-20 ">
-        <div className="w-full max-w-md -translate-y-18">
-          <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <div className='H-body Acc_logBody_H'>
+      <Sect00Navigation NavBtnRight={'Home'} />
 
-            <div className="mb-4">
-              <input value={email} onChange={inputValue('email')} className=" appearance-none border-1 
-              border-slate-300 hover:border-blue-500 rounded w-full py-3 px-4 text-gray-700 leading-tight
-              focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Email Address" />
+      <div className="tempSpace"></div>
+
+      <div className="flex flex-col justify-center items-center mt-20">
+
+        <div className="Acc_logBox">
+
+          <form className="Acc_formBox px-8 pt-6 pb-8 mb-4">
+
+            <div className="mb-4 Acc_boxInputLog">
+
+
+
+              <input value={email} onChange={inputValue('email')} className="Acc_inputLogin " id="username" type="text" placeholder="Email Address" />
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="" className="Acc_iconLog">
+                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-5.5-2.5a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0zM10 12a5.99 5.99 0 00-4.793 2.39A6.483 6.483 0 0010 16.5a6.483 6.483 0 004.793-2.11A5.99 5.99 0 0010 12z" clipRule="evenodd" />
+              </svg>
+
+
             </div>
 
-            <div className="mb-2">
-              <input value={password} onChange={inputValue('password')} className="appearance-none border-1 border-slate-300 hover:border-blue-500 rounded w-full py-3 px-4 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="Password" />
+            <div className="mb-10 Acc_boxInputLog">
+              {/* <input value={password} onChange={inputValue('password')} className="appearance-none border-1 border-slate-300 hover:border-blue-500 rounded w-full py-3 px-4 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="Password" /> */}
+
+              <input value={password} onChange={inputValue('password')} className="Acc_inputLogin" id="password" type="password" placeholder="Password" />
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="" className="Acc_iconLog Acc_iconKey">
+                <path fillRule="evenodd" d="M8 7a5 5 0 113.61 4.804l-1.903 1.903A1 1 0 019 14H8v1a1 1 0 01-1 1H6v1a1 1 0 01-1 1H3a1 1 0 01-1-1v-2a1 1 0 01.293-.707L8.196 8.39A5.002 5.002 0 018 7zm5-3a.75.75 0 000 1.5A1.5 1.5 0 0114.5 7 .75.75 0 0016 7a3 3 0 00-3-3z" clipRule="evenodd" />
+              </svg>
+
             </div>
 
-            <label className="text-gray-500 mb-10">
-              <input className="mr-2 leading-tight" type="checkbox" />
-              <span className="text-md">
-                Remember me
-              </span>
-            </label>
-
-            <button onClick={submitData} className="bg-blue bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full mb-4" type="submit">
-              SIGN IN
-            </button>
-
-
-
-            <div className="flex items-center justify-between">
-              <a className="inline-block align-baseline text-sm text-blue-500 hover:text-blue-800" href="/">
-                Forgot Password?
-              </a>
-              <a className="inline-block align-baseline text-sm text-blue-500 hover:text-blue-800" href="/register">
-                Don't have an account? Sign Up
-              </a>
+            <div className="Acc_loginBTNBox mb-4">
+              <button onClick={submitData} className="Acc_loginBTN" type="submit">
+                Login
+              </button>
+            </div>
+            <div className="Acc_loginBTNBox mb-4 Font_BlueLog">
+              <Link to="/forgotPassword" className="" type="submit">
+                Forgot your Password?
+              </Link>
+            </div>
+            <div className="Acc_loginBTNBox mb-4">
+              <button className="Font_SmalLog" type="submit">
+                New to QR-Clould Menu? <Link to="/register" className="Font_BlueLog">Create an account in seconds...</Link>
+              </button>
             </div>
 
           </form>
           <p className="text-center text-gray-500 text-xs">
-            &copy;2020 Acme Corp. All rights reserved.
+            &copy;2023 QR-Clould Menu. All rights reserved.
           </p>
         </div>
       </div>
@@ -240,8 +162,8 @@ const LoginComponent = () => {
 }
 
 export default LoginComponent
-
-
+// Create an Account
+// Already have an account? Login
 
 // const clearCacheData = () => {
 //   caches.keys().then((names) => {

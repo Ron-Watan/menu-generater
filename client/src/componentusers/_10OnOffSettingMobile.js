@@ -1,8 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
-import { setUser } from '../redux/userSlice';
 import { ticketPass } from '../protectors/authorize';
 import MBiconClose from '../all-icon/button-icon/MBclose.svg'
 
@@ -13,7 +12,6 @@ import MBiconClose from '../all-icon/button-icon/MBclose.svg'
 
 const _10OnOffSettingMobile = (prop) => {
 
-  const dispath = useDispatch();
   const { user } = useSelector((state) => state.user);
 
   const [checkUpdateOnOff, setCheckUpdateOnOff] = useState(false)
@@ -55,7 +53,7 @@ const _10OnOffSettingMobile = (prop) => {
       saveOnOffSetting()
       setCheckUpdateOnOff(false)
     }
- 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [prop.onOffSetting])
 
 
@@ -123,7 +121,7 @@ const _10OnOffSettingMobile = (prop) => {
                     <span className="MB_OF_text">Menu name</span>
                     <label htmlFor='onOffMenuName' className={`containerSwitch switchLang`}>
                       <input onChange={() => onOffCheckBox('menuName')}
-                        type='checkbox' name='onOffMenuName' id='onOffMenuName' checked={prop.onOffSetting.menuName|| ''} />
+                        type='checkbox' name='onOffMenuName' id='onOffMenuName' checked={prop.onOffSetting.menuName || ''} />
                       <span className='sliderLang forOFLang2' ></span>
                     </label>
                   </div>

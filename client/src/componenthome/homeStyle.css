@@ -142,12 +142,13 @@
 .H_BannerM_Flex {
   display: flex;
   background-size: cover;
+
 }
 .H_BG1 {
-  background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)), url('../componenthome/img/restaurant.jpg');
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)), url('../componenthome/img/restaurant.jpg');
 }
 .H_BG2 {
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3)), url('../componenthome/img/coffeeshop.jpg');
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3)), url('../componenthome/img/coffeeshop.jpg');
 }
 .H_BannerM_Flex1 {
   display: flex;

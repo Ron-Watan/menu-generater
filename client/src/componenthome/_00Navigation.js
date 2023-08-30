@@ -1,7 +1,9 @@
 import React from 'react'
 import logo from '../componenthome/img/logo.png'
 import { Link } from "react-router-dom";
-function _00Navigation() {
+function _00Navigation(prop) {
+
+
   return (
     <div className="H-header">
       <div className="H-top-navigation">
@@ -28,7 +30,12 @@ function _00Navigation() {
                   <img src="" className="searchIcon" alt="search icon" />
                 </span> */}
 
-              <Link to='/login' className="H_btnLogin H_btnLogin_Loging">Login</Link>
+              <Link to={
+                ((prop.NavBtnRight === 'Login') && '/login') ||
+                ((prop.NavBtnRight === 'Home') && '/')
+              }
+                className="H_btnLogin H_btnLogin_Loging">{prop.NavBtnRight}</Link>
+
             </div>
           </div>
 
@@ -39,7 +46,7 @@ function _00Navigation() {
 
 
       </div>
-    </div>
+    </div >
   )
 }
 

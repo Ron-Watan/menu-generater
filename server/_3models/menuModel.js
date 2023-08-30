@@ -23,7 +23,7 @@ const userSchema = mongoose.Schema(
 
     stripeCustomerId: {
       type: String,
-      required: true,
+      // required: true,
       unique: true
     },
 
@@ -31,11 +31,18 @@ const userSchema = mongoose.Schema(
       type: String,
       // default: false,
     },
-
-    subscriptionId: {
+    subscriptionPayUpdate: {
       type: String,
     },
+    subscription: {
+      type: Object,
+      default: {
+        id: '',
+        brand: '',
+        lastDigit: '',
+      }
 
+    },
 
 
 
@@ -178,6 +185,10 @@ const userSchema = mongoose.Schema(
     bannerImage: {
       type: Array,
       default: [],
+    },
+    loginCode: {
+      type: String,
+      default: '',
     },
 
   },

@@ -28,13 +28,12 @@ const FooterComponent = (prop) => {
   // prop.setThemeSetup
 
   const [activeLang, setActiveLang] = useState(false)
-  const [activeList, setActiveList] = useState(false)
-  const [activeComment, setActiveComment] = useState(false)
+
 
 
   const footerStateModel = { languageTab: false, listTab: false, commentTab: false, overlay: false }
   const [footerState, setFooterState] = useState(footerStateModel)
-  const { languageTab, listTab, commentTab, overlay } = footerState
+  const { languageTab, listTab, commentTab } = footerState
 
 
   const switcher = name => {
@@ -103,14 +102,14 @@ const FooterComponent = (prop) => {
 
   const reformModel = []
 
-  prop.favorList.map((el, index) => {
+  prop.favorList.forEach((el, index) => {
     reformModel[el.code] = { category: el.category, list: [] }
   })
-  prop.favorList.map((el, index) => {
+  prop.favorList.forEach((el, index) => {
     reformModel[el.code].list.push(el)
   })
 
-
+// eslint-disable-next-line
   let sumFaverPrice = 0
   let itemFavor = 0
   reformModel.forEach(el => {
@@ -119,23 +118,13 @@ const FooterComponent = (prop) => {
       itemFavor++
     })
   })
-  // setSumFaverPrice(sumFaverPriceCount)
-  // setItemFavor(itemFavorCount)
-  ///////////////////////////////
-  const [stateComment, setStateComment] = useState({
-    comment: ''
-  })
 
 
-  const [squareFootBar, setSquareFootBar] = useState(false)
-  const [circleFootBar, setCircleFootBareBar] = useState(true)
 
-  const foobarIcon = {
-    translate: 'translation.svg', list: 'list.svg', feedback: 'feedback.svg',
-    favor1: 'favor1.svg', favor2: 'favor2.svg',
-  }
 
-  const [activefootbar, setActivefootbar] = useState(true)
+
+
+
 
 
 
@@ -154,7 +143,7 @@ const FooterComponent = (prop) => {
     <div className="unselectable">
 
       <i className="x">!Theme Nav BG Color 1/3</i>
-      <nav className={`Max_width_32 footBarSectionC ${activefootbar ? 'showMe' : 'hiddenMe'}`}
+      <nav className={`Max_width_32 footBarSectionC`}
         style={{ 'backgroundColor': `${prop.themeSetup.navAndFootBar.navBarColor}` }}>
         <div className="footBarGrid3">
 
@@ -264,7 +253,7 @@ const FooterComponent = (prop) => {
             {reformModel.map((catelog, index) => {
               return (
                 <div className="" key={index}><div className="favCatList">{catelog.category}</div>
-                  {catelog.list.map((el,index2) => {
+                  {catelog.list.map((el, index2) => {
                     return (
                       <ul className="line" key={index2} >
                         <li className="gridFavList">

@@ -1,5 +1,6 @@
 import express from 'express'
 import mongoose from "mongoose";
+import bodyparser from "body-parser";
 import { register, login, getInfoUserToStore, requireLogin, generateMenu } from '../_2controllers/userController.js'
 import {
   findOneMenu, createManu, getAllMenu, saveEditMenu, deleteMenu,
@@ -10,8 +11,7 @@ import {
   getFeedBack, saveFeedBack, saveReArangeList, saveQRCode, getQrCode, saveExtraInfo
 } from '../_2controllers/manuController.js'
 
-import { getSubscription, subscription,checkSubscription } from '../_2controllers/subscriptionController.js'
-
+import { getSubscription, subscription, checkSubscription, getSubPayment } from '../_2controllers/subscriptionController.js'
 
 import multer from "multer";
 // import formidable from "formidable";
@@ -23,9 +23,24 @@ import dotenv from 'dotenv'; dotenv.config()
 
 // const upload = multer({ dest: 'images/' })
 const router = express.Router()
+
 import { GridFsStorage } from "multer-gridfs-storage";
 import Grid from 'gridfs-stream'
 
+
+
+import Stripe from 'stripe';
+
+
+// const stripe = new Stripe('sk_test_...', {
+//   apiVersion: '2020-08-27',
+// });
+
+export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+  // apiVersion: "2020-08-27",
+  apiVersion: '2023-08-16',
+
+});
 
 
 ///////////// GridFs ///////////////
@@ -53,19 +68,6 @@ const storage = new GridFsStorage({
       bucketName: 'photos',
       filename: file.originalname,// same as imgId
     };
-
-
-
-
-
-    // if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'application/octet-stream') {
-    //   return {
-    //     bucketName: 'photos',
-    //     filename: file.originalname,// same as imgId
-    //   };
-    // } else {
-    //   return null;
-    // }
   }
 
 
@@ -73,19 +75,12 @@ const storage = new GridFsStorage({
 });
 
 
-
-
-
-
-
-
-
-
-
-
 const upload = multer({ storage });
 
 ///////////// GridFs /////////////// Finish
+
+
+
 // ==> /api/user
 // account
 router.post('/register', register)
@@ -125,6 +120,14 @@ router.post('/images/uplaodBanner', upload.array("avatar", 12), uploadImageBanne
 router.get('/getSubscription', requireLogin, getSubscription)
 router.post('/subscription', requireLogin, subscription)
 router.post('/checkSubscription', requireLogin, checkSubscription)
+router.post('/getSubPayment', requireLogin, getSubPayment)
+// router.post('/getSubPayment', requireLogin, getSubPayment)
+// router.post('/paymentProcess', requireLogin, paymentProcess)
+
+
+// router.post('/cancelSubscription', requireLogin, cancelSubscription)
+// router.post('/continueSubscription', requireLogin, continueSubscription)
+
 
 
 // router.post('/images/save', upload.single("avatar"), saveImage)
@@ -283,6 +286,47 @@ router.post('/photos/delete', async (req, res) => {
 //   //   res.redirect('/');
 //   // });
 // });
+
+
+///// WEB HOOK /////
+
+const endpointSecret = process.env.WEB_HOOK_SECRET;
+
+router.post('/webhook', bodyparser.raw({ type: 'application/json' }), (request, response) => {
+  // router.post('/webhook', raw({ type: 'application/json' }), webHooks)
+
+  const sig = request.headers['stripe-signature'];
+  let event;
+
+  try {
+    event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
+
+  } catch (err) {
+    console.log(err)
+    response.status(400).send(`Webhook Error: ${err.message}`);
+    return;
+  }
+
+  // Handle the event
+  switch (event.type) {
+    case 'payment_intent.succeeded':
+      const paymentIntentSucceeded = event.data.object;
+      // Then define and call a function to handle the event payment_intent.succeeded
+      break;
+    // ... handle other event types
+    default:
+      console.log(`Unhandled event type ${event.type}`);
+  }
+
+  // Return a 200 response to acknowledge receipt of the event
+  response.send();
+});
+
+
+
+
+
+
 
 
 

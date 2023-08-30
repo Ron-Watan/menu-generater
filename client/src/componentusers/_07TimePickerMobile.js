@@ -53,12 +53,12 @@ const _07TimePickerMobile = (prop) => {
   const [sumTimeM3, setSumTimeM3] = useState({ start: '', end: '' });
 
   const [timePicker, setTimePicker] = useState([...timePickerData]);
-  const [timePickerBase, setTimePickerBase] = useState(timePickerBaseData);
+
 
   function checklengthBase(arrayStart, arrayEnd) {
-    const startSliceBase = timePickerBase.indexOf(arrayStart);
-    const endSliceBase = timePickerBase.indexOf(arrayEnd);
-    const count = timePickerBase.slice(startSliceBase, endSliceBase + 1).length;
+    const startSliceBase = timePickerBaseData.indexOf(arrayStart);
+    const endSliceBase = timePickerBaseData.indexOf(arrayEnd);
+    const count = timePickerBaseData.slice(startSliceBase, endSliceBase + 1).length;
     return count;
   }
 
@@ -215,7 +215,7 @@ const _07TimePickerMobile = (prop) => {
 
   // qqq
   // client need typetime to load data menu and time and button style
-  const [onOffMenu, setOnOffMenu] = useState(false);
+
   const [timeType, setTimeType] = useState(true);
   const [menuAllDayType, setMenuAllDayType] = useState({
     menu_1: true,
@@ -453,13 +453,14 @@ const _07TimePickerMobile = (prop) => {
     if (windowConfirm) {
       saveTimeSetup();
     }
-
+    //eslint-disable-next-line
   }, [timePicker])
 
   useEffect(() => {
     if (prop.navTime2TimePicker) {
       getTimeFromProp();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [prop.navTime2TimePicker]);
 
 

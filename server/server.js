@@ -9,20 +9,59 @@ import clientsRoute from './_1routes/clientsRoute.js'
 import bodyparser from "body-parser";
 // const methodOverride = require('method-override');
 import methodOverride from "method-override";
+import { webHooks } from '../server/_2controllers/subscriptionController.js'
+import { stripe } from "../server/_2controllers/Utils.js";
+// import Stripe from 'stripe';
+
+
+// const stripe = new Stripe('sk_test_...', {
+//   apiVersion: '2020-08-27',
+// });
+
+// export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+//   // apiVersion: "2020-08-27",
+//   apiVersion: '2023-08-16',
+
+// });
+
+
+
+
+
+
+
+
+
+
+
 const app = express()
+
+
+
+
+
+app.use(cors())
+app.use(morgan('dev')) // log HTTP named dev
+
+// app.use('/api/client', clientRoute)
+
+
+// const endpointSecret = process.env.WEB_HOOK_SECRET;
+
+app.post('/webhook', express.raw({ type: 'application/json' }), webHooks)
+
+
 
 
 const maxRequestBodySize = '10mb';
 app.use(bodyparser.urlencoded({ extended: true, limit: maxRequestBodySize }))
 app.use(bodyparser.json({ limit: maxRequestBodySize }))
 
-app.use(express.json())
-app.use(cors())
-app.use(morgan('dev')) // log HTTP named dev
 
-// app.use('/api/client', clientRoute)
+app.use(express.json())
 app.use('/api/user', userRoute)
 app.use('/api/clients', clientsRoute)
+
 
 app.use(methodOverride('_method'));
 app.set('view engine', 'ejs');

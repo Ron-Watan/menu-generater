@@ -72,7 +72,10 @@
 }
 
 .flex_start {
-  justify-content: start;
+  justify-content: flex-start;
+}
+.flex_end {
+  justify-content: flex-end !important;
 }
 .MB_Time_flexBox {
   width: 6rem;
@@ -1233,6 +1236,7 @@ input:checked + .forOFLang2:before {
   padding: 0.8rem 1rem;
   border-radius: 0.5rem;
 }
+
 .MB_OF_Flex_ex {
   padding-top: 1rem;
   padding-bottom: 0.2rem;
@@ -1422,5 +1426,23 @@ input:checked + .forOFLang2:before {
   background-color: transparent !important;
 }
 
-.itemLangChoose,.itemLangChooseUp,.itemLangChooseDown {
-  background-color: #95b2f2;}
+.itemLangChoose,
+.itemLangChooseUp,
+.itemLangChooseDown {
+  background-color: #95b2f2;
+}
+
+.Acc_SettingBtn {
+  /* background-image: linear-gradient(to top right, #0076e4, #00a3ff); */
+  padding: .5rem 1rem;
+  background-color: #2085e3;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1.5rem;
+  font-size: .9rem;
+}
+.font_base{
+  font-size: 1rem;
+}

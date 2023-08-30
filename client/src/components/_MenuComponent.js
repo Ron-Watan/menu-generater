@@ -1,22 +1,18 @@
-import logo from '../img/bp-logo.png';
+
 import 'remixicon/fonts/remixicon.css';
-import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import AcordionSubComp from './AcordionSubComp';
-import { CssBaseline } from '@mui/material';
-import { createTheme, ThemeProvider } from '@mui/material';
+
+
 import SidebarSubComp from './SidebarSubComp';
 import FooterComponent from './FooterComponent';
 import BannerSubCompo from './BannerSubCompo';
 import axios from 'axios';
-import { ticketPass } from '../protectors/authorize';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import '../styleClient/mainClient.css';
 import '../styleClient/sidebarClient.css';
 import '../styleClient/footerClient.css';
 import '../styleClient/accordianClient.css';
-import { clientDataModel } from './modelData/clientData'
-import { createGlobalStyle } from 'styled-components';
 import Swal from 'sweetalert2';
 import SoLogo from '../all-icon/social-icon/social.svg'
 // qqq
@@ -40,7 +36,6 @@ const _MenuComponent = () => {
 
   const [bannerImgArr, setBannerImgArr] = useState([])
 
-  const [clientData, setClientData] = useState({});
   const [originalClientMenu, setOriginalClientMenu] = useState([]);
   const [clientMenu, setClientMenu] = useState([]);
 
@@ -61,7 +56,6 @@ const _MenuComponent = () => {
   const [iconMenu_2, setIconMenu_2] = useState([]);
   const [iconMenu_3, setIconMenu_3] = useState([]);
 
-  const [colorTheme, setColorTheme] = useState('iconRectabg');
 
   const [restaurantName, setRestaurantName] = useState('');
 
@@ -114,7 +108,7 @@ const _MenuComponent = () => {
   const [startLoading, setStartLoading] = useState(true);
 
   const onOffSideBarFn = (bol) => {
-    setOnOffSetting({ ...onOffSetting, ['sideBar']: bol })
+    setOnOffSetting({ ...onOffSetting, sideBar: bol })
   }
   const getClientMenu = () => {
     setStartLoading(true);
@@ -183,7 +177,7 @@ const _MenuComponent = () => {
           let newIndex2 = 0;
           let newIndex3 = 0;
 
-          getResult.menu.map((el, index) => {
+          getResult.menu.forEach((el, index) => {
             if (!el.icon_catagory) return;
             if (el.menuTime === 1) {
               iconMenu_1.push({ icon: el.icon_catagory, iconAct: el.icon_catagory, link: `#${newIndex1}` })
@@ -396,9 +390,8 @@ const _MenuComponent = () => {
   useEffect(() => {
     getClientMenu();
 
-
+    // eslint-disable-next-line
   }, []);
-  console.log('rrr')
   // document.body.style.backgroundColor = themeSetup.body.bodyBgColor
   // document.body.style.backgroundColor = 'red'
 
@@ -421,7 +414,7 @@ const _MenuComponent = () => {
   // document.body.style.backgroundColor = '#000'
 
 
-
+  // eslint-disable-next-line 
   const [loadingManual, setLoadingManual] = useState(true);
   const [scrollBlock, setScrollBlock] = useState(false)
 
@@ -439,7 +432,7 @@ const _MenuComponent = () => {
     >
 
 
-  
+
       <div className={`${startLoading && 'Full_Start_Loading'} `}>
         <div className="iconLoadingBanner">
           <span className='barOne'></span > <span className='barTwo'></span> <span className='barThree'></span>
@@ -457,7 +450,7 @@ const _MenuComponent = () => {
 
             <div className='navSlit1'>
               {/* <i className="x">!Theme</i> */}
-              {themeSetup.navAndFootBar.logoRestaurant && <div className="logoResta"><img className='logoRestaImg' src={themeSetup.navAndFootBar.logoRestaurant} /></div>}
+              {themeSetup.navAndFootBar.logoRestaurant && <div className="logoResta"><img className='logoRestaImg' alt='' src={themeSetup.navAndFootBar.logoRestaurant} /></div>}
 
               <span style={{
                 'backgroundColor': `${themeSetup.navAndFootBar.navBarColor}`,
@@ -731,7 +724,7 @@ const _MenuComponent = () => {
 
         {/* == SIDE BAR == sideBarSectionC */}
         {sideBar && <div className=' sideBarSectiontest'>
-          <SidebarSubComp triggerIcon={triggerIcon} menuTime={menuTime} iconMenu_1={iconMenu_1} iconMenu_2={iconMenu_2} iconMenu_3={iconMenu_3} colorTheme={colorTheme} themeSetup={themeSetup} />
+          <SidebarSubComp triggerIcon={triggerIcon} menuTime={menuTime} iconMenu_1={iconMenu_1} iconMenu_2={iconMenu_2} iconMenu_3={iconMenu_3} themeSetup={themeSetup} />
         </div>}
         {/* == <BannerExample /> == */}
         {(banner && bannerImgArr.length > 0) && <div className={`bannerSectionC`}
@@ -845,7 +838,7 @@ const _MenuComponent = () => {
 
         </div>}
 
-        
+
 
       </div>
 
@@ -865,7 +858,7 @@ const _MenuComponent = () => {
           </div>}
           {extraInfo.email && <div className="">{extraInfo.email}</div>}
           <div className="flex_sologo">
-            {extraInfo.website && <a href={extraInfo.website} target="_blank" className="box_soLogo"
+            {extraInfo.website && <a href={extraInfo.website} target="_blank" rel="noreferrer" className="box_soLogo"
               style={{
                 'border': `.5px solid ${themeSetup.body.bodyFonttColor}`
               }}>
@@ -874,7 +867,7 @@ const _MenuComponent = () => {
                 <use xlinkHref={`${SoLogo}#social-1`} />
               </svg>
             </a>}
-            {extraInfo.instagram && <a href={extraInfo.instagram} target="_blank" className="box_soLogo"
+            {extraInfo.instagram && <a href={extraInfo.instagram} target="_blank" rel="noreferrer" className="box_soLogo"
               style={{
                 'border': `.5px solid ${themeSetup.body.bodyFonttColor}`
               }}>
@@ -882,7 +875,7 @@ const _MenuComponent = () => {
                 <use xlinkHref={`${SoLogo}#social-2`} />
               </svg>
             </a>}
-            {extraInfo.facebook && <a href={extraInfo.facebook} target="_blank" className="box_soLogo"
+            {extraInfo.facebook && <a href={extraInfo.facebook} target="_blank" rel="noreferrer" className="box_soLogo"
               style={{
                 'border': `.5px solid ${themeSetup.body.bodyFonttColor}`
               }}>
@@ -890,7 +883,7 @@ const _MenuComponent = () => {
                 <use xlinkHref={`${SoLogo}#social-3`} />
               </svg>
             </a>}
-            {extraInfo.youtube && <a href={extraInfo.youtube} target="_blank" className="box_soLogo"
+            {extraInfo.youtube && <a href={extraInfo.youtube} target="_blank" rel="noreferrer" className="box_soLogo"
               style={{
                 'border': `.5px solid ${themeSetup.body.bodyFonttColor}`
               }}>
@@ -898,7 +891,7 @@ const _MenuComponent = () => {
                 <use xlinkHref={`${SoLogo}#social-4`} />
               </svg>
             </a>}
-            {extraInfo.tiktok && <a href={extraInfo.tiktok} target="_blank" className="box_soLogo"
+            {extraInfo.tiktok && <a href={extraInfo.tiktok} target="_blank" rel="noreferrer" className="box_soLogo"
               style={{
                 'border': `.5px solid ${themeSetup.body.bodyFonttColor}`
               }}>

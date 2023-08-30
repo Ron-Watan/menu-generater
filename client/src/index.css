@@ -24,7 +24,6 @@ body {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-
 }
 
 body::-webkit-scrollbar {
@@ -313,15 +312,15 @@ label {
 @tailwind utilities;
 
 @layer base {
-    body {
+  body {
+    background-color: #000;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
 
-      background-color: #000;
-      -webkit-user-select: none;
-      -webkit-touch-callout: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      }
   /* body {
     font-family: 'Roboto Slab', serif;
     background: linear-gradient(to right top, var(--button-background-color-a), var(--button-background-color-linear-a));

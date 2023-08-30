@@ -1,6 +1,6 @@
 import axios from 'axios';
 import MBiconClose from '../all-icon/button-icon/MBclose.svg'
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { hideLoading, showLoading } from '../redux/alertSlice';
 import Swal from 'sweetalert2';
@@ -10,7 +10,7 @@ const _11ExtraInfo = (prop) => {
 
   const { user } = useSelector((state) => state.user);
   const dispath = useDispatch();
-  const currentRestaurantName = user?.restaurant_name
+
   const inputRestaurantName = (e) => {
     prop.setRestaurantName(e.target.value)
   }
@@ -39,7 +39,6 @@ const _11ExtraInfo = (prop) => {
       .then((result) => {
         if (result.data.success) {
 
-          const getReult = result.data.userTheme;
 
           Swal.fire({
             title: 'Saved',
@@ -70,7 +69,7 @@ const _11ExtraInfo = (prop) => {
           <button
             onClick={() => {
               prop.setOnOffExtra_MB(false)
-              prop.setTurnOnSection(false)
+              prop.setToggleScrollExtrainfo(false)
 
             }}
             className='MB_Btn MB_Btn_Border'>
@@ -97,7 +96,7 @@ const _11ExtraInfo = (prop) => {
 
       <div className="MB_Standard_0_FullAgain MB_SetGrid_Full  zindexUnderTop" >
 
-        <div className={`${prop.turnOnSection === true && 'MB_InScroll_fullNew'} MB_Make_PadingForm`} >
+        <div className={`${prop.toggleScrollExtrainfo === true && 'MB_InScroll_fullNew'} MB_Make_PadingForm`} >
 
 
 

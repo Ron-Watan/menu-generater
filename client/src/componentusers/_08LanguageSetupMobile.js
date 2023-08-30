@@ -12,19 +12,6 @@ const _08LanguageSetupMobile = (prop) => {
   const dispath = useDispatch();
   const { user } = useSelector((state) => state.user);
 
-  // const [languageSetup, setLanguageSetup] = useState({
-  //   onLanguage_2: '',
-  //   language_1: 'English',
-  //   code_1: 'EN',
-  //   symbol_1: '$',
-  //   style_1: false,
-  //   followed_1: true,
-  //   language_2: '',
-  //   code_2: '',
-  //   symbol_2: '',
-  //   style_2: true,
-  //   followed_2: true,
-  // });
   const [languageSetup, setLanguageSetup] = useState({})
   const styleSymboleFn0 = (name) => (even) => {
     setCheckLangChange(true)
@@ -46,9 +33,9 @@ const _08LanguageSetupMobile = (prop) => {
     prop.setLanguageSetup({ ...prop.languageSetup, [name]: !prop.languageSetup[name] });
   };
 
-  const [onOffLang2nd, setOnOffLang2nd] = useState(false);
 
-  const [onOffChoose, setnOffChoose] = useState(true);
+
+
 
 
   const saveLangSetup = () => {
@@ -76,7 +63,7 @@ const _08LanguageSetupMobile = (prop) => {
             prop.setOnOffLangSetup_MB(false)
             setCheckLangChange(false)
             dispath(setUser(result.data.userMenu));
-    
+
           })
         } else {
           Swal.fire(result.data.message);
@@ -128,19 +115,6 @@ const _08LanguageSetupMobile = (prop) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
   const getLangFromProp = () => {
     setLanguageSetup(prop.languageSetup);
   };
@@ -149,6 +123,7 @@ const _08LanguageSetupMobile = (prop) => {
     if (prop.navLang2LangSetUp) {
       getLangFromProp();
     }
+    //eslint-disable-next-line
   }, [prop.navLang2LangSetUp]);
 
 
@@ -336,7 +311,7 @@ const _08LanguageSetupMobile = (prop) => {
 
       </div>
 
- 
+
 
 
     </div>

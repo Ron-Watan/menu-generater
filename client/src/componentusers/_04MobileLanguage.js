@@ -156,10 +156,10 @@ const _04MobileLanguage = (prop) => {
 
           <div className='MB_layoutManu '>
             {prop.listMenu.map((el, index) => (
-              <div className={`MB_layoutManu0 ${index % 2 !== 0 ? 'MB_Dark_Color' : 'MB_light_Color'}`} key={index}>
+              <div className={`MB_layoutManu0 ${(index % 2 !== 0) ? 'MB_Dark_Color' : 'MB_light_Color'}`} key={index}>
                 <div className='MB_layoutManu1'>
 
-                  <i className='sr-only'>//-!FOOD NAME</i>
+                  <i className='sr-only'>!FOOD NAME</i>
                   <div className='MB_flex_NoInp'>
                     <span className='MB_item'>{index + 1}</span>
 
@@ -185,7 +185,7 @@ const _04MobileLanguage = (prop) => {
 
 
 
-                  <i className='sr-only'>//-!DESCRIPTION</i>
+                  <i className='sr-only'>!DESCRIPTION</i>
                   <div className='editDescriptionROnly'>
                     {/* <div className="coverEdit MB_GrayInput selectable"></div> */}
                     <div className=''>
@@ -204,7 +204,7 @@ const _04MobileLanguage = (prop) => {
 
                   </div>
 
-                  <i className='sr-only'>//-!REMARK</i>
+                  <i className='sr-only'>!REMARK</i>
 
                   <div className='editRemarkROnly'>
                     {/* <div className=" MB_GrayInput selectable"></div> */}

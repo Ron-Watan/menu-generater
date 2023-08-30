@@ -1,12 +1,12 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { ticketPass } from '../protectors/authorize';
 import { useNavigate } from 'react-router-dom';
 
 function Subscription() {
   //1//
-  const dispath = useDispatch();
+
   const { user } = useSelector((state) => state.user);
   const navigate = useNavigate()
   const [subscriptionPack, setSubscriptionPack] = useState({})
@@ -29,7 +29,7 @@ function Subscription() {
             .get(`${process.env.REACT_APP_API}/user/getSubscription`, ticketPass)
             .then(result => {
               const getReult = result.data.subPackage.data[0]
-              
+
               setVisblePack(true)
               setSubscriptionPack(getReult)
 
@@ -59,7 +59,7 @@ function Subscription() {
           const getReult = result.data.subPackage;
           window.location.href = getReult.url
         } else {
-  
+
         }
       })
       .catch((err) => {
@@ -69,6 +69,7 @@ function Subscription() {
 
   useEffect(() => {
     if (user.userId) getSubscriptionPack()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
 

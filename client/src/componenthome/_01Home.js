@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import '../componenthome/homeStyle.css';
+
 // import logo from '../componenthome/img/logo.png'
-import logo from '../componenthome/img/logo.png'
-import { useNavigate } from 'react-router-dom'
+
 import Slider from 'react-touch-drag-slider'
 import { Link } from "react-router-dom";
 import BBQ500 from '../componenthome/img/BBQ500.png'
 import coffee500 from '../componenthome/img/coffee500.png'
 import whatsee500 from '../componenthome/img/whatsee500.png'
-import _00Navigation from '../componenthome/_00Navigation'
+import Sect00Navigation from '../componenthome/_00Navigation'
 
 
 
@@ -62,7 +62,7 @@ import ftime from '../componenthome/img/feature/ftime.png'
 
 
 const _01Home = () => {
-  const navigate = useNavigate()
+
   const [indexDot, setIndexDot] = useState(0)
 
   function setFinishedIndex(i) {
@@ -72,10 +72,7 @@ const _01Home = () => {
 
 
   const [indexDotFT, setIndexDotFT] = useState(0)
-  function setFinishedIndexFT(i) {
-    // console.log("finished dragging on slide", i);
-    setIndexDotFT(i)
-  };
+
 
 
   const swipeHandlers = useSwipeable({
@@ -87,20 +84,10 @@ const _01Home = () => {
     },
   });
 
-  const swipeHandlers2 = useSwipeable({
-    onSwipedUp: (eventData) => {
-      window.scrollBy(0, eventData.absY * 1.5)
-      // console.log(eventData.absY)
-    },
-    onSwipedDown: (eventData) => {
-      window.scrollBy(0, -eventData.absY * 1.5)
-    },
-  });
-
 
   return (
     <div className='H-body'>
-      <_00Navigation />
+      <Sect00Navigation NavBtnRight={'Login'} />
 
       <div className="tempSpace"></div>
       <div {...swipeHandlers} className="H_Banner">
@@ -293,7 +280,7 @@ const _01Home = () => {
       <main className="">
 
         <div className="H_ConntentFlex_Center H_Padding_FreeTrial">
-          <Link to='/login' className="H_btnLogin H_btnLogin_Reg">Start Free Trial</Link>
+          <Link to='/register' className="H_btnLogin H_btnLogin_Reg">Start Free Trial</Link>
         </div>
 
 
@@ -304,7 +291,7 @@ const _01Home = () => {
           <div className="">
 
             <div className="H_ConntentFlexCol_Center">
-              <div className="H_MedTitle"> 1. Register & Login</div>
+              <div className="H_MedTitle"> 1. Create an Account & Login</div>
               <div className="">Get QR-Code and online menu website</div>
               <div className="">https//www.qr-cloudmenu/ <span className="Text_italic">your restaurant name</span> </div>
             </div>
@@ -315,7 +302,7 @@ const _01Home = () => {
           <div className="">
             <div className="H_ConntentFlexCol_Center">
               <div className="H_MedTitle"> 2.  Create your online menu</div>
-              <div className="">Using our Smart Menu Builder App.</div>
+              <div className="">Using Smart Menu Builder App.</div>
 
               <div className="Font_Down2"> See Features &darr;</div>
             </div>
@@ -345,7 +332,7 @@ const _01Home = () => {
             </div>
             <div className="Flex_Demo2">
               <img className="Flex_Demo2_img" src={qrBBQ} alt="" />
-              <a href='https://www.qr-cloudmenu.com/franks-bbq' target='_blank' className="Flex_Demo2_link">View Demo</a>
+              <a href='https://www.qr-cloudmenu.com/franks-bbq' target='_blank' rel="noreferrer" className="Flex_Demo2_link">View Demo</a>
             </div>
           </div>
 
@@ -355,7 +342,7 @@ const _01Home = () => {
             </div>
             <div className="Flex_Demo2">
               <img className="Flex_Demo2_img" src={qrcoffee} alt="" />
-              <a href='https://www.qr-cloudmenu.com/eighth-coffee' target='_blank' className="Flex_Demo2_link">View Demo</a>
+              <a href='https://www.qr-cloudmenu.com/eighth-coffee' target='_blank' rel="noreferrer" className="Flex_Demo2_link">View Demo</a>
             </div>
           </div>
 

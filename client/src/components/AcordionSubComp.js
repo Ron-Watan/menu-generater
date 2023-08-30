@@ -5,20 +5,9 @@ import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
-import catalog1 from '../img/promotion1.png'
-import useEnhancedEffect from '@mui/material/utils/useEnhancedEffect';
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import axios from 'axios';
-// import { Hidden } from '@mui/material';
-// import { Checkbox, FormControlLabel, FormGroup } from '@mui/material';
-import ReactQuill from 'react-quill';
-// import 'react-quill/dist/quill.snow.css';
-import {
-  Editor,
-  EditorProvider,
-  Toolbar
-} from 'react-simple-wysiwyg';
+
+import {useState } from 'react';
+
 
 const Accordion = styled((props) => (
 
@@ -96,10 +85,10 @@ const AcordionSubComp = (prop) => {
   };
 
 
-  subListMenu.map((element, index) => {
+  subListMenu.forEach((element, index) => {
     element.panelCode = 'panel' + index
   })
-
+ // eslint-disable-next-line
   const [newSubListMenu, setNewSubListMenu] = useState(subListMenu)
 
 
@@ -209,7 +198,7 @@ const AcordionSubComp = (prop) => {
     favor1: 'favor1.svg', favor2: 'favor2.svg',
   }
 
-  //- //- //- //- //- //- //- //- //- //- //- //-
+             
 
   return (
     <div id={prop.indexM} className={`acArray mx-auto max-w-7xl unselectable`}
@@ -251,14 +240,14 @@ const AcordionSubComp = (prop) => {
             </button>}
 
 
-            <i className="x">//=ON/OFF SlIDE ACCORDIAN </i>
+            <i className="x">ON/OFF SlIDE ACCORDIAN </i>
 
-            <i className="x">//- On Food Name 1 2</i>
+            <i className="x"> On Food Name 1 2</i>
 
             <Accordion expanded={(expanded === el.panelCode || prop.accordian === false) && true} onChange={handleChange(el.panelCode)}>
               <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
 
-                <i className="x">//- Name 1 2</i>
+                <i className="x"> Name 1 2</i>
 
                 <div className={prop.sideBar ? 'paddingL_40' : ''}
                   style={{
@@ -267,7 +256,7 @@ const AcordionSubComp = (prop) => {
                   }}>
                   <span>{prop.language === 1 ? el.food_name : el.food_name_2}</span>
                 </div>
-                <i className="x">//- Price 1 2</i>
+                <i className="x"> Price 1 2</i>
 
                 <div className={`flex`}
                   style={{
@@ -287,11 +276,11 @@ const AcordionSubComp = (prop) => {
 
               </AccordionSummary>
 
-              <i className="x">//= IF ON DESCRIPTION </i>
+              <i className="x"> IF ON DESCRIPTION </i>
 
               {prop.description && <AccordionDetails>
 
-                <i className="x">//- Descritption 1 2</i>
+                <i className="x"> Descritption 1 2</i>
 
                 <div
                   style={{
@@ -306,10 +295,10 @@ const AcordionSubComp = (prop) => {
                     'whiteSpace': 'pre-wrap',
                   }}>
 
-                  {prop.language === 1 ? el.description : el.description_2}
+                  {(prop.language === 1) ? el.description : el.description_2}
                 </div>
 
-                <i className="x">//- Remark 1 2</i>
+                <i className="x"> Remark 1 2</i>
                 {el.remark &&
                   <div
                     style={{

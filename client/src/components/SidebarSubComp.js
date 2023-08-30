@@ -1,54 +1,18 @@
-import React, {  useState } from 'react';
+import React, { useState } from 'react';
 
 import AnchorLink from 'react-anchor-link-smooth-scroll'
 
 const SidebarSubComp = (prop) => {
+  // eslint-disable-next-line
   const [barActive, setBarActive] = useState(true);
 
-  // const [trigA, setTrickA] = useState()
-  // const trigger = (index, any) => {
-  //   let newdata = [...trigA]
-  //   newdata[index] = any
-  //   setTrickA(newdata)
-
-  // }
-
-  // useEffect(() => {
-
-  //   if (prop.triggerIcon) {
-  //     trigger(prop.triggerIcon.index, true);
-  //   } else trigger(prop.triggerIcon.index, false);
-
-
-
-
-  //   const GlobalStyle =
-  //     createGlobalStyle`
-  //   .theme-icon-lineColor {
-  //     fill: ${prop.themeSetup.sideBar.themeIconColorLine};
-  //   }
-
-  //   .theme-icon-styleRadius{
-  //     border-radius: ${prop.themeSetup.sideBar.themeIconRadius};
-  //   }
-  //   .theme-icon-BG-Border{
-  //     background-color: ${prop.themeSetup.sideBar.themeIconBG};
-  //     border:  ${prop.themeSetup.sideBar.themeIconSolid} 2px ${prop.themeSetup.sideBar.themeIconColorBorder};
-  //   }
-
-  // `;
-
-
-  // useEffect(() => {
-  //   GlobalStyle();
-  // }, []);
 
   return (
     <div className='sideBarPosition unselectable'>
       {/* <GlobalStyle /> */}
       <div className='circleBarClient '>
         {barActive &&
-          prop.menuTime == 1 &&
+          prop.menuTime === 1 &&
           prop.iconMenu_1.map((el, index) => {
             return (
               <AnchorLink href={prop.iconMenu_1[index]?.link} value={el.catagory}
@@ -77,7 +41,7 @@ const SidebarSubComp = (prop) => {
             );
           })}
         {barActive &&
-          prop.menuTime == 2 &&
+          prop.menuTime === 2 &&
           prop.iconMenu_2.map((el, index) => {
             return (
               <a href={prop.iconMenu_2[index]?.link} value={el.catagory}
@@ -97,7 +61,7 @@ const SidebarSubComp = (prop) => {
             );
           })}
         {barActive &&
-          prop.menuTime == 3 &&
+          prop.menuTime === 3 &&
           prop.iconMenu_3.map((el, index) => {
             return (
               <a href={prop.iconMenu_3[index]?.link} value={el.catagory}

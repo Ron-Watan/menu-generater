@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { hideLoading, showLoading } from '../redux/alertSlice';
 import Swal from 'sweetalert2';
 import { ticketPass } from '../protectors/authorize';
-import _09TsubColorPickerMobile from './_09TsubColorPickerMobile';
+import Sect09TsubColorPickerMobile from './_09TsubColorPickerMobile';
 import MBicon_Quickt from '../all-icon/mobile-bar/quickt.svg'
 import MBicon_Navbart from '../all-icon/mobile-bar/navbart.svg'
 import MBicon_Sidet from '../all-icon/mobile-bar/sidebart.svg'
@@ -191,13 +191,6 @@ const _09ThemeSetupMobile = (prop) => {
   }
 
 
-  // useEffect(() => {
-  //   if (prop.navTheme2ThemeSetUp) {
-  //     getTheme();
-  //   }
-  // }, [prop.navTheme2ThemeSetUp]);
-
-
 
   const [themeTab, setThemeTab] = useState('quick')
   const [chooseIconStyle, setChooseIconStyle] = useState('')
@@ -255,6 +248,7 @@ const _09ThemeSetupMobile = (prop) => {
 
   useEffect(() => {
     if (user?.userId) getTheme()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
 
@@ -1021,7 +1015,7 @@ const _09ThemeSetupMobile = (prop) => {
       {onOffColorPicker && <div className="MB_themeContainerColor">
 
 
-        <_09TsubColorPickerMobile
+        <Sect09TsubColorPickerMobile
           noSetTheme={noSetTheme}
           nameTheme={nameTheme}
 

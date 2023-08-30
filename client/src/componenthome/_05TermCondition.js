@@ -1,12 +1,12 @@
 import React from 'react'
-import _00Navigation from '../componenthome/_00Navigation'
+import Sect00Navigation from '../componenthome/_00Navigation'
 import '../componenthome/termPolicyStyle.css';
 
 
 function _05TermCondition() {
   return (
     <div className='H-body'>
-      <_00Navigation />
+      <Sect00Navigation />
 
       <div className="tempSpace"></div>
 
@@ -64,7 +64,7 @@ function _05TermCondition() {
 
 
           <div className="termContent margin_bottom15">
-            Web-app and  User Sites (including under QR-Cloudmenu Subdirectory) may contain links to third party web sites, including links to Web-app and  User Sites, third party text, font, icon  and software applications (collectively referred to as "Linked Sites"). The Linked Sites and third parties are not under the control of and/or owned by QR-Cloudmenu and QR-Cloudmenu is not responsible for the contents of any Linked Site, including without limitation any link contained in a Linked Site, or any changes or updates to a Linked Site. QR-Cloudmenu is not responsible for libraries or frameworks received from any Linked Site. The Linked Sites are the property of the respective third party and may be protected by applicable copyright or other intellectual property laws and treaties. QR-Cloudmenu is providing these links to you only as a convenience and does not approve and assumes no responsibility for the content, security, functionality, or practices of these third parties. The inclusion of any link does not imply endorsement by QR-Cloudmenu of the site or any association with its operators. QR-Cloudmenu acknowledges and agrees that QR-Cloudmenu may disable your use of or remove any third party linked sites on QR-Cloudmenu or a QR-Cloudmenu Subdirectory to the extent that they violate these Terms.
+            Web-app may contain links to third party web sites, including links to Web-app, third party text, font, icon  and software applications (collectively referred to as "Linked Sites"). The Linked Sites and third parties are not under the control of and/or owned by QR-Cloudmenu and QR-Cloudmenu is not responsible for the contents of any Linked Site, including without limitation any link contained in a Linked Site, or any changes or updates to a Linked Site. QR-Cloudmenu is not responsible for libraries or frameworks received from any Linked Site. The Linked Sites are the property of the respective third party and may be protected by applicable copyright or other intellectual property laws and treaties. QR-Cloudmenu is providing these links to you only as a convenience and does not approve and assumes no responsibility for the content, security, functionality, or practices of these third parties. The inclusion of any link does not imply endorsement by QR-Cloudmenu of the site or any association with its operators. QR-Cloudmenu acknowledges and agrees that QR-Cloudmenu may disable your use of or remove any third party linked sites on QR-Cloudmenu or a QR-Cloudmenu Subdirectory to the extent that they violate these Terms.
             Similarly, our Web-app and  User Sites may rely on external components provided by a third party to provide some level of functionality. This functionality may make a particular feature of our Web-app and User Sites dependent on the external component; or Web-app and User Sites may be completely dependent on the external component for operation. In any case, we make no warranties, claims, or provision for any third party components.
             You are responsible for making any and all appropriate licensing arrangements with any third party external component providers that are represented on your QR-Cloudmenu Subdirectory
           </div>
@@ -248,7 +248,7 @@ function _05TermCondition() {
 
           <div className="termSubject margin_bottomDot5">Consent to Disclose Information</div>
           <div className="termContent margin_bottom2">
-          You acknowledge, consent and agree that QR-Cloundmenu may access, preserve and disclose your account information (including your name and contact information) and Content if required to do so by law or in a good faith belief that such access, preservation or disclosure is reasonably necessary or appropriate to: (a) comply with legal process; (b) enforce these Terms; (c) respond to claims that any Content violates the rights of third parties; (d) respond to your requests for customer service; or (e) protect the rights, property or personal safety of QR-Cloundmenu , its users and the public. Please see our Privacy Policy for more information on how we may use and disclose your account information.
+            You acknowledge, consent and agree that QR-Cloundmenu may access, preserve and disclose your account information (including your name and contact information) and Content if required to do so by law or in a good faith belief that such access, preservation or disclosure is reasonably necessary or appropriate to: (a) comply with legal process; (b) enforce these Terms; (c) respond to claims that any Content violates the rights of third parties; (d) respond to your requests for customer service; or (e) protect the rights, property or personal safety of QR-Cloundmenu , its users and the public. Please see our Privacy Policy for more information on how we may use and disclose your account information.
           </div>
 
 

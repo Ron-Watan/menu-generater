@@ -47,7 +47,7 @@ const _02QRCode = (prop) => {
     levelCode: 'Q', dotOption: '', cornersOption: '', dotCornersOption: '', colorQrCode: '#000', bgQrCode: '#fff',
     sizeQr: 8, sizeQrPx: 300, logoQr: ''
   })
-  const { levelCode, dotOption, cornersOption, dotCornersOption, colorQrCode, bgQrCode, sizeQr, sizeQrPx, logoQr } = qrCodeSetUp
+  const { levelCode, dotOption, cornersOption, dotCornersOption, colorQrCode, bgQrCode, sizeQr, logoQr } = qrCodeSetUp
 
 
   const qrCodeSetUpFn = (name, value) => {
@@ -263,18 +263,21 @@ const _02QRCode = (prop) => {
 
   useEffect(() => {
     refresh()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [qrCode]);
 
 
   useEffect(() => {
-    if (oneTimeRun&&prop.user?.userId) {
+    if (oneTimeRun && prop.user?.userId) {
       getQrCode();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [prop.user]);
   useEffect(() => {
-    if ( prop.getQRCodeTG) {
+    if (prop.getQRCodeTG) {
       getQrCode()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [prop.getQRCodeTG]);
 
   return (

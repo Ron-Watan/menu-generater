@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 
 
 const _04MobileFormFood = forwardRef((prop, ref) => {
+
   const photoHostName = `${process.env.REACT_APP_API}/user/photos/`
   //  Make Input hide Error(false) 
   const ErrorFn = (index, name, bol) => {
@@ -140,30 +141,10 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
   const emptyIcon = '/static/media/_empty.7b62bbf4b02d3d65f678e4361123ec76.svg#empty000'
 
 
-
-  // const [previewImg, setPreviewImg] = useState(prop.iconPhoto)
-
-  // const previewImgFn = (e) => {
-  //   if (!e) return prop.setPreviewImg('')
-  //   const data = new FileReader()
-  //   data.addEventListener('load', () => {
-  //     prop.setPreviewImg(data.result)
-  //   })
-  //   data.readAsDataURL(e.target.files[0])
-  //   prop.setCheckEditImg(true)
-  // }
-
-
   const scrollToTop = () => {
     window.scrollTo(0, 0);
   };
 
-  // let img = document.getElementById('dummy')
-  // window.addEventListener("load", event => {
-
-  //   var isLoaded = img.complete && img.naturalHeight !== 0;
-  //   alert('www');
-  // });
 
   return (
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import MBiconClose from '../all-icon/button-icon/MBclose.svg'
 import MBiconBin from '../all-icon/button-icon/MBbin.svg'
 
@@ -200,6 +200,7 @@ const _FeedBackMobile = (prop) => {
 
   useEffect(() => {
     if (unSeenChange) return saveFeedBack()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [seeenFeedBack]);
 
   const deleteFeedBack = (index) => {
@@ -210,6 +211,7 @@ const _FeedBackMobile = (prop) => {
   }
   useEffect(() => {
     if (deleteChange) return saveFeedBack()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [seeenFeedBack]);
 
   const [checkRead, setCheckRead] = useState(false)
@@ -224,16 +226,13 @@ const _FeedBackMobile = (prop) => {
 
   useEffect(() => {
     if (checkRead) return saveFeedBack()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [unseeenFeedBack]);
 
 
 
 
 
-  const refreshMessage = () => {
-
-    setUnseeenFeedBack(unseeenFeedBack)
-  }
 
 
 
@@ -241,7 +240,7 @@ const _FeedBackMobile = (prop) => {
 
   useEffect(() => {
     if (oneTimeRun && user) getFeedBack();
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
 
@@ -262,7 +261,7 @@ const _FeedBackMobile = (prop) => {
   // const [tempSwiperArray, setTempSwiperArray] = useState([])
 
 
-  const ref = useRef()
+
 
   return (
     <div className="MB_FullPage_Container">

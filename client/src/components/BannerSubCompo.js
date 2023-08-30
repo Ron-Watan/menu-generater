@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, {useState } from 'react'
 import Slider from 'react-touch-drag-slider'
 import "../styleClient/bannerClient.css"
 
@@ -16,7 +16,7 @@ const BannerSubCompo = (prop) => {
   // console.log(elementRef.current.offsetHeight);
   // }, [elementRef.current[0]]);
 
-
+// eslint-disable-next-line
   const drag = () => {
     // console.log(elementRef.current[0]);
   }
@@ -56,9 +56,9 @@ const BannerSubCompo = (prop) => {
                 // <img ref={(element) => {
                 //   elementRef.current[index] = element;
                 // }} onClick={drag} key={index} src={el} className='imageBannerFormC' />
-                 // <img key={index} src={el} className='imageBannerFormC' />
-                <img key={index} src={`${el.slice(0, -10) === prop.link ? photoHostName + el : el}`} className='imageBannerFormC' />
-               
+                // <img key={index} src={el} className='imageBannerFormC' />
+                <img key={index} src={`${el.slice(0, -10) === prop.link ? photoHostName + el : el}`} className='imageBannerFormC' alt=''/>
+
 
 
 

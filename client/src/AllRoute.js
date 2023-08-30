@@ -6,13 +6,13 @@ import _05TermCondition from './componenthome/_05TermCondition'
 
 import RegisterComponent from "./accounts/RegisterComponent"
 import LoginComponent from "./accounts/LoginComponent"
+import ForgotPassword from "./accounts/ForgotPassword"
+
 import Subscription from "./accounts/Subscription"
 
 
 import _00AppMain from "./componentusers/_00AppMain"
 import _MenuComponent from "./components/_MenuComponent"
-
-
 import ProtectRoute from "./protectors/ProtectRoute"
 
 const AllRoute = () => {
@@ -35,15 +35,13 @@ const AllRoute = () => {
         <Route path="/termCondition" exact Component={_05TermCondition} />
         <Route path="/login" exact Component={LoginComponent} />
         <Route path="/register" exact Component={RegisterComponent} />
+        <Route path="/forgotPassword" exact Component={ForgotPassword} />
+
         <Route path="/:link" exact Component={_MenuComponent} />
 
         <Route Component={ProtectRoute}>
-        <Route path="/subscription" exact Component={Subscription} />
-
+          <Route path="/subscription" exact Component={Subscription} />
           <Route path="/app" exact Component={_00AppMain} />
-
-
-
         </Route>
 
 

@@ -6,11 +6,10 @@ import MBiconDown from '../all-icon/button-icon/down.svg'
 import MBupdown from '../all-icon/button-icon/updown.svg'
 import MBLang from '../all-icon/button-icon/setLang.svg'
 import { Link } from "react-router-dom";
-import { useSelector } from 'react-redux'
 import Swal from 'sweetalert2';
 // import AnchorLink from 'react-anchor-link-smooth-scroll'
 const _04MenuForm = (prop) => {
-  const { user } = useSelector((state) => state.user);
+
 
 
   // prop.categoryList_1
@@ -178,11 +177,7 @@ const _04MenuForm = (prop) => {
 
   return (
     <div className="MC_Standard_0_FullPage " >
-      <div className={`${prop.loadingManual ? 'showMe' : 'hiddenMe'} photoLoading`}>
-        <div className="iconLoadingBanner">
-          <span className='barOne'></span > <span className='barTwo'></span> <span className='barThree'></span>
-        </div>
-      </div>
+
       <div className="topBar_function backdrop_blur">
         <div className="GruopBtn">
 
@@ -224,7 +219,7 @@ const _04MenuForm = (prop) => {
 
         {/* <div onTouchMove={reloadAllMenu}  className="MB_Standard_Section_canScroll MB_Make_PadingBanner paddingBottom_9 overScroll_none" > */}
 
-        <div className={`${prop.turnOnSection===true && 'MB_Standard_Section_canScroll'} MB_Make_PadingFormList `}>
+        <div className={`${prop.turnOnSection === true && 'MB_Standard_Section_canScroll'} MB_Make_PadingFormList `}>
 
 
           <div className="MB_categoryStart">
@@ -301,9 +296,9 @@ const _04MenuForm = (prop) => {
                       prop.findOneMenu(el.menuId)
                     }} className={`itemCat`}>
                       {index + 1}
-                   
+
                     </button>
-                    <a href='#topForm'name={el.menuId} onClick={() => {
+                    <a href='#topForm' name={el.menuId} onClick={() => {
 
                       prop.findOneMenu(el.menuId)
                     }} className='btnCat'>

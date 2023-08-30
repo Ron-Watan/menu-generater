@@ -22,12 +22,12 @@
   max-width: 86rem;
   margin: 0 auto;
 }
-.countFeedBack{
+.countFeedBack {
   display: flex;
   justify-content: space-between;
 
-  font-size: .75rem;
-  margin-top: .2rem;
+  font-size: 0.75rem;
+  margin-top: 0.2rem;
   font-weight: 400;
 }
 /* .footBarSectionC::after {
@@ -58,7 +58,6 @@
   background-color: inherit;
   border-radius: 5rem 5rem 0 0;
   background-color: inherit;
-  
 }
 
 .footBarGrid3_1 {
@@ -66,7 +65,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
 }
 
 .footBarGrid3_1::before,
@@ -186,7 +184,7 @@
   font-weight: 600;
   padding-left: 0.5rem;
   margin-right: 1rem;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
   font-size: 1.1rem;
 }
 
@@ -195,14 +193,12 @@
   width: 100%;
   justify-content: space-between;
   align-items: center;
-  padding: .5rem 2rem .5rem 1rem;
-
+  padding: 0.5rem 2rem 0.5rem 1rem;
 }
-.favorListtext{
-line-height: 1.5;
-font-size: 1rem;
-font-weight: 400;
-
+.favorListtext {
+  line-height: 1.5;
+  font-size: 1rem;
+  font-weight: 400;
 }
 .starReview {
   margin-top: 1rem;
@@ -389,31 +385,40 @@ font-weight: 400;
   display: flex;
   justify-content: space-between;
   align-items: center;
-
 }
 .headCommentBtn {
   position: absolute;
-  padding: .5rem 1rem 0 2rem;
+  padding: 0.5rem 1rem 0 2rem;
   right: 0rem;
   top: 0rem;
 }
 
-.headCommentBtn_size{
-border: #555 1px solid;
-padding: .4rem;
-border-radius: 50%;
-width: 1.5rem;
-height: 1.5rem;
-
+.headCommentBtn_size {
+  border: #555 1px solid;
+  padding: 0.4rem;
+  border-radius: 50%;
+  width: 1.5rem;
+  height: 1.5rem;
 }
-.headCommentBtn_font{
-  font-size: .6rem;
+.headCommentBtn_font {
+  font-size: 0.6rem;
 }
 .coment {
   max-height: none;
   height: 60vh;
 }
-
+@media (min-width: 450px) {
+  .coment {
+    max-height: none;
+    height: 65vh;
+  }
+}
+@media (min-width: 500px) {
+  .coment {
+    max-height: none;
+    height: 70vh;
+  }
+}
 .overflow {
   overflow-y: auto;
   padding-bottom: 5rem;

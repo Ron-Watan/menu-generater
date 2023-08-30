@@ -1,0 +1,85 @@
+.Acc_logBody_H {
+  height: 100vh;
+  position: fixed;
+}
+.Acc_logBox {
+  width: 100%;
+  max-width: 24rem;
+}
+
+.Acc_formBox {
+  background-color: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  border-radius: 0.5rem;
+  padding-top: 2rem;
+  /* display: flex;
+flex-direction: column;
+align-items: center; */
+}
+.Acc_boxInputLog {
+  position: relative;
+}
+.Acc_boxInputCode {
+  position: relative;
+  width: 60%;
+
+}
+.Acc_inputLogin {
+  width: 100%;
+  padding: 0.7rem 2rem 0.7rem 2.5rem;
+  border: #3263ae 2px solid;
+  border-radius: 2rem;
+  outline: none;
+}
+.Acc_iconLog {
+  position: absolute;
+  left: 0.7rem;
+  top: 0.8rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  fill: #577fbc;
+}
+.Acc_iconLogRes {
+transform: scale(.78);
+}
+.Acc_iconKey {
+  transform: scale(.9);
+  }
+.Acc_loginBTNBox {
+  display: flex;
+
+  justify-content: center;
+}
+.Font_BlueLog {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #0076e4;
+}
+.Font_SmalLog {
+  font-size: 0.95rem;
+  width: 90%;
+}
+.Acc_loginBTN {
+  width: 50%;
+  font-size: 1rem;
+  color: #fff;
+  background-image: linear-gradient(to top right, #0076e4, #00a3ff);
+  padding: 0.5rem 1.5rem;
+  font-weight: 600;
+  border-radius: 2rem;
+}
+.Acc_ReBTN_W {
+  width: 70%;
+  white-space: nowrap;
+}
+
+.linkFull {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.Acc_textTitle{
+  font-size: 1.1rem;
+}

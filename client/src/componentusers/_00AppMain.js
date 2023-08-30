@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { hideLoading, showLoading } from '../redux/alertSlice';
 import { setUser } from '../redux/userSlice';
 // import _MenuComponent from '../components/_MenuComponent';
-
+import { useNavigate } from 'react-router-dom'
 import '../style/_main.css';
 import '../style/mainForm.css';
 import '../style/sideForm.css';
@@ -19,24 +19,28 @@ import '../style/_mediaPhone_Setting.css';
 
 import { v4 as uuidv4 } from 'uuid';
 import Resizer from 'react-image-file-resizer';
-import _20IconPickerMobile from './_20IconPickerMobile';
 
-import _01FeedBackMobile from './_01FeedBackMobile';
-import _02QRCode from './_02QRCode';
-import _03BannerMobile from './_03BannerMobile';
-import _04MenuForm from './_04MenuForm';
-import _04MobileFormFood from './_04MobileFormFood';
-import _04MobileLanguage from './_04MobileLanguage';
-import _07TimePickerMobile from './_07TimePickerMobile';
-import _08LanguageSetupMobile from './_08LanguageSetupMobile';
-import _09ThemeSetupMobile from './_09ThemeSetupMobile';
-import _10OnOffSettingMobile from './_10OnOffSettingMobile';
-import _11ExtraInfo from './_11ExtraInfo';
+
+import Sect01FeedBackMobile from './_01FeedBackMobile';
+import Sect02QRCode from './_02QRCode';
+import Sect03BannerMobile from './_03BannerMobile';
+
+import Sect04MenuForm from './_04MenuForm';
+import Sect04MobileFormFood from './_04MobileFormFood';
+import Sect20IconPickerMobile from './_20IconPickerMobile';
+
+import Sect04MobileLanguage from './_04MobileLanguage';
+import Sect07TimePickerMobile from './_07TimePickerMobile';
+import Sect08LanguageSetupMobile from './_08LanguageSetupMobile';
+import Sect09ThemeSetupMobile from './_09ThemeSetupMobile';
+import Sect10OnOffSettingMobile from './_10OnOffSettingMobile';
+import Sect11ExtraInfo from './_11ExtraInfo';
+import Sect12Account from './_12Account';
 
 
 // import _MenuComponent from '../../src/components/_MenuComponent'
 
-import _SimulationApp from './simulattion/_SimulationApp'
+import SectSimulationApp from './simulattion/_SimulationApp'
 // import _SimulationApp from '../../src/styleClient'
 
 
@@ -60,8 +64,7 @@ import MBicon_StarNoti from '../all-icon/mobile-bar/starnoti.svg'
 // import { S3Client, PutObjectCommand, S3 } from "@aws-sdk/client-s3"
 // import AWS from 'aws-sdk'
 import * as Util from "../componentusers/_99Utility"
-import { useNavigate } from 'react-router-dom';
-
+import UserPool from "../UserPool"
 
 //-///-///-///-///-///-///-///-///-///-
 
@@ -93,7 +96,7 @@ const _AppMain = () => {
 
   //1//
 
-
+  const navigate = useNavigate()
 
 
 
@@ -103,7 +106,6 @@ const _AppMain = () => {
 
   const [originalBannerImgArr, setOriginalBannerImgArr] = useState([]);
   const [bannerImgArr, setBannerImgArr] = useState([]);
-  const [bannerNumber, setBannerNumber] = useState(0);
   const [realBannerFile, setRealBannerFile] = useState([])
 
 
@@ -229,6 +231,7 @@ const _AppMain = () => {
 
   //- //= //-001_getAllMenu
   const getAllMenu = () => {
+
     dispath(showLoading())
     axios
       .post(`${process.env.REACT_APP_API}/user/getAllMenu`, { userId: user.userId }, ticketPass)
@@ -240,14 +243,14 @@ const _AppMain = () => {
           setOriginalBannerImgArr(getReult.bannerImage)
           setRealBannerFile(getReult.bannerImage)
           setBannerImgArr(getReult.bannerImage)
-          setBannerNumber(getReult.bannerNumber)
+
           // setOriginalClientMenu(getReult.menu);
           setCategoryList(getReult.menu);
 
           setMenuName(getReult.menuName);
           setTimeSetup(getReult.timeSetup);
           setLanguageSetup(getReult.languageSetup);
-          // setThemeSetup(getReult.themeSetup);
+          setThemeSetup(getReult.themeSetup);
           setOnOffSetting(getReult.onOffSetting)
 
           const catList_menu_1 = getReult.menu.filter(el => el.menuTime === 1)
@@ -281,7 +284,7 @@ const _AppMain = () => {
 
           dispath(hideLoading())
           console.log('Server: Connected');
-          setOnConnected(true);
+
 
 
           setTimeout(() => {
@@ -339,8 +342,11 @@ const _AppMain = () => {
     return countLists;
   };
 
+  const loginCode = sessionStorage.getItem('temp')
 
+  //- //- //- //- //- //- //-
   const submitCatagory = (e) => {
+
     let imgId = ''
     if (file) imgId = user.link + '-' + uuidv4().slice(-8);
     if (checkMaximumLists() > 14) return alert('Fullll');
@@ -349,6 +355,7 @@ const _AppMain = () => {
       .post(
         `${process.env.REACT_APP_API}/user/create-manu`,
         {
+          loginCode,
           userId: user.userId,
           clientId: user.clientId,
           menuTime: menuTime,
@@ -365,6 +372,7 @@ const _AppMain = () => {
         if (result.data.success) {
           const getReult = result.data.userMenu;
 
+          // uploadImage
           if (file) {
             const newFile = Util.dataURIToBlob(file);
             const formData = new FormData();
@@ -395,7 +403,11 @@ const _AppMain = () => {
 
               })
               .catch((err) => console.error(err));
+
+
           } else {
+            // NoImage
+
             Swal.fire({
               title: 'Saved',
               toast: true,
@@ -408,23 +420,18 @@ const _AppMain = () => {
               dispath(setUser(getReult));
               // setTimeout(() => {
               getAllMenu();
-
               setCheckInputForm(false)
               setCheckEditImg(false)
               setOneClickCat(false)
               dispath(hideLoading())
             })
 
-
-
-
           }
 
-
-          //end result.data.success
         } else {
-
           dispath(hideLoading());
+          return navigate('/login')
+
         }
       })
       .catch((err) => {
@@ -435,9 +442,13 @@ const _AppMain = () => {
   };
 
 
-  //- //= //-// UPLOAD IMAGE
 
+  //- //- //- //- //- //- //- // UPLOAD IMAGE
   const uploadImage = (imgId) => {
+
+    const loginCode = sessionStorage.getItem('temp')
+    console.log(loginCode, user.loginCode)
+    if (loginCode !== user.loginCode) return navigate('/login')
 
     axios
       .post(`${process.env.REACT_APP_API}/user/images/uplaod`, file)
@@ -453,6 +464,11 @@ const _AppMain = () => {
   //- //= //-
 
   const saveEditMenu = (e) => {
+
+    const loginCode = sessionStorage.getItem('temp')
+    console.log(loginCode, user.loginCode)
+    if (loginCode !== user.loginCode) return navigate('/login')
+
 
     if (!menuId) return;
     dispath(showLoading())
@@ -592,6 +608,10 @@ const _AppMain = () => {
 
   const removeItem = (index) => {
 
+    const loginCode = sessionStorage.getItem('temp')
+    console.log(loginCode, user.loginCode)
+    if (loginCode !== user.loginCode) return navigate('/login')
+
     Swal.fire({
       title: 'Do you want to delete an item?',
       showDenyButton: true,
@@ -614,6 +634,11 @@ const _AppMain = () => {
 
   //- //= //-
   const delelteImage = () => {
+
+    const loginCode = sessionStorage.getItem('temp')
+    console.log(loginCode, user.loginCode)
+    if (loginCode !== user.loginCode) return navigate('/login')
+
     if (!file) return
     if (!state.imgId) return
 
@@ -632,6 +657,10 @@ const _AppMain = () => {
 
   const deleteMenu = (e) => {
     e.preventDefault();
+
+    const loginCode = sessionStorage.getItem('temp')
+    console.log(loginCode, user.loginCode)
+    if (loginCode !== user.loginCode) return navigate('/login')
 
     Swal.fire({
       title: 'Do you want to delete Category?',
@@ -733,13 +762,13 @@ const _AppMain = () => {
 
   // const [deleteBtn, setDeleteBtn] = useState(false);
 
+
+
+
+
+  //=//=//=//=/ Form Food
+
   const [start, setStart] = useState(false);
-
-
-
-  //=//=//=//=//=//=//=//=//=//=//=//=//=
-
-
 
   const openForm = () => {
     const promise = new Promise((resolve, reject) => {
@@ -822,6 +851,7 @@ const _AppMain = () => {
   //=///////=//=//=//=//=//=////////////////////////////////////////////////
   const [themeSetup, setThemeSetup] = useState('')
 
+    // eslint-disable-next-line 
   const [checkChangeTheme, setCheckChangeTheme] = useState(false)
 
   //  ----------------------------------------------------------------------------------------------
@@ -911,9 +941,17 @@ const _AppMain = () => {
 
 
 
+  //////=//=//=//=///////////////////////////////
+
+  const [accountPassword, setAccountPassword] = useState(false)
+
+
+
+
+
   //- MOBILE  //-///=///-///=///-///=///-///=///-   END FUNCTION   ///-///=///-///=///-///=///-///=///-
 
-
+  const [onOffQRCCode_MB, setOnOffQRCCode_MB] = useState(false);
   const [onOffFeedBAck_MB, setOnOffFeedBAck_MB] = useState(false);
   const [onOffBanner_MB, setOnoffBanner_MB] = useState(false);
   const [onOffMenu1_MB, setOnoffMenu1_MB] = useState(false);
@@ -921,28 +959,25 @@ const _AppMain = () => {
   const [onOffMenu3_MB, setOnoffMenu3_MB] = useState(false);
   const [onOffTimePicker_MB, setOnOffTimePicker_MB] = useState(false);
   const [onOffLangSetup_MB, setOnOffLangSetup_MB] = useState(false);
+  const [onOffExtra_MB, setOnOffExtra_MB] = useState(false);
   const [onOffThemeSetup_MB, setOnOffThemeSetup_MB] = useState(false);
   const [onOffSetting_MB, setOnOffSetting_MB] = useState(false);
-  const [onOffQRCCode_MB, setOnOffQRCCode_MB] = useState(false);
-  const [onOffExtra_MB, setOnOffExtra_MB] = useState(false);
+  const [onOffAccount_MB, setOnOffAccount_MB] = useState(false);
+
 
   //-
 
-  const [onOffMenuTime, setonOffMenuTime] = useState(false); //Time Picker
-  const [onOffLangForm, setOnOffLangForm] = useState(false); // Lang Form
-  const [onOffLangSetup, setOnOffLangSetup] = useState(false); // Lang Setup
 
-  // const [activeInputEn, setActiveInputEditName] = useState(false); // Edit Name
-  // aaa
+  const [onOffLangForm, setOnOffLangForm] = useState(false); // Lang Form
+
+
+
   //=
-  // const [deleteImageBannerTG, setDeleteImageBannerTG] = useState(0);
-  // const [saveImageBannerTG, setSaveImageBannerTG] = useState(0);
-  // const [resizeFileBannerTG, setResizeFileBannerTG] = useState(0);
-  const [getAllImageBannerTG, setGetAllImageBannerTG] = useState(0);
+
   const [getQRCodeTG, setGetQRCodeTG] = useState(0);
 
   const [activeWindowIconPicker, setActiveWindowIconPicker] = useState(false);
-  const [memoicon, setMemoIcon] = useState('');
+
 
   // <button onClick={() => {
   //   setGetAllImageBannerTG((getAllImageBannerTG) => getAllImageBannerTG + 1)
@@ -951,17 +986,16 @@ const _AppMain = () => {
   //=
   const [navTime2TimePicker, setNavTime2TimePicker] = useState(0);
   const [navLang2LangSetUp, setNavLang2LangSetUp] = useState(0);
-  const [navTheme2ThemeSetUp, setNavTheme2ThemeSetUp] = useState(0);
+
   const [navOnOff2OnOffSetting, setVavOnOff2OnOffSetting] = useState(0);
 
   //=
 
-  // Normal is Closed Sectiion
   const [turnOnSection, setTurnOnSection] = useState(false)
   const [toggleScrollQRCode, setToggleScrollQRCode] = useState(false)
   const [toggleScrollBanner, setToggleScrollBanner] = useState(false)
-
-  const [onConnected, setOnConnected] = useState(false)
+  const [toggleScrollExtrainfo, setToggleScrollExtrainfo] = useState(false)
+  const [toggleScrollAccount, setToggleScrollAccount] = useState(false)
 
 
 
@@ -975,26 +1009,30 @@ const _AppMain = () => {
     onOffMenu3_MB || onOffTimePicker_MB || onOffLangSetup_MB || onOffFeedBAck_MB || onOffSetting_MB || onOffQRCCode_MB) {
     document.body.classList.add('overflow-hidden')
   }
-  const [loadingManual, setLoadingManual] = useState(false)
 
 
-  const navigate = useNavigate()
 
   const [oneTimeCheck, setOneTimeCheck] = useState(true)
 
+  const [subscriptionFromDB, setSubscriptionFromDB] = useState({
+    status: "",
+    subscriptionCancel: false,
+    subscriptionEnd: 0
+  })
+
   const checkSubscription = () => {
     // dispath(showLoading())
-  
+
     axios
       .post(`${process.env.REACT_APP_API}/user/checkSubscription`, { email: user.email }, ticketPass)
       .then((result) => {
-        const getReult = result.data.status;
-     
-        if (getReult === 'active') {
+        const getReult = result.data;
 
-          getAllMenu()
+        if (getReult.status === "active") {
           setOneTimeCheck(false)
-        } else if (getReult === 'inActive') {
+          // console.log(getReult.resDB)
+          setSubscriptionFromDB(getReult.resDB)
+        } else if (getReult.status === 'inActive') {
           setOneTimeCheck(false)
           navigate('/subscription')
 
@@ -1008,14 +1046,20 @@ const _AppMain = () => {
 
 
   }
+
   useEffect(() => {
     if (oneTimeCheck && user.userId) checkSubscription()
+    // eslint-disable-next-line 
   }, [user]);
+
   useEffect(() => {
-    if (user.userId) getAllMenu()
+    if (user.userId) return getAllMenu()
+    // eslint-disable-next-line 
   }, [user]);
 
   const [previewImg, setPreviewImg] = useState(iconPhoto)
+
+      // eslint-disable-next-line 
   const { loading } = useSelector((state) => state.alerts);
 
   //-///=///-///=///-///=///-///=///-   END FUNCTION   ///-///=///-///=///-///=///-///=///-
@@ -1034,13 +1078,13 @@ const _AppMain = () => {
           <span className='barOne'></span > <span className='barTwo'></span> <span className='barThree'></span>
         </div>
       </div>
-      <i className='x'>//- START MOBILE //------------------------------------------------</i>
+      <i className='x'>START MOBILE -----------------------------------------------</i>
 
       <div className="mobile-creator unselectable">
 
 
         <div className={`mobile_function ${!onOffFeedBAck_MB && 'MB_slide_Down'}`}>
-          <_01FeedBackMobile
+          <Sect01FeedBackMobile
             setProtectLoading={setProtectLoading}
             setOnOffFeedBAck_MB={setOnOffFeedBAck_MB}
             setGetStarNotification={setGetStarNotification}
@@ -1050,7 +1094,7 @@ const _AppMain = () => {
         </div>
 
         <div className={`mobile_function ${!onOffQRCCode_MB && 'MB_slide_Down'}`}>
-          <_02QRCode
+          <Sect02QRCode
             setProtectLoading={setProtectLoading}
             getQRCodeTG={getQRCodeTG}
             setOnOffQRCCode_MB={setOnOffQRCCode_MB}
@@ -1062,24 +1106,11 @@ const _AppMain = () => {
           />
         </div>
 
-        <i className="x"> Extra Info-----------------------------------------------</i>
-        <div className={`mobile_function  ${!onOffExtra_MB && 'MB_slide_Down'}`}>
-
-          <_11ExtraInfo
-            setOnOffExtra_MB={setOnOffExtra_MB}
-            setRestaurantName={setRestaurantName}
-            restaurantName={restaurantName}
-            extraInfo={extraInfo}
-            setExtraInfo={setExtraInfo}
-            setTurnOnSection={setTurnOnSection}
-            turnOnSection={turnOnSection}
-          />
-        </div>
 
         <i className="x"> Banner-----------------------------------------------</i>
         <div className={`mobile_function  ${!onOffBanner_MB && 'MB_slide_Down'}`}>
 
-          <_03BannerMobile setProtectLoading={setProtectLoading}
+          <Sect03BannerMobile setProtectLoading={setProtectLoading}
             bannerImgArr={bannerImgArr}
             setBannerImgArr={setBannerImgArr}
             // bannerNumber={bannerNumber}
@@ -1100,7 +1131,7 @@ const _AppMain = () => {
 
         <i className="x"> Manu 1 2 3 -----------------------------------------------</i>
         <div className={`mobile_function ${(!onOffMenu1_MB && !onOffMenu2_MB && !onOffMenu3_MB) && 'MB_slide_Down'}`}>
-          <_04MenuForm setProtectLoading={setProtectLoading}
+          <Sect04MenuForm setProtectLoading={setProtectLoading}
             inputMenuTimeName={inputMenuTimeName}
             menuName={menuName}
             currentMenuName={currentMenuName}
@@ -1108,7 +1139,7 @@ const _AppMain = () => {
             saveNameMenu={saveNameMenu}
             setCheckChangeName={setCheckChangeName}
             openForm={openForm}
-            loadingManual={loadingManual}
+
             categoryList={categoryList}
             setCategoryList={setCategoryList}
             menuTime={menuTime}
@@ -1141,7 +1172,7 @@ const _AppMain = () => {
         </div>
 
         {turnOnSection && <div className={` mobile_formFood ${!start && 'MB_slide_Left'}`}>
-          <_04MobileFormFood setProtectLoading={setProtectLoading}
+          <Sect04MobileFormFood setProtectLoading={setProtectLoading}
             ref={ref} menuId={menuId} listMenu={listMenu}
             inputListValue={inputListValue} inputCheck={inputCheck}
 
@@ -1152,7 +1183,7 @@ const _AppMain = () => {
             setActiveWindowIconPicker={setActiveWindowIconPicker}
             activeWindowIconPicker={activeWindowIconPicker} setListMenu={setListMenu} listMenuModel={listMenuModel}
             setCheckInputForm={setCheckInputForm} checkInputForm={checkInputForm} imgLoading={imgLoading}
-            getAllMenu={getAllMenu} loadingManual={loadingManual} clearForm={clearForm} checkEditImg={checkEditImg}
+            getAllMenu={getAllMenu} clearForm={clearForm} checkEditImg={checkEditImg}
             oneClickCat={oneClickCat}
             setOneClickCat={setOneClickCat}
             previewImg={previewImg}
@@ -1163,34 +1194,34 @@ const _AppMain = () => {
           />
         </div>}
         <div className={` mobile_formFood ${!onOffLangForm && 'MB_slide_Left'}`}>
-          <_04MobileLanguage setProtectLoading={setProtectLoading}
+          <Sect04MobileLanguage setProtectLoading={setProtectLoading}
             state={state} listMenu={listMenu} inputValue={inputValue}
             inputListValue={inputListValue} setOnOffLangForm={setOnOffLangForm} setStart={setStart} saveEditMenu={saveEditMenu}
             setCheckInputForm={setCheckInputForm} setListMenu={setListMenu} setMenuId={setMenuId} clearForm={clearForm} checkInputForm={checkInputForm} getAllMenu={getAllMenu}
           />
         </div>
         <div className={`mobile_function topColorPicker ${!activeWindowIconPicker && 'MB_slide_Down'}`}>
-          <_20IconPickerMobile setProtectLoading={setProtectLoading}
-            state={state} setState={setState} memoicon={memoicon} activeWindowIconPicker={activeWindowIconPicker}
+          <Sect20IconPickerMobile setProtectLoading={setProtectLoading}
+            state={state} setState={setState} activeWindowIconPicker={activeWindowIconPicker}
             setActiveWindowIconPicker={setActiveWindowIconPicker} setCheckInputForm={setCheckInputForm} />
         </div>
 
         <div className={`mobile_function ${!onOffTimePicker_MB && 'MB_slide_Down'}`}>
-          <_07TimePickerMobile setProtectLoading={setProtectLoading}
+          <Sect07TimePickerMobile setProtectLoading={setProtectLoading}
             navTime2TimePicker={navTime2TimePicker} setOnOffTimePicker_MB={setOnOffTimePicker_MB}
-            menuName={menuName} onOffMenuTime={onOffMenuTime} timeSetup={timeSetup} setTimeSetup={setTimeSetup} />
+            menuName={menuName} timeSetup={timeSetup} setTimeSetup={setTimeSetup} />
         </div>
 
         <div className={`mobile_function ${!onOffLangSetup_MB && 'MB_slide_Down'}`}>
-          <_08LanguageSetupMobile setProtectLoading={setProtectLoading}
-            setOnOffLangSetup_MB={setOnOffLangSetup_MB} navLang2LangSetUp={navLang2LangSetUp} setOnOffLangSetup={setOnOffLangSetup}
+          <Sect08LanguageSetupMobile setProtectLoading={setProtectLoading}
+            setOnOffLangSetup_MB={setOnOffLangSetup_MB} navLang2LangSetUp={navLang2LangSetUp}
             languageSetup={languageSetup} setLanguageSetup={setLanguageSetup} />
 
         </div>
 
         <div className={`mobile_ThemeFunction ${!onOffThemeSetup_MB && 'MB_slide_Left'}`}>
-          <_09ThemeSetupMobile setProtectLoading={setProtectLoading}
-            setOnOffThemeSetup_MB={setOnOffThemeSetup_MB} navTheme2ThemeSetUp={navTheme2ThemeSetUp}
+          <Sect09ThemeSetupMobile setProtectLoading={setProtectLoading}
+            setOnOffThemeSetup_MB={setOnOffThemeSetup_MB}
             restaurantName={restaurantName} setRestaurantName={setRestaurantName}
             setMBnavIcon={setMBnavIcon}
 
@@ -1246,14 +1277,59 @@ const _AppMain = () => {
           />
         </div>
 
+        <i className="x"> Extra Info-----------------------------------------------</i>
+        <div className={` mobile_function  ${!onOffExtra_MB && 'MB_slide_Down'}`}>
+          <Sect11ExtraInfo
+            setOnOffExtra_MB={setOnOffExtra_MB}
+            setRestaurantName={setRestaurantName}
+            restaurantName={restaurantName}
+            extraInfo={extraInfo}
+            setExtraInfo={setExtraInfo}
+            toggleScrollExtrainfo={toggleScrollExtrainfo}
+            setToggleScrollExtrainfo={setToggleScrollExtrainfo}
+          />
+        </div>
+
+
+        <div className={`mobile_function ${!onOffAccount_MB && 'MB_slide_Down'}`}>
+
+          <Sect12Account
+            setProtectLoading={setProtectLoading}
+            user={user}
+            onOffAccount_MB={onOffAccount_MB}
+            setOnOffAccount_MB={setOnOffAccount_MB}
+            accountPassword={accountPassword}
+            setAccountPassword={setAccountPassword}
+            subscriptionFromDB={subscriptionFromDB}
+            toggleScrollAccount={toggleScrollAccount}
+            setToggleScrollAccount={setToggleScrollAccount}
+          />
+        </div>
+
+
+
+        {/* <div className={`mobile_function ${!accountPassword && 'MB_slide_Left'}`}>
+
+          <Sect12AccountPassword
+            userEmail={user.email}
+            setProtectLoading={setProtectLoading}
+            setAccountPassword={setAccountPassword}
+            toggleScrollAccount={toggleScrollAccount}
+          />
+        </div> */}
+
+
+
+        <div className={`mobile_function ${!onOffSetting_MB && 'MB_slide_Down'}`}>
+          <Sect10OnOffSettingMobile setProtectLoading={setProtectLoading}
+            setOnOffSetting_MB={setOnOffSetting_MB} navOnOff2OnOffSetting={navOnOff2OnOffSetting}
+            onOffSetting={onOffSetting} setOnOffSetting={setOnOffSetting} />
+        </div>
+
+
         <div className="">
-          <div className={`mobile_function ${!onOffSetting_MB && 'MB_slide_Down'}`}>
-            <_10OnOffSettingMobile setProtectLoading={setProtectLoading}
-              setOnOffSetting_MB={setOnOffSetting_MB} navOnOff2OnOffSetting={navOnOff2OnOffSetting} onOffSetting={onOffSetting} setOnOffSetting={setOnOffSetting} />
-          </div>
 
-
-          <i className='x'>//- START MOBILE BAR //------------------------------------------------</i>
+          <i className='x'> START MOBILE BAR -----------------------------------------------</i>
 
           <div className="MC_IconFixed">
             <i className='x'> Home -----------------------------------------------</i>
@@ -1381,6 +1457,7 @@ const _AppMain = () => {
             <i className='x'> onOffExtra_MB-----------------------------------------------</i>
             <button onClick={() => {
               setOnOffExtra_MB(!onOffExtra_MB)
+              setToggleScrollExtrainfo(true)
             }}
               name='Manu1MB'
               className={`MC_Tab MB_None `} >
@@ -1411,16 +1488,50 @@ const _AppMain = () => {
               <img src={MBicon_Onoff} alt="" />
             </button>
 
+
+            <i className='x'> 12 Account-----------------------------------------------</i>
+            <button onClick={() => {
+              setOnOffAccount_MB(!onOffAccount_MB);
+              setToggleScrollAccount(true)
+            }}
+              name='Manu1MB'
+              className={`MC_Tab MB_None `} >
+              <img src={MBicon_User} alt="" />
+            </button>
+
+
+
             <i className='x'> 11 Log Out-----------------------------------------------</i>
             <button onClick={() => {
-              setOnOffSetting_MB(!onOffSetting_MB);
+
+              Swal.fire({
+                title: 'Are you sure, you want to Logout?',
+                showCancelButton: true,
+                confirmButtonText: 'Logout',
+                confirmButtonColor: '#d94100',
+
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  const user = UserPool.getCurrentUser()
+                  if (user) {
+                    user.signOut()
+                    sessionStorage.clear()
+                    localStorage.clear()
+                    window.location.reload(false);
+                  }
+
+                }
+              })
+
+
             }}
+
               name='Manu1MB'
               className={`MC_Tab MB_None `} >
               <img src={MBicon_Logout} alt="" />
             </button>
 
-            <i className='x'> 12 Empty-----------------------------------------------</i>
+            <i className='x'> 99 Empty-----------------------------------------------</i>
             <div className={`MB_empty`}>&nbsp;</div>
 
           </div>
@@ -1434,17 +1545,19 @@ const _AppMain = () => {
       </div>
 
       <div className={`simulation ${(onOffBanner_MB || onOffMenu1_MB || onOffMenu2_MB ||
-        onOffMenu3_MB || onOffTimePicker_MB || onOffLangSetup_MB || onOffFeedBAck_MB || onOffSetting_MB || onOffQRCCode_MB || onOffExtra_MB)
+        onOffMenu3_MB || onOffTimePicker_MB || onOffLangSetup_MB || onOffFeedBAck_MB || onOffSetting_MB || onOffQRCCode_MB || onOffExtra_MB || onOffAccount_MB
+        || accountPassword)
         && 'iframe_scale_Down'}`}
         style={{
           'position': `${(onOffBanner_MB || onOffMenu1_MB || onOffMenu2_MB || onOffThemeSetup_MB ||
-            onOffMenu3_MB || onOffTimePicker_MB || onOffLangSetup_MB || onOffFeedBAck_MB || onOffSetting_MB || onOffQRCCode_MB || onOffExtra_MB)
+            onOffMenu3_MB || onOffTimePicker_MB || onOffLangSetup_MB || onOffFeedBAck_MB || onOffSetting_MB || onOffQRCCode_MB || onOffExtra_MB || onOffAccount_MB
+            || accountPassword)
             ? 'fixed' : 'sticky'}`
         }}
 
       >
 
-        <_SimulationApp
+        <SectSimulationApp
           menuName={menuName}
 
           logoRestaurant={logoRestaurant}
@@ -1485,10 +1598,6 @@ const _AppMain = () => {
         />
 
       </div>
-
-
-
-
 
 
 

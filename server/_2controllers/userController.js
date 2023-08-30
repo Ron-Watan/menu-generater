@@ -26,21 +26,14 @@ const verifier = CognitoJwtVerifier.create({
 
 // const ses = new AWS.SES({ apiVersion: '2010-12-01' });
 
-
-
-
 export const register =  (req, res) => {
-  const { email } = req.body
+
+  req.body.userId = uuidv4()
   req.body.clientId = uuidv4()
 
-  stripe.customers.create(
-    { email }, { apiKey: process.env.STRIPE_SECRET_KEY }).then(customersStripe => {
-
-      req.body.stripeCustomerId = customersStripe.id
-
       Users.create(req.body).then(result => {
-        const { clientId, link, restaurantName,menuName, bannerImage, languageSetup, timeSetup, themeSetup, onOffSetting } = result;
-
+        const { clientId, link, restaurantName,menuName, bannerImage, languageSetup, timeSetup, themeSetup, onOffSetting,email } = result;
+        
         Clients.create({
           clientId: clientId,
           link: link,
@@ -53,9 +46,18 @@ export const register =  (req, res) => {
           onOffSetting: onOffSetting,
         })
 
+        stripe.customers.create(
+          { email }, { apiKey: process.env.STRIPE_SECRET_KEY }).then(customersStripe => {
+            Users.findOne({ email }).then(user => {
+              user.stripeCustomerId = customersStripe.id
+              user.save()
+            })
+      
+          })
+
         res.status(200).send({ message: `Your account has been successfully created`, success: true })
       }).catch(err => {
-        console.log(err)
+   
         if (err.keyValue.email) res.status(200).send({ message: "Email already exists", success: false })
         else if (err.keyValue.link) res.status(200).send({ message: "Restaurant Link Name already exists", success: false })
 
@@ -63,46 +65,63 @@ export const register =  (req, res) => {
       })
   
   
-    })
+ 
  
 }
+
+
+// export const register =  (req, res) => {
+//   const { email } = req.body
+//   req.body.userId = uuidv4()
+//   req.body.clientId = uuidv4()
+
+//   stripe.customers.create(
+//     { email }, { apiKey: process.env.STRIPE_SECRET_KEY }).then(customersStripe => {
+
+//       req.body.stripeCustomerId = customersStripe.id
+
+//       Users.create(req.body).then(result => {
+//         const { clientId, link, restaurantName,menuName, bannerImage, languageSetup, timeSetup, themeSetup, onOffSetting } = result;
+
+//         Clients.create({
+//           clientId: clientId,
+//           link: link,
+//           restaurantName:restaurantName,
+//           menuName: menuName,
+//           bannerImage: bannerImage,
+//           languageSetup: languageSetup,
+//           timeSetup: timeSetup,
+//           themeSetup: themeSetup,
+//           onOffSetting: onOffSetting,
+//         })
+
+//         res.status(200).send({ message: `Your account has been successfully created`, success: true })
+//       }).catch(err => {
+//         console.log(err)
+//         if (err.keyValue.email) res.status(200).send({ message: "Email already exists", success: false })
+//         else if (err.keyValue.link) res.status(200).send({ message: "Restaurant Link Name already exists", success: false })
+
+//         else res.send({ message: "Error creating account" })
+//       })
+  
+  
+//     })
+ 
+// }
 
 
 
 
 //- LOGIN
 export const login = (req, res) => {
-  const { email } = req.body
-
+  const { email,loginCode } = req.body
   Users.findOne({ email }).then(user => {
-
-    stripe.subscriptions.list(
-      {
-        customer: user.stripeCustomerId,
-        status: "active",
-        expand: ["data.default_payment_method"],
-      },
-      {
-        apiKey: process.env.STRIPE_SECRET_KEY,
-      }
-    ).then(result => {
-      if (result.data.length === 0) {
-        return res.send({
-
-          status: 'inActive',
- 
-        });
-      }
-      return res.send({
- 
-        status: 'active',
-
-      });
-
-
+    user.loginCode = loginCode
+    user.save()
+    res.send({
+      message: 'Success',
+      success: true
     })
-
-
   }).catch(err => {
     console.log("Error Logging")
     res.status(500).send({ message: "Error Logging", success: false, err })
@@ -161,8 +180,7 @@ export const getInfoUserToStore = (req, res) => {
   Users.findOne({ userId: req.proved.username })
     // .select('userId restaurentName menu menuName  bannerImage languageSetup timeSetup clientId link')
     .then(result => {
-      
-
+    
       if (!result) return res.status(200).send({ message: "User doues not exit", success: false })
       else {
 
