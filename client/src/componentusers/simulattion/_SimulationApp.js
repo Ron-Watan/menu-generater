@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import AcordionSubComp from './AcordionSubComp';
-
 import { createTheme, ThemeProvider } from '@mui/material';
 import SidebarSubComp from './SidebarSubComp';
 import FooterComponent from './FooterComponent';
@@ -18,20 +17,25 @@ import '../../styleClient/accordianClient.css';
 import SoLogo from '../../all-icon/social-icon/social.svg'
 
 
-const theme = createTheme({
-  typography: {
-    fontFamily: ['Roboto Slab', 'roboto slab'].join(','),
-  },
-});
 
-const dateTime = new Date();
-const h = dateTime.getHours();
-const m = dateTime.getMinutes();
-const s = dateTime.getSeconds();
-const nowTime = h * 60 * 60 + m * 60 + s;
+
 
 //= //=
 const _SimulationApp = (prop) => {
+  const theme = createTheme({
+    typography: {
+      fontFamily: ['', ''].join(','),
+    },
+  });
+  
+  const dateTime = new Date();
+  const h = dateTime.getHours();
+  const m = dateTime.getMinutes();
+  const s = dateTime.getSeconds();
+  const nowTime = h * 60 * 60 + m * 60 + s;
+
+
+
   // const photoHostName = `${process.env.REACT_APP_API}/user/photos/`
 
   //= Set Data\
@@ -83,7 +87,7 @@ const _SimulationApp = (prop) => {
 
 
   const onOffSideBarFn = (bol) => {
-    setOnOffSetting({ ...onOffSetting, ['sideBar']: bol })
+    setOnOffSetting({ ...onOffSetting, sideBar: bol })
   }
   const getClientMenu = () => {
     setLoadingManual(true);
@@ -145,7 +149,7 @@ const _SimulationApp = (prop) => {
           let newIndex2 = 0;
           let newIndex3 = 0;
 
-          getResault.menu.map((el, index) => {
+          getResault.menu.forEach((el, index) => {
             if (!el.icon_catagory) return;
 
 
@@ -274,95 +278,14 @@ const _SimulationApp = (prop) => {
   const sentfeedBack = () => {
     console.log('Hola')
   }
-  // const sentfeedBack = (e) => {
-
-
-  //   axios.post(`${process.env.REACT_APP_API}/clients/feedBack/${link}`, {
-  //     feedBack: {
-  //       pointStar: feedBackSMS.pointStar,
-  //       message: feedBackSMS.message,
-  //       date: new Date().toLocaleDateString(),
-  //       time: new Date().toLocaleTimeString(),
-  //       readMessage: true
-  //     }
-  //   })
-  //     .then(result => {
-  //       if (result.data.success) {
-
-  //         Swal.fire({
-  //           title: 'Thank You!',
-  //           text: 'for leaving feedback for us',
-  //           toast: true,
-
-  //           showConfirmButton: false,
-
-  //           iconColor: '#61b265',
-
-  //           timer: 2500,
-  //         })
-  //         setFeedBackSMS({
-  //           pointStar: 0,
-  //           message: ''
-  //         })
-
-
-  //       } else {
-
-  //       }
-  //     }).catch(err => {
-  //       console.log("Can't not connect the server")
-  //       Swal.fire("Can't not connect the server")
-  //     })
-  // }
-
-
-
-  //=-----------------------------------------------
-  // function arrayBufferToBase64(buffer) {
-  //   var binary = '';
-  //   var bytes = [].slice.call(new Uint8Array(buffer));
-  //   bytes.forEach((b) => (binary += String.fromCharCode(b)));
-  //   return window.btoa(binary);
-  // }
-
-  // const getImage = () => {
-  //   const imgId = link + 'restlogo'
-  //   axios
-  //     .post(`${process.env.REACT_APP_API}/user/images/preview`, { imgId: imgId })
-  //     .then((result) => {
-
-  //       if (!result.data.images) {
-  //         return setRestaurantLogo('')
-
-  //       }
-
-  //       const getResult = result.data.images;
-  //       const base64Flag = 'data:image/png;base64,';
-  //       const imageStr = arrayBufferToBase64(getResult.img.data.data);
-  //       const tagImage = base64Flag + imageStr;
-
-
-  //       setRestaurantLogo(tagImage);
-
-  //     })
-  //     .catch((err) => {
-  //       console.error(err);
-  //     });
-  // };
-
-
-
-
-
-
-
-
+ 
 
   //=-----------------------------------------------
 
   useEffect(() => {
     if (prop.user.userId) getClientMenu();
     document.body.style.backgroundColor = prop.bodyStyle.bodyBgColor
+    // eslint-disable-next-line
   }, [prop.user]);
 
 
@@ -678,7 +601,7 @@ const _SimulationApp = (prop) => {
                     setTriggerIcon={setTriggerIcon}
                     key={index}
 
-                    setLanguage={setLanguage}
+                  
                     language={language}
                     // prop.themeSetup={prop.themeSetup}
                     favoritHeart={favoritHeart}
@@ -710,7 +633,7 @@ const _SimulationApp = (prop) => {
                     setTriggerIcon={setTriggerIcon}
                     key={index}
 
-                    setLanguage={setLanguage}
+                
                     language={language}
                     // prop.themeSetup={prop.themeSetup}
                     description={description}
@@ -740,7 +663,7 @@ const _SimulationApp = (prop) => {
                     setTriggerIcon={setTriggerIcon}
                     key={index}
                     sideBar={sideBar}
-                    setLanguage={setLanguage}
+                
                     language={language}
 
                     // prop.themeSetup={prop.themeSetup}
@@ -799,15 +722,6 @@ const _SimulationApp = (prop) => {
         </div>
 
 
-
-
-
-
-
-
-
-
-
         <div className=' extraSpace2'
           style={{
             'fontFamily': `${prop.bodyStyle?.bodyFontFamily}`,
@@ -825,7 +739,7 @@ const _SimulationApp = (prop) => {
               </div>}
               {prop.extraInfo.email && <div className="">{prop.extraInfo.email}</div>}
               <div className="flex_sologo">
-                {prop.extraInfo.website && <a href={prop.extraInfo.website} target="_blank" className="box_soLogo"
+                {prop.extraInfo.website && <a href={prop.extraInfo.website} target="_blank"  rel="noreferrer" className="box_soLogo"
                   style={{
                     'border': `.5px solid ${prop.bodyStyle.bodyFonttColor}`
                   }}>
@@ -834,7 +748,7 @@ const _SimulationApp = (prop) => {
                     <use xlinkHref={`${SoLogo}#social-1`} />
                   </svg>
                 </a>}
-                {prop.extraInfo.instagram && <a href={prop.extraInfo.instagram} target="_blank" className="box_soLogo"
+                {prop.extraInfo.instagram && <a href={prop.extraInfo.instagram} target="_blank"  rel="noreferrer" className="box_soLogo"
                   style={{
                     'border': `.5px solid ${prop.bodyStyle.bodyFonttColor}`
                   }}>
@@ -842,7 +756,7 @@ const _SimulationApp = (prop) => {
                     <use xlinkHref={`${SoLogo}#social-2`} />
                   </svg>
                 </a>}
-                {prop.extraInfo.facebook && <a href={prop.extraInfo.facebook} target="_blank" className="box_soLogo"
+                {prop.extraInfo.facebook && <a href={prop.extraInfo.facebook} target="_blank"  rel="noreferrer" className="box_soLogo"
                   style={{
                     'border': `.5px solid ${prop.bodyStyle.bodyFonttColor}`
                   }}>
@@ -850,7 +764,7 @@ const _SimulationApp = (prop) => {
                     <use xlinkHref={`${SoLogo}#social-3`} />
                   </svg>
                 </a>}
-                {prop.extraInfo.youtube && <a href={prop.extraInfo.youtube} target="_blank" className="box_soLogo"
+                {prop.extraInfo.youtube && <a href={prop.extraInfo.youtube} target="_blank"  rel="noreferrer" className="box_soLogo"
                   style={{
                     'border': `.5px solid ${prop.bodyStyle.bodyFonttColor}`
                   }}>
@@ -858,7 +772,7 @@ const _SimulationApp = (prop) => {
                     <use xlinkHref={`${SoLogo}#social-4`} />
                   </svg>
                 </a>}
-                {prop.extraInfo.tiktok && <a href={prop.extraInfo.tiktok} target="_blank" className="box_soLogo"
+                {prop.extraInfo.tiktok && <a href={prop.extraInfo.tiktok} target="_blank"  rel="noreferrer" className="box_soLogo"
                   style={{
                     'border': `.5px solid ${prop.bodyStyle.bodyFonttColor}`
                   }}>
@@ -869,23 +783,6 @@ const _SimulationApp = (prop) => {
               </div>
             </div>
        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

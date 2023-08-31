@@ -218,7 +218,7 @@ const _03BannerMobile = (prop) => {
       showDenyButton: true,
       showCancelButton: true,
       confirmButtonText: 'Delete',
-      denyButtonText: `Don't delete`,
+      denyButtonText: `No`,
       confirmButtonColor: ' #dc3741',
       denyButtonColor: '#f56e4f',
     }).then((resultFire) => {

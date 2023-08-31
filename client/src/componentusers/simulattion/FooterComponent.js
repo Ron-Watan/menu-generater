@@ -22,7 +22,6 @@ import MBiconClose from '../../all-icon/button-icon/MBclose.svg'
 
 const FooterComponent = (prop) => {
 
-
   const [activeLang, setActiveLang] = useState(false)
 
 

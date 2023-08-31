@@ -165,9 +165,6 @@ const AcordionSubComp = (prop) => {
 
 
 
-
-
-
   // window.addEventListener("load", event => {
   //   // var image = document.querySelector('img');
   //   console.log('www')

@@ -922,7 +922,7 @@
 }
 .MB_slide_Left {
   transform: translateX(100%);
-  transition: all 0.2s;
+  transition: all 0.3s;
   /* top:  100rem !important; */
 }
 
@@ -965,7 +965,7 @@
 }
 .MB_sizeBigger {
   transform: scale(1.02);
-  transition: all 0.2s;
+  transition: all 0.3s;
 }
 .w_h_3 {
   width: 3rem;
@@ -1929,10 +1929,18 @@
   color: #ef4444;
   border-radius: 0.8rem;
 }
+.swal2-show {
+  animation: unset !important;
+  border-radius: .5rem;
+  
+}
 
 :where(.swal2-popup) {
   /* width: unset !important; */
-  font-family: 'Outfit', sans-serif !important;
+  font-family: 'Inter', sans-serif !important;
+  padding: 1rem 1rem  !important;
+  width:unset !important;
+  font-size: .95rem !important;
 }
 
 :where(.swal2-actions) {

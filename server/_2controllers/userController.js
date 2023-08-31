@@ -58,8 +58,8 @@ export const register =  (req, res) => {
         res.status(200).send({ message: `Your account has been successfully created`, success: true })
       }).catch(err => {
    
-        if (err.keyValue.email) res.status(200).send({ message: "Email already exists", success: false })
-        else if (err.keyValue.link) res.status(200).send({ message: "Restaurant Link Name already exists", success: false })
+        if (err.keyValue.email) res.status(200).send({ message: "existsEmail", success: false })
+        else if (err.keyValue.link) res.status(200).send({ message: "existsLink", success: false })
 
         else res.send({ message: "Error creating account" })
       })

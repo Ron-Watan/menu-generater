@@ -17,13 +17,12 @@ import MBcoms from '../all-icon/button-icon/coms.svg'
 
 import axios from 'axios';
 import { ticketPass } from '../protectors/authorize';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { hideLoading, showLoading } from '../redux/alertSlice';
 
 
 const _FeedBackMobile = (prop) => {
 
-  const { user } = useSelector((state) => state.user);
   const dispath = useDispatch();
 
   const [unSeenChange, setUnseenChange] = useState(false)
@@ -87,7 +86,7 @@ const _FeedBackMobile = (prop) => {
   const getFeedBack = () => {
     dispath(showLoading())
     axios
-      .post(`${process.env.REACT_APP_API}/user/getFeedBack`, { clientId: user?.clientId }, ticketPass)
+      .post(`${process.env.REACT_APP_API}/user/getFeedBack`, { clientId: prop.user?.clientId }, ticketPass)
       .then((result) => {
         if (result.data.success) {
           const getReult = result.data.bothFeedBack;
@@ -141,7 +140,7 @@ const _FeedBackMobile = (prop) => {
       .post(`${process.env.REACT_APP_API}/user/saveFeedBack`, {
 
 
-        clientId: user.clientId,
+        clientId: prop.user.clientId,
         unseenFeedBack: unseeenFeedBack,
         seenFeedBack: seeenFeedBack
         // unseenFeedBack: saveBothfb.unseen,
@@ -239,9 +238,9 @@ const _FeedBackMobile = (prop) => {
 
 
   useEffect(() => {
-    if (oneTimeRun && user) getFeedBack();
+    if (oneTimeRun && prop.user) getFeedBack();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+  }, [prop.user]);
 
 
 

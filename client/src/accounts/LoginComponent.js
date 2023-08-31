@@ -16,6 +16,9 @@ const LoginComponent = () => {
 
   const dispath = useDispatch()
 
+  const [errorInput, setErrorInput] = useState(false)
+
+
   const [state, setState] = useState({
     email: '',
     password: ''
@@ -24,8 +27,17 @@ const LoginComponent = () => {
 
   const inputValue = (name) => (even) => {
     setState({ ...state, [name]: even.target.value })
+    setErrorInput(false)
   }
   const navigate = useNavigate()
+
+  const [errorEmailrequire, setErrorEmailrequire] = useState(false)
+
+  const [errorPWrequire, setErrorPWrequire] = useState(false)
+
+
+
+
 
 
 
@@ -34,6 +46,15 @@ const LoginComponent = () => {
   const submitData = (e) => {
     e.preventDefault()
     dispath(showLoading())
+
+    if (!email) setErrorEmailrequire(true)
+    if (!password) setErrorPWrequire(true)
+
+    if (!email || !password) return dispath(hideLoading())
+
+
+
+
     /// Cognito //
     const userData = new CognitoUser({
       Username: email,
@@ -83,8 +104,10 @@ const LoginComponent = () => {
         dispath(hideLoading())
       },
       onFailure: (err) => {
-        console.log('fontend');
         console.log(err);
+        setErrorInput(true)
+        dispath(hideLoading())
+
       },
       newPasswordRequired: (result) => {
         console.log('new password + ' + result);
@@ -114,25 +137,22 @@ const LoginComponent = () => {
           <form className="Acc_formBox px-8 pt-6 pb-8 mb-4">
 
             <div className="mb-4 Acc_boxInputLog">
-
-
-
-              <input value={email} onChange={inputValue('email')} className="Acc_inputLogin " id="username" type="text" placeholder="Email Address" />
+              <input value={email} onChange={inputValue('email')} className={`Acc_inputLogin ${(errorInput || errorEmailrequire) && 'borderRed'}`} id="email" type="email" placeholder="Email Address" />
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="" className="Acc_iconLog">
                 <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-5.5-2.5a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0zM10 12a5.99 5.99 0 00-4.793 2.39A6.483 6.483 0 0010 16.5a6.483 6.483 0 004.793-2.11A5.99 5.99 0 0010 12z" clipRule="evenodd" />
               </svg>
-
-
             </div>
 
             <div className="mb-10 Acc_boxInputLog">
               {/* <input value={password} onChange={inputValue('password')} className="appearance-none border-1 border-slate-300 hover:border-blue-500 rounded w-full py-3 px-4 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="Password" /> */}
 
-              <input value={password} onChange={inputValue('password')} className="Acc_inputLogin" id="password" type="password" placeholder="Password" />
+              <input value={password} onChange={inputValue('password')} className={`Acc_inputLogin ${(errorInput || errorPWrequire) && 'borderRed'}`} id="password" type="password" placeholder="Password" />
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="" className="Acc_iconLog Acc_iconKey">
                 <path fillRule="evenodd" d="M8 7a5 5 0 113.61 4.804l-1.903 1.903A1 1 0 019 14H8v1a1 1 0 01-1 1H6v1a1 1 0 01-1 1H3a1 1 0 01-1-1v-2a1 1 0 01.293-.707L8.196 8.39A5.002 5.002 0 018 7zm5-3a.75.75 0 000 1.5A1.5 1.5 0 0114.5 7 .75.75 0 0016 7a3 3 0 00-3-3z" clipRule="evenodd" />
               </svg>
 
+
+              {errorInput && <div className="errorInputText">Incorrect username or password</div>}
             </div>
 
             <div className="Acc_loginBTNBox mb-4">

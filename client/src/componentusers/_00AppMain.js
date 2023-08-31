@@ -4,8 +4,7 @@ import Swal from 'sweetalert2';
 import { ticketPass } from '../protectors/authorize';
 import { useDispatch, useSelector } from 'react-redux';
 import { hideLoading, showLoading } from '../redux/alertSlice';
-import { setUser } from '../redux/userSlice';
-// import _MenuComponent from '../components/_MenuComponent';
+import { setUser } from '../redux/userSlice'
 import { useNavigate } from 'react-router-dom'
 import '../style/_main.css';
 import '../style/mainForm.css';
@@ -36,7 +35,7 @@ import Sect09ThemeSetupMobile from './_09ThemeSetupMobile';
 import Sect10OnOffSettingMobile from './_10OnOffSettingMobile';
 import Sect11ExtraInfo from './_11ExtraInfo';
 import Sect12Account from './_12Account';
-
+import Sect12AccountPassword from './_12AccountPassword';
 
 // import _MenuComponent from '../../src/components/_MenuComponent'
 
@@ -58,11 +57,7 @@ import MBicon_Theme from '../all-icon/mobile-bar/theme.svg'
 import MBicon_Logout from '../all-icon/mobile-bar/logout.svg'
 import MBicon_Onoff from '../all-icon/mobile-bar/onoff.svg'
 import MBicon_Contact from '../all-icon/mobile-bar/contact.svg'
-
 import MBicon_StarNoti from '../all-icon/mobile-bar/starnoti.svg'
-// import styled from '@emotion/styled';
-// import { S3Client, PutObjectCommand, S3 } from "@aws-sdk/client-s3"
-// import AWS from 'aws-sdk'
 import * as Util from "../componentusers/_99Utility"
 import UserPool from "../UserPool"
 
@@ -71,23 +66,6 @@ import UserPool from "../UserPool"
 
 const _AppMain = () => {
 
-  // function getCurrentDimension() {
-  //   return {
-  //     width: window.innerWidth,
-  //     height: window.innerHeight,
-  //   };
-  // }
-  // const [screenSize, setScreenSize] = useState(getCurrentDimension());
-  // useEffect(() => {
-  //   const updateDimension = () => {
-  //     setScreenSize(getCurrentDimension());
-  //   };
-  //   window.addEventListener('resize', updateDimension);
-
-  //   return () => {
-  //     window.removeEventListener('resize', updateDimension);
-  //   };
-  // }, [screenSize]);
 
   //1//
 
@@ -116,9 +94,7 @@ const _AppMain = () => {
   const [categoryList_1, setCategoryList_1] = useState([])
   const [categoryList_2, setCategoryList_2] = useState([])
   const [categoryList_3, setCategoryList_3] = useState([])
-  // console.log(categoryList_1)
-  // console.log(categoryList_2)
-  // console.log(categoryList_3)
+
   const [menuName, setMenuName] = useState({
     menu_1: '',
     menu_2: '',
@@ -306,8 +282,7 @@ const _AppMain = () => {
 
   const [imgLoading, setImgLoading] = useState(false)
 
-  //- //= //-
-  //- //= //-
+
   const resizeFile = (file) =>
     new Promise((resolve) => {
       dispath(showLoading())
@@ -851,7 +826,7 @@ const _AppMain = () => {
   //=///////=//=//=//=//=//=////////////////////////////////////////////////
   const [themeSetup, setThemeSetup] = useState('')
 
-    // eslint-disable-next-line 
+  // eslint-disable-next-line 
   const [checkChangeTheme, setCheckChangeTheme] = useState(false)
 
   //  ----------------------------------------------------------------------------------------------
@@ -1047,6 +1022,7 @@ const _AppMain = () => {
 
   }
 
+
   useEffect(() => {
     if (oneTimeCheck && user.userId) checkSubscription()
     // eslint-disable-next-line 
@@ -1059,7 +1035,7 @@ const _AppMain = () => {
 
   const [previewImg, setPreviewImg] = useState(iconPhoto)
 
-      // eslint-disable-next-line 
+  // eslint-disable-next-line 
   const { loading } = useSelector((state) => state.alerts);
 
   //-///=///-///=///-///=///-///=///-   END FUNCTION   ///-///=///-///=///-///=///-///=///-
@@ -1090,6 +1066,7 @@ const _AppMain = () => {
             setGetStarNotification={setGetStarNotification}
             setTurnOnSection={setTurnOnSection}
             turnOnSection={turnOnSection}
+            user={user}
           />
         </div>
 
@@ -1308,7 +1285,7 @@ const _AppMain = () => {
 
 
 
-        {/* <div className={`mobile_function ${!accountPassword && 'MB_slide_Left'}`}>
+        <div className={`mobile_function ${!accountPassword && 'MB_slide_Left'}`}>
 
           <Sect12AccountPassword
             userEmail={user.email}
@@ -1316,7 +1293,7 @@ const _AppMain = () => {
             setAccountPassword={setAccountPassword}
             toggleScrollAccount={toggleScrollAccount}
           />
-        </div> */}
+        </div>
 
 
 
