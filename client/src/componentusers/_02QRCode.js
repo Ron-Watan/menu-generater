@@ -254,12 +254,12 @@ const _02QRCode = (prop) => {
 
   const [showSize, setShowSize] = useState(false)
 
-
-
   const refresh = () => {
     qrCode.append(ref.current);
     qrCode.update(ref.current);
+
   }
+
 
   useEffect(() => {
     refresh()
@@ -352,6 +352,7 @@ const _02QRCode = (prop) => {
 
             <div className="QR_flex2 MB_G3">
               <button onClick={() => {
+             
                 setTimeout(() => {
                   qrCodeSetUpFn('levelCode', 'L')
                 }, 50);
@@ -360,6 +361,7 @@ const _02QRCode = (prop) => {
                 }, 100);
                 setTimeout(() => {
                   qrCodeSetUpFn('levelCode', qrCodeSetUp.levelCode)
+                  setCheckQRcodeChange(false)
                 }, 200);
 
 

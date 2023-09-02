@@ -13,7 +13,7 @@ function _12Account(prop) {
   let date = new Date(prop.subscriptionFromDB.subscriptionEnd * 1000)
   let subscriptionEnd = `${monthNames[date.getMonth()]} ${date.getDate()} ${date.getFullYear()}`
 
-
+  console.log(new Date(date))
   const editPayment = () => {
 
     axios

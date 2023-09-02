@@ -18,21 +18,42 @@ function Subscription() {
       .post(`${process.env.REACT_APP_API}/user/checkSubscription`, { email: user.email }, ticketPass)
       .then((result) => {
         const getReult = result.data.status;
-
         if (getReult === 'active') {
-
           navigate('/app')
-
         } else if (getReult === 'inActive') {
 
           axios
             .get(`${process.env.REACT_APP_API}/user/getSubscription`, ticketPass)
-            .then(result => {
-              const getReult = result.data.subPackage.data[0]
+            .then(resultDB1 => {
+              const getReult1 = resultDB1.data.subPackage.data[0]
+              setSubscriptionPack(getReult1)
+              axios
+                .post(`${process.env.REACT_APP_API}/user/subscription`, { email: user.email, priceId: getReult1.id }, ticketPass)
+                .then((resultDB2) => {
 
-              setVisblePack(true)
-              setSubscriptionPack(getReult)
+                  if (resultDB2.data.success) {
+                  
+                    const getReult2 = resultDB2.data.subPackage;
+                    window.location.href = getReult2.url
+                  } else {
+                  }
+                })
+                .catch((err) => {
+                });
 
+
+
+
+
+
+
+
+
+
+
+
+
+              // submitSubscription()
 
             })
 
@@ -51,7 +72,6 @@ function Subscription() {
 
 
   const submitSubscription = () => {
-    // dispath(showLoading())
     axios
       .post(`${process.env.REACT_APP_API}/user/subscription`, { email: user.email, priceId: subscriptionPack.id }, ticketPass)
       .then((result) => {
@@ -59,11 +79,9 @@ function Subscription() {
           const getReult = result.data.subPackage;
           window.location.href = getReult.url
         } else {
-
         }
       })
       .catch((err) => {
-
       });
   };
 

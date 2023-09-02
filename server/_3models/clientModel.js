@@ -55,7 +55,10 @@ const clientSchema = mongoose.Schema(
     onOffSetting: {
       type: 'Object',
       default: {},
-    }
+    },
+    subscriptionActive: {
+      type: String,
+    },
 
   },
   { timestamps: true }

@@ -16,7 +16,7 @@ const LoginComponent = () => {
 
   const dispath = useDispatch()
 
-  const [errorInput, setErrorInput] = useState(false)
+
 
 
   const [state, setState] = useState({
@@ -27,16 +27,25 @@ const LoginComponent = () => {
 
   const inputValue = (name) => (even) => {
     setState({ ...state, [name]: even.target.value })
-    setErrorInput(false)
+    setWrongEmailPass('')
+    setErrorEmailrequire(false)
+    setErrorEmail(false)
+
+    setErrorPWrequire(false)
+
   }
   const navigate = useNavigate()
 
+  const [wrongEmailPass, setWrongEmailPass] = useState('')
+
+
   const [errorEmailrequire, setErrorEmailrequire] = useState(false)
+  const [errorEmail, setErrorEmail] = useState(false)
 
   const [errorPWrequire, setErrorPWrequire] = useState(false)
 
 
-
+  // let trry = { "expireAt": new Date('September 2, 2023 06:40:00') }
 
 
 
@@ -44,16 +53,17 @@ const LoginComponent = () => {
 
 
   const submitData = (e) => {
+    sessionStorage.clear()
+    localStorage.clear()
     e.preventDefault()
     dispath(showLoading())
-
+    console.log('ddddd')
     if (!email) setErrorEmailrequire(true)
+    else if (!(String(email).match(/^\S+@\S+\.\S+$/))) setErrorEmail(true)
+
     if (!password) setErrorPWrequire(true)
 
-    if (!email || !password) return dispath(hideLoading())
-
-
-
+    if (!email || !password || (!(String(email).match(/^\S+@\S+\.\S+$/)))) return dispath(hideLoading())
 
     /// Cognito //
     const userData = new CognitoUser({
@@ -73,6 +83,8 @@ const LoginComponent = () => {
         // authenticate(tokenName, () => navigate('/app'))
         // setState({ ...state, email: '', password: '' })
         const tokenName = 'CognitoIdentityServiceProvider.' + result.getAccessToken().payload.client_id + '.' + result.getAccessToken().payload.username + '.accessToken'
+
+
         authenticate(tokenName, () => navigate('/app'))
         setState({ ...state, email: '', password: '' })
 
@@ -104,8 +116,11 @@ const LoginComponent = () => {
         dispath(hideLoading())
       },
       onFailure: (err) => {
-        console.log(err);
-        setErrorInput(true)
+
+        if (err.message === 'User is not confirmed') return
+
+        console.log(err.message);
+        setWrongEmailPass(err.message)
         dispath(hideLoading())
 
       },
@@ -137,22 +152,24 @@ const LoginComponent = () => {
           <form className="Acc_formBox px-8 pt-6 pb-8 mb-4">
 
             <div className="mb-4 Acc_boxInputLog">
-              <input value={email} onChange={inputValue('email')} className={`Acc_inputLogin ${(errorInput || errorEmailrequire) && 'borderRed'}`} id="email" type="email" placeholder="Email Address" />
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="" className="Acc_iconLog">
+              <input value={email} onChange={inputValue('email')} className={`Acc_inputLogin ${(wrongEmailPass || errorEmailrequire || errorEmail) && 'borderRed'}`} id="email" type="email" placeholder="Email Address" maxLength="30" />
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="" className={`Acc_iconLog ${(wrongEmailPass || errorEmailrequire) && 'AccRed'}`}>
                 <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-5.5-2.5a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0zM10 12a5.99 5.99 0 00-4.793 2.39A6.483 6.483 0 0010 16.5a6.483 6.483 0 004.793-2.11A5.99 5.99 0 0010 12z" clipRule="evenodd" />
               </svg>
+              {errorEmail && <div className="errorInputTextRe">Invalid email address</div>}
+
             </div>
 
             <div className="mb-10 Acc_boxInputLog">
               {/* <input value={password} onChange={inputValue('password')} className="appearance-none border-1 border-slate-300 hover:border-blue-500 rounded w-full py-3 px-4 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="Password" /> */}
 
-              <input value={password} onChange={inputValue('password')} className={`Acc_inputLogin ${(errorInput || errorPWrequire) && 'borderRed'}`} id="password" type="password" placeholder="Password" />
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="" className="Acc_iconLog Acc_iconKey">
+              <input value={password} onChange={inputValue('password')} className={`Acc_inputLogin ${(wrongEmailPass || errorPWrequire) && 'borderRed'}`} id="password" type="password" placeholder="Password" maxLength="50" />
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="" className={`Acc_iconLog Acc_iconKey ${(wrongEmailPass || errorPWrequire) && 'AccRed'}`}>
                 <path fillRule="evenodd" d="M8 7a5 5 0 113.61 4.804l-1.903 1.903A1 1 0 019 14H8v1a1 1 0 01-1 1H6v1a1 1 0 01-1 1H3a1 1 0 01-1-1v-2a1 1 0 01.293-.707L8.196 8.39A5.002 5.002 0 018 7zm5-3a.75.75 0 000 1.5A1.5 1.5 0 0114.5 7 .75.75 0 0016 7a3 3 0 00-3-3z" clipRule="evenodd" />
               </svg>
 
 
-              {errorInput && <div className="errorInputText">Incorrect username or password</div>}
+              {wrongEmailPass && <div className="errorInputText">{wrongEmailPass}</div>}
             </div>
 
             <div className="Acc_loginBTNBox mb-4">
@@ -161,7 +178,7 @@ const LoginComponent = () => {
               </button>
             </div>
             <div className="Acc_loginBTNBox mb-4 Font_BlueLog">
-              <Link to="/forgotPassword" className="" type="submit">
+              <Link to="/forgotPassword" state={{ email: email }} className="" type="submit">
                 Forgot your Password?
               </Link>
             </div>

@@ -1,5 +1,3 @@
-
-
 .errorInputText {
   width: 100%;
   position: absolute;
@@ -106,4 +104,22 @@ align-items: center; */
 }
 .Acc_textTitle {
   font-size: 1.1rem;
+}
+
+.Acc_codeInputBox {
+  display: flex;
+  justify-content: center;
+}
+.Acc_codeInput {
+  display: flex;
+  position: relative;
+  width: 70%;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Acc_codeCenter {
+  text-align: center;
+  padding-right: 2.5rem;
 }

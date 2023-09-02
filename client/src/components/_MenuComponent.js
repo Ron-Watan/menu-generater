@@ -95,11 +95,11 @@ const _MenuComponent = () => {
   const { menuName, banner, sideBar, filter, vetgeterian, vegan, gluten_free, halal, description, accordian, footbar, langIcon, favoritHeart, feedBack } = onOffSetting
   //=-----------------------------------------------
 
-
-  const [extraInfo, setExtraInfo] = useState({
-    address_1: '', address_2: '', phone: '',
-    email: '', website: '', instagram: '', facebook: '', youtube: '', tiktok: ''
-  });
+  const [extraInfo, setExtraInfo] = useState({});
+  // const [extraInfo, setExtraInfo] = useState({
+  //   address_1: '', address_2: '', phone: '',
+  //   email: '', website: '', instagram: '', facebook: '', youtube: '', tiktok: ''
+  // });
 
 
   //=-----------------------------------------------
@@ -389,7 +389,6 @@ const _MenuComponent = () => {
   // }, [link]);
   useEffect(() => {
     getClientMenu();
-
     // eslint-disable-next-line
   }, []);
   // document.body.style.backgroundColor = themeSetup.body.bodyBgColor
@@ -850,15 +849,15 @@ const _MenuComponent = () => {
       >
         <div className="inFoClient">
           <div className="inFoClient_Name">{restaurantName}</div>
-          {extraInfo.address_1 && <div className="">{extraInfo.address_1}</div>}
-          {extraInfo.address_2 && <div className="">{extraInfo.address_2}</div>}
+          {extraInfo?.address_1 && <div className="">{extraInfo?.address_1}</div>}
+          {extraInfo?.address_2 && <div className="">{extraInfo?.address_2}</div>}
 
-          {extraInfo.phone && <div className="flex">
-            <div className="">{extraInfo.phone}</div>
+          {extraInfo?.phone && <div className="flex">
+            <div className="">{extraInfo?.phone}</div>
           </div>}
-          {extraInfo.email && <div className="">{extraInfo.email}</div>}
+          {extraInfo?.email && <div className="">{extraInfo?.email}</div>}
           <div className="flex_sologo">
-            {extraInfo.website && <a href={extraInfo.website} target="_blank" rel="noreferrer" className="box_soLogo"
+            {extraInfo?.website && <a href={extraInfo?.website} target="_blank" rel="noreferrer" className="box_soLogo"
               style={{
                 'border': `.5px solid ${themeSetup.body.bodyFonttColor}`
               }}>
@@ -867,7 +866,7 @@ const _MenuComponent = () => {
                 <use xlinkHref={`${SoLogo}#social-1`} />
               </svg>
             </a>}
-            {extraInfo.instagram && <a href={extraInfo.instagram} target="_blank" rel="noreferrer" className="box_soLogo"
+            {extraInfo?.instagram && <a href={extraInfo?.instagram} target="_blank" rel="noreferrer" className="box_soLogo"
               style={{
                 'border': `.5px solid ${themeSetup.body.bodyFonttColor}`
               }}>
@@ -875,7 +874,7 @@ const _MenuComponent = () => {
                 <use xlinkHref={`${SoLogo}#social-2`} />
               </svg>
             </a>}
-            {extraInfo.facebook && <a href={extraInfo.facebook} target="_blank" rel="noreferrer" className="box_soLogo"
+            {extraInfo?.facebook && <a href={extraInfo?.facebook} target="_blank" rel="noreferrer" className="box_soLogo"
               style={{
                 'border': `.5px solid ${themeSetup.body.bodyFonttColor}`
               }}>
@@ -883,7 +882,7 @@ const _MenuComponent = () => {
                 <use xlinkHref={`${SoLogo}#social-3`} />
               </svg>
             </a>}
-            {extraInfo.youtube && <a href={extraInfo.youtube} target="_blank" rel="noreferrer" className="box_soLogo"
+            {extraInfo?.youtube && <a href={extraInfo?.youtube} target="_blank" rel="noreferrer" className="box_soLogo"
               style={{
                 'border': `.5px solid ${themeSetup.body.bodyFonttColor}`
               }}>
@@ -891,7 +890,7 @@ const _MenuComponent = () => {
                 <use xlinkHref={`${SoLogo}#social-4`} />
               </svg>
             </a>}
-            {extraInfo.tiktok && <a href={extraInfo.tiktok} target="_blank" rel="noreferrer" className="box_soLogo"
+            {extraInfo?.tiktok && <a href={extraInfo?.tiktok} target="_blank" rel="noreferrer" className="box_soLogo"
               style={{
                 'border': `.5px solid ${themeSetup.body.bodyFonttColor}`
               }}>

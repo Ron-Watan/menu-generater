@@ -463,6 +463,10 @@
   display: flex;
   align-items: center;
 }
+.MC_rq{
+  top: 7rem;
+  left: 0.5rem;
+}
 .MC_IconFixed::-webkit-scrollbar {
   display: none;
 }

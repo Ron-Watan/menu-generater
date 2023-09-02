@@ -4,8 +4,12 @@ const userSchema = mongoose.Schema(
   {
     userId: {
       type: String,
+      required: true,
       unique: true,
     },
+
+
+    // createdAt: { type: Date, expires: 15, default: Date.now },
     email: {
       type: String,
       required: true,
@@ -14,6 +18,7 @@ const userSchema = mongoose.Schema(
     restaurantName: {
       type: String,
       required: true,
+      default: '',
     },
     link: {
       type: String,
@@ -23,8 +28,7 @@ const userSchema = mongoose.Schema(
 
     stripeCustomerId: {
       type: String,
-      // required: true,
-      unique: true
+      // unique: true
     },
 
     subscriptionActive: {
@@ -44,16 +48,12 @@ const userSchema = mongoose.Schema(
 
     },
 
-
-
-
-
-
-
     onOffSetting: {
       type: 'Object',
       default: {},
     },
+
+
     extraInfo: {
       type: 'Object',
       default: {
@@ -61,12 +61,6 @@ const userSchema = mongoose.Schema(
         email: '', website: '', instagram: '', facebook: '', youtube: '', tiktok: ''
       },
     },
-    // password: {
-    //   type: String,
-    //   required: true,
-    // },
-
-
 
 
     firstName: {
@@ -186,10 +180,18 @@ const userSchema = mongoose.Schema(
       type: Array,
       default: [],
     },
+
+
     loginCode: {
       type: String,
       default: '',
     },
+
+    redsnaq: {
+      type: String,
+      default: '',
+    },
+
 
   },
   { timestamps: true }

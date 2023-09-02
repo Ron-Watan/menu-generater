@@ -9,16 +9,33 @@ import { useDispatch } from 'react-redux'
 import _00Navigation from '../componenthome/_00Navigation'
 import '../accounts/styleAccount.css'
 import { CognitoUserAttribute } from 'amazon-cognito-identity-js'
+import UserPool from "../UserPool"
 import { CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js'
+
+import { config, CognitoIdentityServiceProvider as _CognitoIdentityServiceProvider } from 'aws-sdk';
+config.setPromisesDependency(require('bluebird'));
+var CognitoIdentityServiceProvider = new _CognitoIdentityServiceProvider({
+  apiVersion: '2019-11-07',
+  region: process.env.REGION
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 const RegisterComponent = () => {
-
   const dispath = useDispatch()
   const navigate = useNavigate()
-  const [userId, setUserId] = useState('')
-
-
   const [state, setState] = useState({
     restaurantName: "",
     link: "",
@@ -28,10 +45,6 @@ const RegisterComponent = () => {
   })
 
   const { link, restaurantName, email, password } = state
-
-  const [stepCode, setStepCode] = useState(false)
-  const [code, setCode] = useState('')
-
 
   const [errorEmailrequire, setErrorEmailrequire] = useState(false)
   const [errorEmail, setErrorEmail] = useState(false)
@@ -48,10 +61,6 @@ const RegisterComponent = () => {
 
   const [errorResrequire, setErrorResrequire] = useState(false)
   const [errorLinkexists, setErrorLinkexists] = useState(false)
-
-  const [errorCoderequire, setErrorCoderequire] = useState(false)
-  const [errorCode, setErrorCode] = useState('')
-  const [limitCode, setLimitCode] = useState('')
 
   const inputValue = name => even => {
     if (name === 'restaurantName') {
@@ -100,8 +109,8 @@ const RegisterComponent = () => {
   //-
   const submit = (e) => {
     e.preventDefault()
-    dispath(showLoading())
-    // 1. Fileter Input
+    // dispath(showLoading())
+
     if (!email) setErrorEmailrequire(true)
     else if (!(String(email).match(/^\S+@\S+\.\S+$/))) setErrorEmail(true)
 
@@ -131,202 +140,185 @@ const RegisterComponent = () => {
     }
     if (!email || !password || !restaurantName) return dispath(hideLoading())
 
+    // const attributeList = [
+    //   new CognitoUserAttribute({
+    //     Name: 'username',
+    //     Value: '69b9796e-8051-701b-5782-f5f9c7e45555'
+    //   }),
+    // ]
 
+    // axios.post(`${process.env.REACT_APP_API}/user/register`, { link, restaurantName, email }).then(res => {
+    //   if (res.data.success) {
+    UserPool.signUp(email, password, [], null, (err, result) => {
+      if (err) {
 
-    // 2. Check No Duplicate / TRUE = Duplicate
-    axios.post(`${process.env.REACT_APP_API}/user/checkRegister`, { link, email }).then(resDB1 => {
-      if (resDB1.data.success.email) {
-        setErrorEmailexists(true)
+        console.log(err)
+        alert('Cognito:' + err);
+        return;
       }
-      if (resDB1.data.success.link) {
-        setErrorLinkexists(true)
-      }
-      if (resDB1.data.success.email || resDB1.data.success.link) return dispath(hideLoading())
-
-      // 3. Create Cognito Acc. 
-      UserPool.signUp(email, password, [], null, (error, result) => {
-        if (error) {
-          if (error.code === "UsernameExistsException") {
-            setErrorEmailexists(true)
-            return dispath(hideLoading())
-          }
-        }
-
-         // 4. Create DB Acc. 
-        axios.post(`${process.env.REACT_APP_API}/user/register`, { userId: result.userSub, link, restaurantName, email })
-          .then(resDB2 => {
-
-            Swal.fire({
-              title: 'Check your email',
-              text: 'to confirm your email address',
-              confirmButtonText: 'OK',
-              confirmButtonColor: '#00a3ff',
-              showConfirmButton: true,
-            }).then(next => {
-              setStepCode(true)
-            })
-            dispath(hideLoading())
 
 
-          }).catch(err => {
-            alert(err)
-          })
+      console.log(result)
 
-
-      });
-
-      // else if (!res.data.success) {
-      //   if (res.data.message === 'existsEmail') {
-      //     setErrorEmailexists(true)
-      //     return dispath(hideLoading())
+      // confirmSignUp.then(
+      //   (data) => {
+      //     context.succeed({
+      //       location: process.env.POST_REGISTRATION_VERIFICATION_REDIRECT_URL
+      //     });
       //   }
-      //   if (res.data.message === 'existsLink') {
-      //     setErrorLinkexists(true)
-      //     return dispath(hideLoading())
+      // ).catch(
+      //   (error) => {
+      //     callback(error.message)
       //   }
+      // )
 
 
-      // }
 
 
-    }).catch(err => {
-      alert(err)
-    })
+
+
+
+
+      dispath(hideLoading())
+
+
+
+
+
+
+
+
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+    // Swal.fire({
+    //   title: 'Check your email',
+    //   text: 'to confirm your email address',
+    //   confirmButtonText: 'OK',
+    //   confirmButtonColor: '#00a3ff',
+    //   showConfirmButton: true,
+    // }).then(next => {
+
+    // })
+
+    // navigate('/login')
+    //   }
+    //   else if (!res.data.success) {
+    //     if (res.data.message === 'existsEmail') {
+    //       setErrorEmailexists(true)
+    //       return dispath(hideLoading())
+    //     }
+    //     if (res.data.message === 'existsLink') {
+    //       setErrorLinkexists(true)
+    //       return dispath(hideLoading())
+    //     }
+
+
+    //   }
+
+    // }).catch(err => {
+    //   alert(err)
+    // })
+
   }
   // let yy=`https://YourAPIPath/redirect?code=${codeParameter}&username=${userName}&clientId=${clientId}&region=${region}&email=${email}`;
 
 
 
 
+
   const confirmRegister = (e) => {
     e.preventDefault()
-    dispath(showLoading())
-    if (!code) return setErrorCoderequire(true)
-    // if (!email) setErrorEmailrequire(true)
-    // else if (!(String(email).match(/^\S+@\S+\.\S+$/))) setErrorEmail(true)
-
-    // if (!password) setErrorPWrequire(true)
-
-    // if (!email || !password || (!(String(email).match(/^\S+@\S+\.\S+$/)))) return dispath(hideLoading())
-    const userData = new CognitoUser({
-      Username: email,
-      Pool: UserPool
-    });
-
-    userData.confirmRegistration(code, true, ((error, reult) => {
-      if (error) {
-        console.dir(error)
-        if (error.code === "CodeMismatchException") {
-          setErrorCode(true)
-          return dispath(hideLoading())
-        }
-        else if (error.code === "LimitExceededException") {
-          setLimitCode(true)
-          return dispath(hideLoading())
-        } else return dispath(hideLoading())
-      }
-      console.log(userData)
-      // axios.post(`${process.env.REACT_APP_API}/user/register`, { link, restaurantName, email })
-      //   .then(res => {
-
-      //   })
-      navigate('/login')
-      dispath(hideLoading())
-    }))
-
-
-
-
-
-
-
-
-
-    // userData.authenticateUser(authDetail, {
-    //   onSuccess: (result) => {
-    //     // const tokenName = 'CognitoIdentityServiceProvider.' + result.getAccessToken().payload.client_id + '.' + result.getAccessToken().payload.username + '.accessToken'
-    //     // authenticate(tokenName, () => navigate('/app'))
-    //     // setState({ ...state, email: '', password: '' })
-    //     const tokenName = 'CognitoIdentityServiceProvider.' + result.getAccessToken().payload.client_id + '.' + result.getAccessToken().payload.username + '.accessToken'
-    //     authenticate(tokenName, () => navigate('/app'))
-    //     setState({ ...state, email: '', password: '' })
-
-    //     const loginCode = uuidv4()
-    //     sessionStorage.setItem('temp', loginCode)
-    //     axios.post(`${process.env.REACT_APP_API}/user/login`, { email, loginCode })
-    //       .then(resultDB => {
-    //         if (resultDB.data.success) {
-    //           // Swal.fire(resultDB.data.message)
-
-    //           dispath(hideLoading())
-
-    //         } else {
-    //           Swal.fire(resultDB.data.message)
-    //           dispath(hideLoading())
-    //         }
-    //       }).catch(err => {
-    //         dispath(hideLoading())
-
-    //         console.log("Can't not connect the server")
-    //         Swal.fire("Can't not connect the server")
-    //       })
-
-
-    //     // userData.globalSignOut({
-    //     //   onSuccess: (globalResult) => {
-    //     //   }
-    //     // });
-    //     dispath(hideLoading())
-    //   },
-    //   onFailure: (err) => {
-    //     console.log(err.message);
-    //     setWrongEmailPass(err.message)
-    //     dispath(hideLoading())
-
-    //   },
-    //   newPasswordRequired: (result) => {
-    //     console.log('new password + ' + result);
-    //   },
-    // })
-
-  }
-
-
-
-
-
-
-
-  const reSendCode = (e) => {
-    e.preventDefault()
     // dispath(showLoading())
-    /// Cognito //
 
     if (!email) setErrorEmailrequire(true)
     else if (!(String(email).match(/^\S+@\S+\.\S+$/))) setErrorEmail(true)
-    if (!email || (!(String(email).match(/^\S+@\S+\.\S+$/)))) return dispath(hideLoading())
+
+    if (!password) setErrorPWrequire(true)
+
+    if (!email || !password || (!(String(email).match(/^\S+@\S+\.\S+$/)))) return dispath(hideLoading())
 
 
 
+
+    /// Cognito //
     const userData = new CognitoUser({
       Username: email,
       Pool: UserPool
     });
 
-
-    userData.resendConfirmationCode((err, reult) => {
-      if (err) return alert('ERR')
-
-
-      console.log(reult)
+    const authDetail = new AuthenticationDetails({
+      Username: email,
+      Password: password,
+    })
 
 
+    userData.authenticateUser(authDetail, {
+      onSuccess: (result) => {
+        // const tokenName = 'CognitoIdentityServiceProvider.' + result.getAccessToken().payload.client_id + '.' + result.getAccessToken().payload.username + '.accessToken'
+        // authenticate(tokenName, () => navigate('/app'))
+        // setState({ ...state, email: '', password: '' })
+        const tokenName = 'CognitoIdentityServiceProvider.' + result.getAccessToken().payload.client_id + '.' + result.getAccessToken().payload.username + '.accessToken'
+        authenticate(tokenName, () => navigate('/app'))
+        setState({ ...state, email: '', password: '' })
+
+        const loginCode = uuidv4()
+        sessionStorage.setItem('temp', loginCode)
+        axios.post(`${process.env.REACT_APP_API}/user/login`, { email, loginCode })
+          .then(resultDB => {
+            if (resultDB.data.success) {
+              // Swal.fire(resultDB.data.message)
+
+              dispath(hideLoading())
+
+            } else {
+              Swal.fire(resultDB.data.message)
+              dispath(hideLoading())
+            }
+          }).catch(err => {
+            dispath(hideLoading())
+
+            console.log("Can't not connect the server")
+            Swal.fire("Can't not connect the server")
+          })
 
 
+        // userData.globalSignOut({
+        //   onSuccess: (globalResult) => {
+        //   }
+        // });
+        dispath(hideLoading())
+      },
+      onFailure: (err) => {
+        console.log(err.message);
+        setWrongEmailPass(err.message)
+        dispath(hideLoading())
 
+      },
+      newPasswordRequired: (result) => {
+        console.log('new password + ' + result);
+      },
     })
 
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -372,7 +364,7 @@ const RegisterComponent = () => {
 
               </div>
 
-              {!stepCode && <div className="col-span-2 Acc_boxInputLog">
+              <div className="col-span-2 Acc_boxInputLog">
                 <input value={restaurantName} onChange={inputValue('restaurantName')} className={`Acc_inputLogin ${(errorResrequire || errorLinkexists) && 'borderRed'}`} id="lastname" type="text" placeholder="Restaurant name" maxLength="30" />
                 <svg fill="" className={`Acc_iconLog Acc_iconLogRes ${(errorResrequire || errorLinkexists) && 'AccRed'}`} id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                   <g id="_6" data-name="6">
@@ -385,14 +377,10 @@ const RegisterComponent = () => {
                   <div className="py-2 ">www.qr-cloudmenu.com/{link}</div>
                 </div>
 
-              </div>}
+              </div>
 
 
-
-
-
-
-              {!stepCode && <div className="col-span-2 Acc_boxInputLog">
+              <div className="col-span-2 Acc_boxInputLog">
                 <input value={password} onChange={inputValue('password')} className={`Acc_inputLogin ${(errorPWtitle || errorPWrequire) && 'borderRed'}`} id="password" type="password" placeholder="Password" maxLength="50" />
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill='' className={`Acc_iconLog Acc_iconKey ${(errorPWtitle || errorPWrequire) && 'AccRed'}`}>
                   <path fillRule="evenodd" d="M8 7a5 5 0 113.61 4.804l-1.903 1.903A1 1 0 019 14H8v1a1 1 0 01-1 1H6v1a1 1 0 01-1 1H3a1 1 0 01-1-1v-2a1 1 0 01.293-.707L8.196 8.39A5.002 5.002 0 018 7zm5-3a.75.75 0 000 1.5A1.5 1.5 0 0114.5 7 .75.75 0 0016 7a3 3 0 00-3-3z" clipRule="evenodd" />
@@ -405,49 +393,23 @@ const RegisterComponent = () => {
                 {errorPWuppercase && <div className="errorInputTextRe">Contains at least 1 uppercase letter</div>}
                 {errorPWspecial && <div className="errorInputTextRe">Contains at least 1 special character</div>}
 
-              </div>}
 
 
-              {stepCode && <div className="col-span-2 Acc_boxInputLog">
-                <div className="Acc_codeInputBox">
-                  <div className="Acc_codeInput">
-                    <input value={code} onChange={(e) => {
-                      setCode((e.target.value).trim())
-                      setErrorCoderequire(false)
-                      setErrorCode(false)
-                      setLimitCode(false)
-                    }} autoComplete="false" className={`Acc_inputLogin Acc_codeCenter ${(errorCoderequire || errorCode) && 'borderRed'}`} id="regCode" type="text" placeholder="Verification code" maxLength="50" />
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill='' className={`Acc_iconLog Acc_iconKey `}>
-                      <path fillRule="evenodd" d="M8 7a5 5 0 113.61 4.804l-1.903 1.903A1 1 0 019 14H8v1a1 1 0 01-1 1H6v1a1 1 0 01-1 1H3a1 1 0 01-1-1v-2a1 1 0 01.293-.707L8.196 8.39A5.002 5.002 0 018 7zm5-3a.75.75 0 000 1.5A1.5 1.5 0 0114.5 7 .75.75 0 0016 7a3 3 0 00-3-3z" clipRule="evenodd" />
-                    </svg>
-                    {errorCode && <div className="errorInputTextRe">Invalid verification code,<br />please try again.</div>}
-                    {limitCode && <div className="errorInputTextRe">Attempt limit exceeded,<br />please try after some time.</div>}
+              </div>
 
-                  </div>
-                </div>
-              </div>}
 
             </div>
-            {!stepCode && <div className="Acc_loginBTNBox mb-4 mt-8">
+            <div className="Acc_loginBTNBox mb-4 mt-8">
               <button onClick={submit} className="Acc_loginBTN Acc_ReBTN_W" type="submit">
                 Create an Account
               </button>
-            </div>}
-            {stepCode && <div className="Acc_loginBTNBox mb-4 mt-8">
-              <button onClick={confirmRegister} className="Acc_loginBTN Acc_ReBTN_W" type="submit">
-                Confirm account
-              </button>
-            </div>}
+            </div>
+
 
             <div className="Acc_loginBTNBox mb-4">
-              {!stepCode && <button className="Font_SmalLog" type="submit">
+              <button className="Font_SmalLog" type="submit">
                 Already have an account?  <Link to="/login" className="Font_BlueLog">Login</Link>
-              </button>}
-
-              {stepCode && <button className="Font_SmalLog" type="submit">
-                Didn't recieve a code? <br /> <div onClick={(e) => reSendCode(e)} className="Font_BlueLog">Send a new code</div>
-              </button>}
-
+              </button>
             </div>
 
 
@@ -462,6 +424,33 @@ const RegisterComponent = () => {
   )
 }
 
+export function handler(req, context, callback) {
+  alert(req);
 
+  console.log(req);
+  const confirmationCode = req.code;
+  const username = req.username;
+  const clientId = req.clientId;
+  let params = {
+    ClientId: clientId,
+    ConfirmationCode: confirmationCode,
+    Username: username
+  };
+
+  //Validating the user
+  let confirmSignUp = CognitoIdentityServiceProvider.confirmSignUp(params).promise();
+  //Returning the redirect url
+  confirmSignUp.then(
+    (data) => {
+      context.succeed({
+        location: process.env.POST_REGISTRATION_VERIFICATION_REDIRECT_URL
+      });
+    }
+  ).catch(
+    (error) => {
+      callback(error.message)
+    }
+  )
+}
 
 export default RegisterComponent

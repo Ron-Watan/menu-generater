@@ -37,6 +37,8 @@ import Sect11ExtraInfo from './_11ExtraInfo';
 import Sect12Account from './_12Account';
 import Sect12AccountPassword from './_12AccountPassword';
 
+import Sect99RedSnaq from './_99RedSnaq';
+
 // import _MenuComponent from '../../src/components/_MenuComponent'
 
 import SectSimulationApp from './simulattion/_SimulationApp'
@@ -939,6 +941,8 @@ const _AppMain = () => {
   const [onOffSetting_MB, setOnOffSetting_MB] = useState(false);
   const [onOffAccount_MB, setOnOffAccount_MB] = useState(false);
 
+  const [onOffRedSnaq_MB, setOnOffRedSnaq_MB] = useState(false);
+
 
   //-
 
@@ -1014,9 +1018,7 @@ const _AppMain = () => {
         }
       })
       .catch((err) => {
-
         console.log('Server: Connecting...');
-
       });
 
 
@@ -1037,6 +1039,14 @@ const _AppMain = () => {
 
   // eslint-disable-next-line 
   const { loading } = useSelector((state) => state.alerts);
+
+
+
+
+
+
+
+
 
   //-///=///-///=///-///=///-///=///-   END FUNCTION   ///-///=///-///=///-///=///-///=///-
 
@@ -1303,8 +1313,26 @@ const _AppMain = () => {
             onOffSetting={onOffSetting} setOnOffSetting={setOnOffSetting} />
         </div>
 
+        
+
+
+        <div className={`mobile_function ${!onOffRedSnaq_MB && 'MB_slide_Down'}`}>
+          <Sect99RedSnaq user={user} setOnOffRedSnaq_MB={setOnOffRedSnaq_MB}
+            originalBannerImgArr={originalBannerImgArr } />
+        </div>
+
+        
+
 
         <div className="">
+
+          
+
+
+
+
+
+
 
           <i className='x'> START MOBILE BAR -----------------------------------------------</i>
 
@@ -1314,6 +1342,19 @@ const _AppMain = () => {
               <img src={MBicon_User} alt="" />
             </button>
           </div>
+
+
+          <i className='x'> Redsnaq----------------------------------------------</i>
+          {true && <div className="MC_IconFixed MC_rq">
+            <button onClick={() => {
+              setOnOffRedSnaq_MB(true)
+            }}
+              name='Manu1MB'
+              className={`MC_Tab MB_None_Adm `} >
+              <img src={MBicon_Logout} alt="" />
+            </button>
+          </div>}
+
 
 
           <i className='x'> Scroll Navigation -----------------------------------------------</i>
@@ -1499,14 +1540,25 @@ const _AppMain = () => {
 
                 }
               })
-
-
+ 
             }}
 
               name='Manu1MB'
               className={`MC_Tab MB_None `} >
               <img src={MBicon_Logout} alt="" />
             </button>
+
+
+
+
+
+
+
+
+
+
+
+
 
             <i className='x'> 99 Empty-----------------------------------------------</i>
             <div className={`MB_empty`}>&nbsp;</div>

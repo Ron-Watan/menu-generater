@@ -26,11 +26,47 @@ const verifier = CognitoJwtVerifier.create({
 
 // const ses = new AWS.SES({ apiVersion: '2010-12-01' });
 
+export const checkRegister = (req, res) => {
+  const {link, email}=req.body
+  let checkEmail=false;
+  let checkLink = false;
+
+  Users.findOne({ email }).then(userEmail => {
+    if (userEmail) checkEmail = true
+
+    Users.findOne({ link }).then(userLink => {
+      if(userLink) checkLink = true
+      res.send({
+        success: {
+          email: checkEmail,
+          link:checkLink
+        },
+       
+      })
+
+    })
+
+  }).catch(err => {
+    res.status(500).send({ message: "Error creating account", success: false, err })
+  })
+
+
+
+ 
+
+ 
+}
+     // Users.create(req.body).then(result => {
+
+      //   res.status(200).send({ message: `Your account has been successfully created`, success: true })
+      // }).catch(err => {
+      //   if (err.keyValue.email) res.status(200).send({ message: "existsEmail", success: false })
+      //   else if (err.keyValue.link) res.status(200).send({ message: "existsLink", success: false })
+      //   else res.send({ message: "Error creating account" })
+      // })
+
 export const register =  (req, res) => {
-
-  req.body.userId = uuidv4()
   req.body.clientId = uuidv4()
-
       Users.create(req.body).then(result => {
         const { clientId, link, restaurantName,menuName, bannerImage, languageSetup, timeSetup, themeSetup, onOffSetting,email } = result;
         
@@ -56,17 +92,15 @@ export const register =  (req, res) => {
           })
 
         res.status(200).send({ message: `Your account has been successfully created`, success: true })
+      
       }).catch(err => {
-   
+  
         if (err.keyValue.email) res.status(200).send({ message: "existsEmail", success: false })
         else if (err.keyValue.link) res.status(200).send({ message: "existsLink", success: false })
-
         else res.send({ message: "Error creating account" })
       })
   
   
- 
- 
 }
 
 
@@ -157,6 +191,7 @@ export const requireLogin = async(req, res, next) => {
 
   try {
     const payload = await verifier.verify(token);
+    
     console.log('Token is valid');
     req.proved = payload
     next()
@@ -177,14 +212,17 @@ export const requireLogin = async(req, res, next) => {
 
 //- GET USER INFO to SAVE IN REDUX at Protector Compo
 export const getInfoUserToStore = (req, res) => {
+  console.log(req.proved)
   Users.findOne({ userId: req.proved.username })
+  
     // .select('userId restaurentName menu menuName  bannerImage languageSetup timeSetup clientId link')
     .then(result => {
-    
+   
       if (!result) return res.status(200).send({ message: "User doues not exit", success: false })
       else {
 
         res.status(200).send({
+         
           success: true,
           data: { result }
         })

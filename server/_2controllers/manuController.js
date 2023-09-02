@@ -557,3 +557,22 @@ export const saveExtraInfo = (req, res) => {
       });
     });
 };
+
+
+
+
+
+export const deleteAllDataAccout = (req, res) => {
+  const { userId, clientId } = req.body;
+  Users.deleteOne({ userId: userId })
+    .then((user) => {
+      Clients.deleteOne({ clientId: clientId })
+        .then((client) => {
+          res.send({
+            message: 'Success',
+            success: true,
+          });
+        });
+    });
+
+};

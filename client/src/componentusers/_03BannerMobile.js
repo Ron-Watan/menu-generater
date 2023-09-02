@@ -330,7 +330,7 @@ const _03BannerMobile = (prop) => {
       }).then((result) => {
         if (result.isConfirmed) {
           uploadImageBanner()
-
+          prop.setToggleScrollBanner(false)
 
         } else if (result.isDenied) {
           prop.setOnoffBanner_MB(false)
@@ -338,8 +338,8 @@ const _03BannerMobile = (prop) => {
           prop.getAllMenu()
           // prop.setBannerImgArr(prop.originalBannerImgArr)
           // prop.setBannerPreviewArr(prop.originalBannerImgArr)
-
           setCheckBannerChange(false)
+          prop.setToggleScrollBanner(false)
         }
       })
 
@@ -347,6 +347,7 @@ const _03BannerMobile = (prop) => {
       prop.setOnoffBanner_MB(false)
       prop.setIndexToBanner('')
       setCheckBannerChange(false)
+      prop.setToggleScrollBanner(false)
 
     }
   }
@@ -383,8 +384,7 @@ const _03BannerMobile = (prop) => {
           <div className="GruopBtn">
             <button onClick={() => {
               checkBannerChangeFn()
-              prop.setToggleScrollBanner(false)
-
+           
               // prop.setOnoffBanner_MB(false)
               // checkChecnge()
               // prop.setIndexToBanner('')

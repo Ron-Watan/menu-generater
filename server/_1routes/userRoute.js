@@ -1,14 +1,15 @@
 import express from 'express'
 import mongoose from "mongoose";
 import bodyparser from "body-parser";
-import { register, login, getInfoUserToStore, requireLogin, generateMenu } from '../_2controllers/userController.js'
+import { checkRegister, register, login, getInfoUserToStore, requireLogin, generateMenu } from '../_2controllers/userController.js'
 import {
   findOneMenu, createManu, getAllMenu, saveEditMenu, deleteMenu,
   uploadImageBanner,
   uploadImage,
   getAllImage, getImage,
   saveNameMenu, saveTimeSetup, saveLangSetup, setupTheme, getTheme, saveOnOffSetting,
-  getFeedBack, saveFeedBack, saveReArangeList, saveQRCode, getQrCode, saveExtraInfo
+  getFeedBack, saveFeedBack, saveReArangeList, saveQRCode, getQrCode, saveExtraInfo,
+  deleteAllDataAccout
 } from '../_2controllers/manuController.js'
 
 import { getSubscription, subscription, checkSubscription, getSubPayment } from '../_2controllers/subscriptionController.js'
@@ -83,6 +84,8 @@ const upload = multer({ storage });
 
 // ==> /api/user
 // account
+router.post('/checkRegister', checkRegister)
+
 router.post('/register', register)
 router.post('/login', login)
 
@@ -127,6 +130,7 @@ router.post('/getSubPayment', requireLogin, getSubPayment)
 
 // router.post('/cancelSubscription', requireLogin, cancelSubscription)
 // router.post('/continueSubscription', requireLogin, continueSubscription)
+router.post('/deleteAllDataAccout', requireLogin, deleteAllDataAccout)
 
 
 
@@ -236,7 +240,7 @@ router.post('/photos/rename', async (req, res) => {
   });
 });
 
-router.post('/photos/deleteArray', (req, res) => {
+router.post('/photos/deleteArray', requireLogin, (req, res) => {
   const { imgId } = req.body;
   if (imgId.length === 0) return console.log('return')
 
