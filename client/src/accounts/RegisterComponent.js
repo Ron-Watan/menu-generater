@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import axios from 'axios'
 import Swal from 'sweetalert2'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { hideLoading, showLoading } from '../redux/alertSlice'
 import UserPool from "../UserPool"
 import slugify from 'slugify'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import _00Navigation from '../componenthome/_00Navigation'
 import '../accounts/styleAccount.css'
 import { CognitoUserAttribute } from 'amazon-cognito-identity-js'
@@ -14,10 +14,10 @@ import { CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js'
 
 const RegisterComponent = () => {
 
+  const { loading } = useSelector((state) => state.alerts);
   const dispath = useDispatch()
   const navigate = useNavigate()
-  const [userId, setUserId] = useState('')
-
+  const location = useLocation()
 
   const [state, setState] = useState({
     restaurantName: "",
@@ -27,9 +27,10 @@ const RegisterComponent = () => {
     password: ""
   })
 
+
   const { link, restaurantName, email, password } = state
 
-  const [stepCode, setStepCode] = useState(false)
+  const [stepCode, setStepCode] = useState(location.state?.codeStep2)
   const [code, setCode] = useState('')
 
 
@@ -52,6 +53,8 @@ const RegisterComponent = () => {
   const [errorCoderequire, setErrorCoderequire] = useState(false)
   const [errorCode, setErrorCode] = useState('')
   const [limitCode, setLimitCode] = useState('')
+  const [codeEpired, setCodeEpired] = useState('')
+
 
   const inputValue = name => even => {
     if (name === 'restaurantName') {
@@ -152,7 +155,7 @@ const RegisterComponent = () => {
           }
         }
 
-         // 4. Create DB Acc. 
+        // 4. Create DB Acc. 
         axios.post(`${process.env.REACT_APP_API}/user/register`, { userId: result.userSub, link, restaurantName, email })
           .then(resDB2 => {
 
@@ -162,12 +165,13 @@ const RegisterComponent = () => {
               confirmButtonText: 'OK',
               confirmButtonColor: '#00a3ff',
               showConfirmButton: true,
+
             }).then(next => {
               setStepCode(true)
+
             })
+
             dispath(hideLoading())
-
-
           }).catch(err => {
             alert(err)
           })
@@ -197,21 +201,22 @@ const RegisterComponent = () => {
 
 
 
-
   const confirmRegister = (e) => {
     e.preventDefault()
+
     dispath(showLoading())
-    if (!code) return setErrorCoderequire(true)
-    // if (!email) setErrorEmailrequire(true)
-    // else if (!(String(email).match(/^\S+@\S+\.\S+$/))) setErrorEmail(true)
+    if (!code) setErrorCoderequire(true)
+    if (!email) setErrorEmailrequire(true)
+    else if (!(String(email).match(/^\S+@\S+\.\S+$/))) setErrorEmail(true)
 
     // if (!password) setErrorPWrequire(true)
-
-    // if (!email || !password || (!(String(email).match(/^\S+@\S+\.\S+$/)))) return dispath(hideLoading())
+    console.log(code, email)
+    if (!code || !email || (!(String(email).match(/^\S+@\S+\.\S+$/)))) return dispath(hideLoading())
     const userData = new CognitoUser({
       Username: email,
       Pool: UserPool
     });
+
 
     userData.confirmRegistration(code, true, ((error, reult) => {
       if (error) {
@@ -223,15 +228,24 @@ const RegisterComponent = () => {
         else if (error.code === "LimitExceededException") {
           setLimitCode(true)
           return dispath(hideLoading())
-        } else return dispath(hideLoading())
-      }
-      console.log(userData)
-      // axios.post(`${process.env.REACT_APP_API}/user/register`, { link, restaurantName, email })
-      //   .then(res => {
+        } else if (error.code === "ExpiredCodeException") {
+          setCodeEpired(true)
+          return dispath(hideLoading())
+        }
+        else {
+          setErrorCode(true)
+          return dispath(hideLoading())
+        }
 
-      //   })
-      navigate('/login')
-      dispath(hideLoading())
+        
+      }
+
+      setTimeout(() => {
+        dispath(hideLoading())
+        navigate('/login')
+      }, 1000);
+
+
     }))
 
 
@@ -313,33 +327,19 @@ const RegisterComponent = () => {
       Pool: UserPool
     });
 
-
     userData.resendConfirmationCode((err, reult) => {
       if (err) return alert('ERR')
-
-
-      console.log(reult)
-
-
-
-
+      Swal.fire({
+        title: 'Check your email',
+        text: 'to confirm your email address',
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#00a3ff',
+        showConfirmButton: true,
+      })
 
     })
 
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -417,11 +417,13 @@ const RegisterComponent = () => {
                       setErrorCode(false)
                       setLimitCode(false)
                     }} autoComplete="false" className={`Acc_inputLogin Acc_codeCenter ${(errorCoderequire || errorCode) && 'borderRed'}`} id="regCode" type="text" placeholder="Verification code" maxLength="50" />
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill='' className={`Acc_iconLog Acc_iconKey `}>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill='' className={`Acc_iconLog Acc_iconKey ${(errorCoderequire || errorCode) && 'AccRed'} `}>
                       <path fillRule="evenodd" d="M8 7a5 5 0 113.61 4.804l-1.903 1.903A1 1 0 019 14H8v1a1 1 0 01-1 1H6v1a1 1 0 01-1 1H3a1 1 0 01-1-1v-2a1 1 0 01.293-.707L8.196 8.39A5.002 5.002 0 018 7zm5-3a.75.75 0 000 1.5A1.5 1.5 0 0114.5 7 .75.75 0 0016 7a3 3 0 00-3-3z" clipRule="evenodd" />
                     </svg>
                     {errorCode && <div className="errorInputTextRe">Invalid verification code,<br />please try again.</div>}
                     {limitCode && <div className="errorInputTextRe">Attempt limit exceeded,<br />please try after some time.</div>}
+                    {codeEpired && <div className="errorInputTextRe">Verification code expired,<br />please request a code again.</div>}
+
 
                   </div>
                 </div>
@@ -429,12 +431,22 @@ const RegisterComponent = () => {
 
             </div>
             {!stepCode && <div className="Acc_loginBTNBox mb-4 mt-8">
-              <button onClick={submit} className="Acc_loginBTN Acc_ReBTN_W" type="submit">
+              <button onClick={submit} className="Acc_loginBTN Acc_ReBTN_W posRelative" type="submit">
+                <div className={`${!loading && 'hiddenMe'}`}>
+                  <div className="iconLoadingBTN iconLoadingTwo">
+                    <span className='barOne'></span > <span className='barTwo'></span> <span className='barThree'></span>
+                  </div>
+                </div>
                 Create an Account
               </button>
             </div>}
-            {stepCode && <div className="Acc_loginBTNBox mb-4 mt-8">
+            {stepCode && <div className="Acc_loginBTNBox mb-4 mt-8 posRelative">
               <button onClick={confirmRegister} className="Acc_loginBTN Acc_ReBTN_W" type="submit">
+                <div className={`${!loading && 'hiddenMe'}`}>
+                  <div className="iconLoadingBTN iconLoadingThree">
+                    <span className='barOne'></span > <span className='barTwo'></span> <span className='barThree'></span>
+                  </div>
+                </div>
                 Confirm account
               </button>
             </div>}

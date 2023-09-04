@@ -261,10 +261,10 @@ const _09ThemeSetupMobile = (prop) => {
       <div className={`MB_themeContainerColor ${onOffColorPicker && 'displayNone'}`}>
 
         <div className={`MB_themeMenuList `}>
-          <div onClick={() => setThemeTab('quick')} className={`MB_menuListBtn ${themeTab === 'quick' && 'MB_Theme_tabChoose'}`}>
+          {/* <div onClick={() => setThemeTab('quick')} className={`MB_menuListBtn ${themeTab === 'quick' && 'MB_Theme_tabChoose'}`}>
             <img src={MBicon_Quickt} alt="" />
 
-          </div>
+          </div> */}
           {/* <div onClick={() => setThemeTab('themePage')} className='MB_menuListBtn'>TP</div> */}
           <div onClick={() => setThemeTab('navFoot')} className={`MB_menuListBtn ${themeTab === 'navFoot' && 'MB_Theme_tabChoose'}`}>
             <img src={MBicon_Navbart} alt="" />

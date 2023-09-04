@@ -120,7 +120,7 @@ const userSchema = mongoose.Schema(
       type: Object,
       default: {
         timeType: true,
-        allDayType: { menu_1: true, menu_2: false, menu_3: false },
+        allDayType: { menu_1: true, menu_2: true, menu_3: true },
         codeSelectType: { menu_1: '', menu_2: '', menu_3: '' },
         selectType: {
           menu_1: { start: '', end: '' },
@@ -153,7 +153,7 @@ const userSchema = mongoose.Schema(
     onOffSetting: {
       type: 'Object',
       default: {
-        menuName: true, banner: true, sideBar: true, filter: true, vetgeterian: true, vegan: true, gluten_free: true, halal: true,
+        simulate: true, menuName: true, banner: true, sideBar: true, filter: true, vetgeterian: true, vegan: true, gluten_free: true, halal: true,
         description: true, accordian: true, footbar: true, langIcon: true, favoritHeart: true, feedBack: true
       }
 
@@ -186,6 +186,11 @@ const userSchema = mongoose.Schema(
       type: String,
       default: '',
     },
+    confirmEmail: {
+      type: String,
+      default: '',
+    },
+
 
     redsnaq: {
       type: String,

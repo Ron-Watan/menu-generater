@@ -15,6 +15,7 @@ import '../../styleClient/accordianClient.css';
 
 
 import SoLogo from '../../all-icon/social-icon/social.svg'
+import { connect } from 'react-redux';
 
 
 
@@ -27,7 +28,7 @@ const _SimulationApp = (prop) => {
       fontFamily: ['', ''].join(','),
     },
   });
-  
+
   const dateTime = new Date();
   const h = dateTime.getHours();
   const m = dateTime.getMinutes();
@@ -75,10 +76,10 @@ const _SimulationApp = (prop) => {
 
   const [onOffSetting, setOnOffSetting] = useState({
 
-    menuName: true, banner: true, sideBar: true, filter: true, vetgeterian: true, vegan: true, gluten_free: true, halal: true,
+    simulate: true, menuName: true, banner: true, sideBar: true, filter: true, vetgeterian: true, vegan: true, gluten_free: true, halal: true,
     description: true, accordian: true, footbar: true, langIcon: true, favoritHeart: true, feedBack: true
   })
-  const { sideBar, vetgeterian, vegan, gluten_free, halal, description, accordian, footbar, favoritHeart } = onOffSetting
+  const { simulate, sideBar, vetgeterian, vegan, gluten_free, halal, description, accordian, footbar, favoritHeart } = onOffSetting
   //=-----------------------------------------------
 
 
@@ -91,11 +92,13 @@ const _SimulationApp = (prop) => {
   }
   const getClientMenu = () => {
     setLoadingManual(true);
+
     axios
       .get(`${process.env.REACT_APP_API}/clients/${prop.user.link}`)
 
       .then((result) => {
         if (result.data.success) {
+
           const getResault = result.data.clientMenu;
 
           // setClientData(getResault);
@@ -149,8 +152,18 @@ const _SimulationApp = (prop) => {
           let newIndex2 = 0;
           let newIndex3 = 0;
 
+          if (getResault.menu.length === 0) {
+            setIconMenu_1(iconMenu_1);
+            setIconMenu_2(iconMenu_2);
+            setIconMenu_3(iconMenu_3);
+
+          };
+
           getResault.menu.forEach((el, index) => {
-            if (!el.icon_catagory) return;
+
+            if (!el.icon_catagory) return
+
+
 
 
             if (el.menuTime === 1) {
@@ -169,6 +182,8 @@ const _SimulationApp = (prop) => {
               newIndex3++;
 
             }
+
+
             setIconMenu_1(iconMenu_1);
             setIconMenu_2(iconMenu_2);
             setIconMenu_3(iconMenu_3);
@@ -278,7 +293,7 @@ const _SimulationApp = (prop) => {
   const sentfeedBack = () => {
     console.log('Hola')
   }
- 
+
 
   //=-----------------------------------------------
 
@@ -297,7 +312,7 @@ const _SimulationApp = (prop) => {
   return (
     <>
       <div className='Mviewport unselectable'
-        
+
         style={{ 'fontFamily': `${prop.themeSetup.body?.bodyFontFamily} , serif`, 'backgroundColor': `${prop.themeSetup.body?.bodyBgColor}` }}>
         <div className=' mobileViewport_Wrapper '>
 
@@ -309,7 +324,7 @@ const _SimulationApp = (prop) => {
 
               <div className='navSlit1'>
 
-                {/* {prop.logoRestaurant && <div className="logoResta"><img className='logoRestaImg' src={prop.logoRestaurant} alt='' /></div>} */}
+                {prop.logoRestaurant && <div className="logoResta"><img className='logoRestaImg' src={prop.logoRestaurant} alt='' /></div>}
                 <span style={{
                   'backgroundColor': `${prop.navAndFootBar?.navBarColor}`,
                   'fontFamily': `${prop.navAndFootBar?.nameFontFamily}`,
@@ -601,7 +616,7 @@ const _SimulationApp = (prop) => {
                     setTriggerIcon={setTriggerIcon}
                     key={index}
 
-                  
+
                     language={language}
                     // prop.themeSetup={prop.themeSetup}
                     favoritHeart={favoritHeart}
@@ -633,7 +648,7 @@ const _SimulationApp = (prop) => {
                     setTriggerIcon={setTriggerIcon}
                     key={index}
 
-                
+
                     language={language}
                     // prop.themeSetup={prop.themeSetup}
                     description={description}
@@ -663,7 +678,7 @@ const _SimulationApp = (prop) => {
                     setTriggerIcon={setTriggerIcon}
                     key={index}
                     sideBar={sideBar}
-                
+
                     language={language}
 
                     // prop.themeSetup={prop.themeSetup}
@@ -726,63 +741,64 @@ const _SimulationApp = (prop) => {
           style={{
             'fontFamily': `${prop.bodyStyle?.bodyFontFamily}`,
             'backgroundColor': `${prop.bodyStyle.bodyBgColor}`,
-            'color': `${prop.bodyStyle.bodyFonttColor}`  }}
+            'color': `${prop.bodyStyle.bodyFonttColor}`
+          }}
         >
-       
-            <div className="inFoClient">
-              <div className="inFoClient_Name">{prop.restaurantName}</div>
-              {prop.extraInfo.address_1 && <div className="">{prop.extraInfo.address_1}</div>}
-              {prop.extraInfo.address_2 && <div className="">{prop.extraInfo.address_2}</div>}
 
-              {prop.extraInfo.phone && <div className="flex">
-                <div className="">{prop.extraInfo.phone}</div>
-              </div>}
-              {prop.extraInfo.email && <div className="">{prop.extraInfo.email}</div>}
-              <div className="flex_sologo">
-                {prop.extraInfo.website && <a href={prop.extraInfo.website} target="_blank"  rel="noreferrer" className="box_soLogo"
-                  style={{
-                    'border': `.5px solid ${prop.bodyStyle.bodyFonttColor}`
-                  }}>
+          <div className="inFoClient">
+            <div className="inFoClient_Name">{prop.restaurantName}</div>
+            {prop.extraInfo.address_1 && <div className="">{prop.extraInfo.address_1}</div>}
+            {prop.extraInfo.address_2 && <div className="">{prop.extraInfo.address_2}</div>}
 
-                  <svg className='itemSvg_so' fill={prop.bodyStyle.bodyFonttColor}>
-                    <use xlinkHref={`${SoLogo}#social-1`} />
-                  </svg>
-                </a>}
-                {prop.extraInfo.instagram && <a href={prop.extraInfo.instagram} target="_blank"  rel="noreferrer" className="box_soLogo"
-                  style={{
-                    'border': `.5px solid ${prop.bodyStyle.bodyFonttColor}`
-                  }}>
-                  <svg className='itemSvg_so' fill={prop.bodyStyle.bodyFonttColor}>
-                    <use xlinkHref={`${SoLogo}#social-2`} />
-                  </svg>
-                </a>}
-                {prop.extraInfo.facebook && <a href={prop.extraInfo.facebook} target="_blank"  rel="noreferrer" className="box_soLogo"
-                  style={{
-                    'border': `.5px solid ${prop.bodyStyle.bodyFonttColor}`
-                  }}>
-                  <svg className='itemSvg_so' fill={prop.bodyStyle.bodyFonttColor}>
-                    <use xlinkHref={`${SoLogo}#social-3`} />
-                  </svg>
-                </a>}
-                {prop.extraInfo.youtube && <a href={prop.extraInfo.youtube} target="_blank"  rel="noreferrer" className="box_soLogo"
-                  style={{
-                    'border': `.5px solid ${prop.bodyStyle.bodyFonttColor}`
-                  }}>
-                  <svg className='itemSvg_so' fill={prop.bodyStyle.bodyFonttColor}>
-                    <use xlinkHref={`${SoLogo}#social-4`} />
-                  </svg>
-                </a>}
-                {prop.extraInfo.tiktok && <a href={prop.extraInfo.tiktok} target="_blank"  rel="noreferrer" className="box_soLogo"
-                  style={{
-                    'border': `.5px solid ${prop.bodyStyle.bodyFonttColor}`
-                  }}>
-                  <svg className='itemSvg_so' fill={prop.bodyStyle.bodyFonttColor}>
-                    <use xlinkHref={`${SoLogo}#social-5`} />
-                  </svg>
-                </a>}
-              </div>
+            {prop.extraInfo.phone && <div className="flex">
+              <div className="">{prop.extraInfo.phone}</div>
+            </div>}
+            {prop.extraInfo.email && <div className="">{prop.extraInfo.email}</div>}
+            <div className="flex_sologo">
+              {prop.extraInfo.website && <a href={prop.extraInfo.website} target="_blank" rel="noreferrer" className="box_soLogo"
+                style={{
+                  'border': `.5px solid ${prop.bodyStyle.bodyFonttColor}`
+                }}>
+
+                <svg className='itemSvg_so' fill={prop.bodyStyle.bodyFonttColor}>
+                  <use xlinkHref={`${SoLogo}#social-1`} />
+                </svg>
+              </a>}
+              {prop.extraInfo.instagram && <a href={prop.extraInfo.instagram} target="_blank" rel="noreferrer" className="box_soLogo"
+                style={{
+                  'border': `.5px solid ${prop.bodyStyle.bodyFonttColor}`
+                }}>
+                <svg className='itemSvg_so' fill={prop.bodyStyle.bodyFonttColor}>
+                  <use xlinkHref={`${SoLogo}#social-2`} />
+                </svg>
+              </a>}
+              {prop.extraInfo.facebook && <a href={prop.extraInfo.facebook} target="_blank" rel="noreferrer" className="box_soLogo"
+                style={{
+                  'border': `.5px solid ${prop.bodyStyle.bodyFonttColor}`
+                }}>
+                <svg className='itemSvg_so' fill={prop.bodyStyle.bodyFonttColor}>
+                  <use xlinkHref={`${SoLogo}#social-3`} />
+                </svg>
+              </a>}
+              {prop.extraInfo.youtube && <a href={prop.extraInfo.youtube} target="_blank" rel="noreferrer" className="box_soLogo"
+                style={{
+                  'border': `.5px solid ${prop.bodyStyle.bodyFonttColor}`
+                }}>
+                <svg className='itemSvg_so' fill={prop.bodyStyle.bodyFonttColor}>
+                  <use xlinkHref={`${SoLogo}#social-4`} />
+                </svg>
+              </a>}
+              {prop.extraInfo.tiktok && <a href={prop.extraInfo.tiktok} target="_blank" rel="noreferrer" className="box_soLogo"
+                style={{
+                  'border': `.5px solid ${prop.bodyStyle.bodyFonttColor}`
+                }}>
+                <svg className='itemSvg_so' fill={prop.bodyStyle.bodyFonttColor}>
+                  <use xlinkHref={`${SoLogo}#social-5`} />
+                </svg>
+              </a>}
             </div>
-       
+          </div>
+
 
 
 

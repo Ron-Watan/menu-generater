@@ -93,6 +93,7 @@ const _04MenuForm = (prop) => {
             prop.setOnoffMenu1_MB(false)
             prop.setOnoffMenu2_MB(false)
             prop.setOnoffMenu3_MB(false)
+            prop.setTurnOnSection(false)
           }, 1000);
 
 
@@ -102,6 +103,7 @@ const _04MenuForm = (prop) => {
           prop.setOnoffMenu1_MB(false)
           prop.setOnoffMenu2_MB(false)
           prop.setOnoffMenu3_MB(false)
+          prop.setTurnOnSection(false)
           prop.getAllMenu()
         }
       })
@@ -109,6 +111,7 @@ const _04MenuForm = (prop) => {
       prop.setOnoffMenu1_MB(false)
       prop.setOnoffMenu2_MB(false)
       prop.setOnoffMenu3_MB(false)
+      prop.setTurnOnSection(false)
     }
 
   }
@@ -184,9 +187,7 @@ const _04MenuForm = (prop) => {
           <Link to=""
             onClick={() => {
               checkFormListChangeFn()
-              prop.setTurnOnSection(false)
-
-
+             
             }}
 
             className="MB_Btn MB_Btn_Border"

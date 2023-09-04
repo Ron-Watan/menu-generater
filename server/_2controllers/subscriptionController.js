@@ -27,8 +27,10 @@ export const getSubscription = async (req, res) => {
 
 export const subscription = (req, res) => {
 
-  const { email, priceId } = req.body
+  const { email, priceId, coupon } = req.body
   Users.findOne({ email }).then(user => {
+
+    if (!user.stripeCustomerId) return
 
     stripe.checkout.sessions.create(
       {
@@ -39,6 +41,7 @@ export const subscription = (req, res) => {
             price: priceId,
             quantity: 1,
           },
+
         ],
         success_url: process.env.LOCAL_PORT + "/app",
         cancel_url: process.env.LOCAL_PORT + "/app",
@@ -76,6 +79,9 @@ export const accoutReloadDB = (req, res) => {
 
   const { userId } = req.body
   Users.findOne({ userId }).then(user => {
+
+
+
     user.subscription = {
       id: currentSub.id,
       status: currentSub.status,
@@ -98,11 +104,11 @@ export const accoutReloadDB = (req, res) => {
 
 
 export const paymentProcess = (req, res) => {
-  console.log('1')
+
   const { userId } = req.body
   Users.findOne({ userId }).then(user => {
 
-
+    if (!user.stripeCustomerId) return
     // stripe.setupIntents.retrieve(user.subscriptionPayUpdate, {
     //   apiKey: process.env.STRIPE_SECRET_KEY,
     // }).then(reIntent => {
@@ -192,7 +198,7 @@ export const paymentProcess = (req, res) => {
 
 
 export const paymentProcess2 = (req, res) => {
-  console.log('1')
+
   const { userId } = req.body
   Users.findOne({ userId }).then(user => {
 
@@ -385,11 +391,11 @@ export const getSubPayment = (req, res) => {
 
   const { userId } = req.body
   Users.findOne({ userId }).then(user => {
+    if (!user.stripeCustomerId) return
+
     stripe.billingPortal.sessions.create({
       customer: user.stripeCustomerId,
       return_url: process.env.LOCAL_PORT + '/app',
-
-
 
     }, {
       apiKey: process.env.STRIPE_SECRET_KEY,
@@ -520,6 +526,8 @@ export const checkSubscription = (req, res) => {
       });
 
 
+    }).catch(err => {
+      console.log('Check Subscription Error ')
     })
 
   })
@@ -530,10 +538,27 @@ export const checkSubscription = (req, res) => {
 
 
 
+export const deleteCustomer = (req, res) => {
+
+
+  const { userId } = req.body
+  Users.findOne({ userId }).then(user => {
+    if (!user.stripeCustomerId) return
+    stripe.customers.del(user.stripeCustomerId, {
+
+    }, { apiKey: process.env.STRIPE_SECRET_KEY, }).then(portal => {
+      res.send({
+        message: 'Success',
+        success: true,
+      });
+
+    })
+
+  })
 
 
 
-
+};
 
 
 

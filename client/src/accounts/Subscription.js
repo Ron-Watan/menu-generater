@@ -41,18 +41,6 @@ function Subscription() {
                 .catch((err) => {
                 });
 
-
-
-
-
-
-
-
-
-
-
-
-
               // submitSubscription()
 
             })

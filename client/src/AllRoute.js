@@ -36,8 +36,10 @@ const AllRoute = () => {
         <Route path="/login" exact Component={LoginComponent} />
         <Route path="/register" exact Component={RegisterComponent} />
         <Route path="/forgotPassword" exact Component={ForgotPassword} />
-
         <Route path="/:link" exact Component={_MenuComponent} />
+
+
+
 
         <Route Component={ProtectRoute}>
           <Route path="/subscription" exact Component={Subscription} />

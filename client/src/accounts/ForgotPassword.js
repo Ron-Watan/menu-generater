@@ -7,10 +7,12 @@ import Sect00Navigation from '../componenthome/_00Navigation'
 import UserPool from "../UserPool"
 import { CognitoUser } from 'amazon-cognito-identity-js'
 import Swal from 'sweetalert2'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { hideLoading, showLoading } from "../redux/alertSlice"
 
 function ForgotPassword() {
+  const { loading } = useSelector((state) => state.alerts);
+
   const dispath = useDispatch()
   const location = useLocation()
   const [email, setEmail] = useState(location.state.email)
@@ -250,10 +252,21 @@ function ForgotPassword() {
 
             <div className="Acc_loginBTNBox mb-4 mt-4">
 
-              {!infoSendCode && <button onClick={sendCode} className="Acc_loginBTN Acc_ReBTN_W" type="submit">
+              {!infoSendCode && <button onClick={sendCode} className="Acc_loginBTN Acc_ReBTN_W posRelative" type="submit">
+                <div className={`${!loading && 'hiddenMe'}`}>
+                  <div className="iconLoadingBTN iconLoadingTwo">
+                    <span className='barOne'></span > <span className='barTwo'></span> <span className='barThree'></span>
+                  </div>
+                </div>
                 Send Code to Email
               </button>}
-              {infoSendCode && <button onClick={ConfirmCodePasssword} className="Acc_loginBTN Acc_ReBTN_W" type="submit">
+              {infoSendCode && <button onClick={ConfirmCodePasssword} className="Acc_loginBTN Acc_ReBTN_W posRelative" type="submit">
+                <div className={`${!true && 'hiddenMe'}`}>
+                  <div className="iconLoadingBTN iconLoadingOne">
+                    <span className='barOne'></span > <span className='barTwo'></span> <span className='barThree'></span>
+                  </div>
+                </div>
+
                 Confirm
               </button>}
             </div>

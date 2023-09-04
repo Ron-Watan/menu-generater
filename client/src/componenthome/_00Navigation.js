@@ -5,11 +5,12 @@ function _00Navigation(prop) {
 
 
   return (
-    <div className="H-header">
+    <div className="H-header ">
+
       <div className="H-top-navigation">
       </div>
       <div className="H-headerInner">
-        <div className="H-container--large">
+        <div className="H-container--large H_MaxWidth">
 
           <div className="H_mainnavigation">
             <div className="H-leftSideHeader">

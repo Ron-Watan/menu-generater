@@ -163,35 +163,15 @@ export const login = (req, res) => {
 
 }
 
-export const generateMenu = (req, res) => {
-  const { userId, link } = req.body;
-
-  Users.findOne({ userId: userId }).then(user => {
-
-    Clients.create({
-      link: link
-    })
-    res.send({
-      message: 'Success',
-      userMenu: user,
-      success: true
-
-    })
-
-  })
-}
-
-
 
 
 //-  BLOCK CHECK TOKEN'S USER TO ALLOW TO PAGE THEN SEND ID TO USE info and Store to page
 export const requireLogin = async(req, res, next) => {
   const authHeader = req.headers['authorization']
   const token = authHeader && authHeader.split(' ')[1]
-
   try {
     const payload = await verifier.verify(token);
-    
+  
     console.log('Token is valid');
     req.proved = payload
     next()
@@ -212,9 +192,8 @@ export const requireLogin = async(req, res, next) => {
 
 //- GET USER INFO to SAVE IN REDUX at Protector Compo
 export const getInfoUserToStore = (req, res) => {
-  console.log(req.proved)
   Users.findOne({ userId: req.proved.username })
-  
+
     // .select('userId restaurentName menu menuName  bannerImage languageSetup timeSetup clientId link')
     .then(result => {
    

@@ -4,6 +4,9 @@
   width: 100%;
   height: 100%;
 }
+.x {
+  display: none;
+}
 .H-header {
   width: 100%;
 
@@ -41,9 +44,10 @@
 }
 .H_mainnavigation {
   position: relative;
-  width: 100%;
-  height: 3.2rem;
   display: flex;
+  width: 100vw;
+  max-width: 70rem;
+  height: 3.2rem;
   align-items: center;
   justify-content: space-between;
   padding-left: 1rem;
@@ -64,7 +68,7 @@
 }
 .H_Padding_FreeTrial {
   padding-top: 1rem;
-  padding-bottom: 1,5rem;
+  padding-bottom: 1, 5rem;
 }
 .H_mainnavigation_ab {
   position: absolute;
@@ -82,12 +86,13 @@
 .H-center-navigation img {
   margin-top: -0.75rem;
   max-width: 4.8rem;
-  /* background-color: aqua; */
+
   border-radius: 50%;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.438);
 }
 
-.H-rightSideHeader,.H-leftSideHeader {
+.H-rightSideHeader,
+.H-leftSideHeader {
   z-index: 200;
 }
 .H_btnLogin {
@@ -95,7 +100,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
- 
+
   line-height: 1.6;
 }
 
@@ -142,7 +147,6 @@
 .H_BannerM_Flex {
   display: flex;
   background-size: cover;
-
 }
 .H_BG1 {
   background-image: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)), url('../componenthome/img/restaurant.jpg');
@@ -152,10 +156,8 @@
 }
 .H_BannerM_Flex1 {
   display: flex;
-  justify-content: flex-end;
   align-items: center;
-  width: 50%;
-  min-width: 50vw;
+  /* width: 50%; */
   height: 30rem;
 }
 
@@ -165,10 +167,31 @@
 }
 
 .H_BannerM_Flex2 {
-  width: 50%;
+  /* width: 50%; */
   display: flex;
   flex-direction: column;
   gap: 1.8rem;
+}
+.H_MaxWidth {
+  position: relative;
+  width: 70rem;
+
+  margin: 0 auto;
+  max-width: 100vw;
+}
+
+.H_ContWidth {
+  position: relative;
+  width: 40rem;
+  max-width: 100vw;
+
+  margin: 0 auto;
+}
+.H_SetFlex {
+  display: flex;
+  max-width: 100vw;
+
+  justify-content: space-around;
 }
 .H_flexBarCode {
   display: flex;
@@ -270,6 +293,12 @@
   flex-direction: column;
   gap: 2rem;
 }
+.H_DemoFlexCol {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 100vw;
+}
 
 .Flex_Demo {
   display: flex;
@@ -279,7 +308,7 @@
   padding: 0.5rem 1rem;
 }
 .Flex_Demo1 {
-  width: 60%;
+  width: 50%;
 }
 .Flex_Demo1_img {
   height: 10rem;
@@ -288,7 +317,7 @@
 }
 
 .Flex_Demo2 {
-  width: 40%;
+  width: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -322,10 +351,9 @@
 .H_featureSection {
   display: flex;
   flex-direction: column;
-  gap: 6rem;
-  width: 100%;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
+
+  /* width: 100%; */
+
   margin-top: 3rem;
 }
 
@@ -341,7 +369,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 45%;
+  width: 55%;
 }
 
 .dotBarFlexFT {
@@ -524,5 +552,8 @@
 }
 
 .h_fbanner {
+  height: 7rem;
+}
+.featureLink {
   height: 7rem;
 }

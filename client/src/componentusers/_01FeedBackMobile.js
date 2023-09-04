@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import MBiconClose from '../all-icon/button-icon/MBclose.svg'
 import MBiconBin from '../all-icon/button-icon/MBbin.svg'
+import MBiconAchive from '../all-icon/button-icon/acheive.svg'
+
 
 import MBiconStarList from '../all-icon/button-icon/starList.svg'
 import MBiconBack from '../all-icon/button-icon/MBback.svg'
@@ -489,11 +491,11 @@ const _FeedBackMobile = (prop) => {
               }
               className='MB_Btn MB_Btn_Border'>
 
-              <img src={MBiconClose} alt="" />
+              <img src={MBiconAchive} alt="" />
 
 
             </button>
-            <span className='MB_textBtn'>Move to Seen</span>
+            <span className='MB_textBtn'>Archive</span>
           </div>}
           {switchUnseen === 'seen' && <div className="GruopBtn">
             <button

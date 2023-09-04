@@ -2,15 +2,13 @@ import Users from '../_3models/menuModel.js';
 import { v4 as uuidv4 } from 'uuid';
 import Clients from '../_3models/clientModel.js';
 
-// import Images from '../_3models/imageModel.js';
-// import Banners from '../_3models/bannerModel.js';
 
 //-
 export const getAllMenu = (req, res) => {
-  // res.send({ message: "Success", success: true, }) //send to client side
+
   const { userId } = req.body;
   Users.findOne({ userId: userId })
-    .select('userId restaurentName menu menuName themeSetup bannerImage languageSetup timeSetup onOffSetting clientId link bannerNumber extraInfo')
+    .select('userId restaurentName menu menuName themeSetup bannerImage languageSetup timeSetup onOffSetting clientId link bannerNumber extraInfo redSnaq')
     .then((user) => {
       res.send({
         message: 'Success',
@@ -23,13 +21,12 @@ export const getAllMenu = (req, res) => {
 
 
 export const createManu = (req, res) => {
-  // console.log(req.body)
+
   const { loginCode, userId, clientId, catagory, icon_catagory, imgId, listMenu, menuTime } = req.body;
 
   const menuId = uuidv4();
 
   Users.findOne({ userId: userId })
-    // .select('userId restaurentName menu menuName bannerImage languageSetup timeSetup onOffSetting clientId link')
     .then((user) => {
 
       if (user.loginCode !== loginCode) {
@@ -82,6 +79,7 @@ export const uploadImage = (req, res) => {
 export const saveEditMenu = (req, res) => {
   const { menuId, catagory, catagory_2, icon_catagory, imgId, listMenu, menuTime, menuTimeName } = req.body;
   Users.findOneAndUpdate(
+
     { 'menu.menuId': menuId },
     {
       $set: {
@@ -222,58 +220,14 @@ export const delelteImage = (req, res) => {
   });
 };
 
-export const getAllImage = (req, res) => {
-  const { userId } = req.body;
-  // console.log(userId)
-  Images.find({ userId: userId }).then((result) => {
-    res.send({
-      message: 'Success',
-      images: result,
-      success: true,
-    });
-  });
-};
 
-export const getImage = (req, res) => {
-  const { imgId } = req.body;
-  gfs.files.findOne({ filename: imgId }, (err, file) => {
-    // Check if file
-    if (!file || file.length === 0) {
-      return res.status(404).json({
-        err: 'No file exists'
-      });
-    }
-    // File exists
-    res.send({
-      message: 'Success',
-      images: file,
-      success: true,
-    });
-    res.json({ file: req.file });
-    // return res.json(file);
-  });
 
-};
-
-export const getImage1 = (req, res) => {
-  const { imgId } = req.body;
-  Images.findOne({ imgId: imgId }).then((result) => {
-    res.send({
-      message: 'Success',
-      images: result,
-      success: true,
-    });
-  });
-};
-
-//-
-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-//-
 export const uploadImageBanner = (req, res) => {
   const { loginCode, userId, clientId, bannerImage, banner } = req.body;
 
   Users.findOne({ userId: userId }).then(user => {
-    if (user.loginCode !== loginCode) {
 
+    if (user.loginCode !== loginCode) {
       return res.send({
         message: 'Duplicate',
         success: false,
@@ -301,17 +255,6 @@ export const uploadImageBanner = (req, res) => {
 
 };
 
-// export const getAllImageBanner = (req, res) => {
-//   const { userId } = req.body;
-
-//   Banners.findOne({ userId: userId }).then((result) => {
-//     res.send({
-//       message: 'Success',
-//       images: result,
-//       success: true,
-//     });
-//   });
-// };
 
 
 

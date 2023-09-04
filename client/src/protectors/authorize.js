@@ -1,56 +1,28 @@
 //set token and useername to session storage
 
-
-// export const authenticate = (tokenCognito, next) => {
-
-//   if (window !== 'undefined') {
-//     sessionStorage.setItem('token', JSON.stringify(tokenCognito))
-//     // sessionStorage.setItem('id', JSON.stringify(result.data.userId))
-//   }
-//   next()
-//   window.location.reload(false);
-
-// }
+//Version 1
 export const authenticate = (tokenCognito, next) => {
-
   if (window !== 'undefined') {
     sessionStorage.setItem('tokenName', JSON.stringify(tokenCognito))
     // sessionStorage.setItem('id', JSON.stringify(result.data.userId))
-
   }
   next()
   window.location.reload(false);
-
 }
-// export const authenticate = (result, next) => {
 
+//Version 2
+// export const authenticate = (tokenCognito, next) => {
 //   if (window !== 'undefined') {
-//     sessionStorage.setItem('token', JSON.stringify(result.data.token))
-//     // sessionStorage.setItem('id', JSON.stringify(result.data.userId))
+//     sessionStorage.setItem('token', JSON.stringify(tokenCognito))
 //   }
 //   next()
 //   window.location.reload(false);
-
-// }
-
-// function refreshPage() {
-//   window.location.reload(false);
 // }
 
 
 
-// get data
-// export const getToken = () => {
-//   if (window !== 'undefined') {
-//     if (sessionStorage.getItem('token')) {
-//       return JSON.parse(sessionStorage.getItem('token'))
-//     } else return false
-//   }
-// }
-
-
+//Version 1
 export const getToken = () => {
-
   const tokenName = JSON.parse(sessionStorage.getItem('tokenName'))
   if (window !== 'undefined') {
     if (sessionStorage.getItem('tokenName')) {
@@ -61,27 +33,22 @@ export const getToken = () => {
   }
 }
 
-
-
-//get id
-// export const getId = () => {
+//Version 2
+// export const getToken = () => {
 //   if (window !== 'undefined') {
-//     if (sessionStorage.getItem('id')) {
-//       return JSON.parse(sessionStorage.getItem('id'))
+//     if (sessionStorage.getItem('token')) {
+//       return JSON.parse(sessionStorage.getItem('token'))
 //     } else return false
-//   } else return false
+//   }
 // }
 
 
-
-//logout / delete id an token
 
 
 export const logout = (next) => {
   if (window !== 'undefined') {
     sessionStorage.removeItem('id')
-    sessionStorage.removeItem('token')
-
+    sessionStorage.removeItem('tokenName')
   }
   next()
   window.location.reload(false);

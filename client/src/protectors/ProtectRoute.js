@@ -16,27 +16,21 @@ const ProtectRoute = () => {
 
   const dispath = useDispatch()
   const checkUserAuthorize = () => {
- 
+
     axios
       .post(`${process.env.REACT_APP_API}/user/info-user`, {}, ticketPass)
       .then(result => {
-     
+
         if (result) {
           dispath(setUser(result.data.data.result))
-          // console.log("App-CheckUserAuthorize : true")
-
         }
         else {
-
-          // localStorage.clear()
           navigate('/login')
         }
       }).catch(err => {
         console.log("App-CheckUserAuthorize/ Connection : fail")
-
         dispath(hideLoading());
-        // localStorage.clear()
-        // navigate("/login");
+        navigate('/login')
       })
   }
   // useEffect(() => {

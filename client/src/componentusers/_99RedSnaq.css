@@ -1,0 +1,7 @@
+.CusListGrid {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(10rem, 1fr));
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 400;
+}

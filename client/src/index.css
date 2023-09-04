@@ -309,6 +309,57 @@ label {
   text-align: center !important;
   font-weight: 500;
 }
+
+/* //////////////////////////// */
+.posRelative {
+  position: relative;
+}
+
+.iconLoadingBTN {
+  position: absolute;
+  display: flex;
+  gap: 0.25rem;
+  transform: translate(-50%, -50%);
+}
+.iconLoadingOne {
+  top: 50%;
+  left: 20%;
+}
+.iconLoadingTwo {
+  top: 50%;
+  left: 9%;
+}
+.iconLoadingThree {
+  top: 50%;
+  left: 22%;
+}
+.iconLoadingBTN span {
+  width: 0.3rem;
+  height: 0.8rem;
+  border-radius: 3px;
+  box-shadow: 0.1rem 0.1rem 0.5rem 0.1rem rgba(0, 0, 0, 0.15);
+}
+
+.barOne {
+  background-color: #3e94e4;
+  animation: barloading 2s infinite;
+  animation-delay: 0s;
+}
+
+.barTwo {
+  background-color: #83b2df;
+  animation: barloading 2s infinite;
+  animation-delay: 0.125s;
+}
+
+.barThree {
+  background-color: #c5d4e3;
+  animation: barloading 2s infinite;
+  animation-delay: 0.25s;
+}
+
+/* //////////////////////////// */
+
 @tailwind utilities;
 
 @layer base {

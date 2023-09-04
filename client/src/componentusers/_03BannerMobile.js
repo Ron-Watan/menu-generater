@@ -9,6 +9,7 @@ import { hideLoading, showLoading } from '../redux/alertSlice';
 import Resizer from 'react-image-file-resizer';
 import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
+import { ticketPass } from '../protectors/authorize'
 
 const _03BannerMobile = (prop) => {
   const loginCode = sessionStorage.getItem('temp')
@@ -117,7 +118,7 @@ const _03BannerMobile = (prop) => {
 
     axios
       .post(`${process.env.REACT_APP_API}/user/photos/dataBanner`,
-        { loginCode, userId: user.userId, clientId: user.clientId, bannerImage: linkDB, banner: prop.bannerImgArr.length })
+        { loginCode, userId: user.userId, clientId: user.clientId, bannerImage: linkDB, banner: prop.bannerImgArr.length }, ticketPass)
       .then((resultDB) => {
         if (resultDB.data.success) {
           //SAVE PHOTOS
@@ -128,27 +129,27 @@ const _03BannerMobile = (prop) => {
             if (bannerImg.slice(0, -10) === user.link) { // Same Photo
 
               axios
-                .post(`${process.env.REACT_APP_API}/user/photos/rename`, { imgId: bannerImg, newImgId: imgId + index })
+                .post(`${process.env.REACT_APP_API}/user/photos/rename`, { imgId: bannerImg, newImgId: imgId + index }, ticketPass)
 
                 .then((result) => {
-                  Swal.fire({
-                    title: 'Saved',
-                    toast: true,
-                    icon: 'success',
-                    showConfirmButton: false,
-                    timer: 1000,
-                  }).then(next => {
+                  // Swal.fire({
+                  //   title: 'Saved',
+                  //   toast: true,
+                  //   icon: 'success',
+                  //   showConfirmButton: false,
+                  //   timer: 1000,
+                  // }).then(next => {
 
-                    prop.getAllMenu()
-                    // getAllImageBanner()
+                  prop.getAllMenu()
+                  // getAllImageBanner()
 
-                    prop.setOnoffBanner_MB(false)
-                    prop.setIndexToBanner('')
-                    setCheckBannerChange(false)
-                    // window.location.reload(false)
-                    dispath(hideLoading())
+                  prop.setOnoffBanner_MB(false)
+                  prop.setIndexToBanner('')
+                  setCheckBannerChange(false)
+                  // window.location.reload(false)
+                  dispath(hideLoading())
 
-                  })
+                  // })
                 })
             }
 
@@ -157,27 +158,26 @@ const _03BannerMobile = (prop) => {
               formData = new FormData()
               formData.append('avatar', bannerImg, imgId + index);
               axios
-                .post(`${process.env.REACT_APP_API}/user/photos/uplaod`, formData)
+                .post(`${process.env.REACT_APP_API}/user/photos/uplaod`, formData, ticketPass)
                 .then((result) => {
                   // console.log(result)
 
-                  Swal.fire({
-                    title: 'Saved',
-                    toast: true,
-                    icon: 'success',
-                    showConfirmButton: false,
-                    timer: 1000,
-                  }).then(next => {
+                  // Swal.fire({
+                  //   title: 'Saved',
+                  //   toast: true,
+                  //   icon: 'success',
+                  //   showConfirmButton: false,
+                  //   timer: 1000,
+                  // }).then(next => {
 
-                    prop.getAllMenu()
-                    // getAllImageBanner()
-
-                    prop.setOnoffBanner_MB(false)
-                    prop.setIndexToBanner('')
-                    setCheckBannerChange(false)
-                    // window.location.reload(false)
-                    dispath(hideLoading())
-                  })
+                  prop.getAllMenu()
+                  // getAllImageBanner()
+                  prop.setOnoffBanner_MB(false)
+                  prop.setIndexToBanner('')
+                  setCheckBannerChange(false)
+                  // window.location.reload(false)
+                  dispath(hideLoading())
+                  // })
                 })
                 .catch((err) => {
                   console.error(err);
@@ -185,8 +185,18 @@ const _03BannerMobile = (prop) => {
             }
 
 
-
           })
+
+
+          Swal.fire({
+            title: 'Saved',
+            toast: true,
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 1500,
+          })
+
+
         } else {
           dispath(hideLoading())
           return navigate('/login')
@@ -228,7 +238,7 @@ const _03BannerMobile = (prop) => {
         //SAVE DB
         axios
           .post(`${process.env.REACT_APP_API}/user/photos/dataBanner`,
-            { loginCode, userId: user.userId, clientId: user.clientId, bannerImage: linkDB, banner: prop.bannerImgArr.length })
+            { loginCode, userId: user.userId, clientId: user.clientId, bannerImage: linkDB, banner: prop.bannerImgArr.length }, ticketPass)
           .then((resultDB) => {
 
             if (resultDB.data.success) {
@@ -244,7 +254,7 @@ const _03BannerMobile = (prop) => {
               prop.setIndexToBanner('')
               if (dataDeleted[0].slice(0, -10) !== user.link) return
               axios
-                .post(`${process.env.REACT_APP_API}/user/photos/delete`, { imgId: dataDeleted[0] })
+                .post(`${process.env.REACT_APP_API}/user/photos/delete`, { imgId: dataDeleted[0]},ticketPass)
                 .then((result) => {
 
                   dispath(hideLoading())
@@ -384,7 +394,7 @@ const _03BannerMobile = (prop) => {
           <div className="GruopBtn">
             <button onClick={() => {
               checkBannerChangeFn()
-           
+
               // prop.setOnoffBanner_MB(false)
               // checkChecnge()
               // prop.setIndexToBanner('')

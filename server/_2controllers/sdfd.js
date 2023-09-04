@@ -1238,3 +1238,201 @@ let ddd = [
     trial_start: 1692992830
   }
 ]
+
+
+let ffff={
+  "cutomerID": "cus_OZCLLjr7ZIKiaU",
+  "cutomerEmail": "ronwatan@gmail.com",
+  "subscriptions": {
+      "id": "sub_1Nm3xbGFhFwjKc9QmArZ6Tvm",
+      "object": "subscription",
+      "application": null,
+      "application_fee_percent": null,
+      "automatic_tax": {
+          "enabled": false
+      },
+      "billing_cycle_anchor": 1696292079,
+      "billing_thresholds": null,
+      "cancel_at": 1696292079,
+      "cancel_at_period_end": true,
+      "canceled_at": 1693746917,
+      "cancellation_details": {
+          "comment": null,
+          "feedback": null,
+          "reason": "cancellation_requested"
+      },
+      "collection_method": "charge_automatically",
+      "created": 1693700079,
+      "currency": "usd",
+      "current_period_end": 1696292079,
+      "current_period_start": 1693700079,
+      "customer": "cus_OZCLLjr7ZIKiaU",
+      "days_until_due": null,
+      "default_payment_method": {
+          "id": "pm_1Nm3xZGFhFwjKc9QKA8bj0cC",
+          "object": "payment_method",
+          "billing_details": {
+              "address": {
+                  "city": null,
+                  "country": "US",
+                  "line1": null,
+                  "line2": null,
+                  "postal_code": "22222",
+                  "state": null
+              },
+              "email": "ronwatan@gmail.com",
+              "name": "dffdf234242",
+              "phone": null
+          },
+          "card": {
+              "brand": "mastercard",
+              "checks": {
+                  "address_line1_check": null,
+                  "address_postal_code_check": "pass",
+                  "cvc_check": "pass"
+              },
+              "country": "US",
+              "exp_month": 4,
+              "exp_year": 2044,
+              "fingerprint": "5ULFykRjldKS4c6c",
+              "funding": "debit",
+              "generated_from": null,
+              "last4": "8210",
+              "networks": {
+                  "available": [
+                      "mastercard"
+                  ],
+                  "preferred": null
+              },
+              "three_d_secure_usage": {
+                  "supported": true
+              },
+              "wallet": null
+          },
+          "created": 1693700077,
+          "customer": "cus_OZCLLjr7ZIKiaU",
+          "livemode": false,
+          "metadata": {},
+          "type": "card"
+      },
+      "default_source": null,
+      "default_tax_rates": [],
+      "description": null,
+      "discount": null,
+      "ended_at": null,
+      "items": {
+          "object": "list",
+          "data": [
+              {
+                  "id": "si_OZCMA3yDijZZP6",
+                  "object": "subscription_item",
+                  "billing_thresholds": null,
+                  "created": 1693700079,
+                  "metadata": {},
+                  "plan": {
+                      "id": "price_1NiEwcGFhFwjKc9QzHvGfTpg",
+                      "object": "plan",
+                      "active": true,
+                      "aggregate_usage": null,
+                      "amount": 999,
+                      "amount_decimal": "999",
+                      "billing_scheme": "per_unit",
+                      "created": 1692788990,
+                      "currency": "usd",
+                      "interval": "month",
+                      "interval_count": 1,
+                      "livemode": false,
+                      "metadata": {},
+                      "nickname": null,
+                      "product": "prod_OVFRja3rkRt0vx",
+                      "tiers_mode": null,
+                      "transform_usage": null,
+                      "trial_period_days": null,
+                      "usage_type": "licensed"
+                  },
+                  "price": {
+                      "id": "price_1NiEwcGFhFwjKc9QzHvGfTpg",
+                      "object": "price",
+                      "active": true,
+                      "billing_scheme": "per_unit",
+                      "created": 1692788990,
+                      "currency": "usd",
+                      "custom_unit_amount": null,
+                      "livemode": false,
+                      "lookup_key": null,
+                      "metadata": {},
+                      "nickname": null,
+                      "product": "prod_OVFRja3rkRt0vx",
+                      "recurring": {
+                          "aggregate_usage": null,
+                          "interval": "month",
+                          "interval_count": 1,
+                          "trial_period_days": null,
+                          "usage_type": "licensed"
+                      },
+                      "tax_behavior": "unspecified",
+                      "tiers_mode": null,
+                      "transform_quantity": null,
+                      "type": "recurring",
+                      "unit_amount": 999,
+                      "unit_amount_decimal": "999"
+                  },
+                  "quantity": 1,
+                  "subscription": "sub_1Nm3xbGFhFwjKc9QmArZ6Tvm",
+                  "tax_rates": []
+              }
+          ],
+          "has_more": false,
+          "total_count": 1,
+          "url": "/v1/subscription_items?subscription=sub_1Nm3xbGFhFwjKc9QmArZ6Tvm"
+      },
+      "latest_invoice": "in_1Nm3xbGFhFwjKc9QI6XdSk8Z",
+      "livemode": false,
+      "metadata": {},
+      "next_pending_invoice_item_invoice": null,
+      "on_behalf_of": null,
+      "pause_collection": null,
+      "payment_settings": {
+          "payment_method_options": null,
+          "payment_method_types": null,
+          "save_default_payment_method": "off"
+      },
+      "pending_invoice_item_interval": null,
+      "pending_setup_intent": null,
+      "pending_update": null,
+      "plan": {
+          "id": "price_1NiEwcGFhFwjKc9QzHvGfTpg",
+          "object": "plan",
+          "active": true,
+          "aggregate_usage": null,
+          "amount": 999,
+          "amount_decimal": "999",
+          "billing_scheme": "per_unit",
+          "created": 1692788990,
+          "currency": "usd",
+          "interval": "month",
+          "interval_count": 1,
+          "livemode": false,
+          "metadata": {},
+          "nickname": null,
+          "product": "prod_OVFRja3rkRt0vx",
+          "tiers_mode": null,
+          "transform_usage": null,
+          "trial_period_days": null,
+          "usage_type": "licensed"
+      },
+      "quantity": 1,
+      "schedule": null,
+      "start_date": 1693700079,
+      "status": "trialing",
+      "test_clock": null,
+      "transfer_data": null,
+      "trial_end": 1696292079,
+      "trial_settings": {
+          "end_behavior": {
+              "missing_payment_method": "create_invoice"
+          }
+      },
+      "trial_start": 1693700079
+  }
+}

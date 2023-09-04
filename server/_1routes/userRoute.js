@@ -1,34 +1,26 @@
 import express from 'express'
 import mongoose from "mongoose";
 import bodyparser from "body-parser";
-import { checkRegister, register, login, getInfoUserToStore, requireLogin, generateMenu } from '../_2controllers/userController.js'
+import { checkRegister, register, login, getInfoUserToStore, requireLogin } from '../_2controllers/userController.js'
 import {
-  findOneMenu, createManu, getAllMenu, saveEditMenu, deleteMenu,
-  uploadImageBanner,
-  uploadImage,
-  getAllImage, getImage,
-  saveNameMenu, saveTimeSetup, saveLangSetup, setupTheme, getTheme, saveOnOffSetting,
-  getFeedBack, saveFeedBack, saveReArangeList, saveQRCode, getQrCode, saveExtraInfo,
+  getAllMenu, createManu, saveEditMenu,
+  uploadImageBanner, deleteMenu,
+  findOneMenu, saveNameMenu, saveReArangeList,
+  saveTimeSetup, saveLangSetup, setupTheme, getTheme, saveOnOffSetting,
+  getFeedBack, saveFeedBack, saveQRCode, getQrCode, saveExtraInfo,
   deleteAllDataAccout
 } from '../_2controllers/manuController.js'
 
-import { getSubscription, subscription, checkSubscription, getSubPayment } from '../_2controllers/subscriptionController.js'
+
+import { getSubscription, subscription, checkSubscription, getSubPayment, deleteCustomer } from '../_2controllers/subscriptionController.js'
+import { listAllSubscription } from '../_2controllers/adminControl.js'
+
+const router = express.Router()
+import dotenv from 'dotenv'; dotenv.config()
 
 import multer from "multer";
-// import formidable from "formidable";
-// import fs from "fs";
-// import { getResult, resizeImages, uploadImages } from '../_2controllers/uploadController.js';
-import dotenv from 'dotenv'; dotenv.config()
-// const storage = multer.memoryStorage()
-// const upload = multer({ storage: storage })
-
-// const upload = multer({ dest: 'images/' })
-const router = express.Router()
-
 import { GridFsStorage } from "multer-gridfs-storage";
 import Grid from 'gridfs-stream'
-
-
 
 import Stripe from 'stripe';
 
@@ -38,7 +30,6 @@ import Stripe from 'stripe';
 // });
 
 export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  // apiVersion: "2020-08-27",
   apiVersion: '2023-08-16',
 
 });
@@ -61,20 +52,14 @@ conn.once('open', () => {
 const storage = new GridFsStorage({
   url: process.env.MONGODB_URL,
   file: (req, file) => {
-    // const file1 = await gfs.files.findOne({ filename: file.originalname });
-    console.log('save')
-    // console.log(file1)
-    // console.log('save')
+    console.log('Image-saveed')
     return {
       bucketName: 'photos',
       filename: file.originalname,// same as imgId
     };
   }
 
-
-
 });
-
 
 const upload = multer({ storage });
 
@@ -82,73 +67,48 @@ const upload = multer({ storage });
 
 
 
-// ==> /api/user
-// account
-router.post('/checkRegister', checkRegister)
-
+router.post('/checkRegister', checkRegister) // Not Duplicate Email and Link
 router.post('/register', register)
 router.post('/login', login)
 
-// components
-
 router.post('/info-user', requireLogin, getInfoUserToStore)
+
 router.post('/getAllMenu', requireLogin, getAllMenu)
-
 router.post('/create-manu', requireLogin, createManu)
-
-// router.post('/create-manu', middleware, requireLogin, createManu)
-router.post('/findOneMenu', requireLogin, findOneMenu)
 router.post('/saveEditMenu', requireLogin, saveEditMenu)
-router.post('/deleteMenu', requireLogin, deleteMenu)
 router.post('/saveNameMenu', requireLogin, saveNameMenu)
-router.post('/saveTimeSetup', requireLogin, saveTimeSetup)
-router.post('/saveLangSetup', requireLogin, saveLangSetup)
-router.post('/saveOnOffSetting', requireLogin, saveOnOffSetting)
+router.post('/saveReArangeList', requireLogin, saveReArangeList)
+router.post('/findOneMenu', requireLogin, findOneMenu)
+router.post('/deleteMenu', requireLogin, deleteMenu)
+
 router.post('/getFeedBack', requireLogin, getFeedBack)
 router.post('/saveFeedBack', requireLogin, saveFeedBack)
-router.post('/saveReArangeList', requireLogin, saveReArangeList)
+router.post('/getQrCode', requireLogin, getQrCode)
 router.post('/saveQRCode', requireLogin, saveQRCode)
+router.post('/saveLangSetup', requireLogin, saveLangSetup)
+router.post('/saveTimeSetup', requireLogin, saveTimeSetup)
+router.post('/saveOnOffSetting', requireLogin, saveOnOffSetting)
 router.post('/saveExtraInfo', requireLogin, saveExtraInfo)
-
-
-router.post('/generateMenu', requireLogin, generateMenu)
-
-
-router.post('/photos/dataBanner', uploadImageBanner)
-
-router.post('/images/uplaodBanner', upload.array("avatar", 12), uploadImageBanner)
+router.post('/getTheme', requireLogin, getTheme)
+router.post('/setupTheme', requireLogin, setupTheme)
 
 
 
-router.get('/getSubscription', requireLogin, getSubscription)
-router.post('/subscription', requireLogin, subscription)
+
+router.post('/photos/dataBanner', requireLogin, uploadImageBanner)
+router.post('/images/uplaodBanner', requireLogin, upload.array("avatar", 12), uploadImageBanner)
+
 router.post('/checkSubscription', requireLogin, checkSubscription)
-router.post('/getSubPayment', requireLogin, getSubPayment)
-// router.post('/getSubPayment', requireLogin, getSubPayment)
-// router.post('/paymentProcess', requireLogin, paymentProcess)
+router.get('/getSubscription', requireLogin, getSubscription) // Get Package
+router.post('/subscription', requireLogin, subscription) // Get Session Payment
+router.post('/getSubPayment', requireLogin, getSubPayment) // for Edit Payment
+router.post('/deleteCustomer', requireLogin, deleteCustomer)
+router.get('/listAllSubscription', listAllSubscription) 
 
 
-// router.post('/cancelSubscription', requireLogin, cancelSubscription)
-// router.post('/continueSubscription', requireLogin, continueSubscription)
+
 router.post('/deleteAllDataAccout', requireLogin, deleteAllDataAccout)
 
-
-
-// router.post('/images/save', upload.single("avatar"), saveImage)
-// router.post('/images/delete1', upload.single("avatar"), delelteImage)
-// router.post('/images/uplaodBanner', upload.single("avatar"), uploadImageBanner)
-// router.post('/images/uplaodBanner', upload.array("avatar", 12), uploadImageBanner)
-// router.post('/images/allBanner', getAllImageBanner)
-
-router.post('/images/all', getAllImage)
-
-router.post('/setupTheme', requireLogin, setupTheme)
-router.post('/getTheme', requireLogin, getTheme)
-router.post('/getQrCode', requireLogin, getQrCode)
-
-router.post('/images/', upload.single("avatar"), getImage)
-
-// router.post('/images/preview', getImage)
 //- Image Section
 
 // Public Route
@@ -162,73 +122,47 @@ router.get('/photos/:filename', async (req, res) => {
   }
 });
 
-
-router.post('/photos/uplaod', upload.single("avatar"), async (req, res) => {
+// Banner
+router.post('/photos/uplaod', requireLogin, upload.single("avatar"), async (req, res) => {
+  console.log('banner')
   const imgId = req.file.originalname
-  // console.log(req.file.originalname)
+
   try {
     const file = await gfs.files.find({ filename: imgId }).toArray()
-
 
     if (file.length === 1) {
       return res.send({
         message: 'Success',
-        // data: req.file,
         success: true,
       })
     }
-    // gridfsBucket.delete(file._id)
 
     for (let i = 0; i < file.length - 1; i++) {
-      console.log(file[i]._id)
       if (!file[i]._id) return
       gridfsBucket.delete(file[i]._id)
-      console.log('dellllll')
+      console.log('Delete Banner')
     }
 
     res.send({
       message: 'Success',
-      // data: req.file,
       success: true,
     })
   } catch (error) {
 
   }
 })
-router.post('/photos/uplaodOne', upload.single("avatar"), (req, res) => {
-  res.send({
-    message: 'Success',
-    // data: req.file,
-    success: true,
-  });
-})
-router.post('/photos/uplaod6', upload.array("avatar1", 12), (req, res) => {
-  res.send({
-    message: 'Success',
-    success: true,
-  });
-})
-
-
 
 // One Menu Route
-router.post('/photos/getImage', async (req, res) => {
-  const { imgId } = req.body;
-  // if(imgId.length)
-  // try {
-  const file = await gfs.files.findOne({ filename: imgId });
-  // if (!file) return console.log('Nofile')
-  // gfs.createReadStream('df3a2c5fb1c5f2f655c08c32ddaf06b6');
-  // readStream.pipe(readStream);
+router.post('/photos/uplaodOne', requireLogin, upload.single("avatar"), (req, res) => {
   res.send({
     message: 'Success',
-    images: file,
     success: true,
   });
+})
 
-});
 
-router.post('/photos/rename', async (req, res) => {
+
+router.post('/photos/rename', requireLogin, async (req, res) => {
   const { imgId, newImgId } = req.body;
 
   const file = await gfs.files.findOne({ filename: imgId });
@@ -242,7 +176,12 @@ router.post('/photos/rename', async (req, res) => {
 
 router.post('/photos/deleteArray', requireLogin, (req, res) => {
   const { imgId } = req.body;
-  if (imgId.length === 0) return console.log('return')
+  if (imgId.length === 0) {
+    return res.send({
+      message: 'Success',
+      success: true,
+    });
+  }
 
   imgId.forEach(async (el, index) => {
     console.log('del')
@@ -256,7 +195,8 @@ router.post('/photos/deleteArray', requireLogin, (req, res) => {
   });
 });
 
-router.post('/photos/delete', async (req, res) => {
+
+router.post('/photos/delete',requireLogin, async (req, res) => {
   const { imgId } = req.body;
   try {
     const file = await gfs.files.findOne({ filename: imgId });
@@ -277,19 +217,6 @@ router.post('/photos/delete', async (req, res) => {
 
 
 });
-// router.post('/images/delete', (req, res) => {
-//   const { imgId } = req.body;
-//   // console.log('imgId')
-//   // console.log(imgId)
-//   gridfsBucket.delete('64d074a592fb36c34675f77c')
-//   // gfs.remove({ _id: '64d074a592fb36c34675f77c', root: 'uploads' }, (err, gridStore) => {
-//   //   if (err) {
-//   //     return res.status(404).json({ err: err });
-//   //   }
-
-//   //   res.redirect('/');
-//   // });
-// });
 
 
 ///// WEB HOOK /////
@@ -325,13 +252,6 @@ router.post('/webhook', bodyparser.raw({ type: 'application/json' }), (request, 
   // Return a 200 response to acknowledge receipt of the event
   response.send();
 });
-
-
-
-
-
-
-
 
 
 export default router

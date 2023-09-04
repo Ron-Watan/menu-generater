@@ -60,6 +60,11 @@ import MBicon_Logout from '../all-icon/mobile-bar/logout.svg'
 import MBicon_Onoff from '../all-icon/mobile-bar/onoff.svg'
 import MBicon_Contact from '../all-icon/mobile-bar/contact.svg'
 import MBicon_StarNoti from '../all-icon/mobile-bar/starnoti.svg'
+import MBicon_SubPay from '../all-icon/mobile-bar/payment.svg'
+import MBicon_Myqr from '../all-icon/mobile-bar/myqr.svg'
+
+
+
 import * as Util from "../componentusers/_99Utility"
 import UserPool from "../UserPool"
 
@@ -67,8 +72,8 @@ import UserPool from "../UserPool"
 
 
 const _AppMain = () => {
-
-
+  const loginCode = sessionStorage.getItem('temp')
+  const [redSnaq, setRedSnaq] = useState('')
   //1//
 
   const dispath = useDispatch();
@@ -106,7 +111,6 @@ const _AppMain = () => {
   const [timeSetup, setTimeSetup] = useState({});
   // const [languageSetup, setLanguageSetup] = useState({});
   const [onOffSetting, setOnOffSetting] = useState({});
-
 
   const [languageSetup, setLanguageSetup] = useState({
     onLanguage_2: '',
@@ -240,26 +244,12 @@ const _AppMain = () => {
           setCategoryList_2(catList_menu_2)
           setCategoryList_3(catList_menu_3)
 
-          // console.log(getReult)
           setExtraInfo(getReult.extraInfo)
-          //   const checkTime = getReult.filter((el) => el.menuTime == menuTime;
-          //   return el.menuTime == menuTime;
-          // });
-
-          // console.log(checkTime);
-          // setCategoryList(result.data.userMenu.menu)
-          // dispath(hideLoading())
 
           handleClickImageKey()
 
-
-
-
-
-
-
-
-
+          console.log()
+          setRedSnaq(getReult.redSnaq)
           dispath(hideLoading())
           console.log('Server: Connected');
 
@@ -270,26 +260,23 @@ const _AppMain = () => {
           }, 500);
 
         } else {
-          // Swal.fire(result.data.message)
+
           dispath(hideLoading())
         }
       })
       .catch((err) => {
-        // dispath(hideLoading());
-        // console.log("Can't not connect the server", err);
+
         console.log('Server: Connecting...');
-        // Swal.fire("Can't not connect the server")
+
       });
   };
 
   const [imgLoading, setImgLoading] = useState(false)
 
-
   const resizeFile = (file) =>
     new Promise((resolve) => {
       dispath(showLoading())
       setImgLoading(true)
-      // setLoadingManual(true)
       Resizer.imageFileResizer(
         file,
         507,
@@ -307,7 +294,6 @@ const _AppMain = () => {
       );
     });
 
-  // console.log(file)
   const [checkEditImg, setCheckEditImg] = useState(false)
   const [oneClickCat, setOneClickCat] = useState(false)
 
@@ -319,7 +305,7 @@ const _AppMain = () => {
     return countLists;
   };
 
-  const loginCode = sessionStorage.getItem('temp')
+
 
   //- //- //- //- //- //- //-
   const submitCatagory = (e) => {
@@ -356,7 +342,7 @@ const _AppMain = () => {
             formData.append('avatar', newFile, imgId);
             formData.append('userId', user.userId);
             axios
-              .post(`${process.env.REACT_APP_API}/user/photos/uplaodOne`, formData)
+              .post(`${process.env.REACT_APP_API}/user/photos/uplaodOne`, formData, ticketPass)
               .then((result) => {
                 Swal.fire({
                   title: 'Saved',
@@ -368,8 +354,6 @@ const _AppMain = () => {
                   setStart(false)
                   setMenuId('');
                   dispath(setUser(getReult));
-                  // setTimeout(() => {
-                  // getAllMenu();
 
                   setCheckEditImg(false)
                   setCheckInputForm(false)
@@ -393,9 +377,9 @@ const _AppMain = () => {
               timer: 1000,
             }).then(nothing => {
               setStart(false)
-              // setMenuId('')
+
               dispath(setUser(getReult));
-              // setTimeout(() => {
+
               getAllMenu();
               setCheckInputForm(false)
               setCheckEditImg(false)
@@ -420,32 +404,9 @@ const _AppMain = () => {
 
 
 
-  //- //- //- //- //- //- //- // UPLOAD IMAGE
-  const uploadImage = (imgId) => {
-
-    const loginCode = sessionStorage.getItem('temp')
-    console.log(loginCode, user.loginCode)
-    if (loginCode !== user.loginCode) return navigate('/login')
-
-    axios
-      .post(`${process.env.REACT_APP_API}/user/images/uplaod`, file)
-      .then((result) => {
-        dispath(hideLoading());
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
-
-
   //- //= //-
 
   const saveEditMenu = (e) => {
-
-    const loginCode = sessionStorage.getItem('temp')
-    console.log(loginCode, user.loginCode)
-    if (loginCode !== user.loginCode) return navigate('/login')
-
 
     if (!menuId) return;
     dispath(showLoading())
@@ -482,7 +443,7 @@ const _AppMain = () => {
             formData.append('avatar', newFile, imgId);
             formData.append('userId', user.userId);
             axios
-              .post(`${process.env.REACT_APP_API}/user/photos/uplaodOne`, formData)
+              .post(`${process.env.REACT_APP_API}/user/photos/uplaodOne`, formData, ticketPass)
               .then((next) => {
                 Swal.fire({
                   title: 'Saved',
@@ -585,16 +546,14 @@ const _AppMain = () => {
 
   const removeItem = (index) => {
 
-    const loginCode = sessionStorage.getItem('temp')
-    console.log(loginCode, user.loginCode)
-    if (loginCode !== user.loginCode) return navigate('/login')
+
 
     Swal.fire({
       title: 'Do you want to delete an item?',
       showDenyButton: true,
       showCancelButton: true,
       confirmButtonText: 'Delete',
-      denyButtonText: `Don't delete`,
+      denyButtonText: `No`,
       confirmButtonColor: ' #dc3741',
       denyButtonColor: '#f56e4f',
     }).then((result) => {
@@ -612,16 +571,11 @@ const _AppMain = () => {
   //- //= //-
   const delelteImage = () => {
 
-    const loginCode = sessionStorage.getItem('temp')
-    console.log(loginCode, user.loginCode)
-    if (loginCode !== user.loginCode) return navigate('/login')
-
     if (!file) return
     if (!state.imgId) return
 
-
     axios
-      .post(`${process.env.REACT_APP_API}/user/photos/delete`, { imgId: state.imgId })
+      .post(`${process.env.REACT_APP_API}/user/photos/delete`, { imgId: state.imgId }, ticketPass)
       .then((result) => {
 
       })
@@ -635,16 +589,12 @@ const _AppMain = () => {
   const deleteMenu = (e) => {
     e.preventDefault();
 
-    const loginCode = sessionStorage.getItem('temp')
-    console.log(loginCode, user.loginCode)
-    if (loginCode !== user.loginCode) return navigate('/login')
-
     Swal.fire({
       title: 'Do you want to delete Category?',
       showDenyButton: true,
       showCancelButton: true,
       confirmButtonText: 'Delete',
-      denyButtonText: `Don't delete`,
+      denyButtonText: `No`,
       confirmButtonColor: ' #dc3741',
       denyButtonColor: '#f56e4f',
     }).then((result) => {
@@ -943,6 +893,11 @@ const _AppMain = () => {
 
   const [onOffRedSnaq_MB, setOnOffRedSnaq_MB] = useState(false);
 
+  if (onOffQRCCode_MB || onOffFeedBAck_MB || onOffBanner_MB || onOffMenu1_MB || onOffMenu2_MB ||
+    onOffMenu3_MB || onOffTimePicker_MB || onOffLangSetup_MB || onOffSetting_MB || onOffExtra_MB ||
+    onOffThemeSetup_MB || onOffAccount_MB || onOffRedSnaq_MB) {
+    document.body.classList.add('overflow-hidden')
+  }
 
   //-
 
@@ -984,11 +939,6 @@ const _AppMain = () => {
 
   const [getStarNotification, setGetStarNotification] = useState('')
 
-  if (onOffBanner_MB || onOffMenu1_MB || onOffMenu2_MB ||
-    onOffMenu3_MB || onOffTimePicker_MB || onOffLangSetup_MB || onOffFeedBAck_MB || onOffSetting_MB || onOffQRCCode_MB) {
-    document.body.classList.add('overflow-hidden')
-  }
-
 
 
   const [oneTimeCheck, setOneTimeCheck] = useState(true)
@@ -1001,7 +951,6 @@ const _AppMain = () => {
 
   const checkSubscription = () => {
     // dispath(showLoading())
-
     axios
       .post(`${process.env.REACT_APP_API}/user/checkSubscription`, { email: user.email }, ticketPass)
       .then((result) => {
@@ -1037,8 +986,7 @@ const _AppMain = () => {
 
   const [previewImg, setPreviewImg] = useState(iconPhoto)
 
-  // eslint-disable-next-line 
-  const { loading } = useSelector((state) => state.alerts);
+
 
 
 
@@ -1059,6 +1007,7 @@ const _AppMain = () => {
           <span className='barOne'></span > <span className='barTwo'></span> <span className='barThree'></span>
         </div>
       </div>
+
       <div className={`${startLoading && 'Full_Start_Loading'} `}>
         <div className="iconLoadingBanner">
           <span className='barOne'></span > <span className='barTwo'></span> <span className='barThree'></span>
@@ -1085,7 +1034,6 @@ const _AppMain = () => {
             setProtectLoading={setProtectLoading}
             getQRCodeTG={getQRCodeTG}
             setOnOffQRCCode_MB={setOnOffQRCCode_MB}
-            uploadImage={uploadImage}
             user={user}
 
             setToggleScrollQRCode={setToggleScrollQRCode}
@@ -1278,10 +1226,10 @@ const _AppMain = () => {
         </div>
 
 
-        <div className={`mobile_function ${!onOffAccount_MB && 'MB_slide_Down'}`}>
+        <div className={`mobile_function  ${!onOffAccount_MB && 'MB_slide_Down'}`}>
 
           <Sect12Account
-            setProtectLoading={setProtectLoading}
+        
             user={user}
             onOffAccount_MB={onOffAccount_MB}
             setOnOffAccount_MB={setOnOffAccount_MB}
@@ -1290,20 +1238,21 @@ const _AppMain = () => {
             subscriptionFromDB={subscriptionFromDB}
             toggleScrollAccount={toggleScrollAccount}
             setToggleScrollAccount={setToggleScrollAccount}
-          />
+            />
+           
         </div>
 
 
 
-        <div className={`mobile_function ${!accountPassword && 'MB_slide_Left'}`}>
+        {/* <div className={`mobile_function ${!accountPassword && 'MB_slide_Left'}`}>
 
           <Sect12AccountPassword
             userEmail={user.email}
-            setProtectLoading={setProtectLoading}
+        
             setAccountPassword={setAccountPassword}
             toggleScrollAccount={toggleScrollAccount}
           />
-        </div>
+        </div> */}
 
 
 
@@ -1313,20 +1262,20 @@ const _AppMain = () => {
             onOffSetting={onOffSetting} setOnOffSetting={setOnOffSetting} />
         </div>
 
-        
 
 
-        <div className={`mobile_function ${!onOffRedSnaq_MB && 'MB_slide_Down'}`}>
+
+        {redSnaq === "ronnarit" && <div className={`mobile_function ${!onOffRedSnaq_MB && 'MB_slide_Down'}`}>
           <Sect99RedSnaq user={user} setOnOffRedSnaq_MB={setOnOffRedSnaq_MB}
-            originalBannerImgArr={originalBannerImgArr } />
-        </div>
+            originalBannerImgArr={originalBannerImgArr} />
+        </div>}
 
-        
+
 
 
         <div className="">
 
-          
+
 
 
 
@@ -1345,13 +1294,13 @@ const _AppMain = () => {
 
 
           <i className='x'> Redsnaq----------------------------------------------</i>
-          {true && <div className="MC_IconFixed MC_rq">
+          {redSnaq === 'ronnarit' && <div className="MC_IconFixed MC_rq">
             <button onClick={() => {
               setOnOffRedSnaq_MB(true)
             }}
               name='Manu1MB'
               className={`MC_Tab MB_None_Adm `} >
-              <img src={MBicon_Logout} alt="" />
+              <img src={MBicon_Myqr} alt="" />
             </button>
           </div>}
 
@@ -1514,7 +1463,7 @@ const _AppMain = () => {
             }}
               name='Manu1MB'
               className={`MC_Tab MB_None `} >
-              <img src={MBicon_User} alt="" />
+              <img src={MBicon_SubPay} alt="" />
             </button>
 
 
@@ -1540,7 +1489,7 @@ const _AppMain = () => {
 
                 }
               })
- 
+
             }}
 
               name='Manu1MB'
@@ -1573,7 +1522,7 @@ const _AppMain = () => {
 
       </div>
 
-      <div className={`simulation ${(onOffBanner_MB || onOffMenu1_MB || onOffMenu2_MB ||
+      {onOffSetting.simulate && <div className={`simulation ${(onOffBanner_MB || onOffMenu1_MB || onOffMenu2_MB ||
         onOffMenu3_MB || onOffTimePicker_MB || onOffLangSetup_MB || onOffFeedBAck_MB || onOffSetting_MB || onOffQRCCode_MB || onOffExtra_MB || onOffAccount_MB
         || accountPassword)
         && 'iframe_scale_Down'}`}
@@ -1626,7 +1575,7 @@ const _AppMain = () => {
           extraInfo={extraInfo}
         />
 
-      </div>
+      </div>}
 
 
 

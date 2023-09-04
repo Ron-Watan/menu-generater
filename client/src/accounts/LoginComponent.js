@@ -4,7 +4,7 @@ import axios from "axios"
 import { authenticate } from "../protectors/authorize"
 import Swal from "sweetalert2"
 import { Link, useNavigate } from 'react-router-dom'
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { hideLoading, showLoading } from "../redux/alertSlice"
 import UserPool from "../UserPool"
 import { CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js'
@@ -13,11 +13,10 @@ import Sect00Navigation from '../componenthome/_00Navigation'
 import '../accounts/styleAccount.css'
 
 const LoginComponent = () => {
+  const { loading } = useSelector((state) => state.alerts);
+
 
   const dispath = useDispatch()
-
-
-
 
   const [state, setState] = useState({
     email: '',
@@ -36,6 +35,7 @@ const LoginComponent = () => {
   }
   const navigate = useNavigate()
 
+
   const [wrongEmailPass, setWrongEmailPass] = useState('')
 
 
@@ -45,19 +45,13 @@ const LoginComponent = () => {
   const [errorPWrequire, setErrorPWrequire] = useState(false)
 
 
-  // let trry = { "expireAt": new Date('September 2, 2023 06:40:00') }
-
-
-
-
-
+  // let trry = { "expireAt": new Date('September 2, 2023 06:40:00') 
 
   const submitData = (e) => {
-    sessionStorage.clear()
-    localStorage.clear()
+    // sessionStorage.clear()
+    // localStorage.clear()
     e.preventDefault()
     dispath(showLoading())
-    console.log('ddddd')
     if (!email) setErrorEmailrequire(true)
     else if (!(String(email).match(/^\S+@\S+\.\S+$/))) setErrorEmail(true)
 
@@ -79,14 +73,18 @@ const LoginComponent = () => {
 
     userData.authenticateUser(authDetail, {
       onSuccess: (result) => {
-        // const tokenName = 'CognitoIdentityServiceProvider.' + result.getAccessToken().payload.client_id + '.' + result.getAccessToken().payload.username + '.accessToken'
-        // authenticate(tokenName, () => navigate('/app'))
-        // setState({ ...state, email: '', password: '' })
+
+
+        //Version 1
         const tokenName = 'CognitoIdentityServiceProvider.' + result.getAccessToken().payload.client_id + '.' + result.getAccessToken().payload.username + '.accessToken'
-
-
         authenticate(tokenName, () => navigate('/app'))
         setState({ ...state, email: '', password: '' })
+
+        //Version 2
+        // authenticate(result.getAccessToken().getJwtToken(), () => navigate('/'))
+        // setState({ ...state, email: '', password: '' })
+
+
 
         const loginCode = uuidv4()
         sessionStorage.setItem('temp', loginCode)
@@ -94,7 +92,6 @@ const LoginComponent = () => {
           .then(resultDB => {
             if (resultDB.data.success) {
               // Swal.fire(resultDB.data.message)
-
               dispath(hideLoading())
 
             } else {
@@ -116,10 +113,30 @@ const LoginComponent = () => {
         dispath(hideLoading())
       },
       onFailure: (err) => {
+        console.log(err);
+        if (err.message === 'User is not confirmed.') {
+          Swal.fire({
+            title: 'Your email is not confirmed.',
+            text: 'Check your email, we have sent a code',
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#00a3ff',
+            showConfirmButton: true,
+          }).then(next => {
+            const userData = new CognitoUser({
+              Username: email,
+              Pool: UserPool
+            });
+            userData.resendConfirmationCode((err, reult) => {
+              if (err) return alert('ERR')
+              console.log(reult)
 
-        if (err.message === 'User is not confirmed') return
+            })
+            navigate('/register', { state: { codeStep2: true } })
+          })
 
-        console.log(err.message);
+        }
+
+        console.log(err);
         setWrongEmailPass(err.message)
         dispath(hideLoading())
 
@@ -173,10 +190,20 @@ const LoginComponent = () => {
             </div>
 
             <div className="Acc_loginBTNBox mb-4">
-              <button onClick={submitData} className="Acc_loginBTN" type="submit">
+              <button onClick={submitData} className="Acc_loginBTN posRelative" type="submit">
+                <div className={`${!loading && 'hiddenMe'}`}>
+                  <div className="iconLoadingBTN iconLoadingOne">
+                    <span className='barOne'></span > <span className='barTwo'></span> <span className='barThree'></span>
+                  </div>
+                </div>
                 Login
               </button>
+
             </div>
+
+
+
+
             <div className="Acc_loginBTNBox mb-4 Font_BlueLog">
               <Link to="/forgotPassword" state={{ email: email }} className="" type="submit">
                 Forgot your Password?

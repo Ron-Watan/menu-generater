@@ -178,7 +178,7 @@ const _04MobileFormFood = forwardRef((prop, ref) => {
         <div className="inputContainerCat widthInput">
           <input onChange={prop.inputValue('catagory')}
             onClick={() => ErrorCatFn('errCategory')}
-            value={prop.state.catagory} placeholder='Catagory name' type='text' name='catagory' id='' autoComplete='off'
+            value={prop.state.catagory} placeholder='Category name' type='text' name='catagory' id='' autoComplete='off'
             className='MB_EditName_Input  text_center' required />
           {prop.state.errCategory && <span className="errCategory"><img src={MBerroricon} alt="" /> <span>required</span></span>}
         </div>

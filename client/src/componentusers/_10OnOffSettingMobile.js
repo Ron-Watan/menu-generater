@@ -19,7 +19,9 @@ const _10OnOffSettingMobile = (prop) => {
     setCheckUpdateOnOff(true)
     prop.setOnOffSetting({ ...prop.onOffSetting, [name]: !prop.onOffSetting[name] })
   }
-  // console.log(onOffSetting)
+
+
+  console.log(prop.onOffSetting)
   const saveOnOffSetting = () => {
     prop.setProtectLoading(true)
     axios
@@ -110,7 +112,16 @@ const _10OnOffSettingMobile = (prop) => {
 
 
 
-
+                <div className="MB_OF_Flex_Col colorof_title">
+                  <div className="MB_OF_Flex ">
+                    <span className="MB_OF_text">Simulation Mode</span>
+                    <label htmlFor='onOffSimulate' className={`containerSwitch switchLang`}>
+                      <input onChange={() => onOffCheckBox('simulate')}
+                        type='checkbox' name='onOffSimulate' id='onOffSimulate' checked={prop.onOffSetting.simulate || ''} />
+                      <span className='sliderLang forOFLang2' ></span>
+                    </label>
+                  </div>
+                </div>
 
 
 

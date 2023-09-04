@@ -13,7 +13,6 @@ function _12Account(prop) {
   let date = new Date(prop.subscriptionFromDB.subscriptionEnd * 1000)
   let subscriptionEnd = `${monthNames[date.getMonth()]} ${date.getDate()} ${date.getFullYear()}`
 
-  console.log(new Date(date))
   const editPayment = () => {
 
     axios
@@ -125,7 +124,8 @@ function _12Account(prop) {
                   {(prop.subscriptionFromDB.subscriptionCancel && prop.subscriptionFromDB.status === "trialing") && <div className={`PaddingB_1`}>
                     <div className="MB_OF_text paddingleft_OF FlexText_Right">
                       <div>{`After your free trial ends, ${subscriptionEnd}`}</div>
-                      <div>{`this plan will no longer be available.`}</div>
+                      <div>{`this plan will no longer be available,`}</div>
+                     <div className="">and you will lose all your data.</div>
                     </div>
                   </div>}
 
