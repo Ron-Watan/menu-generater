@@ -7,7 +7,10 @@ const SidebarSubComp = (prop) => {
   return (
     <div className='sideBarPosition unselectable'>
       {/* <GlobalStyle /> */}
-      <div className='circleBarClient '>
+      <div className='circleBarClient ' onClick={() => {
+        prop.setOnOffOnOffFeature(false)
+        prop.setMBnavIcon(false)
+      }}>
         {
           prop.menuTime == 1 &&
           prop.iconMenu_1.map((el, index) => {

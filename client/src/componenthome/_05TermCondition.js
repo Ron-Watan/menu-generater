@@ -1,12 +1,12 @@
 import React from 'react'
 import Sect00Navigation from '../componenthome/_00Navigation'
 import '../componenthome/termPolicyStyle.css';
-
+import { Link } from "react-router-dom";
 
 function _05TermCondition() {
   return (
     <div className='H-body'>
-      <Sect00Navigation />
+      <Sect00Navigation NavBtnRight={'Home'} />
 
       <div className="tempSpace"></div>
 
@@ -255,7 +255,20 @@ function _05TermCondition() {
 
 
         </div>
+        <div id='feature9' className="featureLink"></div>
+        <div className="H_MaxWidth">
+          <div className="H_ContWidth">
+            <p className="text-center text-gray-500 text-xs">
+              &copy;2023 QR-Clould Menu. All rights reserved.
+            </p>
 
+            <div className="endSection">
+              <Link to='/termCondition' className="">Term of Service </Link>
+              <Link to='/policy' className="">Privacy Policy</Link>
+            </div>
+
+          </div>
+        </div>
 
       </main>
     </div>

@@ -215,7 +215,7 @@ const _03BannerMobile = (prop) => {
 
   //- //- //- //- //- //- //-
   const deleteImageBanner = () => {
-
+    setCheckBannerChange(false)
     let imgId = user.link + '-banner--'
     let linkDB = []
     for (let i = 0; i < prop.realBannerFile.length; i++) {
@@ -254,9 +254,9 @@ const _03BannerMobile = (prop) => {
               prop.setIndexToBanner('')
               if (dataDeleted[0].slice(0, -10) !== user.link) return
               axios
-                .post(`${process.env.REACT_APP_API}/user/photos/delete`, { imgId: dataDeleted[0]},ticketPass)
+                .post(`${process.env.REACT_APP_API}/user/photos/delete`, { imgId: dataDeleted[0] }, ticketPass)
                 .then((result) => {
-
+                
                   dispath(hideLoading())
                 })
 
@@ -457,11 +457,7 @@ const _03BannerMobile = (prop) => {
 
                   <div className={` MB_smIconAB ${prop.indexToBanner === index ? '' : 'displayNone'}`}>
                     <button
-                      onClick={() => {
-                        deleteImageBanner()
-                        // prop.setDeleteImageBannerTG((deleteImageBannerTG) => deleteImageBannerTG + 1);
-                      }}
-                      // value={el.menuId}
+                      onClick={() => deleteImageBanner()}
                       type='submit'
                       className={`MB_Btn forBinWhite`}>
 

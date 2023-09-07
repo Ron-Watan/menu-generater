@@ -152,7 +152,7 @@ const _20IconPickerMobile = (prop) => {
         </div>
       </div>
       <div className="MB_Standard_0_FullAgain topiconinPicker MB_SetGrid_Full zindexUnderTop">
-        <div className="MB_Standard_Section_canScroll  overScroll_none MB_Make_Iconpicker" >
+        <div className={`MB_Standard_Section_canScroll overScroll_none MB_Make_Iconpicker`} >
 
 
           <div className='MB_iconPickerTable'>

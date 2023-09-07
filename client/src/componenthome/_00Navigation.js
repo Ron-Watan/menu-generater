@@ -14,7 +14,7 @@ function _00Navigation(prop) {
 
           <div className="H_mainnavigation">
             <div className="H-leftSideHeader">
-              <Link to='/termCondition' className="H_btnLogin H_btnLogin_Loging">Term</Link>
+              {/* <Link to='/termCondition' className="H_btnLogin H_btnLogin_Loging">Term</Link> */}
             </div>
             {/* <a href="#" className="H-logoWrapper">
         
@@ -33,7 +33,8 @@ function _00Navigation(prop) {
 
               <Link to={
                 ((prop.NavBtnRight === 'Login') && '/login') ||
-                ((prop.NavBtnRight === 'Home') && '/')
+                ((prop.NavBtnRight === 'Home') && '/') 
+           
               }
                 className="H_btnLogin H_btnLogin_Loging">{prop.NavBtnRight}</Link>
 

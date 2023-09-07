@@ -59,10 +59,11 @@ function ForgotPassword() {
     });
     userData.forgotPassword({
       onSuccess: (result) => {
-
+        dispath(hideLoading())
       },
       onFailure: (err) => {
         console.log(err);
+        dispath(hideLoading())
       },
       inputVerificationCode: (result) => {
         setInfoSendCode(result)
@@ -261,7 +262,7 @@ function ForgotPassword() {
                 Send Code to Email
               </button>}
               {infoSendCode && <button onClick={ConfirmCodePasssword} className="Acc_loginBTN Acc_ReBTN_W posRelative" type="submit">
-                <div className={`${!true && 'hiddenMe'}`}>
+                <div className={`${!loading && 'hiddenMe'}`}>
                   <div className="iconLoadingBTN iconLoadingOne">
                     <span className='barOne'></span > <span className='barTwo'></span> <span className='barThree'></span>
                   </div>

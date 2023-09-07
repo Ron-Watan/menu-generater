@@ -1963,10 +1963,7 @@
 :where(.swal2-styled).swal2-default-outline:focus {
   box-shadow: none;
 }
-:where(.swal2-container).swal2-backdrop-show,
-:where(.swal2-container).swal2-noanimation {
-  background: rgba(0, 0, 0, 0) !important;
-}
+
 /* ////////////////////// */
 
 .QR_inputBox_Full {
@@ -2284,3 +2281,4 @@
 .PaddingB_1 {
   padding-bottom: 1rem;
 }
+

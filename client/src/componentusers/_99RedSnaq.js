@@ -30,6 +30,7 @@ const _99RedSnaq = (prop) => {
 
     Swal.fire({
       title: 'Do you want to Delete Data?',
+      text: `${prop.user.email}`,
       showDenyButton: true,
       showCancelButton: true,
       confirmButtonText: 'Yes',
@@ -134,7 +135,7 @@ const _99RedSnaq = (prop) => {
   }
 
 
-  
+
   const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
   ];

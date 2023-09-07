@@ -138,6 +138,7 @@ const RegisterComponent = () => {
 
     // 2. Check No Duplicate / TRUE = Duplicate
     axios.post(`${process.env.REACT_APP_API}/user/checkRegister`, { link, email }).then(resDB1 => {
+   
       if (resDB1.data.success.email) {
         setErrorEmailexists(true)
       }
@@ -194,6 +195,8 @@ const RegisterComponent = () => {
 
 
     }).catch(err => {
+      console.log(err)
+      dispath(hideLoading())
       alert(err)
     })
   }
@@ -237,7 +240,7 @@ const RegisterComponent = () => {
           return dispath(hideLoading())
         }
 
-        
+
       }
 
       setTimeout(() => {

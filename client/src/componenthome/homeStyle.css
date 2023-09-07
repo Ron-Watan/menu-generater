@@ -1,3 +1,7 @@
+.Text_Center {
+  text-align: center;
+}
+
 .H-body {
   font-family: 'Inter', Courier, monospace;
   background-color: #fff;
@@ -144,6 +148,10 @@
   width: 100%;
   height: 100%;
 }
+.H_Plus {
+  position: absolute;
+  transform: translateY(-0.5rem);
+}
 .H_BannerM_Flex {
   display: flex;
   background-size: cover;
@@ -215,12 +223,16 @@
 .H_flexColBarCode {
   font-family: 'Inter';
   color: #fff;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
   gap: 0.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.freeTrailFontSize {
+  font-size: 1.25rem;
+  color: #ff0000;
 }
 .H_flexTitleFT {
   display: flex;
@@ -240,7 +252,7 @@
   align-items: flex-end;
 } */
 .H_BigText {
-  font-size: 1.7rem;
+  font-size: 1.5rem;
   font-weight: 600;
 }
 .H_BigText span {
@@ -308,7 +320,9 @@
   padding: 0.5rem 1rem;
 }
 .Flex_Demo1 {
-  width: 50%;
+  display: flex;
+  justify-content: center;
+  width: 55%;
 }
 .Flex_Demo1_img {
   height: 10rem;
@@ -317,7 +331,7 @@
 }
 
 .Flex_Demo2 {
-  width: 50%;
+  width: 45%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -451,17 +465,28 @@
 .move1 {
   margin: -1rem;
 }
-
+.H_boxFeatureTextCent {
+  display: flex;
+  justify-content: center;
+}
 .H_boxFeatureText {
   display: flex;
+  align-items: center;
   flex-direction: column;
   gap: 0.8rem;
-  margin-left: 1rem;
+}
+.gap5 {
+  gap: 0.2rem;
 }
 .FtTitle {
   font-size: 1rem;
   line-height: 1.6;
   font-weight: 600;
+}
+.FtTitleM{
+  font-size: .95rem;
+  line-height: 1.4;
+  font-weight: 400;
 }
 .Ftsmall {
   font-size: 0.8rem;
@@ -527,7 +552,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 2rem;
+  margin-top: 5rem;
   gap: 1rem;
 }
 .H_ExtrabigTitle {
@@ -556,4 +581,13 @@
 }
 .featureLink {
   height: 7rem;
+}
+
+.endSection {
+  padding: 0.3rem 1rem;
+  margin-top: 0.5rem;
+  border-top: #aaa 1px solid;
+  font-size: 0.8rem;
+  display: flex;
+  gap: 0.5rem;
 }

@@ -1,9 +1,5 @@
 
-
-
-// import Banners from "../_3models/bannerModel.js";
 import Clients from "../_3models/clientModel.js";
-
 
 
 
@@ -17,7 +13,6 @@ export const getClentMenu = (req, res) => {
     });
   });
 };
-
 
 export const getAllImageBanner = (req, res) => {
   const { link } = req.params

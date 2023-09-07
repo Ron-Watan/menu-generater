@@ -3,6 +3,22 @@ var --font-primary: "Lato",Helvetica,Arial,sans-serif
 html {
  */
 /* var(--icon-active) */
+.rrrrrr {
+  display: inline;
+  color: #86c1f8;
+  font-size: 20px;
+  margin-bottom: 16px;
+  line-height: 2;
+  font-weight: 600;
+}
+.www {
+  color: #3c3d3f;
+}
+.www2 {
+  color: #000;
+  margin-left: 3px;
+  font-weight: bold;
+}
 .Theme_1 {
   --app-background-color: #ddd;
   --decor-background-color: #000;
@@ -46,7 +62,6 @@ html {
   font-family: 'Lato', sans-serif;
   -webkit-font-smoothing: antialiased;
   position: relative;
-
 }
 
 .topbarWin {

@@ -1,7 +1,7 @@
 
 
 import { styled } from '@mui/material/styles';
-import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
+// import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
@@ -31,7 +31,7 @@ const Accordion = styled((props) => (
 
 const AccordionSummary = styled((props) => (
   <MuiAccordionSummary
-    expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: '0rem' }} />}
+    // expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: '0rem' }} />}
     {...props}
   />
 ))(({ theme }) => ({
@@ -44,13 +44,13 @@ const AccordionSummary = styled((props) => (
   // : 'rgba(0, 0, 0, .03)',
   // ? 'rgba(255, 255, 255, .05)'
   // : '#e1e1e156',
-  flexDirection: 'row-reverse',
-  '& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': {
-    transform: 'rotate(90deg)',
-  },
-  '& .MuiAccordionSummary-content': {
-    marginLeft: theme.spacing(1),
-  },
+  // flexDirection: 'row-reverse',
+  // '& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': {
+  //   transform: 'rotate(90deg)',
+  // },
+  // '& .MuiAccordionSummary-content': {
+  //   marginLeft: theme.spacing(1),
+  // },
 }));
 
 const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
@@ -163,7 +163,7 @@ const AcordionSubComp = (prop) => {
 
 
 
-
+  console.log(prop.listMunu.listMenu[0].redTag)
 
   // window.addEventListener("load", event => {
   //   // var image = document.querySelector('img');
@@ -233,10 +233,16 @@ const AcordionSubComp = (prop) => {
                   style={{
                     'fontFamily': `${prop.bodyStyle.bodyFontFamily}`,
                     'color': `${prop.bodyStyle.bodyFonttColor}`,
-                    'fontSize': `${prop.bodyStyle.bodyFontSize * 1.05}rem`, 'fontWeight': '500'
+                    'fontSize': `${prop.bodyStyle.bodyFontSize * 1.05}rem`, 'fontWeight': '500',
+
                   }}>
-                  <span>{prop.language === 1 ? el.food_name : el.food_name_2}</span>
+                  <span className='posRelative'>{prop.language === 1 ? el.food_name : el.food_name_2}{el.redTag && <span className="redtag">{el.redTag}</span>}</span>
+                  
                 </div>
+
+
+
+
                 <i className="x"> Price 1 2</i>
 
                 <div className={`flex`}
@@ -246,6 +252,7 @@ const AcordionSubComp = (prop) => {
                     'color': `${prop.bodyStyle.bodyFonttColor}`,
                     'fontSize': `${prop.bodyStyle.bodyFontSize * 1.05}rem`, 'fontWeight': '500'
                   }}>
+
                   {prop.language === 1 && <span>{prop.languageSetup.style_1 ?
                     <div ><span>{prop.languageSetup.followed_1 && prop.languageSetup.symbol_1}</span><span>{el.price}</span> <span>{!prop.languageSetup.followed_1 && prop.languageSetup.symbol_1}</span> </div>
                     : <div ><span></span><span>{el.price}</span><span></span></div>}</span>}

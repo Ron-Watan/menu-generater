@@ -74,6 +74,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 // prop.themeSetup
 
 const AcordionSubComp = (prop) => {
+
   const photoHostName = `${process.env.REACT_APP_API}/user/photos/`
   const subListMenu = prop.listMunu.listMenu
 
@@ -137,68 +138,12 @@ const AcordionSubComp = (prop) => {
 
   },)
 
-  // console.log(prop.triggerIcon)
-  // componentWillUnmount: function() {
-  //   window.removeEventListener('scroll', this.handleScroll);
-  // },
-
-  // const scrollFn = () => (event) {
-  //   let scrollTop = event.srcElement.body.scrollTop,
-  //     itemTranslate = Math.min(0, scrollTop / 3 - 60);
-
-  //   setState({
-  //     transform: itemTranslate
-  //   });
-  // },
-  // const [file, setFile] = useState('');
-
-  // function arrayBufferToBase64(buffer) {
-  //   var binary = '';
-  //   var bytes = [].slice.call(new Uint8Array(buffer));
-  //   bytes.forEach((b) => (binary += String.fromCharCode(b)));
-  //   return window.btoa(binary);
-  // }
-  // const getImage = () => {
-  //   // dispath(showLoading())
-  //   axios
-  //     .post(`${process.env.REACT_APP_API}/user/images/preview`, { imgId: prop.listMunu.imgId })
-  //     .then((result) => {
-
-  //       if (!result.data.images) {
-  //         return setFile('')
-  //         // return dispath(hideLoading());
-  //       }
-
-  //       const getResult = result.data.images;
-
-  //       const base64Flag = 'data:image/png;base64,';
-  //       const imageStr = arrayBufferToBase64(getResult.img.data.data);
-  //       const tagImage = base64Flag + imageStr;
-
-  //       // console.log(tagImage)
-
-  //       setFile(tagImage);
-  //       // dispath(hideLoading());
-  //       // setTimeout(() => {
-  //       //   dispath(hideLoading());
-  //       // }, 500);
-  //     })
-  //     .catch((err) => {
-  //       console.error(err);
-  //     });
-  // };
-
-
-  // useEffect(() => {
-  //   getImage();
-  // }, []);
-
 
   const heartIcon = {
     favor1: 'favor1.svg', favor2: 'favor2.svg',
   }
 
-             
+
 
   return (
     <div id={prop.indexM} className={`acArray mx-auto max-w-7xl unselectable`}
@@ -254,7 +199,7 @@ const AcordionSubComp = (prop) => {
                     'color': `${prop.themeSetup.body.bodyFonttColor}`,
                     'fontSize': `${prop.themeSetup.body.bodyFontSize * 1.05}rem`, 'fontWeight': '500'
                   }}>
-                  <span>{prop.language === 1 ? el.food_name : el.food_name_2}</span>
+                  <span>{prop.language === 1 ? el.food_name : el.food_name_2}{el.redTag && <span className="redtag">{el.redTag}</span>}</span>
                 </div>
                 <i className="x"> Price 1 2</i>
 

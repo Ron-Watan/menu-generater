@@ -192,7 +192,7 @@ const _09ThemeSetupMobile = (prop) => {
 
 
 
-  const [themeTab, setThemeTab] = useState('quick')
+  const [themeTab, setThemeTab] = useState('navFoot')
   const [chooseIconStyle, setChooseIconStyle] = useState('')
 
 
@@ -985,31 +985,7 @@ const _09ThemeSetupMobile = (prop) => {
 
         </div>
 
-        {/* {onOffColorPicker && <div className="MB_AB_FullAgain z_ColorPallete">
-
-
-          <_09TsubColorPickerMobile
-            noSetTheme={noSetTheme}
-            nameTheme={nameTheme}
-
-            navAndFootBar={navAndFootBar}
-            setNavAndFootBar={setNavAndFootBar}
-
-            bodyStyle={bodyStyle}
-            setBodyStyle={setBodyStyle}
-
-            themeIconNoBD={themeIconNoBD}
-            setThemeIconNoBD={setThemeIconNoBD}
-            setThemeIconColorBorder={setThemeIconColorBorder}
-
-            categoryMotion={categoryMotion}
-            setCategoryMotion={setCategoryMotion}
-
-            colorOnClick={colorOnClick}
-            setOnoffColorPicker={setOnoffColorPicker}
-          />
-
-        </div>} */}
+      
       </div>
 
       {onOffColorPicker && <div className="MB_themeContainerColor">

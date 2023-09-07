@@ -8,8 +8,6 @@ const userSchema = mongoose.Schema(
       unique: true,
     },
 
-
-    // createdAt: { type: Date, expires: 15, default: Date.now },
     email: {
       type: String,
       required: true,
@@ -47,12 +45,6 @@ const userSchema = mongoose.Schema(
       }
 
     },
-
-    onOffSetting: {
-      type: 'Object',
-      default: {},
-    },
-
 
     extraInfo: {
       type: 'Object',
@@ -182,22 +174,58 @@ const userSchema = mongoose.Schema(
     },
 
 
-    loginCode: {
-      type: String,
-      default: '',
-    },
+
     confirmEmail: {
       type: String,
       default: '',
     },
-
-
-    redsnaq: {
+    loginCode: {
+      type: String,
+      default: '',
+    },
+    redSnaq: {
       type: String,
       default: '',
     },
 
 
+
+    extra_01: {
+      type: String,
+      default: '',
+    },
+    extra_02: {
+      type: String,
+      default: '',
+    },
+    extra_03: {
+      type: String,
+      default: '',
+    },
+    extra_11: {
+      type: Array,
+      default: [],
+    },
+    extra_12: {
+      type: Array,
+      default: [],
+    },
+    extra_13: {
+      type: Array,
+      default: [],
+    },
+    extra_21: {
+      type: 'Object',
+      default: {},
+    },
+    extra_22: {
+      type: 'Object',
+      default: {},
+    },
+    extra_23: {
+      type: 'Object',
+      default: {},
+    },
   },
   { timestamps: true }
 );

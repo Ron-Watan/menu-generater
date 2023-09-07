@@ -3,6 +3,8 @@ import { useSelector } from "react-redux"
 
 import _01Home from "./componenthome/_01Home"
 import _05TermCondition from './componenthome/_05TermCondition'
+import _06Policy from './componenthome/_06Policy'
+
 
 import RegisterComponent from "./accounts/RegisterComponent"
 import LoginComponent from "./accounts/LoginComponent"
@@ -33,11 +35,13 @@ const AllRoute = () => {
 
         <Route path="/" exact Component={_01Home} />
         <Route path="/termCondition" exact Component={_05TermCondition} />
+        <Route path="/policy" exact Component={_06Policy} />
+
         <Route path="/login" exact Component={LoginComponent} />
         <Route path="/register" exact Component={RegisterComponent} />
         <Route path="/forgotPassword" exact Component={ForgotPassword} />
         <Route path="/:link" exact Component={_MenuComponent} />
-
+    
 
 
 

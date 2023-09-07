@@ -15,7 +15,6 @@ import '../../styleClient/accordianClient.css';
 
 
 import SoLogo from '../../all-icon/social-icon/social.svg'
-import { connect } from 'react-redux';
 
 
 
@@ -23,11 +22,15 @@ import { connect } from 'react-redux';
 
 //= //=
 const _SimulationApp = (prop) => {
+
+
+
   const theme = createTheme({
     typography: {
       fontFamily: ['', ''].join(','),
     },
   });
+
 
   const dateTime = new Date();
   const h = dateTime.getHours();
@@ -37,7 +40,7 @@ const _SimulationApp = (prop) => {
 
 
 
-  // const photoHostName = `${process.env.REACT_APP_API}/user/photos/`
+
 
   //= Set Data\
   // const [clientData, setClientData] = useState({});
@@ -575,8 +578,11 @@ const _SimulationApp = (prop) => {
             className={`${switchManuBtn || switchFilterBtn ? 'overlayForNav' : 'displayNone'}`}></div>
 
           {prop.onOffSetting.sideBar && <div className=' sideBarSectiontest'>
-            <SidebarSubComp triggerIcon={triggerIcon} menuTime={menuTime} iconMenu_1={iconMenu_1} iconMenu_2={iconMenu_2} iconMenu_3={iconMenu_3}
-
+            <SidebarSubComp
+              setOnOffOnOffFeature={prop.setOnOffOnOffFeature}
+              setMBnavIcon={prop.setMBnavIcon}
+              triggerIcon={triggerIcon}
+              menuTime={menuTime} iconMenu_1={iconMenu_1} iconMenu_2={iconMenu_2} iconMenu_3={iconMenu_3}
               themeIconRadius={prop.themeIconRadius}
               themeIconColorLine={prop.themeIconColorLine}
               themeIconBG={prop.themeIconBG}
@@ -744,6 +750,7 @@ const _SimulationApp = (prop) => {
             'color': `${prop.bodyStyle.bodyFonttColor}`
           }}
         >
+
 
           <div className="inFoClient">
             <div className="inFoClient_Name">{prop.restaurantName}</div>

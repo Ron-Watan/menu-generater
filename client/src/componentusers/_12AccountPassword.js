@@ -105,7 +105,7 @@ function _12AccountPassword(prop) {
 
       <div className="MB_Standard_0_FullAgain MB_SetGrid_Full  zindexUnderTop" >
 
-        <div className={`${prop.toggleScrollAccount === true && "MB_InScroll_fullNew"} paddingBottom_5`}>
+        <div className={`MB_InScroll_fullNew paddingBottom_5`}>
 
 
 

@@ -69,18 +69,11 @@ export const subscription = (req, res) => {
 
 };
 //=
-// stripe.checkout.sessions.retrieve(
-//   'cs_test_c1oLYGtJQXxGXuilMRJwE4JW8EKfeFVvjJYF0l92EjMnQmUg2s9vexfMf9'
-// ).then(ddd => {
-//   console.log(ddd)
-// })
 
 export const accoutReloadDB = (req, res) => {
 
   const { userId } = req.body
   Users.findOne({ userId }).then(user => {
-
-
 
     user.subscription = {
       id: currentSub.id,
@@ -99,36 +92,12 @@ export const accoutReloadDB = (req, res) => {
 
 
 
-
-
-
-
 export const paymentProcess = (req, res) => {
 
   const { userId } = req.body
   Users.findOne({ userId }).then(user => {
 
     if (!user.stripeCustomerId) return
-    // stripe.setupIntents.retrieve(user.subscriptionPayUpdate, {
-    //   apiKey: process.env.STRIPE_SECRET_KEY,
-    // }).then(reIntent => {
-
-    //   stripe.customers.update(user.stripeCustomerId, {
-
-    //     invoice_settings: {
-    //       default_payment_method: reIntent.payment_method,
-    //     }
-
-    //   }, { apiKey: process.env.STRIPE_SECRET_KEY, })
-    //     .then(resultPM => {
-
-    //       stripe.subscriptions.update(user.subscription.id, {
-
-    //         default_payment_method: reIntent.payment_method
-
-    //       }, { apiKey: process.env.STRIPE_SECRET_KEY, })
-    //         .then(resultUpPM => {
-
 
 
     stripe.subscriptions.list(
@@ -167,7 +136,7 @@ export const paymentProcess = (req, res) => {
 
       }
 
-      // user.subscriptionActive = 'active'
+   
       user.save()
       return res.send({
         status: 'active',
@@ -176,137 +145,6 @@ export const paymentProcess = (req, res) => {
 
 
 
-
-
-      //   })
-
-      // })
-
-
-      // })
-
-
-
-
-
-    })
-
-  })
-
-};
-
-
-
-export const paymentProcess2 = (req, res) => {
-
-  const { userId } = req.body
-  Users.findOne({ userId }).then(user => {
-
-
-    stripe.setupIntents.retrieve(user.subscriptionPayUpdate, {
-      apiKey: process.env.STRIPE_SECRET_KEY,
-    }).then(reIntent => {
-
-      stripe.customers.update(user.stripeCustomerId, {
-
-        invoice_settings: {
-          default_payment_method: reIntent.payment_method,
-        }
-
-      }, { apiKey: process.env.STRIPE_SECRET_KEY, })
-        .then(resultPM => {
-
-          stripe.subscriptions.update(user.subscription.id, {
-
-            default_payment_method: reIntent.payment_method
-
-          }, { apiKey: process.env.STRIPE_SECRET_KEY, })
-            .then(resultUpPM => {
-
-
-
-              stripe.subscriptions.list(
-                {
-                  customer: user.stripeCustomerId,
-                  status: "all",
-                  expand: ["data.default_payment_method"],
-                },
-                {
-                  apiKey: process.env.STRIPE_SECRET_KEY,
-                }
-              ).then(result => {
-
-                const filterStatus = result.data.filter(el => el.status === 'active' || el.status === 'trialing')
-
-
-
-
-                if (filterStatus.length === 0) {
-                  user.subscriptionActive = 'inActive'
-                  user.save()
-                  return res.send({
-                    status: 'inActive',
-                  });
-                }
-                const currentSub = filterStatus[0]
-
-
-                user.subscription = {
-                  id: currentSub.id,
-                  status: currentSub.status,
-                  brand: currentSub.default_payment_method.card.brand,
-                  lastDigit: currentSub.default_payment_method.card.last4,
-                  subscriptionEnd: currentSub.current_period_end,
-                  subscriptionCancel: currentSub.cancel_at_period_end,
-
-                }
-
-                // user.subscriptionActive = 'active'
-                user.save()
-                return res.send({
-                  status: 'active',
-                });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-              })
-
-            })
-
-
-        })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     })
 
   })
@@ -320,71 +158,6 @@ export const paymentProcess2 = (req, res) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-export const getSubPayment2 = (req, res) => {
-
-  const { userId } = req.body
-  Users.findOne({ userId }).then(user => {
-
-    stripe.checkout.sessions.create(
-      {
-        mode: 'setup',
-        payment_method_types: ["card"],
-        customer: user.stripeCustomerId,
-        setup_intent_data: {
-          metadata: {
-            customer_id: user.stripeCustomerId,
-            subscription_id: user.subscription.id,
-          },
-        },
-        success_url: process.env.LOCAL_PORT + "/paymentProcess",
-        cancel_url: process.env.LOCAL_PORT,
-      },
-      {
-        apiKey: process.env.STRIPE_SECRET_KEY,
-      }
-    ).then(result => {
-
-      user.subscriptionPayUpdate = result.setup_intent
-      user.save()
-      // stripe.checkout.sessions.retrieve(
-      //   result.id, {
-      //   apiKey: process.env.STRIPE_SECRET_KEY,
-      // }
-      // ).then(resultCs => {
-
-      //   stripe.setupIntents.retrieve(resultCs.setup_intent, {
-      //     apiKey: process.env.STRIPE_SECRET_KEY,
-      //   }).then(reIntent => {
-
-
-      //   })
-      // })
-
-      return res.send({
-        message: 'Success',
-        subPackage: result,
-        success: true,
-      });
-
-    })
-
-  })
-
-
-};
 
 export const getSubPayment = (req, res) => {
 
@@ -413,64 +186,6 @@ export const getSubPayment = (req, res) => {
 
 
 };
-
-
-// export const cancelSubscription = (req, res) => {
-
-//   const { userId } = req.body
-//   Users.findOne({ userId }).then(user => {
-
-//     stripe.subscriptions.update(
-//       user.subscription.id,
-//       {
-//         cancel_at_period_end: true,
-//       }, {
-//       apiKey: process.env.STRIPE_SECRET_KEY,
-//     }
-//     ).then(result => {
-
-//       return res.send({
-//         message: 'Success',
-//         subPackage: result,
-//         success: true,
-//       });
-
-//     })
-
-//   })
-
-
-// };
-
-
-
-
-// export const continueSubscription = (req, res) => {
-
-//   const { userId } = req.body
-//   Users.findOne({ userId }).then(user => {
-
-//     stripe.subscriptions.update(
-//       user.subscription.id,
-//       {
-//         cancel_at_period_end: false,
-//       }, {
-//       apiKey: process.env.STRIPE_SECRET_KEY,
-//     }
-//     ).then(result => {
-
-//       return res.send({
-//         message: 'Success',
-//         subPackage: result,
-//         success: true,
-//       });
-
-//     })
-
-//   })
-
-
-// };
 
 
 
@@ -561,10 +276,6 @@ export const deleteCustomer = (req, res) => {
 };
 
 
-
-
-const endpointSecret = 'whsec_b30002b6dbb863c030b54ee463157a68731bf0b1350cee879ce3f774028435e2';
-
 export const webHooks = (request, response) => {
 
   console.log('WebHook Report===>')
@@ -572,7 +283,7 @@ export const webHooks = (request, response) => {
   let event;
 
   try {
-    event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
+    event = stripe.webhooks.constructEvent(request.body, sig, process.env.WEB_HOOK_SECRET);
 
   } catch (err) {
     console.log(err)
@@ -596,43 +307,3 @@ export const webHooks = (request, response) => {
 
 }
 
-
-// DOC
-
-
-// stripe.subscriptions.update('sub_1Nj6QTGFhFwjKc9QTcHldqPP', {
-    //   default_payment_method: 'pm_1NjQ5pGFhFwjKc9Q5ZLD7MrI',
-    // });
-
-    // cus_OW3I75CYomMJ78
-
-    // stripe.setupIntents.retrieve("seti_1NjzblGFhFwjKc9QcuDvrfF3", {
-    //   apiKey: process.env.STRIPE_SECRET_KEY,
-    // }).then(reIntent => {
-    //   console.log(reIntent)
-    // })
-
-
-
-    // stripe.customer.retrieve("cus_OW3I75CYomMJ78", {
-    //   apiKey: process.env.STRIPE_SECRET_KEY,
-    // }).then(reIntent => {
-    //   console.log(reIntent)
-    // })
-
-
-
-
-    // stripe.customers.update(
-    //   'cus_OW2suOtt2f8JCo',
-    //   {
-    //     invoice_settings: {
-    //       default_payment_method: 'pm_1NjQiRGFhFwjKc9Q6ohbDHe8',
-    //     },
-    //   },
-    //   {
-    //     apiKey: process.env.STRIPE_SECRET_KEY,
-    //   }
-    // );
-
-    // })

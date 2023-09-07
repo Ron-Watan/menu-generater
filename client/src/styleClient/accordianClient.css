@@ -156,3 +156,15 @@
 .paddingL_40 {
   padding-left: 40px;
 }
+.redtag {
+  position: absolute;
+  margin-left: .5rem;
+  padding: 0.1rem 0.5rem;
+  border-radius: 0.5rem;
+  background-color: #ef4444d0;
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 300;
+  font-style: italic;
+  white-space: nowrap;
+}

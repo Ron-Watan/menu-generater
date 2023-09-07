@@ -271,7 +271,7 @@ const _FeedBackMobile = (prop) => {
           <button
             onClick={() => {
               prop.setOnOffFeedBAck_MB(false)
-              prop.setTurnOnSection(false)
+              prop.setToggleScrollFeedBack(false)
             }}
             className='MB_Btn MB_Btn_Border'>
 
@@ -297,7 +297,7 @@ const _FeedBackMobile = (prop) => {
         <div className="MB_2LangLayout_Grid gridRow_1fr">
           <div className="">
 
-            <div className={` ${prop.turnOnSection === true && 'MB_InScroll_fullNew'}  paddingBottom_8 greenLinear`}>
+            <div className={` ${prop.toggleScrollFeedBack === true && 'MB_InScroll_fullNew'}  paddingBottom_8 greenLinear`}>
               {/* <div className="MB_PaddingWrapper"> */}
               <div className="MB_SumFeedBack">
                 <div className="MB_FBScoreBox1 Flex_AllCenter">

@@ -59,7 +59,7 @@ const _02QRCode = (prop) => {
     setQrCodeSetUp({ ...qrCodeSetUp, [name]: color })
   }
 
-  const [actualSize, setActualSize] = useState(300)
+  const [actualSize, setActualSize] = useState(400)
 
   const inputSizeQr = (name, even) => {
     setCheckQRcodeChange(true)
@@ -192,7 +192,7 @@ const _02QRCode = (prop) => {
         name: "QR-Code",
         extension: 'png'
       });
-      setActualSize(300)
+      setActualSize(400)
       setQrCodeSetUp({ ...qrCodeSetUp, sizeQr: 8 })
       // setClickDownLoad(true)
     }

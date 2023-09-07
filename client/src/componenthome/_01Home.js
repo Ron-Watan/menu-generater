@@ -29,19 +29,12 @@ import MBicon_Sidebar from '../componenthome/img/icon/sidebar.svg'
 
 
 
-
-
-
 import demobbq from '../componenthome/img/demo/demobbq.jpg'
 import democoffee from '../componenthome/img/demo/democoffee.jpg'
-import qrcoffee from '../componenthome/img/demo/qrCoffee.jpg'
 
+import qrcoffee from '../componenthome/img/demo/qrCoffee.png'
 
-
-
-
-
-import qrBBQ from '../componenthome/img/qrBBQ.jpg'
+import qrBBQ from '../componenthome/img/demo/qrBBQ.png'
 
 
 import fqrcode from '../componenthome/img/feature/fqrcode.png'
@@ -121,14 +114,13 @@ const _01Home = () => {
                     </div>
                     <div className="H_flexColBarCode">
                       <div className="">Create Online Menu</div>
-                      {/* <div className=""></div> */}
                       <div className="">and QR Code. </div>
+                      <div className="">Management Tools <span className="H_Plus">+</span></div>
 
                     </div>
                     {/* <div className="H_flexColBarCode">Just Clicks! </div> */}
-                    <div className="H_flexColBarCode Text_italic">
+                    <div className="H_flexColBarCode freeTrailFontSize">
                       <div className=""> 30-day Free Trial</div>
-                      <div className="H_XsmallText">&bull; All Features &bull; No hidden fee </div>
 
                     </div>
 
@@ -136,8 +128,9 @@ const _01Home = () => {
                       <div className="H_smallText">After trial ends</div>
                       <div className="H_BigText Font_Price">$9.99 <span>/Month</span></div>
 
-                      <div className="H_XsmallText">
-                        <div className="">Recurring billing or Cancel anytime</div>
+                      <div className="H_XsmallText Text_Center">
+                        <div className="H_XsmallText">&bull; All Features &bull; No hidden fee </div>
+                        <div className="">&bull; Recurring billing &bull; Cancel anytime</div>
                       </div>
                     </div>
 
@@ -315,8 +308,7 @@ const _01Home = () => {
             <div className="H_ConntentFlexCol_Center">
               <div className="H_MedTitle"> 2.  Create your online menu</div>
               <div className="">Using Smart Menu Builder App.</div>
-
-              <div className="Font_Down2"> See Features &darr;</div>
+              <a href='#secFT' className="Font_Down2"> See Features &darr;</a>
             </div>
 
           </div>
@@ -434,14 +426,15 @@ const _01Home = () => {
                         <img src={MBicon_Qrcode} alt="" className="H_BoxIconFT" />
                         <div className="">QR Code</div>
                       </div>
-
+                      <div className="H_boxFeatureTextCent">
+                        <div className="FtTitle">Custom Outstanding QR Code</div>
+                      </div>
                       <div className="H_boxFeatureText">
-
-                        <div className="FtTitle">&bull; Logo</div>
-                        <div className="FtTitle">&bull; Coloring</div>
-                        <div className="FtTitle">&bull; Styling</div>
-                        <div className="">
-                          <div className="FtTitle">&bull; Dowload Size</div>
+                        <div className="FtTitleM">&bull; Logo</div>
+                        <div className="FtTitleM">&bull; Coloring</div>
+                        <div className="FtTitleM">&bull; Styling</div>
+                        <div className="H_boxFeatureText gap5">
+                          <div className="FtTitleM">&bull; Dowload Size</div>
                           <div className="Ftsmall">min. 3 cm. to max. 100 cm.</div>
                         </div>
 
@@ -460,9 +453,11 @@ const _01Home = () => {
                         <img src={MBicon_Banner} alt="" className="H_BoxIconFT" />
                         <div className="">Promotion Photos</div>
                       </div>
-
+                      <div className="H_boxFeatureTextCent">
+                        <div className="FtTitle">Upload Promotion/Banner Photos</div>
+                      </div>
                       <div className="H_boxFeatureText">
-                        <div className="FtTitle">&bull; Maximum 7 Photos</div>
+                        <div className="FtTitleM">&bull; Maximum 7 Photos</div>
                       </div>
                       <div className="hiddenMe h_fbanner"></div>
                       <div className="hiddenMe"></div>
@@ -498,29 +493,31 @@ const _01Home = () => {
                         </div>
                         <div className="">Menus</div>
                       </div>
-
+                      <div className="H_boxFeatureTextCent">
+                        <div className="FtTitle">Create Restarant Menus </div>
+                      </div>
                       <div className="H_boxFeatureText">
-                        <div className="">
-                          <div className="FtTitle">&bull; Maximum 3 menus</div>
-                          <div className="Ftsmall">
+                        <div className="H_boxFeatureText gap5">
+                          <div className="FtTitleM">&bull; Maximum 3 menus</div>
+                          <div className="H_boxFeatureText Ftsmall gap5">
                             <div className="">Total 45 categories,</div>
                             <div className="">1350 items</div>
                           </div>
                         </div>
-                        <div className="FtTitle">&bull; Photo categories</div>
+                        <div className="FtTitleM">&bull; Max. 45 Photo categories</div>
 
-                        <div className="FtTitle">&bull; Icon categories</div>
+                        <div className="FtTitleM">&bull; 500+ Icons</div>
                         <div className="">
-                          <div className="FtTitle">&bull; Menu Filtering</div>
-                          <div className="Ftsmall">
+                          <div className="FtTitleM">&bull; Menu Filtering</div>
+                          <div className="H_boxFeatureText Ftsmall gap5">
                             <div className="">Vegeterian, Vegan,</div>
                             <div className="">Gluten-Free, Halal</div>
                           </div>
 
                         </div>
-                        <div className="">
-                          <div className="FtTitle">&bull; 2nd Language</div>
-                          <div className="Ftsmall">or auto from web browser</div>
+                        <div className="H_boxFeatureText gap5">
+                          <div className="FtTitleM">&bull; 2nd Language</div>
+                          <div className="H_boxFeatureText Ftsmall">or auto from web browser</div>
 
                         </div>
                       </div>
@@ -542,23 +539,17 @@ const _01Home = () => {
                         <img src={MBicon_Feedback} alt="" className="H_BoxIconFT" />
                         <div className="">Feedback</div>
                       </div>
+                      <div className="H_boxFeatureTextCent Text_Center">
+                        <div className="FtTitle">Get Feedback and Comments <br /> from customer</div>
+                      </div>
 
                       <div className="H_boxFeatureText">
-                        <div className="">
-                          <div className="FtTitle">&bull; Get Feedback </div>
-                          <div className="Ftsmall">
-                            <div className="">Feedback and Comments from customers will be direct to the application only</div>
-                          </div>
+                        <div className="FtTitleM Text_Center">
+                          &bull; Get Star rating
                         </div>
+                        <div className="FtTitleM Text_Center">
+                          &bull; All messages will be direct to the application only                        </div>
 
-                        <div className="">
-                          <div className="FtTitle">&bull; Get Star rating</div>
-                          <div className="Ftsmall">
-
-                            <div className="">Avarage and Summary rating</div>
-
-                          </div>
-                        </div>
 
                       </div>
 
@@ -586,30 +577,26 @@ const _01Home = () => {
                         <img src={MBicon_Time} alt="" className="H_BoxIconFT" />
                         <div className="">Menu Time Settings</div>
                       </div>
+                      <div className="H_boxFeatureTextCent Text_Center">
+                        <div className="FtTitle">Auto/Manual Change All menus </div>
+                      </div>
 
                       <div className="H_boxFeatureText">
-                        <div className="">
-                          <div className="FtTitle">&bull; All Day Menu</div>
-                          <div className="Ftsmall">
-                            <div className="">Publish all selected menu </div>
-                            <span className=""><span>-24hr </span>(ex: </span>
-                            <span className="">&bull;Main menu&nbsp;</span>
-                            <span className="">&bull;Kids menu&nbsp;</span>
-                            <span className="">&bull;Winelist)</span>
 
+                        <div className="H_boxFeatureText gap5">
+                          <div className="FtTitleM">&bull; All Day Menu</div>
+                          <div className="H_boxFeatureText Ftsmall gap5">
+                            <div className="">Publish all selected menu - 24hr</div>
+                            <div className="">(ex: &bull;Main menu &bull;Kids menu &bull;Winelist)</div>
                             <div className="">can be change menus by pop-up button</div>
                           </div>
                         </div>
 
-                        <div className="">
-                          <div className="FtTitle">&bull; Menu Schedule</div>
-                          <div className="Ftsmall">
-
+                        <div className="H_boxFeatureText gap5">
+                          <div className="FtTitleM">&bull;  Menu Schedule</div>
+                          <div className="H_boxFeatureText Ftsmall gap5 Text_Center">
                             <div className="">Publish selected menu by make time schedule</div>
-                            <span className="">(ex: </span>
-                            <span className="">&bull;Breakfast menu&nbsp;</span>
-                            <span className="">&bull;Lunch menu&nbsp;</span>
-                            <span className="">&bull;Dinner Menu)</span>
+                            <div className="">(ex: &bull;Breakfast menu &bull;Lunch menu &bull;Dinner Menu)</div>
                             <div className="">will be change automaticlly by your local time</div>
                           </div>
                         </div>
@@ -777,6 +764,20 @@ const _01Home = () => {
           <Link to='/login' className="H_btnLogin H_btnLogin_Reg">Start Free Trial</Link>
         </div>
 
+        <div id='feature9' className="featureLink"></div>
+        <div className="H_MaxWidth">
+          <div className="H_ContWidth">
+            <p className="text-center text-gray-500 text-xs">
+              &copy;2023 QR-Clould Menu. All rights reserved.
+            </p>
+
+            <div className="endSection">
+              <Link to='/termCondition' className="">Term of Service </Link>
+              <Link to='/policy' className="">Privacy Policy</Link>
+            </div>
+
+          </div>
+        </div>
       </main>
 
 

@@ -39,10 +39,7 @@ import Sect12AccountPassword from './_12AccountPassword';
 
 import Sect99RedSnaq from './_99RedSnaq';
 
-// import _MenuComponent from '../../src/components/_MenuComponent'
-
 import SectSimulationApp from './simulattion/_SimulationApp'
-// import _SimulationApp from '../../src/styleClient'
 
 
 import iconPhoto from '../all-icon/button-icon/meal.svg';
@@ -63,8 +60,6 @@ import MBicon_StarNoti from '../all-icon/mobile-bar/starnoti.svg'
 import MBicon_SubPay from '../all-icon/mobile-bar/payment.svg'
 import MBicon_Myqr from '../all-icon/mobile-bar/myqr.svg'
 
-
-
 import * as Util from "../componentusers/_99Utility"
 import UserPool from "../UserPool"
 
@@ -75,7 +70,6 @@ const _AppMain = () => {
   const loginCode = sessionStorage.getItem('temp')
   const [redSnaq, setRedSnaq] = useState('')
   //1//
-
   const dispath = useDispatch();
   const { user } = useSelector((state) => state.user);
 
@@ -199,9 +193,6 @@ const _AppMain = () => {
   const [file, setFile] = useState();
   const [filePreview, setFilePreview] = useState();
 
-
-
-  const [protectLoading, setProtectLoading] = useState(false);
   const [startLoading, setStartLoading] = useState(true);
 
   const [imageKey, setImageKey] = useState(0);
@@ -248,7 +239,6 @@ const _AppMain = () => {
 
           handleClickImageKey()
 
-          console.log()
           setRedSnaq(getReult.redSnaq)
           dispath(hideLoading())
           console.log('Server: Connected');
@@ -257,7 +247,7 @@ const _AppMain = () => {
 
           setTimeout(() => {
             setStartLoading(false)
-          }, 500);
+          }, 1000);
 
         } else {
 
@@ -878,6 +868,10 @@ const _AppMain = () => {
 
   //- MOBILE  //-///=///-///=///-///=///-///=///-   END FUNCTION   ///-///=///-///=///-///=///-///=///-
 
+  const [onOffFeature, setOnOffOnOffFeature] = useState(true);
+
+
+
   const [onOffQRCCode_MB, setOnOffQRCCode_MB] = useState(false);
   const [onOffFeedBAck_MB, setOnOffFeedBAck_MB] = useState(false);
   const [onOffBanner_MB, setOnoffBanner_MB] = useState(false);
@@ -926,9 +920,12 @@ const _AppMain = () => {
   //=
 
   const [turnOnSection, setTurnOnSection] = useState(false)
+  const [toggleScrollFeedBack, setToggleScrollFeedBack] = useState(false)
+
   const [toggleScrollQRCode, setToggleScrollQRCode] = useState(false)
   const [toggleScrollBanner, setToggleScrollBanner] = useState(false)
   const [toggleScrollExtrainfo, setToggleScrollExtrainfo] = useState(false)
+
   const [toggleScrollAccount, setToggleScrollAccount] = useState(false)
 
 
@@ -975,7 +972,10 @@ const _AppMain = () => {
 
 
   useEffect(() => {
-    if (oneTimeCheck && user.userId) checkSubscription()
+    if (oneTimeCheck && user.userId) {
+
+      checkSubscription()
+    }
     // eslint-disable-next-line 
   }, [user]);
 
@@ -1001,51 +1001,41 @@ const _AppMain = () => {
 
   return (
     <div className=' mainAppMonitor '>
-      {/* <div className='mainAppMonitor extraDit'> */}
-      <div className={`${protectLoading && 'Full_Transparent_Loading'} `}>
-        <div className="iconLoadingBanner">
-          <span className='barOne'></span > <span className='barTwo'></span> <span className='barThree'></span>
-        </div>
-      </div>
 
       <div className={`${startLoading && 'Full_Start_Loading'} `}>
         <div className="iconLoadingBanner">
           <span className='barOne'></span > <span className='barTwo'></span> <span className='barThree'></span>
         </div>
       </div>
-      <i className='x'>START MOBILE -----------------------------------------------</i>
 
+      <i className='x'>START MOBILE -----------------------------------------------</i>
       <div className="mobile-creator unselectable">
 
-
-        <div className={`mobile_function ${!onOffFeedBAck_MB && 'MB_slide_Down'}`}>
+        {onOffFeature && <div className={`mobile_function ${!onOffFeedBAck_MB && 'MB_slide_Down'}`}>
           <Sect01FeedBackMobile
-            setProtectLoading={setProtectLoading}
             setOnOffFeedBAck_MB={setOnOffFeedBAck_MB}
             setGetStarNotification={setGetStarNotification}
-            setTurnOnSection={setTurnOnSection}
-            turnOnSection={turnOnSection}
+            setToggleScrollFeedBack={setToggleScrollFeedBack}
+            toggleScrollFeedBack={toggleScrollFeedBack}
             user={user}
           />
-        </div>
+        </div>}
 
-        <div className={`mobile_function ${!onOffQRCCode_MB && 'MB_slide_Down'}`}>
+
+        {onOffFeature && <div className={`mobile_function ${!onOffQRCCode_MB && 'MB_slide_Down'}`}>
           <Sect02QRCode
-            setProtectLoading={setProtectLoading}
             getQRCodeTG={getQRCodeTG}
             setOnOffQRCCode_MB={setOnOffQRCCode_MB}
             user={user}
-
             setToggleScrollQRCode={setToggleScrollQRCode}
             toggleScrollQRCode={toggleScrollQRCode}
           />
-        </div>
+        </div>}
 
 
         <i className="x"> Banner-----------------------------------------------</i>
-        <div className={`mobile_function  ${!onOffBanner_MB && 'MB_slide_Down'}`}>
-
-          <Sect03BannerMobile setProtectLoading={setProtectLoading}
+        {onOffFeature && <div className={`mobile_function  ${!onOffBanner_MB && 'MB_slide_Down'}`}>
+          <Sect03BannerMobile
             bannerImgArr={bannerImgArr}
             setBannerImgArr={setBannerImgArr}
             // bannerNumber={bannerNumber}
@@ -1061,12 +1051,12 @@ const _AppMain = () => {
             setToggleScrollBanner={setToggleScrollBanner}
             toggleScrollBanner={toggleScrollBanner}
           />
-        </div>
+        </div>}
 
 
         <i className="x"> Manu 1 2 3 -----------------------------------------------</i>
-        <div className={`mobile_function ${(!onOffMenu1_MB && !onOffMenu2_MB && !onOffMenu3_MB) && 'MB_slide_Down'}`}>
-          <Sect04MenuForm setProtectLoading={setProtectLoading}
+        {onOffFeature && <div className={`mobile_function ${(!onOffMenu1_MB && !onOffMenu2_MB && !onOffMenu3_MB) && 'MB_slide_Down'}`}>
+          <Sect04MenuForm
             inputMenuTimeName={inputMenuTimeName}
             menuName={menuName}
             currentMenuName={currentMenuName}
@@ -1104,10 +1094,10 @@ const _AppMain = () => {
             turnOnSection={turnOnSection}
           />
 
-        </div>
+        </div>}
 
         {turnOnSection && <div className={` mobile_formFood ${!start && 'MB_slide_Left'}`}>
-          <Sect04MobileFormFood setProtectLoading={setProtectLoading}
+          <Sect04MobileFormFood
             ref={ref} menuId={menuId} listMenu={listMenu}
             inputListValue={inputListValue} inputCheck={inputCheck}
 
@@ -1128,34 +1118,35 @@ const _AppMain = () => {
 
           />
         </div>}
-        <div className={` mobile_formFood ${!onOffLangForm && 'MB_slide_Left'}`}>
-          <Sect04MobileLanguage setProtectLoading={setProtectLoading}
+        {turnOnSection && <div className={` mobile_formFood ${!onOffLangForm && 'MB_slide_Left'}`}>
+          <Sect04MobileLanguage
             state={state} listMenu={listMenu} inputValue={inputValue}
             inputListValue={inputListValue} setOnOffLangForm={setOnOffLangForm} setStart={setStart} saveEditMenu={saveEditMenu}
             setCheckInputForm={setCheckInputForm} setListMenu={setListMenu} setMenuId={setMenuId} clearForm={clearForm} checkInputForm={checkInputForm} getAllMenu={getAllMenu}
           />
-        </div>
-        <div className={`mobile_function topColorPicker ${!activeWindowIconPicker && 'MB_slide_Down'}`}>
-          <Sect20IconPickerMobile setProtectLoading={setProtectLoading}
+        </div>}
+        {turnOnSection && <div className={`mobile_function topColorPicker ${!activeWindowIconPicker && 'MB_slide_Down'}`}>
+          <Sect20IconPickerMobile
             state={state} setState={setState} activeWindowIconPicker={activeWindowIconPicker}
-            setActiveWindowIconPicker={setActiveWindowIconPicker} setCheckInputForm={setCheckInputForm} />
-        </div>
+            setActiveWindowIconPicker={setActiveWindowIconPicker} setCheckInputForm={setCheckInputForm}
 
-        <div className={`mobile_function ${!onOffTimePicker_MB && 'MB_slide_Down'}`}>
-          <Sect07TimePickerMobile setProtectLoading={setProtectLoading}
+          />
+        </div>}
+
+        {onOffFeature && <div className={`mobile_function ${!onOffTimePicker_MB && 'MB_slide_Down'}`}>
+          <Sect07TimePickerMobile
             navTime2TimePicker={navTime2TimePicker} setOnOffTimePicker_MB={setOnOffTimePicker_MB}
             menuName={menuName} timeSetup={timeSetup} setTimeSetup={setTimeSetup} />
-        </div>
+        </div>}
 
-        <div className={`mobile_function ${!onOffLangSetup_MB && 'MB_slide_Down'}`}>
-          <Sect08LanguageSetupMobile setProtectLoading={setProtectLoading}
+        {onOffFeature && <div className={`mobile_function ${!onOffLangSetup_MB && 'MB_slide_Down'}`}>
+          <Sect08LanguageSetupMobile
             setOnOffLangSetup_MB={setOnOffLangSetup_MB} navLang2LangSetUp={navLang2LangSetUp}
             languageSetup={languageSetup} setLanguageSetup={setLanguageSetup} />
-
-        </div>
+        </div>}
 
         <div className={`mobile_ThemeFunction ${!onOffThemeSetup_MB && 'MB_slide_Left'}`}>
-          <Sect09ThemeSetupMobile setProtectLoading={setProtectLoading}
+          <Sect09ThemeSetupMobile
             setOnOffThemeSetup_MB={setOnOffThemeSetup_MB}
             restaurantName={restaurantName} setRestaurantName={setRestaurantName}
             setMBnavIcon={setMBnavIcon}
@@ -1196,7 +1187,6 @@ const _AppMain = () => {
 
             setCategoryActiveTheme={setCategoryActiveTheme}
 
-
             themeIconNoBD={themeIconNoBD}
             setThemeIconNoBD={setThemeIconNoBD}
             themeIconRadius={themeIconRadius}
@@ -1206,14 +1196,11 @@ const _AppMain = () => {
             themeIconColorBorder={themeIconColorBorder}
             setThemeIconColorBorder={setThemeIconColorBorder}
             extraIcon={extraIcon}
-            setExtraIcon={setExtraIcon}
-
-
-          />
+            setExtraIcon={setExtraIcon} />
         </div>
 
         <i className="x"> Extra Info-----------------------------------------------</i>
-        <div className={` mobile_function  ${!onOffExtra_MB && 'MB_slide_Down'}`}>
+        {onOffFeature && <div className={` mobile_function  ${!onOffExtra_MB && 'MB_slide_Down'}`}>
           <Sect11ExtraInfo
             setOnOffExtra_MB={setOnOffExtra_MB}
             setRestaurantName={setRestaurantName}
@@ -1223,13 +1210,11 @@ const _AppMain = () => {
             toggleScrollExtrainfo={toggleScrollExtrainfo}
             setToggleScrollExtrainfo={setToggleScrollExtrainfo}
           />
-        </div>
+        </div>}
 
 
-        <div className={`mobile_function  ${!onOffAccount_MB && 'MB_slide_Down'}`}>
-
+        {onOffFeature && <div className={`mobile_function ${!onOffAccount_MB && 'MB_slide_Down'}`}>
           <Sect12Account
-        
             user={user}
             onOffAccount_MB={onOffAccount_MB}
             setOnOffAccount_MB={setOnOffAccount_MB}
@@ -1237,64 +1222,44 @@ const _AppMain = () => {
             setAccountPassword={setAccountPassword}
             subscriptionFromDB={subscriptionFromDB}
             toggleScrollAccount={toggleScrollAccount}
-            setToggleScrollAccount={setToggleScrollAccount}
-            />
-           
-        </div>
+            setToggleScrollAccount={setToggleScrollAccount} />
 
+        </div>}
 
-
-        {/* <div className={`mobile_function ${!accountPassword && 'MB_slide_Left'}`}>
+        {toggleScrollAccount && <div className={`mobile_function ${!accountPassword && 'MB_slide_Left'}`}>
 
           <Sect12AccountPassword
             userEmail={user.email}
-        
-            setAccountPassword={setAccountPassword}
-            toggleScrollAccount={toggleScrollAccount}
-          />
-        </div> */}
-
-
-
-        <div className={`mobile_function ${!onOffSetting_MB && 'MB_slide_Down'}`}>
-          <Sect10OnOffSettingMobile setProtectLoading={setProtectLoading}
-            setOnOffSetting_MB={setOnOffSetting_MB} navOnOff2OnOffSetting={navOnOff2OnOffSetting}
-            onOffSetting={onOffSetting} setOnOffSetting={setOnOffSetting} />
-        </div>
-
-
-
-
-        {redSnaq === "ronnarit" && <div className={`mobile_function ${!onOffRedSnaq_MB && 'MB_slide_Down'}`}>
-          <Sect99RedSnaq user={user} setOnOffRedSnaq_MB={setOnOffRedSnaq_MB}
-            originalBannerImgArr={originalBannerImgArr} />
+            setAccountPassword={setAccountPassword} />
         </div>}
 
 
+        {onOffFeature && <div className={`mobile_function ${!onOffSetting_MB && 'MB_slide_Down'}`}>
+          <Sect10OnOffSettingMobile
+            setOnOffSetting_MB={setOnOffSetting_MB} navOnOff2OnOffSetting={navOnOff2OnOffSetting}
+            onOffSetting={onOffSetting} setOnOffSetting={setOnOffSetting} />
+        </div>}
 
 
+        <i className='x'> START MOBILE ICON -----------------------------------------------</i>
         <div className="">
 
-
-
-
-
-
-
-
-
-          <i className='x'> START MOBILE BAR -----------------------------------------------</i>
-
+          <i className='x'> Home -----------------------------------------------</i>
           <div className="MC_IconFixed">
-            <i className='x'> Home -----------------------------------------------</i>
-            <button onClick={() => setMBnavIcon(!mBnavIcon)} className={`MC_Tab MB_None_Adm ${mBnavIcon && 'adminActive'}  ${onOffThemeSetup_MB && 'displayNone'}  `}>
+            <button onClick={() => {
+              setMBnavIcon(!mBnavIcon)
+              setOnOffOnOffFeature(true)
+            }} className={`MC_Tab MB_None_Adm ${mBnavIcon && 'adminActive'}  ${onOffThemeSetup_MB && 'displayNone'}  `}>
               <img src={MBicon_User} alt="" />
             </button>
           </div>
 
-
           <i className='x'> Redsnaq----------------------------------------------</i>
-          {redSnaq === 'ronnarit' && <div className="MC_IconFixed MC_rq">
+          {redSnaq === "ronnarit" && <div className={`mobile_function ${!onOffRedSnaq_MB && 'MB_slide_Down'}`}>
+            <Sect99RedSnaq user={user} setOnOffRedSnaq_MB={setOnOffRedSnaq_MB}
+              originalBannerImgArr={originalBannerImgArr} />
+          </div>}
+          {redSnaq === "ronnarit" && <div className="MC_IconFixed MC_rq">
             <button onClick={() => {
               setOnOffRedSnaq_MB(true)
             }}
@@ -1313,12 +1278,11 @@ const _AppMain = () => {
 
             {/* <div className={`MB_emptySm`}>&nbsp;</div> */}
 
-
             <i className='x'> 1 Feed Back -----------------------------------------------</i>
             <button onClick={() => {
 
               setOnOffFeedBAck_MB(!onOffFeedBAck_MB)
-              setTurnOnSection(true)
+              setToggleScrollFeedBack(true)
 
             }}
               name='Manu1MB'
@@ -1498,17 +1462,6 @@ const _AppMain = () => {
             </button>
 
 
-
-
-
-
-
-
-
-
-
-
-
             <i className='x'> 99 Empty-----------------------------------------------</i>
             <div className={`MB_empty`}>&nbsp;</div>
 
@@ -1536,6 +1489,8 @@ const _AppMain = () => {
       >
 
         <SectSimulationApp
+          setOnOffOnOffFeature={setOnOffOnOffFeature}
+          setMBnavIcon={setMBnavIcon}
           menuName={menuName}
 
           logoRestaurant={logoRestaurant}
