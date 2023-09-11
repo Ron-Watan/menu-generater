@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/static/css/main.1469962e.css",
-    "main.js": "/static/js/main.26897669.js",
-    "static/js/787.c4e7f8f9.chunk.js": "/static/js/787.c4e7f8f9.chunk.js",
+    "main.css": "/static/css/main.e3897f99.css",
+    "main.js": "/static/js/main.18033779.js",
+    "static/js/27.5b5c1a86.chunk.js": "/static/js/27.5b5c1a86.chunk.js",
     "static/media/remixicon.svg?t=1684338274817": "/static/media/remixicon.ce0e40c97bfc62e3edab.svg",
     "static/media/remixicon.eot?t=1684338274817": "/static/media/remixicon.4504b1fe216fbf391c33.eot",
     "static/media/remixicon.ttf?t=1684338274817": "/static/media/remixicon.bc494a3a1aebeea65cee.ttf",
@@ -17,6 +17,7 @@
     "static/media/coffee500.png": "/static/media/coffee500.57f97d8794b27a21a228.png",
     "static/media/remixicon.woff2?t=1684338274817": "/static/media/remixicon.082b68b860510f7036f0.woff2",
     "static/media/i541_seafood.svg": "/static/media/i541_seafood.1da25b02240ff32922cde8fee58480b6.svg",
+    "static/media/beach.jpg": "/static/media/beach.2462a1189a3714c3c8bc.jpg",
     "static/media/coffeeshop.jpg": "/static/media/coffeeshop.833213b397fe9e8e4e16.jpg",
     "static/media/whatsee500.png": "/static/media/whatsee500.3b197e5425f0b930ee8c.png",
     "static/media/i551_asian.svg": "/static/media/i551_asian.62b388c504ff829f3691eaa89f322e5d.svg",
@@ -51,6 +52,7 @@
     "static/media/i063_food.svg": "/static/media/i063_food.4ce19916a8586d3023448fbf33832a81.svg",
     "static/media/i013_drink.svg": "/static/media/i013_drink.3d6e7114f02cc1e077f5a991f331c591.svg",
     "static/media/logo.png": "/static/media/logo.b65ecfa66153f5c2f31f.png",
+    "static/media/iconphone.png": "/static/media/iconphone.08e063d983f2c3f3a5c7.png",
     "static/media/meal.svg": "/static/media/meal.26bfa570907012cd014def91d40f5103.svg",
     "static/media/myqr.svg": "/static/media/myqr.5a47156be219b80dbef485131051c7ec.svg",
     "static/media/theme.svg": "/static/media/theme.e2009899e39af407aff26dc6c9d7af01.svg",
@@ -125,13 +127,10 @@
     "static/media/reg.svg": "/static/media/reg.9b42ab97819095b235efead3607ccd49.svg",
     "static/media/cir.svg": "/static/media/cir.cefdc072c569b605a5953a71e34acd72.svg",
     "static/media/dotcir.svg": "/static/media/dotcir.5fb539ac8202e476dc033311214f0ce1.svg",
-    "static/media/bordreg.svg": "/static/media/bordreg.0f3feabad6ba6ce1a223e80063e39934.svg",
-    "main.1469962e.css.map": "/static/css/main.1469962e.css.map",
-    "main.26897669.js.map": "/static/js/main.26897669.js.map",
-    "787.c4e7f8f9.chunk.js.map": "/static/js/787.c4e7f8f9.chunk.js.map"
+    "static/media/bordreg.svg": "/static/media/bordreg.0f3feabad6ba6ce1a223e80063e39934.svg"
   },
   "entrypoints": [
-    "static/css/main.1469962e.css",
-    "static/js/main.26897669.js"
+    "static/css/main.e3897f99.css",
+    "static/js/main.18033779.js"
   ]
 }

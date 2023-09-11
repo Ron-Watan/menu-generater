@@ -160,11 +160,6 @@ const AcordionSubComp = (prop) => {
   }
 
 
-
-
-
-  console.log(prop.listMunu.listMenu[0].redTag)
-
   // window.addEventListener("load", event => {
   //   // var image = document.querySelector('img');
   //   console.log('www')

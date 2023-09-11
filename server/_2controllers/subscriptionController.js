@@ -15,7 +15,7 @@ export const getSubscription = async (req, res) => {
   const subPackage = await stripe.prices.list({
     apiKey: process.env.STRIPE_SECRET_KEY,
   });
-
+  console.log(subPackage)
   return res.send({
     message: 'Success',
     subPackage: subPackage,
@@ -44,7 +44,7 @@ export const subscription = (req, res) => {
 
         ],
         success_url: process.env.LOCAL_PORT + "/app",
-        cancel_url: process.env.LOCAL_PORT + "/app",
+        cancel_url: process.env.LOCAL_PORT + "/login",
         customer: user.stripeCustomerId,
         subscription_data: {
           trial_period_days: 30,
@@ -136,7 +136,7 @@ export const paymentProcess = (req, res) => {
 
       }
 
-   
+
       user.save()
       return res.send({
         status: 'active',

@@ -23,7 +23,10 @@ const userSchema = mongoose.Schema(
       required: true,
       unique: true
     },
-
+    activateEmail: {
+      type: String,
+      default: 'inActivate',
+    },
     stripeCustomerId: {
       type: String,
       // unique: true

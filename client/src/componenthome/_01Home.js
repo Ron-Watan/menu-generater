@@ -26,6 +26,7 @@ import MBicon_Theme from '../componenthome/img/icon/theme.svg'
 import MBicon_Onoff from '../componenthome/img/icon/onoff.svg'
 import MBicon_Contact from '../componenthome/img/icon/contact.svg'
 import MBicon_Sidebar from '../componenthome/img/icon/sidebar.svg'
+import iconphone from '../componenthome/img/iconphone.png'
 
 
 
@@ -109,13 +110,13 @@ const _01Home = () => {
                   <div className="H_BannerM_Flex2">
 
                     <div className="H_flexBarCode">
-                      {/* <span className="H_plus">+</span> */}
+
                       <img className="H_BoxImg_code" src={qrBBQ} alt="" />
                     </div>
                     <div className="H_flexColBarCode">
                       <div className="">Create Online Menu</div>
-                      <div className="">and QR Code. </div>
-                      <div className="">Management Tools <span className="H_Plus">+</span></div>
+                      <div className="">and QR Code</div>
+                      <div className=""> <span className="H_Plus">plus</span>Management Tools</div>
 
                     </div>
                     {/* <div className="H_flexColBarCode">Just Clicks! </div> */}
@@ -126,10 +127,10 @@ const _01Home = () => {
 
                     <div className="H_flexColBarCode H_flexColBarCode_end">
                       <div className="H_smallText">After trial ends</div>
-                      <div className="H_BigText Font_Price">$9.99 <span>/Month</span></div>
+                      <div className="H_BigText Font_Price"><span className="Pdollar">$</span>12.99 <span>/Month</span></div>
 
                       <div className="H_XsmallText Text_Center">
-                        <div className="H_XsmallText">&bull; All Features &bull; No hidden fee </div>
+                        <div className="mb-.5">&bull; All Features &bull; No Contract</div>
                         <div className="">&bull; Recurring billing &bull; Cancel anytime</div>
                       </div>
                     </div>
@@ -168,7 +169,7 @@ const _01Home = () => {
                     </div>
                     <div className="H_BoxIcon">
                       <img src={MBicon_Feedback} alt="" className="H_icon" />
-                      <div className="">Feedback/Reviews</div>
+                      <div className="">Get Direct Feedback from Customer</div>
                     </div>
                     <div className="H_BoxIcon">
                       <img src={MBicon_Banner} alt="" className="H_icon" />
@@ -188,7 +189,7 @@ const _01Home = () => {
                       <div className="">Feature Settings</div>
                     </div>
                     <div className="FtSmart">
-                      <a href='#secFT' className="H_flexColBarCode demoMargin Font_Down"> and More&darr;</a>
+                      <a href='#secFT' className="H_flexColBarCode demoMargin Font_Down"> More Features&darr;</a>
                     </div>
                   </div>
 
@@ -205,7 +206,7 @@ const _01Home = () => {
 
 
           <div className="H_BannerM" key='banner3'>
-            <div className="H_BannerM_Flex H_BG2 ">
+            <div className="H_BannerM_Flex H_BG3 ">
               <div className="H_MaxWidth">
                 <div className="H_ContWidth H_SetFlex">
                   <div className="H_BannerM_Flex1">
@@ -215,8 +216,10 @@ const _01Home = () => {
                   </div>
 
                   <div className="H_BannerM_Flex2 SmartGap">
+                    <div className="H_BoxIcon H_flexBarCode">
+                      <img src={iconphone} alt="" className="iconphone" />
+                    </div>
                     <div className="H_flexColBarCode SmartTile_gap">Smart Menu Builder</div>
-
                     <div className="H_boxSmartText">
 
                       <div className="FtSmart">
@@ -229,7 +232,7 @@ const _01Home = () => {
                       </div>
 
                       <div className="FtSmart">
-                        <div className="">Easily manage your menu</div>
+                        <div className="">Easily manage your menus</div>
                         {/* <div className="FtSmart_small">from your smart phone</div> */}
                       </div>
                       <div className="FtSmart">
@@ -238,7 +241,7 @@ const _01Home = () => {
                       </div>
                       <div className="FtSmart">
                         <div className="">Easily create  </div>
-                        <div className="">Simple and Cool! </div>
+                        <div className="">Smart and Cool! </div>
                         <div className="">Online Menu for Customer</div>
                         <a href='#secDemo' className="H_flexColBarCode demoMargin Font_Down"> See Demos &darr;</a>
                       </div>
@@ -287,6 +290,32 @@ const _01Home = () => {
         <div className="H_ConntentFlex_Center H_Padding_FreeTrial">
           <Link to='/register' className="H_btnLogin H_btnLogin_Reg">Start Free Trial</Link>
         </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         <div className="HowWork_Contaoner">
@@ -427,7 +456,7 @@ const _01Home = () => {
                         <div className="">QR Code</div>
                       </div>
                       <div className="H_boxFeatureTextCent">
-                        <div className="FtTitle">Custom Outstanding QR Code</div>
+                        <div className="FtTitle">Customize QR Code</div>
                       </div>
                       <div className="H_boxFeatureText">
                         <div className="FtTitleM">&bull; Logo</div>
@@ -454,7 +483,7 @@ const _01Home = () => {
                         <div className="">Promotion Photos</div>
                       </div>
                       <div className="H_boxFeatureTextCent">
-                        <div className="FtTitle">Upload Promotion/Banner Photos</div>
+                        <div className="FtTitle Text_Center">Upload Promotion/Banner Photos</div>
                       </div>
                       <div className="H_boxFeatureText">
                         <div className="FtTitleM">&bull; Maximum 7 Photos</div>
@@ -585,7 +614,7 @@ const _01Home = () => {
 
                         <div className="H_boxFeatureText gap5">
                           <div className="FtTitleM">&bull; All Day Menu</div>
-                          <div className="H_boxFeatureText Ftsmall gap5">
+                          <div className="H_boxFeatureText Ftsmall gap5 Text_Center">
                             <div className="">Publish all selected menu - 24hr</div>
                             <div className="">(ex: &bull;Main menu &bull;Kids menu &bull;Winelist)</div>
                             <div className="">can be change menus by pop-up button</div>
@@ -625,24 +654,18 @@ const _01Home = () => {
 
                       <div className="H_boxFeatureText">
                         <div className="">
-                          <div className="FtTitle">&bull; Language </div>
-                          <div className="Ftsmall">
-                            <div className="">Determine Language name and code for menus</div>
-                          </div>
+                          <div className="FtTitle Text_Center">Customize Language and Currency Symbole</div>
                         </div>
-
-                        <div className="">
-                          <div className="FtTitle">&bull; Currency Symbole</div>
-                          <div className="Ftsmall">
-
-                            <div className="">Determine Currency style and Symbole</div>
-
-                          </div>
+                        <div className="Ftsmall Text_Center">
+                          <div className="">&bull; Determine Language name and code for menus</div>
                         </div>
-
+                        <div className="Ftsmall Text_Center">
+                          <div className="">&bull; Determine Currency style and Symbole for menus</div>
+                        </div>
                       </div>
 
                     </div>
+
                     <div className=" H_BannerM_Flex1_FT">
                       <img className="H_BoxImg_FT" src={flang} alt="" />
                     </div>
@@ -733,9 +756,9 @@ const _01Home = () => {
                       </div>
 
                       <div className="H_boxFeatureText">
-                        <div className="">
+                        <div className="Text_Center">
                           <div className="FtTitle">&bull; Turn On/Off Features</div>
-                          <div className="Ftsmall">Choose the right features for your menu</div>
+                          <div className="Ftsmall ">Choose the right features for your menu</div>
                         </div>
 
 
@@ -759,10 +782,69 @@ const _01Home = () => {
 
         </div>
 
+        <div className="sectionCTA">
+          <div className="H_MaxWidth  ">
+            <div className="H_ContWidth">
+              <div className="colorCTACont">
+                <div className="colorCTABox">
+                  <div className="colorCTABoxInner">
+                    <div className="CTAText_title">ALL FEATURES PLAN</div>
+                    <div className="colorCTAText">
+                      <div className="">&bull; Access All Features </div>
+                      <div className="">&bull; No Contract</div>
+                      {/* <div className="">&bull; Recurring billing</div>
+                      <div className="">&bull; Cancel anytime</div> */}
+
+                      <div className="mt-1"><strong>Great for:</strong></div>
+                      <div className="">&bull; Small Restaurants</div>
+                      <div className="">&bull; Coffee Shop</div>
+                      <div className="">&bull; Cafe and Bakery</div>
+                      <div className="">&bull; Food Truck</div>
+                      <div className="">&bull; Street Food</div>
+                      <div className="">&bull; and Other Service Shop</div>
+                    </div>
+
+                  </div>
+                  <div className="colorCTABoxCircle">
+                    <div className="colorCTABoxCircle2">
+                      <div className="CTAprice">$12.99</div>
+                      <div className="CTAmonth">PER MONTH</div>
+                    </div>
+                  </div>
+
+
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         <div className="H_ConntentFlex_Center H_Padding_FreeTrial">
-          <Link to='/login' className="H_btnLogin H_btnLogin_Reg">Start Free Trial</Link>
+          <Link to='/register' className="H_btnLogin H_btnLogin_Reg H_btnLogin_Reg_Ext">Start 30-day Free Trial</Link>
         </div>
+        <div className="H_smallText Text_Center mt-1">
+          <div className="">&bull; Recurring billing &bull; Cancel anytime</div>
+        </div>
+
+
+
+
 
         <div id='feature9' className="featureLink"></div>
         <div className="H_MaxWidth">
@@ -778,6 +860,8 @@ const _01Home = () => {
 
           </div>
         </div>
+
+
       </main>
 
 

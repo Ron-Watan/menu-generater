@@ -2,8 +2,6 @@
 import 'remixicon/fonts/remixicon.css';
 import { useEffect, useState } from 'react';
 import AcordionSubComp from './AcordionSubComp';
-
-
 import SidebarSubComp from './SidebarSubComp';
 import FooterComponent from './FooterComponent';
 import BannerSubCompo from './BannerSubCompo';
@@ -15,13 +13,6 @@ import '../styleClient/footerClient.css';
 import '../styleClient/accordianClient.css';
 import Swal from 'sweetalert2';
 import SoLogo from '../all-icon/social-icon/social.svg'
-// qqq
-// const theme = createTheme({
-//   typography: {
-//     fontFamily: ['Roboto Slab', 'roboto slab'].join(','),
-//   },
-// });
-
 
 
 //= //=
@@ -213,6 +204,7 @@ const _MenuComponent = () => {
         // Swal.fire("Can't not connect the server")
       });
   };
+
   //=-----------------------------------------------
   const addFavorite = (index, objFromAccord, catagory, indexM) => {
     // let copyFavorList = [...favorList]
