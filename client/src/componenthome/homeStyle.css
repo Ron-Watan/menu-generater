@@ -121,9 +121,8 @@
   padding: 0.5rem 1.5rem;
   font-weight: 600;
 }
-.H_btnLogin_Reg_Ext{
+.H_btnLogin_Reg_Ext {
   padding: 0.5rem 2rem;
-
 }
 .tempSpace {
   height: 4.5rem;
@@ -557,16 +556,20 @@
 .Text_italic {
   font-style: italic;
 }
-/* .Font_Price {
-  color: #fc4422;
-} */
+.Font_Price {
+  font-family: 'Kanit', 'Helvetica', sans-serif;
+  font-size: 1.6rem;
+  line-height: 1;
+}
+.Font_Price span {
+  font-weight: 400;
+  font-size: 0.8rem;
+}
 .Font_Down {
   align-self: center;
   border-bottom: 0.5px solid #fff;
 }
-.Font_Price .Pdollar {
-  font-size: 1.2rem;
-}
+
 /* //////////////////////////////// How Work */
 
 .HowWork_Contaoner {
@@ -637,6 +640,7 @@
 
   border-radius: 1rem;
   width: 70%;
+  max-width: 20rem;
 }
 .colorCTABoxInner {
   position: absolute;
@@ -687,7 +691,7 @@
   gap: 0rem;
   color: #fff;
 
-  font-family: Kanit, Helvetica, sans-serif;
+  font-family: 'Kanit', 'Helvetica', sans-serif;
 
   line-height: 1.1;
 }
@@ -700,9 +704,16 @@
   font-weight: 400;
 }
 .CTAText_title {
+  font-family: 'Kanit', 'Helvetica', sans-serif;
   display: flex;
   justify-content: center;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 600;
   margin-top: 1rem;
+  letter-spacing: 0.05rem;
+  color: #47a6ff;
+}
+.colorCTAText span{
+  font-style: italic;
+  font-size: .85rem;
 }

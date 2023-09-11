@@ -127,7 +127,7 @@ const _01Home = () => {
 
                     <div className="H_flexColBarCode H_flexColBarCode_end">
                       <div className="H_smallText">After trial ends</div>
-                      <div className="H_BigText Font_Price"><span className="Pdollar">$</span>12.99 <span>/Month</span></div>
+                      <div className="H_BigText Font_Price">$12.99 <span>/month</span></div>
 
                       <div className="H_XsmallText Text_Center">
                         <div className="mb-.5">&bull; All Features &bull; No Contract</div>
@@ -169,7 +169,7 @@ const _01Home = () => {
                     </div>
                     <div className="H_BoxIcon">
                       <img src={MBicon_Feedback} alt="" className="H_icon" />
-                      <div className="">Get Direct Feedback from Customer</div>
+                      <div className="">Get Direct Feedback from Customers</div>
                     </div>
                     <div className="H_BoxIcon">
                       <img src={MBicon_Banner} alt="" className="H_icon" />
@@ -783,15 +783,18 @@ const _01Home = () => {
         </div>
 
         <div className="sectionCTA">
+        <div className="H_ConntentFlex_Center H_Padding_Feater">
+            <div className="H_ExtrabigTitle">Subscription Plan</div>
+          </div>
           <div className="H_MaxWidth  ">
             <div className="H_ContWidth">
               <div className="colorCTACont">
                 <div className="colorCTABox">
                   <div className="colorCTABoxInner">
-                    <div className="CTAText_title">ALL FEATURES PLAN</div>
+                    <div className="CTAText_title">ALL FEATURES</div>
                     <div className="colorCTAText">
                       <div className="">&bull; Access All Features </div>
-                      <div className="">&bull; No Contract</div>
+                      <div className="">&bull; No Contract <span>(Cancel anytime)</span></div>
                       {/* <div className="">&bull; Recurring billing</div>
                       <div className="">&bull; Cancel anytime</div> */}
 
